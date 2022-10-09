@@ -1,0 +1,50 @@
+ISO2	ISO3	UN code	Name	DESIRE region	DESIRE region name	Population 2011
+ZA	ZAF	710	South Africa	WF	Africa	52263516
+BR	BRA	76	Brazil	WL	America	198686688
+CA	CAN	124	Canada	WL	America	34538622
+MX	MEX	484	Mexico	WL	America	119090017
+US	USA	840	United States	WL	America	311051373
+AU	AUS	36	Australia	WA	Asia and Pacific	22479799
+CN	CHN	156	China	WA	Asia and Pacific	1367480264
+TW	TWN	158	Taiwan	WA	Asia and Pacific	23185010
+IN	IND	356	India	WA	Asia and Pacific	1247236029
+ID	IDN	360	Indonesia	WA	Asia and Pacific	245707511
+JP	JPN	392	Japan	WA	Asia and Pacific	128505399
+KR	KOR	410	South Korea	WA	Asia and Pacific	49744659
+AT	AUT	40	Austria	WE	Europe	8459864
+BE	BEL	56	Belgium	WE	Europe	11013083
+BG	BGR	100	Bulgaria	WE	Europe	7356213
+HR	HRV	191	Croatia	WE	Europe	4313371
+CZ	CZE	203	Czech Republic	WE	Europe	10568715
+DK	DNK	208	Denmark	WE	Europe	5582873
+EE	EST	233	Estonia	WE	Europe	1328449
+FI	FIN	246	Finland	WE	Europe	5389242
+FR	FRA	250	France	WE	Europe	63343577
+DE	DEU	276	Germany	WE	Europe	80933980
+GR	GRC	300	Greece	WE	Europe	11422805
+HU	HUN	348	Hungary	WE	Europe	9898204
+IE	IRL	372	Ireland	WE	Europe	4662579
+IT	ITA	380	Italy	WE	Europe	59759929
+LV	LVA	428	Latvia	WE	Europe	2092493
+LT	LTU	440	Lithuania	WE	Europe	3079881
+LU	LUX	442	Luxembourg	WE	Europe	519941
+MT	MLT	470	Malta	WE	Europe	418367
+NL	NLD	528	Netherlands	NL	Netherlands	16737002
+NO	NOR	578	Norway	WE	Europe	4947595
+PL	POL	616	Poland	WE	Europe	38320947
+PT	PRT	620	Portugal	WE	Europe	10625330
+RO	ROM	642	Romania	WE	Europe	20292967
+RU	RUS	643	Russia	WE	Europe	143263988
+SK	SVK	703	Slovakia	WE	Europe	5409847
+SI	SVN	705	Slovenia	WE	Europe	2053436
+ES	ESP	724	Spain	WE	Europe	46909138
+SE	SWE	752	Sweden	WE	Europe	9465892
+CH	CHE	756	Switzerland	WE	Europe	7930421
+GB	GBR	826	United Kingdom	WE	Europe	63811882
+CY	CYP	196	Cyprus	WM	Middle East	1124835
+TR	TUR	792	Turkey	WM	Middle East	73409455
+WF	WF	-1	RoW Africa	WF	Africa	939013390
+WL	WL	-1	RoW America	WL	America	286770762
+WA	WA	-1	RoW Asia and Pacific	WA	Asia and Pacific	895830961
+WE	WE	-1	RoW Europe	WE	Europe	78265793
+WM	WM	-1	RoW Middle East	WM	Middle East	308712492

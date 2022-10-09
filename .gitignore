@@ -1,4 +1,5 @@
 data/bg
 .pylint.d
 scripts/__pycache__
-data/exiobase_v3.7
+scripts/prep_background/exiobase_3_7-aggregation.py
+data/exiobase_v3.7/IOT_2016_ixi

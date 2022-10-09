@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-RIVM GDDZ project: May-July 2020
+Script for:
+The environmental footprint of the Dutch healthcare sector: beyond environmental impact (in press)
+Steenmeijer MA, Rodrigues JFD, Zijp MC, Waaijers-van der Loop SL
+The Lancet Planetary Health
 
 Tasks:
 

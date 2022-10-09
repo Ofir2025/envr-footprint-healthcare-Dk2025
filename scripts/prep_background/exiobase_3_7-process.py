@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-RIVM GDDZ project: May-July 2020
+The environmental footprint of the Dutch healthcare sector: beyond environmental impact (in press)
+Steenmeijer MA, Rodrigues JFD, Zijp MC, Waaijers-van der Loop SL
+The Lancet Planetary Health
 
-Tasks:
+Tasks exiobase_3_7-process.py:
 
     1. Assemble MRIO
     2. Merge in dictionary and store as pickle
 
 @author: Joao F. D. Rodrigues
-minor revisions by Michelle Steenmeijer
+minor additions by Michelle A. Steenmeijer
 """
 
 import numpy as np
