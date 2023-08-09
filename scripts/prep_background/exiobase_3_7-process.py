@@ -60,15 +60,13 @@ print('Done reading in %5.2f s\n'% (tend - tstart))
 tstart = time.time()
 
 
-# totals
-nr = mrio['label']['region'].count()[0]
-ns = mrio['label']['industry'].count()[0]
-ny = mrio['label']['final'].count()[0]
-nv = mrio['label']['primary'].count()[0]
-ne = mrio['label']['extension'].count()[0]
-nq = mrio['label']['characterization'].count()[0]
+# Number of..
+nr = mrio['label']['region'].count()[0]  # number of regions
+ns = mrio['label']['industry'].count()[0]  # number of sectors
 
+# Calculation x (total output)
 x = np.dot(L, mrio['Y'].sum(1).reshape((nr*ns,1)))    # x = L*y
+# Calculation Z matrix (intermediate demand matrix/transaction matrix)
 Z = np.dot(mrio['A'], np.diag(x[:,0]))  # Z = A*diagn(x)
 
 tend = time.time()

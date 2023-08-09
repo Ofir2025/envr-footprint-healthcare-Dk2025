@@ -55,14 +55,11 @@ print('Done reading in %5.2f s\n'% (tend - tstart))
 tstart = time.time()
 #Done reading in  0.80 s
 
-#totals
-nr = mrio['label']['region'].count()[0]
-ns = mrio['label']['industry'].count()[0]
-ny = mrio['label']['final'].count()[0]
-nv = mrio['label']['primary'].count()[0]
-ne = mrio['label']['extension'].count()[0]
-ne = mrio['label']['extension'].count()[0]
+# Number of..
+nr = mrio['label']['region'].count()[0]  # number of regions
+ns = mrio['label']['industry'].count()[0]  # number of sectors
 
+# Leontief inverse calculation
 L = np.linalg.inv(np.eye(nr*ns) - mrio['A'])    
 
 tend = time.time()

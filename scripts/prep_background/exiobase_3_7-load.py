@@ -59,7 +59,15 @@ exio_dir = os.getcwd() + '\\data\\exiobase_v3.7\\'
 iot_dir = exio_dir + 'IOT_'+ year +'_ixi\\'
 # Auxiliary files folder (regions and characterization)
 # Folder to store MRIO
-mrio_dir = os.getcwd() + '\\data\\bg\\pickled_mrio\\'
+
+# Folder to write background files to (pickled prepared MRIO files) to
+bg_dir = os.getcwd() + '\\data\\bg\\'  
+if not os.path.exists(bg_dir):
+    os.makedirs(bg_dir)
+mrio_dir = bg_dir + 'pickled_mrio\\'  
+if not os.path.exists(mrio_dir):
+    os.makedirs(mrio_dir)
+
 
 ##############################################
 #Load categories

@@ -21,7 +21,6 @@ import pandas as pd
 import numpy as np
 import numpy.matlib
 import os
-import xlsxwriter
 import sys
 import matplotlib.pyplot as plt
 from functions import *  # see 2C if this does not work
@@ -37,6 +36,7 @@ np.set_printoptions(precision=2)
 # Folder settings: Change to reflect the location in your computer relative
 # to the current working directory (run os.getcwd() to find out what that is)
 # Set working directory to envr-footprint-healthcare folder
+# If running the script does not work, run it as a code block
 if str(os.getcwd()).endswith('scripts') == True:
     os.chdir(str(os.getcwd())[:-8])
 
@@ -147,6 +147,11 @@ array_hotspot = calc_hotspot(bg['B'], bg['L'], bg['Ystim'])
 df_contrib = df_fromarray(array_contrib, char_labels, multiindex, cols_impcat)
 df_hotspot = df_fromarray(array_hotspot, char_labels, multiindex, cols_impcat)
 
+# df_contrib and df_hotspot are lists of 4 dataframes:
+# df_contrib[0]/df_hotspot[0] = result for the total expenditure vector (Healthcare Services + Pharmaceuticals and consumables + Medical durables goods)
+# df_contrib[1]/df_hotspot[1] = result for the expenditure vector for Healthcare Services
+# df_contrib[0]/df_hotspot[0] = result for the expenditure vector for Pharmaceuticals and consumables
+# df_contrib[0]/df_hotspot[0] = result for the expenditure vector for Medical durables goods
 
 
 ##############################################
