@@ -45,7 +45,7 @@ The rest needs to be reconstructed:
 Adapted characterization factors (as written in the article) in characterisation_DESIRE_version3.4_adapted.xlsx
 '''
 ##############################################
-# Set working directory to envr-footprint-healthcare folder
+# Set working directory to envr-footprint-healthcare2025 folder
 # or change to your folder structure
 if str(os.getcwd()).endswith('envr-footprint-healthcare2025'):
     print("Starting to read files..\n")
