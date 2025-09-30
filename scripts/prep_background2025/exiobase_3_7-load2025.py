@@ -47,10 +47,10 @@ Adapted characterization factors (as written in the article) in characterisation
 ##############################################
 # Set working directory to envr-footprint-healthcare folder
 # or change to your folder structure
-if str(os.getcwd()).endswith('envr-footprint-healthcare'):
+if str(os.getcwd()).endswith('envr-footprint-healthcare2025'):
     print("Starting to read files..\n")
 else:
-    print("Please set working directory to envr-footprint-healthcare folder")
+    print("Please set working directory to envr-footprint-healthcare2025 folder")
     sys.exit()
 
 exio_dir = os.getcwd() + '\\data\\exiobase_v3.7\\'  
