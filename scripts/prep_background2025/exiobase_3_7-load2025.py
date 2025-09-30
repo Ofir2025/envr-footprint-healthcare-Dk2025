@@ -85,8 +85,8 @@ label_ind = label_ind.drop(labels=['Number'],axis=1)
 n_ind = label_ind.count()[0]
 
 # region list of categories including population in 2011
-# specifically prepared for the NL to be own category !!! !!!
-str_reg = 'regions_NL.txt'  
+# specifically prepared for the Dk to be own category !!! !!!
+str_reg = 'regions_Dk2025.txt'  
 label_reg = pd.read_csv(exio_dir + str_reg, sep='\t', index_col=[0], header=[0])
 n_reg = label_reg.count()[0]
 
