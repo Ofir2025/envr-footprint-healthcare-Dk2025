@@ -35,13 +35,13 @@ np.set_printoptions(precision=2)
 # 1A) Set base folder
 # Folder settings: Change to reflect the location in your computer relative
 # to the current working directory (run os.getcwd() to find out what that is)
-# Set working directory to envr-footprint-healthcare folder
+# Set working directory to envr-footprint-healthcare2025 folder
 # If running the script does not work, run it as a code block
 if str(os.getcwd()).endswith('scripts') == True:
     os.chdir(str(os.getcwd())[:-8])
 
-if str(os.getcwd()).endswith('envr-footprint-healthcare') == False:
-    print("Please set working directory to envr-footprint-healthcare folder")
+if str(os.getcwd()).endswith('envr-footprint-healthcare2025') == False:
+    print("Please set working directory to envr-footprint-healthcare2025 folder")
     sys.exit()
 
 mainpath = os.getcwd()
