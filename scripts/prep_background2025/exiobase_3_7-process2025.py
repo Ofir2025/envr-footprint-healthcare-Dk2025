@@ -29,11 +29,11 @@ year = '2016'
 
 ##############################################
 # Folder settings: Change to reflect the location in your computer relative to the current working directory (run os.getcwd() to find out whatthat is)
-# Set working directory to envr-footprint-healthcare folder
-if str(os.getcwd()).endswith('envr-footprint-healthcare'):
+# Set working directory to envr-footprint-healthcare2025 folder
+if str(os.getcwd()).endswith('envr-footprint-healthcare2025'):
     print("Starting to read files..\n")
 else:
-    print("Please set working directory to envr-footprint-healthcare folder")
+    print("Please set working directory to envr-footprint-healthcare2025 folder")
     sys.exit()
     
 # Folder to read MRIO from
