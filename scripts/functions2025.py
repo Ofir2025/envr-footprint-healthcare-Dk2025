@@ -43,8 +43,8 @@ def get_odata(target_url):
     return data
 
 def get_cbsdata(data_dir):
-    if str(os.getcwd()).endswith('envr-footprint-healthcare') == False:
-        print("Please set working directory to envr-footprint-healthcare folder")
+    if str(os.getcwd()).endswith('envr-footprint-healthcare2025') == False:
+        print("Please set working directory to envr-footprint-healthcare2025 folder")
         sys.exit()
     # Directe emissies Zorg en Welzijn
     #_________________________________
@@ -189,7 +189,8 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
 
     characterization_waste = pd.DataFrame(data = [['Waste generation', 'tonne']], columns = ['Name', 'Unit'], index = [6])
 
-    label['characterization'] = label['characterization'].append(characterization_waste)
+    ## label['characterization'] = label['characterization'].append(characterization_waste) <-- Outdated code, substituted with the below:
+    label['characterization'] = pd.concat([label['characterization'], characterization_waste], ignore_index=True)
 
     # generate coefficients
     B = np.dot(R, np.diag(xinv[:,0]))
