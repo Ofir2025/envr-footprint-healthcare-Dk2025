@@ -24,6 +24,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 from functions2025 import *  # see 2C if this does not work
+from matplotlib.backends.backend_pdf import PdfPages # Added this to save multiple plots in one pdf
 
 # These options determine the way floating point numbers, arrays and other NumPy objects are displayed.
 np.set_printoptions(precision=2) 
@@ -397,15 +398,21 @@ fig_2 = fig_2.groupby('Hotspot')[cols_impcat].sum()
 fig_3 = df_h_all.groupby(['Region'])[cols_impcat].sum()
 
 # Plot and save figures
-n = 1
-for df in [fig_1, fig_2, fig_3]:
-    for col in df.columns:
-        df[col] = 100 * df[col]/df[col].sum()
-    df.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10, 6))
-    plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')#  ncol=1)
-    plt.xlabel("Impact category")
-    plt.ylabel("Share of footprint")
-    plt.show()
-    plt.savefig('fig_' + str(n)  + '.png')
-    print('fig_' + str(n)  + '.png')
-    n = n + 1
+pdf_path = 'AllFigures.pdf'
+with PdfPages(pdf_path) as pdf:
+    n = 1
+    for df in [fig_1, fig_2, fig_3]:
+        for col in df.columns:
+            df[col] = 100 * df[col]/df[col].sum()
+        ax = df.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10, 6))
+        plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+        plt.xlabel("Impact category")
+        plt.ylabel("Share of footprint")
+        plt.tight_layout()
+        png_name = f'fig_{n}.png'
+        plt.savefig(png_name)
+        pdf.savefig(ax.get_figure())
+        plt.close()  # Close the figure to avoid popups and memory issues
+        print(png_name)
+        n += 1
+print(f"All figures saved to {pdf_path}")
