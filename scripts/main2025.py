@@ -273,7 +273,7 @@ Y_df.to_excel(writer, sheet_name='full')
 Y_allsec.to_excel(writer, sheet_name='allsec')
 Y_aggsec_aggreg.to_excel(writer, sheet_name='aggsec_aggreg')
 Y_aggsec.to_excel(writer, sheet_name='aggsec')
-writer.save()
+writer.close()
 
 
 # 7B) Multipliers / Coefficients / Intensities
@@ -300,7 +300,7 @@ mult_all.to_excel(writer, sheet_name='full')
 mult_allsec.to_excel(writer, sheet_name='allsec')
 mult_aggsec_aggreg.to_excel(writer, sheet_name='aggsec_aggreg')
 mult_aggsec.to_excel(writer, sheet_name='aggsec')
-writer.save()
+writer.close()
 
 
 # 7C) Dataframe for Table 1 
@@ -360,7 +360,7 @@ writer = pd.ExcelWriter('ContributionAnalysis.xlsx', engine='xlsxwriter')
 df_c_all.to_excel(writer, sheet_name='full')
 df_c_allsec.to_excel(writer, sheet_name='allsec')
 df_c_aggsec.to_excel(writer, sheet_name='aggsec')
-writer.save()
+writer.close()
 
 # Hotspot analysis (underlying data for Figure 2, 3 and Table S7, S8)
 df_h_all = df_h[0][['ISO3','RegName', 'Region', 'SecTxtCode', 'SecName', 'SAggDescription', 'Scope'] + cols_impcat]
@@ -379,7 +379,7 @@ df_h_aggsec_aggreg.to_excel(writer, sheet_name='aggsec_aggreg')
 df_h_aggreg.to_excel(writer, sheet_name='aggreg')
 df_h_allreg.to_excel(writer, sheet_name='allreg')
 df_h_allsec.to_excel(writer, sheet_name='allsec')
-writer.save()
+writer.close()
 
 
 # 7F) plot figures (figures in manuscript are composed in MS Excel)
