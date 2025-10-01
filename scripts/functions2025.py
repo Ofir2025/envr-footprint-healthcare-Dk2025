@@ -233,7 +233,7 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     k_NL = 20
     k_GWP = 0 
     k_health = 137
-    val_GWP_health = cbs_data.iloc[2,0].item() * 1e6  # kt to kg
+    val_GWP_health = float(cbs_data.iloc[2,0]).item() * 1e6  # kt to kg
 
     k_pharm = 62
     val_pharm_pp = cbs_data.iloc[0,1].item()  # purchaser price
