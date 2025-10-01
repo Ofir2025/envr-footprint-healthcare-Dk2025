@@ -77,15 +77,15 @@ import sys
 #    val_GWP_health = data[(data['Measure'] == id_measure) & (data['Perioden'] == id_period) & (data['NederlandseEconomie'] == id_eccode)]['Value'].item()
     
     #The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Cbs_data_2025"
-val_GWP_health = float(cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service']) * 1e6
-    
+def get_val_GWP_health(cbs_data):
+    return float(cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service']) * 1e6    
     #_________________________________
     # Zorguitgaven op functie
         # Source expenditure:  https://opendata.cbs.nl/#/CBS/nl/dataset/84043NED/table?searchKeywords=CAO-sector%20overheid
         # Filter for 2016 and Totaal alle financieringsregelingen
-    table_url = "https://odata4.cbs.nl/CBS/84043NED"
-    target_url = table_url + "/Observations"
-    data = get_odata(target_url)
+    # table_url = "https://odata4.cbs.nl/CBS/84043NED"
+    # target_url = table_url + "/Observations"
+    # data = get_odata(target_url)
     # data.columns = Index(['Id', 'Measure', 'ValueAttribute', 'Value', 'Zorgfuncties',
     #'FinancieringsregelingenZorg', 'Perioden'],dtype='object')
     
