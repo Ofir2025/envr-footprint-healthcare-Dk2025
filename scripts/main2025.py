@@ -83,7 +83,7 @@ if not os.path.exists(output_dir):
 
 #The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Dk_data_2025"
 
-cbs_data = pd.read_csv('Cbs_data_2025.csv', index_col=['Index', 'Unit'])
+cbs_data = pd.read_csv(data_dir + 'DK_data_2025.csv', index_col=['Index', 'Unit'])
 print("CBS data loaded from local CSV.")
 
 cbs_data.iloc[1, 0] = 1  # assumed no conversion in calculation
@@ -127,7 +127,7 @@ cols_impcat = [x for x in char_labels if x not in ['Value added (M.EUR)', 'Emplo
 
 
 # 3C) Labels industry aggregation
-excel_str = 'classifications.xlsx'
+excel_str = 'classifications2025.xlsx'
 sheet_str = 'disagg_ind'  
 sec_labels = pd.read_excel(data_dir + '\\exiobase_v3.7\\'  + excel_str, sheet_name = sheet_str, skiprows = 5)
 sec_labels = sec_labels[['Code', 'Description', 'AggPos', 'AggDescription', 'AggCode', 'Scope', 'Scope_hotspot']]
