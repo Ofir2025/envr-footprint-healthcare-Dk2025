@@ -77,7 +77,7 @@ import sys
 #    val_GWP_health = data[(data['Measure'] == id_measure) & (data['Perioden'] == id_period) & (data['NederlandseEconomie'] == id_eccode)]['Value'].item()
     
     #The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Cbs_data_2025"
-    val_GWP_health = float(cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service']) * 1e6
+val_GWP_health = float(cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service']) * 1e6
     
     #_________________________________
     # Zorguitgaven op functie
