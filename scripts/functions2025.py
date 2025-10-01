@@ -148,29 +148,28 @@ def get_val_GWP_health(cbs_data):
 def createBackground(mrio_dir, cbs_data, bg_dir, year):
     tstart = time.time()
 
-    ##############################################
-    #Load waste
+    # Load waste
     mrio_str = 'waste.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     waste = pkl.load(pkl_in)
     pkl_in.close()
 
-    #Load Leontief inverse
+    # Load Leontief inverse
     mrio_str = 'leontief'+ year +'.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     L = pkl.load(pkl_in)
     pkl_in.close()
 
-    #Load rest of the system
+    # Load rest of the system
     mrio_str = 'mrio'+ year +'.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     mrio = pkl.load(pkl_in)
     pkl_in.close()
 
-    #labels
+    # labels
     label = mrio['label']
 
-    #matrix/vector objects
+    # matrix/vector objects
     x = mrio['x']
     Z = mrio['Z']
     Y = mrio['Y']
@@ -180,7 +179,7 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     Q = mrio['Q']
     A = mrio['A']
     
-    #convert extensions to footprints
+    # convert extensions to footprints
     xinv = (x != 0) / (x + (x ==0))
     R = np.dot(Q, R)
     H = np.dot(Q, H)
@@ -190,8 +189,6 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     H = np.concatenate((H, waste['h']), 0)
 
     characterization_waste = pd.DataFrame(data = [['Waste generation', 'tonne']], columns = ['Name', 'Unit'], index = [6])
-
-    ## label['characterization'] = label['characterization'].append(characterization_waste) <-- Outdated code, substituted with the below:
     label['characterization'] = pd.concat([label['characterization'], characterization_waste], ignore_index=True)
 
     # generate coefficients
@@ -216,40 +213,35 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     ns = label['industry'].count()[0]
     ny = label['final'].count()[0]
     nv = label['primary'].count()[0]
-#    ne = label['extension'].count()[0]
     nq = label['characterization'].count()[0]
 
-    #fixing names
+    # fixing names
     label['characterization']['Name'].iloc[0] = 'Global warming'
     label['characterization']['Name'].iloc[1] = 'Material extraction'
     label['characterization']['Name'].iloc[2] = 'Blue water consumption'
     label['characterization']['Name'].iloc[4] = 'Value added'
 
-
     ##################################################
-    #Determine the stimulus
-    
-    #Extract NL, GWP and healthcare
-    #direct emissions from healthcare in kgCO2eq
-    # Positions
+    # Determine the stimulus
+
+    # Extract NL, GWP and healthcare
     k_NL = 20
     k_GWP = 0 
     k_health = 137
-    val_GWP_health = float(cbs_data.iloc[2,0]).item() * 1e6  # kt to kg
+    val_GWP_health = float(cbs_data.iloc[2,0]) * 1e6  # kt to kg
 
     k_pharm = 62
-    val_pharm_pp = cbs_data.iloc[0,1].item()  # purchaser price
-    val_pharm_conv = cbs_data.iloc[1,1].item()  # could round up for same result as in paper 
+    val_pharm_pp = float(cbs_data.iloc[0,1])  # purchaser price
+    val_pharm_conv = float(cbs_data.iloc[1,1])  # could round up for same result as in paper 
     val_pharm_bp = val_pharm_conv * val_pharm_pp
 
     # Source conversion to basic price: 
     k_appl = 89
-    val_appl_pp = cbs_data.iloc[0,2].item()  
-    val_appl_conv = cbs_data.iloc[1,2].item()  
+    val_appl_pp = float(cbs_data.iloc[0,2])  
+    val_appl_conv = float(cbs_data.iloc[1,2])  
     val_appl_bp = val_appl_pp * val_appl_conv
 
-
-    #vector to allocate across imports of pharmaceuticals
+    # vector to allocate across imports of pharmaceuticals
     vy = Y[:, k_NL * ny: (k_NL + 1)* ny].sum(1).reshape((nr,ns))
     vtmp = vy[:,k_pharm]
     vtmp = vtmp / vtmp.sum()
@@ -257,7 +249,7 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     vy[:,k_pharm] = vtmp
     valloc_pharm = vy.reshape((nr*ns, ))
 
-    #vector to allocate across imports of appliances
+    # vector to allocate across imports of appliances
     vy = Y[:, k_NL * ny: (k_NL + 1)* ny].sum(1).reshape((nr,ns))
     vtmp = vy[:,k_appl]
     vtmp = vtmp / vtmp.sum()
@@ -269,32 +261,29 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     vtmp = Y[k_NL*ns + k_health,:] 
 
     # Healthcare service expenditure, ignore conversoin to basic price (0.38% difference)
-    val_HCserv = cbs_data.iloc[0, 0].item()
+    val_HCserv = float(cbs_data.iloc[0, 0])
     
     # Find scale factor to scale healthcare sector in Z column
-    # divide expenditure with total sum of inter-industry use and factor inputs
     scale_factor = val_HCserv / x[k_NL*ns + k_health].sum()
 
-    #filling in
-    #stimulus vector and direct emissions of final demand
+    # filling in
     Ystim = np.zeros((nr*ns,3))
     Hstim = np.zeros((nq,3))
     Vstim = np.zeros((nv,3))
 
     Ystim[:,0] = Z[:,k_NL*ns + k_health] * scale_factor
-    Ystim[:,1] = val_pharm_bp * valloc_pharm  # add proportional import distribution 
+    Ystim[:,1] = val_pharm_bp * valloc_pharm
     Ystim[:,2] = val_appl_bp * valloc_appl
     Hstim[:,0] = B[:, k_NL*ns + k_health] * (x[k_NL*ns + k_health] * scale_factor) 
     Hstim[k_GWP,0] = val_GWP_health 
     Vstim[:,0] = V[:, k_NL*ns + k_health] * scale_factor
 
-
-    #agg grand total to first col in stimulus
+    # agg grand total to first col in stimulus
     Ystim = np.concatenate((Ystim.sum(1).reshape((nr*ns,1)), Ystim),1)
     Hstim = np.concatenate((Hstim.sum(1).reshape((nq,1)), Hstim),1)
     Vstim = np.concatenate((Vstim.sum(1).reshape((nv,1)), Vstim),1)
 
-    #converting unit from kgCO2 to ktCO2
+    # converting unit from kgCO2 to ktCO2
     label['characterization']['Unit'][0] = 'ktCO2eq'
     Hstim[0,:] = Hstim[0,:] * 1e-6
     H[0,:] = H[0,:] * 1e-6
@@ -306,17 +295,13 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     B[-1,:] = B[-1,:] * 1e-3
 
     ##############################################
-    #Save relevant objects as background
+    # Save relevant objects as background
 
     sheetname = ['all_sec_all_reg', 'agg_sec_all_reg', 'agg_sec_agg_reg', 'all_sec_sin_reg', 'agg_sec_sin_reg', 'sin_sec_all_reg', 'sin_sec_agg_reg']
-
     sheettext = ['Breakdown by all regions and all sectors',  'Breakdown by all regions and aggregate sectors', 'Breakdown by aggregate regions and aggregate sectors', 'Breakdown by all sectors (in the world)', 'Breakdown by aggregate sectors (in the world)', 'Breakdown by all regions (all economy)', 'Breakdown by aggregate regions (all economy)']
-
     excelname = ['healthcare_total', 'healthcare_only', 'pharmaceuticals', 'appliances']
-
     exceltext = ['Healthcare combined with household purchases of pharmaceuticals and medical appliances', 'Healthcare sector only', 'Household purchases of pharmaceuticals', 'Household purchases of medical appliances']
 
-    
     bg = {'label': label, 'ragg': ragg, 'L': L, 'A': A,  'B': B, 'H': H, 'Y': Y, 'Q':Q, 'Ystim': Ystim, 'Vstim': Vstim, 'Hstim': Hstim, 'sheetname': sheetname, 'sheettext': sheettext, 'excelname': excelname, 'exceltext': exceltext}
 
     pkl_str = 'gddz_background_information_' + year + '.pkl'  
