@@ -23,7 +23,7 @@ import numpy.matlib
 import os
 import sys
 import matplotlib.pyplot as plt
-from functions import *  # see 2C if this does not work
+from functions2025 import *  # see 2C if this does not work
 
 # These options determine the way floating point numbers, arrays and other NumPy objects are displayed.
 np.set_printoptions(precision=2) 
@@ -76,10 +76,15 @@ if not os.path.exists(output_dir):
 # 2) Retrieve data
 ##############################################
 
-
+# The following 3 lines of code were "#'ed" firstly because it doesn't work, secondly because it is country specific data
 # 2A) Retrieve CBS data for 2016. If not needed to update, uncomment and only run next line
-cbs_data = get_cbsdata(data_dir)  # Retrieve most up to date CBS data, can comment out after the first time
+#cbs_data = get_cbsdata(data_dir)  # Retrieve most up to date CBS data, can comment out after the first time
 #cbs_data = pd.read_csv('cbs_data_2016.tsv', sep = '\t', index_col = [0, 1])  # Retrieve earlier compiled CBS data
+
+#The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Dk_data_2025"
+
+cbs_data = pd.read_csv('Cbs_data_2025.csv', index_col=['Index', 'Unit'])
+print("CBS data loaded from local CSV.")
 
 cbs_data.iloc[1, 0] = 1  # assumed no conversion in calculation
 
