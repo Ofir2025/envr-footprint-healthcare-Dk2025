@@ -31,21 +31,21 @@ import sys
 #   conversion supply > basic price from sheet
 ##############################################
 # snippet from https://www.cbs.nl/nl-nl/onze-diensten/open-data/open-data-v4/snelstartgids-odata-v4
-def get_odata(target_url):
-    data = pd.DataFrame()
-    while target_url:
-        r = requests.get(target_url).json()
-        data = data.append(pd.DataFrame(r['value']))        
-        if '@odata.nextLink' in r:
-            target_url = r['@odata.nextLink']
-        else:
-            target_url = None            
-    return data
-
-def get_cbsdata(data_dir):
-    if str(os.getcwd()).endswith('envr-footprint-healthcare2025') == False:
-        print("Please set working directory to envr-footprint-healthcare2025 folder")
-        sys.exit()
+#def get_odata(target_url):
+#    data = pd.DataFrame()
+#    while target_url:
+#        r = requests.get(target_url).json()
+#        data = data.append(pd.DataFrame(r['value']))        
+#        if '@odata.nextLink' in r:
+#            target_url = r['@odata.nextLink']
+#        else:
+#            target_url = None            
+#    return data
+#
+#def get_cbsdata(data_dir):
+#    if str(os.getcwd()).endswith('envr-footprint-healthcare2025') == False:
+#        print("Please set working directory to envr-footprint-healthcare2025 folder")
+#        sys.exit()
     # Directe emissies Zorg en Welzijn
     #_________________________________
         # Source: https://opendata.cbs.nl/#/CBS/nl/dataset/83300NED/table
@@ -55,9 +55,9 @@ def get_cbsdata(data_dir):
         # de uitstoot van 1 kg methaan (CH4) gelijk aan 25 broeikasgas-equivalenten 
         # en is de uitstoot van 1 kg lachgas (N2O) gelijk aan 298 broeikasgas-equivalenten.
         # hierin is de uitstoot van narcose/inhalatorengasssen niet meegenomen 
-    table_url = "https://odata4.cbs.nl/CBS/83300NED"
-    target_url = table_url + "/Observations"
-    data = get_odata(target_url)
+#    table_url = "https://odata4.cbs.nl/CBS/83300NED"
+#    target_url = table_url + "/Observations"
+#    data = get_odata(target_url)
     
     # Uncomment code to check whether filter is correct
     #meta = get_odata(table_url)
@@ -67,15 +67,17 @@ def get_cbsdata(data_dir):
     #prop = get_odata(table_url + "/Properties")
     
     # Identifier M006309  # Broeikasgas-equivalent
-    id_measure = 'M006309'
+#    id_measure = 'M006309'
     # EcCode 422400 Identifier
-    id_eccode = '422400'
+#    id_eccode = '422400'
     # PerCode Periode identifier 2016JJ00
-    id_period = '2016JJ00'
+#    id_period = '2016JJ00'
     
     # kg CO2-eq * mln (kt CO2eq)
-    val_GWP_health = data[(data['Measure'] == id_measure) & (data['Perioden'] == id_period) & (data['NederlandseEconomie'] == id_eccode)]['Value'].item()
+#    val_GWP_health = data[(data['Measure'] == id_measure) & (data['Perioden'] == id_period) & (data['NederlandseEconomie'] == id_eccode)]['Value'].item()
     
+    #The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Cbs_data_2025"
+    val_GWP_health = float(cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service']) * 1e6
     
     #_________________________________
     # Zorguitgaven op functie
