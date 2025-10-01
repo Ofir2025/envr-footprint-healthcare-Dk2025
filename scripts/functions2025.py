@@ -203,7 +203,7 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     gragg = np.zeros((nragg, nr))
     for (k, val) in enumerate(coderagg):
         pos = list(label['region']['DESIRE region']).index(val)
-        labelragg.append(label['region']['DESIRE region name'][pos])
+        labelragg.append(label['region']['DESIRE region name'].iloc[pos])
         jpos = [i for (i, e) in enumerate(list(label['region']['DESIRE region'])) if e == val]    
         for j in jpos:
             gragg[k, j] = 1
