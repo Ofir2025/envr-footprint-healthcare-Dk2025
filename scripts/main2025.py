@@ -77,6 +77,39 @@ if not os.path.exists(output_dir):
 # 2) Retrieve data
 ##############################################
 
+## This section has been changed radically. Old code can still be found further down
+## The code adds a switch to change between country specific data (NL /DK)
+ 
+# Choose mode
+mode = "Danish"  # or "Dutch"
+year = '2016'
+
+## Adding extrafunctions from Extrafunctions.py to calculate 3 new expenditure vectors
+from Extrafunctions import calculate_healthcare_totals
+hc51, hc52, healthcare_services = calculate_healthcare_totals("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/DK UMAT 2019.xlsx")
+
+print("HC.51:", hc51)
+print("HC.52:", hc52)
+print("Healthcare Services (excl. NPISH):", healthcare_services)
+
+if mode == "Dutch":
+    cbs_data = pd.read_csv(os.path.join(data_dir, 'CBS_data_2016.csv'), index_col=['Index', 'Unit'])
+else:
+        
+    # Step 2: Load CSV and update values
+    df = pd.read_csv("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/data/DK_data_2025.csv", index_col="Index")
+    df.at['Expenditure', 'HC service'] = healthcare_services
+    df.at['Expenditure', 'Pharm'] = hc51
+    df.at['Expenditure', 'MedAppl'] = hc52
+
+    # Step 3: Save updated CSV
+    df.to_csv("DK_data_2025.csv")
+
+     
+
+
+
+
 # The following 3 lines of code were "#'ed" firstly because it doesn't work, secondly because it is country specific data
 # 2A) Retrieve CBS data for 2016. If not needed to update, uncomment and only run next line
 #cbs_data = get_cbsdata(data_dir)  # Retrieve most up to date CBS data, can comment out after the first time
@@ -417,13 +450,6 @@ with PdfPages(pdf_path) as pdf:
         n += 1
 print(f"All figures saved to {pdf_path}")
 
-## Adding extrafunctions from Extrafunctions.py
 
 
-from Extrafunctions import calculate_healthcare_totals
 
-hc51, hc52, healthcare_services = calculate_healthcare_totals("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/DK UMAT 2019.xlsx")
-
-print("HC.51:", hc51)
-print("HC.52:", hc52)
-print("Healthcare Services (excl. NPISH):", healthcare_services)
