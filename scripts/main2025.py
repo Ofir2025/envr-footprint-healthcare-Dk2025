@@ -118,7 +118,7 @@ else:
 #The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Dk_data_2025"
 
 cbs_data = pd.read_csv(data_dir + 'DK_data_2025.csv', index_col=['Index', 'Unit'])
-print("CBS data loaded from local CSV.")
+print("Expenditure data loaded from local CSV.")
 
 cbs_data.iloc[1, 0] = 1  # assumed no conversion in calculation
 
