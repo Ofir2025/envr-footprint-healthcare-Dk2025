@@ -416,3 +416,14 @@ with PdfPages(pdf_path) as pdf:
         print(png_name)
         n += 1
 print(f"All figures saved to {pdf_path}")
+
+## Adding extrafunctions from Extrafunctions.py
+
+
+from Extrafunctions import calculate_healthcare_totals
+
+hc51, hc52, healthcare_services = calculate_healthcare_totals("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/DK UMAT 2019.xlsx")
+
+print("HC.51:", hc51)
+print("HC.52:", hc52)
+print("Healthcare Services (excl. NPISH):", healthcare_services)
