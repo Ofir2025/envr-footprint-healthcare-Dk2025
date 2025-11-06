@@ -23,7 +23,7 @@ import sys
 np.set_printoptions(precision=2)
 tstart = time.time()
 
-year = '2016' # change this depending on the year of analysis
+year = '2025' # change this depending on the year of analysis
 
 ##############################################
 ##############################################
@@ -86,6 +86,32 @@ n_ind = label_ind.count()[0]
 
 # region list of categories including population in 2011
 # specifically prepared for the Dk to be own category !!! !!!
+
+# If you haven't changed the regions_NL.txt, you can use this code and add some small changes to make it fit with your context
+
+import pandas as pd
+
+# Path to your original file
+input_file = "regions_NL.txt"
+output_file = "regions_Dk2025.txt"
+
+# Read the original regions file
+df = pd.read_csv(input_file, sep="\t")
+
+# Make Denmark its own region
+df.loc[df["ISO2"] == "DK", "DESIRE region"] = "DK"
+df.loc[df["ISO2"] == "DK", "DESIRE region name"] = "Denmark"
+
+# Move Netherlands back to Europe
+df.loc[df["ISO2"] == "NL", "DESIRE region"] = "WE"
+df.loc[df["ISO2"] == "NL", "DESIRE region name"] = "Europe"
+
+# Save the updated file
+df.to_csv(output_file, sep="\t", index=False)
+
+print(f"Updated file saved as {output_file}")
+
+# now read the updated regions file
 str_reg = 'regions_Dk2025.txt'  
 label_reg = pd.read_csv(exio_dir + str_reg, sep='\t', index_col=[0], header=[0])
 n_reg = label_reg.count()[0]
