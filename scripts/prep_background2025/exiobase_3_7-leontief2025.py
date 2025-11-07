@@ -57,7 +57,7 @@ tstart = time.time()
 
 # Number of..
 nr = mrio['label']['region'].count().iloc[0]  # number of regions
-ns = mrio['label']['industry'].count()iloc[0]  # number of sectors
+ns = mrio['label']['industry'].count().iloc[0]  # number of sectors
 
 # Leontief inverse calculation
 L = np.linalg.inv(np.eye(nr*ns) - mrio['A'])    
