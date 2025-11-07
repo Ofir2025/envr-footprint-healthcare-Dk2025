@@ -92,8 +92,8 @@ n_ind = label_ind.count()[0]
 import pandas as pd
 
 # Path to your original file
-input_file = "regions_NL.txt"
-output_file = "regions_Dk2025.txt"
+input_file = "data/exiobase_v3.7/regions_NL.txt"
+output_file = "data/exiobase_v3.7/regions_Dk2025.txt"
 
 # Read the original regions file
 df = pd.read_csv(input_file, sep="\t")
