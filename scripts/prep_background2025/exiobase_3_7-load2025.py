@@ -91,27 +91,30 @@ n_ind = label_ind.count()[0]
 
 import pandas as pd
 
-# Path to your original file
-input_file = "data/exiobase_v3.7/regions_NL.txt"
-output_file = "data/exiobase_v3.7/regions_Dk2025.txt"
+
+import pandas as pd
+
+# Paths
+input_file = "data/exiobase_v3.7/regions_NL.txt"  # Original file
+output_file = "data/exiobase_v3.7/regions_Dk2025.txt"  # Updated file
 
 # Read the original regions file
 df = pd.read_csv(input_file, sep="\t")
 
-# Make Denmark its own region
-df.loc[df["ISO2"] == "DK", "DESIRE region"] = "DK"
-df.loc[df["ISO2"] == "DK", "DESIRE region name"] = "Denmark"
+# ✅ Make Denmark its own region
+df.loc[df["ISO2"] == "DK", ["DESIRE region", "DESIRE region name"]] = ["DK", "Denmark"]
 
-# Move Netherlands back to Europe
-df.loc[df["ISO2"] == "NL", "DESIRE region"] = "WE"
-df.loc[df["ISO2"] == "NL", "DESIRE region name"] = "Europe"
+# ✅ Keep NL as its own region (do NOT remove it)
+# Just leave NL unchanged so the structure matches unit.txt
+# If NL is changed to WE now, it might misalign or mess up results later. NL will be aggregated into WE later.
 
 # Save the updated file
 df.to_csv(output_file, sep="\t", index=False)
 
+# Debug info
 print(f"Updated file saved as {output_file}")
-
-print(df.columns)
+print("Columns:", df.columns.tolist())
+print("Check DK and NL rows:")
 print(df[df["ISO2"].isin(["DK", "NL"])])
 
 # now read the updated regions file
