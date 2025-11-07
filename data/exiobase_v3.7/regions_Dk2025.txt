@@ -16,7 +16,7 @@ BE	BEL	56	Belgium	WE	Europe	11013083
 BG	BGR	100	Bulgaria	WE	Europe	7356213
 HR	HRV	191	Croatia	WE	Europe	4313371
 CZ	CZE	203	Czech Republic	WE	Europe	10568715
-DK	DNK	208	Denmark	WE	Europe	5582873
+DK	DNK	208	Denmark	DK	Denmark	5582873
 EE	EST	233	Estonia	WE	Europe	1328449
 FI	FIN	246	Finland	WE	Europe	5389242
 FR	FRA	250	France	WE	Europe	63343577
@@ -29,7 +29,7 @@ LV	LVA	428	Latvia	WE	Europe	2092493
 LT	LTU	440	Lithuania	WE	Europe	3079881
 LU	LUX	442	Luxembourg	WE	Europe	519941
 MT	MLT	470	Malta	WE	Europe	418367
-NL	NLD	528	Netherlands	NL	Netherlands	16737002
+NL	NLD	528	Netherlands	WE	Europe	16737002
 NO	NOR	578	Norway	WE	Europe	4947595
 PL	POL	616	Poland	WE	Europe	38320947
 PT	PRT	620	Portugal	WE	Europe	10625330
