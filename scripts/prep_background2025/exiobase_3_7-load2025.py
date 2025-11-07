@@ -23,7 +23,7 @@ import sys
 np.set_printoptions(precision=2)
 tstart = time.time()
 
-year = '2025' # change this depending on the year of analysis
+year = '2016' # change this depending on the year of analysis. Be careful, the name must match the folder name in exiobase folder (e.g. IOT_2016_ixi)
 
 ##############################################
 ##############################################
@@ -110,6 +110,9 @@ df.loc[df["ISO2"] == "NL", "DESIRE region name"] = "Europe"
 df.to_csv(output_file, sep="\t", index=False)
 
 print(f"Updated file saved as {output_file}")
+
+print(df.columns)
+print(df[df["ISO2"].isin(["DK", "NL"])])
 
 # now read the updated regions file
 str_reg = 'regions_Dk2025.txt'  
