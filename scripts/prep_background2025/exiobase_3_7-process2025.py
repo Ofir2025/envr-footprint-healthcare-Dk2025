@@ -61,8 +61,8 @@ tstart = time.time()
 
 
 # Number of..
-nr = mrio['label']['region'].count()[0]  # number of regions
-ns = mrio['label']['industry'].count()[0]  # number of sectors
+nr = mrio['label']['region'].count().iloc[0]  # number of regions
+ns = mrio['label']['industry'].count().iloc[0]  # number of sectors
 
 # Calculation x (total output)
 x = np.dot(L, mrio['Y'].sum(1).reshape((nr*ns,1)))    # x = L*y
