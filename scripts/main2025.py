@@ -415,8 +415,72 @@ df_h_allreg.to_excel(writer, sheet_name='allreg')
 df_h_allsec.to_excel(writer, sheet_name='allsec')
 writer.close()
 
+# 7F) Calculate Scope 1, 2, 3 emissions for healthcare sector
+# === Load MRIO data ===
+# A: Technology matrix, L: Leontief inverse, Y: Final demand, F: Environmental extensions
+# V: Primary inputs, H: Household emissions
 
-# 7F) plot figures (figures in manuscript are composed in MS Excel)
+
+# === Calculate Scope 1, 2, and 3 emissions using bg ===
+import numpy as np
+
+# Extract needed objects from bg
+L = bg['L']
+Ystim = bg['Ystim']
+B = bg['B']
+labels = bg['label']['industry']
+
+# Load bottom-up data
+BU_data = pd.read_csv(data_dir + 'bottomup_data2025.txt', sep='\t').set_index('Source')
+
+# Helper: find sector position by keyword
+def find_sector_pos(keyword):
+    matches = labels[labels['Name'].str.contains(keyword, case=False, na=False)]
+    if matches.empty:
+        raise ValueError(f"Sector with keyword '{keyword}' not found.")
+    return labels.index.get_loc(matches.index[0])
+
+# Identify sector positions
+healthcare_pos = find_sector_pos('health')
+electricity_pos = find_sector_pos('electric')
+heat_pos = find_sector_pos('steam|heat|hot')
+
+# Compute total output induced by healthcare demand
+x = L @ Ystim[:, 0]  # Column 0 = total healthcare expenditure vector
+
+# Compute total emissions (Global Warming category assumed at index 0)
+gwp_idx = 0
+emissions = B[gwp_idx, :] @ x
+
+# MRIO-based scopes
+scope1_mrio = B[gwp_idx, healthcare_pos] * x[healthcare_pos]
+scope2_mrio = (B[gwp_idx, electricity_pos] * x[electricity_pos]) + \
+              (B[gwp_idx, heat_pos] * x[heat_pos])
+scope3_mrio = emissions - (scope1_mrio + scope2_mrio)
+
+# Bottom-up additions
+anaesthetic = BU_data.loc['Anaesthetic', 'Global warming (ktCO2eq)']
+pmdi = BU_data.loc['pMDI', 'Global warming (ktCO2eq)']
+commute = BU_data.loc['Commute (total)', 'Global warming (ktCO2eq)']
+visitor = BU_data.loc['Visitor travel (total)', 'Global warming (ktCO2eq)']
+
+# Combine scopes
+scope1_total = scope1_mrio + anaesthetic + pmdi
+scope2_total = scope2_mrio
+scope3_total = scope3_mrio + commute + visitor
+total_footprint = scope1_total + scope2_total + scope3_total
+
+# Output results
+print(f"Scope 1 (MRIO + bottom-up): {scope1_total:.2f} kt CO2eq")
+print(f"Scope 2 (MRIO): {scope2_total:.2f} kt CO2eq")
+print(f"Scope 3 (MRIO + bottom-up): {scope3_total:.2f} kt CO2eq")
+print(f"Total healthcare footprint: {total_footprint:.2f} kt CO2eq")
+
+
+
+
+
+# 7G) plot figures (figures in manuscript are composed in MS Excel)
 # Figure 1
 fig_1 = pd.merge(df_c_aggsec.reset_index(), sec_labels[['SAggDescription','SAggCode']].drop_duplicates(), on = 'SAggDescription', how = 'left')
 fig_1 = pd.merge(fig_1, fig_labels, on = 'SAggCode', how = 'left') 
