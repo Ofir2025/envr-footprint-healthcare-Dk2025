@@ -70,15 +70,16 @@ if not os.path.exists(mrio_dir):
 
 
 ##############################################
-#Load categories
+## Load category lists (industries and final demands) from auxiliary files in the IOT directory,
+## Drop the 'Number' column, and store them as pandas DataFrames. Also compute the number of categories.
 
-# final demand list of categories
+# Creates a list of categories for final demand
 str_fin = 'finaldemands.txt'  
 label_fin = pd.read_csv(iot_dir + str_fin, sep='\t', index_col=[3], header=[0])
 label_fin = label_fin.drop(labels=['Number'],axis=1)
 n_fin = label_fin.count()[0]
 
-# industry list of categories
+# Creates a list of categories for industry
 str_ind = 'industries.txt'  
 label_ind = pd.read_csv(iot_dir + str_ind, sep='\t', index_col=[3], header=[0])
 label_ind = label_ind.drop(labels=['Number'],axis=1)
@@ -87,11 +88,10 @@ n_ind = label_ind.count()[0]
 # region list of categories including population in 2011
 # specifically prepared for the Dk to be own category !!! !!!
 
-# If you haven't changed the regions_NL.txt, you can use this code and add some small changes to make it fit with your context
+# If you haven't changed the regions_NL.txt, you can use this code,
+# and add some small changes to make it fit with your context
 
 import pandas as pd
-
-
 import pandas as pd
 
 # Paths
@@ -101,12 +101,13 @@ output_file = "data/exiobase_v3.7/regions_Dk2025.txt"  # Updated file
 # Read the original regions file
 df = pd.read_csv(input_file, sep="\t")
 
-# ✅ Make Denmark its own region
+# Make Denmark its own region (This is where you can change the region code and name to your own country)
 df.loc[df["ISO2"] == "DK", ["DESIRE region", "DESIRE region name"]] = ["DK", "Denmark"]
 
-# ✅ Keep NL as its own region (do NOT remove it)
+# Keep NL as its own region (do NOT remove it)
 # Just leave NL unchanged so the structure matches unit.txt
-# If NL is changed to WE now, it might misalign or mess up results later. NL will be aggregated into WE later.
+# If NL is changed to Western Europe (WE) here, it will almost certainly misalign or mess up results later.
+# You can aggregate NL into WE later, if desired. It's helpful to keep it also as a check for having made mistakes .
 
 # Save the updated file
 df.to_csv(output_file, sep="\t", index=False)
@@ -117,13 +118,15 @@ print("Columns:", df.columns.tolist())
 print("Check DK and NL rows:")
 print(df[df["ISO2"].isin(["DK", "NL"])])
 
-# now read the updated regions file
+# Now read the updated regions file
 str_reg = 'regions_Dk2025.txt'  
 label_reg = pd.read_csv(exio_dir + str_reg, sep='\t', index_col=[0], header=[0])
 n_reg = label_reg.count()[0]
 
 #################################################
-# units - check for order of regions and industries
+# Load unit information from 'unit.txt' in the IOT folder.
+# Stores the result as a pandas DataFrame for later use.
+
 str_unit = 'unit.txt'  
 label_unit = pd.read_csv(iot_dir + str_unit, sep='\t', index_col=[0,1], header=[0])
 
@@ -134,7 +137,7 @@ for k_reg in range(n_reg):
     vec_reg.append(tmp)
 label_reg = label_reg.reindex(vec_reg)
 
-#explore order of industries
+#explore and verify order of industries
 vec_ind = []
 for k_ind in range(n_ind):
     tmp = label_unit.iloc[k_ind].name[1]
@@ -143,6 +146,8 @@ for k_ind in range(n_ind):
         print(k_ind, tmp, label_ind.iloc[k_ind]['Name'])
 
 #################################################
+# Commented sanity check code snippets
+
 # primary input classification
 # unit of monetary flows is:
 unit_monetary = 'M.EUR'
@@ -150,7 +155,7 @@ unit_monetary = 'M.EUR'
 #labels_unit_pd = pd.read_csv(iot_dir + labels_unit_str, sep='\t')
 #print(set(labels_unit_pd['unit']))
 
-#read units of extensions
+#read units of environmental extensions
 str_ext = 'satellite/unit.txt'  
 label_ext = pd.read_csv(iot_dir + str_ext, sep='\t')
 label_ext.columns.values[0] = 'Name'
@@ -174,6 +179,8 @@ str_char = 'characterisation_DESIRE_version3.4_adapted.xlsx'
 #        print(k, aval, bval)
 #There are apostrophes missing in entries 2-4
 #There are 1104 extensions in the characterization matrix, but 1113 in the extensions unit list. The extra 9 are appended at the end.
+
+## Load characterization factor matrices from str_char file (from just above)
 
 Q_factorinputs = pd.read_excel(exio_dir + str_char, sheet_name = 'Q_factorinputs', index_col=[0,1], header=[0,1])
 
@@ -200,7 +207,7 @@ Q = np.zeros((n_char, n_ext))
 Q_name = []
 Q_unit = []
 
-#GWP 100
+# Extract GWP100 characterization factors from Q_emissions and insert them into the first row of the 6×n_ext matrix, storing impact name and units
 pos_gwp = 5  # position for impcat in characterisation table
 vtmp = np.array(Q_emissions.iloc[pos_gwp])  # select CFs for relevant impcat
 vpos = np.where(vtmp)[0]  # get indices number for which CF != 0
@@ -208,7 +215,7 @@ Q[0, vpos + step_emissions]= vtmp[vpos]  # fill in CF for index in empty 6x1113 
 Q_name.append(Q_emissions.index[pos_gwp][1])  # collect name of impact
 Q_unit.append(Q_emissions.index[pos_gwp][3])  # collect unit of impact
 
-# Abiotic material extraction
+# Same for Abiotic material extraction
 pos_mat = 4  # position domestic extraction
 vtmp = np.array(Q_materials.iloc[pos_mat])
 vpos = np.where(vtmp)[0] #all positions v != 0
@@ -248,6 +255,8 @@ Q[5,vpos + step_factorinputs]= vtmp[vpos]
 Q_name.append(Q_factorinputs.index[pos_emp][0])
 Q_unit.append(Q_factorinputs.index[pos_emp][1])
 
+#Build a label dataframe for the characterization factors
+
 Q_data = []
 for k in range(n_char):
     Q_data.append([Q_name[k],Q_unit[k]]) 
@@ -255,6 +264,10 @@ for k in range(n_char):
 label_char = pd.DataFrame(index = list(range(n_char)), columns = ['Name', 'Unit'], data = Q_data)
 
 #############################################
+
+# End of category and label organization (Metadata setup)
+# Next part is about importing values into the dataframes created above
+
 #################################################
 #import numerical data
 
@@ -268,7 +281,7 @@ H_str = 'satellite/F_hh.txt'
 H_pd = pd.read_csv(iot_dir + H_str, sep='\t', index_col=[0], header=[0,1])
 H = np.array(H_pd)
 
-# primary inputs and industry emissions # alleen de eerste 9 - employment niet meegenomen
+# primary inputs and industry emissions # only the first 9 – employment not included.
 VR_str = 'satellite/F.txt'
 V_pd = pd.read_csv(iot_dir + VR_str, sep='\t', index_col=[0], header=[0,1]).iloc[pos_pri]
 V = np.array(V_pd)
@@ -280,7 +293,7 @@ tend = time.time()
 print('Done reading everything except intersectoral flows in %5.2f s\n'% (tend - tstart))
 tstart = time.time()
 
-# technical coefficients
+# Load Technical Coefficients (Matrix (A))
 A_str = 'A.txt'  
 A = np.array(pd.read_csv(iot_dir + A_str, sep='\t', index_col=[0,1], header=[0,1]))
 
@@ -300,7 +313,7 @@ mrio = {'Y': Y, 'A': A, 'V': V, 'R': R, 'H': H, 'Q': Q, 'label': label}
 #############################################
 # save to pickle
 
-mrio_str = 'exio' + year + '.pkl'  
+mrio_str = 'exio2025' + year + '.pkl'  
 pkl_out = open(mrio_dir + mrio_str,"wb")
 pkl.dump(mrio, pkl_out)
 pkl_out.close()
