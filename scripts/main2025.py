@@ -377,24 +377,32 @@ t1.to_excel('Table1.xlsx')
 # 7D)  Results Table S5
 R_HC = df_contrib[0].iloc[:,2:].sum()  # Healthcare footprint totals
 
-# Final consumption footprint
-k_NL = 20  # Netherlands position among 49 countries
-Y_nl = bg['Y'][:, k_NL * 7: (k_NL + 1)* 7].sum(1)  # Total final demand NL
-BxL_NL = np.dot(bg['B'], bg['L'])  # Calculate multipliers/intensities/coefficients
-R_ind = np.dot(BxL_NL, Y_nl)  # Indirect impacts from NL total final demand 
+# The following line can be uncommented to find out the region index of a specific country
+print(bg['label']['region'])
 
-R_y = bg['H'][:, k_NL * 7: (k_NL + 1)* 7].sum(1)  # Direct impacts from NL total final demand 
+# Final consumption footprint
+# The line below is where you change from NL to whatever country you want to analyse
+# For another country, change also the k_NL variable name and value accordingly
+k_DK = 6  # Denmark's position among 49 countries
+Y_DK = bg['Y'][:, k_DK * 7: (k_DK + 1)* 7].sum(1)  # Total final demand NL
+BxL_DK = np.dot(bg['B'], bg['L'])  # Calculate multipliers/intensities/coefficients
+R_ind = np.dot(BxL_DK, Y_DK)  # Indirect impacts from NL total final demand 
+
+R_y = bg['H'][:, k_DK * 7: (k_DK + 1)* 7].sum(1)  # Direct impacts from NL total final demand 
 
 R_ind = np.delete(R_ind, [4, 5])  # Remove value added and nr of employees 
 R_y = np.delete(R_y, [4, 5])
 
+# Combine healthcare footprint and national consumption footprint
 share_hc = pd.concat([R_HC, pd.Series(data = np.add(R_y, R_ind), index = cols_impcat)], axis = 1)
 share_hc.columns = ['Healthcare footprint', 'National consumption footprint']
 share_hc['Healthcare share of national consumption footprint (%)'] = 100* share_hc['Healthcare footprint'] / share_hc['National consumption footprint']
 
 # Read Table S5 to Excel file
-share_hc.to_excel('TableS5.xlsx')
+share_hc.to_excel('TableS5_DK.xlsx')
 
+#The following line is a sanity check for the country index
+print(bg['label']['region'].reset_index().iloc[k_DK])
 
 # 7E) Contribution analysis (underlying data for Figure 1 and Table S6)
 df_c_all = df_c[0][['ISO3','RegName', 'Region', 'SecTxtCode', 'SecName', 'SAggDescription', 'Scope'] + cols_impcat]
