@@ -402,7 +402,7 @@ share_hc['Healthcare share of national consumption footprint (%)'] = 100* share_
 share_hc.to_excel('TableS5_DK.xlsx')
 
 #The following line is a sanity check for the country index
-print(bg['label']['region'].reset_index().iloc[k_DK])
+# print(bg['label']['region'].reset_index().iloc[k_DK])
 
 # 7E) Contribution analysis (underlying data for Figure 1 and Table S6)
 df_c_all = df_c[0][['ISO3','RegName', 'Region', 'SecTxtCode', 'SecName', 'SAggDescription', 'Scope'] + cols_impcat]
