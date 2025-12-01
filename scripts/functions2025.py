@@ -149,19 +149,19 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     tstart = time.time()
 
     # Load waste
-    mrio_str = 'waste.pkl'  
+    mrio_str = 'waste2025.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     waste = pkl.load(pkl_in)
     pkl_in.close()
 
     # Load Leontief inverse
-    mrio_str = 'leontief'+ year +'.pkl'  
+    mrio_str = 'leontief2025'+ year +'.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     L = pkl.load(pkl_in)
     pkl_in.close()
 
     # Load rest of the system
-    mrio_str = 'mrio'+ year +'.pkl'  
+    mrio_str = 'mrio2025'+ year +'.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     mrio = pkl.load(pkl_in)
     pkl_in.close()
@@ -225,7 +225,7 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     # Determine the stimulus
 
     # Extract NL, GWP and healthcare
-    k_NL = 20
+    k_DK = 6
     k_GWP = 0 
     k_health = 137
     val_GWP_health = float(cbs_data.iloc[2,0]) * 1e6  # kt to kg
@@ -242,7 +242,7 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     val_appl_bp = val_appl_pp * val_appl_conv
 
     # vector to allocate across imports of pharmaceuticals
-    vy = Y[:, k_NL * ny: (k_NL + 1)* ny].sum(1).reshape((nr,ns))
+    vy = Y[:, k_DK * ny: (k_DK + 1)* ny].sum(1).reshape((nr,ns))
     vtmp = vy[:,k_pharm]
     vtmp = vtmp / vtmp.sum()
     vy = np.zeros((nr, ns))
@@ -250,33 +250,33 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     valloc_pharm = vy.reshape((nr*ns, ))
 
     # vector to allocate across imports of appliances
-    vy = Y[:, k_NL * ny: (k_NL + 1)* ny].sum(1).reshape((nr,ns))
+    vy = Y[:, k_DK * ny: (k_DK + 1)* ny].sum(1).reshape((nr,ns))
     vtmp = vy[:,k_appl]
     vtmp = vtmp / vtmp.sum()
     vy = np.zeros((nr, ns))
     vy[:,k_appl] = vtmp
     valloc_appl = vy.reshape((nr*ns, ))
 
-    vy = Y[:, k_NL * ny: (k_NL + 1)* ny].sum(1).reshape((nr,ns))
-    vtmp = Y[k_NL*ns + k_health,:] 
+    vy = Y[:, k_DK * ny: (k_DK + 1)* ny].sum(1).reshape((nr,ns))
+    vtmp = Y[k_DK*ns + k_health,:] 
 
     # Healthcare service expenditure, ignore conversoin to basic price (0.38% difference)
     val_HCserv = float(cbs_data.iloc[0, 0])
     
     # Find scale factor to scale healthcare sector in Z column
-    scale_factor = val_HCserv / x[k_NL*ns + k_health].sum()
+    scale_factor = val_HCserv / x[k_DK*ns + k_health].sum()
 
     # filling in
     Ystim = np.zeros((nr*ns,3))
     Hstim = np.zeros((nq,3))
     Vstim = np.zeros((nv,3))
 
-    Ystim[:,0] = Z[:,k_NL*ns + k_health] * scale_factor
+    Ystim[:,0] = Z[:,k_DK*ns + k_health] * scale_factor
     Ystim[:,1] = val_pharm_bp * valloc_pharm
     Ystim[:,2] = val_appl_bp * valloc_appl
-    Hstim[:,0] = B[:, k_NL*ns + k_health] * (x[k_NL*ns + k_health] * scale_factor) 
+    Hstim[:,0] = B[:, k_DK*ns + k_health] * (x[k_DK*ns + k_health] * scale_factor) 
     Hstim[k_GWP,0] = val_GWP_health 
-    Vstim[:,0] = V[:, k_NL*ns + k_health] * scale_factor
+    Vstim[:,0] = V[:, k_DK*ns + k_health] * scale_factor
 
     # agg grand total to first col in stimulus
     Ystim = np.concatenate((Ystim.sum(1).reshape((nr*ns,1)), Ystim),1)

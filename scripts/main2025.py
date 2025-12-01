@@ -92,6 +92,18 @@ print("HC.51:", hc51)
 print("HC.52:", hc52)
 print("Healthcare Services (excl. NPISH):", healthcare_services)
 
+
+# ---- Currency conversion: DKK → Million EUR ----
+# Danish UMAT values are in DKK (likely in full units, not thousands)
+# Original model expects Million EUR (MEUR)
+conversion_rate = 7.45  # 1 EUR ≈ 7.45 DKK
+hc51 = hc51 / (conversion_rate * 1e6)  # Convert to MEUR
+hc52 = hc52 / (conversion_rate * 1e6)
+healthcare_services = healthcare_services / (conversion_rate * 1e6)
+
+print(f"Converted to MEUR: HC.51={hc51:.3f}, HC.52={hc52:.3f}, Healthcare Services={healthcare_services:.3f}")
+
+
 if mode == "Dutch":
     cbs_data = pd.read_csv(os.path.join(data_dir, 'CBS_data_2016.csv'), index_col=['Index', 'Unit'])
 else:
