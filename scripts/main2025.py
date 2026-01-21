@@ -92,33 +92,55 @@ print("HC.51:", hc51)
 print("HC.52:", hc52)
 print("Healthcare Services (excl. NPISH):", healthcare_services)
 
-
-# ---- Currency conversion: DKK → Million EUR ----
-# Danish UMAT values are in DKK (likely in full units, not thousands)
-# Original model expects Million EUR (MEUR)
-conversion_rate = 7.45  # 1 EUR ≈ 7.45 DKK
-hc51 = hc51 / (conversion_rate * 1e6)  # Convert to MEUR
-hc52 = hc52 / (conversion_rate * 1e6)
-healthcare_services = healthcare_services / (conversion_rate * 1e6)
-
-print(f"Converted to MEUR: HC.51={hc51:.3f}, HC.52={hc52:.3f}, Healthcare Services={healthcare_services:.3f}")
-
-
+# Load CBS data depending on mode
 if mode == "Dutch":
     cbs_data = pd.read_csv(os.path.join(data_dir, 'CBS_data_2016.csv'), index_col=['Index', 'Unit'])
 else:
         
-    # Step 2: Load CSV and update values
-    df = pd.read_csv("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/data/DK_data_2025.csv", index_col="Index")
-    df.at['Expenditure', 'HC service'] = healthcare_services
-    df.at['Expenditure', 'Pharm'] = hc51
-    df.at['Expenditure', 'MedAppl'] = hc52
+      
+# === UMAT (kDKK) → MEUR and overwrite data/DK_data_2025.csv; set Conversion=1.0 ===
+    # MEUR = kDKK / 7,450  (1000 DKK per kDKK; ~7.45 DKK/EUR; /1e6 to get MEUR)
+    KDKK_TO_MEUR = 1.0 / 7450.0
+    hc51_meur = float(hc51) * KDKK_TO_MEUR            # Pharm (HC.51)
+    hc52_meur = float(hc52) * KDKK_TO_MEUR            # MedAppl (HC.52)
+    healthcare_services_meur = float(healthcare_services) * KDKK_TO_MEUR  # HC services
 
-    # Step 3: Save updated CSV
-    df.to_csv("DK_data_2025.csv")
+    # Overwrite data/DK_data_2025.csv with these MEUR values and Conversion=1.0
+    dk_csv_path = os.path.join(data_dir, 'DK_data_2025.csv')
+    df = pd.read_csv(dk_csv_path)
 
-     
+    # Ensure required columns exist
+    if 'Index' not in df.columns:
+        raise KeyError("Expected column 'Index' in DK_data_2025.csv")
+    if 'Unit' not in df.columns:
+        # Insert Unit as 2nd column if missing
+        df.insert(1, 'Unit', '')
 
+    # Ensure required rows exist; create if absent
+    required_rows = ['Expenditure', 'Conversion', 'DirectEm']
+    for r in required_rows:
+        if r not in df['Index'].values:
+            new_row = {'Index': r, 'Unit': 'na'}
+            for col in ['HC service', 'Pharm', 'MedAppl']:
+                if col not in df.columns:
+                    raise KeyError(f"Missing expected column '{col}' in DK_data_2025.csv")
+                new_row[col] = 0.0
+            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+
+    # Update Expenditure row (MEUR)
+    df.loc[df['Index'] == 'Expenditure', 'Unit'] = 'MEUR'
+    df.loc[df['Index'] == 'Expenditure', 'HC service'] = healthcare_services_meur
+    df.loc[df['Index'] == 'Expenditure', 'Pharm']      = hc51_meur
+    df.loc[df['Index'] == 'Expenditure', 'MedAppl']    = hc52_meur
+
+    # Set Conversion row to 1.0 for all used columns
+    df.loc[df['Index'] == 'Conversion', 'Unit'] = 'na'
+    for col in ['HC service', 'Pharm', 'MedAppl']:
+        df.loc[df['Index'] == 'Conversion', col] = 1.0
+
+    # Write back (preserve DirectEm row as-is)
+    df.to_csv(dk_csv_path, index=False)
+    print(f"✅ DK SUT overwrite: MEUR totals written and Conversion=1.0 → {dk_csv_path}")
 
 
 
@@ -129,10 +151,27 @@ else:
 
 #The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Dk_data_2025"
 
-cbs_data = pd.read_csv(data_dir + 'DK_data_2025.csv', index_col=['Index', 'Unit'])
-print("Expenditure data loaded from local CSV.")
 
-cbs_data.iloc[1, 0] = 1  # assumed no conversion in calculation
+cbs_data = pd.read_csv(os.path.join(data_dir, 'DK_data_2025.csv'), index_col=['Index', 'Unit'])
+print("Expenditure data loaded from DK SUT CSV (MEUR).")
+
+# Assert Conversion row exists and equals 1.0 for used columns
+if ('Conversion', 'na') not in cbs_data.index:
+    raise KeyError("Expected ('Conversion','na') row not found in DK_data_2025.csv")
+conv_row = cbs_data.loc[('Conversion', 'na')].astype(float)
+for col in ['HC service', 'Pharm', 'MedAppl']:
+    if col in conv_row.index:
+        assert float(conv_row[col]) == 1.0, f"Conversion factor for '{col}' must be 1.0"
+
+
+bp_HCserv = cbs_data.iloc[0, 0].item()
+bp_phar   = cbs_data.iloc[0, 1].item() * cbs_data.iloc[1, 1].item()  # == ×1.0
+bp_appl   = cbs_data.iloc[0, 2].item() * cbs_data.iloc[1, 2].item()  # == ×1.0
+print("Using SUT MEUR (Conversion=1.0):",
+      "HC services =", bp_HCserv,
+      "Pharm =", bp_phar,
+      "MedAppl =", bp_appl)
+
 
 # 2B) Create background object 
 # That is, containing exiobase and stimulus
@@ -209,23 +248,187 @@ df_hotspot = df_fromarray(array_hotspot, char_labels, multiindex, cols_impcat)
 # 5) Adding direct impacts and other healthcare specific impacts
 ##############################################
 
+
+# ===================== DK scaling of direct bottom-up emissions =====================
+# This step reads the NL base bottom-up file, scales *direct* emissions to DK,
+# recomputes totals, and writes bottomup_data2025.txt for the rest of the pipeline.
+
+
+
+import re
+import shutil
+import datetime as dt
+
+def _safe_atomic_write(target_path: str, content: str) -> str:
+    """Atomic write with optional backup if target exists; returns backup path or ''."""
+    ts = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
+    d = os.path.dirname(target_path) or "."
+    b = os.path.basename(target_path)
+    tmp = os.path.join(d, f".{b}.tmp-{ts}")
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        f.write(content)
+    backup = ""
+    if os.path.exists(target_path):
+        backup = os.path.join(d, f"{b}.backup-{ts}")
+        shutil.copy2(target_path, backup)
+    os.replace(tmp, target_path)
+    return backup
+
+def scale_bottomup_all_to_dk(
+    base_path: str,
+    target_path: str,
+    factors: dict,
+    round_digits: int = None
+) -> None:
+    """
+    Scale ALL impact columns for the four bottom-up sources using multiplicative factors (NL → DK):
+      - Anaesthetic → factors["Anaesthetic"]
+      - pMDI → factors["pMDI"]
+      - Commute (direct+indirect) → factors["Commute"]
+      - Visitor travel (direct+indirect) → factors["Visitor travel"]
+    Then recompute '(total)' rows as (direct + indirect) across ALL columns and write TSV.
+    """
+    # Load base (NL) bottom-up data
+    df = pd.read_csv(base_path, sep="\t").set_index("Source")
+
+    # Validate presence of rows and factor keys
+    required_rows = [
+        "Anaesthetic", "pMDI",
+        "Commute (direct)", "Commute (indirect)", "Commute (total)",
+        "Visitor travel (direct)", "Visitor travel (indirect)", "Visitor travel (total)",
+    ]
+    missing_rows = [r for r in required_rows if r not in df.index]
+    if missing_rows:
+        raise KeyError(f"Missing expected rows in {base_path}: {missing_rows}")
+
+    required_factors = ["Anaesthetic", "pMDI", "Commute", "Visitor travel"]
+    missing_f = [k for k in required_factors if k not in factors]
+    if missing_f:
+        raise KeyError(f"Missing required scaling factors: {missing_f}")
+
+    # Identify numeric columns (all except the index)
+    num_cols = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
+
+    # 1) Scale standalone rows (Anaesthetic, pMDI) across ALL columns
+    df.loc["Anaesthetic", num_cols] *= float(factors["Anaesthetic"])
+    df.loc["pMDI",       num_cols] *= float(factors["pMDI"])
+
+    # 2) Scale Commute (both direct and indirect)
+    df.loc["Commute (direct)",  num_cols] *= float(factors["Commute"])
+    df.loc["Commute (indirect)",num_cols] *= float(factors["Commute"])
+
+    # 3) Scale Visitor travel (both direct and indirect)
+    df.loc["Visitor travel (direct)",  num_cols] *= float(factors["Visitor travel"])
+    df.loc["Visitor travel (indirect)",num_cols] *= float(factors["Visitor travel"])
+
+    # 4) Recompute totals = direct + indirect (for ALL impact columns)
+    for group in ["Commute", "Visitor travel"]:
+        df.loc[f"{group} (total)", num_cols] = (
+            df.loc[f"{group} (direct)",  num_cols]
+            + df.loc[f"{group} (indirect)",num_cols]
+        )
+
+    # Optional rounding for readability
+    if round_digits is not None:
+        df[num_cols] = df[num_cols].round(round_digits)
+
+    # Write atomically to target_path
+    content = df.reset_index().to_csv(sep="\t", index=False)
+    backup_path = _safe_atomic_write(target_path, content)
+    print(f"✅ DK scaling (ALL columns) applied; wrote: {target_path}")
+    if backup_path:
+        print(f"🗂️ Backup of previous {os.path.basename(target_path)}: {backup_path}")
+
+# ---- DK scaling constants and paths (define BEFORE calling the function) ----
+SCALING_DK_OVER_NL = {
+    "Anaesthetic": 0.67,      # DK/NL multiplier
+    "pMDI": 0.45,             # DK/NL multiplier
+    "Commute": 0.544,         # DK/NL multiplier
+    "Visitor travel": 0.636,  # DK/NL multiplier
+}
+
+BOTTOMUP_BASE = os.path.join(data_dir, "bottomup_data.txt")
+BOTTOMUP_2025 = os.path.join(data_dir, "bottomup_data2025.txt")
+# ---------------------------------------------------------------------------
+
+# Apply DK scaling and write bottomup_data2025.txt
+scale_bottomup_all_to_dk(
+    base_path=BOTTOMUP_BASE,
+    target_path=BOTTOMUP_2025,
+    factors=SCALING_DK_OVER_NL,
+    round_digits=4
+)
+# ===================== End of DK scaling of direct bottom-up emissions =====================
+
+
+
+
+
+# 5B)
+
 cols_df = df_contrib[0].columns  # same for all
 
 # Adding the direct healthcare emissions from bg['Hstim']
-hc_dir_row = pd.Series(['NLD','B_HEAL', bg['Hstim'][:,0][0], bg['Hstim'][:,0][1], bg['Hstim'][:,0][2] ,bg['Hstim'][:,0][3], bg['Hstim'][:,0][6]], index = cols_df)
+
+
+# Replace 'operational impacts' (B_HEAL) GWP with MRIO-based direct for DK healthcare
+# (and keep other impact categories as in Hstim for now)
+x_tot_ = bg['L'] @ bg['Ystim'][:, 0]
+ns_ = bg['label']['industry'].shape[0]
+k_DK_ = 6
+start_DK_, end_DK_ = k_DK_ * ns_, (k_DK_ + 1) * ns_
+names_full_ = pd.Series(list(bg['label']['industry']['Name']) * bg['label']['region'].shape[0])
+
+def _find_positions_in_region_(names_series, region_start, n_sectors, exact_names, regex_patterns):
+    sub = names_series.iloc[region_start:region_start + n_sectors]
+    pos = []
+    lmap = {nm.lower(): idx for idx, nm in zip(sub.index, sub.values)}
+    for ex in exact_names:
+        if ex.lower() in lmap:
+            pos.append(lmap[ex.lower()])
+    if regex_patterns:
+        mask = pd.Series(False, index=sub.index)
+        for pat in regex_patterns:
+            mask |= sub.str.contains(pat, case=False, regex=True, na=False)
+        for idx in mask[mask].index:
+            if idx not in pos:
+                pos.append(idx)
+    return sorted(pos)
+
+health_positions_ = _find_positions_in_region_(
+    names_full_, start_DK_, ns_,
+    exact_names=["Human health services", "Residential care and social work services"],
+    regex_patterns=[r"\bhuman\s+health\b", r"\bsocial\s+work\b", r"\bhealth\s+and\s+social\s+work\b"]
+)
+if not health_positions_:
+    raise ValueError("No DK healthcare positions matched for operational impacts row.")
+
+gwp_row = 0  # kt CO2eq
+gwp_direct_dk_health_mrio = float(np.dot(bg['B'][gwp_row, health_positions_], x_tot_[health_positions_]))
+
+# Use MRIO direct GWP; keep other impact-category values from Hstim as placeholders
+hc_dir_row_vals = ['DNK','B_HEAL',
+                   gwp_direct_dk_health_mrio,               # Global warming (ktCO2eq)
+                   bg['Hstim'][:,0][1],                      # Material extraction (kt)   [placeholder]
+                   bg['Hstim'][:,0][2],                      # Blue water (Mm3)          [placeholder]
+                   bg['Hstim'][:,0][3],                      # Land use (km2)            [placeholder]
+                   bg['Hstim'][:,0][6]]                      # Waste (kt)                [placeholder]
+
+hc_dir_row = pd.Series(hc_dir_row_vals, index=cols_df)
+
 
 # Reading in an additional file filled with data concerning the additional impact sources
-BU_data = pd.read_csv(data_dir + 'bottomup_data.txt', sep ='\t').set_index('Source')
+BU_data = pd.read_csv(data_dir + 'bottomup_data2025.txt', sep ='\t').set_index('Source')
 
 # Adding the direct emissions from anaesthetic gases 
 # (Venema et al., 2022)
 anae_cc = BU_data.loc['Anaesthetic','Global warming (ktCO2eq)'].item()
-anae_row = pd.Series(['NLD','B_ANAE', anae_cc, 0, 0, 0, 0], index = cols_df)
+anae_row = pd.Series(['DNK','B_ANAE', anae_cc, 0, 0, 0, 0], index = cols_df)
 
 # Adding the direct emissions from pressurised metered dose inhaler 
 # (Wichers & Pieters, 2022)
 mdi_cc = BU_data.loc['pMDI','Global warming (ktCO2eq)'].item() 
-mdi_row = pd.Series(['NLD', 'B_PMDI', mdi_cc, 0, 0 ,0 ,0], index = cols_df) 
+mdi_row = pd.Series(['DNK', 'B_PMDI', mdi_cc, 0, 0 ,0 ,0], index = cols_df) 
 
 
 # Adding the impact from individual travel
@@ -234,15 +437,15 @@ mdi_row = pd.Series(['NLD', 'B_PMDI', mdi_cc, 0, 0 ,0 ,0], index = cols_df)
 
 # Calculated impact from commuting
 # ..for the contribution analysis
-commute_c_row = pd.Series(['NLD', 'B_COMM'] +  list(BU_data.loc['Commute (total)']), index = cols_df)
+commute_c_row = pd.Series(['DNK', 'B_COMM'] +  list(BU_data.loc['Commute (total)']), index = cols_df)
 # ..split in direct en indirect impacts for the hotspot analysis
-commute_h_dir_row = pd.Series(['NLD', 'B_COMM'] + list(BU_data.loc['Commute (direct)']), index = cols_df)
+commute_h_dir_row = pd.Series(['DNK', 'B_COMM'] + list(BU_data.loc['Commute (direct)']), index = cols_df)
 commute_h_indir_row = pd.Series(['GLO', 'B_REST'] + list(BU_data.loc['Commute (indirect)']), index = cols_df)
 
 # Calculated impact from travel by patients and visitors
-visit_c_row = pd.Series(['NLD', 'B_VISI'] + list(BU_data.loc['Visitor travel (total)']), index = cols_df) 
+visit_c_row = pd.Series(['DNK', 'B_VISI'] + list(BU_data.loc['Visitor travel (total)']), index = cols_df) 
 # ..split in direct en indirect impacts for the hotspot analysis
-visit_h_dir_row = pd.Series(['NLD', 'B_VISI'] + list(BU_data.loc['Visitor travel (direct)']), index = cols_df) 
+visit_h_dir_row = pd.Series(['DNK', 'B_VISI'] + list(BU_data.loc['Visitor travel (direct)']), index = cols_df) 
 visit_h_indir_row = pd.Series(['GLO', 'B_REST'] + list(BU_data.loc['Visitor travel (indirect)']), index = cols_df) 
 
 
@@ -378,7 +581,7 @@ t1.to_excel('Table1.xlsx')
 R_HC = df_contrib[0].iloc[:,2:].sum()  # Healthcare footprint totals
 
 # The following line can be uncommented to find out the region index of a specific country
-print(bg['label']['region'])
+# print(bg['label']['region'])
 
 # Final consumption footprint
 # The line below is where you change from NL to whatever country you want to analyse
@@ -436,65 +639,218 @@ df_h_allsec.to_excel(writer, sheet_name='allsec')
 writer.close()
 
 # 7F) Calculate Scope 1, 2, 3 emissions for healthcare sector
-# === Load MRIO data ===
-# A: Technology matrix, L: Leontief inverse, Y: Final demand, F: Environmental extensions
-# V: Primary inputs, H: Household emissions
 
 
-# === Calculate Scope 1, 2, and 3 emissions using bg ===
+# 7F) Robust Scopes (GHG Protocol) for Denmark + separate Figure 4 (Scopes_Figure.pdf)
+# -----------------------------------------------------------------------------------
+# This block:
+#   • Matches DK healthcare sectors robustly (Human health services + Residential care & social work).
+#   • Computes Scope 1/2/3 in line with GHG Protocol and the Dutch study.
+#   • Adds bottom-up (anaesthetics, pMDI → S1; commuting, visitor → S3).
+#   • Prints diagnostics (transparent + reproducible).
+#   • Saves a separate bar chart figure as Scopes_Figure.pdf (and PNG).
+
+import re
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
 
-# Extract needed objects from bg
+# --- Inputs from bg / earlier parts of the script ---
 L = bg['L']
-Ystim = bg['Ystim']
-B = bg['B']
-labels = bg['label']['industry']
+B = bg['B']            # Intensities matrix; row 0 is 'Global warming (ktCO2eq)' as per functions2025.py
+Ystim = bg['Ystim']    # Column 0 = 'Tot' (Total expenditure vector)
+labels_ind = bg['label']['industry']   # 163 sector names (one-region list)
+labels_reg = bg['label']['region']     # 49 regions
+ns = int(labels_ind.shape[0])          # 163
+nr = int(labels_reg.shape[0])          # 49
+N = ns * nr
 
-# Load bottom-up data
-BU_data = pd.read_csv(data_dir + 'bottomup_data2025.txt', sep='\t').set_index('Source')
+# Reconstruct the full sector-name vector for all (region, sector) positions, ordered by region blocks.
+sector_names_full = pd.Series(list(labels_ind['Name']) * nr, index=np.arange(N))
 
-# Helper: find sector position by keyword
-def find_sector_pos(keyword):
-    matches = labels[labels['Name'].str.contains(keyword, case=False, na=False)]
-    if matches.empty:
-        raise ValueError(f"Sector with keyword '{keyword}' not found.")
-    return labels.index.get_loc(matches.index[0])
+# Denmark region index (already used elsewhere in your script)
+# NOTE: Earlier you set k_DK = 6 for Denmark.
+k_DK = 6
+start_DK, end_DK = k_DK * ns, (k_DK + 1) * ns
+dk_sector_names = sector_names_full.iloc[start_DK:end_DK]
 
-# Identify sector positions
-healthcare_pos = find_sector_pos('health')
-electricity_pos = find_sector_pos('electric')
-heat_pos = find_sector_pos('steam|heat|hot')
+# --- Diagnostics: show DK block sector names (first 25) ---
+print("\n[DIAG] First 25 sector names in the Denmark block:")
+for i, nm in enumerate(dk_sector_names.head(25).tolist(), start=1):
+    print(f"  {i:>2}. {nm}")
 
-# Compute total output induced by healthcare demand
-x = L @ Ystim[:, 0]  # Column 0 = total healthcare expenditure vector
+# --- Helper: find positions in a specific region block by exact or regex match ---
+def find_positions_in_region(names_series: pd.Series,
+                             region_start: int,
+                             n_sectors: int,
+                             exact_names=None,
+                             regex_patterns=None):
+    """
+    Returns a list of integer positions (global index) in region block
+    that match any exact_names OR any regex_patterns (case-insensitive).
+    """
+    exact_names = exact_names or []
+    regex_patterns = regex_patterns or []
+    sub = names_series.iloc[region_start:region_start + n_sectors]
+    pos = []
 
-# Compute total emissions (Global Warming category assumed at index 0)
-gwp_idx = 0
-emissions = B[gwp_idx, :] @ x
+    # 1) Exact-name priority (robust if EXIOBASE canonical names exist)
+    lname_map = {nm.lower(): idx for idx, nm in zip(sub.index, sub.values)}
+    for ex in exact_names:
+        ex_l = ex.lower()
+        if ex_l in lname_map:
+            pos.append(lname_map[ex_l])
 
-# MRIO-based scopes
-scope1_mrio = B[gwp_idx, healthcare_pos] * x[healthcare_pos]
-scope2_mrio = (B[gwp_idx, electricity_pos] * x[electricity_pos]) + \
-              (B[gwp_idx, heat_pos] * x[heat_pos])
-scope3_mrio = emissions - (scope1_mrio + scope2_mrio)
+    # 2) Regex fallback
+    if regex_patterns:
+        mask = pd.Series(False, index=sub.index)
+        for pat in regex_patterns:
+            mask = mask | sub.str.contains(pat, case=False, regex=True, na=False)
+        # Avoid duplicates
+        for idx in mask[mask].index:
+            if idx not in pos:
+                pos.append(idx)
 
-# Bottom-up additions
-anaesthetic = BU_data.loc['Anaesthetic', 'Global warming (ktCO2eq)']
-pmdi = BU_data.loc['pMDI', 'Global warming (ktCO2eq)']
-commute = BU_data.loc['Commute (total)', 'Global warming (ktCO2eq)']
-visitor = BU_data.loc['Visitor travel (total)', 'Global warming (ktCO2eq)']
+    return sorted(pos)
 
-# Combine scopes
-scope1_total = scope1_mrio + anaesthetic + pmdi
+# --- Scope 1: Direct DK healthcare emissions (MRIO) ---
+# EXIOBASE canonical names to prefer (as used throughout v3.7):
+prefer_exact_health = [
+    "Human health services",
+    "Residential care and social work services",
+]
+# Fallback regex patterns if exact names differ in your build:
+fallback_health_regex = [
+    r"\bhuman\s+health\b",
+    r"\bsocial\s+work\b",
+    r"\bhealth\s+and\s+social\s+work\b",
+]
+
+healthcare_positions = find_positions_in_region(
+    sector_names_full, start_DK, ns,
+    exact_names=prefer_exact_health,
+    regex_patterns=fallback_health_regex
+)
+
+if not healthcare_positions:
+    raise ValueError("No healthcare sector matched in Denmark block. "
+                     "Check sector naming in bg['label']['industry']['Name'].")
+
+print("\n[SC1] DK healthcare sector positions and names:")
+for p in healthcare_positions:
+    print(f"  idx={p}  name={sector_names_full.iloc[p]}")
+
+# --- Scope 2: Electricity + Steam/Hot water across ALL regions ---
+# Include all sectors whose name contains 'electricity' (this does NOT match 'electrical machinery').
+elec_mask = sector_names_full.str.contains(r"\belectricity\b", case=False, regex=True, na=False)
+
+# Include all 'steam' and/or 'hot water' supply sectors.
+heat_mask = sector_names_full.str.contains(r"\bsteam\b", case=False, regex=True, na=False) | \
+            sector_names_full.str.contains(r"\bhot\s*water\b", case=False, regex=True, na=False)
+
+electricity_positions = np.where(elec_mask)[0].tolist()
+heat_positions = np.where(heat_mask)[0].tolist()
+
+print(f"\n[SC2] Electricity sectors found: {len(electricity_positions)}")
+print("      examples:", sector_names_full.iloc[electricity_positions[:10]].tolist())
+print(f"[SC2] Heat/steam sectors found: {len(heat_positions)}")
+print("      examples:", sector_names_full.iloc[heat_positions[:10]].tolist())
+
+# --- Compute MRIO outputs and emissions (kt CO2e) ---
+gwp_idx = 0  # 'Global warming (ktCO2eq)' row in B
+x_tot = L @ Ystim[:, 0]  # Total monetary outputs induced by total expenditure vector
+emissions_mrio_total = float(B[gwp_idx, :] @ x_tot)  # kt CO2eq
+
+# Scope 1 (MRIO): sum over DK healthcare positions
+scope1_mrio = float(np.dot(B[gwp_idx, healthcare_positions], x_tot[healthcare_positions]))
+
+# Scope 2 (MRIO): electricity + heat/steam across ALL regions
+scope2_mrio = float(np.dot(B[gwp_idx, electricity_positions], x_tot[electricity_positions])) + \
+              float(np.dot(B[gwp_idx, heat_positions], x_tot[heat_positions]))
+
+# Scope 3 (MRIO): everything else
+scope3_mrio = emissions_mrio_total - (scope1_mrio + scope2_mrio)
+
+# --- Bottom-up additions ---
+BU_path = os.path.join(data_dir, 'bottomup_data2025.txt')
+BU_data_scopes = pd.read_csv(BU_path, sep='\t').set_index('Source')
+
+anaesthetic_kt = float(BU_data_scopes.loc['Anaesthetic', 'Global warming (ktCO2eq)'])
+pmdi_kt       = float(BU_data_scopes.loc['pMDI', 'Global warming (ktCO2eq)'])
+commute_kt    = float(BU_data_scopes.loc['Commute (total)', 'Global warming (ktCO2eq)'])
+visitor_kt    = float(BU_data_scopes.loc['Visitor travel (total)', 'Global warming (ktCO2eq)'])
+
+# Combine with MRIO scopes
+scope1_total = scope1_mrio + anaesthetic_kt + pmdi_kt
 scope2_total = scope2_mrio
-scope3_total = scope3_mrio + commute + visitor
+scope3_total = scope3_mrio + commute_kt + visitor_kt
 total_footprint = scope1_total + scope2_total + scope3_total
 
-# Output results
-print(f"Scope 1 (MRIO + bottom-up): {scope1_total:.2f} kt CO2eq")
-print(f"Scope 2 (MRIO): {scope2_total:.2f} kt CO2eq")
-print(f"Scope 3 (MRIO + bottom-up): {scope3_total:.2f} kt CO2eq")
-print(f"Total healthcare footprint: {total_footprint:.2f} kt CO2eq")
+# --- Prints for transparency ---
+print("\n[CHECK] MRIO total (kt CO2eq) =", round(emissions_mrio_total, 2))
+print("[CHECK] MRIO-only Scopes sum  =", round(scope1_mrio + scope2_mrio + scope3_mrio, 2))
+
+print(f"\nScope 1 (MRIO only)         : {scope1_mrio:.2f} kt CO2eq")
+print(f"  + Anaesthetic (bottom-up) : {anaesthetic_kt:.2f} kt CO2eq")
+print(f"  + pMDI (bottom-up)        : {pmdi_kt:.2f} kt CO2eq")
+print(f"Scope 1 (MRIO + bottom-up)  : {scope1_total:.2f} kt CO2eq")
+
+print(f"\nScope 2 (MRIO)              : {scope2_total:.2f} kt CO2eq")
+
+print(f"\nScope 3 (MRIO only)         : {scope3_mrio:.2f} kt CO2eq")
+print(f"  + Commute (bottom-up)     : {commute_kt:.2f} kt CO2eq")
+print(f"  + Visitor (bottom-up)     : {visitor_kt:.2f} kt CO2eq")
+print(f"Scope 3 (MRIO + bottom-up)  : {scope3_total:.2f} kt CO2eq")
+
+print(f"\nTotal healthcare footprint  : {total_footprint:.2f} kt CO2eq")
+
+# --- Figure 4: Scopes bar chart saved separately ---
+scope_labels = ['Scope 1', 'Scope 2', 'Scope 3']
+scope_values = [scope1_total, scope2_total, scope3_total]
+
+fig_scope, ax_scope = plt.subplots(figsize=(6.5, 5.0))
+bars = ax_scope.bar(scope_labels, scope_values, color=['#1f77b4', '#ff7f0e', '#2ca02c'])
+ax_scope.set_ylabel('kt CO₂eq')
+ax_scope.set_title('Healthcare Footprint by Scope (DK, total)')
+# Annotate bar tops
+for bar, val in zip(bars, scope_values):
+    ax_scope.text(bar.get_x() + bar.get_width()/2, bar.get_height() * 1.01,
+                  f"{val:.0f}", ha='center', va='bottom', fontsize=10)
+plt.tight_layout()
+
+# Save to separate files (no timestamp, per your preference)
+plt.savefig('fig_scope.png', dpi=300)
+fig_scope.savefig('Scopes_Figure.pdf')
+plt.close(fig_scope)
+
+print("fig_scope.png")
+print("Scopes_Figure.pdf")
+# -----------------------------------------------------------------------------------
+
+
+# --- CSV export: Scopes summary (kt CO2eq) ---
+scopes_rows = [
+    {"Component": "Scope 1 (MRIO only)",          "kt_CO2eq": scope1_mrio},
+    {"Component": "  + Anaesthetic (bottom-up)",  "kt_CO2eq": anaesthetic_kt},
+    {"Component": "  + pMDI (bottom-up)",         "kt_CO2eq": pmdi_kt},
+    {"Component": "Scope 1 (Total)",              "kt_CO2eq": scope1_total},
+    {"Component": "Scope 2 (MRIO)",               "kt_CO2eq": scope2_total},
+    {"Component": "Scope 3 (MRIO only)",          "kt_CO2eq": scope3_mrio},
+    {"Component": "  + Commute (bottom-up)",      "kt_CO2eq": commute_kt},
+    {"Component": "  + Visitor (bottom-up)",      "kt_CO2eq": visitor_kt},
+    {"Component": "Scope 3 (Total)",              "kt_CO2eq": scope3_total},
+    {"Component": "Grand Total",                  "kt_CO2eq": total_footprint},
+]
+scopes_df = pd.DataFrame(scopes_rows)
+scopes_csv = os.path.join(output_dir, "Scopes_Summary.csv")
+scopes_df.to_csv(scopes_csv, index=False)
+print(f"Scopes summary written → {scopes_csv}")
+
+
+print("\n[CHECK] DK_data_2025 DirectEm (kt CO2e) for HC service:",
+      cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service'])
+
 
 
 
@@ -503,12 +859,29 @@ print(f"Total healthcare footprint: {total_footprint:.2f} kt CO2eq")
 # 7G) plot figures (figures in manuscript are composed in MS Excel)
 # Figure 1
 fig_1 = pd.merge(df_c_aggsec.reset_index(), sec_labels[['SAggDescription','SAggCode']].drop_duplicates(), on = 'SAggDescription', how = 'left')
-fig_1 = pd.merge(fig_1, fig_labels, on = 'SAggCode', how = 'left') 
+fig_1 = pd.merge(fig_1, fig_labels, on = 'SAggCode', how = 'left')
+
+# Disaggregate Transport from 'Other'
+fig_1['Contribution'] = fig_1['Contribution'].fillna('Other')
+mask_transport = fig_1['SAggDescription'].str.contains('Transport', case=False, na=False)
+fig_1.loc[mask_transport, 'Contribution'] = 'Transport'
+
 fig_1 = fig_1.groupby('Contribution')[cols_impcat].sum()
 
 # Figure 2
 fig_2 = pd.merge(df_h_aggsec.reset_index(), sec_labels[['SAggDescription','SAggCode']].drop_duplicates(), on = 'SAggDescription', how = 'left')
 fig_2 = pd.merge(fig_2, fig_labels, on = 'SAggCode', how = 'left') 
+
+fig_2 = pd.merge(df_h_aggsec.reset_index(),
+                 sec_labels[['SAggDescription','SAggCode']].drop_duplicates(),
+                 on='SAggDescription', how='left')
+fig_2 = pd.merge(fig_2, fig_labels, on='SAggCode', how='left')
+
+# Disaggregate Transport from 'Other' in hotspot
+fig_2['Hotspot'] = fig_2['Hotspot'].fillna('Other')
+mask_transport = fig_2['SAggDescription'].str.contains('Transport', case=False, na=False)
+fig_2.loc[mask_transport, 'Hotspot'] = 'Transport'
+
 fig_2 = fig_2.groupby('Hotspot')[cols_impcat].sum()
 
 # Figure 3
@@ -532,8 +905,319 @@ with PdfPages(pdf_path) as pdf:
         plt.close()  # Close the figure to avoid popups and memory issues
         print(png_name)
         n += 1
+
 print(f"All figures saved to {pdf_path}")
 
 
 
 
+# === Figure 5: Total contribution (MRIO + bottom-up), grouped like Figure 1 ===
+# Start from MRIO aggregated contributions (fig_1 input, pre-group)
+fig5_in = pd.merge(df_c_aggsec.reset_index(),
+                   sec_labels[['SAggDescription','SAggCode']].drop_duplicates(),
+                   on='SAggDescription', how='left')
+fig5_in = pd.merge(fig5_in, fig_labels, on='SAggCode', how='left')
+fig5_in['Contribution'] = fig5_in['Contribution'].fillna('Other')
+
+# Bring in bottom-up totals across impact categories
+BU5 = pd.read_csv(os.path.join(data_dir, 'bottomup_data2025.txt'), sep='\t').set_index('Source')
+
+# Map bottom-up → Figure 1 groups (Dutch study: op. impacts + individual travel)
+bu_op = BU5.loc[['Anaesthetic','pMDI'], cols_impcat].sum(axis=0) if all([x in BU5.index for x in ['Anaesthetic','pMDI']]) else fig5_in[cols_impcat].iloc[0]*0
+bu_tr = BU5.loc[['Commute (total)','Visitor travel (total)'], cols_impcat].sum(axis=0) if all([x in BU5.index for x in ['Commute (total)','Visitor travel (total)']]) else fig5_in[cols_impcat].iloc[0]*0
+
+# Append bottom-up rows to input (so they participate in the same grouping)
+rows5 = []
+rows5.append(pd.Series(['Bottom-up: Operational impacts','Operational impacts'] + list(bu_op.values),
+                       index=['SAggDescription','Contribution']+cols_impcat))
+rows5.append(pd.Series(['Bottom-up: Individual travel','Individual travel'] + list(bu_tr.values),
+                       index=['SAggDescription','Contribution']+cols_impcat))
+fig5_in = pd.concat([fig5_in, pd.DataFrame(rows5)], ignore_index=True)
+
+# Optional: Disaggregate Transport from 'Other'
+mask_transport_c = fig5_in['SAggDescription'].str.contains('Transport', case=False, na=False)
+fig5_in.loc[mask_transport_c, 'Contribution'] = 'Transport'
+
+# Group and plot shares
+fig5 = fig5_in.groupby('Contribution')[cols_impcat].sum()
+fig5_share = fig5.apply(lambda col: 100*col/col.sum(), axis=0)
+
+ax5 = fig5_share.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10,6))
+plt.legend(bbox_to_anchor=(1.05,1.0), loc='upper left')
+plt.xlabel("Impact category")
+plt.ylabel("Share of total footprint")
+plt.tight_layout()
+plt.savefig('Figure5_TotalContribution.png', dpi=300)
+plt.close()
+print("Figure5_TotalContribution.png")
+
+
+
+# 7H) Diagnostics for large 'Other' and Denmark share
+
+print("\n[DIAG] Coverage of 'Contribution' mapping in fig_1 input:")
+fig_1_in = pd.merge(df_c_aggsec.reset_index(),
+                    sec_labels[['SAggDescription','SAggCode']].drop_duplicates(),
+                    on='SAggDescription', how='left')
+fig_1_in = pd.merge(fig_1_in, fig_labels, on='SAggCode', how='left')  # adds 'Contribution'
+mapped = fig_1_in['Contribution'].notna().sum()
+total = len(fig_1_in)
+print(f"  mapped rows: {mapped}/{total} ({mapped/total:.1%}) have a named 'Contribution'")
+
+print("\n[DIAG] Share by Contribution group (Global warming only):")
+gwp_col = 'Global warming (ktCO2eq)'
+share_by_group = (100 * fig_1_in.groupby('Contribution')[gwp_col].sum() /
+                  fig_1_in[gwp_col].sum()).sort_values(ascending=False)
+print(share_by_group)
+
+# Drill into what's inside 'Other'
+if 'Other' in share_by_group.index:
+    print("\n[DIAG] Top 20 SAggDescription inside 'Other' (GWP):")
+    other = fig_1_in[fig_1_in['Contribution'].fillna('Other') == 'Other']
+    top_other = (other.groupby('SAggDescription')[gwp_col].sum()
+                 .sort_values(ascending=False).head(20))
+    print(top_other)
+
+
+print("\n[DIAG] Expenditure shares from DK SUT (MEUR):")
+bp_HCserv = float(cbs_data.iloc[0, 0])
+bp_pharm  = float(cbs_data.iloc[0, 1]) * float(cbs_data.iloc[1, 1])  # conv=1.0 expected
+bp_appl   = float(cbs_data.iloc[0, 2]) * float(cbs_data.iloc[1, 2])
+tot_meur  = bp_HCserv + bp_pharm + bp_appl
+print(f"  HC services: {bp_HCserv:.0f} MEUR ({100*bp_HCserv/tot_meur:.1f}%)")
+print(f"  Pharma     : {bp_pharm:.0f} MEUR ({100*bp_pharm/tot_meur:.1f}%)")
+print(f"  Appliances : {bp_appl:.0f} MEUR ({100*bp_appl/tot_meur:.1f}%)")
+
+# Verify sector indices used in createBackground()
+inds = bg['label']['industry'].reset_index(drop=True)
+print("\n[DIAG] Sector name checks for hardcoded indices (should match EXIOBASE v3.7):")
+for idx in [62, 89, 137]:
+    if 0 <= idx < len(inds):
+        print(f"  idx {idx:>3}: {inds.loc[idx, 'Name']}")
+    else:
+        print(f"  idx {idx:>3}: OUT OF RANGE")
+
+# Contribution share for 'Pharmaceuticals and chemical products' (GWP)
+
+print("[CHECK] Healthcare services expenditure (MEUR):", bp_HCserv)
+print("[CHECK] Total scaled intermediate inputs (MEUR):", Ystim[:,0].sum())
+print("[CHECK] Implied intermediate share (%):", 100 * Ystim[:,0].sum() / bp_HCserv)
+
+
+
+k_health = 137
+x_tot = bg['L'] @ bg['Ystim'][:, 0]
+print(x_tot[k_DK*ns + k_health])
+
+
+print("\n[DIAG] Top 15 intermediate-use sectors for DK healthcare (scaled):")
+Ystim_df = pd.DataFrame(bg['Ystim'][:, 0], index=pd.MultiIndex.from_product(
+    [bg['label']['region']['ISO3'], bg['label']['industry']['Name']]), columns=['MEUR'])
+dk_block = Ystim_df.loc['DNK']
+print(dk_block.sort_values('MEUR', ascending=False).head(15))
+
+x_tot = bg['L'] @ bg['Ystim'][:, 0]
+x_diag = np.diag(x_tot.astype(float))
+Z_diag = bg['A'] @ x_diag  # shape: (ns*nr, ns*nr)
+ns_ = bg['label']['industry'].shape[0]
+nr = bg['label']['region'].shape[0]
+names_ = list(bg['label']['industry']['Name'])
+
+
+assert Z_diag.shape == (ns_ * nr, ns_ * nr)
+assert len(names_) == ns_
+
+
+# Slice DK and NL blocks (163 rows each)
+
+if 'k_NL' not in globals():
+    k_NL = list(bg['label']['region']['ISO3']).index('NLD')
+
+start_DK, end_DK = k_DK*ns_, (k_DK+1)*ns_
+start_NL, end_NL = k_NL*ns_, (k_NL+1)*ns_
+
+col_DK = pd.Series(Z_diag[start_DK:end_DK, k_DK*ns_ + 137], index=names_, name='DK_HSW_Z')
+col_NL = pd.Series(Z_diag[start_NL:end_NL, k_NL*ns_ + 137], index=names_, name='NL_HSW_Z')
+
+# Compare DK vs NL 'Health & social work' columns (index 137 checked above)
+ns_ = bg['label']['industry'].shape[0]
+names_ = list(bg['label']['industry']['Name'])
+k_DK = 6
+k_NL = list(bg['label']['region']['ISO3']).index('NLD')
+
+
+j_DK = k_DK * ns_ + 137
+j_NL = k_NL * ns_ + 137
+
+start_DK, end_DK = k_DK * ns_, (k_DK + 1) * ns_
+start_NL, end_NL = k_NL * ns_, (k_NL + 1) * ns_
+
+col_DK = pd.Series(
+    Z_diag[start_DK:end_DK, j_DK],
+    index=names_,
+    name='DK_HSW_Z'
+)
+
+col_NL = pd.Series(
+    Z_diag[start_NL:end_NL, j_NL],
+    index=names_,
+    name='NL_HSW_Z'
+)
+
+col_DK_global = pd.Series(
+    Z_diag[:, j_DK].reshape(nr, ns_).sum(axis=0),
+    index=names_,
+    name='Global_to_DK_HSW_Z'
+)
+
+
+print("\n[DIAG] DK Health&SocialWork column (Z) top-12 by MEUR:")
+print(col_DK.sort_values(ascending=False).head(12))
+
+
+# Diagnostic: group-level intensity (kt CO2e per MEUR) for MRIO
+g_int = (mult_aggsec[['Global warming (ktCO2eq)/MEUR']]
+         .rename(columns={'Global warming (ktCO2eq)/MEUR':'ktCO2e_per_MEUR'}))
+print("\n[DIAG] Group intensities (kt CO2e/MEUR), top 10:")
+print(g_int.sort_values('ktCO2e_per_MEUR', ascending=False).head(10))
+
+# === EXTRA: Resolve pharma/chemical group intensity robustly, and print Chemicals nec sector intensity ===
+def _norm_label(s: str) -> str:
+    return (str(s).strip().lower().replace('&', 'and').replace('  ', ' '))
+
+gwp_int_col = 'Global warming (ktCO2eq)/MEUR'
+
+# 1) Pharma/chemical aggregated group intensity (robust lookup in mult_aggsec)
+_mult_aggsec_norm = mult_aggsec.copy()
+_mult_aggsec_norm.index = pd.Index([_norm_label(ix) for ix in _mult_aggsec_norm.index], name='SAggDescription_norm')
+
+# Find candidates whose normalized label contains 'pharm' or 'chemical'
+_candidates = [ix for ix in _mult_aggsec_norm.index if ('pharm' in ix) or ('chemical' in ix)]
+if _candidates := _candidates:  # Python 3.8+ walrus-safe; falls back to simple truthy check
+    # If multiple, pick the one with highest intensity (defensive)
+    _best_key = max(_Candidates, key=lambda k: float(_mult_aggsec_norm.loc[k, gwp_int_col]))
+    # Recover pretty original label from the un-normalized index of mult_aggsec
+    # (by matching normalized strings back to the original)
+    _orig_label = None
+    for orig in mult_aggsec.index:
+        if _norm_label(orig) == _best_key:
+            _orig_label = orig
+            break
+    _pharma_int = float(_mult_aggsec_norm.loc[_best_key, gwp_int_col])
+
+    print(f"\n[DIAG] Pharma/chemical group resolved as: '{_orig_label or _best_key}'")
+    print(f"[DIAG] Intensity for pharma/chemical group: {_pharma_int:.3f} kt CO2e/MEUR")
+else:
+    print("\n[DIAG] Pharma/chemical group intensity: not found (check aggregation labels).")
+
+# 2) Chemicals nec sector intensity (single EXIOBASE sector from mult_allsec)
+_mult_allsec_norm = mult_allsec.copy()
+_mult_allsec_norm.index = pd.Index([_norm_label(ix) for ix in _mult_allsec_norm.index], name='SecName_norm')
+
+if 'chemicals nec' in _mult_allsec_norm.index:
+    _chemnec_int = float(_mult_allsec_norm.loc['chemicals nec', gwp_int_col])
+    # Recover pretty original sector name for the printout
+    _chemnec_pretty = None
+    for orig in mult_allsec.index:
+        if _norm_label(orig) == 'chemicals nec':
+            _chemnec_pretty = orig
+            break
+    print(f"[DIAG] Intensity for '{_chemnec_pretty or 'Chemicals nec'}': {_chemnec_int:.3f} kt CO2e/MEUR")
+else:
+    print("[DIAG] 'Chemicals nec' sector not found in mult_allsec (check sector naming).")
+
+# (Optional) If you want a big “top N” by group intensity to spot where pharma/chem lands:
+N = 100
+print(f"\n[DIAG] Group intensities (kt CO2e/MEUR), top {N}:")
+print(g_int.sort_values('ktCO2e_per_MEUR', ascending=False).head(N))
+
+
+
+# Diagnostic: transport emissions by region
+
+transport_mask = sector_names_full.str.contains('Transport', case=False, na=False)
+transport_emissions_by_region = pd.Series(0.0, index=list(bg['label']['region']['ISO3']))
+
+for r in range(nr):
+    start, end = r * ns_, (r + 1) * ns_
+    sel = np.array(transport_mask[start:end])
+    if sel.any():
+        transport_emissions_by_region.iloc[r] = float(
+            B[0, start:end][sel] @ x_tot[start:end][sel]
+        )
+
+print("\n[DIAG] Transport emissions by region (kt CO2eq):")
+print(transport_emissions_by_region.sort_values(ascending=False))
+
+
+# === PATCH: Robust resolution of the pharma/chemical aggregated group ===
+def _norm_label(x: str) -> str:
+    return (str(x)
+            .strip()
+            .lower()
+            .replace('&', 'and')
+            .replace('  ', ' '))
+
+gwp_col = 'Global warming (ktCO2eq)'
+
+# Build a normalized index copy for robust lookup, preserving original labels
+_df_c_aggsec_norm = df_c_aggsec.copy()
+_df_c_aggsec_norm.index = pd.Index([_norm_label(s) for s in df_c_aggsec.index], name='SAggDescription_norm')
+
+# Candidates whose normalized label contains 'pharm' or 'chemical'
+_candidates = [k for k in _df_c_aggsec_norm.index if ('pharm' in k) or ('chemical' in k)]
+
+if _candidates:
+    # Pick the candidate with the largest GWP (most representative if multiple exist)
+    _best_key = max(_candidates, key=lambda k: float(_df_c_aggsec_norm.loc[k, gwp_col]))
+    # Recover the original human-readable label that corresponds to the normalized key
+    _orig_label = df_c_aggsec.index[_df_c_aggsec_norm.index.get_loc(_best_key)]
+    _share = 100.0 * float(_df_c_aggsec_norm.loc[_best_key, gwp_col]) / float(df_c_aggsec[gwp_col].sum())
+
+    print(f"\n[DIAG] Pharma/chemical group resolved as: '{_orig_label}'")
+    print(f"[DIAG] GWP share for '{_orig_label}': {_share:.1f}%")
+
+
+
+# Optional: confirm that 'Chemicals nec' appears in the pharma/chem breakdown
+inds_chk = bg['label']['industry'].reset_index(drop=True)
+print("\n[DIAG] Sector @ index 62:", inds_chk.loc[62, 'Name'] if 62 < len(inds_chk) else 'index 62 out of range')
+
+
+# === Audit: what goes into DK 'Other land transport' (inputs per euro of output)?
+# Find DK region index and the local sector index for 'Other land transport'
+k_DK = list(bg['label']['region']['ISO3']).index('DNK')
+ns_  = int(bg['label']['industry'].shape[0])
+nr   = int(bg['label']['region'].shape[0])
+
+sector_names = list(bg['label']['industry']['Name'])
+sector_names_full = pd.Series(sector_names * nr)  # (ns*nr,)
+
+# Robust find of the sector position within a region
+def _find_pos_in_region(names_series, region_idx, ns, pattern_regex):
+    start, end = region_idx*ns, (region_idx+1)*ns
+    sub = names_series.iloc[start:end]
+    hit = sub[sub.str.contains(pattern_regex, case=False, regex=True, na=False)]
+    if hit.empty:
+        return None
+    return hit.index[0]
+
+# Try typical EXIOBASE label 'Other land transport'
+j_local = _find_pos_in_region(sector_names_full, k_DK, ns_, r"\bother\s+land\s+transport\b")
+if j_local is None:
+    raise ValueError("Could not find 'Other land transport' in DK block; check sector names.")
+j_DK_OLT = j_local  # absolute index in (ns*nr,)
+
+# Column of A for DK 'Other land transport' (input coefficients per euro output)
+A_col = bg['A'][:, j_DK_OLT]  # shape (ns*nr,)
+
+# (a) DK-only suppliers to DK OLT (length 163)
+start_DK, end_DK = k_DK*ns_, (k_DK+1)*ns_
+inputs_DK_only = pd.Series(A_col[start_DK:end_DK], index=sector_names, name='coeff_per_euro')
+print("\n[DIAG] Inputs to DK Other land transport (DK suppliers only), top 20 by coefficient:")
+print(inputs_DK_only.sort_values(ascending=False).head(20))
+
+# (b) Global-by-sector suppliers to DK OLT (sum across 49 regions into 163 sectors)
+inputs_global_by_sector = pd.Series(A_col.reshape(nr, ns_).sum(axis=0), index=sector_names, name='coeff_per_euro')
+print("\n[DIAG] Inputs to DK Other land transport (GLOBAL, aggregated by sector), top 20:")
+print(inputs_global_by_sector.sort_values(ascending=False).head(20))

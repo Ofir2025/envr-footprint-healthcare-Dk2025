@@ -313,7 +313,7 @@ mrio = {'Y': Y, 'A': A, 'V': V, 'R': R, 'H': H, 'Q': Q, 'label': label}
 #############################################
 # save to pickle
 
-mrio_str = 'exio2025' + year + '.pkl'  
+mrio_str = 'exio' + year + '.pkl'  
 pkl_out = open(mrio_dir + mrio_str,"wb")
 pkl.dump(mrio, pkl_out)
 pkl_out.close()

@@ -149,19 +149,19 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     tstart = time.time()
 
     # Load waste
-    mrio_str = 'waste2025.pkl'  
+    mrio_str = 'waste.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     waste = pkl.load(pkl_in)
     pkl_in.close()
 
     # Load Leontief inverse
-    mrio_str = 'leontief2025'+ year +'.pkl'  
+    mrio_str = 'leontief'+ year +'.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     L = pkl.load(pkl_in)
     pkl_in.close()
 
     # Load rest of the system
-    mrio_str = 'mrio2025'+ year +'.pkl'  
+    mrio_str = 'mrio'+ year +'.pkl'  
     pkl_in = open(mrio_dir + mrio_str,"rb")
     mrio = pkl.load(pkl_in)
     pkl_in.close()

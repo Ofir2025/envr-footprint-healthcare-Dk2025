@@ -1,0 +1,11 @@
+Component,kt_CO2eq
+Scope 1 (MRIO only),1.3272451650774015
+  + Anaesthetic (bottom-up),9.514
+  + pMDI (bottom-up),34.605
+Scope 1 (Total),45.4462451650774
+Scope 2 (MRIO),447.23592164675154
+Scope 3 (MRIO only),3633.8814009858083
+  + Commute (bottom-up),311.9459
+  + Visitor (bottom-up),228.0941
+Scope 3 (Total),4173.921400985809
+Grand Total,4666.603567797638
