@@ -28,7 +28,11 @@ def calculate_healthcare_totals(file_path):
         ("Marketed individual government consumption (Transaction code 3141)", "Out-patient services", "06200"),
         ("Non-market individual government consumption (Transaction code 3142)", "Out-patient services", "06200"),
         ("Household consumption (Transaction code 3110)", "Hospital services", "06300"),
-        ("Non-market individual government consumption (Transaction code 3142)", "Hospital services", "06300")
+        ("Non-market individual government consumption (Transaction code 3142)", "Hospital services", "06300"),
+        ("Household consumption (Transaction code 3110)", "Retirement homes, day-care centres etc.", "12401"),
+        ("NPISH (Transaction code 3130)", "Retirement homes, day-care centres etc.", "12401"),
+        ("Marketed individual government consumption (Transaction code 3141)", "Retirement homes, day-care centres etc. ", "12401"),
+        ("Non-market individual government consumption (Transaction code 3142)", "Retirement homes, day-care centres etc. ", "12401")
     ]
 
     # Sum values for each category
