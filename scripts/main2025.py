@@ -86,7 +86,7 @@ year = '2016'
 
 ## Adding extrafunctions from Extrafunctions.py to calculate 3 new expenditure vectors
 from Extrafunctions import calculate_healthcare_totals
-hc51, hc52, healthcare_services = calculate_healthcare_totals("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/DK UMAT 2019.xlsx")
+hc51, hc52, healthcare_services = calculate_healthcare_totals("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/data/DK Umat 2019.xlsx")
 
 print("HC.51:", hc51)
 print("HC.52:", hc52)
@@ -1095,7 +1095,7 @@ _mult_aggsec_norm.index = pd.Index([_norm_label(ix) for ix in _mult_aggsec_norm.
 _candidates = [ix for ix in _mult_aggsec_norm.index if ('pharm' in ix) or ('chemical' in ix)]
 if _candidates := _candidates:  # Python 3.8+ walrus-safe; falls back to simple truthy check
     # If multiple, pick the one with highest intensity (defensive)
-    _best_key = max(_Candidates, key=lambda k: float(_mult_aggsec_norm.loc[k, gwp_int_col]))
+    _best_key = max(_candidates, key=lambda k: float(_mult_aggsec_norm.loc[k, gwp_int_col]))
     # Recover pretty original label from the un-normalized index of mult_aggsec
     # (by matching normalized strings back to the original)
     _orig_label = None
