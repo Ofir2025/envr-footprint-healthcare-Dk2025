@@ -25,6 +25,8 @@ import sys
 import matplotlib.pyplot as plt
 from functions2025 import *  # see 2C if this does not work
 from matplotlib.backends.backend_pdf import PdfPages # Added this to save multiple plots in one pdf
+import warnings
+warnings.filterwarnings('ignore', category=FutureWarning)
 
 # These options determine the way floating point numbers, arrays and other NumPy objects are displayed.
 np.set_printoptions(precision=2) 
@@ -1126,10 +1128,6 @@ if 'chemicals nec' in _mult_allsec_norm.index:
 else:
     print("[DIAG] 'Chemicals nec' sector not found in mult_allsec (check sector naming).")
 
-# (Optional) If you want a big “top N” by group intensity to spot where pharma/chem lands:
-N = 100
-print(f"\n[DIAG] Group intensities (kt CO2e/MEUR), top {N}:")
-print(g_int.sort_values('ktCO2e_per_MEUR', ascending=False).head(N))
 
 
 
