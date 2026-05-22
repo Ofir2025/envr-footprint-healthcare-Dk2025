@@ -854,10 +854,6 @@ print("\n[CHECK] DK_data_2025 DirectEm (kt CO2e) for HC service:",
       cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service'])
 
 
-
-
-
-
 # 7G) plot figures (figures in manuscript are composed in MS Excel)
 # Figure 1
 fig_1 = pd.merge(df_c_aggsec.reset_index(), sec_labels[['SAggDescription','SAggCode']].drop_duplicates(), on = 'SAggDescription', how = 'left')
@@ -888,6 +884,56 @@ fig_2 = fig_2.groupby('Hotspot')[cols_impcat].sum()
 
 # Figure 3
 fig_3 = df_h_all.groupby(['Region'])[cols_impcat].sum()
+
+
+# ===============================
+# EXPORT FULL RESULTS (ABS + %)
+# ===============================
+
+def create_relative(df):
+    return df.apply(lambda col: 100 * col / col.sum(), axis=0)
+
+# --- Absolute tables (raw results behind figures)
+fig1_abs = fig_1.copy()
+fig2_abs = fig_2.copy()
+fig3_abs = fig_3.copy()
+
+# --- Relative tables (percentage shares)
+fig1_rel = create_relative(fig1_abs)
+fig2_rel = create_relative(fig2_abs)
+fig3_rel = create_relative(fig3_abs)
+
+# ===============================
+# SAVE CLEAN RESULT TABLES
+# ===============================
+
+writer = pd.ExcelWriter("FullResults_Tables.xlsx", engine="xlsxwriter")
+
+# --- Contribution analysis (Figure 1)
+fig1_abs.to_excel(writer, sheet_name="Fig1_absolute")
+fig1_rel.to_excel(writer, sheet_name="Fig1_relative_%")
+
+# --- Hotspot analysis (Figure 2)
+fig2_abs.to_excel(writer, sheet_name="Fig2_absolute")
+fig2_rel.to_excel(writer, sheet_name="Fig2_relative_%")
+
+# --- Regional analysis (Figure 3)
+fig3_abs.to_excel(writer, sheet_name="Fig3_absolute")
+fig3_rel.to_excel(writer, sheet_name="Fig3_relative_%")
+
+writer.close()
+
+print("✅ Full result tables exported: FullResults_Tables.xlsx")
+
+# ===============================
+# OPTIONAL: EXPORT FULL RAW DATA (HIGH RESOLUTION)
+# ===============================
+
+df_c_all.to_excel("Contribution_full_detail.xlsx")
+df_h_all.to_excel("Hotspot_full_detail.xlsx")
+
+print("✅ Raw tables exported for full traceability")
+
 
 # Plot and save figures
 pdf_path = 'AllFigures.pdf'
