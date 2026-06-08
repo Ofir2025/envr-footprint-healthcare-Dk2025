@@ -853,6 +853,7 @@ print(f"Scopes summary written → {scopes_csv}")
 print("\n[CHECK] DK_data_2025 DirectEm (kt CO2e) for HC service:",
       cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service'])
 
+print(f"\n[DIAG] Share of Scope 1 from MRIO: {scope1_mrio / scope1_total * 100:.1f}%")
 
 # 7G) plot figures (figures in manuscript are composed in MS Excel)
 # Figure 1
@@ -1265,3 +1266,87 @@ print(inputs_DK_only.sort_values(ascending=False).head(20))
 inputs_global_by_sector = pd.Series(A_col.reshape(nr, ns_).sum(axis=0), index=sector_names, name='coeff_per_euro')
 print("\n[DIAG] Inputs to DK Other land transport (GLOBAL, aggregated by sector), top 20:")
 print(inputs_global_by_sector.sort_values(ascending=False).head(20))
+
+# The following is a chunk of code that will produce an excel sheet with all the results for a table in the article
+
+
+# ============================================================
+# STEENMEIJER-STYLE TABLE EXPORT (FULLY SELF-CONTAINED)
+# ============================================================
+
+import pandas as pd
+import os
+
+# --- Rename columns to match paper terminology ---
+t1_formatted = t1.rename(columns={
+    'Expenditure (MEUR)': 'Basic price expenditure (million euros)',
+    'Global warming (ktCO2eq)': 'Climate change (kt CO2eq)',
+    'Material extraction (kt)': 'Material extraction (kt)',
+    'Blue water consumption (Mm3)': 'Blue water consumption (Mm3)',
+    'Land use (km2)': 'Land use (km2)',
+    'Waste generation (kt)': 'Waste generation (kt)'
+})
+
+# --- Convert everything to numeric (safe) ---
+for col in t1_formatted.columns:
+    t1_formatted[col] = pd.to_numeric(t1_formatted[col], errors='coerce')
+
+# --- Totals row (used for percentages) ---
+totals = t1_formatted.iloc[0]
+
+# --- Formatting function (THIS is where your error came from before) ---
+def format_val(val, total):
+    if pd.isna(val):
+        return "NA"
+    if total == 0 or pd.isna(total):
+        return f"{val:,.0f} (0.0%)"
+    
+    pct = 100 * val / total
+
+    # Handle very small values like in paper
+    if pct < 0.1:
+        return f"{val:,.0f} (<0.1%)".replace('.', '·')
+    
+    return f"{val:,.0f} ({pct:.1f}%)".replace('.', '·')
+
+# --- Apply formatting ---
+t1_display = t1_formatted.copy()
+
+for col in t1_formatted.columns:
+    for i in range(len(t1_formatted)):
+        t1_display.iloc[i, t1_display.columns.get_loc(col)] = format_val(
+            t1_formatted.iloc[i][col],
+            totals[col]
+        )
+
+# --- Add grouping column (like paper) ---
+t1_display.insert(0, "Category group", [
+    "Total",
+    "Top-down",
+    "Top-down",
+    "Top-down",
+    "Bottom-up",
+    "Bottom-up",
+    "Bottom-up"
+])
+
+# --- (Optional) Rename index to cleaner labels ---
+t1_display.index = [
+    "Total",
+    "Health-care services",
+    "Pharmaceuticals and chemical products",
+    "Medical appliances",
+    "Release of anaesthetic gases",
+    "Release of pMDI propellants",
+    "Private travel"
+]
+
+# --- Export to Excel ---
+output_path = os.path.join(output_dir, "Steenmeijer_Table.xlsx")
+
+with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
+    t1_display.to_excel(writer, sheet_name='Table')
+
+print(f"✅ Steenmeijer-style table exported to: {output_path}")
+
+
