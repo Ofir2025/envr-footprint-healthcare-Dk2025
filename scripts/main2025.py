@@ -623,7 +623,7 @@ writer.close()
 
 # Hotspot analysis (underlying data for Figure 2, 3 and Table S7, S8)
 df_h_all = df_h[0][['ISO3','RegName', 'Region', 'SecTxtCode', 'SecName', 'SAggDescription', 'Scope'] + cols_impcat]
-df_h_all.loc[df_h_all['ISO3']=='GLO', ['RegName', 'Region']] = 'Global'
+df_h_all.loc[df_h_all['ISO3']=='GLO', ['RegName', 'Region']] = 'Unallocated'
 
 df_h_aggsec = df_h_all.groupby(['Scope','SAggDescription'])[cols_impcat].sum()
 df_h_aggsec_aggreg = df_h_all.groupby(['Scope', 'RegName','SAggDescription'])[cols_impcat].sum()
