@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
 """
 Script for:
-The environmental footprint of the Dutch healthcare sector: beyond environmental impact (in press)
+'The environmental impacts of the Danish health care system: supply-chain origins and geographical displacement of impacts' 
+Eriksen et al.
+
+Based on: 'The environmental footprint of the Dutch healthcare sector: beyond environmental impact'
 Steenmeijer MA, Rodrigues JFD, Zijp MC, Waaijers-van der Loop SL
 The Lancet Planetary Health
 
 Tasks main.py:
     
     1. Prepare paths
-    2. Load data from background EE-IOA objects and Statistics NL
+    2. Load data from background EE-IOA objects and Statistics NL / Or with input from another country
     3. Prepare labels and classifications
     4. Perform EE-IOA calculation
     5. Adding direct impacts and other healthcare specific impacts
     6. Compile final results
     7. Process results for output files
+    8. Diagnostics
 
 @authors: Michelle A. Steenmeijer & Joao F. D. Rodrigues
+@Editor: Ofir Eriksen
+
 """
 import pandas as pd
 import numpy as np
@@ -28,7 +34,7 @@ from matplotlib.backends.backend_pdf import PdfPages # Added this to save multip
 import warnings
 warnings.filterwarnings('ignore', category=FutureWarning)
 
-# These options determine the way floating point numbers, arrays and other NumPy objects are displayed.
+# This option determines the way floating point numbers, arrays and other NumPy objects are displayed.
 np.set_printoptions(precision=2) 
 
 ##############################################
@@ -74,19 +80,20 @@ if not os.path.exists(output_dir):
 #os.chdir(mainpath)
 
 
-
 ##############################################
 # 2) Retrieve data
 ##############################################
 
 ## This section has been changed radically. Old code can still be found further down
-## The code adds a switch to change between country specific data (NL /DK)
+## The code adds a switch to change between country specific data (DK / NL)
  
 # Choose mode
 mode = "Danish"  # or "Dutch"
-year = '2016'
+year = '2016'    # Year is only relevant for retrieving CBS data for NL
 
 ## Adding extrafunctions from Extrafunctions.py to calculate 3 new expenditure vectors
+## This is where another country can be added, if the data is available in a similar format as the Danish data
+
 from Extrafunctions import calculate_healthcare_totals
 hc51, hc52, healthcare_services = calculate_healthcare_totals("C:/Users/ofe/Desktop/envr-footprint-healthcare2025/data/DK Umat 2019.xlsx")
 
@@ -101,7 +108,9 @@ else:
         
       
 # === UMAT (kDKK) → MEUR and overwrite data/DK_data_2025.csv; set Conversion=1.0 ===
+    #Conversion relates to the conversion from basic price to purchaser price, which is already done in the UMAT data
     # MEUR = kDKK / 7,450  (1000 DKK per kDKK; ~7.45 DKK/EUR; /1e6 to get MEUR)
+
     KDKK_TO_MEUR = 1.0 / 7450.0
     hc51_meur = float(hc51) * KDKK_TO_MEUR            # Pharm (HC.51)
     hc52_meur = float(hc52) * KDKK_TO_MEUR            # MedAppl (HC.52)
@@ -146,13 +155,14 @@ else:
 
 
 
-# The following 3 lines of code were "#'ed" firstly because it doesn't work, secondly because it is country specific data
+# The following 3 lines of code were commented out, firstly because it stopped working (maybe CBS changed something in their APIs),
+# secondly because it was not needed anymore, since the data is now retrieved from the UMAT file
 # 2A) Retrieve CBS data for 2016. If not needed to update, uncomment and only run next line
 #cbs_data = get_cbsdata(data_dir)  # Retrieve most up to date CBS data, can comment out after the first time
 #cbs_data = pd.read_csv('cbs_data_2016.tsv', sep = '\t', index_col = [0, 1])  # Retrieve earlier compiled CBS data
 
-#The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Dk_data_2025"
 
+#The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Dk_data_2025"
 
 cbs_data = pd.read_csv(os.path.join(data_dir, 'DK_data_2025.csv'), index_col=['Index', 'Unit'])
 print("Expenditure data loaded from DK SUT CSV (MEUR).")
@@ -205,7 +215,7 @@ df_labels = {'sectxtcode' : list(bg['label']['industry'].reset_index()['CodeTxt'
              }
 
 
-# 3B) Labels impact categories > selection be changed in background file
+# 3B) Labels impact categories > selection can be changed in background file
 char_labels = []
 for k in range(len(bg['label']['characterization'])):
     chts = str(bg['label']['characterization']['Name'][k]) + ' (' + str(bg['label']['characterization']['Unit'][k]) + ')'
@@ -239,6 +249,7 @@ array_hotspot = calc_hotspot(bg['B'], bg['L'], bg['Ystim'])
 df_contrib = df_fromarray(array_contrib, char_labels, multiindex, cols_impcat)
 df_hotspot = df_fromarray(array_hotspot, char_labels, multiindex, cols_impcat)
 
+#Definition of the 4 dataframes
 # df_contrib and df_hotspot are lists of 4 dataframes:
 # df_contrib[0]/df_hotspot[0] = result for the total expenditure vector (Healthcare Services + Pharmaceuticals and consumables + Medical durables goods)
 # df_contrib[1]/df_hotspot[1] = result for the expenditure vector for Healthcare Services
@@ -341,7 +352,7 @@ def scale_bottomup_all_to_dk(
     if backup_path:
         print(f"🗂️ Backup of previous {os.path.basename(target_path)}: {backup_path}")
 
-# ---- DK scaling constants and paths (define BEFORE calling the function) ----
+# ---- DK scaling constants and paths (These should be defined BEFORE calling the function) ----
 SCALING_DK_OVER_NL = {
     "Anaesthetic": 0.67,      # DK/NL multiplier
     "pMDI": 0.45,             # DK/NL multiplier
@@ -641,15 +652,16 @@ df_h_allsec.to_excel(writer, sheet_name='allsec')
 writer.close()
 
 # 7F) Calculate Scope 1, 2, 3 emissions for healthcare sector
+# WARNING; it seems almost all MRIO emissions are categorised as SCope 2 and 3
 
 
-# 7F) Robust Scopes (GHG Protocol) for Denmark + separate Figure 4 (Scopes_Figure.pdf)
+# 7F) Scopes (GHG Protocol) for Denmark + separate Figure 4 (Scopes_Figure.pdf)
 # -----------------------------------------------------------------------------------
 # This block:
-#   • Matches DK healthcare sectors robustly (Human health services + Residential care & social work).
-#   • Computes Scope 1/2/3 in line with GHG Protocol and the Dutch study.
-#   • Adds bottom-up (anaesthetics, pMDI → S1; commuting, visitor → S3).
-#   • Prints diagnostics (transparent + reproducible).
+#   • Matches DK healthcare sectors  (Human health services + Residential care & social work).
+#   • Computes Scope 1/2/3 in line with GHG Protocol.
+#   • Adds bottom-up (anaesthetics and pMDI → S1; commuting and visitor → S3).
+#   • Prints diagnostics.
 #   • Saves a separate bar chart figure as Scopes_Figure.pdf (and PNG).
 
 import re
@@ -671,8 +683,7 @@ N = ns * nr
 # Reconstruct the full sector-name vector for all (region, sector) positions, ordered by region blocks.
 sector_names_full = pd.Series(list(labels_ind['Name']) * nr, index=np.arange(N))
 
-# Denmark region index (already used elsewhere in your script)
-# NOTE: Earlier you set k_DK = 6 for Denmark.
+# Denmark region index 
 k_DK = 6
 start_DK, end_DK = k_DK * ns, (k_DK + 1) * ns
 dk_sector_names = sector_names_full.iloc[start_DK:end_DK]
@@ -722,7 +733,7 @@ prefer_exact_health = [
     "Human health services",
     "Residential care and social work services",
 ]
-# Fallback regex patterns if exact names differ in your build:
+# Fallback regex patterns if exact names differ :
 fallback_health_regex = [
     r"\bhuman\s+health\b",
     r"\bsocial\s+work\b",
@@ -789,7 +800,7 @@ scope2_total = scope2_mrio
 scope3_total = scope3_mrio + commute_kt + visitor_kt
 total_footprint = scope1_total + scope2_total + scope3_total
 
-# --- Prints for transparency ---
+# --- Prints for diagnostics ---
 print("\n[CHECK] MRIO total (kt CO2eq) =", round(emissions_mrio_total, 2))
 print("[CHECK] MRIO-only Scopes sum  =", round(scope1_mrio + scope2_mrio + scope3_mrio, 2))
 
@@ -821,7 +832,7 @@ for bar, val in zip(bars, scope_values):
                   f"{val:.0f}", ha='center', va='bottom', fontsize=10)
 plt.tight_layout()
 
-# Save to separate files (no timestamp, per your preference)
+# Save to separate files
 plt.savefig('fig_scope.png', dpi=300)
 fig_scope.savefig('Scopes_Figure.pdf')
 plt.close(fig_scope)
@@ -888,7 +899,7 @@ fig_3 = df_h_all.groupby(['Region'])[cols_impcat].sum()
 
 
 # ===============================
-# EXPORT FULL RESULTS (ABS + %)
+# EXPORT FULL RESULTS (Absolute values and percentages)
 # ===============================
 
 def create_relative(df):
@@ -957,10 +968,13 @@ with PdfPages(pdf_path) as pdf:
 
 print(f"All figures saved to {pdf_path}")
 
+##############################################
+# 8)  Diagnostics and additional checks
+##############################################
 
 
-
-# === Figure 5: Total contribution (MRIO + bottom-up), grouped like Figure 1 ===
+# === Figure 5: (Diagnostics) Total contribution (MRIO + bottom-up), grouped like Figure 1,
+# to double check that bottom up was included in the original script ===
 # Start from MRIO aggregated contributions (fig_1 input, pre-group)
 fig5_in = pd.merge(df_c_aggsec.reset_index(),
                    sec_labels[['SAggDescription','SAggCode']].drop_duplicates(),
@@ -1176,8 +1190,6 @@ else:
     print("[DIAG] 'Chemicals nec' sector not found in mult_allsec (check sector naming).")
 
 
-
-
 # Diagnostic: transport emissions by region
 
 transport_mask = sector_names_full.str.contains('Transport', case=False, na=False)
@@ -1271,13 +1283,10 @@ print(inputs_global_by_sector.sort_values(ascending=False).head(20))
 
 
 # ============================================================
-# STEENMEIJER-STYLE TABLE EXPORT (FULLY SELF-CONTAINED)
+# STEENMEIJER-STYLE TABLE EXPORT 
 # ============================================================
 
-import pandas as pd
-import os
-
-# --- Rename columns to match paper terminology ---
+# --- Rename columns to match terminology ---
 t1_formatted = t1.rename(columns={
     'Expenditure (MEUR)': 'Basic price expenditure (million euros)',
     'Global warming (ktCO2eq)': 'Climate change (kt CO2eq)',
@@ -1294,7 +1303,7 @@ for col in t1_formatted.columns:
 # --- Totals row (used for percentages) ---
 totals = t1_formatted.iloc[0]
 
-# --- Formatting function (THIS is where your error came from before) ---
+# --- Formatting function  ---
 def format_val(val, total):
     if pd.isna(val):
         return "NA"
