@@ -833,7 +833,7 @@ for bar, val in zip(bars, scope_values):
 plt.tight_layout()
 
 # Save to separate files
-plt.savefig('fig_scope.png', dpi=300)
+plt.savefig('fig_scope.png', dpi=600)
 fig_scope.savefig('Scopes_Figure.pdf')
 plt.close(fig_scope)
 
@@ -872,11 +872,13 @@ fig_1 = pd.merge(df_c_aggsec.reset_index(), sec_labels[['SAggDescription','SAggC
 fig_1 = pd.merge(fig_1, fig_labels, on = 'SAggCode', how = 'left')
 
 # Disaggregate Transport from 'Other'
-fig_1['Contribution'] = fig_1['Contribution'].fillna('Other')
+fig_1['Contribution'] = fig_1['Contribution'].fillna('Unallocated')
+fig_1.loc[fig_1['Contribution'] == 'Other', 'Contribution'] = 'Unallocated'
 mask_transport = fig_1['SAggDescription'].str.contains('Transport', case=False, na=False)
 fig_1.loc[mask_transport, 'Contribution'] = 'Transport'
 
 fig_1 = fig_1.groupby('Contribution')[cols_impcat].sum()
+df = df.loc[sorted(df.index, reverse=False)]
 
 # Figure 2
 fig_2 = pd.merge(df_h_aggsec.reset_index(), sec_labels[['SAggDescription','SAggCode']].drop_duplicates(), on = 'SAggDescription', how = 'left')
@@ -888,7 +890,8 @@ fig_2 = pd.merge(df_h_aggsec.reset_index(),
 fig_2 = pd.merge(fig_2, fig_labels, on='SAggCode', how='left')
 
 # Disaggregate Transport from 'Other' in hotspot
-fig_2['Hotspot'] = fig_2['Hotspot'].fillna('Other')
+fig_2['Hotspot'] = fig_2['Hotspot'].fillna('Unallocated')
+fig_2.loc[fig_2['Hotspot'] == 'Other', 'Hotspot'] = 'Unallocated'
 mask_transport = fig_2['SAggDescription'].str.contains('Transport', case=False, na=False)
 fig_2.loc[mask_transport, 'Hotspot'] = 'Transport'
 
@@ -896,7 +899,10 @@ fig_2 = fig_2.groupby('Hotspot')[cols_impcat].sum()
 
 # Figure 3
 fig_3 = df_h_all.groupby(['Region'])[cols_impcat].sum()
+fig_3 = fig_3.sort_index(ascending=False)
 
+order = [x for x in fig_3.index if x != 'Denmark'] + ['Denmark']
+fig_3 = fig_3.loc[order]
 
 # ===============================
 # EXPORT FULL RESULTS (Absolute values and percentages)
@@ -951,16 +957,16 @@ print("✅ Raw tables exported for full traceability")
 pdf_path = 'AllFigures.pdf'
 with PdfPages(pdf_path) as pdf:
     n = 1
-    for df in [fig_1, fig_2, fig_3]:
+    for df in [fig_1.sort_index(ascending=False), fig_2.sort_index(ascending=False), fig_3]:
         for col in df.columns:
             df[col] = 100 * df[col]/df[col].sum()
         ax = df.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10, 6))
-        plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+        handles, labels = ax.get_legend_handles_labels(); ax.legend(handles[::-1], labels[::-1], bbox_to_anchor=(1.05, 1.0), loc='upper left')
         plt.xlabel("Impact category")
         plt.ylabel("Share of footprint")
         plt.tight_layout()
         png_name = f'fig_{n}.png'
-        plt.savefig(png_name)
+        plt.savefig(png_name, dpi=600, bbox_inches='tight')
         pdf.savefig(ax.get_figure())
         plt.close()  # Close the figure to avoid popups and memory issues
         print(png_name)
@@ -1010,7 +1016,7 @@ plt.legend(bbox_to_anchor=(1.05,1.0), loc='upper left')
 plt.xlabel("Impact category")
 plt.ylabel("Share of total footprint")
 plt.tight_layout()
-plt.savefig('Figure5_TotalContribution.png', dpi=300)
+plt.savefig('Figure5_TotalContribution.png', dpi=600, bbox_inches='tight')
 plt.close()
 print("Figure5_TotalContribution.png")
 
