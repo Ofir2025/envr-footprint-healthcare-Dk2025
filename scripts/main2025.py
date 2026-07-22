@@ -898,7 +898,12 @@ fig_2.loc[mask_transport, 'Hotspot'] = 'Transport'
 fig_2 = fig_2.groupby('Hotspot')[cols_impcat].sum()
 
 # Figure 3
-fig_3 = df_h_all.groupby(['Region'])[cols_impcat].sum()
+# Figure 3
+
+fig3_temp = df_h_all.copy()
+fig3_temp.loc[fig3_temp['RegName'] == 'Netherlands', 'Region'] = 'Europe'
+
+fig_3 = fig3_temp.groupby(['Region'])[cols_impcat].sum()
 fig_3 = fig_3.sort_index(ascending=False)
 
 order = [x for x in fig_3.index if x != 'Denmark'] + ['Denmark']
@@ -961,6 +966,7 @@ with PdfPages(pdf_path) as pdf:
         for col in df.columns:
             df[col] = 100 * df[col]/df[col].sum()
         ax = df.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10, 6))
+        plt.xticks(rotation=45, ha='right')
         handles, labels = ax.get_legend_handles_labels(); ax.legend(handles[::-1], labels[::-1], bbox_to_anchor=(1.05, 1.0), loc='upper left')
         plt.xlabel("Impact category")
         plt.ylabel("Share of footprint")
@@ -1012,6 +1018,7 @@ fig5 = fig5_in.groupby('Contribution')[cols_impcat].sum()
 fig5_share = fig5.apply(lambda col: 100*col/col.sum(), axis=0)
 
 ax5 = fig5_share.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10,6))
+plt.xticks(rotation=45, ha='right')
 plt.legend(bbox_to_anchor=(1.05,1.0), loc='upper left')
 plt.xlabel("Impact category")
 plt.ylabel("Share of total footprint")
