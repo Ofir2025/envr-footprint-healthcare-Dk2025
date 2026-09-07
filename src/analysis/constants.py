@@ -104,11 +104,21 @@ AR6_GWP100 = {
     "SF6": 25_200.0,
 }
 
-#: EXIOBASE stressor-name fragments that identify fossil-origin methane. Any
-#: other CH4 stressor is treated as non-fossil. Listed explicitly rather than
-#: inferred, so a classification change is visible in review.
+#: EXIOBASE stressor-name fragments that take the AR6 **fossil** methane factor
+#: of 29.8. These are all FUGITIVE emissions: methane that escapes unburned from
+#: gas and oil extraction, coal mining and refining.
+#:
+#: Combustion methane is deliberately NOT here. AR6's fossil factor is higher
+#: than the non-fossil one because fossil methane oxidises to fossil CO2
+#: (chapter 7: "methane from fossil fuel sources has slightly higher emissions
+#: metric values than that from non-fossil sources"). For fuel combustion that
+#: CO2 is already in the inventory, since combustion CO2 is derived from the
+#: carbon content of the fuel, so applying 29.8 there would count the same
+#: carbon twice. AR6 WG3 Annex II accordingly assigns 27.0 to fossil-combustion
+#: methane. The distinction is worth only 1.55 kt on the Danish health-care
+#: footprint (0.04 %), because EXIOBASE's combustion methane is small next to
+#: its fugitive methane - it is applied for correctness, not for magnitude.
 CH4_FOSSIL_MARKERS = (
-    "combustion",
     "Extraction/production of (natural) gas",
     "Extraction/production of crude oil",
     "Mining of antracite",

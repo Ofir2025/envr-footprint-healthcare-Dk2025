@@ -66,6 +66,13 @@ APPROACHES = {
         script="analysis.gwp_vintage",
         equations="f = sum_g m_g GWP100_g(vintage) + fixed CO2eq stressors",
         inputs="raw stressor masses by species; IPCC GWP100 by assessment report"),
+    "16_impact_world_plus": dict(
+        approach="IMPACT World+ v2.2.1, 38 live categories with DALY endpoints",
+        reference="Bulle et al. 2019 (Int J LCA 24:1653); CIRAIG matrix for EXIOBASE "
+                  "3.8.2, DOI 10.5281/zenodo.18892673, CC-BY-SA-4.0",
+        script="analysis.impact_world_plus",
+        equations="impact = C_IW+ (R xhat^-1 L y); column alignment asserted at load",
+        inputs="raw stressor matrix; IMPACT World+ 57 x 1113 expert matrix"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",

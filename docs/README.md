@@ -58,6 +58,7 @@ then any analysis module, then `python -m analysis.build_manifest`.
 | `HC_BACKGROUND_TAG` | *(empty)* | Model variant; `_snacship` selects the Danish sea-transport reallocation |
 | `HC_SCOPE` | `health_eldercare` | `health_only`, `health_eldercare` or `zorg_en_welzijn` (adds childcare) |
 | `HC_WASTE_FRACTIONS` | `statistical` | `all` restores the unfiltered 19-fraction waste sum |
+| `HC_GWP_VINTAGE` | `AR6` | `AR4` reproduces the workbook's supplied climate factors |
 
 Background year and model provenance are defined **once**, in
 `analysis.constants`, so no module can pair one vintage's data with another's
@@ -79,6 +80,11 @@ label.
 | `09_vintage_diagnostics` | EXIOBASE vintages against Danish national accounts | this study |
 | `10_snac_shipping_correction` | The Danish sea-transport reallocation and its diagnostics | Rørmose Jensen & Iliev 2022 |
 | `11_capital_gfcf` | Capital excluded / exogenous / endogenised | Södersten et al. 2018 |
+| `12_impact_categories_full` | All 99 usable DESIRE categories, with a quality screen | DESIRE FP7; ILCD |
+| `13_steenmeijer_replication` | The Dutch template table, side by side | Steenmeijer et al. 2022 |
+| `14_eckelman_replication` | Nine-category frame and DALYs | Eckelman & Sherman 2016 |
+| `15_gwp_vintage` | Climate vintage sensitivity, SAR to AR6 | IPCC AR6 table 7.15 |
+| `16_impact_world_plus` | 38 current categories incl. water scarcity and DALYs | IMPACT World+ v2.2.1 |
 
 Every file in every folder has a row in `MANIFEST_lineage.csv` giving its
 approach, script, equations, inputs, published reference and a content hash.
@@ -118,6 +124,10 @@ Stated plainly so nobody has to infer it:
 - **No clinical-waste resolution outside Denmark.** The imported waste tier rests
   on a 2011 hybrid extension; roughly a third of it sits in rest-of-world
   aggregates where no national statistic can apply.
+- **No stratospheric ozone depletion.** EXIOBASE carries no CFC, halon or HCFC
+  stressor, so the category cannot be computed at all. The shipped DESIRE
+  workbook appears to supply one only because its ozone-depletion row
+  characterises NMVOC, which is the wrong pollutant class.
 - **No physical energy accounting.** Scope 2 is inferred from monetary spend,
   which understates physical consumption in a price-spike year such as 2022.
 - **No claim that the national total matches the official one.** It is 22 % above
