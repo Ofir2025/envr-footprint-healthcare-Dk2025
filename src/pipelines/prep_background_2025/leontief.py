@@ -23,7 +23,7 @@ from paths import MRIO_DIR
 np.set_printoptions(precision=2)
 
 tstart = time.time()
-year = '2016'
+year = os.environ.get('HC_BACKGROUND_YEAR', '2016')
 ##############################################
 ##############################################
 #TASK 1: Load Exiobase v3.7 and calibrate MRIO

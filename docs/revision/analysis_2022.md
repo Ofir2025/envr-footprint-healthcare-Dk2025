@@ -1,9 +1,26 @@
 # Denmark 2022 — primary analysis (Steenmeijer replication tier)
 
-**Model:** EXIOBASE v3.10.2 `IOT_2022_ixi` (official txt distribution, Zenodo 20051562)
+> **Model changed, 2026-09-07.** The background is now **EXIOBASE v3.8.2
+> `IOT_2022_ixi`**, with a Danish sea-transport reallocation applied. v3.10.2 was
+> withdrawn: its 2022 nowcast misallocates the Danish block (health output 2.8×
+> too low, education 4.8× too high, financial intermediation and machinery
+> near-zero) and it empties industry 33 across Europe in every year. See
+> [`exiobase_vintage_defects.md`](exiobase_vintage_defects.md). Every headline
+> number below has been regenerated; the numbers in §3 supersede all earlier
+> versions.
+
+**Model:** EXIOBASE v3.8.2 `IOT_2022_ixi` (Zenodo 5589597) with the Danish
+sea-transport reallocation of Rørmose Jensen & Iliev (2022)
 × Danish 2022 expenditure (health + eldercare) × DRIVHUS/AFFALD direct accounts ×
-Danish-primary bottom-up items. Run: `HC_ANALYSIS_YEAR=2022 python -m analysis.main_2025`
-after `python -m pipelines.prep_background_2022.build_background_2022`.
+Danish-primary bottom-up items. Run:
+
+```
+HC_BACKGROUND_YEAR=2022 python -m pipelines.prep_background_2025.load
+HC_BACKGROUND_YEAR=2022 python -m pipelines.prep_background_2025.leontief
+HC_BACKGROUND_YEAR=2022 python -m pipelines.prep_background_2025.process
+python -m analysis.dk_shipping_correction
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship python -m analysis.main_2025
+```
 
 ## 1. Inputs (all public, API-reproducible)
 
@@ -51,74 +68,69 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 
 | Indicator | Healthcare footprint | Share of national CBA footprint |
 |---|---|---|
-| Climate change | **4,864 kt CO₂e** (~0.83 t/capita) | **7.5%** (7.7% vs DST AFTRYK, 8.5% vs Eurostat FIGARO) |
-| Material extraction | 5,595 kt | 6.8% |
-| Blue water | 43.0 Mm³ | 4.9% |
-| Land use | 3,833 km² | 4.4% |
-| Waste generation | 1,482 kt | 6.3% |
+| Climate change | **4,606 kt CO₂e** (~0.78 t/capita) | **5.1 %** |
+| Material extraction | 4,234 kt | 7.9 % |
+| Blue water | 95.3 Mm³ | 7.5 % |
+| Land use | 4,854 km² | 4.9 % |
+| Waste generation | 829 kt | 3.5 % |
 
-Components (GWP): services 1,983; pharmaceuticals & chemical products 1,340;
-appliances 921; travel 606; direct 129.5; medical gases 24.3.
+**Scopes (GHG Protocol, `analysis.scopes_detail`):**
+**S1 131.3 / S2 72.7 / S3 4,159.9 / outside-protocol 242.5 kt CO₂e.**
+The partition is asserted exact and the producing-node detail reconciles.
 
-**Scopes (GHG Protocol, corrected construction — `analysis.scopes_detail`):**
-**S1 142.2 / S2 401.5 / S3 4,085.7 / outside-protocol 242.5 kt CO₂e.**
-Scope 2 uses the energy-block inverse `L_EE = (I_EE − A_EE)⁻¹` so that
-generation is reached through transmission and distribution without leaving the
-energy block; fuel extraction, refining and grid hardware stay in Scope 3, per
-the GHG Protocol (the full-`L` variant, 404.2 kt, is reported as a sensitivity).
-The health sector's self-supply loop, `s_h(L_hh − 1)E_H` = 3.2 kt, is removed
-from the MRIO part because it overlaps the national-accounts Scope 1. The
-partition is asserted exact and the producing-node detail is asserted to
-reconcile. Scope 2 at 8.2 % of the total matches Arup's independent WIOD-based
-8.3 % for Denmark almost exactly. Geography: Denmark 26.1% of GWP, Asia-Pacific
-39.5% (DST AFTRYK: 39% domestic economy-wide; Arup: 39.1%).
-Contribution groups (GWP): pharma & chemicals 33.4%, medical/electrical equipment
-19.2%, individual travel 12.4%, **transport 7.0%**. Materials: pharma group 61.9%.
+Scope 2 is 1.6 % of the total, far below Arup's 8.3 % for Denmark in 2014. The
+direction is right — the Danish grid fell from roughly 300 to 120 g CO₂/kWh
+between 2014 and 2022 — but the 2022 energy-price spike also means a given euro
+of electricity spend buys far less power, so a monetary model understates
+physical consumption that year. Both effects push the same way and neither is
+separately identified here; this is flagged as an open item rather than claimed
+as a finding.
 
-**Monte Carlo (100,000 draws, `analysis.uncertainty_2025`, rebuilt after audit).**
-All multipliers have median 1 so the MC median reproduces the deterministic model;
-structural choices (price vintage, waste vintage, pharma mapping) are discrete
-scenarios, never hidden inside a distribution. MRIO parameter uncertainty is
-included as a shared factor calibrated to Lenzen et al. (2020) SI Tab. SI 7.1
-(Danish health-care GHG 2.84 ± 0.24 Mt = 8.35 % relative SD) — the only published
-Monte Carlo of this exact quantity. Commuting and visitor travel share a method
-factor (ρ = 0.8; ρ ∈ {0, 0.5, 0.8} reported). Verified against the closed-form
-moments of the lognormal sum.
+**Contribution by producing sector group (climate):** transport 18.9 %,
+food and catering 15.6 %, coal and petroleum 14.8 %, chemicals 11.2 %,
+electricity 10.9 %, steam and hot water 7.8 %, waste management 5.5 %.
 
-| Scenario | GWP median | 95 % interval | CV |
-|---|---|---|---|
-| A — pharma as Chemicals nec | 4,897 | 4,206–5,721 | 7.9 % |
-| B — pharma-specific intensity | 3,844 | 3,206–4,741 | 10.1 % |
+**Capital boundary.** Excluded in the headline, for comparability with
+Steenmeijer, Eckelman, Lenzen and Pichler. Including it adds **13.3 %**
+(exogenous CFC, Danish national accounts) to **21.0 %** (full endogenisation).
+See [`capital_gfcf_treatment.md`](capital_gfcf_treatment.md).
 
-The CV of 7.9 % sits directly alongside Lenzen's published 8.35 % for Denmark.
-**Exact first-order variance shares:** MRIO parameters 88.7 %, visitor travel
-5.9 %, commuting 5.3 %, direct operational 0.12 %, anaesthetics 0.01 %, pMDI
-0.004 %. The bottom-up items the reviewers questioned contribute under 0.02 % of
-the variance; the uncertainty is essentially all MRIO — a more useful answer to
-the review than the tornado alone.
+## 4. The transport headline was a Danish shipping artefact
 
-**Ranking probabilities** (contribution groups, climate): under Scenario A
-pharmaceuticals & chemicals hold rank 1 in every draw; under Scenario B medical
-and electrical equipment takes rank 1 with P = 0.85 and pharma falls to P = 0.09.
-The identity of the top contributor is therefore decided by the pharma-mapping
-choice, not by parameter noise — exactly the sensitivity Reviewer 1 requested.
+The submitted manuscript reported transport at 38–43 % of the Danish healthcare
+footprint. On the uncorrected v3.8.2 2022 model that finding reproduces exactly:
+**transport 37.5 %**, with Danish sea and coastal water transport alone
+contributing 822 kt.
 
-## 4. The transport headline does not survive the vintage update
+It is an artefact, and the source is documented by Statistics Denmark. Rørmose
+Jensen & Iliev (2022, pp. 11–12) report that EXIOBASE sends **74 %** of Danish
+water-transport output to Danish *intermediate* use, against **9 %** in the
+national accounts — the Danish-operated fleet carries world trade, not Danish
+production. Measured on our own model the figure is **73.6 %**, reproducing their
+diagnosis to the decimal. EXIOBASE even has the Danish health sector itself
+buying 394 M€ of sea transport.
 
-On EXIOBASE 3.8.2-2016 (the submitted model's actual vintage), transport was 38.5–43%
-of the healthcare GWP footprint. On v3.10.2-2022, **all transport industries carry
-11.7% of the MRIO footprint** (Danish water transport 3.2%). The recipe-validation
-diagnostic (`recipe_validation_2022.csv`; EXIOBASE DK health column vs the actual DST
-117-industry health columns) shows why: EXIOBASE still overstates water transport
-(1.9% vs 0.4% of inputs), post/telecom (5.2 vs 1.3) and business services (39.1 vs
-23.2), and **understates pharmaceutical/chemical inputs two-fold (8.0 vs 14.9%)** —
-but the gross v3.8.2 misallocation of Danish shipping (Rørmose Jensen & Iliev 2022,
-pp. 11–12: 74% of water-transport output to Danish intermediate use vs 9% actual) is
-largely gone. Consequence for the manuscript: the "transport ≈ 40%" finding must be
-withdrawn/reframed as vintage-dependent; pharma & equipment dominance (52% combined)
-is the robust story, consistent with Steenmeijer's NL result and Arup's Denmark sheet
-(transport 16.6% there). The 2019-corrected (6.29 Mt on v3.8.2) and 2022 (4.88 Mt on
-v3.10.2) results **must not be read as a time trend** — the vintage change dominates.
+Applying their 9 % target (`analysis.dk_shipping_correction`; row and column
+balances preserved to 10⁻¹¹, output unchanged, released value credited to value
+added) gives:
+
+| | uncorrected | corrected |
+|---|---|---|
+| Transport share of the climate footprint | 37.5 % | **18.9 %** |
+| DK sea transport as a producing node | 822 kt | **71 kt** |
+| Healthcare climate footprint (MRIO) | 5,231 kt | **3,859 kt** |
+| Danish national CBA footprint | 85.2 Mt | **76.5 Mt** |
+
+**Consequence for the manuscript: the "transport ≈ 40 %" finding must be
+withdrawn** — not as vintage-dependent, but as a known and published
+misallocation in EXIOBASE's Danish block. Pharmaceuticals, chemicals and
+equipment remain the robust story, consistent with Steenmeijer's Dutch result.
+
+The corrected national footprint of 76.5 Mt still exceeds DST's official AFTRYK
+of 62.9 Mt by 21 %. Foreign shipping rows (RoW-Asia, Germany, RoW-Middle East)
+carry much of the remainder and cannot be corrected from Danish sources. This is
+the strongest available argument for the full Danish SNAC tier, and it is
+reported as a limitation rather than adjusted away.
 
 ## 4b. Scope-boundary sensitivity (all five indicators)
 

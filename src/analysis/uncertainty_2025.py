@@ -112,7 +112,7 @@ def load_groups():
     """Group x component decomposition, from the model's own outputs."""
     fig1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "full_results_tables.xlsx"),
                          sheet_name="Fig1_absolute", index_col=0)[INDICATORS].astype(float)
-    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "contribution_analysis.xlsx"),
+    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "contribution_analysis.xlsx"),
                             sheet_name="full")
     bu = {code: contrib[contrib["SecTxtCode"] == code][INDICATORS].astype(float).sum()
           for code in BU_TO_GROUP}

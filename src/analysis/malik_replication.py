@@ -35,7 +35,8 @@ import numpy as np
 import pandas as pd
 
 from paths import BACKGROUND_DIR, OUTPUT_DIR
-from analysis.constants import DK_BLOCK, INDICATORS, K_DK, N_SECTORS, DK_POPULATION
+from analysis.constants import (BACKGROUND_YEAR, DK_BLOCK, INDICATORS, K_DK,
+                                MODEL_LABEL, N_SECTORS, DK_POPULATION)
 
 MALIK_REFERENCE = [
     dict(study="Malik et al. 2018 (Australia, 2014-15)", indicator="climate_change",
@@ -55,7 +56,7 @@ MALIK_REFERENCE = [
 
 def main():
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    bgy = "2022" if year == "2022" else "2016"
+    bgy = BACKGROUND_YEAR  # honours HC_BACKGROUND_TAG
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{bgy}.pkl"), "rb") as fh:
         bg = pickle.load(fh)
@@ -101,7 +102,7 @@ def main():
     out_dir = os.path.join(str(OUTPUT_DIR), "07_malik_replication")
     os.makedirs(out_dir, exist_ok=True)
     meta = dict(analysis_year=year, consuming_country_iso3="DNK",
-                model=f"EXIOBASE v3.10.2 IOT_{bgy}_ixi (screened)")
+                model=MODEL_LABEL)
     for name, frame in (("malik_domestic_vs_full.csv", pd.DataFrame(rows)),
                         ("malik_component_intensities.csv", pd.DataFrame(intens)),
                         ("malik_published_reference.csv", pd.DataFrame(MALIK_REFERENCE))):
