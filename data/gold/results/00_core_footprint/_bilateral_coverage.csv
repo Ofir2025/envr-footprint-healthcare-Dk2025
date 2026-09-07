@@ -1,7 +1,7 @@
 indicator,demand_component,total,cells_kept,coverage_pct
-climate_change,healthcare_services,2308.736150255975,1075349,99.50000036061068
-climate_change,pharmaceuticals,1395.2932590838573,25954,99.50001528993623
-climate_change,medical_appliances,155.13901808836803,29738,99.50002517115338
+climate_change,healthcare_services,2345.7890847268195,1069822,99.50000038568655
+climate_change,pharmaceuticals,1441.9763345950646,25542,99.50000355750478
+climate_change,medical_appliances,157.17985594906824,29625,99.50001473845727
 material_extraction,healthcare_services,2274.2511867557237,174985,99.50000040047155
 material_extraction,pharmaceuticals,1828.6029631579415,3823,99.50010818337338
 material_extraction,medical_appliances,130.8949726264794,5550,99.50007707737329

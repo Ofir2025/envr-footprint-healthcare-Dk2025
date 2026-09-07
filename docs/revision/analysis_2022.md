@@ -11,6 +11,7 @@
 
 **Model:** EXIOBASE v3.8.2 `IOT_2022_ixi` (Zenodo 5589597) with the Danish
 sea-transport reallocation of Rørmose Jensen & Iliev (2022)
+with climate characterised on **IPCC AR6** GWP100
 × Danish 2022 expenditure (health + eldercare) × DRIVHUS/AFFALD direct accounts ×
 Danish-primary bottom-up items. Run:
 
@@ -68,7 +69,7 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 
 | Indicator | Healthcare footprint | Danish national footprint | Health share |
 |---|---|---|---|
-| Climate change | **4,627 kt CO₂e** (0.79 t/capita) | 76,454 kt | 5.1 % |
+| Climate change | **4,715 kt CO₂e** (0.80 t/capita) | 77,532 kt | 5.1 % |
 | Material extraction | 4,234 kt | 53,939 kt | 7.9 % |
 | Blue water | 95.3 Mm³ | 1,276 Mm³ | 7.5 % |
 | Land use | 4,854 km² | 99,466 km² | 4.9 % |
@@ -78,7 +79,7 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 on the same model; the climate total additionally carries the bottom-up items.*
 
 **Scopes (GHG Protocol, `analysis.scopes_detail`):**
-**S1 131.1 / S2 72.7 / S3 4,159.9 / outside-protocol 263.6 kt CO₂e.**
+**S1 131.1 / S2 75.0 / S3 4,245.3 / outside-protocol 263.6 kt CO₂e.**
 Partition asserted exact; producing-node detail reconciles. All six IO
 identities pass at ≤10⁻¹⁰ (`analysis.validate_io_identities`).
 
@@ -103,6 +104,15 @@ that period — but 2022 was also an energy-price spike year, so a given euro of
 electricity spend buys far less power and a monetary model understates physical
 consumption. Both effects push the same way and neither is separately identified
 here; flagged as an open item, not claimed as a finding.
+
+**Climate characterisation: IPCC AR6.** The workbook shipped with the
+background carries AR4 factors (CH₄ = 25, N₂O = 298) under a "CML 1999" label.
+The climate row is rebuilt on AR6 (`analysis.constants.ar6_gwp_factor`), which
+also distinguishes fossil from non-fossil methane (29.8 against 27.0) as AR4 did
+not. Vintage sensitivity, healthcare supply chain: SAR 3,740 · TAR 3,791 ·
+AR4 3,855 · AR5 3,956 · **AR6 3,945 kt**. **3.9 % (155 kt) cannot be restated at
+all**: EXIOBASE supplies HFC and PFC already aggregated in CO₂-equivalent, so
+their vintage is fixed inside the data. See `15_gwp_vintage/`.
 
 ### Bottom-up items now on Danish primary data
 

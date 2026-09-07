@@ -54,6 +54,18 @@ APPROACHES = {
         equations="f_services = Z[:,h] (E_H / x_h); per-capita normalisation",
         inputs="Danish footprint by demand component; scopes summary; "
                "published Dutch values transcribed with provenance"),
+    "14_eckelman_replication": dict(
+        approach="Denmark on Eckelman & Sherman's nine-category frame, plus DALYs",
+        reference="Eckelman & Sherman 2016 (PLoS ONE 11:e0157014) table 2",
+        script="analysis.eckelman_replication",
+        equations="share = f_health / f_national per category; DALY from ILCD endpoints",
+        inputs="12_impact_categories_full; published US values transcribed with provenance"),
+    "15_gwp_vintage": dict(
+        approach="Climate characterisation vintage sensitivity, SAR to AR6",
+        reference="IPCC AR6 WG1 ch.7 table 7.15; AR5 table 8.7; AR4 table 2.14",
+        script="analysis.gwp_vintage",
+        equations="f = sum_g m_g GWP100_g(vintage) + fixed CO2eq stressors",
+        inputs="raw stressor masses by species; IPCC GWP100 by assessment report"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",

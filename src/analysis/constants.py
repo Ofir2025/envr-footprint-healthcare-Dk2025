@@ -74,3 +74,87 @@ def model_label(year=None):
 
 
 MODEL_LABEL = model_label()
+
+
+# ---------------------------------------------------------------------------
+# Climate characterisation: IPCC AR6 GWP100.
+#
+# The characterisation workbook shipped with the background carries IPCC AR4
+# factors (CH4 = 25, N2O = 298) under a sheet labelled "CML 1999". This study
+# restates climate on AR6, the current assessment.
+#
+# Source: IPCC (2021) AR6 WG1 Chapter 7, Table 7.15 (GWP100, including
+# carbon-cycle responses for non-CO2 gases, which is the set used for emission
+# metrics). AR6 distinguishes fossil from non-fossil methane, which the AR4 row
+# did not: fossil CH4 carries the extra CO2 produced by its oxidation.
+#
+# WHAT CANNOT BE RESTATED: EXIOBASE reports HFC and PFC already aggregated in
+# kg CO2-equivalent rather than as individual species, so their GWP vintage is
+# fixed by EXIOBASE and is not knowable from the satellite account. Those two
+# stressors keep a factor of 1 and are excluded from the restatement; the share
+# of the footprint they represent is reported by analysis.gwp_vintage.
+# ---------------------------------------------------------------------------
+
+#: IPCC AR6 GWP100 factors, kg CO2-equivalent per kg of gas.
+AR6_GWP100 = {
+    "CO2": 1.0,
+    "CH4_fossil": 29.8,
+    "CH4_biogenic": 27.0,
+    "N2O": 273.0,
+    "SF6": 25_200.0,
+}
+
+#: EXIOBASE stressor-name fragments that identify fossil-origin methane. Any
+#: other CH4 stressor is treated as non-fossil. Listed explicitly rather than
+#: inferred, so a classification change is visible in review.
+CH4_FOSSIL_MARKERS = (
+    "combustion",
+    "Extraction/production of (natural) gas",
+    "Extraction/production of crude oil",
+    "Mining of antracite",
+    "Mining of bituminous coal",
+    "Mining of coking coal",
+    "Mining of lignite",
+    "Mining of sub-bituminous coal",
+    "Oil refinery",
+)
+
+
+def ar6_gwp_factor(stressor: str) -> float | None:
+    """Return the AR6 GWP100 factor for one EXIOBASE stressor name.
+
+    Parameters
+    ----------
+    stressor : str
+        The stressor label as it appears in the EXIOBASE satellite account,
+        for example ``"CH4 - agriculture - air"``.
+
+    Returns
+    -------
+    float or None
+        The AR6 GWP100 factor, or ``None`` if the stressor is not one this
+        restatement covers (which includes the pre-aggregated HFC and PFC
+        stressors, whose vintage cannot be recovered).
+
+    Examples
+    --------
+    >>> ar6_gwp_factor("CH4 - combustion - air")
+    29.8
+    >>> ar6_gwp_factor("CH4 - agriculture - air")
+    27.0
+    >>> ar6_gwp_factor("HFC - air") is None
+    True
+    """
+    name = str(stressor)
+    head = name.split(" - ")[0].strip().upper()
+    if head == "CO2":
+        return AR6_GWP100["CO2"]
+    if head == "N2O":
+        return AR6_GWP100["N2O"]
+    if head == "SF6":
+        return AR6_GWP100["SF6"]
+    if head == "CH4":
+        fossil = any(marker.lower() in name.lower()
+                     for marker in CH4_FOSSIL_MARKERS)
+        return AR6_GWP100["CH4_fossil" if fossil else "CH4_biogenic"]
+    return None
