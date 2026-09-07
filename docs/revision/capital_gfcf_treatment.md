@@ -90,11 +90,11 @@ not just the first, and is an upper bound.
 
 | Indicator | Baseline (excluded) | A — exogenous CFC | D — endogenised |
 |---|---|---|---|
-| Climate change (kt CO₂e) | **3,978** | 4,506 (**+13.3 %**) | 4,815 (**+21.0 %**) |
-| Material extraction (kt) | 4,234 | 5,028 (+18.8 %) | 5,547 (+31.0 %) |
-| Blue water (Mm³) | 95.3 | 102.4 (+7.4 %) | 105.4 (+10.6 %) |
-| Land use (km²) | 4,854 | 5,362 (+10.5 %) | 5,767 (+18.8 %) |
-| Waste generation (kt) | 1,031 | 1,203 (+16.7 %) | 1,263 (+22.5 %) |
+| Climate change (kt CO₂e) | **4,062** | 4,598 (**+13.2 %**) | 4,914 (**+21.0 %**) |
+| Material extraction (kt) | **4,234** | 5,028 (**+18.8 %**) | 5,547 (**+31.0 %**) |
+| Blue water (Mm³) | **95** | 102 (**+7.4 %**) | 105 (**+10.6 %**) |
+| Land use (km²) | **4,854** | 5,362 (**+10.5 %**) | 5,767 (**+18.8 %**) |
+| Waste generation (kt) | **377** | 400 (**+6.3 %**) | 418 (**+11.0 %**) |
 
 *MRIO components; the bottom-up items are unaffected by the capital boundary.*
 
