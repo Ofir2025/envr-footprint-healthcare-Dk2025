@@ -1,6 +1,0 @@
-source,year,model,scope_definition,total_MtCO2e,per_capita_tCO2e,share_national_pct,scope1_pct,scope2_pct,scope3_pct,outside_pct,domestic_pct,note
-This study (2022),2022,"EXIOBASE v3.10.2 ixi, screened",SHA health + residential eldercare,4.872,0.83,7.53,2.9,8.2,83.9,5.0,26.1,national CBA denominator 64.7 Mt (model); 7.75% vs DST AFTRYK 62.9 Mt
-Arup/HCWH Denmark fact sheet,2014,WIOD + SHA expenditure,WHO health sector,4.4,0.78,6.3,11.6,8.3,80.1,0.0,39.1,"Scope 2 agrees closely with this study; its Scope 1 (~0.51 Mt) is 3x the Danish national accounts for the whole Q sector (0.17 Mt, DRIVHUS 2022)"
-Pichler et al. 2019,2014,"Eora, SHA expenditure",SHA incl. investment,4.0,0.71,6.4,,,,,,CO2 only (not full GHG); denominator recomputed inside Eora
-Lenzen et al. 2020,2015,Eora v199.82,"whatever national IO labels as health (DK: pharma mfg, hospitals, medical/dental/veterinary; excludes residential care)",3.37,0.59,3.78,,,,,,"DK health expenditure in Eora is ~half the true CHE -> weak lower bound; its SI also reports 8.35% relative SD, used here to calibrate MRIO uncertainty"
-Steenmeijer et al. 2022 (NL),2016,EXIOBASE v3.7 ixi,expansive health and welfare incl. childcare,17.575,1.03,7.3,9.0,11.1,77.9,2.0,34.2,"the replication template; our zorg_en_welzijn scenario is the comparable boundary (5.325 Mt, 8.23%, 0.907 t/cap)"

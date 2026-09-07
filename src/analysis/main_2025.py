@@ -326,9 +326,17 @@ bg["Hstim"][_ROW_WASTE, :] = 0.0
 bg["Hstim"][_ROW_WASTE, 0] = DK_DIRECT_WASTE_KT
 print(f"Direct waste replaced in background: hybrid {_hybrid_direct_waste:.1f} kt "
       f"-> AFFALD01 {DK_DIRECT_WASTE_KT:.1f} kt")
-with open(os.path.join(bg_dir, f"gddz_background_information_{year}.pkl"),
-          "wb") as _fh:
-    pkl.dump(bg, _fh)
+# Persist ONLY for the default boundary. The background is shared by every
+# downstream module, so writing it from a scenario run would silently give them
+# that scenario's numbers: a zorg_en_welzijn run put the childcare-inclusive
+# total into the scope partition, which the consistency audit caught.
+if _SCOPE == "health_eldercare":
+    with open(os.path.join(bg_dir, f"gddz_background_information_{year}.pkl"),
+              "wb") as _fh:
+        pkl.dump(bg, _fh)
+else:
+    print(f"scenario boundary '{_SCOPE}': background NOT persisted, so "
+          f"downstream modules keep the default boundary")
 #bg_tmp = open(excel_dir + 'gddz_background_information.pkl',"rb")
 #bg = pkl.load(bg_tmp)
 #bg_tmp.close()
