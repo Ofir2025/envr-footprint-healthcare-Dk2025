@@ -71,9 +71,10 @@ def main():
              risk="as above",
              test="services-column purchases of Medical precision instruments",
              value=float(Y[instr, 1].sum()), unit="M.EUR (in services column)",
-             verdict="OK (zero) - but the zero itself signals that provider equipment sits in "
-                     "gross fixed capital formation, which EXIOBASE's Z excludes: a boundary "
-                     "GAP, not an overlap (see capital limitation)"),
+             verdict="OK (zero) - but the zero is a DATA DEFECT, not a boundary gap: "
+                     "EXIOBASE v3.10.2 carries ~zero output for industry 33 in EVERY "
+                     "European region and in both 2016 and 2022 (v3.8.2 2016: DK 4,919, "
+                     "DE 68,118, US 239,045 M.EUR). See docs/revision/exiobase_vintage_defects.md"),
         dict(item="Anaesthetic gases (bottom-up)", risk="already in the MRIO extensions",
              test="medical N2O netted out of the DRIVHUS Scope 1 figure", value=np.nan, unit="-",
              verdict="OK - netted; see bug_and_method_fixes.md"),

@@ -266,10 +266,14 @@ hospital N₂O is netted out before the bottom-up item is added.
 
 1. medstat ATC N01AB extraction for the Danish volatile-anaesthetics estimate.
 2. Imported waste: no source exists; currently reported separately as residuals.
-3. Capital (GFCF) is excluded, as in Steenmeijer — but per Wood & Hertwich this
-   is the largest single omission for health care and the reason provider
-   equipment shows as zero intermediate purchases. Worth an endogenised-capital
-   sensitivity.
+3. Capital (GFCF) is excluded, as in Steenmeijer — per Wood & Hertwich the
+   largest single boundary omission for health care. Now quantified in
+   `capital_gfcf_treatment.md` with an exogenous and a fully endogenised
+   scenario. **Correction:** an earlier draft of this note attributed the zero
+   intermediate purchases of medical instruments to the capital boundary. That
+   was wrong. The zero is a defect in EXIOBASE v3.10.2, which carries ~zero
+   output for industry 33 across all European regions in both 2016 and 2022
+   (`exiobase_vintage_defects.md`).
 4. Patient/visitor travel still has no Danish source (verified absent) — the
    only remaining component with no national anchor.
 5. **Closed since:** the eldercare share α is no longer carried from 2019. It is

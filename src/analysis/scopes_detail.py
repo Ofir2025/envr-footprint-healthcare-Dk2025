@@ -66,7 +66,7 @@ from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 from analysis.export_tables import _labels, _node_frame
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL  # noqa: E402
 GEN_PATTERN = r"\belectricity\b|\bsteam\b|\bhot\s*water\b"
 INDICATORS = [(0, "climate_change", "kt CO2eq"), (1, "material_extraction", "kt"),
               (2, "blue_water_consumption", "Mm3"), (3, "land_use", "km2"),
@@ -90,7 +90,7 @@ def main():
     # Direct (Scope 1) impacts are taken from the B_HEAL row that the main
     # pipeline writes, so both use byte-identical numbers: GWP from DRIVHUS and
     # waste from AFFALD01 (Danish measured), the other categories from EXIOBASE.
-    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "contribution_analysis.xlsx"),
+    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "contribution_analysis.xlsx"),
                             sheet_name="full")
     b_heal = contrib[contrib["SecTxtCode"] == "B_HEAL"].iloc[0]
     DIRECT_COL = {"climate_change": "Global warming (ktCO2eq)",
@@ -186,7 +186,7 @@ def main():
 
     summ = pd.DataFrame(summary)
     det = pd.concat(detail, ignore_index=True)
-    meta = dict(analysis_year=ANALYSIS_YEAR, model=f"EXIOBASE v3.10.2 IOT_{BACKGROUND_YEAR}_ixi (screened)",
+    meta = dict(analysis_year=ANALYSIS_YEAR, model=MODEL_LABEL,
                 consuming_country_iso3="DNK")
     for k, v in meta.items():
         summ.insert(0, k, v)
