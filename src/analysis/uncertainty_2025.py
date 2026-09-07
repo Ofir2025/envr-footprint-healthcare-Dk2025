@@ -110,7 +110,7 @@ def _ln_cv(rng, cv, n):
 
 def load_groups():
     """Group x component decomposition, from the model's own outputs."""
-    fig1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "full_results_tables.xlsx"),
+    fig1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "full_results_tables.xlsx"),
                          sheet_name="Fig1_absolute", index_col=0)[INDICATORS].astype(float)
     contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "contribution_analysis.xlsx"),
                             sheet_name="full")
@@ -123,7 +123,7 @@ def load_groups():
         if grp in mrio.index:
             mrio.loc[grp] -= bu[code]
             parts[code].loc[grp] = bu[code].values
-    t1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "table_1.xlsx"), index_col=0)
+    t1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "table_1.xlsx"), index_col=0)
     total = t1.loc["Total", INDICATORS].astype(float)
     assert np.allclose(fig1.sum().values, total.values, rtol=1e-6), \
         "group table does not reproduce the reported total - stale outputs?"
@@ -296,7 +296,7 @@ def main():
                              factor_97_5pct=(v["gsd"] ** 1.96 if v.get("gsd") else
                                              np.exp(1.96 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
                              source=v["why"]) for k, v in PARAMS.items()])
-    with pd.ExcelWriter(os.path.join(str(OUTPUT_DIR), "uncertainty_summary.xlsx"),
+    with pd.ExcelWriter(os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc", "uncertainty_summary.xlsx"),
                         engine="xlsxwriter") as xw:
         summ.to_excel(xw, sheet_name="totals", index=False)
         sob.to_excel(xw, sheet_name="variance_shares", index=False)

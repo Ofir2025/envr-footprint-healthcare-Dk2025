@@ -55,3 +55,15 @@ done
 
 Scope variants: `HC_SCOPE=health_only|health_eldercare|zorg_en_welzijn`.
 Validation: `python -m analysis.validate_io_identities` (Leontief identities).
+
+## Round of 2026-09-07 (continued)
+
+| # | Request | Status | Evidence |
+|---|---|---|---|
+| 10 | **Capital / GFCF: do we need it, how do others handle it, endogenisation** | **Done** | `docs/revision/capital_gfcf_treatment.md`; `analysis.capital_gfcf` → `11_capital_gfcf/`. Cross-study table; three treatments; +13.3 % (exogenous CFC, DST NABK69) to +21.0 % (endogenised, Södersten et al. 2018). Corrected the earlier wrong claim that zero medical-instrument purchases were a capital artefact |
+| 11 | **Volatile anaesthetics — how far can the proxy go** | **Done** | Replaced by Danish primary data: medstat.dk ATC N01AB sales, both years verified against the register. 12.5 kt for 2022, and the item now shows the desflurane phase-out |
+| 12 | **Patient / visitor travel — find a Danish source** | **Done** | A Danish source exists after all: TU (DTU) Tabel 15, purpose code 33, verified in the primary PDFs (0.9 km/person/day 2019, 0.8 in 2022). Also fixed a unit error — a whole-population quantity was being scaled by employment × working hours |
+| 13 | **Imported waste — hybrid EXIOBASE waste data** | **Done** | v3.3.18 confirmed as the newest hybrid with waste accounts (nothing newer exists; the 2024 "October" release is consequential and has none). Fixed a real bug: all 19 fractions were being summed, including manure, sewage, mining and unused waste, none of which are in the Eurostat/DST boundary. World industry waste 13.17 → 2.01 Gt; healthcare waste 829 → 257 kt |
+| 14 | **Figure formatting compliant with house rules** | **Done** | Variance-share figure had three legend keys for series never drawn; sub-visible parameters are now pooled into one labelled residual. Aspect ratios 1.50–1.75, legends at the bottom, no baked-in titles |
+| 15 | **EXIOBASE vintage integrity (not requested — found)** | **Done** | v3.10.2's 2022 Danish block fails against national accounts; background moved to v3.8.2. `docs/revision/exiobase_vintage_defects.md`, `analysis.vintage_defect_audit` → `09_vintage_diagnostics/` |
+| 16 | **"Transport ≈ 40 %" (not requested — found)** | **Done** | Reproduced Statistics Denmark's published 74 % shipping misallocation at 73.6 % on our own model; correcting it moves transport from 37.5 % to 18.9 %. `analysis.dk_shipping_correction` → `10_snac_shipping_correction/` |

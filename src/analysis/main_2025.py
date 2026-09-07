@@ -499,9 +499,46 @@ scale_bottomup_all_to_dk(
 # pMDI by year: 2019 = 7.2 t HFC dispensed (Vestbo & Press-Kristensen 2023) x
 # ReCiPe 2016 GWP100 -> 12.8 kt; 2022 = Danish EPA F-gas inventory actual MDI
 # emission, 11.6 kt CO2e (Miljoestyrelsen F-gas report, Table 15).
-# Anaesthetic: NID category 2.G.3.a is a constant 38 t N2O/yr for 2013-2022,
-# so the 12.7 kt value (11.3 N2O + 1.4 volatiles proxy) applies to both years.
-DK_ANAESTHETIC_KT_CO2E = 12.7
+# VOLATILE ANAESTHETICS - Danish primary data replaces the population-scaled
+# Dutch proxy (2026-09 revision). Sales of ATC N01AB, entire country, all
+# sectors, from the Danish Medicines Agency's medstat.dk register, which is a
+# mandatory-reporting register covering all sales in Denmark. Field 11 of
+# <year>_atc_code_data.txt is "volume in 1.000 units"; for N01AB the unit is
+# millilitres of liquid agent (every marketed product is an inhalation liquid),
+# so the field is litres. Cached under data/bronze/medstat/.
+#
+# Litres of liquid agent sold (verified against the register):
+#   2022  sevoflurane 2,400  desflurane 181  isoflurane 15
+#   2019  sevoflurane 2,714  desflurane 400  isoflurane 17
+#
+# Converted with densities at 20 C from Laster, Fang & Eger (1994, Anesth Analg
+# 78:1152) and the GWP100 values recommended by Sulbaek Andersen, Nielsen &
+# Sherman (2023, Lancet Planet Health 7:e622) - the same set used by Talbot et
+# al. (2025) and by Caviglia et al. (2025), whose study covers Denmark from this
+# same register. A 5% downward correction is applied to sevoflurane for the
+# fraction metabolised rather than exhaled (MacNeill et al. 2017; Schuster 2020).
+#
+# The N2O term is unchanged: Denmark's National Inventory Document 2024 (DCE
+# report 622) category 2.G.3.a, a constant 38 t N2O/yr for 2013-2022, times the
+# model's own DESIRE GWP100 factor of 298 so that the bottom-up item and the
+# MRIO characterisation use one GWP vintage. Hospital N2O was subtracted from
+# the DRIVHUS direct figure, so there is no double counting.
+DK_ANAESTHETIC_LITRES = {
+    "2019": {"sevoflurane": 2714.0, "desflurane": 400.0, "isoflurane": 17.0},
+    "2022": {"sevoflurane": 2400.0, "desflurane": 181.0, "isoflurane": 15.0},
+}[ANALYSIS_YEAR]
+DK_ANAESTHETIC_DENSITY_KG_PER_L = {"sevoflurane": 1.5203, "desflurane": 1.4651,
+                                   "isoflurane": 1.5019}
+DK_ANAESTHETIC_GWP100 = {"sevoflurane": 144.0, "desflurane": 2590.0,
+                         "isoflurane": 539.0}
+DK_ANAESTHETIC_EXHALED = {"sevoflurane": 0.95, "desflurane": 1.0,
+                          "isoflurane": 1.0}
+DK_VOLATILE_KT_CO2E = sum(
+    DK_ANAESTHETIC_LITRES[a] * DK_ANAESTHETIC_DENSITY_KG_PER_L[a]
+    * DK_ANAESTHETIC_EXHALED[a] * DK_ANAESTHETIC_GWP100[a]
+    for a in DK_ANAESTHETIC_LITRES) / 1e6           # kg -> kt
+DK_N2O_KT_CO2E = 38.0 * 298.0 / 1e3
+DK_ANAESTHETIC_KT_CO2E = DK_N2O_KT_CO2E + DK_VOLATILE_KT_CO2E
 DK_PMDI_KT_CO2E = {"2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
 # Direct healthcare waste (Statistics Denmark AFFALD01, total waste excl. soil,
 # QA + 870000 + alpha x 880000 with the 2019-derived eldercare share 0.4914):
@@ -509,10 +546,61 @@ DK_PMDI_KT_CO2E = {"2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
 # 0.4914*13,084 = 45.1 kt. Replaces the hybrid-2011-derived direct waste entry
 # of the B_HEAL row, mirroring the DRIVHUS replacement for GWP.
 _bu = pd.read_csv(BOTTOMUP_2025, sep="\t").set_index("Source")
+# PATIENT AND VISITOR TRAVEL - Danish primary data replaces the England->NL->DK
+# double transplant (2026-09 revision). The Dutch item is a whole-POPULATION
+# quantity (159 km/resident/year from the English National Travel Survey, applied
+# to 16.98 M residents), so scaling it by an employment ratio and by average
+# weekly working hours - as the previous factor did - was a unit error: those
+# belong to commuting only.
+#
+# Denmark has its own measurement. Transportvaneundersoegelsen (TU), DTU Center
+# for Transport Analytics, Tabel 15 "Antal ture, afstand og tid fordelt paa
+# turformaal", purpose code 33 "Social/sundhed" (visits to doctor, hospital,
+# jobcentre): 0.9 km/person/day in 2019 and 0.8 in 2022, against all-purpose
+# totals of 40.4 and 37.5 km/person/day. Read from the published reports cached
+# under data/bronze/tu_travel/. The TU universe is residents aged 6 and over.
+#
+# Visitor travel has no Danish source - TU folds hospital visits into
+# "Besoege familie/venner" - so it is carried as one clearly labelled imported
+# parameter: the NHS England ratio of visitor to patient travel, 0.29/1.23 =
+# 0.236 (Tennison et al. 2021, appendix 1 table S12).
+#
+# The emission intensity is the Dutch composite implied by Steenmeijer et al.
+# (358.6386 kt over 2.7 bn person-km = 0.1328 kg CO2e/person-km), retained so
+# the item stays methodologically comparable with the template.
+DK_TRAVEL_KM_PER_PERSON_DAY = {"2019": 0.9, "2022": 0.8}[ANALYSIS_YEAR]
+DK_POPULATION_6PLUS = {"2019": 5_442_766, "2022": 5_499_115}[ANALYSIS_YEAR]
+DK_TRAVEL_INTENSITY_KG_PER_PKM = 0.1328
+DK_VISITOR_TO_PATIENT_RATIO = 0.236
+_pkm = DK_TRAVEL_KM_PER_PERSON_DAY * 365.0 * DK_POPULATION_6PLUS
+DK_PATIENT_TRAVEL_KT_CO2E = _pkm * DK_TRAVEL_INTENSITY_KG_PER_PKM / 1e6
+DK_VISITOR_TRAVEL_KT_CO2E = DK_PATIENT_TRAVEL_KT_CO2E * DK_VISITOR_TO_PATIENT_RATIO
+DK_PATIENT_VISITOR_TRAVEL_KT_CO2E = (DK_PATIENT_TRAVEL_KT_CO2E
+                                     + DK_VISITOR_TRAVEL_KT_CO2E)
+
 _bu.loc["Anaesthetic", "Global warming (ktCO2eq)"] = DK_ANAESTHETIC_KT_CO2E
 _bu.loc["pMDI", "Global warming (ktCO2eq)"] = DK_PMDI_KT_CO2E
+# Rewrite the patient/visitor travel rows to the Danish primary total, keeping
+# the direct/indirect split of the Dutch source so the transport-mode structure
+# is preserved.
+_vt_rows = ["Visitor travel (direct)", "Visitor travel (indirect)"]
+_vt_old = _bu.loc[_vt_rows, "Global warming (ktCO2eq)"].astype(float)
+if _vt_old.sum() > 0:
+    _bu.loc[_vt_rows, "Global warming (ktCO2eq)"] = (
+        DK_PATIENT_VISITOR_TRAVEL_KT_CO2E * _vt_old / _vt_old.sum()).values
+if "Visitor travel (total)" in _bu.index:
+    _bu.loc["Visitor travel (total)", "Global warming (ktCO2eq)"] = \
+        DK_PATIENT_VISITOR_TRAVEL_KT_CO2E
 _safe_atomic_write(BOTTOMUP_2025, _bu.reset_index().to_csv(sep="\t", index=False))
-print(f"Danish primary medical-gas values written: anaesthetic {DK_ANAESTHETIC_KT_CO2E} kt, pMDI {DK_PMDI_KT_CO2E} kt CO2e")
+print(f"Danish primary bottom-up values written:")
+print(f"  anaesthetic {DK_ANAESTHETIC_KT_CO2E:.2f} kt CO2e "
+      f"(N2O {DK_N2O_KT_CO2E:.2f} + volatiles {DK_VOLATILE_KT_CO2E:.2f}, "
+      f"medstat N01AB {ANALYSIS_YEAR})")
+print(f"  pMDI {DK_PMDI_KT_CO2E} kt CO2e")
+print(f"  patient travel {DK_PATIENT_TRAVEL_KT_CO2E:.1f} + visitor "
+      f"{DK_VISITOR_TRAVEL_KT_CO2E:.1f} = "
+      f"{DK_PATIENT_VISITOR_TRAVEL_KT_CO2E:.1f} kt CO2e "
+      f"(TU {DK_TRAVEL_KM_PER_PERSON_DAY} km/person/day)")
 # ===================== End of DK scaling of direct bottom-up emissions =====================
 
 

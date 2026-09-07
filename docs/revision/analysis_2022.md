@@ -66,34 +66,59 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 
 ## 3. Headline results, Denmark 2022
 
-| Indicator | Healthcare footprint | Share of national CBA footprint |
-|---|---|---|
-| Climate change | **4,606 kt CO₂e** (~0.78 t/capita) | **5.1 %** |
-| Material extraction | 4,234 kt | 7.9 % |
-| Blue water | 95.3 Mm³ | 7.5 % |
-| Land use | 4,854 km² | 4.9 % |
-| Waste generation | 829 kt | 3.5 % |
+| Indicator | Healthcare footprint | Danish national footprint | Health share |
+|---|---|---|---|
+| Climate change | **4,627 kt CO₂e** (0.79 t/capita) | 76,454 kt | 5.1 % |
+| Material extraction | 4,234 kt | 53,939 kt | 7.9 % |
+| Blue water | 95.3 Mm³ | 1,276 Mm³ | 7.5 % |
+| Land use | 4,854 km² | 99,466 km² | 4.9 % |
+| Waste generation | 257 kt | 10,587 kt | 2.1 % |
+
+*Shares are the MRIO component against the national consumption-based footprint
+on the same model; the climate total additionally carries the bottom-up items.*
 
 **Scopes (GHG Protocol, `analysis.scopes_detail`):**
-**S1 131.3 / S2 72.7 / S3 4,159.9 / outside-protocol 242.5 kt CO₂e.**
-The partition is asserted exact and the producing-node detail reconciles.
-
-Scope 2 is 1.6 % of the total, far below Arup's 8.3 % for Denmark in 2014. The
-direction is right — the Danish grid fell from roughly 300 to 120 g CO₂/kWh
-between 2014 and 2022 — but the 2022 energy-price spike also means a given euro
-of electricity spend buys far less power, so a monetary model understates
-physical consumption that year. Both effects push the same way and neither is
-separately identified here; this is flagged as an open item rather than claimed
-as a finding.
+**S1 131.1 / S2 72.7 / S3 4,159.9 / outside-protocol 263.6 kt CO₂e.**
+Partition asserted exact; producing-node detail reconciles. All six IO
+identities pass at ≤10⁻¹⁰ (`analysis.validate_io_identities`).
 
 **Contribution by producing sector group (climate):** transport 18.9 %,
 food and catering 15.6 %, coal and petroleum 14.8 %, chemicals 11.2 %,
 electricity 10.9 %, steam and hot water 7.8 %, waste management 5.5 %.
 
+**Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median
+**4,656 kt**, 95 % interval **3,984–5,447**, CV **7.9 %** — alongside Lenzen et
+al.'s published 8.35 % for Denmark. First-order variance shares: MRIO parameters
+86 %, patient and visitor travel 8 %, commuting 6 %; every other bottom-up item
+below 0.5 %.
+
 **Capital boundary.** Excluded in the headline, for comparability with
 Steenmeijer, Eckelman, Lenzen and Pichler. Including it adds **13.3 %**
-(exogenous CFC, Danish national accounts) to **21.0 %** (full endogenisation).
-See [`capital_gfcf_treatment.md`](capital_gfcf_treatment.md).
+(exogenous CFC from Danish national accounts) to **21.0 %** (full
+endogenisation). See [`capital_gfcf_treatment.md`](capital_gfcf_treatment.md).
+
+Scope 2 is 1.6 % of the total, against Arup's 8.3 % for Denmark in 2014. The
+direction is right — the Danish grid fell from roughly 300 to 120 g CO₂/kWh over
+that period — but 2022 was also an energy-price spike year, so a given euro of
+electricity spend buys far less power and a monetary model understates physical
+consumption. Both effects push the same way and neither is separately identified
+here; flagged as an open item, not claimed as a finding.
+
+### Bottom-up items now on Danish primary data
+
+| Item | Value | Source |
+|---|---|---|
+| Anaesthetic gases | **12.5 kt** (N₂O 11.3 + volatiles 1.2) | medstat.dk ATC N01AB sales (sevoflurane 2,400 L, desflurane 181 L, isoflurane 15 L), densities from Laster et al. 1994, GWP₁₀₀ from Sulbaek Andersen et al. 2023; N₂O from NID 2.G.3.a |
+| Patient + visitor travel | **263.6 kt** (patient 213.2 + visitor 50.3) | TU (DTU) Tabel 15, purpose 33 "Social/sundhed", 0.8 km/person/day; visitor uplift 0.236 from NHS England |
+| pMDI propellants | 11.6 kt | Danish EPA F-gas inventory 2022 |
+| Direct operational | 118.6 kt CO₂e, 42.8 kt waste | DRIVHUS, AFFALD01 |
+
+The travel item previously scaled a **whole-population** Dutch quantity by an
+employment ratio and by weekly working hours — a unit error, since those belong
+to commuting alone. It is now built from Danish measurement instead of the
+England → Netherlands → Denmark double transplant. The anaesthetics item is no
+longer a population-scaled Dutch proxy and now shows the Danish desflurane
+phase-out (400 L in 2019 → 181 L in 2022), which a fixed proxy could not.
 
 ## 4. The transport headline was a Danish shipping artefact
 
