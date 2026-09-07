@@ -46,6 +46,14 @@ APPROACHES = {
         script="analysis.impact_categories_full",
         equations="e = R xhat^-1 L y ; impact = Q_full e",
         inputs="raw 1113-row stressor matrix; characterisation_desire_version3_4_adapted.xlsx"),
+    "13_steenmeijer_replication": dict(
+        approach="Denmark against the Dutch template, table by table",
+        reference="Steenmeijer et al. 2022 (Lancet Planet Health 6:e949) main table "
+                  "and table S7; RIVM report 2022-0159 tables 8 and 9",
+        script="analysis.steenmeijer_replication",
+        equations="f_services = Z[:,h] (E_H / x_h); per-capita normalisation",
+        inputs="Danish footprint by demand component; scopes summary; "
+               "published Dutch values transcribed with provenance"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",
