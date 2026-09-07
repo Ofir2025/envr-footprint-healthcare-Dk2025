@@ -1,0 +1,4 @@
+scenario,expenditure_MEUR,GWP_kt,share_pct,material_kt,water_Mm3,land_km2,waste_kt,per_capita_tCO2e,unit_note
+health_only,31079.0,4405.0,6.81,5123.0,38.9,3414.0,1354.0,0.75,monetary M.EUR (EXIOBASE native); population 5.873 M (DK 2022)
+health_eldercare,40597.0,4875.0,7.53,5595.0,43.0,3833.0,1482.0,0.83,monetary M.EUR (EXIOBASE native); population 5.873 M (DK 2022)
+zorg_en_welzijn,49709.0,5325.0,8.23,6047.0,47.0,4234.0,1604.0,0.907,monetary M.EUR (EXIOBASE native); population 5.873 M (DK 2022)

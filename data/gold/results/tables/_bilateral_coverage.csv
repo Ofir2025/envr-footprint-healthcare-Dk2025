@@ -1,0 +1,16 @@
+indicator,demand_component,total,cells_kept,coverage_pct
+climate_change,healthcare_services,1853.9116852553555,657863,99.50000083918785
+climate_change,pharmaceuticals,1339.9155880109417,10923,99.50001951584403
+climate_change,medical_appliances,921.1918622629997,7258,99.5000094258395
+material_extraction,healthcare_services,1861.983933522011,81522,99.50000105677805
+material_extraction,pharmaceuticals,2924.0420647324954,926,99.50077597235608
+material_extraction,medical_appliances,781.6681210452315,1101,99.50054015994981
+blue_water_consumption,healthcare_services,16.235036122166292,259943,99.50000073392009
+blue_water_consumption,pharmaceuticals,20.057194595297666,3064,99.5001797743899
+blue_water_consumption,medical_appliances,6.536304608046695,3097,99.50000996804788
+land_use,healthcare_services,1653.666331477457,191848,99.50000130945361
+land_use,pharmaceuticals,1646.7009043961837,2656,99.50012574249718
+land_use,medical_appliances,531.0508450829357,2400,99.50028466552082
+waste_generation,healthcare_services,505.5047532986459,302363,99.50000023282139
+waste_generation,pharmaceuticals,700.9609017771477,2935,99.50002308933948
+waste_generation,medical_appliances,230.23559181812777,3628,99.50016808964773
