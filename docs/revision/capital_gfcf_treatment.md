@@ -126,6 +126,45 @@ reporting the capital sensitivity prominently, not for changing the headline:
 the exclusion remains the comparable choice, but it must be stated as a boundary
 decision with a quantified consequence rather than as a technical detail.
 
+## 5c. The published framing of the choice
+
+Hertwich (2011, *Economic Systems Research* 23(1):27–47, §3.4) treats
+endogenisation explicitly as a modelling **choice** rather than a correctness
+question, and sizes what is at stake:
+
+> *"Some input–output studies endogenize gross fixed capital expenditure: they
+> treat investment as a prerequisite for production and hence assign the
+> emissions connected to the building of factories and machines to the products
+> that are produced in these factories and machines… **When investments are kept
+> separate, they turn out to be more important than government consumption. On a
+> global level, they account for 18 % of greenhouse gas emissions**, with the
+> highest shares observed in emerging economies."*
+
+He also gives the argument for the opposite choice:
+
+> *"Other authors, however, prefer to keep capital expenditure as a separate
+> final demand category. This can be very sensible in the case of rapidly
+> developing countries where the current rate of capital expenditure is much
+> larger than required to sustain a steady level of output (Peters et al.,
+> 2007)."*
+
+Composition: construction about 10 %, with most of the remainder machinery, and
+transport also material.
+
+**Why this matters here specifically.** Hospital estate, imaging equipment and
+vehicle fleets sit in gross fixed capital formation. With capital exogenous —
+which is what both Rørmose Jensen & Iliev and Palm et al. do — a health-care
+footprint defined over government and household health consumption **excludes
+them**, and the excluded pool is globally about 18 % of greenhouse-gas
+emissions, larger than all government consumption at about 10 %. That is the
+strongest available argument for reporting the capital sensitivity prominently
+rather than as a footnote.
+
+The canonical method reference Hertwich points to, Lenzen & Treloar (2004)
+*Journal of Applied Input–Output Analysis* 10:1–11, is not held locally and
+would need fetching if the endogenisation algebra is to be cited at source
+rather than through Södersten et al. (2018).
+
 ## 6. Recommendation
 
 **Keep the baseline (capital excluded) as the headline**, because that is what
