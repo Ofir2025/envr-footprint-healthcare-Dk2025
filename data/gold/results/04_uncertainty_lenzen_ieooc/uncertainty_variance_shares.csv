@@ -1,10 +1,10 @@
 indicator,parameter,variance_share_pct
-Global warming (ktCO2eq),mrio,86.32184887666588
-Global warming (ktCO2eq),B_HEAL,0.10684993626351907
-Global warming (ktCO2eq),B_ANAE,0.009881777646257202
-Global warming (ktCO2eq),B_PMDI,0.0022344385961203866
-Global warming (ktCO2eq),B_COMM,5.86062255477616
-Global warming (ktCO2eq),B_VISI,7.698562416052061
+Global warming (ktCO2eq),mrio,86.82375431220247
+Global warming (ktCO2eq),B_HEAL,0.10292918971569724
+Global warming (ktCO2eq),B_ANAE,0.009519176160961476
+Global warming (ktCO2eq),B_PMDI,0.0021524482111148885
+Global warming (ktCO2eq),B_COMM,5.64557314573341
+Global warming (ktCO2eq),B_VISI,7.416071727976354
 Material extraction (kt),mrio,99.97363589809672
 Material extraction (kt),B_HEAL,0.0
 Material extraction (kt),B_ANAE,0.0
