@@ -277,6 +277,15 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     Vstim = np.zeros((nv,3))
 
     Ystim[:,0] = Z[:,k_DK*ns + k_health] * scale_factor
+    # NOTE on the intra-sector coefficient a_hh: the services component is
+    # y = A[:,h] E_H, so it includes the health sector's purchases from itself.
+    # Those purchases pull a genuine upstream supply chain and must be KEPT.
+    # What must not be double counted is only the health sector's own DIRECT
+    # emissions arising on that internal output, s_h * (L y)_h, which the
+    # separately added national-accounts Scope 1 already reports; that single
+    # term is removed in analysis.scopes_detail (Denmark 2022: 3.2 kt CO2e).
+    # Zeroing the element here would also delete the legitimate upstream chain
+    # of internally traded health services (a 27 kt over-correction).
     Ystim[:,1] = val_pharm_bp * valloc_pharm
     Ystim[:,2] = val_appl_bp * valloc_appl
     Hstim[:,0] = B[:, k_DK*ns + k_health] * (x[k_DK*ns + k_health] * scale_factor) 
