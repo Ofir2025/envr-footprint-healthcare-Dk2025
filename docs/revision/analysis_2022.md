@@ -181,6 +181,29 @@ Arup/HCWH 2014: 4.4 Mt, 6.3%, 0.78 t/cap, S2 8.3%, 39.1% domestic. Pichler 2014:
 against all three; the per-capita stability 2014→2022 despite expenditure growth
 mirrors the intensity-decline mechanism in Lenzen et al. (2020).
 
+## 5b. Waste boundary — what the filter does and does not establish
+
+The hybrid extension's 19 fractions were previously summed in full. Manure,
+sewage, mining waste and unused mining material are not waste under Regulation
+(EC) 2150/2002 or in Statistics Denmark's AFFALD01 — the account that supplies
+the domestic tier — so the unfiltered sum was not comparable with the Danish
+entry it sits beside. Construction and demolition waste and ashes are in scope
+and are retained.
+
+Effect: world industry waste 13.17 → 2.01 Gt; the Danish national
+consumption-based waste footprint 22.7 → 10.6 Mt; the healthcare footprint
+829 → 257 kt.
+
+**This is a boundary correction, not a validation.** DST's AFFALD01 total for
+all Danish industries in 2022 is 18.9 Mt, but that is production-based and
+includes soil, so it cannot be compared directly with a 10.6 Mt
+consumption-based figure. What can be said is that the unfiltered model exceeded
+the national production total, and the filtered one no longer does. The
+underlying extension is still the 2011 hybrid extrapolated over 2022 output,
+which remains the largest single uncertainty in the waste indicator, and no
+consumption-based waste account exists anywhere against which to test it —
+not in Eurostat, FIGARO, OECD, GLORIA or UNEP.
+
 ## 6. Remaining gaps (carried into the response letter)
 
 Volatile anaesthetics proxy; no Danish patient/visitor-travel source (verified —
