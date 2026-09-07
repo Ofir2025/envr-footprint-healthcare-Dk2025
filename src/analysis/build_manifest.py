@@ -101,6 +101,14 @@ APPROACHES = {
         script="analysis.mitigation_scenarios",
         equations="intensity scaling on energy nodes; bottom-up arithmetic; demand scaling",
         inputs="prepared background; scopes summary; DEA published emission factors"),
+    "11_capital_endogenised": dict(
+        approach="Capital endogenised with the published capital-use matrices",
+        reference="Sodersten, Wood & Hertwich 2018 (ES&T 52:13250) eq. 13; capital "
+                  "matrices Zenodo 10.5281/zenodo.7073276 CC BY 4.0; EXIOBASE MRSUT supply",
+        script="analysis.capital_endogenised_sodersten",
+        equations="D = V' qhat^-1 ; Kbar_ixi = D Kbar_pxi ; K = Kbar_ixi xhat^-1 ; "
+                  "L^K = (I-(A+K))^-1",
+        inputs="Kbar_exio_v3_8_2_2020_cfc_pxi.mat; MRSUT_2020 supply.csv; background"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",
