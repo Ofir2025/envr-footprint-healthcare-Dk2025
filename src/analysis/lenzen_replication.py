@@ -42,6 +42,39 @@ from analysis.constants import DK_POPULATION, K_DK, N_SECTORS
 from analysis.production_layers import layer_decomposition
 
 # Lenzen's published Denmark row (2015, Eora), for comparison only
+# ---------------------------------------------------------------------------
+# HOW THIS COMPARISON MUST BE READ.
+#
+# Four properties of Lenzen et al.'s Danish record limit what it can benchmark,
+# and each was verified against the paper and its supplementary information.
+#
+# 1. The Danish expenditure base is roughly HALF of reality. Their Tab. SI 10.2
+#    gives Denmark 2,975 US$ per capita against Sweden 7,800, Norway 10,210 and
+#    Finland 5,560 in the same table, when all four were about 5,000-6,500
+#    US$/cap. Denmark's reported intensity of 0.20 kg CO2-e per US$ is therefore
+#    the highest of the Nordic group as an ARTEFACT. **Their Danish intensity
+#    and share-of-GDP figures are not usable benchmarks** and are carried here
+#    only to be reported as such.
+#
+# 2. Two different Danish totals appear for the same country-year: 3.37 Mt
+#    (Tab. SI 10.1, the headline) and 2.84 +/- 0.24 Mt (Tab. SI 7.1, the
+#    uncertainty table). The gap is systematic across countries and indicators,
+#    so the two SI sections appear to be different model runs. This study cites
+#    SI 7.1 only for the RELATIVE standard deviation used to calibrate the Monte
+#    Carlo, which is legitimate, and compares levels against SI 10.1.
+#
+# 3. Direct + supplier does not equal their total (1.03 + 0.46 != 3.37). Their
+#    "supplier" column is first-order only, so 56 % of the Danish footprint is
+#    unreported higher-order. Our own decomposition reports all three tiers.
+#
+# 4. The boundary differs. Their Danish health sector (Tab. SI 2.1) is
+#    pharmaceutical manufacturing + hospital activities + medical, dental and
+#    veterinary activities: pharmaceutical MANUFACTURING and VETERINARY care are
+#    inside, and there is no social or residential care sector. Ours excludes
+#    veterinary and includes eldercare. Capital is never mentioned in their
+#    paper or SI.
+# ---------------------------------------------------------------------------
+
 LENZEN_DK_2015 = {
     "climate_change": dict(total=3370.0, unit="kt CO2eq", direct=1030.0, supplier=460.0,
                            per_capita=0.59, share_national_pct=3.78, intensity=0.20,

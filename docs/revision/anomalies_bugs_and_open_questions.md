@@ -344,6 +344,41 @@ single services code, so health (Q86) is not separable; the EXIOBASE hybrid
 36 % of the imported tier can be anchored in measurement; about 32 % sits in the
 RoW aggregates where no national statistic can ever apply.
 
+### C6 — Lenzen et al.'s Danish record has a halved expenditure base `MEDIUM` `ACCEPTED`
+
+Verified against their supplementary information. Their Tab. SI 10.2 gives
+Denmark **2,975 US$ per capita** of health expenditure against Sweden 7,800,
+Norway 10,210 and Finland 5,560 **in the same table**, when all four countries
+were around 5,000–6,500 US$ per capita in reality. Denmark's reported intensity
+of 0.20 kg CO₂-e per US$ is consequently the highest in the Nordic group, which
+is an artefact of the denominator rather than a finding.
+
+**Consequence:** their Danish *intensity* and *share-of-GDP* figures cannot be
+used as benchmarks. Their absolute footprint and per-capita values remain usable
+with the caveats below.
+
+Three further problems in the same source, all verified:
+
+- **Two different Danish totals for the same country-year**: 3.37 Mt (Tab. SI
+  10.1, the headline) and 2.84 ± 0.24 Mt (Tab. SI 7.1, the uncertainty table).
+  The gap is systematic across countries and indicators, so the two sections
+  appear to be different model runs. This study cites SI 7.1 **only** for the
+  relative standard deviation that calibrates the Monte Carlo — which is
+  legitimate, since a relative SD is unaffected by a level shift — and compares
+  levels against SI 10.1. Both are named in `08_lenzen_replication/`.
+- **Direct plus supplier does not equal their total** (1.03 + 0.46 ≠ 3.37).
+  Their supplier column is first-order only, leaving 56 % of the Danish
+  footprint as unreported higher-order. Our decomposition reports all three
+  tiers.
+- **Their global direct share is irreconcilable**: figure 4 gives 63.1 Mt as
+  "3 %", Tab. SI 9.1 gives 0.85 Gt as 35 %.
+
+**Boundary difference to state in any comparison:** their Danish health sector
+is pharmaceutical *manufacturing* + hospital activities + medical, dental and
+veterinary activities. Pharmaceutical manufacturing and veterinary care are
+inside; there is no social or residential care sector. Ours excludes veterinary
+and includes eldercare. Capital is never mentioned in their paper or SI.
+
 ---
 
 ## D. Open decisions
