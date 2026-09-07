@@ -289,6 +289,31 @@ year = BACKGROUND_YEAR
 #To rerun a second time faster comment the next
 #line and uncomment the follow-up ones
 bg = createBackground(mrio_dir, cbs_data, bg_dir, year)  
+
+# ---------------------------------------------------------------------------
+# Direct waste: overwrite the background's own value with the Danish account.
+#
+# createBackground derives the health sector's direct waste from the 2011
+# hybrid extension. This study replaces it with Statistics Denmark's AFFALD01
+# (see DK_DIRECT_WASTE_KT above), exactly as DRIVHUS replaces the direct
+# greenhouse-gas figure.
+#
+# The replacement used to be applied only where the results were tabulated, so
+# Hstim itself still carried the hybrid value and any module reading the
+# background directly - the capital sensitivity did - got a direct waste of
+# 160.0 kt instead of the Danish 42.8 kt. Correcting it here makes the
+# background the single source of truth for every consumer, and the corrected
+# object is persisted so downstream modules load the same numbers.
+# ---------------------------------------------------------------------------
+_ROW_WASTE = 6
+_hybrid_direct_waste = float(bg["Hstim"][_ROW_WASTE, 0])
+bg["Hstim"][_ROW_WASTE, :] = 0.0
+bg["Hstim"][_ROW_WASTE, 0] = DK_DIRECT_WASTE_KT
+print(f"Direct waste replaced in background: hybrid {_hybrid_direct_waste:.1f} kt "
+      f"-> AFFALD01 {DK_DIRECT_WASTE_KT:.1f} kt")
+with open(os.path.join(bg_dir, f"gddz_background_information_{year}.pkl"),
+          "wb") as _fh:
+    pkl.dump(bg, _fh)
 #bg_tmp = open(excel_dir + 'gddz_background_information.pkl',"rb")
 #bg = pkl.load(bg_tmp)
 #bg_tmp.close()
