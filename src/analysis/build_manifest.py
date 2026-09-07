@@ -73,6 +73,12 @@ APPROACHES = {
         script="analysis.impact_world_plus",
         equations="impact = C_IW+ (R xhat^-1 L y); column alignment asserted at load",
         inputs="raw stressor matrix; IMPACT World+ 57 x 1113 expert matrix"),
+    "01_eriksen_replication_tables": dict(
+        approach="Replication outputs restated as FAIR long-format CSVs",
+        reference="Steenmeijer et al. 2022 figures 1-3",
+        script="analysis.eriksen_tables",
+        equations="contribution B L diag(y); hotspot B diag(L y); intensities B",
+        inputs="the replication's own workbooks; totals asserted unchanged"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",

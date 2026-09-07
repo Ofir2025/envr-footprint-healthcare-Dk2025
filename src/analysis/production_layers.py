@@ -35,7 +35,9 @@ import numpy as np
 import pandas as pd
 
 from paths import BACKGROUND_DIR, OUTPUT_DIR
-from analysis.constants import BACKGROUND_YEAR, INDICATORS, MODEL_LABEL
+from analysis.constants import (BACKGROUND_YEAR, INDICATORS, MODEL_LABEL,
+                                NODE_DK_HEALTH)
+from analysis.detail_tables import detail_rows, domestic_import_split
 
 # ---------------------------------------------------------------------------
 # Malik et al. (2021), NSW health system, for comparison.
@@ -93,7 +95,7 @@ def main():
     reg, sec = _labels()
     groups = np.tile(sec["sector_group"].values, len(reg))
 
-    rows, bysec = [], []
+    rows, bysec, node_frames = [], [], []
     for k, ind, unit in INDICATORS:
         s = B[k, :]
         # The two demand components sit at DIFFERENT points in the chain:
@@ -125,6 +127,21 @@ def main():
         rows.append(dict(indicator=ind, unit=unit, layer=f">{MAX_LAYER}", value=residual,
                          share_pct=100 * residual / grand,
                          cumulative_share_pct=100.0, truncation_error_pct=0.0))
+        # layer x producing node. The health sector's own direct impact has a
+        # producing node - the Danish health industry itself - so it is placed
+        # there rather than dropped, which lets the node detail reconcile with
+        # the layer totals exactly.
+        layers_detail = layers.copy()
+        layers_detail[0, NODE_DK_HEALTH] += float(Hstim[k, 0])
+        for m in range(len(totals)):
+            if not np.any(layers_detail[m]):
+                continue
+            node_frames.append(detail_rows(
+                layers_detail[m], country_consuming="DNK",
+                sector_consuming="health_and_eldercare",
+                analysis_year=year, indicator=ind, unit=unit, layer=m,
+                model=MODEL_LABEL))
+
         # layer x sector group (Malik Fig. 3)
         for m in range(len(totals)):
             g = pd.DataFrame({"sector_group": groups, "value": layers[m]})
@@ -144,6 +161,20 @@ def main():
     for k2, v in meta.items():
         df.insert(0, k2, v); dfs.insert(0, k2, v)
     df.to_csv(os.path.join(out_dir, "production_layers.csv"), index=False)
+    if node_frames:
+        node_detail = pd.concat(node_frames, ignore_index=True)
+        node_detail.to_csv(
+            os.path.join(out_dir,
+                         "production_layers_by_producing_node.csv.gz"),
+            index=False, compression="gzip")
+        domestic_import_split(
+            node_detail, by=("indicator", "unit", "layer")).to_csv(
+            os.path.join(out_dir,
+                         "production_layers_domestic_vs_imported.csv"),
+            index=False)
+        print(f"  node detail: {len(node_detail):,} rows "
+              f"({node_detail.layer.nunique()} layers x "
+              f"{node_detail.indicator.nunique()} indicators)")
 
     # explicit comparison against Malik et al. (2021), shares only
     comparison = []
