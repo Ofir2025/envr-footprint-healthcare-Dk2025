@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
-"""
+"""Main analysis: the Danish health-care environmental footprint.
+
+Orchestrates the whole calculation — expenditure vector, background EE-MRIO,
+Leontief solution, bottom-up additions, scope split, and the output tables and
+figures. Parameterised by ``HC_ANALYSIS_YEAR``, ``HC_BACKGROUND_TAG`` and
+``HC_SCOPE`` (see ``docs/README.md``).
+
+Run::
+
+    HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \\
+        python -m analysis.main_2025
+
 Script for:
 'The environmental impacts of the Danish health care system: supply-chain origins and geographical displacement of impacts' 
 Eriksen et al.
