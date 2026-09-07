@@ -48,6 +48,7 @@ import pandas as pd
 
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, DK_POPULATION,
                                 K_DK, MODEL_LABEL, N_FINAL_DEMAND)
+from analysis.detail_tables import detail_rows, domestic_import_split
 from paths import BACKGROUND_DIR, EXIOBASE_DIR, MRIO_DIR, OUTPUT_DIR
 
 FOLDER = "12_impact_categories_full"
@@ -254,6 +255,43 @@ def main() -> None:
     table["quality_note"] = table["indicator"].map(KNOWN_DEFECTIVE).fillna("")
     table.to_csv(os.path.join(out_dir, "impact_categories_all_methods.csv"),
                  index=False)
+
+    # ---- node-level detail: where each impact physically originates -----
+    # Characterised intensity per node, then the output each node runs to meet
+    # Danish health-care demand. E[c, j] = (Q S)[c, j] * (L y)[j].
+    characterised = Q @ intensities                    # categories x nodes
+    output_health = leontief @ demand_health
+    output_nation = leontief @ danish_final_demand
+
+    detail_frames = []
+    for position, row in table.iterrows():
+        index = int(meta.index[(meta.method == row["method"])
+                               & (meta.indicator == row["indicator"])][0])
+        by_node = characterised[index] * output_health
+        if not np.any(by_node):
+            continue
+        detail_frames.append(detail_rows(
+            by_node, country_consuming="DNK",
+            sector_consuming="health_and_eldercare",
+            analysis_year=ANALYSIS_YEAR, method=row["method"],
+            indicator=row["indicator"], unit=row["unit"],
+            quality_flag=row["quality_flag"], model=MODEL_LABEL))
+    detail = pd.concat(detail_frames, ignore_index=True) if detail_frames \
+        else pd.DataFrame()
+    detail.to_csv(os.path.join(
+        out_dir, "impact_categories_by_producing_node.csv.gz"),
+        index=False, compression="gzip")
+    if not detail.empty:
+        domestic_import_split(
+            detail, by=("method", "indicator", "unit", "quality_flag")).to_csv(
+            os.path.join(out_dir, "impact_categories_domestic_vs_imported.csv"),
+            index=False)
+        detail.groupby(["method", "indicator", "unit", "producing_sector_group"],
+                       dropna=False)["value"].sum().reset_index().to_csv(
+            os.path.join(out_dir,
+                         "impact_categories_by_sector_group.csv"), index=False)
+        print(f"node detail: {len(detail):,} rows across "
+              f"{detail.indicator.nunique()} categories")
 
     stressor_labels = list(mrio["label"]["extension"].iloc[:, 0]) \
         if "extension" in mrio["label"] else \

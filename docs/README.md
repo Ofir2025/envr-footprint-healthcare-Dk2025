@@ -89,6 +89,29 @@ label.
 Every file in every folder has a row in `MANIFEST_lineage.csv` giving its
 approach, script, equations, inputs, published reference and a content hash.
 
+## Detail and aggregate are stored separately
+
+Every substantive result is written **twice**: once at full node detail and once
+aggregated. The detailed file is the record; the aggregate is a convenience.
+Storing only the aggregate would destroy the ability to ask where an impact
+originates, which is the question an EE-MRIO exists to answer.
+
+A *node* is one (region, industry) pair — 49 x 163 = 7,987. Detailed files carry
+`producing_country_iso3`, `producing_country_name`, `producing_world_region`,
+`producing_sector_code`, `producing_sector_name` and `producing_sector_group`,
+so impacts embodied in **imports** separate from those arising **domestically**,
+and the responsible industry is identifiable in both. Files named
+`*_domestic_vs_imported.csv` carry that split directly.
+
+Where a table also mixes MRIO results with bottom-up additions, a
+`component_type` column distinguishes `MRIO supply-chain node` from
+`bottom-up item`, so aggregating cannot silently mix the two.
+
+Detail is asserted to reconcile with its aggregate: the impact-category tables
+agree to 4x10^-14 and the production layers to 1x10^-13.
+
+Shared builders live in `analysis.detail_tables`.
+
 ## Table schema convention
 
 Tables are written **most detailed first**, so aggregation is always possible
