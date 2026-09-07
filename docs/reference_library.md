@@ -45,14 +45,64 @@ applies directly here.
 | `discussion/food_diet_agriculture/` | 124 | Relevant to the food and catering contribution group |
 | `introduction/subnational_urban_footprints/` | 48 | Downscaling and subnational attribution |
 
-## 3. MRIO teaching library
+## 3. MRIO master library — **712 PDFs**
 
 `~/Library/CloudStorage/OneDrive-Personal/Career/professor/teaching/MRIO_literature/`
 
-| Subfolder | Items | Contents |
+This is the project's master MRIO library. An earlier note recorded it as ~230
+items; the true size is **712**, and the three folders below are the ones this
+project depends on most.
+
+| Subfolder | Items | Status |
 |---|---|---|
-| `methods/` | 209 PDFs | `approaches/` (16, incl. Owen 2023 LACA); `data_methods/` (6, incl. Eurostat 2022 RME); `hybrid_io_lca/` (48, incl. Merciai 2022 EXIOBASE-hybrid v4, Nakamura 2023 textbook, Jakobs 2023 thesis); `modelling/` (23); `theory_tools/` (core theory, environmental models, integrated assessment, reviews, software) |
-| `uncertainty/` | 23 items | Includes a curated, DOI'd reading list (`_reading_list_mrio_uncertainty.md`); Lenzen 2010; Rodrigues 2018; Schulte 2021/2024/2026; Wood 2019; Stadler 2018; downscaling literature |
+| `applications/` | 374 | **largely unsurveyed** — includes `footprints/carbon/scope_3/` (Hertwich & Wood 2018, Kanemoto 2011, Davis 2025) and `subnational_regionalisation/` |
+| `methods/` | 209 | surveyed |
+| `databases/` | 77 | **pinned below** |
+| `book_chapters/` | 31 | unsurveyed |
+| `uncertainty/` | 21 | **pinned below**, fully used |
+
+### 3a. `databases/exiobase/` — the EXIOBASE documentation of record
+
+The primary methodology sources for the model this study runs on. **Cite these
+for anything about how EXIOBASE is built.**
+
+| File | Why it matters |
+|---|---|
+| `stadler_et_al_2018_exiobase3_detailed_ee_mrio_tables.pdf` (+ 2 SIs) | The EXIOBASE 3 paper of record, with the detailed-tables SI and the material-accounts SI |
+| `merciai_&_schmidt_2017_exiobase_v3_mr_hsut_methodology.pdf` | The hybrid supply-use construction underlying the hybrid releases and the waste extension |
+| `wood_et_al_2015_exiobase_global_sustainability_mrio_footprint.pdf` | The footprint application paper |
+| `tukker_et_al_2018_jie_special_issue_exiobase.pdf` | The special-issue framing |
+| `rasul_et_al_2024_exiobase_energy_accounts_precision_mrio.pdf` | Energy-account precision — relevant to the Scope 2 question |
+| `de_koning_et_al_2011_exiopol_exiobase_database_management.pdf`, `reyes_et_al_2017_virtual_ielab_exiobase_v2_production_pipeline.pdf` | Construction history and pipeline |
+
+### 3b. `methods/hybrid_io_lca/` — hybrid LCA and the EXIOBASE-hybrid model
+
+| Item | Why it matters |
+|---|---|
+| `merciai_2022_exiobase_hybrid_v4/` (7 parts) | **The EXIOBASE-hybrid v4 documentation** — the model behind Schmidt & Merciai's Danish footprint, and the source for their capital endogenisation |
+| `agez_et_al_2020_lifting_veil_double_counting_hybrid_lca.pdf`, `agez_et_al_2022_correcting_truncations_hybrid_lca.pdf` | Double counting in hybrid LCA — directly relevant to R1-2 |
+| `lee_&_ma_2013_improving_integrated_hybrid_lca_upstream_scope3_emissions.pdf` | An explicit process/IO truncation criterion |
+| `perkins_&_suh_2019_hybrid_lca_precision_vs_accuracy.pdf`, `yang_et_al_2017_hybrid_lca_not_necessarily_more_accurate_process_lca.pdf` | The counter-case: hybrid is not automatically better. Worth citing when justifying our additive approach |
+| `suh_et_al_2010_generalized_make_use_framework_allocation_lca.pdf`, `majeau_bettez_et_al_2011_process_io_lci_truncation_aggregation.pdf` | Construct and allocation choice |
+| `nakamura_2023_eeio_hybrid_lca/`, `jakobs_2023_modelling_uncertainty_hlca/` | Textbook and thesis treatments |
+| `palm_et_al_2019_..._hybrid_multiregional_input_output.pdf` | The SNAC implementation (duplicate of the copy in the project library) |
+
+### 3c. `uncertainty/` — the uncertainty literature of record
+
+Every claim in `uncertainty_methods_for_manuscript.md` traces to this folder.
+
+| File | Use |
+|---|---|
+| `_reading_list_mrio_uncertainty.md` | A curated, DOI'd tier list — start here |
+| `lenzen_et_al_2010_uncertainty_analysis_mrio_uk_carbon.pdf` | The method template; the lognormality argument |
+| `rodrigues_et_al_2018_uncertainty_consumption_based_carbon.pdf` | Correlation between country accounts; independence understates by half |
+| `schulte_et_al_2024_uncertainty_ghg_accounts_mrio.pdf` | Per-account uncertainties at EXIOBASE resolution; country CV ~4 % vs sector ~94 % |
+| `schulte_et_al_2026_correlation_uncertainty_data_disaggregation.pdf` | Disaggregation induces negative correlations |
+| `schulte_et_al_2021_relaxing_import_proportionality_mrio.pdf` | Structural uncertainty from the import-proportionality assumption |
+| `wood_et_al_2019_variation_trends_consumption_based_carbon.pdf` | Cross-database spread; **Denmark CBCA RSD 8.8 %**, named as a shipping-driven outlier |
+| `stadler_et_al_2018_exiobase3_construction.pdf` | Construction uncertainty |
+| `jakobs_et_al_2021_price_variance_hybrid_lca_carbon_footprint.pdf` | Price variance — relevant to monetary-model limits |
+| `moran_et_al_2018_carbon_footprints_13000_cities.pdf` | Feedback-effect magnitude used to justify simplified SNAC |
 
 ## 4. Cross-project single sources
 
