@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
+"""Legacy shared routines for the original Dutch (2016) analysis.
+
+Superseded by :mod:`analysis.functions_2025`. Retained for reproducibility of
+the Dutch template.
+
 Script for:
 The environmental footprint of the Dutch healthcare sector: beyond environmental impact (in press)
 Steenmeijer MA, Rodrigues JFD, Zijp MC, Waaijers-van der Loop SL

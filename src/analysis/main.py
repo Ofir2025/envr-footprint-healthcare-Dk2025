@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
+"""Legacy entry point: the original Dutch (2016) analysis, retained for reference.
+
+Superseded by :mod:`analysis.main_2025` for the Danish study. Kept so the Dutch
+template remains reproducible and so differences against it can be demonstrated.
+
 Script for:
 The environmental footprint of the Dutch healthcare sector: beyond environmental impact (in press)
 Steenmeijer MA, Rodrigues JFD, Zijp MC, Waaijers-van der Loop SL
