@@ -83,9 +83,15 @@ on the same model; the climate total additionally carries the bottom-up items.*
 Partition asserted exact; producing-node detail reconciles. All six IO
 identities pass at ≤10⁻¹⁰ (`analysis.validate_io_identities`).
 
-**Contribution by producing sector group (climate):** transport 18.9 %,
-food and catering 15.6 %, coal and petroleum 14.8 %, chemicals 11.2 %,
-electricity 10.9 %, steam and hot water 7.8 %, waste management 5.5 %.
+**By producing sector group (climate, share of the 4,713 kt total):**
+transport 15.4 %, coal and petroleum 13.4 %, private travel 13.3 %, food and
+catering 12.9 %, chemicals 9.4 %, electricity 9.0 %, steam and hot water 6.4 %,
+waste management 4.7 %, services 3.3 %.
+
+These are producing-node shares, taken from `hotspot_by_sector_group.csv`
+(`B diag(L y)`). The purchased-product view of the same footprint is a different
+table (`contribution_by_purchased_product.csv`, `B L diag(y)`) and gives a
+different ranking; the two must not be quoted interchangeably.
 
 **Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median
 **4,736 kt**, 95 % interval **4,064–5,540**, CV **7.9 %** — alongside Lenzen et
@@ -134,8 +140,8 @@ phase-out (400 L in 2019 → 181 L in 2022), which a fixed proxy could not.
 
 The submitted manuscript reported transport at 38–43 % of the Danish healthcare
 footprint. On the uncorrected v3.8.2 2022 model that finding reproduces exactly:
-**transport 37.5 %**, with Danish sea and coastal water transport alone
-contributing 822 kt.
+**transport 37.5 %** of the supply-chain footprint, with Danish sea and coastal
+water transport alone contributing 852 kt.
 
 It is an artefact, and the source is documented by Statistics Denmark. Rørmose
 Jensen & Iliev (2022, pp. 11–12) report that EXIOBASE sends **74 %** of Danish
@@ -151,10 +157,10 @@ added) gives:
 
 | | uncorrected | corrected |
 |---|---|---|
-| Transport share of the climate footprint | 37.5 % | **18.9 %** |
-| DK sea transport as a producing node | 822 kt | **71 kt** |
-| Healthcare climate footprint (MRIO) | 5,231 kt | **3,859 kt** |
-| Danish national CBA footprint | 85.2 Mt | **76.5 Mt** |
+| Transport share of the supply-chain footprint | 37.5 % | **18.5 %** |
+| DK sea transport as a producing node | 852 kt | **74 kt** |
+| Healthcare climate footprint (MRIO supply chain) | 5,231 kt | **3,943 kt** |
+| Danish national CBA footprint | 85.2 Mt | **77.5 Mt** |
 
 **Consequence for the manuscript: the "transport ≈ 40 %" finding must be
 withdrawn** — not as vintage-dependent, but as a known and published

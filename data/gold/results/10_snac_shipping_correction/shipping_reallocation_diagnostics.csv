@@ -1,0 +1,8 @@
+country_producing,sector_producing,quantity,value,unit,source
+DNK,Sea and coastal water transport,DK sea transport total output,17804.525134205862,M.EUR,EXIOBASE v3.8.2 IOT_2022_ixi
+DNK,Sea and coastal water transport,"to DK intermediate use, before",13112.182508687809,M.EUR,EXIOBASE v3.8.2
+DNK,Sea and coastal water transport,"share to DK intermediate use, before",73.6452245137211,%,reproduces Rørmose Jensen & Iliev 2022 (74 %)
+DNK,Sea and coastal water transport,"share to DK intermediate use, after",9.0,%,Rørmose Jensen & Iliev 2022 target (9 %)
+DNK,Sea and coastal water transport,output reallocated to exports,11509.77524660928,M.EUR,this correction
+DNK,Sea and coastal water transport,row balance residual after correction,1.0913936421275139e-11,M.EUR,verification
+DNK,Sea and coastal water transport,"max column balance residual, DK block",2.445576693332896e-05,M.EUR,verification

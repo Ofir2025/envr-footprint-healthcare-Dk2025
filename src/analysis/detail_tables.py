@@ -194,17 +194,23 @@ def write_pair(detail: pd.DataFrame, out_dir: str, stem: str,
 
 
 def domestic_import_split(detail: pd.DataFrame, home: str = "DNK",
-                          by: Iterable[str] = ("indicator", "unit")) -> pd.DataFrame:
+                          by: Iterable[str] = ("indicator", "unit"),
+                          country_column: str = "producing_country_iso3",
+                          ) -> pd.DataFrame:
     """Split a detailed table into domestic and imported origin.
 
     Parameters
     ----------
     detail : pandas.DataFrame
-        A table carrying ``producing_country_iso3`` and ``value``.
+        A table carrying ``country_column`` and ``value``.
     home : str, optional
         ISO3 code of the consuming country. Default ``"DNK"``.
     by : iterable of str, optional
         Additional grouping columns.
+    country_column : str, optional
+        Node-country column to split on. Use ``"purchased_country_iso3"`` for a
+        table indexed by the purchased product rather than the producing node;
+        the two answer different questions and must not be conflated.
 
     Returns
     -------
@@ -214,7 +220,7 @@ def domestic_import_split(detail: pd.DataFrame, home: str = "DNK",
     """
     frame = detail.copy()
     frame["origin"] = np.where(
-        frame["producing_country_iso3"] == home, "domestic", "imported")
+        frame[country_column] == home, "domestic", "imported")
     keys = [c for c in by if c in frame.columns] + ["origin"]
     out = frame.groupby(keys, dropna=False)["value"].sum().reset_index()
     totals = out.groupby([k for k in keys if k != "origin"],

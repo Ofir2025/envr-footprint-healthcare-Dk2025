@@ -1,0 +1,7 @@
+country_consuming,final_demand_category,final_demand_label,value,unit,source
+DNK,P31_S14,Final consumption expenditure of household,30172.219,kt CO2eq,"Eurostat env_ac_ghgfp (FIGARO), 2022"
+DNK,P31_S15,Final consumption expenditure of NPISH,334.559,kt CO2eq,"Eurostat env_ac_ghgfp (FIGARO), 2022"
+DNK,P3_S13,Final consumption expenditure of general government,6373.687,kt CO2eq,"Eurostat env_ac_ghgfp (FIGARO), 2022"
+DNK,P51G,Gross fixed capital formation,17676.227,kt CO2eq,"Eurostat env_ac_ghgfp (FIGARO), 2022"
+DNK,P52_P53,Changes in inventories and acquisitions less disposals of valuables,2844.999,kt CO2eq,"Eurostat env_ac_ghgfp (FIGARO), 2022"
+DNK,TOTAL,Total,57401.691,kt CO2eq,"Eurostat env_ac_ghgfp (FIGARO), 2022"
