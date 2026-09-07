@@ -1,0 +1,6 @@
+quantity,value,unit,source
+"Danish health expenditure, this study",302.025275,bn DKK current prices,"Statistics Denmark IO tables, health + eldercare"
+as share of GDP,10.667370995655707,%,"GDP from Statistics Denmark NAN1, current prices"
+per capita,6911.982739202926,EUR per capita,derived
+Lenzen et al. 2020 Danish share of GDP,4.44,%,their table SI 10.2
+"ratio, this study to Lenzen",2.4025610350575914,-,"their Danish expenditure base is roughly 2.4x too small, so their Danish INTENSITY and share-of-GDP figures are not usable benchmarks; their absolute footprint and per-capita values remain usable"
