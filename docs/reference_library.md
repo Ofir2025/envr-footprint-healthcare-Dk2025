@@ -104,6 +104,43 @@ Every claim in `uncertainty_methods_for_manuscript.md` traces to this folder.
 | `jakobs_et_al_2021_price_variance_hybrid_lca_carbon_footprint.pdf` | Price variance — relevant to monetary-model limits |
 | `moran_et_al_2018_carbon_footprints_13000_cities.pdf` | Feedback-effect magnitude used to justify simplified SNAC |
 
+## 3d. Danish Energy Agency Global Report — the official Danish method
+
+`~/workzone/projects/codebase/github/ce_mriot/docs/references/danish_energy_agency/` — **95 PDFs**
+
+**This is where Denmark's official consumption-based method is documented**, and
+it is the single most important source for positioning this study against
+national practice. It is *not* in the folders where one would first look: the 64
+policy PDFs under `dk_kommune_footprints/.../national_climate_policy/` contain
+**zero** occurrences of EXIOBASE, MRIO or input-output. The method lives only in
+the Global Report's background memoranda, reachable via
+`methods/emission_inventories/danish_energy_agency_global_report_pointer.md`.
+
+| Sub-collection | Why it matters |
+|---|---|
+| `danish_energy_agency_2024_climate_footprint_consumption/` | **`..._method_assumptions.pdf` §3.1.1 names the model.** |
+| `danish_energy_agency_2024_denmarks_global_climate_impact/` | The headline Global Report |
+| `danish_energy_agency_2024_international_transport/` | Shipping and aviation treatment — directly relevant to our reallocation |
+| `danish_energy_agency_2024_projection_climate_footprint_consumption/` | Forward projections — relevant to mitigation scenarios |
+| `danish_energy_agency_2024_key_indicators_consumption/` | Indicator definitions |
+
+**What DEA actually uses**, verbatim from the method annexe: a **coupled IO
+model** whose five subcomponents are Danish IO tables from Statistics Denmark;
+Statistics Denmark emission accounts on DCE coefficients; *"EE-MRIO database in
+the form of **EXIOBASE, version 3.9.2**"*; Danish foreign-trade statistics; and
+DCE land-use data. EXIOBASE 3.9.2's country data are themselves *"updated to
+2020 with accounting data (supply-use tables) from the **FIGARO** database"*.
+
+So the official Danish chain is **FIGARO supply-use → EXIOBASE 3.9.2 → coupled
+to Danish national accounts and emission accounts**. Two consequences for this
+study: the official method is EXIOBASE-based, so our model family is the same
+one Denmark uses; and it runs a **newer EXIOBASE release (3.9.2) than ours
+(3.8.2)**, which bears on decision D8.
+
+They also state the coupled model's weakness themselves: *"the global balance
+between imports and exports, which the EE-MRIO database contains, is broken when
+data for individual countries changes."*
+
 ## 4. Cross-project single sources
 
 | Source | Path |
