@@ -50,6 +50,18 @@ SEED = 42
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
 RHO_TRAVEL = 0.8
 
+# Correlation of the MRIO factor ACROSS contribution groups.
+#
+# Applying one shared factor to every group is the rho = 1 case: perfect
+# correlation. That is a deliberate choice, not an oversight, and the
+# literature is clear that it must be stated as such. Rodrigues et al. (2018,
+# ES&T 52:7577-7586) measure country consumption-based-account correlations of
+# 0.63 +/- 0.36 (median 0.76) and show that assuming INDEPENDENCE understates
+# world uncertainty by about half. Perfect correlation errs in the conservative
+# direction - it cannot understate - but it cannot reproduce structured
+# sector-level dispersion either. Both bounds are therefore reported.
+RHO_MRIO = 1.0
+
 INDICATORS = ["Global warming (ktCO2eq)", "Material extraction (kt)",
               "Blue water consumption (Mm3)", "Land use (km2)", "Waste generation (kt)"]
 
@@ -131,10 +143,17 @@ def load_groups():
 
 
 def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
-           waste_vintage="central", rho=RHO_TRAVEL, n=N_DRAWS, seed=SEED):
+           waste_vintage="central", rho=RHO_TRAVEL, rho_mrio=RHO_MRIO,
+           n=N_DRAWS, seed=SEED):
     """Return (group_draws dict of arrays [n x groups], totals [n x indicators])."""
     rng = np.random.default_rng(seed)
-    f = {"mrio": _ln_cv(rng, PARAMS["mrio"]["cv"], n),
+    # MRIO factor, correlated across groups with correlation rho_mrio.
+    # log f_g = sigma (sqrt(rho) z0 + sqrt(1-rho) z_g) keeps every marginal
+    # median 1 with the same sigma, while the correlation between any two
+    # groups' log-factors is exactly rho.
+    sigma_mrio = np.sqrt(np.log(1.0 + PARAMS["mrio"]["cv"] ** 2))
+    shared = rng.standard_normal(n)
+    f = {"mrio": None,
          "B_HEAL": _ln(rng, PARAMS["direct"]["gsd"], n),
          "B_ANAE": _ln(rng, PARAMS["anaesthetic"]["gsd"], n),
          "B_PMDI": _ln(rng, PARAMS["pmdi"]["gsd"], n)}
@@ -146,6 +165,11 @@ def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
     f["B_VISI"] = m * rng.lognormal(0.0, np.sqrt(max(s_v ** 2 - s_m ** 2, 0)), n)
 
     groups = list(mrio.index)
+    mrio_factor = {}
+    for g in groups:
+        own = rng.standard_normal(n)
+        mrio_factor[g] = np.exp(sigma_mrio * (np.sqrt(rho_mrio) * shared
+                                              + np.sqrt(1.0 - rho_mrio) * own))
     out, totals = {}, {}
     for ind in INDICATORS:
         G = np.empty((n, len(groups)))
@@ -164,7 +188,7 @@ def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
         pv = PRICE_VINTAGE[price_vintage]
         wv = WASTE_VINTAGE[waste_vintage] if ind == "Waste generation (kt)" else 1.0
         for gi, g in enumerate(groups):
-            v = mrio.loc[g, ind] * f["mrio"] * pv * wv
+            v = mrio.loc[g, ind] * mrio_factor[g] * pv * wv
             if g == PHARMA_GROUP:
                 v = v * ratio
             for code in BU_TO_GROUP:
@@ -286,6 +310,30 @@ def main():
         rho_rows.append(dict(rho=rho, median=q[1], p2_5=q[0], p97_5=q[2],
                              cv_pct=100 * a.std(ddof=1) / a.mean()))
 
+    # MRIO correlation across contribution groups: the rho = 1 default is a
+    # perfect-correlation bound; rho = 0 is the independence bound that
+    # Rodrigues et al. (2018) show understates uncertainty; rho = 0.76 is their
+    # measured median for country consumption-based accounts.
+    mrio_rho_rows = []
+    for rm, label in ((1.0, "perfect correlation (study default, upper bound)"),
+                      (0.76, "Rodrigues et al. 2018 measured median for "
+                             "country consumption-based accounts"),
+                      (0.0, "independence (lower bound; Rodrigues et al. show "
+                            "this understates uncertainty)")):
+        _, _, tot, _ = run_mc(mrio, parts, "A", rho_mrio=rm, n=20_000)
+        a = tot["Global warming (ktCO2eq)"]
+        q = np.percentile(a, [2.5, 50, 97.5])
+        mrio_rho_rows.append(dict(
+            rho_mrio=rm, interpretation=label, median=q[1], p2_5=q[0],
+            p97_5=q[2], cv_pct=100 * a.std(ddof=1) / a.mean()))
+    mrio_rho = pd.DataFrame(mrio_rho_rows)
+
+    # Median-1 lognormal multipliers have mean exp(sigma^2/2) > 1, so the MC
+    # mean sits slightly above the deterministic value by construction. Small
+    # here, but reported rather than left for a referee to find.
+    sigma_mrio = np.sqrt(np.log(1.0 + PARAMS["mrio"]["cv"] ** 2))
+    mean_inflation = float(np.exp(sigma_mrio ** 2 / 2.0))
+
     summ = pd.concat(summaries, ignore_index=True)
     rk = pd.concat(ranks, ignore_index=True)
     sob = sobol_first_order(mrio, parts)
@@ -303,6 +351,7 @@ def main():
         rk.to_excel(xw, sheet_name="ranking_probabilities", index=False)
         pd.DataFrame(scen_rows).to_excel(xw, sheet_name="structural_scenarios", index=False)
         pd.DataFrame(rho_rows).to_excel(xw, sheet_name="travel_correlation", index=False)
+        mrio_rho.to_excel(xw, sheet_name="mrio_correlation", index=False)
         par.to_excel(xw, sheet_name="parameters", index=False)
     for name, df in (("uncertainty_totals", summ), ("uncertainty_variance_shares", sob),
                      ("uncertainty_ranking_probabilities", rk),
@@ -314,6 +363,15 @@ def main():
                 "cv_pct", "p2_5", "p97_5"]].round(2).to_string(index=False))
     print("\nFirst-order variance shares (GWP):")
     print(sob[sob.indicator == INDICATORS[0]].round(2).to_string(index=False))
+    mrio_rho.assign(
+        median_1_lognormal_mean_inflation=mean_inflation).to_csv(
+        os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc",
+                     "uncertainty_mrio_correlation.csv"), index=False)
+    print(f"\nMRIO-correlation sensitivity (GWP). Median-1 lognormal mean "
+          f"inflation exp(sigma^2/2) = {mean_inflation:.5f} "
+          f"(+{100 * (mean_inflation - 1):.2f} %):")
+    print(mrio_rho[["rho_mrio", "median", "p2_5", "p97_5", "cv_pct"]]
+          .round(2).to_string(index=False))
     print("\nTravel-correlation sensitivity (GWP):")
     print(pd.DataFrame(rho_rows).round(2).to_string(index=False))
 
