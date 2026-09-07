@@ -1,0 +1,31 @@
+indicator,parameter,variance_share_pct
+Global warming (ktCO2eq),mrio,88.70481547618728
+Global warming (ktCO2eq),B_HEAL,0.0965704996844435
+Global warming (ktCO2eq),B_ANAE,0.009186658314517258
+Global warming (ktCO2eq),B_PMDI,0.002019475717883273
+Global warming (ktCO2eq),B_COMM,5.296804737261093
+Global warming (ktCO2eq),B_VISI,5.89060315283479
+Material extraction (kt),mrio,99.9847538292287
+Material extraction (kt),B_HEAL,0.0
+Material extraction (kt),B_ANAE,0.0
+Material extraction (kt),B_PMDI,0.0
+Material extraction (kt),B_COMM,0.005533432102393437
+Material extraction (kt),B_VISI,0.00971273866892979
+Blue water consumption (Mm3),mrio,99.98734056478081
+Blue water consumption (Mm3),B_HEAL,0.0
+Blue water consumption (Mm3),B_ANAE,0.0
+Blue water consumption (Mm3),B_PMDI,0.0
+Blue water consumption (Mm3),B_COMM,0.0042921116997244385
+Blue water consumption (Mm3),B_VISI,0.0083673235194605
+Land use (km2),mrio,99.99986368173508
+Land use (km2),B_HEAL,0.0
+Land use (km2),B_ANAE,0.0
+Land use (km2),B_PMDI,0.0
+Land use (km2),B_COMM,4.9676613253330966e-05
+Land use (km2),B_VISI,8.66416516644192e-05
+Waste generation (kt),mrio,99.88396592116169
+Waste generation (kt),B_HEAL,0.1160340788383121
+Waste generation (kt),B_ANAE,0.0
+Waste generation (kt),B_PMDI,0.0
+Waste generation (kt),B_COMM,0.0
+Waste generation (kt),B_VISI,0.0
