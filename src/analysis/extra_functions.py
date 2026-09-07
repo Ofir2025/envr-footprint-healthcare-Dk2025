@@ -111,6 +111,109 @@ def calculate_healthcare_totals(file_path, include_childcare=False):
     return hc51_total, hc52_total, services_total, breakdown
 
 
+def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False):
+    """Health expenditure for 2022 from the PUBLIC Statistics Denmark IO workbook.
+
+    The detailed purpose-coded use table (the 2019 route) is a custom extract;
+    for 2022 the same three-category expenditure vector is built from the
+    published 117-industry IO workbook (`input_output_en_2022.xlsx`), which is
+    fully reproducible from StatBank. Basic prices: the workbook carries the
+    industry-by-purpose flows at basic prices with product taxes and VAT as
+    separate named rows — only rows whose first column is a numeric industry
+    code (117 domestic + 117 import rows) are summed, which excludes the
+    tax/VAT/value-added rows by construction.
+
+    Classification note: the 2022 national accounts use the revised (COICOP
+    2018-aligned) purpose codes — pharmaceuticals 06112 (unchanged),
+    therapeutic/assistive appliances 06134 (was 06130), out-patient 06200,
+    hospital services 06300 plus the new 06400 "Other hospital services",
+    eldercare 13302 (was 12401), childcare 13301 (was 12402).
+
+    Household consumption comes from the CP sheet (COICOP split of the single
+    household column); NPISH and the two individual-government transactions
+    from the IO sheet's purpose-labelled columns.
+    """
+    codes_pharma = {"06112"}
+    codes_appl = {"06134", "06130"}
+    # 06300 hospitals (gov/NPISH), 06340 hospital services (household-side code
+    # in the CP sheet's COICOP-2018 numbering), 06400 other hospital services
+    codes_services = {"06200", "06300", "06340", "06400", "13302"}
+    if include_childcare:
+        codes_services = codes_services | {"13301"}
+    all_codes = codes_pharma | codes_appl | codes_services
+
+    def _columns_by_code(df, wanted, transactions_only=None):
+        """Map (block, description, code) columns whose code is wanted."""
+        out = []
+        block = None
+        for j in range(df.shape[1]):
+            top = str(df.iat[0, j]).strip()
+            if "Transaction code" in top or top.startswith(("Collective government",
+                                                           "Gross fixed capital", "Other uses")):
+                block = top
+            code = str(df.iat[2, j]).strip().split(".")[0]
+            if code in wanted and block is not None:
+                if transactions_only is None or any(t in block for t in transactions_only):
+                    out.append((j, block, str(df.iat[1, j]).strip(), code))
+        return out
+
+    raw = pd.read_excel(io_workbook_path, sheet_name="IO", header=None, engine="openpyxl")
+    cp = pd.read_excel(io_workbook_path, sheet_name="CP", header=None, engine="openpyxl")
+
+    # basic-price purchase rows = rows whose first column is a numeric industry code
+    def _basic_rows(df):
+        col0 = df.iloc[:, 0].astype(str).str.strip()
+        return col0.str.fullmatch(r"\d{5,6}")
+
+    rows_io = _basic_rows(raw)
+    rows_cp = _basic_rows(cp)
+
+    individual_gov = ("3130", "3141", "3142")
+    breakdown = []
+
+    def _sum(df, rows, cols, source):
+        total = 0.0
+        for j, block, desc, code in cols:
+            v = pd.to_numeric(df.loc[rows, j], errors="coerce").fillna(0).sum()
+            total += float(v)
+            breakdown.append({"purpose_code": code, "purpose": desc,
+                              "transaction": block, "source_sheet": source,
+                              "value_kdkk": float(v)})
+        return total
+
+    # household consumption: CP sheet columns (block header is on the IO sheet's
+    # single household column; the CP sheet is entirely household consumption)
+    cp_cols = []
+    for j in range(1, cp.shape[1]):
+        code = str(cp.iat[2, j]).strip().split(".")[0]
+        if code in all_codes:
+            cp_cols.append((j, "Household consumption (Transaction code 3110)",
+                            str(cp.iat[1, j]).strip(), code))
+    io_cols = _columns_by_code(raw, all_codes, transactions_only=individual_gov)
+
+    def _cat_total(codes):
+        return (
+            _sum(cp, rows_cp, [c for c in cp_cols if c[3] in codes], "CP")
+            + _sum(raw, rows_io, [c for c in io_cols if c[3] in codes], "IO")
+        )
+
+    hc51_total = _cat_total(codes_pharma)
+    hc52_total = _cat_total(codes_appl)
+    services_total = _cat_total(codes_services)
+
+    bd = pd.DataFrame(breakdown)
+
+    def _tag(code):
+        if code in codes_pharma:
+            return "HC.5.1 Pharmaceuticals"
+        if code in codes_appl:
+            return "HC.5.2 Appliances"
+        return "Healthcare services"
+
+    bd.insert(0, "category", bd["purpose_code"].map(_tag))
+    return hc51_total, hc52_total, services_total, bd
+
+
 def eldercare_share_of_social_work(file_path):
     """Share of industry 880000's individually consumed output serving eldercare.
 

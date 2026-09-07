@@ -75,17 +75,39 @@ output_dir = str(OUTPUT_DIR)
  
 # Choose mode
 mode = "Danish"  # or "Dutch"
-year = '2016'    # Year is only relevant for retrieving CBS data for NL
+
+# ---------------------------------------------------------------------------
+# Analysis-year configuration. 2022 is the primary year (Danish 2022
+# expenditure on the EXIOBASE v3.10.2 IOT_2022_ixi background built by
+# pipelines.prep_background_2022); 2019 is the pre-COVID validation baseline
+# (Danish 2019 detailed-SUT expenditure on EXIOBASE 3.8.2's 2016 table).
+# Select with HC_ANALYSIS_YEAR=2019|2022 (default 2022).
+ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
+BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
+# Danmarks Nationalbank annual average DKK/EUR
+DKK_PER_EUR_BY_YEAR = {"2019": 7.4661, "2022": 7.4396}
+year = BACKGROUND_YEAR  # background pickle year (also used by the Dutch mode)
 
 ## Adding extra_functions.py to calculate 3 new expenditure vectors
 ## This is where another country can be added, if the data is available in a similar format as the Danish data
 
-from .extra_functions import calculate_healthcare_totals, eldercare_share_of_social_work
-hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals(
-    BRONZE_DIR / "dk_umat_2019.xlsx"
+from .extra_functions import (
+    calculate_healthcare_totals,
+    calculate_healthcare_totals_2022,
+    eldercare_share_of_social_work,
 )
+if ANALYSIS_YEAR == "2022":
+    hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals_2022(
+        BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx"
+    )
+else:
+    hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals(
+        BRONZE_DIR / "dk_umat_2019.xlsx"
+    )
 # Provenance record: every (purpose x transaction) column that entered the totals.
-expenditure_breakdown.to_csv(SILVER_INPUT_DIR / "dk_expenditure_breakdown_2019.csv", index=False)
+expenditure_breakdown.to_csv(
+    SILVER_INPUT_DIR / f"dk_expenditure_breakdown_{ANALYSIS_YEAR}.csv", index=False
+)
 
 print("HC.51:", hc51)
 print("HC.52:", hc52)
@@ -99,14 +121,16 @@ if mode == "Dutch":
 else:
         
       
-# === UMAT (kDKK) → MEUR and overwrite Silver DK input; set Conversion=1.0 ===
-    # Conversion=1.0 because the UMAT sheet read is 'Ubas' (use table at BASIC prices),
-    # matching EXIOBASE's basic-price valuation; no purchaser->basic conversion is needed.
-    # Currency: Danmarks Nationalbank annual average exchange rate 2019 = 7.4661 DKK/EUR
-    # (series DNVALA); the source values are in 1000 DKK (kDKK), so MEUR = kDKK / (7.4661*1000).
+# === Source values (kDKK) → MEUR and overwrite Silver DK input; set Conversion=1.0 ===
+    # Conversion=1.0 because both expenditure sources are at BASIC prices, matching
+    # EXIOBASE's valuation: the 2019 route reads sheet 'Ubas' of the detailed use
+    # table; the 2022 route sums only the industry-coded (basic-price) rows of the
+    # public IO workbook, excluding its separate product-tax/VAT rows.
+    # Currency: Danmarks Nationalbank annual average DKK/EUR for the analysis year;
+    # source values are in 1000 DKK (kDKK), so MEUR = kDKK / (rate * 1000).
 
-    DKK_PER_EUR_2019 = 7.4661
-    KDKK_TO_MEUR = 1.0 / (DKK_PER_EUR_2019 * 1000.0)
+    DKK_PER_EUR = DKK_PER_EUR_BY_YEAR[ANALYSIS_YEAR]
+    KDKK_TO_MEUR = 1.0 / (DKK_PER_EUR * 1000.0)
     hc51_meur = float(hc51) * KDKK_TO_MEUR            # Pharm (HC.51)
     hc52_meur = float(hc52) * KDKK_TO_MEUR            # MedAppl (HC.52)
     healthcare_services_meur = float(healthcare_services) * KDKK_TO_MEUR  # HC services
@@ -159,7 +183,7 @@ else:
     #   - hospital N2O (medical/anaesthetic N2O sits inside the accounts; it is removed
     #     here because anaesthetic gases enter separately as bottom-up item B_ANAE —
     #     the same medical-gas exclusion Steenmeijer et al. apply to the CBS figure).
-    DRIVHUS_YEAR = 2019  # matches the expenditure year
+    DRIVHUS_YEAR = int(ANALYSIS_YEAR)  # matches the expenditure year
     _drivhus = pd.read_csv(BRONZE_DIR / "dk_direct_emissions_drivhus.csv", comment="#")
     _dh = _drivhus[_drivhus["year"] == DRIVHUS_YEAR].set_index(["industry_code", "emtype"])[
         "value_kt_co2e"
@@ -217,9 +241,9 @@ print("Using SUT MEUR (Conversion=1.0):",
       "MedAppl =", bp_appl)
 
 
-# 2B) Create background object 
+# 2B) Create background object
 # That is, containing exiobase and stimulus
-year = '2016'
+year = BACKGROUND_YEAR
 #To rerun a second time faster comment the next
 #line and uncomment the follow-up ones
 bg = createBackground(mrio_dir, cbs_data, bg_dir, year)  
@@ -405,12 +429,16 @@ def scale_bottomup_all_to_dk(
 #   in data/bronze/commuting_private_travel_calculations_2026.xlsx)
 # Anaesthetic and pMDI factors are retained only for the (all-zero) non-GWP columns;
 # their GWP values are replaced below with Danish primary data.
-SCALING_DK_OVER_NL = {
-    "Anaesthetic": 0.67,      # superseded for GWP by Danish inventory value below
-    "pMDI": 0.45,             # superseded for GWP by Danish inventory value below
-    "Commute": 0.5719,        # DK/NL multiplier (derivation above)
-    "Visitor travel": 0.6300, # DK/NL multiplier (derivation above)
+SCALING_DK_OVER_NL_BY_YEAR = {
+    # 2019: employment 518,889 (NABB69, 86000+87880) / 1,220,750; hours 34.4/29.2;
+    #       TU 2019 distance 9.0/7.88 km/person/day
+    "2019": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5719, "Visitor travel": 0.6300},
+    # 2022: employment 556,999 (NABB69 2022: 244,852 + 312,147) / 1,220,750 = 0.45624;
+    #       hours 34.4/29.2 = 1.17808; TU aarsrapport 2022 Table 20 distance
+    #       9.3/7.88 = 1.18020 -> Commute 0.6343; Visitor 0.45624*1.17808*1.258097 = 0.6762
+    "2022": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.6343, "Visitor travel": 0.6762},
 }
+SCALING_DK_OVER_NL = SCALING_DK_OVER_NL_BY_YEAR[ANALYSIS_YEAR]
 
 BOTTOMUP_BASE = os.path.join(data_dir, "nl_bottomup_data.txt")
 BOTTOMUP_2025 = str(SILVER_INPUT_DIR / "dk_bottomup_data_2025.txt")
@@ -437,8 +465,19 @@ scale_bottomup_all_to_dk(
 #   characterised with the ReCiPe 2016 (H) factors used by Steenmeijer et al.
 #   (1,549 / 3,860 kg CO2e/kg) = 12.8 kt CO2e. (The widely quoted 31 kt is a
 #   GWP20 figure; the Danish EPA F-gas inventory reports 11.6 kt GWP100 for 2022.)
+# pMDI by year: 2019 = 7.2 t HFC dispensed (Vestbo & Press-Kristensen 2023) x
+# ReCiPe 2016 GWP100 -> 12.8 kt; 2022 = Danish EPA F-gas inventory actual MDI
+# emission, 11.6 kt CO2e (Miljoestyrelsen F-gas report, Table 15).
+# Anaesthetic: NID category 2.G.3.a is a constant 38 t N2O/yr for 2013-2022,
+# so the 12.7 kt value (11.3 N2O + 1.4 volatiles proxy) applies to both years.
 DK_ANAESTHETIC_KT_CO2E = 12.7
-DK_PMDI_KT_CO2E = 12.8
+DK_PMDI_KT_CO2E = {"2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
+# Direct healthcare waste (Statistics Denmark AFFALD01, total waste excl. soil,
+# QA + 870000 + alpha x 880000 with the 2019-derived eldercare share 0.4914):
+# 2019: 28,763 + 7,460 + 0.4914*13,214 = 42.7 kt; 2022: 30,289 + 8,422 +
+# 0.4914*13,084 = 45.1 kt. Replaces the hybrid-2011-derived direct waste entry
+# of the B_HEAL row, mirroring the DRIVHUS replacement for GWP.
+DK_DIRECT_WASTE_KT = {"2019": 42.7, "2022": 45.1}[ANALYSIS_YEAR]
 _bu = pd.read_csv(BOTTOMUP_2025, sep="\t").set_index("Source")
 _bu.loc["Anaesthetic", "Global warming (ktCO2eq)"] = DK_ANAESTHETIC_KT_CO2E
 _bu.loc["pMDI", "Global warming (ktCO2eq)"] = DK_PMDI_KT_CO2E
@@ -468,7 +507,7 @@ hc_dir_row = pd.Series(['DNK', 'B_HEAL',
                         bg['Hstim'][:, 0][1],   # Material extraction (kt)
                         bg['Hstim'][:, 0][2],   # Blue water (Mm3)
                         bg['Hstim'][:, 0][3],   # Land use (km2)
-                        bg['Hstim'][:, 0][6]],  # Waste (kt)
+                        DK_DIRECT_WASTE_KT],    # Waste (kt), AFFALD01-based
                        index=cols_df)
 
 
@@ -1355,7 +1394,7 @@ def format_val(val, total):
     return f"{val:,.0f} ({pct:.1f}%)".replace('.', '·')
 
 # --- Apply formatting ---
-t1_display = t1_formatted.copy()
+t1_display = t1_formatted.copy().astype(object)  # string cells replace floats
 
 for col in t1_formatted.columns:
     for i in range(len(t1_formatted)):

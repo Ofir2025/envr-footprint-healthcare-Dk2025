@@ -34,6 +34,7 @@ from paths import OUTPUT_DIR
 
 N_DRAWS = 10_000
 SEED = 42
+ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
 
 # --------------------------------------------------------------------------
 # Parameter distributions (median, geometric standard deviation) and rationale
@@ -48,8 +49,17 @@ PARAMS = {
     # direct operational emissions (DRIVHUS-based)
     "direct":      {"gsd": 1.10, "why": "official emission accounts; alpha-proration of industry 880000 and medical-N2O netting"},
     # MRIO-side multiplicative factors
-    "deflator":    {"median": 0.966, "gsd": 1.02,
-                    "why": "2019 expenditure on a 2016-price table: Danish net price index 2016->2019 ~ +3.5%; sampled around the deflated level"},
+    # Price-vintage factor on the MRIO components. 2019 run: 2019 expenditure on a
+    # 2016-price table -> deflate (~-3.5%, Danish net price index). 2022 run:
+    # years are aligned, but EXIOBASE 2022 intensities are nowcast and lag the
+    # 2022 import-price inflation, a one-sided overstatement risk (Rormose Jensen
+    # & Iliev 2022, pp. 21-22, froze real-data multipliers and deflated imports
+    # for exactly this reason) -> median 0.97 with a wider band.
+    "deflator":    ({"median": 0.966, "gsd": 1.02,
+                     "why": "2019-on-2016 price mismatch; sampled around the deflated level"}
+                    if ANALYSIS_YEAR == "2019" else
+                    {"median": 0.97, "gsd": 1.04,
+                     "why": "nowcast intensity vs 2022 price inflation (DST coupled-models report pp. 21-22)"}),
     "waste_ext":   {"gsd": 1.50, "why": "waste extension = 2011 hybrid-EXIOBASE absolute account on 2016 monetary output (Steenmeijer precedent); vintage+classification mismatch"},
 }
 
