@@ -86,7 +86,7 @@ def _sum_purposes(df, purposes):
     return total, breakdown
 
 
-def calculate_healthcare_totals(file_path, include_childcare=False):
+def calculate_healthcare_totals(file_path, include_childcare=False, include_eldercare=True):
     """Return (hc51, hc52, healthcare_services, breakdown) in 1000 DKK, basic prices.
 
     ``breakdown`` is a DataFrame listing every (purpose x transaction) column
@@ -98,7 +98,10 @@ def calculate_healthcare_totals(file_path, include_childcare=False):
     hc51_total, b1 = _sum_purposes(df, _PURPOSES_PHARMA)
     hc52_total, b2 = _sum_purposes(df, _PURPOSES_APPLIANCES)
 
-    service_purposes = _PURPOSES_SERVICES + (_PURPOSE_CHILDCARE if include_childcare else ())
+    service_purposes = tuple(p for p in _PURPOSES_SERVICES
+                             if include_eldercare or p != "12401")
+    if include_childcare:
+        service_purposes = service_purposes + _PURPOSE_CHILDCARE
     services_total, b3 = _sum_purposes(df, service_purposes)
 
     for row, cat in ((b1, "HC.5.1 Pharmaceuticals"), (b2, "HC.5.2 Appliances"),
@@ -111,7 +114,8 @@ def calculate_healthcare_totals(file_path, include_childcare=False):
     return hc51_total, hc52_total, services_total, breakdown
 
 
-def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False):
+def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
+                                     include_eldercare=True):
     """Health expenditure for 2022 from the PUBLIC Statistics Denmark IO workbook.
 
     The detailed purpose-coded use table (the 2019 route) is a custom extract;
@@ -137,7 +141,9 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False):
     codes_appl = {"06134", "06130"}
     # 06300 hospitals (gov/NPISH), 06340 hospital services (household-side code
     # in the CP sheet's COICOP-2018 numbering), 06400 other hospital services
-    codes_services = {"06200", "06300", "06340", "06400", "13302"}
+    codes_services = {"06200", "06300", "06340", "06400"}
+    if include_eldercare:
+        codes_services = codes_services | {"13302"}
     if include_childcare:
         codes_services = codes_services | {"13301"}
     all_codes = codes_pharma | codes_appl | codes_services
