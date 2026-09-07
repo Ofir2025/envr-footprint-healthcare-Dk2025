@@ -88,13 +88,13 @@ food and catering 15.6 %, coal and petroleum 14.8 %, chemicals 11.2 %,
 electricity 10.9 %, steam and hot water 7.8 %, waste management 5.5 %.
 
 **Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median
-**4,656 kt**, 95 % interval **3,984–5,447**, CV **7.9 %** — alongside Lenzen et
+**4,736 kt**, 95 % interval **4,064–5,540**, CV **7.9 %** — alongside Lenzen et
 al.'s published 8.35 % for Denmark. First-order variance shares: MRIO parameters
-86 %, patient and visitor travel 8 %, commuting 6 %; every other bottom-up item
+86.8 %, patient and visitor travel 7.4 %, commuting 5.7 %; every other bottom-up item
 below 0.5 %.
 
 **Capital boundary.** Excluded in the headline, for comparability with
-Steenmeijer, Eckelman, Lenzen and Pichler. Including it adds **13.3 %**
+Steenmeijer, Eckelman, Lenzen and Pichler. Including it adds **13.2 %**
 (exogenous CFC from Danish national accounts) to **21.0 %** (full
 endogenisation). See [`capital_gfcf_treatment.md`](capital_gfcf_treatment.md).
 
