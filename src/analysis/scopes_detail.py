@@ -13,16 +13,18 @@ standard):
            (they are netted out of the DRIVHUS figure to avoid double counting).
 
   Scope 2  emissions from the GENERATION of the electricity, steam and heat
-           the providers purchase. Computed as the emissions arising *in*
-           electricity/steam/hot-water sectors that are induced by the
-           providers' own direct purchases of those products:
-               S2 = sum_{i in GEN} s_i [L y_E]_i ,  y_E = y_H restricted to
-           energy products bought by the providers.
-           Tracing through L is necessary because EXIOBASE books much of the
-           purchase against transmission/distribution sectors whose own direct
-           emissions are ~0 while generation sits one tier upstream. A strict
-           first-tier variant (S2 = sum_{i in GEN} s_i y_E,i) is reported
-           alongside as a sensitivity.
+           the providers purchase, computed with the ENERGY-BLOCK inverse:
+               L_EE = (I_EE - A_EE)^-1 ,  S2 = d_E . L_EE y_E
+           where E indexes electricity/steam/hot-water nodes in all regions and
+           y_E is the providers' own first-tier energy purchases. The block
+           inverse reaches generation through transmission and distribution
+           (whose own combustion intensity is ~0 in EXIOBASE) WITHOUT leaving
+           the energy block, so fuel extraction, refining and grid hardware
+           stay in Scope 3 - exactly the GHG Protocol boundary. Using the full
+           L instead would additionally capture electricity consumed deep in
+           the chain, which the Protocol assigns to Scope 3 category 3.
+           A strict first-tier variant (S2 = sum_i s_i y_E,i) is reported as a
+           sensitivity, together with the full-L variant.
            NB Wood et al. define scope 2 more broadly (electricity *and fuel*
            production); we follow the GHG Protocol, where purchased fuels
            combusted on site are scope 1 and their production is scope 3.
@@ -33,6 +35,16 @@ standard):
            (pMDI propellant release at patients' homes; employee commuting).
 
   Outside protocol   patient and visitor travel (not an organisational scope).
+
+Self-supply correction: the services component is y = A[:,h] E_H, so the
+footprint contains s_h (L_hh - 1) E_H of the health sector's OWN direct
+emissions through the intra-sector loop a_hh. That term overlaps the
+national-accounts Scope 1 and is removed from the MRIO part before Scope 1 is
+added (Denmark 2022: 3.2 kt CO2e, 2.5 % of Scope 1). The construction is
+otherwise exactly complementary to a national-accounts Scope 1, because
+    F_services = (m_h - s_h) E_H
+identically (verified in code): the Z-column footprint IS the health sector's
+cradle-to-gate multiplier net of its own direct intensity.
 
 Exactness: Scope1 + Scope2 + Scope3 + Outside == reported total, asserted.
 No cell is counted twice because S3 is defined as a residual of the same
@@ -98,7 +110,17 @@ def main():
     # energy purchases of the providers = healthcare-services component only
     y_energy = np.zeros(Ystim.shape[0])
     y_energy[gen_idx] = Ystim[gen_idx, 1]
-    x_energy = L @ y_energy
+    # energy-block inverse: reach generation through T&D without leaving the block
+    A = bg["A"]
+    A_EE = A[np.ix_(gen_idx, gen_idx)]
+    L_EE = np.linalg.inv(np.eye(len(gen_idx)) - A_EE)
+    x_energy_block = L_EE @ y_energy[gen_idx]
+    x_energy_fullL = (L @ y_energy)[gen_idx]        # reported as a sensitivity only
+
+    # self-supply loop of the health sector (overlaps national-accounts Scope 1)
+    h = 6 * ns + 137
+    x_H = L @ Ystim[:, 0]
+    selfloop = {}
 
     summary, detail = [], []
     for k_row, ind, unit in INDICATORS:
@@ -108,9 +130,17 @@ def main():
         f_total = float(e_nodes.sum())
 
         s2_nodes = np.zeros_like(e_nodes)
-        s2_nodes[gen_idx] = s[gen_idx] * x_energy[gen_idx]
+        s2_nodes[gen_idx] = s[gen_idx] * x_energy_block
         s2 = float(s2_nodes.sum())
         s2_strict = float((s[gen_idx] * y_energy[gen_idx]).sum())
+        s2_fullL = float((s[gen_idx] * x_energy_fullL).sum())
+
+        # remove the health sector's own direct emissions pulled through a_hh
+        loop = float(s[h] * x_H[h])
+        selfloop[ind] = loop
+        e_nodes = e_nodes.copy()
+        e_nodes[h] -= loop
+        f_total -= loop
 
         s3_nodes = e_nodes - s2_nodes             # residual: no overlap by construction
         s3_mrio = float(s3_nodes.sum())
@@ -133,6 +163,11 @@ def main():
              "basis": "generation emissions of purchased electricity/steam/heat (traced)"},
             {"indicator": ind, "unit": unit, "scope": "Scope 2 (first-tier variant)",
              "value": s2_strict, "basis": "sensitivity, not added to the total"},
+            {"indicator": ind, "unit": unit, "scope": "Scope 2 (full-L variant)",
+             "value": s2_fullL, "basis": "sensitivity: includes energy used deeper in the "
+                                          "chain, which GHG-P assigns to Scope 3"},
+            {"indicator": ind, "unit": unit, "scope": "self-supply loop removed",
+             "value": loop, "basis": "s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"},
             {"indicator": ind, "unit": unit, "scope": "Scope 3", "value": s3,
              "basis": "footprint residual after Scope 2, plus pMDI and commuting"},
             {"indicator": ind, "unit": unit, "scope": "Outside protocol", "value": outside,
