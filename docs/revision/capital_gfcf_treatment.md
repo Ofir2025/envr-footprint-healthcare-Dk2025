@@ -103,6 +103,29 @@ is what one expects: buildings and equipment are material-intensive. The spread
 between A and D is the honest measure of how much the answer depends on the
 method rather than on the data.
 
+## 5b. Independent evidence that capital is not negligible
+
+Eurostat's own FIGARO-based footprint for Denmark 2022 (`env_ac_ghgfp`,
+reproduced in `06_benchmarks_validation/figaro_dk_footprint_by_final_demand.csv`)
+splits the national consumption-based total by final-demand category:
+
+| Final demand category | kt CO₂e | share |
+|---|---|---|
+| Household final consumption | 30,172 | 52.6 % |
+| **Gross fixed capital formation** | **17,676** | **30.8 %** |
+| General government final consumption | 6,374 | 11.1 % |
+| Changes in inventories and valuables | 2,845 | 5.0 % |
+| NPISH final consumption | 335 | 0.6 % |
+| **Total** | **57,402** | 100 % |
+
+Capital formation carries **31 % of Denmark's entire consumption-based
+footprint** — three times the whole of general-government consumption. A
+health-sector study that excludes capital is therefore excluding a category that
+is large in the national accounts, not a rounding term. This is an argument for
+reporting the capital sensitivity prominently, not for changing the headline:
+the exclusion remains the comparable choice, but it must be stated as a boundary
+decision with a quantified consequence rather than as a technical detail.
+
 ## 6. Recommendation
 
 **Keep the baseline (capital excluded) as the headline**, because that is what
