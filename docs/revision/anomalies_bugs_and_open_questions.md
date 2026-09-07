@@ -139,6 +139,53 @@ decimal — ρ is **not** an informative diagnostic here, and a "column sums < 1
 test is simply the wrong test. The meaningful checks are the inverse
 verification and non-negativity of L.
 
+### A7b — Four defective rows in the DESIRE characterisation workbook `HIGH` `FIXED`
+
+The workbook shipped with the background (`characterisation_desire_version3_4_
+adapted.xlsx`, a 2014-vintage FP7 file) has four rows that cannot be used. All
+four are now detected in `analysis.impact_categories_full` and flagged in the
+gold table rather than left for a reader to discover.
+
+1. **Ozone layer depletion characterises the wrong pollutant class.** Its
+   factors fall entirely on **NMVOC** — 48 stressors, CF ≈ 2.3×10⁻⁵ kg CFC-11-eq
+   per kg. NMVOC drives *tropospheric ozone formation*; stratospheric ozone
+   *depletion* is caused by CFCs, halons and HCFCs, **none of which exists as a
+   stressor anywhere in EXIOBASE**. IMPACT World+ v2.2.1 correctly returns zero
+   for this category. Ozone depletion is therefore **not computable** from this
+   satellite account, and the Eckelman comparison now reports it as such.
+   *This retracts a previously reported Danish ODP share of 12.9 %.*
+2. **Freshwater ecotoxicity endpoint is bit-identical to its own midpoint**
+   while carrying a different unit, so its factors are a copy and it conveys no
+   damage information.
+3. **Photochemical ozone formation endpoint** yields a DALY-per-midpoint ratio
+   about 55× below the published IMPACT 2002+ damage factor.
+4. **SF₆ carries 26,087**, which matches no IPCC assessment (SAR 23,900,
+   TAR 22,200, AR4 22,800, AR5 23,500, AR6 25,200). EXIOBASE's own shipped
+   impact files use 22,800 for the same row, so this is a corruption local to
+   the adapted copy. Superseded by the AR6 restatement, which sets 25,200.
+
+**Consequence:** the study now carries a second, current characterisation
+method — **IMPACT World+ v2.2.1** (CIRAIG, DOI 10.5281/zenodo.18892673,
+CC-BY-SA-4.0), whose 1113 columns match the EXIOBASE v3.8.2 stressor list
+exactly and in order (asserted at load, fatal on mismatch). It supplies 38 live
+categories including water scarcity, mineral resource use, land biodiversity and
+DALY endpoints — none of which DESIRE could provide — and only 11 of its 57
+categories have no matching stressor, against 42 of DESIRE's 121.
+
+### A8b — The 2022 background is itself a nowcast `MEDIUM` `ACCEPTED`
+
+EXIOBASE v3.8.2 was built in September 2021. Its emission accounts end in 2019
+for CO₂ and 2017 for the other greenhouse gases, so the 2022 table extrapolates
+both the economy and the emissions. The Danish *economic* block was validated
+against Statistics Denmark's 2022 national accounts and passes; the *emission*
+side has no equivalent validation and is an extrapolation of up to five years.
+
+A later release, v3.9.6 (DOI 10.5281/zenodo.15689391), nowcasts 2022 from a 2020
+base and revises non-combustion methane. Migrating would also mean switching to
+the IMPACT World+ matrix built for EXIOBASE 3.9 and later, because the stressor
+layout changed. Not done here; recorded as the strongest candidate for the next
+revision.
+
 ### A8 — The climate characterisation is IPCC AR4, not current `LOW` `ACCEPTED`
 
 The characterisation sheet is labelled "Problem oriented approach: baseline
@@ -392,7 +439,7 @@ These change results and are the author's call, not the analyst's.
 | D3 | **Scope boundary** | health only / + eldercare / + childcare | health + eldercare | ±10 % spread. Steenmeijer's Dutch boundary includes childcare, so the third row is the like-for-like comparison with the template |
 | D4 | **Eldercare share α** | 2019 detailed SUT (0.4914) vs analysis-year IO table (0.3092) | analysis-year IO | Changes direct emissions and waste. Ofir's original used the 2019 value carried forward |
 | D5 | **Visitor travel** | drop it / import the NHS ratio | NHS ratio 0.236, labelled | No Danish source exists for visitor travel. This is the only remaining fully imported parameter |
-| D7 | **GWP vintage** | AR4 (as characterised) / restate on AR6 | AR4 | Only ±2 % on climate, but the manuscript must state it, and the bottom-up items already use other vintages |
+| D7 | **GWP vintage** | AR6 (current) / AR5 (UNFCCC-mandated) | **AR6** | Only ±2 % on climate. Note UNFCCC mandates **AR5** (decision 7/CP.27), so an AR6 footprint is not directly comparable with Denmark's national inventory; an AR5 sensitivity is available and EXIOBASE ships an AR5 row |
 | D6 | **Vintage** | v3.8.2 now / wait for a corrected v3.10.x | v3.8.2 | See A1, A6 |
 
 ---

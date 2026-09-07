@@ -1,12 +1,12 @@
 consuming_country_iso3,model,analysis_year,indicator,unit,scope,value,basis
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 1,131.0762816237094,national accounts (DRIVHUS/AFFALD) + medical gases
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 2,73.3521763310702,generation emissions of purchased electricity/steam/heat (traced)
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 2 (first-tier variant),72.08802821111824,"sensitivity, not added to the total"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 2 (full-L variant),74.98666977222622,"sensitivity: includes energy used deeper in the chain, which GHG-P assigns to Scope 3"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,self-supply loop removed,1.8423640818398752,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 3,4245.077334858042,"footprint residual after Scope 2, plus pMDI and commuting"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 2,73.34154021672107,generation emissions of purchased electricity/steam/heat (traced)
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 2 (first-tier variant),72.07802824813717,"sensitivity, not added to the total"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 2 (full-L variant),74.97544554157645,"sensitivity: includes energy used deeper in the chain, which GHG-P assigns to Scope 3"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,self-supply loop removed,1.8332579847929837,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Scope 3,4243.5488185941595,"footprint residual after Scope 2, plus pMDI and commuting"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,Outside protocol,263.56770753446403,patient and visitor travel
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,TOTAL,4713.0735003472855,S1+S2+S3+outside
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,climate_change,kt CO2eq,TOTAL,4711.534347969054,S1+S2+S3+outside
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,material_extraction,kt,Scope 1,0.0,EXIOBASE direct of the sector
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,material_extraction,kt,Scope 2,0.26181213061950626,generation emissions of purchased electricity/steam/heat (traced)
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022,material_extraction,kt,Scope 2 (first-tier variant),0.257350049252803,"sensitivity, not added to the total"
