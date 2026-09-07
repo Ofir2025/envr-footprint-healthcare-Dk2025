@@ -439,6 +439,7 @@ These change results and are the author's call, not the analyst's.
 | D3 | **Scope boundary** | health only / + eldercare / + childcare | health + eldercare | ±10 % spread. Steenmeijer's Dutch boundary includes childcare, so the third row is the like-for-like comparison with the template |
 | D4 | **Eldercare share α** | 2019 detailed SUT (0.4914) vs analysis-year IO table (0.3092) | analysis-year IO | Changes direct emissions and waste. Ofir's original used the 2019 value carried forward |
 | D5 | **Visitor travel** | drop it / import the NHS ratio | NHS ratio 0.236, labelled | No Danish source exists for visitor travel. This is the only remaining fully imported parameter |
+| D8 | **Nowcast year versus frozen emission year** | 2022 table (ours) / freeze at EXIOBASE 2019 and deflate demand, as Statistics Denmark do | 2022 | Our Danish *economic* block is validated for 2022 and passes; the *emission* accounts end in 2019 (CO₂) and 2017 (other GHGs). Rørmose Jensen & Iliev freeze at 2019 for exactly this reason. See `snac_and_mrio_remedies.md` |
 | D7 | **GWP vintage** | AR6 (current) / AR5 (UNFCCC-mandated) | **AR6** | Only ±2 % on climate. Note UNFCCC mandates **AR5** (decision 7/CP.27), so an AR6 footprint is not directly comparable with Denmark's national inventory; an AR5 sensitivity is available and EXIOBASE ships an AR5 row |
 | D6 | **Vintage** | v3.8.2 now / wait for a corrected v3.10.x | v3.8.2 | See A1, A6 |
 
