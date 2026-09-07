@@ -180,6 +180,44 @@ def main():
     out_dir = os.path.join(str(OUTPUT_DIR), "08_lenzen_replication")
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, "lenzen_kpi_set.csv")
+    # ---- why Lenzen's Danish intensity cannot be used as a benchmark -----
+    # Their table SI 10.2 gives Denmark 2,975 US$ per capita of health
+    # expenditure and 4.44 % of GDP, against Sweden 7,800 and Norway 10,210 in
+    # the same table. That makes their Danish intensity the highest in the
+    # Nordic group, which is an artefact of the denominator. Part of the gap is
+    # boundary - their Danish health sector is pharmaceutical manufacturing,
+    # hospital activities and medical/dental/veterinary practice, excluding
+    # residential care and social work - and part is unexplained.
+    #: Danmarks Nationalbank annual average, and Statistics Denmark NAN1 GDP
+    #: at current prices, both for the analysis year.
+    dkk_per_eur = {"2019": 7.4661, "2022": 7.4396}[year]
+    gdp_bn_dkk = {"2019": 2333.4, "2022": 2831.3}[year]
+    gdp_bn_dkk_2022 = gdp_bn_dkk
+    expenditure_bn_dkk = expenditure_meur * dkk_per_eur / 1e3
+    base = pd.DataFrame([
+        dict(quantity="Danish health expenditure, this study",
+             value=expenditure_bn_dkk, unit="bn DKK current prices",
+             source="Statistics Denmark IO tables, health + eldercare"),
+        dict(quantity="as share of GDP", value=100 * expenditure_bn_dkk
+             / gdp_bn_dkk_2022, unit="%",
+             source="GDP from Statistics Denmark NAN1, current prices"),
+        dict(quantity="per capita", value=expenditure_bn_dkk * 1e9 / pop
+             / dkk_per_eur, unit="EUR per capita", source="derived"),
+        dict(quantity="Lenzen et al. 2020 Danish share of GDP", value=4.44,
+             unit="%", source="their table SI 10.2"),
+        dict(quantity="ratio, this study to Lenzen",
+             value=(100 * expenditure_bn_dkk / gdp_bn_dkk_2022) / 4.44,
+             unit="-",
+             source="their Danish expenditure base is roughly 2.4x too small, "
+                    "so their Danish INTENSITY and share-of-GDP figures are "
+                    "not usable benchmarks; their absolute footprint and "
+                    "per-capita values remain usable"),
+    ])
+    base.to_csv(os.path.join(os.path.dirname(out),
+                             "lenzen_expenditure_base_check.csv"), index=False)
+    print(f"\n  expenditure base: {100 * expenditure_bn_dkk / gdp_bn_dkk_2022:.2f} % "
+          f"of GDP against Lenzen's 4.44 % -> their Danish intensity is an artefact")
+
     df.to_csv(out, index=False)
     if node_frames:
         node_detail = pd.concat(node_frames, ignore_index=True)
