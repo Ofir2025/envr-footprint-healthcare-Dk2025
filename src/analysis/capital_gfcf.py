@@ -39,6 +39,19 @@ Three treatments are computed and reported side by side.
             capital through every tier of the chain, not just the first, and is
             therefore an upper bound on the capital effect.
 
+Two conventions, so this table can be reconciled with the others
+----------------------------------------------------------------
+The baseline is the MRIO supply chain plus the sector's own direct impacts. It
+deliberately excludes the bottom-up additions (anaesthetic gases, pMDI
+propellants, travel), because the capital boundary cannot affect them, so it is
+smaller than the study headline by exactly those items.
+
+It also does not subtract the health sector's self-supply loop, which
+analysis.scopes_detail does subtract because there it would overlap the
+national-accounts scope 1 figure. The two therefore differ by that loop:
+3.2 kt on climate and 2.5 kt on waste. Both are correct for their own purpose;
+neither is an error.
+
 Run: PYTHONPATH=src .venv/bin/python -m analysis.capital_gfcf
 """
 
