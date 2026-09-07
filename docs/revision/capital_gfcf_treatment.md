@@ -207,16 +207,51 @@ countries, and regionalisation by GFCF import origin. Ours is a coarser
 commodity mix applied to the same CFC level; it captures the magnitude but not
 the asset composition.
 
-**The published capital matrices exist for our exact vintage.** Zenodo record
-7073276, *Capital use matrices*, CC BY 4.0, ships
-`Kbar_exio_v3_8_2_{1995..2020}_cfc_{pxp,pxi}.mat`. We downloaded the 2020 `pxi`
-file and verified it: `Kbar` is (9800, 7987) — its **columns match our industry
-dimension exactly**, but its rows are 200 products × 49 regions. Using it in an
-industry-by-industry model requires the supply matrix to map product rows onto
-industry rows, and the `ixi` distribution ships no supply table. Adopting it
-therefore means running the capital analysis in **product space** on the `pxp`
-tables, which is a parallel model rather than an adjustment. That is the correct
-route for a future revision and is recorded as such rather than approximated.
+**The published capital matrices are now used.** Zenodo record 7073276,
+*Capital use matrices*, CC BY 4.0, ships
+`Kbar_exio_v3_8_2_{1995..2020}_cfc_{pxp,pxi}.mat`. The `pxi` file is
+(9800, 7987): its columns match our industry dimension, its rows are products.
+
+An earlier draft of this note said adopting it would require running the whole
+analysis in product space because the `ixi` distribution ships no supply table.
+**That was wrong on both counts.** EXIOBASE v3.8.2 publishes `MRSUT_<year>`
+supply-use tables alongside the input-output tables, and Södersten's own SI
+describes the required operation: they convert their 9800 × 7987 capital
+transaction matrix using *"the industry technology construct … to conform with
+the way the A matrix is constructed"*. Applying that construct to the rows
+rather than the columns gives the industry-by-industry form directly:
+
+```
+q_p     = Σ_i V[p, i]            total output of product p
+D       = Vᵀ q̂⁻¹                 industry × product market shares
+K̄_ixi   = D K̄_pxi                9,800 product rows → 7,987 industry rows
+K       = K̄_ixi x̂⁻¹
+L^K     = (I − (A + K))⁻¹        their eq. 13
+```
+
+`D` is block diagonal by region by construction, and each of its columns sums to
+one, so total capital use by industry is conserved by the mapping — asserted in
+code at 1.2×10⁻¹⁴. The augmented inverse verifies at 1.6×10⁻¹⁴.
+
+**Result on the published matrices** (`analysis.capital_endogenised_sodersten`):
+
+| Indicator | Baseline | Endogenised | Change |
+|---|---|---|---|
+| Climate change (kt CO₂e) | 4,062 | **4,849** | **+19.4 %** |
+| Material extraction (kt) | 4,234 | 5,639 | +33.2 % |
+| Blue water (Mm³) | 95.3 | 105.1 | +10.2 % |
+| Land use (km²) | 4,854 | 5,823 | +20.0 % |
+| Waste generation (kt) | 259.4 | 304.3 | +17.3 % |
+
+This **validates the simplified construction** reported above, which gave
++21.0 % on climate against the published method's +19.4 %. The two agree to
+1.6 percentage points, so the simplified version was adequate for the magnitude
+while the published matrices give the asset composition.
+
+One vintage assumption is recorded in the output: the published matrices stop at
+2020 and the study year is 2022, so the 2020 capital *structure* is applied to
+2022 *levels*. Capital composition moves slowly; the level comes from the model's
+own consumption of fixed capital.
 
 A newer record (20762989, 1995–2022 on EXIOBASE v3.10.2) exists but is access-
 restricted.
