@@ -112,6 +112,20 @@ agree to 4x10^-14 and the production layers to 1x10^-13.
 
 Shared builders live in `analysis.detail_tables`.
 
+## Run the consistency audit after any rebuild
+
+```bash
+PYTHONPATH=src .venv/bin/python -m analysis.audit_consistency
+```
+
+Seven checks, non-zero exit on failure, so it can gate a release: headline
+agreement across independently computing modules; detail reconciling to its
+aggregate; no background-derived file older than the background; no file
+carrying a superseded model label; and full manifest coverage. It exists because
+two real defects — a superseded direct-waste value reaching the capital
+sensitivity, and a boundary-scenario run overwriting the headline — were both
+found by hand, which is not a reliable way to find them.
+
 ## Table schema convention
 
 Tables are written **most detailed first**, so aggregation is always possible
