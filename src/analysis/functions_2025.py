@@ -200,7 +200,9 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
     B = np.dot(R, np.diag(xinv[:,0]))
 
     # determine aggregation of regions
-    coderagg = ['NL', 'WE', 'WA', 'WL', 'WM', 'WF']
+    # Region aggregation. 'DK' must be present or Denmark falls into no
+    # aggregate region (it was previously absent, leaving gragg[:, 6] all zero).
+    coderagg = ['DK', 'NL', 'WE', 'WA', 'WL', 'WM', 'WF']
     labelragg = []
     nragg = len(coderagg)
     nr = label['region'].count().iloc[0]
