@@ -165,6 +165,93 @@ The canonical method reference Hertwich points to, Lenzen & Treloar (2004)
 would need fetching if the endogenisation algebra is to be cited at source
 rather than through Södersten et al. (2018).
 
+## 5d. Södersten et al. (2018) — the method, and how ours differs
+
+The paper is now held locally (`docs/references/sodersten_et_al_2018_endogenizing_capital_mrio.pdf`
+and its SI), obtained from the author's NTNU doctoral thesis, which reprints it
+under an ACS AuthorChoice licence permitting non-commercial redistribution.
+
+**Their method.** `A = Z x̂⁻¹`, `K = K̄ x̂⁻¹`, and capital enters the *same*
+inverse rather than being bordered on:
+
+```
+L^K = (I − (A + K))⁻¹
+```
+
+The double-counting fix is that **gross fixed capital formation is removed from
+final demand**. A residual `y_r^K = GFCF − CFC` is added back only to keep
+same-year global totals comparable, and they describe it themselves as *"only a
+workaround"* — it can go negative.
+
+**They endogenise consumption of fixed capital, not gross formation**, breaking
+with Lenzen & Treloar. Their reasons: GFCF charges this year's investment to
+this year's consumption, is hypersensitive to shocks (investment fell from 26 %
+to 22 % of global final demand after 2008), and inverts the life-cycle logic.
+**This study makes the same choice**, and Statistics Denmark's NABK69 publishes
+both flows so the choice is ours to make rather than imposed by data.
+
+**Their effect sizes.** Final-consumption footprints rise **7 % (Poland) to 48 %
+(Brazil)**, up to 57 %; global traded emissions rise 11 %; 45 of 49 regions
+widen their consumption-minus-production gap. The result that matters here:
+**service multipliers rise most in relative terms** — post and telecommunications
+by more than 200 %, real estate by about 200 %, other services 23–110 %. Health
+care is a service sector, which is why our +21 % endogenised figure is at the
+lower end rather than an outlier. The paper reports no Danish or Nordic values
+and does not mention health care.
+
+**How our implementation differs, precisely.** We construct `K[:, j] = g_r(j) ·
+cfc_j / x_j`, using each region's own normalised GFCF vector as the commodity
+mix. Södersten build `K̄` from a KLEMS 8-asset × 32-industry base with
+proxy-weighted concordances, a generic NACE-average matrix for uncovered
+countries, and regionalisation by GFCF import origin. Ours is a coarser
+commodity mix applied to the same CFC level; it captures the magnitude but not
+the asset composition.
+
+**The published capital matrices exist for our exact vintage.** Zenodo record
+7073276, *Capital use matrices*, CC BY 4.0, ships
+`Kbar_exio_v3_8_2_{1995..2020}_cfc_{pxp,pxi}.mat`. We downloaded the 2020 `pxi`
+file and verified it: `Kbar` is (9800, 7987) — its **columns match our industry
+dimension exactly**, but its rows are 200 products × 49 regions. Using it in an
+industry-by-industry model requires the supply matrix to map product rows onto
+industry rows, and the `ixi` distribution ships no supply table. Adopting it
+therefore means running the capital analysis in **product space** on the `pxp`
+tables, which is a parallel model rather than an adjustment. That is the correct
+route for a future revision and is recorded as such rather than approximated.
+
+A newer record (20762989, 1995–2022 on EXIOBASE v3.10.2) exists but is access-
+restricted.
+
+## 5e. A Danish capital anomaly worth reporting
+
+Danish national accounts show that **water transport is the one major Danish
+industry where depreciation exceeds investment**: consumption of fixed capital
+16,444 m DKK against gross fixed capital formation 11,894 m DKK in 2022. Health
+is the reverse (13,125 against 18,888). One would therefore expect capital
+endogenisation to load heavily onto Danish shipping, amplifying the
+misallocation documented in `shipping_reallocation_method.md`.
+
+**In our model it does the opposite.** EXIOBASE records **zero consumption of
+fixed capital for Danish sea and coastal water transport**, against 1,269 M€ for
+Danish health. Ships plainly depreciate, so this is another symptom of the
+broken Danish water-transport block — the same block that carries a negative
+value added in EXIOBASE. The practical consequence is that our capital
+scenarios **under**-capitalise Danish shipping rather than over-capitalising it,
+which is the conservative direction but should be stated.
+
+## 5f. Why the Schmidt & Merciai route was not taken
+
+Their capital treatment is the mirror image of Södersten's: they fix the *level*
+at gross fixed capital formation and use consumption of fixed capital as the
+distribution *key*, then rebalance iteratively. It is cheaper — no KLEMS — and
+conserves yearly global totals exactly, but models no asset composition. Their
+Danish 2016 effect is **−1.1 Mt CO₂-eq, −1.6 %** of a 69.2 Mt baseline: a
+between-country reallocation, because Denmark exports more capital-intensive
+goods than it imports, not a contradiction of Södersten's +7–48 %.
+
+It is not reproducible: the EXIOBASE-hybrid v4 database is not public, the code
+repository their documentation cites has been deleted, and the base year is
+2016. The capital method itself is a single documented paragraph.
+
 ## 6. Recommendation
 
 **Keep the baseline (capital excluded) as the headline**, because that is what
