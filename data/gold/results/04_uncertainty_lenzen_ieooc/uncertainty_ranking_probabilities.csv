@@ -44,48 +44,48 @@ A,Waste generation (kt),Pharmaceuticals and chemical products,1.0,0.0,0.0
 A,Waste generation (kt),Services,0.0,0.0,0.0
 A,Waste generation (kt),Transport,0.0,0.0,0.0
 A,Waste generation (kt),Unallocated,0.0,0.08597,0.91403
-B,Global warming (ktCO2eq),Food and food services,0.0,0.0,0.02011
+B,Global warming (ktCO2eq),Food and food services,0.0,0.0,0.02062
 B,Global warming (ktCO2eq),Heat and electricity,0.0,0.0,0.0
-B,Global warming (ktCO2eq),Individual travel,0.39233,0.16458,0.15008
+B,Global warming (ktCO2eq),Individual travel,0.39285,0.16322,0.15168
 B,Global warming (ktCO2eq),"Medical, electrical equipment and machinery",0.0,0.0,0.0
 B,Global warming (ktCO2eq),Operational impacts,0.0,0.0,0.0
-B,Global warming (ktCO2eq),Pharmaceuticals and chemical products,0.34721,0.11689,0.09061
-B,Global warming (ktCO2eq),Services,0.26046,0.50318,0.23636
-B,Global warming (ktCO2eq),Transport,0.0,0.21535,0.50284
+B,Global warming (ktCO2eq),Pharmaceuticals and chemical products,0.3454,0.11654,0.09107
+B,Global warming (ktCO2eq),Services,0.26175,0.50288,0.23537
+B,Global warming (ktCO2eq),Transport,0.0,0.21736,0.50126
 B,Global warming (ktCO2eq),Unallocated,0.0,0.0,0.0
 B,Material extraction (kt),Food and food services,0.0,0.0,0.0
 B,Material extraction (kt),Heat and electricity,0.0,0.0,0.0
 B,Material extraction (kt),Individual travel,0.0,0.0,0.0
-B,Material extraction (kt),"Medical, electrical equipment and machinery",0.0,0.0,0.07764
+B,Material extraction (kt),"Medical, electrical equipment and machinery",0.0,0.0,0.07898
 B,Material extraction (kt),Operational impacts,0.0,0.0,0.0
-B,Material extraction (kt),Pharmaceuticals and chemical products,0.00057,0.35161,0.57018
-B,Material extraction (kt),Services,0.0,0.64782,0.35218
+B,Material extraction (kt),Pharmaceuticals and chemical products,0.00056,0.34987,0.57059
+B,Material extraction (kt),Services,0.0,0.64957,0.35043
 B,Material extraction (kt),Transport,0.0,0.0,0.0
-B,Material extraction (kt),Unallocated,0.99943,0.00057,0.0
-B,Blue water consumption (Mm3),Food and food services,0.24605,0.75395,0.0
+B,Material extraction (kt),Unallocated,0.99944,0.00056,0.0
+B,Blue water consumption (Mm3),Food and food services,0.2459,0.7541,0.0
 B,Blue water consumption (Mm3),Heat and electricity,0.0,0.0,0.0
 B,Blue water consumption (Mm3),Individual travel,0.0,0.0,0.0
 B,Blue water consumption (Mm3),"Medical, electrical equipment and machinery",0.0,0.0,0.0
 B,Blue water consumption (Mm3),Operational impacts,0.0,0.0,0.0
-B,Blue water consumption (Mm3),Pharmaceuticals and chemical products,0.75395,0.19277,0.05328
-B,Blue water consumption (Mm3),Services,0.0,0.05328,0.94672
+B,Blue water consumption (Mm3),Pharmaceuticals and chemical products,0.7541,0.19259,0.05331
+B,Blue water consumption (Mm3),Services,0.0,0.05331,0.94669
 B,Blue water consumption (Mm3),Transport,0.0,0.0,0.0
 B,Blue water consumption (Mm3),Unallocated,0.0,0.0,0.0
-B,Land use (km2),Food and food services,0.73704,0.26296,0.0
+B,Land use (km2),Food and food services,0.73628,0.26372,0.0
 B,Land use (km2),Heat and electricity,0.0,0.0,0.0
 B,Land use (km2),Individual travel,0.0,0.0,0.0
 B,Land use (km2),"Medical, electrical equipment and machinery",0.0,0.0,0.0
 B,Land use (km2),Operational impacts,0.0,0.0,0.0
-B,Land use (km2),Pharmaceuticals and chemical products,0.26296,0.50726,0.22978
-B,Land use (km2),Services,0.0,0.22978,0.77022
+B,Land use (km2),Pharmaceuticals and chemical products,0.26372,0.50845,0.22783
+B,Land use (km2),Services,0.0,0.22783,0.77217
 B,Land use (km2),Transport,0.0,0.0,0.0
 B,Land use (km2),Unallocated,0.0,0.0,0.0
-B,Waste generation (kt),Food and food services,0.0,0.0072,0.24611
+B,Waste generation (kt),Food and food services,0.0,0.00756,0.2461
 B,Waste generation (kt),Heat and electricity,0.0,0.0,0.0
 B,Waste generation (kt),Individual travel,0.0,0.0,0.0
 B,Waste generation (kt),"Medical, electrical equipment and machinery",0.0,0.0,0.0
-B,Waste generation (kt),Operational impacts,0.31542,0.61151,0.04639
-B,Waste generation (kt),Pharmaceuticals and chemical products,0.66331,0.08657,0.02326
-B,Waste generation (kt),Services,0.0,0.0,0.00023
+B,Waste generation (kt),Operational impacts,0.3145,0.61223,0.04669
+B,Waste generation (kt),Pharmaceuticals and chemical products,0.6639,0.08562,0.02306
+B,Waste generation (kt),Services,0.0,0.0,0.00034
 B,Waste generation (kt),Transport,0.0,0.0,0.0
-B,Waste generation (kt),Unallocated,0.02127,0.29472,0.68401
+B,Waste generation (kt),Unallocated,0.0216,0.29459,0.68381
