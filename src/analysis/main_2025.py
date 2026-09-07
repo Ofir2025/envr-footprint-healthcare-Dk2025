@@ -83,6 +83,13 @@ mode = "Danish"  # or "Dutch"
 # (Danish 2019 detailed-SUT expenditure on EXIOBASE 3.8.2's 2016 table).
 # Select with HC_ANALYSIS_YEAR=2019|2022 (default 2022).
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
+# Scope-boundary scenario. "health_eldercare" (default) = SHA health + residential
+# eldercare, the manuscript boundary. "health_only" drops eldercare (12401/13302);
+# "zorg_en_welzijn" adds childcare (12402/13301), matching the expansive Dutch
+# "health and welfare" boundary of Steenmeijer et al. 2022.
+SCOPE_SCENARIO = os.environ.get("HC_SCOPE", "health_eldercare")
+INCLUDE_CHILDCARE = SCOPE_SCENARIO == "zorg_en_welzijn"
+INCLUDE_ELDERCARE = SCOPE_SCENARIO != "health_only"
 BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
 # Danmarks Nationalbank annual average DKK/EUR
 DKK_PER_EUR_BY_YEAR = {"2019": 7.4661, "2022": 7.4396}
@@ -98,11 +105,13 @@ from .extra_functions import (
 )
 if ANALYSIS_YEAR == "2022":
     hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals_2022(
-        BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx"
+        BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx",
+        include_childcare=INCLUDE_CHILDCARE, include_eldercare=INCLUDE_ELDERCARE,
     )
 else:
     hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals(
-        BRONZE_DIR / "dk_umat_2019.xlsx"
+        BRONZE_DIR / "dk_umat_2019.xlsx",
+        include_childcare=INCLUDE_CHILDCARE, include_eldercare=INCLUDE_ELDERCARE,
     )
 # Provenance record: every (purpose x transaction) column that entered the totals.
 expenditure_breakdown.to_csv(
