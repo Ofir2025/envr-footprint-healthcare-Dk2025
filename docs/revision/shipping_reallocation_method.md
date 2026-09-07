@@ -193,22 +193,48 @@ Measured directly on `HIOT_2011.mat` (hybrid v3.3.18), Danish
 | Statistics Denmark benchmark | — | **9 %** |
 
 The monetary share is 73.5 % in 2016 and 73.6 % in 2022, so it is structural
-rather than a year effect. The hybrid lands within 1.2 percentage points of the
-national-accounts benchmark **by construction**. The mechanism is stated in
-Merciai & Schmidt (2018): the hybrid adopts homogeneous kind-of-activity units,
-and *"a strict correspondence between official monetary and hybrid SUTs is lost
-in the EXIOBASE v3 database, because the monetary tables follow another approach
-linked to the establishment."* In other words the monetary build's
-establishment-based units are what strand Danish shipping revenue in Danish
-intermediate use; the hybrid's activity-based units do not.
+rather than a year effect.
+
+**Where the difference comes from, stated carefully.** It is tempting to say the
+hybrid "fixes" shipping. It does not, and the documentation is explicit that it
+does not even try. The hybrid takes transport services **straight from the
+monetary supply-use tables** — its methodological report lists `MSUTs` as the
+sole source for both supply and trade of sea transport — and states that *"only
+international transportation follows a residency approach (Stadler et al.
+2015)"*, i.e. the bunker allocation is inherited unchanged. Transport is one of
+the sectors the hybridisation deliberately leaves in money; there is no
+tonne-kilometre layer, no transport margin block, and no per-tonne shipping
+requirement anywhere in the hybrid trade module.
+
+The divergence therefore arises **not in the source data but in the
+supply-use-to-input-output construct**. Merciai & Schmidt note that *"a strict
+correspondence between official monetary and hybrid SUTs is lost in the EXIOBASE
+v3 database, because the monetary tables follow another approach linked to the
+establishment."* Both builds start from the same monetary shipping values; the
+monetary industry-by-industry table resolves them onto establishment-based
+units, the hybrid onto homogeneous activity units, and only the latter keeps
+Danish shipping revenue out of Danish intermediate use.
+
+That is a weaker and more accurate claim than "the hybrid fixes it". What the
+comparison establishes is that **the monetary allocation is construct-dependent
+rather than an observation** — two builds over the same source data disagree by
+a factor of nine, and the one that agrees with the national accounts is not the
+one we use.
 
 Two qualifications, both material:
 
-**The hybrid fixes *who buys* the shipping, not *whose emissions they are*.** Its
-bunker-fuel allocation is inherited verbatim from monetary EXIOBASE's
-residence-principle factors — the correlation between the two allocations across
-countries is **0.95** — so Denmark still carries the emissions of its
-world-serving fleet. Our correction addresses the same half of the problem.
+**The allocation of *emissions* is unchanged.** The hybrid inherits monetary
+EXIOBASE's residence-principle bunker allocation verbatim; the correlation
+between the two allocations across countries is **0.95**. Measured on the
+hybrid, the Danish sea-transport activity buys about 6.0 Mt of refined petroleum
+and carries **18.4 Mt CO₂ — 34.5 % of Denmark's entire activity-side fossil
+CO₂** (Greece 46.2 %, Norway 38.6 %). Our correction addresses the same half of
+the problem the hybrid's construct does: who is recorded as buying the service,
+not whose account the emissions land in.
+
+A detail worth knowing: **Malta carries only 16 kt** in the hybrid despite being
+a major flag state, so whatever the underlying allocation tracks, it is not flag
+registry.
 
 **Years do not match.** The hybrid is 2011 and our model is 2022, and the output
 levels differ roughly twofold. The comparison establishes that the monetary
@@ -216,11 +242,25 @@ build's allocation is the outlier, not that 7.83 % is the right 2022 number.
 
 **What this means for the correction.** It moves from "a defensible
 approximation with no precedent" to "a manual reconstruction of an allocation
-that EXIOBASE's own hybrid build produces natively, and that Denmark's
-statistical office publishes." Three independent routes — the national accounts,
-the hybrid construction, and the Danish Energy Agency's own reallocation — agree
-that the monetary Danish figure is wrong in the direction and roughly the
-magnitude we correct.
+that an alternative construct over the same source data produces natively, and
+that Denmark's statistical office publishes." Three independent routes — the
+national accounts, the hybrid construct, and the Danish Energy Agency's own
+reallocation in the statutory Global Report — agree that the monetary Danish
+figure is wrong in the direction and roughly the magnitude we correct.
+
+**No publication claims the hybrid corrects shipping.** Searching the whole
+hybrid corpus — the 90-page methodological report, the version guide, the v4
+report and the journal article — the word "bunker" appears exactly once, in a
+sentence explaining why EXIOBASE differs from EDGAR. The inference that the
+construct produces a better Danish allocation is ours, drawn from the data, and
+is presented as such.
+
+**Where a genuine structural fix is being built.** The BONSAI successor adds an
+explicit trade-and-transport margin block and a route-based freight account
+computing port-to-port distances and per-tonne-kilometre fuel intensities by
+mode. That would replace the monetary-service treatment altogether. Its own
+documentation warns the methods apply *"only partly to EXIOBASE v4"*, so it is a
+direction of travel rather than an available alternative.
 
 ## 6. Limitations
 
