@@ -57,13 +57,13 @@ The paper does not model the entire downstream combustion/use stage of refined t
 
 The paper states that two broad data families are required:
 
-\[
+$$
 \boxed{
 \text{bottom-up engineering/process data}
 +
 \text{top-down IO data}
 }
-\]
+$$
 
 ## 3.1 IO data
 
@@ -99,9 +99,9 @@ The paper states that detailed productivity, energy demand, infrastructure, equi
 
 Input costs are adjusted to 2013 and converted using:
 
-\[
+$$
 1\ \text{US\$}=1.08\ \text{AU\$}.
-\]
+$$
 
 Transport cost is adapted from a forestry transport model and adjusted for bio-crude density.
 
@@ -140,7 +140,7 @@ This vector is inserted into the Western Australian part of the MRIO.
 
 Conceptually:
 
-\[
+$$
 \mathbf z_{\cdot,bio}
 =
 \begin{bmatrix}
@@ -152,7 +152,7 @@ Conceptually:
 \text{services}\
 \vdots
 \end{bmatrix}.
-\]
+$$
 
 ## 5.2 Why a new row is needed
 
@@ -168,11 +168,11 @@ Therefore a **new row** is inserted.
 
 Because no observed market/sales structure exists for the hypothetical bio-crude industry, the authors assume that:
 
-\[
+$$
 \boxed{
 \text{bio-crude has the same sales structure as crude oil}
 }
-\]
+$$
 
 The crude-oil row is therefore used as an **analogue**.
 
@@ -180,17 +180,17 @@ The copied sales structure is then scaled down so that total bio-crude sales equ
 
 If total input cost is:
 
-\[
+$$
 z_{bio}=\sum_i z_{i,bio},
-\]
+$$
 
-and the normalised crude-oil sales shares are \(s_j^{crude}\), then the conceptual procedure is:
+and the normalised crude-oil sales shares are $s_j^{crude}$, then the conceptual procedure is:
 
-\[
+$$
 z_{bio,j}^{row}
 =
 s_j^{crude}z_{bio}.
-\]
+$$
 
 This is my algebraic restatement of their described balancing procedure, not an equation printed in the article.
 
@@ -217,13 +217,13 @@ Figure 1 shows the Western Australian SUT/MRIO block with new:
 
 The figure therefore reinforces the principle:
 
-\[
+$$
 \boxed{
 \text{sector augmentation}
 \neq
 \text{column insertion only}.
 }
-\]
+$$
 
 A complete inserted activity has economic inputs, output disposition and satellite intensities.
 
@@ -233,75 +233,75 @@ A complete inserted activity has economic inputs, output disposition and satelli
 
 Let:
 
-- \(T\) = intermediate transactions matrix;
-- \(y\) = final-demand matrix/vector;
-- \(x\) = gross output;
-- \(A\) = direct requirements matrix;
-- \(L\) = Leontief inverse;
-- \(Q\) = satellite-account matrix;
-- \(q\) = direct satellite intensity;
-- \(m\) = total multiplier.
+- $T$ = intermediate transactions matrix;
+- $y$ = final-demand matrix/vector;
+- $x$ = gross output;
+- $A$ = direct requirements matrix;
+- $L$ = Leontief inverse;
+- $Q$ = satellite-account matrix;
+- $q$ = direct satellite intensity;
+- $m$ = total multiplier.
 
 ## 7.1 Gross output
 
 The paper first writes:
 
-\[
+$$
 \mathbf x
 =
 \mathbf T\mathbf 1_N
 +
 \mathbf y\mathbf 1_K.
 \tag{1a}
-\]
+$$
 
 This states that sector output equals intermediate sales plus final-demand sales.
 
 ## 7.2 Direct requirements
 
-\[
+$$
 \mathbf A
 =
 \mathbf T\hat{\mathbf x}^{-1}.
 \tag{1b}
-\]
+$$
 
 Each transaction is divided by the receiving sector's total output.
 
 ## 7.3 Leontief system
 
-\[
+$$
 \mathbf x
 =
 (\mathbf I-\mathbf A)^{-1}\mathbf y.
 \tag{1c}
-\]
+$$
 
 Define:
 
-\[
+$$
 \mathbf L
 =
 (\mathbf I-\mathbf A)^{-1}.
-\]
+$$
 
-\(L\) captures all direct and indirect supplier requirements.
+$L$ captures all direct and indirect supplier requirements.
 
 ## 7.4 Direct environmental/social intensity
 
-\[
+$$
 \mathbf q
 =
 \mathbf Q\hat{\mathbf x}^{-1}.
-\]
+$$
 
 ## 7.5 Total multiplier
 
-\[
+$$
 \boxed{
 \mathbf m=\mathbf q\mathbf L.
 }
-\]
+$$
 
 This produces total direct + upstream impacts per unit of output.
 
@@ -311,15 +311,15 @@ This produces total direct + upstream impacts per unit of output.
 
 The paper expands:
 
-\[
+$$
 \mathbf L
 =
 \mathbf I+\mathbf A+\mathbf A^2+\mathbf A^3+\cdots.
-\]
+$$
 
-For target final demand \(y^*\):
+For target final demand $y^*$:
 
-\[
+$$
 q\#Ly^*
 =
 q\#y^*
@@ -328,24 +328,24 @@ q\#y^*
 +q\#A^3y^*
 +\cdots.
 \tag{2}
-\]
+$$
 
-where \(\#\) denotes element-wise multiplication.
+where $\#$ denotes element-wise multiplication.
 
 Interpretation:
 
 | Term | Meaning |
 |---|---|
-| \(q\#y^*\) | direct biofuel activity |
-| \(q\#Ay^*\) | immediate suppliers |
-| \(q\#A^2y^*\) | suppliers of suppliers |
-| \(q\#A^3y^*\) | third upstream tier |
+| $q\#y^*$ | direct biofuel activity |
+| $q\#Ay^*$ | immediate suppliers |
+| $q\#A^2y^*$ | suppliers of suppliers |
+| $q\#A^3y^*$ | third upstream tier |
 
 The same footprint can also be decomposed by the inputs purchased directly by the algae sector, using the indirect term:
 
-\[
+$$
 qL\#Ay^*.
-\]
+$$
 
 ---
 
@@ -376,7 +376,7 @@ The model does not endogenously represent:
 
 Table 1 compares bio-crude with conventional crude oil per **million dollars of industry output**.
 
-| Indicator | Bio-crude direct \(q\) | Bio-crude total \(m\) | Crude oil direct \(q\) | Crude oil total \(m\) |
+| Indicator | Bio-crude direct $q$ | Bio-crude total $m$ | Crude oil direct $q$ | Crude oil total $m$ |
 |---|---:|---:|---:|---:|
 | Employment | 0.08 FTE/million $ | 2.44 FTE/million $ | 0.48 | 0.59 |
 | Economic stimulus | 0.47 $/$ | 0.77 $/$ | 0.11 | 0.13 |
@@ -492,13 +492,13 @@ The authors note that direct impacts would remain unchanged if the technology re
 
 This is an important MRIO lesson:
 
-\[
+$$
 \text{same foreground recipe}
 +
 \text{different geographic background}
 \Rightarrow
 \text{different total footprint}.
-\]
+$$
 
 For Denmark, this is directly relevant to whether hospital inputs are produced domestically or imported from specific countries.
 
@@ -585,13 +585,13 @@ The supplementary data are referenced by DOI but were not supplied here.
 
 This paper gives an especially clear fallback method if the detailed Danish SUT does not directly reveal a child health activity.
 
-Suppose we want to insert a detailed sector \(k\), for example dental practices.
+Suppose we want to insert a detailed sector $k$, for example dental practices.
 
 ## Step 1: construct a child production column
 
 Use Danish evidence where available:
 
-\[
+$$
 \mathbf z_{\cdot,k}^{prior}
 =
 \text{payroll}
@@ -605,13 +605,13 @@ Use Danish evidence where available:
 \text{services}
 +
 \cdots.
-\]
+$$
 
 ## Step 2: fill missing categories from a donor
 
 Possible hierarchy:
 
-\[
+$$
 \text{Danish detailed SUT}
 >
 \text{Danish provider data}
@@ -621,7 +621,7 @@ Possible hierarchy:
 \text{USEEIO}
 >
 \text{parent recipe}.
-\]
+$$
 
 ## Step 3: create the output/sales row
 
@@ -637,25 +637,25 @@ Fallback:
 
 Require:
 
-\[
+$$
 \sum_i z_{ik}+v_k=x_k.
-\]
+$$
 
 ## Step 5: preserve parent margins in a disaggregation
 
 Unlike Malik's genuinely new sector, healthcare children partition an existing parent. Therefore we can impose stronger constraints:
 
-\[
+$$
 \sum_k z_{ik}=z_{iH},
-\]
+$$
 
-\[
+$$
 \sum_k z_{kj}=z_{Hj},
-\]
+$$
 
-\[
+$$
 \sum_k x_k=x_H.
-\]
+$$
 
 This makes the healthcare disaggregation more tightly controlled than the algal case.
 
@@ -708,10 +708,10 @@ For healthcare, the same logic applies, except we are usually **splitting an exi
 | Augmented row | New sales/output vector associated with the inserted sector. | Required for balance and economic integration. | Why was a crude-oil row needed? |
 | Analogue sales structure | Using an existing sector's destination shares for a new product. | Practical fallback when new output markets are unobserved. | What assumption did Malik make for bio-crude sales? |
 | Balance | Equality between total input and total output for the inserted activity. | Prevents an internally inconsistent IO table. | How was the copied row scaled? |
-| Direct requirements matrix | \(A=T\hat{x}^{-1}\). | Converts transactions to per-output recipes. | What does one column of \(A\) mean? |
-| Leontief inverse | \((I-A)^{-1}\). | Captures all supplier rounds. | Why is it needed after sector insertion? |
-| Satellite intensity | \(q=Q\hat{x}^{-1}\). | Links monetary output to employment/energy/GHG. | What is the difference between \(q\) and \(m\)? |
-| Production-layer decomposition | Expansion of the Leontief inverse into supplier tiers. | Shows where impacts arise upstream. | What is represented by \(A^2y\)? |
+| Direct requirements matrix | $A=T\hat{x}^{-1}$. | Converts transactions to per-output recipes. | What does one column of $A$ mean? |
+| Leontief inverse | $(I-A)^{-1}$. | Captures all supplier rounds. | Why is it needed after sector insertion? |
+| Satellite intensity | $q=Q\hat{x}^{-1}$. | Links monetary output to employment/energy/GHG. | What is the difference between $q$ and $m$? |
+| Production-layer decomposition | Expansion of the Leontief inverse into supplier tiers. | Shows where impacts arise upstream. | What is represented by $A^2y$? |
 | Fixed technology | Input coefficients do not change with output. | Central limitation in scaling hypothetical sectors. | Why is scaling to 1 Mt not a forecast? |
 | Regional background | Location-specific upstream economy supplying the foreground sector. | Makes total impacts geographically sensitive. | Why would moving the same algae plant to Victoria change total impacts? |
 

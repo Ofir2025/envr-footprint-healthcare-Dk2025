@@ -84,12 +84,12 @@ The MRIO covers:
 - **19 Australian regions**;
 - **344 industries per region**;
 - Rest-of-World imports/exports;
-- supply \(V\);
-- use \(U\);
-- value added \(v\);
-- final demand \(y\);
-- margins/taxes \(M\);
-- satellite accounts \(Q\).
+- supply $V$;
+- use $U$;
+- value added $v$;
+- final demand $y$;
+- margins/taxes $M$;
+- satellite accounts $Q$.
 
 The authors explicitly describe the model as following a **supply-use structure**.
 
@@ -150,13 +150,13 @@ For cellulose refining they combine:
 
 This is a clear example of a **hybrid recipe**:
 
-\[
+$$
 \text{new sector recipe}
 =
 \text{bottom-up process data}
 +
 \text{IO gap-filling data}.
-\]
+$$
 
 ## 6.3 What is placed in the new rows?
 
@@ -195,7 +195,7 @@ This is one of the strongest transferable lessons for Danish healthcare.
 
 A health-sector child column could similarly be built as:
 
-\[
+$$
 \mathbf z_k
 =
 \mathbf z_k^{\text{Danish observed}}
@@ -203,7 +203,7 @@ A health-sector child column could similarly be built as:
 \mathbf z_k^{\text{health-admin}}
 +
 \mathbf z_k^{\text{donor residual}},
-\]
+$$
 
 provided parent-sector totals are preserved and donor assumptions are made explicit.
 
@@ -230,12 +230,12 @@ This is analogous to splitting a Danish health-sector environmental extension us
 
 Let:
 
-- \(A\) = direct requirements matrix;
-- \(y\) = final-demand vector;
-- \(L=(I-A)^{-1}\) = Leontief inverse;
-- \(Q\) = satellite account;
-- \(q=Q\hat{x}^{-1}\) = direct satellite intensity;
-- \(m=qL\) = total multiplier.
+- $A$ = direct requirements matrix;
+- $y$ = final-demand vector;
+- $L=(I-A)^{-1}$ = Leontief inverse;
+- $Q$ = satellite account;
+- $q=Q\hat{x}^{-1}$ = direct satellite intensity;
+- $m=qL$ = total multiplier.
 
 The paper uses employment as the explanatory example, but the same structure is applied to economic stimulus, energy and CO2.
 
@@ -243,15 +243,15 @@ The paper uses employment as the explanatory example, but the same structure is 
 
 The Leontief inverse incorporates all upstream rounds:
 
-\[
+$$
 L=(I-A)^{-1}.
-\]
+$$
 
 Total intensity:
 
-\[
+$$
 m=qL.
-\]
+$$
 
 ### Meaning
 
@@ -265,47 +265,47 @@ A total multiplier adds all upstream suppliers required directly and indirectly.
 
 The paper expands the Leontief inverse as a power series:
 
-\[
+$$
 L=I+A+A^2+A^3+\cdots.
-\]
+$$
 
-For a final-demand shock \(y^*\):
+For a final-demand shock $y^*$:
 
-\[
+$$
 Q
 =
 q(I+A+A^2+A^3+\cdots+A^n)y^*,
 \tag{1}
-\]
+$$
 
 or:
 
-\[
+$$
 Q
 =
 qy^*+qAy^*+qA^2y^*+qA^3y^*+\cdots+qA^ny^*.
 \tag{2}
-\]
+$$
 
 Interpretation:
 
-- \(qy^*\): direct/on-site effect;
-- \(qAy^*\): first-order suppliers;
-- \(qA^2y^*\): suppliers of suppliers;
+- $qy^*$: direct/on-site effect;
+- $qAy^*$: first-order suppliers;
+- $qA^2y^*$: suppliers of suppliers;
 - etc.
 
 For industry-by-industry contribution the paper writes:
 
-\[
+$$
 Q
 =
 q\#Ly^*
 =
 q\#y^*+q\#Ay^*+q\#A^2y^*+\cdots,
 \tag{3}
-\]
+$$
 
-where \(\#\) denotes element-wise multiplication.
+where $\#$ denotes element-wise multiplication.
 
 ### Why it matters
 
@@ -319,23 +319,23 @@ The paper also decomposes impacts by the **immediate operating inputs** purchase
 
 From Eq. (1):
 
-\[
+$$
 Q
 =
 q(I+A+A^2+\cdots)y^*
 =
 qy^*+q(I+A+A^2+\cdots)Ay^*,
 \tag{4}
-\]
+$$
 
 and:
 
-\[
+$$
 Q
 =
 q\#y^*+qL\#Ay^*.
 \tag{5}
-\]
+$$
 
 The first term is direct impact; the second attributes indirect impact to the target sector's immediate inputs.
 
@@ -416,7 +416,7 @@ This is a concrete demonstration of why supply-chain truncation can be material 
 
 # 14. Direct versus total intensities
 
-Table 3 shows large differences between direct intensity \(q\) and total multiplier \(m\).
+Table 3 shows large differences between direct intensity $q$ and total multiplier $m$.
 
 For example, cellulose refining may have very low direct energy/GHG intensity relative to its total supply-chain intensity.
 
@@ -549,7 +549,7 @@ Exact insertion instructions are said to be in Supporting Information Appendix S
 
 The paper suggests a direct architecture for health-sector augmentation.
 
-Suppose an existing parent health sector \(H\) is split into children \(k\).
+Suppose an existing parent health sector $H$ is split into children $k$.
 
 ## Step 1: define child activities
 
@@ -587,23 +587,23 @@ Use Danish SUT final-use/provider information, SHA or other output-destination e
 
 ## Step 5: enforce accounting closure
 
-For every parent input \(i\):
+For every parent input $i$:
 
-\[
+$$
 \sum_k z_{ik}=z_{iH}.
-\]
+$$
 
-For every destination \(j\):
+For every destination $j$:
 
-\[
+$$
 \sum_k z_{kj}=z_{Hj}.
-\]
+$$
 
 And:
 
-\[
+$$
 \sum_kx_k=x_H.
-\]
+$$
 
 ## Step 6: add child-specific environmental extensions
 
@@ -658,7 +658,7 @@ This is precisely why the paper is useful for healthcare disaggregation.
 | Sales structure | Distribution of the new sector's output to users. | Completes the output side and preserves balance. | Where is the sales structure represented in Fig. 3? |
 | IO gap filling | Using an analogous IO sector for input categories absent in process data. | Makes incomplete bottom-up inventories compatible with economy-wide models. | Which sectors were used to fill forestry/refinery gaps? |
 | Satellite account | Direct social/environmental quantity aligned with sector output. | Enables footprints beyond monetary flows. | Which four satellites were analysed? |
-| Leontief multiplier | Direct intensity multiplied by total upstream requirements. | Produces complete direct + indirect impact. | Why is \(m=qL\) larger than \(q\)? |
+| Leontief multiplier | Direct intensity multiplied by total upstream requirements. | Produces complete direct + indirect impact. | Why is $m=qL$ larger than $q$? |
 | Production layer | A tier in the upstream supplier chain. | Demonstrates truncation. | What is omitted if the system stops at layer 2? |
 | Commodity breakdown | Attribution of indirect impact to immediate purchased inputs. | Identifies actionable hotspots. | Which immediate input dominated the refinery results? |
 | Displacement shock | Negative IO demand representing activity crowded out by the new system. | Prevents counting gains without some losses. | What industry was displaced by forestry diversion? |

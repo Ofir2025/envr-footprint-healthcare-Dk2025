@@ -46,13 +46,13 @@ Giljum et al. (2014) describe this IO trade-off clearly: economy-wide completene
 
 The three papers therefore try to create:
 
-\[
+$$
 \boxed{
 \text{specific foreground technology}
 +
 \text{complete IO background}
 }
-\]
+$$
 
 while maintaining accounting consistency.
 
@@ -70,7 +70,7 @@ while maintaining accounting consistency.
 | Production column | Process-informed wind inputs | Bottom-up process recipes + IO gap filling | Bottom-up bio-crude process column |
 | Sales/output row | Wind product/output linked in SUT | Explicit scenario sales structure in augmented SUT | Crude-oil sales row used as analogue |
 | Balancing principle | Remove/replace overlapping IO flows; maintain hybrid table structure | Rows/columns integrated into SUT MRIO | Total new sales scaled to equal total new inputs/output |
-| Upstream completion | IO residual inputs or integrated \(C_u\) | Leontief MRIO | Leontief MRIO |
+| Upstream completion | IO residual inputs or integrated $C_u$ | Leontief MRIO | Leontief MRIO |
 | Double counting | Explicit concern; overlapping IO flows zeroed | Less explicit because sectors are inserted using constructed recipes | New activity inserted rather than overlaid on an existing identical sector |
 | Price issue | Major sensitivity source | Monetary process conversion, but no full price-uncertainty study | Mixed data converted to 2013 AU$; constant-price assumption stated |
 | Main outputs | GHG LCI | employment, stimulus, energy, GHG | employment, stimulus, energy, GHG |
@@ -85,7 +85,7 @@ The three papers together show that a scientifically meaningful child sector is 
 
 At minimum, a new or disaggregated sector requires:
 
-\[
+$$
 \boxed{
 \text{scale}
 +
@@ -97,15 +97,15 @@ At minimum, a new or disaggregated sector requires:
 +
 \text{direct environmental extensions}
 }
-\]
+$$
 
 and all these must be reconciled with the accounting system.
 
 ## 4.1 Production recipe
 
-For sector \(k\), the input column is:
+For sector $k$, the input column is:
 
-\[
+$$
 \mathbf z_{\cdot k}
 =
 \begin{bmatrix}
@@ -114,23 +114,23 @@ z_{2k}\\
 \vdots\\
 z_{nk}
 \end{bmatrix}.
-\]
+$$
 
 The associated technical coefficients are:
 
-\[
+$$
 a_{ik}=\frac{z_{ik}}{x_k}.
-\]
+$$
 
 A real disaggregation must make at least some child vectors different:
 
-\[
+$$
 \mathbf a_{\text{hospital}}
 \neq
 \mathbf a_{\text{GP}}
 \neq
 \mathbf a_{\text{dentist}}.
-\]
+$$
 
 If every child simply receives the parent coefficient vector, the exercise changes reporting resolution but not technology.
 
@@ -142,25 +142,25 @@ Malik et al. demonstrate that a new input column alone is insufficient. The acti
 
 For a symmetric IOT:
 
-\[
+$$
 \mathbf z_{k\cdot}
 =
 \begin{bmatrix}
 z_{k1}&z_{k2}&\cdots&z_{kn}
 \end{bmatrix}.
-\]
+$$
 
 For a SUT, this is represented more naturally through the supply matrix and product use/final demand.
 
 ## 4.3 Scale
 
-The new child must have gross output \(x_k\). In a partition of an existing parent \(H\):
+The new child must have gross output $x_k$. In a partition of an existing parent $H$:
 
-\[
+$$
 \boxed{
 \sum_{k\in H}x_k=x_H.
 }
-\]
+$$
 
 This conservation identity is a major advantage of health-sector **disaggregation** compared with Malik's hypothetical new-sector insertion.
 
@@ -178,13 +178,13 @@ Where Ecoinvent already represents an input, the corresponding IO input is set t
 
 The integrated hybrid model additionally connects the process and IO systems through:
 
-\[
+$$
 \mathbf H=
 \begin{bmatrix}
 -\mathbf A_{gp} & -\mathbf C_d\\
 -\mathbf C_u & \mathbf I-\mathbf A_{ss}^*
 \end{bmatrix}.
-\]
+$$
 
 The downstream link for wind electricity is inserted and the pre-existing wind sales coefficient is removed to prevent duplicate output representation.
 
@@ -210,15 +210,15 @@ Because an observed bio-crude sales structure does not exist, they use **crude o
 
 Conceptually, if:
 
-\[
+$$
 \sum_i z_{i,b}=x_b
-\]
+$$
 
-and \(s_j^{crude}\) are normalised crude-oil sales shares, then the inserted bio-crude sales vector is approximately:
+and $s_j^{crude}$ are normalised crude-oil sales shares, then the inserted bio-crude sales vector is approximately:
 
-\[
+$$
 z_{b,j}=s_j^{crude}x_b.
-\]
+$$
 
 This equation is an explanatory reconstruction of the authors' procedure, not a printed equation in the paper.
 
@@ -230,15 +230,15 @@ This equation is an explanatory reconstruction of the authors' procedure, not a 
 
 Statistics Denmark documents that the final national-account supply-use system works with approximately:
 
-\[
+$$
 \boxed{2{,}350\ \text{products}\times117\ \text{industries}}
-\]
+$$
 
 whereas the published symmetric IOT is:
 
-\[
+$$
 \boxed{117\times117\ \text{industries}}.
-\]
+$$
 
 The **industry dimension is not more detailed in the final SUT**, but the **product dimension is dramatically more detailed**.
 
@@ -254,15 +254,15 @@ A broad health industry may purchase or produce multiple detailed health and non
 
 The SUT allows us to distinguish:
 
-\[
+$$
 \mathbf V=\text{supply matrix}
-\]
+$$
 
 from:
 
-\[
+$$
 \mathbf U=\text{use matrix}.
-\]
+$$
 
 That provides stronger information for:
 
@@ -308,7 +308,7 @@ The product-to-industry transformation is based on a market-share matrix derived
 
 This is important for the health project because a scientifically clean workflow is:
 
-\[
+$$
 \boxed{
 \text{augment/disaggregate SUT}
 \rightarrow
@@ -318,7 +318,7 @@ This is important for the health project because a scientifically clean workflow
 \rightarrow
 \text{calculate EEIO footprints}.
 }
-\]
+$$
 
 Starting from the IOT is feasible, but it forfeits much of the product information that Method D already collapsed.
 
@@ -360,23 +360,23 @@ Crucially, they **do not replace Sweden inside EXIOBASE and rebalance the full g
 
 Let:
 
-- \(A^d\) = domestic technical-coefficient matrix;
-- \(A^m\) = import coefficient matrix;
-- \(L^d=(I-A^d)^{-1}\) = domestic Leontief inverse;
-- \(y^d\) = domestic final demand for domestically produced goods/services;
-- \(y^m\) = direct imported final demand;
-- \(S^d\) = domestic environmental intensity;
-- \(Q\) = EXIOBASE total foreign environmental multiplier matrix after Leontief calculation;
-- \(Q^t\) = \(Q\) transformed/concorded to national import categories;
-- \(f^h\) = direct household emissions.
+- $A^d$ = domestic technical-coefficient matrix;
+- $A^m$ = import coefficient matrix;
+- $L^d=(I-A^d)^{-1}$ = domestic Leontief inverse;
+- $y^d$ = domestic final demand for domestically produced goods/services;
+- $y^m$ = direct imported final demand;
+- $S^d$ = domestic environmental intensity;
+- $Q$ = EXIOBASE total foreign environmental multiplier matrix after Leontief calculation;
+- $Q^t$ = $Q$ transformed/concorded to national import categories;
+- $f^h$ = direct household emissions.
 
 ## 9.1 Domestic component
 
-\[
+$$
 \boxed{
 f^d=S^dL^dy^d+f^h.
 }
-\]
+$$
 
 This traces Danish/Swedish domestic production chains using the official national model.
 
@@ -384,63 +384,63 @@ This traces Danish/Swedish domestic production chains using the official nationa
 
 The domestic economy needs imported intermediate inputs:
 
-\[
+$$
 \boxed{
 m^d=A^mL^dy^d.
 }
-\]
+$$
 
 ## 9.3 Direct imported final demand
 
-\[
+$$
 \boxed{
 m^m=y^m.
 }
-\]
+$$
 
 ## 9.4 Total imports associated with final demand
 
-\[
+$$
 \boxed{
 m=m^d+m^m.
 }
-\]
+$$
 
 ## 9.5 EXIOBASE multipliers
 
 For EXIOBASE:
 
-\[
+$$
 L^E=(I-A^E)^{-1},
-\]
+$$
 
 and:
 
-\[
+$$
 \boxed{Q=S^EL^E.}
-\]
+$$
 
 ## 9.6 Imported environmental pressure
 
 After currency, country and industry concordance:
 
-\[
+$$
 \boxed{
 f^m=Q^tm.
 }
-\]
+$$
 
 or expanded:
 
-\[
+$$
 \boxed{
 f^m=Q^tA^mL^dy^d+Q^ty^m.
 }
-\]
+$$
 
 ## 9.7 Total footprint
 
-\[
+$$
 \boxed{
 f^{d+m}
 =
@@ -452,7 +452,7 @@ Q^ty^m
 +
 f^h.
 }
-\]
+$$
 
 Each term has a clear meaning:
 
@@ -475,10 +475,10 @@ The national statistical institute has already reconciled its SUT so that produc
 
 For Denmark:
 
-\[
+$$
 \text{supply}_p=\text{use}_p
 \qquad\forall p.
-\]
+$$
 
 ## 10.2 Full SNAC/MRIO rebalancing
 
@@ -492,11 +492,11 @@ The national model remains separate. EXIOBASE is used as a foreign multiplier sy
 
 Therefore:
 
-\[
+$$
 \boxed{
 \text{no full MRIO rebalance is required}.
 }
-\]
+$$
 
 The cost is that “feedback” flows in which the focal country's exports travel through foreign supply chains and later re-enter as imports are not fully corrected.
 
@@ -523,11 +523,11 @@ This means the research should **not start by reinventing Palm for Denmark**.
 
 The correct strategy is:
 
-\[
+$$
 \boxed{
 \text{reproduce/extend Statistics Denmark's coupled model}
 }
-\]
+$$
 
 and then insert the disaggregated health block into its domestic component.
 
@@ -539,68 +539,68 @@ The technical report gives a particularly clear implementation for the 117-indus
 
 ## 12.1 Domestic technical coefficients
 
-\[
+$$
 A^d=Z\hat{x}^{-1}.
-\]
+$$
 
 ## 12.2 Domestic Leontief inverse
 
-\[
+$$
 L^d=(I-A^d)^{-1}.
-\]
+$$
 
 ## 12.3 Domestic GHG coefficient
 
-\[
+$$
 s^d=e\hat{x}^{-1},
-\]
+$$
 
-where \(e\) contains emissions for the **117 Danish industries**.
+where $e$ contains emissions for the **117 Danish industries**.
 
 ## 12.4 Domestic footprint
 
-\[
+$$
 \boxed{
 e^d=\hat{s}^dL^dy^d+e^h.}
-\]
+$$
 
 ## 12.5 Intermediate imports
 
-\[
+$$
 \boxed{m^d=A^mL^dy^d.}
-\]
+$$
 
 ## 12.6 Direct final imports
 
-\[
+$$
 \boxed{m^m=y^m.}
-\]
+$$
 
 ## 12.7 Total imports
 
-\[
+$$
 \boxed{m=m^d+m^m.}
-\]
+$$
 
 ## 12.8 EXIOBASE multiplier
 
 The report's historical EXIOBASE version used 163 industries × 49 countries/regions = 7,987 region-industry nodes:
 
-\[
+$$
 \boxed{Q=\hat{S}L.}
-\]
+$$
 
 ## 12.9 Imported emissions after concordance
 
-\[
+$$
 \boxed{e_m^{EXIO}=QKm.}
-\]
+$$
 
 This is already a Danish implementation of the core Palm logic.
 
 ---
 
-# 13. The decisive part of the Danish implementation: matrix \(K\)
+# 13. The decisive part of the Danish implementation: matrix $K$
 
 The domestic 117-sector import vector cannot be multiplied by EXIOBASE multipliers directly because the systems differ in:
 
@@ -609,26 +609,26 @@ The domestic 117-sector import vector cannot be multiplied by EXIOBASE multiplie
 - country classification;
 - industry classification.
 
-Statistics Denmark therefore builds a mapping/distribution matrix \(K\).
+Statistics Denmark therefore builds a mapping/distribution matrix $K$.
 
 In the 2022 implementation:
 
-\[
+$$
 K\in\mathbb R^{7987\times117}.
-\]
+$$
 
 Each column corresponds to one Danish national-account industry; each row corresponds to an EXIOBASE country-industry node.
 
 The crucial accounting condition is:
 
-\[
+$$
 \boxed{
 \sum_rK_{rj}=1
 \qquad\forall j.
 }
-\]
+$$
 
-Thus \(K\) redistributes a Danish import total but does not change that total.
+Thus $K$ redistributes a Danish import total but does not change that total.
 
 ---
 
@@ -636,41 +636,41 @@ Thus \(K\) redistributes a Danish import total but does not change that total.
 
 ## 14.1 Detailed import-country information
 
-The technical report describes a matrix \(C\) of approximately:
+The technical report describes a matrix $C$ of approximately:
 
-\[
+$$
 2{,}350\ \text{Danish products}\times239\ \text{countries},
-\]
+$$
 
 derived from still more detailed foreign-trade information (around 10,000 trade products) and balance-of-payments service information.
 
 The product-country distribution is normalised:
 
-\[
+$$
 M_c=C[C\hat{i}]^{-1}.
-\]
+$$
 
 ## 14.2 Product-to-industry market shares
 
-Using the Danish supply matrix \(V\):
+Using the Danish supply matrix $V$:
 
-\[
+$$
 \boxed{D=V\hat{x}^{-1}.}
-\]
+$$
 
-Here \(D\) is the product-industry market-share matrix.
+Here $D$ is the product-industry market-share matrix.
 
 For products not produced in Denmark, Statistics Denmark assigns a “characteristic industry”, i.e. the industry in which the product would most plausibly have been produced.
 
 ## 14.3 Country aggregation
 
-A correspondence \(B\) maps the detailed Danish country list to EXIOBASE countries/regions.
+A correspondence $B$ maps the detailed Danish country list to EXIOBASE countries/regions.
 
 Conceptually:
 
-\[
+$$
 D_c=D'M_cB.
-\]
+$$
 
 ## 14.4 Danish 117 → EXIOBASE 163 industries
 
@@ -700,11 +700,11 @@ Statistics Denmark's technical report explicitly encountered this inflation/vint
 
 Required:
 
-- \(Z^d\): domestic intermediate transactions;
-- \(A^m\): imported intermediate coefficients;
-- \(y^d\): final demand for domestic output;
-- \(y^m\): direct imported final demand;
-- \(x\): gross output;
+- $Z^d$: domestic intermediate transactions;
+- $A^m$: imported intermediate coefficients;
+- $y^d$: final demand for domestic output;
+- $y^m$: direct imported final demand;
+- $x$: gross output;
 - value-added rows for validation.
 
 If working from the SUT, reproduce Statistics Denmark's import split and Method D transformation before comparing with the official IOT.
@@ -717,13 +717,13 @@ Do not disaggregate healthcare until the code reproduces the public 117-sector b
 
 ## Step 4: calculate the domestic Leontief system
 
-\[
+$$
 A^d=Z^d\hat{x}^{-1},
-\]
+$$
 
-\[
+$$
 L^d=(I-A^d)^{-1}.
-\]
+$$
 
 For large/sparse systems, solve linear systems rather than repeatedly forming explicit inverses.
 
@@ -731,39 +731,39 @@ For large/sparse systems, solve linear systems rather than repeatedly forming ex
 
 For GHG:
 
-\[
+$$
 s^d=e\hat{x}^{-1}.
-\]
+$$
 
 Then:
 
-\[
+$$
 e^d=\hat{s}^dL^dy^d+e^h.
-\]
+$$
 
 ## Step 6: calculate imported requirements
 
-\[
+$$
 m^d=A^mL^dy^d,
-\]
+$$
 
-\[
+$$
 m^m=y^m,
-\]
+$$
 
-\[
+$$
 m=m^d+m^m.
-\]
+$$
 
 ## Step 7: build/read EXIOBASE
 
 Calculate or retrieve:
 
-\[
+$$
 Q=S^EL^E.
-\]
+$$
 
-## Step 8: build the concordance \(K\)
+## Step 8: build the concordance $K$
 
 Map:
 
@@ -779,21 +779,21 @@ Danish import category
 
 Enforce:
 
-\[
+$$
 \sum_rK_{rj}=1.
-\]
+$$
 
 ## Step 9: calculate imported pressures
 
-\[
+$$
 e_m^{EXIO}=QKm.
-\]
+$$
 
 ## Step 10: optionally map EXIOBASE results back to Danish industries
 
-Use an aggregation/splitting matrix \(H\) for reporting compatibility.
+Use an aggregation/splitting matrix $H$ for reporting compatibility.
 
-The 2022 Statistics Denmark implementation notes that improving \(H\) changes the industry distribution but not the total footprint.
+The 2022 Statistics Denmark implementation notes that improving $H$ changes the industry distribution but not the total footprint.
 
 ## Step 11: sum the four components
 
@@ -810,7 +810,7 @@ Check:
 - final-demand totals;
 - imports;
 - domestic emissions;
-- \(K\)-column sums;
+- $K$-column sums;
 - EXIOBASE unit/currency consistency;
 - aggregate result against Statistics Denmark's published climate-footprint tables where comparable.
 
@@ -884,7 +884,7 @@ The repository documentation states that it can:
 
 - build USEEIO models;
 - expose Make and Use matrices;
-- generate \(A\), \(L\), domestic/import matrices and environmental extensions;
+- generate $A$, $L$, domestic/import matrices and environmental extensions;
 - validate and export model matrices;
 - apply model customisations including **sector disaggregation** and hybridisation.
 
@@ -912,7 +912,7 @@ A user-defined Make/Use disaggregation file specifies:
 
 Thus the US EPA's current software architecture itself reinforces the same lesson learned from Wiedmann and Malik:
 
-\[
+$$
 \boxed{
 \text{disaggregate Make/Supply}
 +
@@ -920,7 +920,7 @@ Thus the US EPA's current software architecture itself reinforces the same lesso
 +
 \text{disaggregate environmental extensions}.
 }
-\]
+$$
 
 This is a valuable implementation template for Denmark, even if the Danish model is ultimately coded independently in Python.
 
@@ -1080,36 +1080,36 @@ This should be treated as an analytical concordance, not an official classificat
 
 The US recipe should **not** be copied as an absolute Danish coefficient vector.
 
-Let \(A^{US}\) be the USEEIO direct-requirements matrix.
+Let $A^{US}$ be the USEEIO direct-requirements matrix.
 
-For a US donor health sector \(u\), extract:
+For a US donor health sector $u$, extract:
 
-\[
+$$
 a^{US}_{iu}.
-\]
+$$
 
-Map US suppliers \(i\) into a harmonised supplier classification \(g\) compatible with Denmark/EXIOBASE.
+Map US suppliers $i$ into a harmonised supplier classification $g$ compatible with Denmark/EXIOBASE.
 
 Then normalise the intermediate-input composition:
 
-\[
+$$
 \boxed{
 p^{US}_{g,u}
 =
 \frac{a^{US}_{g,u}}
 {\sum_g a^{US}_{g,u}}.
 }
-\]
+$$
 
-If Danish child \(k\) has estimated total intermediate consumption \(IC_k^{DK}\), construct a donor prior:
+If Danish child $k$ has estimated total intermediate consumption $IC_k^{DK}$, construct a donor prior:
 
-\[
+$$
 \boxed{
 \widetilde z^{USprior}_{g,k}
 =
 p^{US}_{g,u}IC_k^{DK}.
 }
-\]
+$$
 
 The US system therefore answers:
 
@@ -1147,11 +1147,11 @@ Denmark and the US differ in:
 
 Therefore:
 
-\[
+$$
 \boxed{
 \text{USEEIO should be a prior, not the Danish truth.}
 }
-\]
+$$
 
 ---
 
@@ -1161,7 +1161,7 @@ For every input cell, use the best evidence available.
 
 Recommended order:
 
-\[
+$$
 \boxed{
 \text{detailed Danish SUT}
 >
@@ -1177,7 +1177,7 @@ Recommended order:
 >
 \text{parent proportional split}
 }
-\]
+$$
 
 This should be applied **cell by cell**, not necessarily sector by sector.
 
@@ -1205,11 +1205,11 @@ It follows SHA2011.
 
 This is highly useful for allocation but must not automatically be equated with IO gross output.
 
-\[
+$$
 \boxed{
 \text{SHA expenditure}\neq\text{industry gross output in general}.
 }
-\]
+$$
 
 Use SHA as:
 
@@ -1244,7 +1244,7 @@ Hospital activity, regional accounts, DRG/patient information, procurement, ener
 
 # 29. Matrix augmentation for healthcare: the proposed algorithm
 
-Let \(H\) be a parent Danish health industry and \(k=1,\ldots,K\) its child activities.
+Let $H$ be a parent Danish health industry and $k=1,\ldots,K$ its child activities.
 
 The recommended approach follows Hagenaars' **matrix augmentation** family but incorporates the accounting discipline demonstrated by Malik and Wiedmann.
 
@@ -1264,25 +1264,25 @@ DB07
 
 ## Stage 2: determine child output margins
 
-Estimate \(x_k\) using Danish evidence.
+Estimate $x_k$ using Danish evidence.
 
 Constrain:
 
-\[
+$$
 \boxed{
 \sum_kx_k=x_H.
 }
-\]
+$$
 
 ## Stage 3: create input priors
 
-For product/supplier \(i\):
+For product/supplier $i$:
 
-\[
+$$
 \widetilde z_{ik}
 =
 \text{best available evidence}.
-\]
+$$
 
 ## Stage 4: create sales/supply priors
 
@@ -1292,23 +1292,23 @@ For direct IOT work, create child rows such that their destinations are consiste
 
 ## Stage 5: split value added
 
-For primary-input category \(r\):
+For primary-input category $r$:
 
-\[
+$$
 \sum_kv_{rk}=v_{rH}.
-\]
+$$
 
 Use payroll/FTE/output information to differentiate labour-intensive and capital-intensive providers.
 
 ## Stage 6: split environmental extensions
 
-For environmental flow \(e\):
+For environmental flow $e$:
 
-\[
+$$
 \boxed{
 \sum_kF_{ek}=F_{eH}
 }
-\]
+$$
 
 if the exercise is a pure reallocation of the official environmental account.
 
@@ -1322,70 +1322,70 @@ Estimate the final child flows rather than accepting any single proxy directly.
 
 # 30. Recommended constrained reconciliation
 
-Let \(\widetilde z_{ik}\) be the prior child flows and \(z^*_{ik}\) the reconciled solution.
+Let $\widetilde z_{ik}$ be the prior child flows and $z^*_{ik}$ the reconciled solution.
 
 A weighted least-squares problem is:
 
-\[
+$$
 \boxed{
 \min_{z^*_{ik}\ge0}
 \sum_{i,k}
 \omega_{ik}
 \left(z^*_{ik}-\widetilde z_{ik}\right)^2
 }
-\]
+$$
 
 subject to parent conservation.
 
 ## 30.1 Input conservation
 
-\[
+$$
 \boxed{
 \sum_kz^*_{ik}=z_{iH}
 \qquad\forall i.
 }
-\]
+$$
 
 ## 30.2 Output/sales conservation
 
 For a symmetric IOT:
 
-\[
+$$
 \boxed{
 \sum_kz^*_{kj}=z_{Hj}
 \qquad\forall j.
 }
-\]
+$$
 
 ## 30.3 Gross output
 
-\[
+$$
 \boxed{
 \sum_kx_k=x_H.
 }
-\]
+$$
 
 ## 30.4 Value added
 
-\[
+$$
 \boxed{
 \sum_kv_{rk}=v_{rH}
 \qquad\forall r.
 }
-\]
+$$
 
 ## 30.5 Child column balance
 
-\[
+$$
 \boxed{
 x_k=\sum_i z_{ik}+v_k+t_k.}
-\]
+$$
 
 The weights should reflect data quality:
 
-\[
+$$
 \omega_{ik}=\frac{1}{\sigma_{ik}^2}.
-\]
+$$
 
 Observed Danish cells get high weights; USEEIO priors receive lower weights.
 
@@ -1395,10 +1395,10 @@ Observed Danish cells get high weights; USEEIO priors receive lower weights.
 
 A pure proportional split assumes:
 
-\[
+$$
 z_{ik}=w_kz_{iH}
 \qquad\forall i.
-\]
+$$
 
 This forces identical technologies.
 
@@ -1430,7 +1430,7 @@ This distinction should appear explicitly in the methods paper.
 |---|---|---|
 | Original Danish SUT | Product supply = product use | Use Statistics Denmark's already reconciled SUT; do not rebalance arbitrarily |
 | Health-sector augmentation | Children must aggregate exactly to parent margins and individually balance | Weighted constrained optimisation / SUT reconciliation |
-| Denmark–EXIOBASE coupling | National imports must be distributed to EXIOBASE nodes without changing totals | Column-normalised \(K\) concordance; **no global MRIO rebalance in simplified SNAC** |
+| Denmark–EXIOBASE coupling | National imports must be distributed to EXIOBASE nodes without changing totals | Column-normalised $K$ concordance; **no global MRIO rebalance in simplified SNAC** |
 
 This resolves a common conceptual confusion.
 
@@ -1573,47 +1573,47 @@ A rigorous study should estimate several nested models.
 
 ## Baseline
 
-\[
+$$
 M_0=\text{official Danish 117-industry model}.
-\]
+$$
 
 ## Null disaggregation
 
-\[
+$$
 M_1=\text{proportional parent-recipe health split}.
-\]
+$$
 
 ## Danish-evidence model
 
-\[
+$$
 M_2=\text{Danish child output + Danish input drivers}.
-\]
+$$
 
 ## Donor-completed model
 
-\[
+$$
 M_3=\text{Danish evidence + USEEIO/European residual priors}.
-\]
+$$
 
 ## Detailed-SUT model, if access is obtained
 
-\[
+$$
 M_4=\text{full Danish SUT augmentation}.
-\]
+$$
 
 Key comparisons:
 
-\[
+$$
 \Delta_{technology}=M_2-M_1,
-\]
+$$
 
-\[
+$$
 \Delta_{donor}=M_3-M_2,
-\]
+$$
 
-\[
+$$
 \Delta_{SUT}=M_4-M_3.
-\]
+$$
 
 These comparisons quantify exactly what additional information contributes.
 
@@ -1627,23 +1627,23 @@ The augmented system must return the parent economy when the children are aggreg
 
 For all parent input categories:
 
-\[
+$$
 \sum_kz_{ik}=z_{iH}.
-\]
+$$
 
 For all parent output destinations:
 
-\[
+$$
 \sum_kz_{kj}=z_{Hj}.
-\]
+$$
 
 ## 37.2 Environmental closure
 
 If only reallocating official direct emissions:
 
-\[
+$$
 \sum_kF_{ek}=F_{eH}.
-\]
+$$
 
 ## 37.3 Proportional-split unit test
 
@@ -1653,9 +1653,9 @@ If every child has exactly the parent technology, the aggregated footprint shoul
 
 Check:
 
-\[
+$$
 \rho(A)<1
-\]
+$$
 
 and inspect condition numbers, zero-output children and extreme coefficients.
 
@@ -1677,7 +1677,7 @@ Wiedmann et al. demonstrate that hybrid results can be highly sensitive to price
 
 The health project should separate uncertainty into:
 
-\[
+$$
 U=
 \{
 U_x,
@@ -1689,16 +1689,16 @@ U_{environment},
 U_{trade},
 U_{MRIO}
 \}.
-\]
+$$
 
-For Monte Carlo draw \(s\):
+For Monte Carlo draw $s$:
 
 1. draw uncertain child output shares;
 2. draw uncertain donor recipe shares;
 3. draw uncertain concordance allocations;
 4. rebalance to hard Danish parent margins;
-5. calculate \(A_s\), \(L_s\) and footprint;
-6. calculate imported component through \(K_s\)/EXIOBASE if mapping uncertainty is included.
+5. calculate $A_s$, $L_s$ and footprint;
+6. calculate imported component through $K_s$/EXIOBASE if mapping uncertainty is included.
 
 The key methodological rule is:
 
@@ -1781,7 +1781,7 @@ For the health donor recipe, select columns corresponding to the detailed USEEIO
 
 ### Important
 
-Do not use the US direct environmental extension \(B\) as the Danish child extension unless explicitly testing a US-technology scenario.
+Do not use the US direct environmental extension $B$ as the Danish child extension unless explicitly testing a US-technology scenario.
 
 ---
 
@@ -1789,7 +1789,7 @@ Do not use the US direct environmental extension \(B\) as the Danish child exten
 
 If applying for detailed SUT access, request explicitly:
 
-1. supply matrix \(V\), ~2,350 products × 117 industries;
+1. supply matrix $V$, ~2,350 products × 117 industries;
 2. use table at basic prices;
 3. domestic-use table;
 4. import-use table;
@@ -1829,7 +1829,7 @@ When a sales row does not exist, use a plausible analogue, crude oil, and scale 
 
 The general rule is:
 
-\[
+$$
 \boxed{
 \text{use the strongest evidence available}
 +
@@ -1839,7 +1839,7 @@ The general rule is:
 +
 \text{test sensitivity}.
 }
-\]
+$$
 
 ---
 
@@ -1847,13 +1847,13 @@ The general rule is:
 
 If there is no independent information distinguishing two proposed children, creating two technology vectors is not empirically identified.
 
-For parent \(H\) split into \(K\) children:
+For parent $H$ split into $K$ children:
 
-\[
+$$
 \sum_kz_{ik}=z_{iH}
-\]
+$$
 
-provides only one equation for \(K\) unknown child flows for each supplier \(i\).
+provides only one equation for $K$ unknown child flows for each supplier $i$.
 
 Without priors or additional constraints, there are infinitely many valid allocations.
 
@@ -1925,13 +1925,13 @@ A researcher who understands the combined methods should be able to answer the f
 2. Why is a proportional parent-sector split an initialisation or null model rather than a substantive disaggregation?
 3. What is the difference between balancing the Danish SUT and rebalancing a global MRIO?
 4. Why does simplified SNAC not require full EXIOBASE rebalancing?
-5. What exactly does the matrix \(K\) do in the Danish coupled model?
+5. What exactly does the matrix $K$ do in the Danish coupled model?
 6. Why can USEEIO be useful as a donor without being treated as Danish technology?
 7. Why should US supplier coefficients be normalised and rescaled to Danish child intermediate consumption?
 8. Why does ISIC 8620 not by itself give separate GP, specialist and dentist sectors?
 9. Why is the detailed Danish SUT more informative even though it still has 117 industries?
 10. What is gained by performing the health split before Method D?
-11. What does \(C_u\) mean in integrated hybrid LCA and what problem does it solve?
+11. What does $C_u$ mean in integrated hybrid LCA and what problem does it solve?
 12. What does a production-layer decomposition tell us that a total footprint does not?
 13. How should uncertainty be propagated without violating national-account totals?
 14. When should the analyst stop disaggregating and retain a broader child sector?

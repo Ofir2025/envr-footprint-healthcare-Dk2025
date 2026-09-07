@@ -139,6 +139,65 @@ decimal — ρ is **not** an informative diagnostic here, and a "column sums < 1
 test is simply the wrong test. The meaningful checks are the inverse
 verification and non-negativity of L.
 
+### A8 — The climate characterisation is IPCC AR4, not current `LOW` `ACCEPTED`
+
+The characterisation sheet is labelled "Problem oriented approach: baseline
+(CML, 1999)", but its actual GWP100 factors are **CH₄ = 25, N₂O = 298** — that
+is **IPCC AR4 (2007)**, two assessment cycles out of date for a 2022 study. (SAR
+is 21/310, AR5 28/265, AR6 27.9/273.) HFC and PFC carry a factor of 1 because
+those EXIOBASE stressors are already reported in CO₂-equivalent.
+
+Quantified rather than assumed (`analysis.impact_categories_full` writes the
+uncharacterised stressor totals that support this):
+
+| GWP100 vintage | Healthcare (kt) | vs AR4 | National (kt) |
+|---|---|---|---|
+| IPCC SAR (1995) | 3,740 | −3.0 % | 64,767 |
+| **IPCC AR4 (2007) — used** | **3,855** | — | **66,675** |
+| IPCC AR5 (2013) | 3,926 | +1.8 % | 67,737 |
+| IPCC AR6 (2021) | 3,931 | **+2.0 %** | 67,854 |
+
+The effect is small, so this is a reporting obligation rather than a problem:
+the manuscript must state the vintage, because a reader comparing against an
+AR6-based study is entitled to know. The recomputation captures 99.9 % of the
+model's characterised total (3,855 against 3,859 kt), the residue being
+stressors outside the six gas families.
+
+**Related mixing:** the bottom-up items do not share this vintage. Volatile
+anaesthetics use the Sulbaek Andersen et al. (2023) recommended GWP₁₀₀ set,
+N₂O uses AR4 (298) for consistency with the MRIO, and pMDI takes the Danish EPA
+F-gas inventory figure as published. Steenmeijer et al. have the same problem in
+a sharper form — their climate factors are AR4/DESIRE while their pMDI
+propellants use genuine ReCiPe GWPs (1,549 and 3,860), so their climate total
+also mixes two vintages.
+
+### A9 — Documented errors in the template study itself `MEDIUM` `ACCEPTED`
+
+Found while transcribing Steenmeijer et al. (2022) to match their table
+structures. These matter because our results are compared against theirs:
+
+- **Table S8's scope-3 travel row is mislabelled.** Both travel rows read
+  "Private travel by patients & visitors"; the scope-3 row (573 kt) is actually
+  **employee commuting**. Confirmed arithmetically — the car-driver km ratio
+  2280/1429 = 1.596 equals 573/359 exactly.
+- **An addition error in the purchaser-to-basic-price table**, in both the
+  Lancet paper and the RIVM report: `44,635 + 36,223 = 70,858`, where the true
+  sum is 80,858.
+- **Anaesthetic gases print as 14 kt in the Lancet and 15 kt in the RIVM
+  report** (true value 14.6).
+- **The pharmaceutical contribution is quoted as 38 %, 41.2 % and 27.9 %** in
+  three different places.
+- The Results text quotes **raw** hotspot values while Figures 2–3 plot
+  **travel-redistributed** ones.
+
+**Also worth knowing:** Steenmeijer et al. do **not** report ReCiPe 2016 impact
+categories and use **no single score**. ReCiPe 2016 (H) midpoint is only a
+harmonisation layer that lets the ecoinvent add-ons be summed with the
+EXIOBASE/DESIRE top-down results; the RIVM report says aggregation to DALYs
+"was deliberately not chosen". Their five reported categories are bespoke and
+three were deliberately converted *away* from ReCiPe units. Our study's category
+set is therefore correctly aligned with theirs.
+
 ---
 
 ## B. Defects in the code
@@ -298,6 +357,7 @@ These change results and are the author's call, not the analyst's.
 | D3 | **Scope boundary** | health only / + eldercare / + childcare | health + eldercare | ±10 % spread. Steenmeijer's Dutch boundary includes childcare, so the third row is the like-for-like comparison with the template |
 | D4 | **Eldercare share α** | 2019 detailed SUT (0.4914) vs analysis-year IO table (0.3092) | analysis-year IO | Changes direct emissions and waste. Ofir's original used the 2019 value carried forward |
 | D5 | **Visitor travel** | drop it / import the NHS ratio | NHS ratio 0.236, labelled | No Danish source exists for visitor travel. This is the only remaining fully imported parameter |
+| D7 | **GWP vintage** | AR4 (as characterised) / restate on AR6 | AR4 | Only ±2 % on climate, but the manuscript must state it, and the bottom-up items already use other vintages |
 | D6 | **Vintage** | v3.8.2 now / wait for a corrected v3.10.x | v3.8.2 | See A1, A6 |
 
 ---
@@ -319,3 +379,29 @@ These change results and are the author's call, not the analyst's.
    items the reviewers questioned contribute under 0.5 % each. That is a more
    useful answer to the review than the tornado alone.
 6. Six decisions in section D are still open and are yours.
+
+---
+
+## F. Verifications that passed
+
+Recorded so that a reader knows what *was* checked, not only what failed.
+
+- **The Steenmeijer Z-column construction is implemented exactly.** Their
+  formula is `f_services = Z[:,h] × (E_H / x_h)` where `x_h` is the health
+  industry's **total input**, intermediate use *plus* value added. On our model
+  `sum(Z[:,h]) + sum(V[:,h]) = x_h` holds exactly (11,730.9 + 32,224.5 =
+  43,955.5 M€), and `A[:,h] = Z[:,h]/x_h` by construction, so our
+  `A[:,h]·E_H` is their formula.
+- **The demand vector entering the MRIO is correspondingly smaller than health
+  expenditure**, as it must be: 13,067 M€ against 40,597 M€ of Danish health and
+  eldercare expenditure (32.2 %). Steenmeijer's equivalent is 26,283 against
+  92,515 M€ (28.4 %). The difference is value added, which has no upstream
+  footprint.
+- **An independently rebuilt characterisation reproduces the pipeline.** Building
+  the CML GWP100 row from the workbook without reference to the production code
+  gives the Danish health-care supply-chain footprint as 3.859×10⁹ kg CO₂e,
+  identical to the pipeline's figure.
+- **The national total reconciles**: supply chain 66,745 kt plus household direct
+  9,709 kt equals the 76,454 kt reported by `analysis.national_totals`.
+- **All six IO accounting identities pass** at ≤10⁻¹⁰
+  (`analysis.validate_io_identities`).

@@ -112,13 +112,13 @@ The corresponding entries in the wind-sector use column are then replaced by the
 
 Conceptually:
 
-\[
+$$
 \text{physical process input}
 \xrightarrow{\text{price}}
 \text{monetary input}
 \xrightarrow{\text{sector concordance}}
 \text{IO/SUT input cell}.
-\]
+$$
 
 ## 3.3 Double-counting treatment
 
@@ -152,35 +152,35 @@ Integrated hybrid LCA retains the process system in physical units and links it 
 
 Let:
 
-- \(A_{gp}\) = process technology matrix for goods/processes;
-- \(A^*_{ss}\) = IO/SUT compound technology matrix;
-- \(C_u\) = upstream matrix linking IO sectors to process-system inputs;
-- \(C_d\) = downstream matrix linking process outputs back into the IO economy.
+- $A_{gp}$ = process technology matrix for goods/processes;
+- $A^*_{ss}$ = IO/SUT compound technology matrix;
+- $C_u$ = upstream matrix linking IO sectors to process-system inputs;
+- $C_d$ = downstream matrix linking process outputs back into the IO economy.
 
 The total hybrid requirement matrix is reported as:
 
-\[
+$$
 \mathbf H =
 \begin{bmatrix}
 -\mathbf A_{gp} & -\mathbf C_d\\
 -\mathbf C_u & \mathbf I-\mathbf A^*_{ss}
 \end{bmatrix}.
 \tag{1}
-\]
+$$
 
 Inputs are represented with negative signs and outputs with positive signs.
 
 The process block contains **3,931 processes/goods**; the IO part contains **224 sectors**. The reported total hybrid matrix dimension is 4,827 × 4,827.
 
-## 4.1 Upstream matrix \(C_u\)
+## 4.1 Upstream matrix $C_u$
 
-\(C_u\) adds monetary IO inputs to process activities where the process database has cut off or omitted requirements.
+$C_u$ adds monetary IO inputs to process activities where the process database has cut off or omitted requirements.
 
 Its purpose is therefore **completeness**.
 
-## 4.2 Downstream matrix \(C_d\)
+## 4.2 Downstream matrix $C_d$
 
-\(C_d\) sends outputs from specific physical processes into the background economy.
+$C_d$ sends outputs from specific physical processes into the background economy.
 
 For wind electricity, the authors assume all annual output of “electricity from wind power, at plant” is used by the “transmission of electricity” sector. They fill that downstream link and set the pre-existing wind-power sales coefficients in the use table to zero to avoid representing the output twice.
 
@@ -190,16 +190,16 @@ The total GHG result for one functional unit is obtained by multiplying the hybr
 
 The printed equation is represented conceptually as:
 
-\[
+$$
 q = [\,B\; B^*\,]\,H^{-1}\,y,
-\tag{2, interpreted from the matrix formulation}
-\]
+\tag{2}
+$$
 
 where:
 
-- \(B\) = process-level emissions;
-- \(B^*\) = sectoral GHG emission intensities;
-- \(y\) = demand vector containing one functional unit, here **1 kWh** of wind electricity.
+- $B$ = process-level emissions;
+- $B^*$ = sectoral GHG emission intensities;
+- $y$ = demand vector containing one functional unit, here **1 kWh** of wind electricity.
 
 **Note:** the PDF text extraction around Eq. (2) is typographically imperfect. The article's matrix figure and standard hybrid-LCA formulation indicate that the requirements system must be solved/inverted. The Supporting Information should be checked before reproducing the equation in code.
 
@@ -422,7 +422,7 @@ The wind subsectors initially receive identical parent technology and sales stru
 
 That supports the following Danish workflow:
 
-\[
+$$
 \text{parent health sector}
 \rightarrow
 \text{pro-rata initial children}
@@ -430,7 +430,7 @@ That supports the following Danish workflow:
 \text{replace child columns with differentiated evidence}
 \rightarrow
 \text{reconcile/balance}.
-\]
+$$
 
 ## 12.3 Need both production and sales structure
 
@@ -498,9 +498,9 @@ The first is simpler. The second is more structurally detailed. Both recover sub
 | SUT | A system showing products supplied by industries and products used by industries/final demand. | Retains more structure for disaggregation than a symmetric IOT. | Why did the authors prefer a SUT for hybridisation? |
 | Pro-rata disaggregation | Splitting a parent sector into children using shares while initially retaining the same technology. | It creates labels/scales, not true technological differentiation. | Why is it only the first step? |
 | IO-based hybrid LCA | An IO model whose target sector is modified using process-specific input information. | Easier route to economy-wide completeness. | Which parts of the wind-sector column were replaced and which retained? |
-| Integrated hybrid LCA | One matrix system that directly links process activities and the IO economy. | Preserves physical process detail while completing upstream boundaries. | What roles do \(C_u\) and \(C_d\) play? |
-| Upstream matrix \(C_u\) | Links missing IO inputs into process activities. | Completes process-system truncation. | Why is \(C_u\) needed if Ecoinvent is already detailed? |
-| Downstream matrix \(C_d\) | Links process outputs into the economic background system. | Prevents a process system from being isolated from downstream use. | What did the authors assume about wind electricity output? |
+| Integrated hybrid LCA | One matrix system that directly links process activities and the IO economy. | Preserves physical process detail while completing upstream boundaries. | What roles do $C_u$ and $C_d$ play? |
+| Upstream matrix $C_u$ | Links missing IO inputs into process activities. | Completes process-system truncation. | Why is $C_u$ needed if Ecoinvent is already detailed? |
+| Downstream matrix $C_d$ | Links process outputs into the economic background system. | Prevents a process system from being isolated from downstream use. | What did the authors assume about wind electricity output? |
 | Double counting | Representing the same economic/process input in both the process and IO layers. | Can systematically overstate footprints. | How did the paper approximately prevent it? |
 | Price conversion | Converting physical process inputs into monetary IO-compatible expenditures. | One of the largest sources of uncertainty in IO-based hybridisation. | What happened when prices were varied ±20%? |
 | PXC | A method that replaces selected IO supply-chain paths with better data. | Offers a lower-cost alternative to full process-IO integration. | How could PXC guide Danish hospital data collection? |
@@ -514,7 +514,7 @@ The first is simpler. The second is more structurally detailed. Both recover sub
 
 ### Section to personally re-read
 
-**Methods and data, pp. 2–3**, especially the sequence from pro-rata disaggregation to process-informed replacement, double-counting treatment and construction of \(C_u\)/\(C_d\).
+**Methods and data, pp. 2–3**, especially the sequence from pro-rata disaggregation to process-informed replacement, double-counting treatment and construction of $C_u$/$C_d$.
 
 ---
 
@@ -528,7 +528,7 @@ The first is simpler. The second is more structurally detailed. Both recover sub
 | 2 MW offshore Ecoinvent process used as surrogate | p. 2 | Data/assumption | High |
 | 20-year lifetime and 30% capacity factor | p. 2 | Process-data assumption | High |
 | IO transactions corresponding to process-covered products set to zero | p. 2 | Double-counting method | High |
-| Integrated matrix uses \(C_u\) and \(C_d\) | p. 3, Eq. 1 and Fig. 1 | Equation/figure | High |
+| Integrated matrix uses $C_u$ and $C_d$ | p. 3, Eq. 1 and Fig. 1 | Equation/figure | High |
 | Process LCA 13.4 vs hybrid 28.7/29.7 g CO2/kWh | p. 4, Table 1 | Result | High |
 | ±20% price sensitivity gives ±10.8% integrated and ±19.6% IO-based range | p. 5, §3.2 | Sensitivity result | High |
 | Capital investments left in final demand | p. 6, Discussion | Limitation | High |
