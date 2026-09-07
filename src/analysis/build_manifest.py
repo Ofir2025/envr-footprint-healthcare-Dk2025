@@ -94,6 +94,13 @@ APPROACHES = {
         equations="total_k = m . y*_k with y*_k = E_k M_k; ranking decomposed into "
                   "expenditure and intensity effects",
         inputs="Danish expenditure by purpose code; prepared background"),
+    "18_mitigation_scenarios": dict(
+        approach="Mitigation levers an attributional EE-MRIO can credibly model",
+        reference="Danske Regioner 2024 regional target; Danish Energy Agency KF22/KF25 "
+                  "grid factors; Jeswani & Azapagic 2019; Wilkinson et al. 2019",
+        script="analysis.mitigation_scenarios",
+        equations="intensity scaling on energy nodes; bottom-up arithmetic; demand scaling",
+        inputs="prepared background; scopes summary; DEA published emission factors"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",
