@@ -86,6 +86,14 @@ APPROACHES = {
         script="analysis.danish_healthcare_benchmark",
         equations="match sector boundary (NACE Q) and capital treatment, then compare",
         inputs="boundary scenarios; capital scenarios; national totals"),
+    "17_health_subsectors": dict(
+        approach="Footprint by SHA health function, after Malik et al. 2018",
+        reference="Malik et al. 2018 (Lancet Planet Health 2:e27) concordance method; "
+                  "Malik et al. 2021 and Lenzen et al. 2020 for why native detail is needed",
+        script="analysis.health_subsector_footprints",
+        equations="total_k = m . y*_k with y*_k = E_k M_k; ranking decomposed into "
+                  "expenditure and intensity effects",
+        inputs="Danish expenditure by purpose code; prepared background"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",
