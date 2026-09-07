@@ -251,3 +251,33 @@ def eldercare_share_of_social_work(file_path):
         if code in totals and transaction in _INDIVIDUAL_CONSUMPTION_TRANSACTIONS:
             totals[code] += float(use.loc[rows, col].sum())
     return totals["12401"] / (totals["12401"] + totals["12402"])
+
+
+def eldercare_share_of_social_work_io(io_workbook_path):
+    """Eldercare share of industry 880000's individually consumed output, from
+    the published IO table of the analysis year itself.
+
+    Superior to deriving it from an earlier detailed SUT: the IO workbook is
+    industry-by-purpose, so row 880000 gives that industry's OWN deliveries to
+    eldercare (13302) and childcare (13301) directly, in the analysis year.
+    Denmark 2022: 15.54 vs 34.72 bn DKK -> alpha = 0.3092 (the 2019 SUT-derived
+    value was 0.4914, so carrying it forward would have overstated the share).
+    """
+    import numpy as np
+    io = pd.read_excel(io_workbook_path, sheet_name="IO", header=None, engine="openpyxl")
+    codes = io.iloc[:, 0].astype(str).str.strip()
+    rows = np.flatnonzero((codes == "880000").values)
+    if len(rows) == 0:
+        raise KeyError("industry 880000 not found in the IO sheet")
+    cols = {}
+    for j in range(io.shape[1]):
+        c = str(io.iat[2, j]).strip()
+        if c in ("13301", "13302"):
+            cols.setdefault(c, []).append(j)
+    r = int(rows[0])
+    val = {k: sum(float(pd.to_numeric(io.iat[r, j], errors="coerce") or 0.0) for j in v)
+           for k, v in cols.items()}
+    total = val.get("13301", 0.0) + val.get("13302", 0.0)
+    if total <= 0:
+        raise ValueError("no eldercare/childcare deliveries found for industry 880000")
+    return val.get("13302", 0.0) / total

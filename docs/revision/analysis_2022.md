@@ -17,9 +17,12 @@ after `python -m pipelines.prep_background_2022.build_background_2022`.
   at 7.4396 DKK/EUR (DNB 2022 average). Cross-check: SHA1 CHE 2022 = 271.9 bn + social
   LTC 30.0 bn. Unlike 2019, no confidential SUT extract is needed — the 2022 vector is
   fully reproducible from public tables. Provenance: `dk_expenditure_breakdown_2022.csv`.
-- **Direct emissions:** DRIVHUS 2022, QA 92 + 870000 19 + 0.4914×880000 60 − hospital
-  medical N₂O 11 = **129.5 kt CO₂e** (α from the 2019 SUT, documented).
-- **Direct waste:** AFFALD01 2022 (excl. soil), same boundary = **45.1 kt**.
+- **Direct emissions:** DRIVHUS 2022, QA 92 + 870000 19 + α×880000 60 − hospital
+  medical N₂O 11 = **118.6 kt CO₂e**. The eldercare share α = **0.3092** is now read
+  from the analysis year's own IO table (industry 880000's deliveries to eldercare
+  13302 vs childcare 13301: 15.54 vs 34.72 bn DKK), replacing the 0.4914 carried
+  forward from the 2019 detailed SUT — a documented open item now closed.
+- **Direct waste:** AFFALD01 2022 (excl. soil), same boundary and same α = **42.8 kt**.
 - **Bottom-up:** anaesthetics 12.7 kt (NID 2.G.3.a 38 t N₂O ×298 + volatiles proxy);
   pMDI **11.6 kt** (Danish EPA F-gas inventory 2022 actual, GWP100); commuting factor
   0.6343 (NABB69 2022 employment 556,999; TU 2022 distance 9.3 km/p/d); visitor 0.6762.
@@ -48,7 +51,7 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 
 | Indicator | Healthcare footprint | Share of national CBA footprint |
 |---|---|---|
-| Climate change | **4,875 kt CO₂e** (~0.82 t/capita) | **7.5%** (7.8% against DST AFTRYK) |
+| Climate change | **4,864 kt CO₂e** (~0.83 t/capita) | **7.5%** (7.7% vs DST AFTRYK, 8.5% vs Eurostat FIGARO) |
 | Material extraction | 5,595 kt | 6.8% |
 | Blue water | 43.0 Mm³ | 4.9% |
 | Land use | 3,833 km² | 4.4% |

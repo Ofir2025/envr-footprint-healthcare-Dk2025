@@ -85,7 +85,7 @@ def _node_frame(reg, sec, prefix):
 
 
 def main():
-    out_dir = os.path.join(str(OUTPUT_DIR), "tables")
+    out_dir = os.path.join(str(OUTPUT_DIR), "00_core_footprint")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{BACKGROUND_YEAR}.pkl"), "rb") as fh:

@@ -52,7 +52,7 @@ FAMILIES = [
 
 
 def main():
-    out_dir = os.path.join(str(OUTPUT_DIR), "tables")
+    out_dir = os.path.join(str(OUTPUT_DIR), "00_core_footprint")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(str(MRIO_DIR), f"mrio{BACKGROUND_YEAR}.pkl"), "rb") as fh:
         m = pickle.load(fh)

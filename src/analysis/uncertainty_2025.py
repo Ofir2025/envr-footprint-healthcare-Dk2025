@@ -247,7 +247,7 @@ def ranking_probabilities(groups, group_draws, top=3):
 
 
 def main():
-    out_dir = os.path.join(str(OUTPUT_DIR), "tables")
+    out_dir = os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc")
     os.makedirs(out_dir, exist_ok=True)
     mrio, parts, total = load_groups()
 

@@ -40,7 +40,7 @@ plt.rcParams.update({"axes.titlesize": 13, "legend.fontsize": 10,
 
 
 def main():
-    fig_dir = os.path.join(str(OUTPUT_DIR), "figures")
+    fig_dir = os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc", "figures")
     os.makedirs(fig_dir, exist_ok=True)
     mrio, parts, total = load_groups()
     groups, G, tot, _ = run_mc(mrio, parts, "A", n=50_000)
