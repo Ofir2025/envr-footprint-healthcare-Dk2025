@@ -6,14 +6,11 @@ HC.5.2 Appliances,06134,"Assistive products and Repair, rental and maintenance o
 HC.5.2 Appliances,06134,"Assistive products and Repair, rental and maintenance of medical and assistive products",Non-market individual government consumption (Transaction code 3142),IO,1139914.0
 Healthcare services,06200,Outpatient care services,Household consumption (Transaction code 3110),CP,12896006.999999996
 Healthcare services,06340,Hospital services,Household consumption (Transaction code 3110),CP,6091754.999999999
-Healthcare services,13301,"Kindergartens, creches etc.",Household consumption (Transaction code 3110),CP,11955184.0
 Healthcare services,13302,"Retirement homes, day-care centres etc.",Household consumption (Transaction code 3110),CP,6017947.0
 Healthcare services,06300,"Hospitals, sanatoriums",NPISH (Transaction code 3130),IO,2420768.0
-Healthcare services,13301,"Kindergartens, creches etc.",NPISH (Transaction code 3130),IO,358505.0
 Healthcare services,13302,"Retirement homes, day-care centres etc.",NPISH (Transaction code 3130),IO,2420768.0
 Healthcare services,06200,Outpatient care services,Marketed individual government consumption (Transaction code 3141),IO,20368624.0
 Healthcare services,06200,Outpatient care services,Non-market individual government consumption (Transaction code 3142),IO,21862455.0
 Healthcare services,06300,"Hospitals, sanatoriums",Non-market individual government consumption (Transaction code 3142),IO,133426679.0
 Healthcare services,06400,Other hospital services,Non-market individual government consumption (Transaction code 3142),IO,11498800.0
-Healthcare services,13301,"Kindergartens, creches etc.",Non-market individual government consumption (Transaction code 3142),IO,55476363.0
 Healthcare services,13302,"Retirement homes, day-care centres etc.",Non-market individual government consumption (Transaction code 3142),IO,62370176.0
