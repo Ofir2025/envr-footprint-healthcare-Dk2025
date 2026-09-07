@@ -70,6 +70,20 @@ def main():
     piv = piv.loc[INDICATORS]
     order = ["mrio", "B_COMM", "B_VISI", "B_HEAL", "B_ANAE", "B_PMDI"]
     piv = piv[[c for c in order if c in piv.columns]]
+
+    # A legend entry for a series that is never visible is a false key: the
+    # reader is given a colour to look for that does not appear anywhere on the
+    # plot. Parameters whose largest share across all indicators falls below the
+    # visibility threshold are therefore pooled into one labelled residual, so
+    # the bars still sum to 100 % and every key corresponds to something drawn.
+    VISIBLE_PCT = 0.5
+    faint = [c for c in piv.columns if piv[c].max() < VISIBLE_PCT]
+    if faint:
+        pooled = piv[faint].sum(axis=1)
+        piv = piv.drop(columns=faint)
+        if pooled.max() > 0:
+            piv[f"_other"] = pooled
+        PARAM_LABEL["_other"] = (f"Other bottom-up items (each < {VISIBLE_PCT:g} %)")
     fig, ax = plt.subplots(figsize=(8.4, 5.4))
     labels = [SHORT[i] for i in piv.index]
     bottom = np.zeros(len(piv))
