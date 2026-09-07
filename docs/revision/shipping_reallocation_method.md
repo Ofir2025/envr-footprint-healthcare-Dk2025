@@ -71,7 +71,7 @@ Danish national footprint falls from 85.2 Mt to 77.5 Mt.
 | **Ours: targeted row reallocation** | Rescales one row to the published 9 % benchmark | ~50 lines | most of the effect, at the cost of being an approximation |
 | **Rørmose Jensen & Iliev (2022), Statistics Denmark** | **Discards EXIOBASE's Danish block entirely.** The domestic block comes from the Danish national accounts; EXIOBASE is used only for imports. There is no shipping correction because the wrong data is never used | a full coupled model | correctness by construction |
 | **Palm et al. (2019), simplified SNAC** | Same idea for Sweden: national A, Y and air-emission satellite replace the MRIO's, the rest-of-world block is left untouched and unbalanced | a full coupled model | ditto; effect size elsewhere reported at 4–15 % |
-| **Danish Energy Agency** | **Excludes international shipping entirely**, following IPCC territorial convention, and reports it in a separate module: 39 Mt from Danish-operated bunkering abroad in 2022 | n/a | avoids the question rather than answering it |
+| **Danish Energy Agency (official Danish method)** | **Also reallocates.** Danish-operated shipping and aviation are excluded from the footprint *"unless they transport goods and services consumed in Denmark"*, achieved by *"a technical reallocation of import amounts linked to the shipping and aviation industries"*. The excluded bulge is reported separately: 39 Mt in 2022 | a full coupled model | the same objective as ours, reached inside a coupled model |
 | **Territorial bunker sales** (DEA *Energy Statistics*; Klimarådet's proposed 2050 target) | Counts fuel *sold* in Denmark to ships of any flag | n/a | a third, different number again |
 
 **Four incompatible Danish shipping boundaries coexist**, two of them inside the
@@ -103,9 +103,20 @@ inclusion of fuel bunkering"*. That near-invariance is impossible if 74 % of
 Danish shipping output really were consumed domestically — so their result
 predicts a correction of exactly the sign and rough size we obtain.
 
-**It appears to be novel.** No Danish study we have found applies a
-sea-transport reallocation. That is a contribution, but it also means there is
-no precedent to lean on, and we say so.
+**It has an official precedent, which strengthens rather than weakens it.** The
+Danish Energy Agency's Global Report — the statutory national consumption-based
+account — performs *"a technical reallocation of import amounts linked to the
+shipping and aviation industries"* so that Danish-operated transport is excluded
+from the footprint unless it carries goods consumed in Denmark. Their objective
+is identical to ours; they achieve it inside a coupled model, where the Danish
+block comes from national accounts, whereas we achieve it by repairing one row
+of EXIOBASE's Danish block.
+
+**An earlier draft of this note claimed our reallocation was novel in the Danish
+literature. That was wrong**, and reflected a search that had not reached the
+Global Report's method annexes. What is novel is applying the correction to a
+*sector* study on an uncoupled EXIOBASE model; the correction itself is standard
+Danish practice.
 
 ## 5. Why we corrected the transactions and not the emissions
 
@@ -136,6 +147,33 @@ One implication we carry: Melo shows satellite errors propagate linearly and
 undamped through the model, so any future substitution of Danish emission
 accounts must be done per-stressor and with the residence principle preserved,
 not wholesale.
+
+## 5b. What the official Danish method does, in full
+
+Recorded because it is the benchmark our approach should be judged against. The
+Danish Energy Agency's Global Report uses a **coupled input-output model** with
+five components: Danish input-output tables from Statistics Denmark; Statistics
+Denmark emission accounts built on DCE coefficients; *"EE-MRIO database in the
+form of **EXIOBASE, version 3.9.2**"*; Danish foreign-trade statistics; and DCE
+land-use data. EXIOBASE 3.9.2's own country data are *"updated to 2020 with
+accounting data (supply-use tables) from the **FIGARO** database"*.
+
+Their domestic block is **residence-based** — territorial emissions plus
+Danish-operated international transport — with 117 Danish industries mapped to
+EXIOBASE's 163, and imports deflated to 2020 with 2020 emission factors because
+EXIOBASE's later years are nowcast. They characterise on **AR5**, and exclude
+land-use change.
+
+They also state their own method's weakness: *"the global balance between
+imports and exports, which the EE-MRIO database contains, is broken when data
+for individual countries changes."*
+
+Three implications for this study. Denmark's official account is **in the same
+model family as ours**, which is why our national total sits with the
+EXIOBASE-family results rather than with FIGARO. Their release is **newer than
+ours** (3.9.2 against 3.8.2). And their practice of freezing emission factors at
+the last real year rather than using the nowcast is the substance of open
+decision D8.
 
 ## 6. Limitations
 
