@@ -71,7 +71,7 @@ def main():
     ]
     df = pd.DataFrame(rows)
     df["analysis_year"] = year
-    out = os.path.join(str(OUTPUT_DIR), "tables", "waste_extension_validation.csv")
+    out = os.path.join(str(OUTPUT_DIR), "05_waste_dst_accounts", "waste_extension_validation.csv")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     df.to_csv(out, index=False)
     print(df.to_string(index=False))

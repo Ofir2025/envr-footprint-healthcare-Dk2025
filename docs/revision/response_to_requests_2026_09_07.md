@@ -104,10 +104,46 @@ silently zeroes 109 cells carrying 53.8 % of German final demand). Their exercis
 propagates one input with survey SDs; it is a teaching example, not a
 submission-grade template. We cite Lenzen SI 7 as the method precedent.
 
+## 3b. "What do you mean by a single target?" — you were right to push
+
+My framing was sloppy. Danish healthcare spans **many** EXIOBASE nodes, and the
+answer depends on which question is asked:
+
+* the **final-demand footprint** (our headline) is additive for any number of
+  target nodes — no correction needed, ever;
+* the **target-sector scope 3** (Cabernard's question) double counts
+  target-to-target deliveries and *does* need eq. 9.
+
+So I implemented eqs. 8/9/12 and measured it for three nested target sets
+(`03_cabernard_target_scope3/`):
+
+| target set | nodes | naive | corrected | double counting |
+|---|---|---|---|---|
+| Danish health and social work | 1 | 0.9 Mt | 0.9 Mt | 1.3 % |
+| health and social work, all 49 regions | 49 | 1,129 Mt | 1,100 Mt | 2.6 % |
+| + chemicals and medical instruments, all regions | 147 | 3,093 Mt | 2,511 Mt | **18.8 %** |
+
+The complement identity `d L Y·1 == e_T,wdc + d_O L'_OO Y_O·1` holds to
+2×10⁻¹⁶, confirming the implementation. **The practical lesson:** for one Danish
+health node the correction is 1.3 %, but the moment pharmaceuticals and device
+manufacturing enter the target set — which is exactly what the planned
+sub-sector disaggregation does — it is nearly a fifth. That correction is now
+implemented rather than promised.
+
 ## 4. Proper CSV tables with correct schemas, most detailed first
 
-`data/gold/results/tables/`, all long-format with explicit units, and a
-`README_data_dictionary.md`:
+**Now organised by approach**, as you asked, each folder holding the outputs of
+one named method, with `MANIFEST_lineage.csv` at the root mapping every file to
+its approach, script, equations, published reference, inputs and content hash:
+
+```
+00_core_footprint/           01_eriksen_replication/    02_scopes_wood_hertwich/
+03_cabernard_target_scope3/  04_uncertainty_lenzen_ieooc/
+05_waste_dst_accounts/       06_benchmarks_validation/     scenarios/
+```
+
+`docs/methods_approaches.md` documents each approach with its equations and
+references. The detailed tables are all long-format with explicit units:
 
 | file | grain |
 |---|---|
@@ -234,6 +270,12 @@ hospital N₂O is netted out before the bottom-up item is added.
    is the largest single omission for health care and the reason provider
    equipment shows as zero intermediate purchases. Worth an endogenised-capital
    sensitivity.
-4. Patient/visitor travel still has no Danish source (verified absent).
+4. Patient/visitor travel still has no Danish source (verified absent) — the
+   only remaining component with no national anchor.
+5. **Closed since:** the eldercare share α is no longer carried from 2019. It is
+   now read from the analysis year's own IO table (industry 880000's deliveries
+   to eldercare vs childcare): **α = 0.3092 for 2022**, not 0.4914. Direct
+   emissions fall to 118.6 kt and direct waste to 42.8 kt, and the two accounts
+   now use the same α by construction.
 5. Danish-SNAC hybrid and the Lenzen/Malik-style sub-sector disaggregation —
    for which Cabernard eq. (9) *will* be required and is already documented.
