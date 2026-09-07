@@ -56,17 +56,49 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 
 Components (GWP): services 1,983; pharmaceuticals & chemical products 1,340;
 appliances 921; travel 606; direct 129.5; medical gases 24.3.
-Scopes: **S1 142.2 / S2 404.2 / S3 4,086.1 / outside-protocol 242.5** — S2 is now a
-plausible 8.3% of the total (Arup: 8.3%!) because v3.10.2's DK health recipe buys
-energy realistically, unlike v3.8.2's. Geography: Denmark 26.1% of GWP, Asia-Pacific
+
+**Scopes (GHG Protocol, corrected construction — `analysis.scopes_detail`):**
+**S1 142.2 / S2 401.5 / S3 4,085.7 / outside-protocol 242.5 kt CO₂e.**
+Scope 2 uses the energy-block inverse `L_EE = (I_EE − A_EE)⁻¹` so that
+generation is reached through transmission and distribution without leaving the
+energy block; fuel extraction, refining and grid hardware stay in Scope 3, per
+the GHG Protocol (the full-`L` variant, 404.2 kt, is reported as a sensitivity).
+The health sector's self-supply loop, `s_h(L_hh − 1)E_H` = 3.2 kt, is removed
+from the MRIO part because it overlaps the national-accounts Scope 1. The
+partition is asserted exact and the producing-node detail is asserted to
+reconcile. Scope 2 at 8.2 % of the total matches Arup's independent WIOD-based
+8.3 % for Denmark almost exactly. Geography: Denmark 26.1% of GWP, Asia-Pacific
 39.5% (DST AFTRYK: 39% domestic economy-wide; Arup: 39.1%).
 Contribution groups (GWP): pharma & chemicals 33.4%, medical/electrical equipment
 19.2%, individual travel 12.4%, **transport 7.0%**. Materials: pharma group 61.9%.
 
-**Monte Carlo (10,000 draws):** Scenario A (pharma as Chemicals nec) GWP median
-4,773 [95%: 4,407–5,189]; Scenario B (pharma-specific intensity) 3,918 [3,509–4,532];
-materials −46% under B. Waste −53/+120%. The MC median embeds a 0.97 nowcast-bias
-factor (DST pp. 21–22 logic: nowcast intensities lag 2022 import-price inflation).
+**Monte Carlo (100,000 draws, `analysis.uncertainty_2025`, rebuilt after audit).**
+All multipliers have median 1 so the MC median reproduces the deterministic model;
+structural choices (price vintage, waste vintage, pharma mapping) are discrete
+scenarios, never hidden inside a distribution. MRIO parameter uncertainty is
+included as a shared factor calibrated to Lenzen et al. (2020) SI Tab. SI 7.1
+(Danish health-care GHG 2.84 ± 0.24 Mt = 8.35 % relative SD) — the only published
+Monte Carlo of this exact quantity. Commuting and visitor travel share a method
+factor (ρ = 0.8; ρ ∈ {0, 0.5, 0.8} reported). Verified against the closed-form
+moments of the lognormal sum.
+
+| Scenario | GWP median | 95 % interval | CV |
+|---|---|---|---|
+| A — pharma as Chemicals nec | 4,897 | 4,206–5,721 | 7.9 % |
+| B — pharma-specific intensity | 3,844 | 3,206–4,741 | 10.1 % |
+
+The CV of 7.9 % sits directly alongside Lenzen's published 8.35 % for Denmark.
+**Exact first-order variance shares:** MRIO parameters 88.7 %, visitor travel
+5.9 %, commuting 5.3 %, direct operational 0.12 %, anaesthetics 0.01 %, pMDI
+0.004 %. The bottom-up items the reviewers questioned contribute under 0.02 % of
+the variance; the uncertainty is essentially all MRIO — a more useful answer to
+the review than the tornado alone.
+
+**Ranking probabilities** (contribution groups, climate): under Scenario A
+pharmaceuticals & chemicals hold rank 1 in every draw; under Scenario B medical
+and electrical equipment takes rank 1 with P = 0.85 and pharma falls to P = 0.09.
+The identity of the top contributor is therefore decided by the pharma-mapping
+choice, not by parameter noise — exactly the sensitivity Reviewer 1 requested.
 
 ## 4. The transport headline does not survive the vintage update
 
@@ -84,6 +116,21 @@ withdrawn/reframed as vintage-dependent; pharma & equipment dominance (52% combi
 is the robust story, consistent with Steenmeijer's NL result and Arup's Denmark sheet
 (transport 16.6% there). The 2019-corrected (6.29 Mt on v3.8.2) and 2022 (4.88 Mt on
 v3.10.2) results **must not be read as a time trend** — the vintage change dominates.
+
+## 4b. Scope-boundary sensitivity (all five indicators)
+
+| boundary | expenditure (M€) | GWP (kt) | share | t/capita | materials | water | land | waste |
+|---|---|---|---|---|---|---|---|---|
+| health only (no eldercare) | 31,079 | 4,405 | 6.81 % | 0.750 | 5,123 | 38.9 | 3,414 | 1,354 |
+| **health + eldercare (default)** | **40,597** | **4,875** | **7.53 %** | **0.830** | **5,595** | **43.0** | **3,833** | **1,482** |
+| + childcare ("zorg en welzijn", Steenmeijer-comparable) | 49,709 | 5,325 | 8.23 % | 0.907 | 6,047 | 47.0 | 4,234 | 1,604 |
+
+SHA-based studies (Pichler, Arup/Karliner, OECD) include long-term health care
+but not childcare; Steenmeijer's Dutch boundary does include childcare and youth
+care, which is why the third row is the like-for-like comparison with the
+template. Malik et al. exclude aged care entirely; Lenzen's Danish boundary
+excludes residential care but includes veterinary. Our default sits with the SHA
+mainstream, and the spread across the three boundaries is only ±10 %.
 
 ## 5. Benchmarks
 
