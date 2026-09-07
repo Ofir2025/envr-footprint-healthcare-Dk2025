@@ -1,5 +1,5 @@
 model,consuming_country_iso3,analysis_year,study,indicator,total_kt,share_national_pct,direct_pct,boundary
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,"Malik et al. 2018 (Australia, 2014-15)",climate_change,35772.0,7.2,13.4,domestic-only; capital INCLUDED; aged care excluded
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,"Malik et al. 2021 (NSW, 2017)",climate_change,7908.0,6.6,11.0,domestic-only; capital and imports excluded
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,"Malik et al. 2021 (NSW, 2017)",blue_water_consumption,246.0,4.0,17.0,"water in GL (=Mm3); withdrawal, not consumption"
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,"Malik et al. 2021 (NSW, 2017)",waste_generation,1624.0,8.0,62.0,"11 waste fractions, Australian accounts"
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,"Malik et al. 2018 (Australia, 2014-15)",climate_change,35772.0,7.2,13.4,domestic-only; capital INCLUDED; aged care excluded
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,"Malik et al. 2021 (NSW, 2017)",climate_change,7908.0,6.6,11.0,domestic-only; capital and imports excluded
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,"Malik et al. 2021 (NSW, 2017)",blue_water_consumption,246.0,4.0,17.0,"water in GL (=Mm3); withdrawal, not consumption"
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,"Malik et al. 2021 (NSW, 2017)",waste_generation,1624.0,8.0,62.0,"11 waste fractions, Australian accounts"

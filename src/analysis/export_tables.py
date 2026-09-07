@@ -37,10 +37,9 @@ import pandas as pd
 from paths import BRONZE_DIR, BACKGROUND_DIR, OUTPUT_DIR
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL, model_label  # noqa: E402
 SCENARIO = os.environ.get("HC_SCENARIO", "baseline")
-MODEL_VERSION = {"2022": "EXIOBASE v3.10.2 IOT_2022_ixi (screened)",
-                 "2016": "EXIOBASE v3.8.2 IOT_2016_ixi"}[BACKGROUND_YEAR]
+MODEL_VERSION = MODEL_LABEL
 
 DEMAND_COMPONENTS = {0: "total", 1: "healthcare_services", 2: "pharmaceuticals", 3: "medical_appliances"}
 # relative cutoff for the bilateral table: cells below this share of the

@@ -1,16 +1,16 @@
 model,consuming_country_iso3,analysis_year,indicator,unit,component,footprint,expenditure_meur,total_intensity_per_meur,direct_intensity_per_meur
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,climate_change,kt CO2eq,healthcare_services,1853.9116852553555,37552.28493467391,0.04936881173756609,0.01868669346662923
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,climate_change,kt CO2eq,pharmaceuticals,1339.9155880109422,1950.3076778321415,0.6870277973269947,0.05135223624681386
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,climate_change,kt CO2eq,medical_appliances,921.191862263,1094.3850475832037,0.8417438307452422,0.5220466584629645
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,material_extraction,kt,healthcare_services,1861.9839335220108,37552.28493467391,0.0495837719798176,0.005827557007394501
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,material_extraction,kt,pharmaceuticals,2924.0420647324954,1950.3076778321415,1.4992721907256732,0.0
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,material_extraction,kt,medical_appliances,781.6681210452314,1094.3850475832037,0.71425329025779,0.0
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,blue_water_consumption,Mm3,healthcare_services,16.235036122166292,37552.28493467391,0.0004323315119282041,4.365762413768552e-05
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,blue_water_consumption,Mm3,pharmaceuticals,20.057194595297673,1950.3076778321415,0.01028411815390697,0.0004534295072146889
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,blue_water_consumption,Mm3,medical_appliances,6.536304608046696,1094.3850475832037,0.005972582156966792,0.001542910374583131
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,land_use,km2,healthcare_services,1653.666331477457,37552.28493467391,0.04403637047264051,0.005206844610463373
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,land_use,km2,pharmaceuticals,1646.7009043961834,1950.3076778321415,0.844328781101128,0.002405328883271749
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,land_use,km2,medical_appliances,531.0508450829358,1094.3850475832037,0.4852504575566774,0.015994010800251937
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,waste_generation,kt,healthcare_services,505.50475329864577,37552.28493467391,0.013461358055256122,0.004806972057547844
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,waste_generation,kt,pharmaceuticals,700.9609017771477,1950.3076778321415,0.35941042008115287,0.0260751780025925
-EXIOBASE v3.10.2 IOT_2022_ixi (screened),DNK,2022,waste_generation,kt,medical_appliances,230.23559181812777,1094.3850475832037,0.21037896335167489,0.04337357777006596
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,climate_change,kt CO2eq,healthcare_services,2308.7361502559747,37552.28493467391,0.06148057712792339,0.01164508821016325
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,climate_change,kt CO2eq,pharmaceuticals,1395.293259083857,1950.3076778321415,0.7154221228492476,0.1172004423717887
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,climate_change,kt CO2eq,medical_appliances,155.13901808836806,1094.3850475832037,0.1417590805274349,0.005512523841626701
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,material_extraction,kt,healthcare_services,2274.251186755723,37552.28493467391,0.060562258480729436,0.02595273686133306
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,material_extraction,kt,pharmaceuticals,1828.6029631579413,1950.3076778321415,0.9375971719449514,0.12830017123657683
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,material_extraction,kt,medical_appliances,130.8949726264794,1094.3850475832037,0.11960595853858076,3.8715284045828035e-05
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,blue_water_consumption,Mm3,healthcare_services,43.77887634536768,37552.28493467391,0.0011658112528046048,0.00010623344141745703
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,blue_water_consumption,Mm3,pharmaceuticals,49.50356888410434,1950.3076778321415,0.025382440651174527,0.0017727154936455752
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,blue_water_consumption,Mm3,medical_appliances,2.044907846091656,1094.3850475832037,0.001868545125509115,7.215702152724758e-05
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,land_use,km2,healthcare_services,2991.265753386635,37552.28493467391,0.07965602515506717,0.0086957933212196
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,land_use,km2,pharmaceuticals,1758.8833086862237,1950.3076778321415,0.9018491434342837,7.140394315575252e-05
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,land_use,km2,medical_appliances,103.64186574432819,1094.3850475832037,0.09470329110691593,8.548087416350427e-07
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,waste_generation,kt,healthcare_services,448.53559801649175,37552.28493467391,0.011944295767801238,0.002291722463919809
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,waste_generation,kt,pharmaceuticals,304.6512666700261,1950.3076778321415,0.156206771953367,0.050649058140714034
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,waste_generation,kt,medical_appliances,36.9651118499373,1094.3850475832037,0.033777062224643495,0.0004429299103682604

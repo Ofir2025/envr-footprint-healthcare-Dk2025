@@ -24,7 +24,10 @@ from paths import EXIOBASE_DIR, BACKGROUND_DIR, MRIO_DIR
 np.set_printoptions(precision=2)
 tstart = time.time()
 
-year = '2016' # change this depending on the year of analysis. Be careful, the name must match the folder name in exiobase folder (e.g. IOT_2016_ixi)
+year = os.environ.get('HC_BACKGROUND_YEAR', '2016')  # IOT_<year>_ixi must exist
+# under data/bronze/exiobase_v3_7/. v3.8.2 is used for every year: its 2022 table
+# reproduces Danish national accounts, whereas v3.10.2's 2022 nowcast does not
+# (see docs/revision/exiobase_vintage_defects.md).
 
 ##############################################
 ##############################################

@@ -30,7 +30,7 @@ from paths import BACKGROUND_DIR, OUTPUT_DIR
 from analysis.export_tables import _labels, _node_frame
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL  # noqa: E402
 K_DK, NS, NY = 6, 163, 7
 INDICATORS = [(0, "climate_change", "kt CO2eq"), (1, "material_extraction", "kt"),
               (2, "blue_water_consumption", "Mm3"), (3, "land_use", "km2"),
@@ -100,7 +100,7 @@ def main():
               f"= {100 * hc_total / nat_total:5.2f} %")
 
     meta = dict(analysis_year=ANALYSIS_YEAR,
-                model=f"EXIOBASE v3.10.2 IOT_{BACKGROUND_YEAR}_ixi (screened)",
+                model=MODEL_LABEL,
                 consuming_country_iso3="DNK",
                 scope="ALL Danish final demand (163 products x 49 regions, 7 FD categories)")
     for name, frames in (("national_footprint_by_purchased_product.csv", rows_purch),

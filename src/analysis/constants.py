@@ -37,3 +37,40 @@ INDICATORS = [
 ]
 
 DK_POPULATION = {"2019": 5_814_422, "2022": 5_873_420}
+
+
+# ---------------------------------------------------------------------------
+# Background model selection and provenance.
+#
+# Defined once so that no module can silently pair one vintage's data with
+# another's provenance label, and so that a model variant selected by
+# HC_BACKGROUND_TAG propagates to every downstream table.
+#
+# The background is EXIOBASE v3.8.2, not v3.10.2: v3.10.2's 2022 nowcast
+# misallocates the Danish block (health output 2.8x too low, education 4.8x too
+# high, machinery and medical instruments near-zero) and empties industry 33
+# across Europe in every year. See docs/revision/exiobase_vintage_defects.md.
+# ---------------------------------------------------------------------------
+
+import os as _os
+
+ANALYSIS_YEAR = _os.environ.get("HC_ANALYSIS_YEAR", "2022")
+BACKGROUND_TAG = _os.environ.get("HC_BACKGROUND_TAG", "")
+BACKGROUND_YEAR = ("2022" if ANALYSIS_YEAR == "2022" else "2016") + BACKGROUND_TAG
+
+_VARIANT = {
+    "": "",
+    "_snacship": " with Danish sea-transport reallocation "
+                 "(Rørmose Jensen & Iliev 2022)",
+}
+
+
+def model_label(year=None):
+    """Provenance string for the background actually loaded."""
+    y = (year or BACKGROUND_YEAR).replace(BACKGROUND_TAG, "") if BACKGROUND_TAG \
+        else (year or BACKGROUND_YEAR)
+    return (f"EXIOBASE v3.8.2 IOT_{y}_ixi"
+            f"{_VARIANT.get(BACKGROUND_TAG, ' [' + BACKGROUND_TAG + ']')}")
+
+
+MODEL_LABEL = model_label()

@@ -1,4 +1,4 @@
-# Claude project prompt: Denmark healthcare environmental footprint, 2022
+# Project brief: Denmark healthcare environmental footprint, 2022
 
 ## Goal
 Replicate, validate, and extend Steenmeijer et al. (2022) for **Denmark in 2022**. The final analysis must be scientifically defensible, reproducible, and suitable for a strong peer-reviewed journal in industrial ecology, sustainability, or planetary health.

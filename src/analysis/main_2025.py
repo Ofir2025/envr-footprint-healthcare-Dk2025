@@ -79,7 +79,7 @@ mode = "Danish"  # or "Dutch"
 
 # ---------------------------------------------------------------------------
 # Analysis-year configuration. 2022 is the primary year (Danish 2022
-# expenditure on the EXIOBASE v3.10.2 IOT_2022_ixi background built by
+# expenditure on the EXIOBASE v3.8.2 IOT_2022_ixi background built by
 # pipelines.prep_background_2022); 2019 is the pre-COVID validation baseline
 # (Danish 2019 detailed-SUT expenditure on EXIOBASE 3.8.2's 2016 table).
 # Select with HC_ANALYSIS_YEAR=2019|2022 (default 2022).
@@ -92,6 +92,9 @@ SCOPE_SCENARIO = os.environ.get("HC_SCOPE", "health_eldercare")
 INCLUDE_CHILDCARE = SCOPE_SCENARIO == "zorg_en_welzijn"
 INCLUDE_ELDERCARE = SCOPE_SCENARIO != "health_only"
 BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
+# Optional model variant, e.g. HC_BACKGROUND_TAG=_snacship selects the
+# background with the Danish shipping reallocation applied. Empty = as published.
+BACKGROUND_YEAR = BACKGROUND_YEAR + os.environ.get("HC_BACKGROUND_TAG", "")
 # Danmarks Nationalbank annual average DKK/EUR
 DKK_PER_EUR_BY_YEAR = {"2019": 7.4661, "2022": 7.4396}
 # Direct healthcare waste components from Statistics Denmark AFFALD01 (total

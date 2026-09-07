@@ -18,12 +18,33 @@ import pandas as pd
 from paths import OUTPUT_DIR
 
 APPROACHES = {
+    "09_vintage_diagnostics": dict(
+        approach="EXIOBASE vintage audit against Danish national accounts",
+        reference="Rørmose Jensen & Iliev 2022 (Statistics Denmark); Palm et al. 2019; "
+                  "Stadler et al. 2018 (J Ind Ecol 22:502)",
+        script="analysis.vintage_defect_audit",
+        equations="ratio = x_EXIOBASE(group) / x_nationalaccounts(group)",
+        inputs="EXIOBASE v3.7/v3.8.2/v3.10.2 x vectors; DST 117-industry IO tables"),
+    "10_snac_shipping_correction": dict(
+        approach="Danish sea-transport reallocation (simplified SNAC step)",
+        reference="Rørmose Jensen & Iliev 2022, pp. 11-12; Palm et al. 2019",
+        script="analysis.dk_shipping_correction",
+        equations="Z[row,DK] *= 0.09*x_row / Z[row,DK].sum(); residual to exports; "
+                  "value added credited to restore column balance",
+        inputs="EXIOBASE v3.8.2 IOT_2022_ixi; DST water-transport allocation"),
+    "11_capital_gfcf": dict(
+        approach="Capital boundary: excluded, exogenous service flow, endogenised",
+        reference="Södersten, Wood & Hertwich 2018 (ES&T 52:13250); Wood & Hertwich 2018; "
+                  "Malik et al. 2018",
+        script="analysis.capital_gfcf",
+        equations="f_A = f + C S L y_cap ; K[:,j] = g_r cfc_j / x_j ; A' = A + K",
+        inputs="prepared background; DST NABK69 P.51c/P.51g by asset, 2022"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",
         script="analysis.export_tables / analysis.extended_indicators",
         equations="f = C S L y_H ; E[i,j] = s_i L_ij y_j",
-        inputs="EXIOBASE v3.10.2 IOT_2022_ixi (screened); DK expenditure vector"),
+        inputs="EXIOBASE v3.8.2 IOT_2022_ixi; DK expenditure vector"),
     "01_eriksen_replication": dict(
         approach="Eriksen/Steenmeijer replication outputs (corrected)",
         reference="Steenmeijer et al. 2022; Eriksen et al. NXSUST-D-26-01589",

@@ -31,7 +31,7 @@ import numpy as np
 import pandas as pd
 
 from paths import BACKGROUND_DIR, OUTPUT_DIR
-from analysis.constants import INDICATORS
+from analysis.constants import BACKGROUND_YEAR, INDICATORS, MODEL_LABEL
 from analysis.export_tables import _labels
 
 MAX_LAYER = int(os.environ.get("HC_MAX_LAYER", 20))
@@ -51,7 +51,7 @@ def layer_decomposition(A, s, y, max_layer=MAX_LAYER, L=None):
 
 def main():
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    bgy = "2022" if year == "2022" else "2016"
+    bgy = BACKGROUND_YEAR  # honours HC_BACKGROUND_TAG
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{bgy}.pkl"), "rb") as fh:
         bg = pickle.load(fh)
@@ -104,7 +104,7 @@ def main():
     out_dir = os.path.join(str(OUTPUT_DIR), "07_malik_replication")
     os.makedirs(out_dir, exist_ok=True)
     meta = dict(analysis_year=year, consuming_country_iso3="DNK",
-                model=f"EXIOBASE v3.10.2 IOT_{bgy}_ixi (screened)",
+                model=MODEL_LABEL,
                 method="production layer decomposition, Malik et al. 2021 / Lenzen et al. 2020 SI 5")
     df = pd.DataFrame(rows); dfs = pd.concat(bysec, ignore_index=True)
     for k2, v in meta.items():

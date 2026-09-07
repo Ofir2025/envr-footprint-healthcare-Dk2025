@@ -1,5 +1,5 @@
 source,quantity,value_kt,basis,analysis_year
-EXIOBASE hybrid 2011 waste extension (as inherited),direct waste of the Danish health sector,647.364052104496,absolute 2011 tonnes / analysis-year monetary output,2022
+EXIOBASE hybrid 2011 waste extension (as inherited),direct waste of the Danish health sector,240.44656518851474,absolute 2011 tonnes / analysis-year monetary output,2022
 Statistics Denmark AFFALD01 (SEEA waste accounts),"Q human health and social work, total waste excl. soil",51.795,"measured, 2022",2022
 Statistics Denmark AFFALD01 (SEEA waste accounts),study boundary: QA + 870000 + alpha x 880000,45.1404776,"measured, 2022, alpha=0.4914",2022
-ratio,hybrid / measured (Q total),12.498581950081975,dimensionless,2022
+ratio,hybrid / measured (Q total),4.642273678704792,dimensionless,2022

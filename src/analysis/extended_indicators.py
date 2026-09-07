@@ -34,7 +34,7 @@ from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR
 from analysis.export_tables import _labels, _node_frame, DEMAND_COMPONENTS
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL  # noqa: E402
 
 # name pattern -> (indicator, native unit, scale to reporting unit, reporting unit)
 FAMILIES = [
@@ -68,7 +68,7 @@ def main():
     reg, sec = _labels()
     prod = _node_frame(reg, sec, "producing")
     meta = dict(analysis_year=ANALYSIS_YEAR, scenario=os.environ.get("HC_SCENARIO", "baseline"),
-                model=f"EXIOBASE v3.10.2 IOT_{BACKGROUND_YEAR}_ixi (screened)",
+                model=MODEL_LABEL,
                 consuming_country_iso3="DNK")
 
     detail_rows, summary_rows = [], []
