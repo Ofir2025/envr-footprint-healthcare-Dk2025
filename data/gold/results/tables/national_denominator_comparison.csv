@@ -1,0 +1,4 @@
+denominator,value_MtCO2e,source,healthcare_share_pct,note,healthcare_footprint_MtCO2e
+"This model (EXIOBASE v3.10.2 ixi 2022, outlier-screened)",64.72,computed here,7.533,same model as the numerator - the internally consistent choice,4.875
+Statistics Denmark AFTRYK (experimental climate footprint),62.927,"StatBank AFTRYK1, IEA/MTOT/global, 2022",7.747,DST's own EXIOBASE-coupled simplified-SNAC model,4.875
+Eurostat FIGARO GHG footprint,57.4,"env_ac_ghgfp, c_dest=DK, c_orig=WORLD, nace=TOTAL, 2022",8.493,official EU inter-country model; 11% below our model,4.875
