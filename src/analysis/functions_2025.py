@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
+"""Shared routines for the Danish analysis: background assembly and reporting.
+
+``createBackground`` assembles the prepared model object used by every analysis
+module — A, L, the characterised intensity matrix B (including the waste
+extension and unit scaling), the healthcare demand vector ``Ystim`` and the
+direct-impact vector ``Hstim`` — so that all modules share one construction
+rather than each rebuilding it.
+
 Script for:
 The environmental footprint of the Dutch healthcare sector: beyond environmental impact (in press)
 Steenmeijer MA, Rodrigues JFD, Zijp MC, Waaijers-van der Loop SL
