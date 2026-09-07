@@ -131,11 +131,48 @@ for i in range(nind_waste):
 #In [92]: ind_exio.index('A_GASD')
 #Out[92]: 109
 
+##############################################
+# Waste-fraction boundary.
+#
+# The hybrid extension carries 19 fractions. Summing all of them - which this
+# script previously did - does not measure "waste generation" as Eurostat
+# (Regulation EC 2150/2002, EWC-Stat) or Statistics Denmark (AFFALD01) define
+# it, and so is not comparable with the Danish direct-waste entry that replaces
+# the domestic tier. Three fractions are outside every statistical waste
+# account: unused mining material and mining waste are excluded from EWC-Stat by
+# definition, and manure is an agricultural by-product, not waste. Sewage is a
+# wastewater volume rather than a solid-waste mass and is orders of magnitude
+# larger than everything else, so it is excluded too.
+#
+# Construction and demolition waste IS in the Eurostat and DST boundary and is
+# retained, as are ashes (EWC-Stat W12).
+#
+# Set HC_WASTE_FRACTIONS=all to reproduce the previous, unfiltered behaviour.
+EXCLUDED_WASTE_FRACTIONS = {
+    'Manure',
+    'Sewage',
+    'Mining waste',
+    'Unused waste',
+}
+_mode = os.environ.get('HC_WASTE_FRACTIONS', 'statistical')
+if _mode == 'all':
+    _keep = np.ones(len(waste_industry.index), dtype=bool)
+else:
+    _keep = np.array([lvl0 not in EXCLUDED_WASTE_FRACTIONS
+                      for lvl0, _unit in waste_industry.index])
+print(f"waste fractions: mode={_mode}, keeping {_keep.sum()} of {_keep.size}")
+print("  excluded:", sorted({lvl0 for lvl0, _u in waste_industry.index}
+                            - {lvl0 for (lvl0, _u), k
+                               in zip(waste_industry.index, _keep) if k}))
+_keep_fd = np.array([lvl0 not in EXCLUDED_WASTE_FRACTIONS
+                     for lvl0, _unit in waste_final.index]) \
+    if _mode != 'all' else np.ones(len(waste_final.index), dtype=bool)
+
 # Fill in values: final demand
 h = np.zeros((1, nreg * nfin))
 for i in range(nreg_waste):
     for j in range(nfin_waste):
-        val = waste_final.iloc[:, i * nfin_waste + j].sum()
+        val = waste_final.iloc[_keep_fd, i * nfin_waste + j].sum()
         ipos = int(reg_pos[i, 0])
         jpos = int(j)
         h[0, ipos * nfin + jpos] = val
@@ -144,7 +181,7 @@ for i in range(nreg_waste):
 r = np.zeros((1, nreg*nind))
 for i in range(nreg_waste):
     for j in range(nind_waste):
-        val = waste_industry.iloc[:,i * nind_waste + j].sum()
+        val = waste_industry.iloc[_keep, i * nind_waste + j].sum()
         ipos = int(reg_pos[i, 0])
         jpos = int(ind_pos[j, 0])
         r[0,ipos * nind + jpos] = val
