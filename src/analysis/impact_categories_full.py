@@ -126,6 +126,21 @@ def build_full_characterisation(n_stressors: int) -> tuple[np.ndarray,
     return np.vstack(rows), pd.DataFrame(meta)
 
 
+#: Categories in the shipped DESIRE workbook that are known to be wrong, with
+#: the evidence. These are flagged in the output so they cannot be used
+#: unknowingly; they are not silently deleted, because a reader comparing
+#: against an older run needs to see why a number changed.
+KNOWN_DEFECTIVE: dict[str, str] = {
+    "ozone layer depletion ODP steady state ":
+        "WRONG STRESSOR CLASS: the row characterises only NMVOC (48 stressors, "
+        "CF about 2.3e-5), but NMVOC drives tropospheric ozone FORMATION, not "
+        "stratospheric ozone DEPLETION. EXIOBASE contains no CFC, halon or "
+        "HCFC stressor, so ozone depletion is not computable from this "
+        "satellite account at all - IMPACT World+ v2.2.1 correctly returns "
+        "zero for it.",
+}
+
+
 def _screen(table: pd.DataFrame) -> pd.Series:
     """Flag characterisation rows that cannot be taken at face value.
 
@@ -155,6 +170,9 @@ def _screen(table: pd.DataFrame) -> pd.Series:
     """
     flags = pd.Series("ok", index=table.index, dtype=object)
     values = table["healthcare_supply_chain"]
+    for i, row in table.iterrows():
+        if str(row["indicator"]) in KNOWN_DEFECTIVE:
+            flags.iloc[table.index.get_loc(i)] = "WRONG_STRESSOR_CLASS"
     for i, row in table.iterrows():
         name = str(row["indicator"])
         if "endpoint" not in name.lower():
@@ -233,6 +251,7 @@ def main() -> None:
     table["sector_consuming"] = "health_and_eldercare"
     table = table[table.n_nonzero_factors > 0].reset_index(drop=True)
     table["quality_flag"] = _screen(table)
+    table["quality_note"] = table["indicator"].map(KNOWN_DEFECTIVE).fillna("")
     table.to_csv(os.path.join(out_dir, "impact_categories_all_methods.csv"),
                  index=False)
 

@@ -99,8 +99,12 @@ CATEGORY_MAP: dict[str, tuple[str, str]] = {
            "Particulate matter/Respiratory inorganics midpoint"),
     "EP": ("Problem oriented approach: baseline (CML, 1999)",
            "eutrophication (fate not incl.)"),
-    "ODP": ("Problem oriented approach: baseline (CML, 1999)",
-            "ozone layer depletion ODP steady state "),
+    # ODP is deliberately absent. EXIOBASE has no CFC, halon or HCFC stressor,
+    # so stratospheric ozone depletion cannot be computed from this satellite
+    # account. The DESIRE workbook appears to supply a value only because its
+    # ODP row characterises NMVOC, which drives tropospheric ozone FORMATION,
+    # not stratospheric depletion. IMPACT World+ v2.2.1 correctly returns zero.
+    # Reported as not computable rather than with a wrong number.
     "POP": ("Problem oriented approach: baseline (CML, 1999)",
             "photochemical oxidation (high NOx)"),
     "ETP": ("Problem oriented approach: baseline (CML, 1999)",
@@ -158,6 +162,24 @@ def main() -> None:
 
     rows: list[dict[str, Any]] = []
     for code, published in ECKELMAN_TABLE2.items():
+        if code not in CATEGORY_MAP:
+            rows.append(dict(
+                eckelman_code=code, effect_category=published["name"],
+                us_unit=published["unit"],
+                us_health_care=published["health_care"],
+                us_national=published["national"],
+                us_share_of_national_pct=published["share_pct"],
+                dk_method="not computable", dk_indicator="not computable",
+                dk_unit="", dk_health_care=np.nan, dk_national=np.nan,
+                dk_share_of_national_pct=np.nan, share_difference_pp=np.nan,
+                comparability="NOT COMPUTABLE: EXIOBASE carries no CFC, halon "
+                              "or HCFC stressor, so stratospheric ozone "
+                              "depletion cannot be derived from this satellite "
+                              "account",
+                source_us="Eckelman & Sherman 2016, PLoS ONE 11(6):e0157014, "
+                          "table 2",
+                source_dk=MODEL_LABEL))
+            continue
         method, indicator = CATEGORY_MAP[code]
         ours = _lookup(frame, method, indicator)
         rows.append(dict(
