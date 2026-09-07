@@ -161,8 +161,12 @@ withdrawn** — not as vintage-dependent, but as a known and published
 misallocation in EXIOBASE's Danish block. Pharmaceuticals, chemicals and
 equipment remain the robust story, consistent with Steenmeijer's Dutch result.
 
-The corrected national footprint of 76.5 Mt still exceeds DST's official AFTRYK
-of 62.9 Mt by 21 %. Foreign shipping rows (RoW-Asia, Germany, RoW-Middle East)
+The corrected national footprint of 77.5 Mt still exceeds DST's official AFTRYK
+of 62.9 Mt by 23 %. That gap separates by **model family**, not by year: the two
+published EXIOBASE-based Danish footprints are 12.90 t/capita (Schmidt & Merciai
+2023) and 13.19 (this study), against 9.77 (Eurostat FIGARO), 10.71 (DST AFTRYK)
+and 11.00 (Rørmose Jensen & Iliev) for the national-accounts family. Our result
+is within 2.3 % of its own family. Foreign shipping rows (RoW-Asia, Germany, RoW-Middle East)
 carry much of the remainder and cannot be corrected from Danish sources. This is
 the strongest available argument for the full Danish SNAC tier, and it is
 reported as a limitation rather than adjusted away.
