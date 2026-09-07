@@ -1,286 +1,321 @@
 # -*- coding: utf-8 -*-
-"""Monte Carlo uncertainty and scenario analysis for the Danish healthcare footprint.
+"""Monte Carlo parameter uncertainty for the Danish healthcare footprint.
 
-Responds to the first-round reviews (systematic uncertainty on the bottom-up
-scaling factors and proxies; sensitivity of the pharmaceuticals-to-Chemicals-nec
-mapping; the 2019-expenditure-on-2016-price-model mismatch; effect on
-contribution rankings).
+Answers the first-round reviews (systematic uncertainty on the bottom-up
+scaling factors; sensitivity of the pharmaceuticals-to-Chemicals-nec mapping;
+effect on contribution rankings) and follows the audit of the first
+implementation. Design decisions, each defensible in the SI:
 
-Design (see docs/revision/uncertainty_design_notes.md for the literature basis):
+1. **What is perturbed.** The footprint is linear in final demand and the
+   bottom-up items are additive, so draws recombine precomputed components and
+   (I-A) is never re-inverted. A and L are held FIXED; this is stated in the
+   Methods, as in the IEooc reference implementation.
+2. **MRIO parameter uncertainty is included**, not waved away. EXIOBASE ships
+   no element-level standard deviations, so it enters as one multiplicative
+   factor applied jointly to all MRIO components, calibrated to the only
+   published Monte Carlo estimate for this exact quantity: Lenzen et al.
+   (2020) SI Tab. SI 7.1 gives the Danish health-care GHG footprint as
+   2.84 +/- 0.24 Mt CO2e, i.e. a relative SD of 8.35 % obtained by propagating
+   Eora's Q, T and y. Because it is shared, it cancels in group *rankings* -
+   which is the statistically correct behaviour.
+3. **Central estimate and interval are consistent.** All multipliers have
+   median 1, so the MC median reproduces the deterministic model. Structural
+   corrections (price vintage, waste-extension vintage, pharma mapping) are
+   discrete SCENARIOS, never hidden inside a distribution. E[X] = exp(sigma^2/2)
+   > 1 for a median-1 lognormal, so mean and median are both reported.
+4. **Correlation.** Commuting and visitor travel are transplants of the same
+   Dutch study through the same DK/NL ratio method, so they share a method
+   factor with rho = 0.8 (rho in {0, 0.5, 0.8} reported); ignoring it would
+   understate the variance of their sum.
+5. **Rankings** are computed from group totals evaluated at the SAME draw, via
+   an explicit aggregation of the components (the IEooc Software2 pattern), so
+   every group carries uncertainty and the shared MRIO factor cancels.
+6. **Verification.** For a weighted sum of independent lognormals the first two
+   moments are closed-form; the MC is asserted against them, and Monte Carlo
+   standard errors are reported.
 
-* The footprint is linear in final demand and the bottom-up items are additive,
-  so no perturbation of the Leontief system is required: each draw recombines
-  precomputed components. EXIOBASE publishes no element-level standard
-  deviations, so MRIO-parameter propagation (Eora/Lenzen-style) is impossible
-  by construction and is addressed qualitatively; the literature indicates
-  IO-parameter noise adds little relative uncertainty compared with the terms
-  propagated here (Perkins & Suh 2019; Jakobs 2023).
-* Stochastic parameters are sampled independently as lognormals with median 1
-  at the central estimate (right-skewed multiplicative uncertainty, standard in
-  hybrid-LCA practice; GSDs below). Structural choices are discrete scenarios.
-* 10,000 draws (convergence precedent: Jakobs 2023, ch. 3), fixed seed.
-
-Inputs: the corrected model outputs in data/gold/results (table_1.xlsx and
-contribution_analysis.xlsx). Run AFTER analysis.main_2025:
-
-    PYTHONPATH=src python -m analysis.uncertainty_2025
+Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 .venv/bin/python -m analysis.uncertainty_2025
 """
+
+import os
 
 import numpy as np
 import pandas as pd
-import os
+from scipy.stats import truncnorm
 
-from paths import OUTPUT_DIR
+from paths import OUTPUT_DIR, SILVER_INPUT_DIR
 
-N_DRAWS = 10_000
+N_DRAWS = int(os.environ.get("HC_MC_DRAWS", 100_000))
 SEED = 42
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
+RHO_TRAVEL = 0.8
 
-# --------------------------------------------------------------------------
-# Parameter distributions (median, geometric standard deviation) and rationale
-# --------------------------------------------------------------------------
-# GSD 1.25 ~ 95% range (-36%, +56%): inside the reviewers' +/-20-50% band.
+INDICATORS = ["Global warming (ktCO2eq)", "Material extraction (kt)",
+              "Blue water consumption (Mm3)", "Land use (km2)", "Waste generation (kt)"]
+
+# ---------------------------------------------------------------------------
+# Stochastic parameters: multiplicative, median 1, lognormal (GSD).
+# 95 % factor range = GSD^(+/-1.96).
+# ---------------------------------------------------------------------------
 PARAMS = {
-    # bottom-up items (multiplicative on the item's full row)
-    "anaesthetic": {"gsd": 1.30, "why": "NID 2.G.3.a activity +/-25%, EF +/-20% (DCE 2024); volatile component is a population-scaled proxy"},
-    "pmdi":        {"gsd": 1.15, "why": "register-based dispensing (medstat.dk) x producer HFC content; GWP-metric and per-dose spread"},
-    "commute":     {"gsd": 1.25, "why": "ratio method: NL base values + DK/NL employment, hours, TU distance"},
-    "visitor":     {"gsd": 1.40, "why": "no Danish primary source; Dutch base is itself a transplanted English per-capita figure"},
-    # direct operational emissions (DRIVHUS-based)
-    "direct":      {"gsd": 1.10, "why": "official emission accounts; alpha-proration of industry 880000 and medical-N2O netting"},
-    # MRIO-side multiplicative factors
-    # Price-vintage factor on the MRIO components. 2019 run: 2019 expenditure on a
-    # 2016-price table -> deflate (~-3.5%, Danish net price index). 2022 run:
-    # years are aligned, but EXIOBASE 2022 intensities are nowcast and lag the
-    # 2022 import-price inflation, a one-sided overstatement risk (Rormose Jensen
-    # & Iliev 2022, pp. 21-22, froze real-data multipliers and deflated imports
-    # for exactly this reason) -> median 0.97 with a wider band.
-    "deflator":    ({"median": 0.966, "gsd": 1.02,
-                     "why": "2019-on-2016 price mismatch; sampled around the deflated level"}
-                    if ANALYSIS_YEAR == "2019" else
-                    {"median": 0.97, "gsd": 1.04,
-                     "why": "nowcast intensity vs 2022 price inflation (DST coupled-models report pp. 21-22)"}),
-    "waste_ext":   {"gsd": 1.50, "why": "waste extension = 2011 hybrid-EXIOBASE absolute account on 2016 monetary output (Steenmeijer precedent); vintage+classification mismatch"},
+    "mrio": dict(gsd=None, cv=0.0835,
+                 why="Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish "
+                     "health-care GHG footprint from a full MRIO Monte Carlo (Eora "
+                     "Q, T, y). Applied jointly to all MRIO components."),
+    "direct": dict(gsd=1.10,
+                   why="Statistics Denmark DRIVHUS/AFFALD accounts; residual risk is the "
+                       "alpha-proration of industry 880000 and the medical-N2O netting"),
+    "anaesthetic": dict(gsd=1.30,
+                        why="Denmark NID 2.G.3.a activity +/-25 %, EF +/-20 % (DCE 2024); "
+                            "volatile agents are a transferred proxy"),
+    "pmdi": dict(gsd=1.15,
+                 why="register dispensing x producer HFC content (Danish EPA F-gas "
+                     "inventory / Vestbo & Press-Kristensen 2023)"),
+    "commute": dict(gsd=1.25,
+                    why="ratio method on NL base values with DST employment and TU distances"),
+    "visitor": dict(gsd=1.40,
+                    why="no Danish source; Dutch base is itself a transplanted English "
+                        "per-capita figure"),
 }
 
-# Pharma-mapping scenario B: pharma-specific intensity relative to Chemicals nec.
-# Climate ~1/3 and materials ~1/7 per the Dutch SNAC-based evidence cited by
-# Steenmeijer et al. (2022, discussion); wide GSD per the within-sector
-# heterogeneity literature (Majeau-Bettez et al. 2011; Yang et al. 2017).
+# Discrete scenarios (structural choices, NOT random variables)
+PRICE_VINTAGE = {"none": 1.00, "nowcast_adjusted": 0.97}
+WASTE_VINTAGE = {"central": 1.0, "low": 0.5, "high": 2.0}
 PHARMA_RATIO = {
-    "Global warming (ktCO2eq)":     {"median": 1/3, "gsd": 1.5},
-    "Material extraction (kt)":     {"median": 1/7, "gsd": 1.5},
-    # no pharma-specific evidence for the remaining categories: uniform between
-    # the strongest documented reduction and no reduction
-    "Blue water consumption (Mm3)": {"uniform": (1/7, 1.0)},
-    "Land use (km2)":               {"uniform": (1/7, 1.0)},
-    "Waste generation (kt)":        {"uniform": (1/7, 1.0)},
+    "Global warming (ktCO2eq)": dict(median=1 / 3, gsd=1.5),
+    "Material extraction (kt)": dict(median=1 / 7, gsd=1.5),
+    "Blue water consumption (Mm3)": dict(uniform=(1 / 7, 1.0)),
+    "Land use (km2)": dict(uniform=(1 / 7, 1.0)),
+    "Waste generation (kt)": dict(uniform=(1 / 7, 1.0)),
 }
 
-INDICATORS = [
-    "Global warming (ktCO2eq)",
-    "Material extraction (kt)",
-    "Blue water consumption (Mm3)",
-    "Land use (km2)",
-    "Waste generation (kt)",
-]
+BU_TO_GROUP = {  # bottom-up row -> Figure-1 contribution group
+    "B_HEAL": "Operational impacts", "B_ANAE": "Operational impacts",
+    "B_PMDI": "Pharmaceuticals and chemical products",
+    "B_COMM": "Individual travel", "B_VISI": "Individual travel",
+}
+PHARMA_GROUP = "Pharmaceuticals and chemical products"
 
 
-def _lognormal(rng, median, gsd, n):
-    return rng.lognormal(mean=np.log(median), sigma=np.log(gsd), size=n)
+def _ln(rng, gsd, n):
+    """Median-1 lognormal factor."""
+    return rng.lognormal(0.0, np.log(gsd), n)
 
 
-def load_components():
-    """Additive components per indicator from the corrected model outputs."""
-    t1 = pd.read_excel(os.path.join(OUTPUT_DIR, "table_1.xlsx"), index_col=0)
-    full = pd.read_excel(os.path.join(OUTPUT_DIR, "contribution_analysis.xlsx"),
-                         sheet_name="full", index_col=0)
-    b_heal = full[full["SecTxtCode"] == "B_HEAL"][INDICATORS].astype(float).sum()
-
-    comp = pd.DataFrame({
-        # MRIO components (direct row is inside 'Healthcare services' in table 1)
-        "hc_mrio":  t1.loc["Healthcare services", INDICATORS].astype(float) - b_heal,
-        "pharma":   t1.loc["Pharmaceuticals and chemical products", INDICATORS].astype(float),
-        "appl":     t1.loc["Medical appliances", INDICATORS].astype(float),
-        "direct":   b_heal,
-        "anaesthetic": t1.loc["Release of anaesthetic gases", INDICATORS].astype(float),
-        "pmdi":     t1.loc["Release of pMDI propellants", INDICATORS].astype(float),
-        "travel":   t1.loc["Private travel", INDICATORS].astype(float),
-    })
-    # split travel into commute/visitor with the shares of the underlying file
-    bu = pd.read_csv(os.path.join(os.path.dirname(str(OUTPUT_DIR)), "..", "silver",
-                                  "inputs", "dk_bottomup_data_2025.txt"), sep="\t"
-                     ).set_index("Source")
-    c = bu.loc["Commute (total)", "Global warming (ktCO2eq)"]
-    v = bu.loc["Visitor travel (total)", "Global warming (ktCO2eq)"]
-    share_commute = float(c) / float(c + v)
-    comp["commute"] = comp["travel"] * share_commute
-    comp["visitor"] = comp["travel"] * (1 - share_commute)
-    comp = comp.drop(columns=["travel"])
-    return comp
+def _ln_cv(rng, cv, n):
+    """Median-1 lognormal with a target coefficient of variation."""
+    sigma = np.sqrt(np.log(1 + cv ** 2))
+    return rng.lognormal(0.0, sigma, n)
 
 
-def run_mc(comp, pharma_scenario="A", n=N_DRAWS, seed=SEED):
+def load_groups():
+    """Group x component decomposition, from the model's own outputs."""
+    fig1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "full_results_tables.xlsx"),
+                         sheet_name="Fig1_absolute", index_col=0)[INDICATORS].astype(float)
+    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "contribution_analysis.xlsx"),
+                            sheet_name="full")
+    bu = {code: contrib[contrib["SecTxtCode"] == code][INDICATORS].astype(float).sum()
+          for code in BU_TO_GROUP}
+    # MRIO part of each group = group total minus the bottom-up rows mapped to it
+    mrio = fig1.copy()
+    parts = {c: pd.DataFrame(0.0, index=fig1.index, columns=INDICATORS) for c in bu}
+    for code, grp in BU_TO_GROUP.items():
+        if grp in mrio.index:
+            mrio.loc[grp] -= bu[code]
+            parts[code].loc[grp] = bu[code].values
+    t1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "table_1.xlsx"), index_col=0)
+    total = t1.loc["Total", INDICATORS].astype(float)
+    assert np.allclose(fig1.sum().values, total.values, rtol=1e-6), \
+        "group table does not reproduce the reported total - stale outputs?"
+    return mrio, parts, total
+
+
+def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
+           waste_vintage="central", rho=RHO_TRAVEL, n=N_DRAWS, seed=SEED):
+    """Return (group_draws dict of arrays [n x groups], totals [n x indicators])."""
     rng = np.random.default_rng(seed)
-    draws = {
-        "anaesthetic": _lognormal(rng, 1.0, PARAMS["anaesthetic"]["gsd"], n),
-        "pmdi":        _lognormal(rng, 1.0, PARAMS["pmdi"]["gsd"], n),
-        "commute":     _lognormal(rng, 1.0, PARAMS["commute"]["gsd"], n),
-        "visitor":     _lognormal(rng, 1.0, PARAMS["visitor"]["gsd"], n),
-        "direct":      _lognormal(rng, 1.0, PARAMS["direct"]["gsd"], n),
-        "deflator":    _lognormal(rng, PARAMS["deflator"]["median"], PARAMS["deflator"]["gsd"], n),
-        "waste_ext":   _lognormal(rng, 1.0, PARAMS["waste_ext"]["gsd"], n),
-    }
-    ratios = {}
-    for k in INDICATORS:
-        spec = PHARMA_RATIO[k]
-        if pharma_scenario == "A":
-            ratios[k] = np.ones(n)
-        elif "uniform" in spec:
-            lo, hi = spec["uniform"]
-            ratios[k] = rng.uniform(lo, hi, n)
+    f = {"mrio": _ln_cv(rng, PARAMS["mrio"]["cv"], n),
+         "B_HEAL": _ln(rng, PARAMS["direct"]["gsd"], n),
+         "B_ANAE": _ln(rng, PARAMS["anaesthetic"]["gsd"], n),
+         "B_PMDI": _ln(rng, PARAMS["pmdi"]["gsd"], n)}
+    # correlated travel pair via a shared method factor
+    s_c, s_v = np.log(PARAMS["commute"]["gsd"]), np.log(PARAMS["visitor"]["gsd"])
+    s_m = np.sqrt(rho * s_c * s_v)
+    m = rng.lognormal(0.0, s_m, n)
+    f["B_COMM"] = m * rng.lognormal(0.0, np.sqrt(max(s_c ** 2 - s_m ** 2, 0)), n)
+    f["B_VISI"] = m * rng.lognormal(0.0, np.sqrt(max(s_v ** 2 - s_m ** 2, 0)), n)
+
+    groups = list(mrio.index)
+    out, totals = {}, {}
+    for ind in INDICATORS:
+        G = np.empty((n, len(groups)))
+        # pharma-mapping ratio (scenario B), truncated at 1.0 without a point mass
+        if pharma_scenario == "B":
+            spec = PHARMA_RATIO[ind]
+            if "uniform" in spec:
+                ratio = rng.uniform(*spec["uniform"], n)
+            else:
+                lo, s = np.log(spec["median"]), np.log(spec["gsd"])
+                z_hi = (np.log(1.0) - lo) / s
+                ratio = np.exp(lo + s * truncnorm.rvs(-np.inf, z_hi, size=n,
+                                                      random_state=rng))
         else:
-            ratios[k] = np.clip(_lognormal(rng, spec["median"], spec["gsd"], n), None, 1.0)
+            ratio = np.ones(n)
+        pv = PRICE_VINTAGE[price_vintage]
+        wv = WASTE_VINTAGE[waste_vintage] if ind == "Waste generation (kt)" else 1.0
+        for gi, g in enumerate(groups):
+            v = mrio.loc[g, ind] * f["mrio"] * pv * wv
+            if g == PHARMA_GROUP:
+                v = v * ratio
+            for code in BU_TO_GROUP:
+                a = parts[code].loc[g, ind]
+                if a != 0:
+                    v = v + a * f[code]
+            G[:, gi] = v
+        out[ind] = G
+        totals[ind] = G.sum(axis=1)
+    return groups, out, totals, f
 
-    totals = {}
-    for k in INDICATORS:
-        c = comp.loc[k]
-        mrio = (c["hc_mrio"] + c["appl"] + c["pharma"] * ratios[k]) * draws["deflator"]
-        if k == "Waste generation (kt)":
-            mrio = mrio * draws["waste_ext"]
-        tot = (mrio
-               + c["direct"] * draws["direct"]
-               + c["anaesthetic"] * draws["anaesthetic"]
-               + c["pmdi"] * draws["pmdi"]
-               + c["commute"] * draws["commute"]
-               + c["visitor"] * draws["visitor"])
-        totals[k] = tot
-    return totals, draws, ratios
 
-
-def summarize(totals):
+def summarize(totals, deterministic):
     rows = []
-    for k, arr in totals.items():
+    for ind, arr in totals.items():
         q = np.percentile(arr, [2.5, 16, 50, 84, 97.5])
-        rows.append({"indicator": k, "p2.5": q[0], "p16": q[1], "median": q[2],
-                     "p84": q[3], "p97.5": q[4],
-                     "rel_low_%": 100 * (q[0] / q[2] - 1),
-                     "rel_high_%": 100 * (q[4] / q[2] - 1)})
+        n = len(arr)
+        rows.append(dict(
+            indicator=ind, unit=ind[ind.find("(") + 1:-1],
+            deterministic=float(deterministic[ind]),
+            median=q[2], mean=float(arr.mean()), sd=float(arr.std(ddof=1)),
+            cv_pct=100 * float(arr.std(ddof=1) / arr.mean()),
+            p2_5=q[0], p16=q[1], p84=q[3], p97_5=q[4],
+            rel_low_pct=100 * (q[0] / q[2] - 1), rel_high_pct=100 * (q[4] / q[2] - 1),
+            mcse_median_pct=100 * float(np.std([np.median(rng_sample) for rng_sample in
+                                                np.array_split(arr, 20)], ddof=1)
+                                        / np.sqrt(20) / q[2]),
+        ))
     return pd.DataFrame(rows)
 
 
-def tornado(comp, pharma_scenario="A"):
-    """One-at-a-time swings at each parameter's 2.5/97.5 percentile (GWP only)."""
-    k = "Global warming (ktCO2eq)"
-    c = comp.loc[k]
-    base_ratio = 1.0 if pharma_scenario == "A" else PHARMA_RATIO[k]["median"]
-    defl = PARAMS["deflator"]["median"]
-
-    def total(**over):
-        p = {"anaesthetic": 1, "pmdi": 1, "commute": 1, "visitor": 1, "direct": 1,
-             "deflator": defl, "ratio": base_ratio}
-        p.update(over)
-        mrio = (c["hc_mrio"] + c["appl"] + c["pharma"] * p["ratio"]) * p["deflator"]
-        return (mrio + c["direct"] * p["direct"] + c["anaesthetic"] * p["anaesthetic"]
-                + c["pmdi"] * p["pmdi"] + c["commute"] * p["commute"]
-                + c["visitor"] * p["visitor"])
-
-    base = total()
+def sobol_first_order(mrio, parts, pharma_scenario="A"):
+    """Exact first-order variance shares (additive model, independent terms)."""
     rows = []
-    z = 1.959964
-    for name in ["anaesthetic", "pmdi", "commute", "visitor", "direct"]:
-        gsd = PARAMS[name]["gsd"]
-        lo, hi = gsd ** -z, gsd ** z
-        rows.append({"parameter": name, "low": total(**{name: lo}) - base,
-                     "high": total(**{name: hi}) - base})
-    gsd = PARAMS["deflator"]["gsd"]
-    rows.append({"parameter": "deflator",
-                 "low": total(deflator=defl * gsd ** -z) - base,
-                 "high": total(deflator=defl * gsd ** z) - base})
-    if pharma_scenario == "B":
-        gsd = PHARMA_RATIO[k]["gsd"]
-        rows.append({"parameter": "pharma_ratio",
-                     "low": total(ratio=min(base_ratio * gsd ** -z, 1.0)) - base,
-                     "high": total(ratio=min(base_ratio * gsd ** z, 1.0)) - base})
-    # reviewer-verbatim swings
-    for pct in (0.2, 0.5):
-        for name in ["anaesthetic", "pmdi", "commute", "visitor"]:
-            rows.append({"parameter": f"{name} +/-{int(pct*100)}%",
-                         "low": total(**{name: 1 - pct}) - base,
-                         "high": total(**{name: 1 + pct}) - base})
-    df = pd.DataFrame(rows)
-    df["base_total"] = base
-    return df.sort_values("high", key=lambda s: s.abs(), ascending=False)
+    for ind in INDICATORS:
+        contrib = {"mrio": float(mrio[ind].sum())}
+        for code in BU_TO_GROUP:
+            contrib[code] = float(parts[code][ind].sum())
+        var = {}
+        for name, a in contrib.items():
+            if name == "mrio":
+                sig = np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2))
+            else:
+                key = {"B_HEAL": "direct", "B_ANAE": "anaesthetic", "B_PMDI": "pmdi",
+                       "B_COMM": "commute", "B_VISI": "visitor"}[name]
+                sig = np.log(PARAMS[key]["gsd"])
+            var[name] = (a ** 2) * (np.exp(sig ** 2) - 1) * np.exp(sig ** 2)
+        tot = sum(var.values())
+        for name, v in var.items():
+            rows.append(dict(indicator=ind, parameter=name,
+                             variance_share_pct=100 * v / tot if tot else np.nan))
+    return pd.DataFrame(rows)
 
 
-def ranking_probabilities(pharma_scenario, comp, n=N_DRAWS, seed=SEED):
-    """Probability that each contribution group holds each rank (per indicator).
+def analytic_moments(mrio, parts):
+    """Closed-form mean and SD of the additive lognormal sum (verification)."""
+    res = {}
+    for ind in INDICATORS:
+        terms = [(float(mrio[ind].sum()), np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2)))]
+        for code in BU_TO_GROUP:
+            key = {"B_HEAL": "direct", "B_ANAE": "anaesthetic", "B_PMDI": "pmdi",
+                   "B_COMM": "commute", "B_VISI": "visitor"}[code]
+            terms.append((float(parts[code][ind].sum()), np.log(PARAMS[key]["gsd"])))
+        mean = sum(a * np.exp(s ** 2 / 2) for a, s in terms)
+        var = sum(a ** 2 * (np.exp(s ** 2) - 1) * np.exp(s ** 2) for a, s in terms)
+        res[ind] = (mean, np.sqrt(var))
+    return res
 
-    Groups are the Figure-1 aggregation. The pharma-ratio scenario is applied to
-    the 'Pharmaceuticals and chemical products' group via the pharma demand
-    component (an approximation: most of that component's footprint lands in
-    that group); bottom-up multipliers apply to their groups.
-    """
-    fig1 = pd.read_excel(os.path.join(OUTPUT_DIR, "full_results_tables.xlsx"),
-                         sheet_name="Fig1_absolute", index_col=0)
-    rng = np.random.default_rng(seed + 1)
-    out = {}
-    for k in INDICATORS:
-        g = fig1[k].astype(float).copy()
-        n_groups = len(g)
-        draws = np.tile(g.values, (n, 1))
-        idx = {name: i for i, name in enumerate(g.index)}
-        spec = PHARMA_RATIO[k]
-        if pharma_scenario == "A":
-            ratio = np.ones(n)
-        elif "uniform" in spec:
-            ratio = rng.uniform(*spec["uniform"], n)
-        else:
-            ratio = np.clip(_lognormal(rng, spec["median"], spec["gsd"], n), None, 1.0)
-        pharma_component = comp.loc[k, "pharma"]
-        if "Pharmaceuticals and chemical products" in idx:
-            draws[:, idx["Pharmaceuticals and chemical products"]] -= (1 - ratio) * pharma_component
-        if "Individual travel" in idx:
-            f = (_lognormal(rng, 1, PARAMS["commute"]["gsd"], n)
-                 + _lognormal(rng, 1, PARAMS["visitor"]["gsd"], n)) / 2
-            draws[:, idx["Individual travel"]] *= f
-        if "Operational impacts" in idx:
-            draws[:, idx["Operational impacts"]] *= _lognormal(rng, 1, PARAMS["direct"]["gsd"], n)
-        ranks = (-draws).argsort(axis=1).argsort(axis=1)  # 0 = largest
-        prob = pd.DataFrame(
-            {f"P(rank {r+1})": (ranks == r).mean(axis=0) for r in range(min(3, n_groups))},
-            index=g.index,
-        )
-        out[k] = prob.sort_values("P(rank 1)", ascending=False)
-    return out
+
+def ranking_probabilities(groups, group_draws, top=3):
+    rows = []
+    for ind, G in group_draws.items():
+        ranks = (-G).argsort(axis=1).argsort(axis=1)
+        for gi, g in enumerate(groups):
+            rec = dict(indicator=ind, group=g)
+            for r in range(min(top, len(groups))):
+                rec[f"P_rank_{r + 1}"] = float((ranks[:, gi] == r).mean())
+            rows.append(rec)
+    return pd.DataFrame(rows)
 
 
 def main():
-    comp = load_components()  # indicators as rows, components as columns
-    writer_path = os.path.join(OUTPUT_DIR, "uncertainty_summary.xlsx")
-    with pd.ExcelWriter(writer_path, engine="xlsxwriter") as xw:
-        comp.to_excel(xw, sheet_name="components")
-        for scen in ("A", "B"):
-            totals, _, _ = run_mc(comp, pharma_scenario=scen)
-            summarize(totals).to_excel(xw, sheet_name=f"totals_scenario_{scen}", index=False)
-            tornado(comp, pharma_scenario=scen).to_excel(
-                xw, sheet_name=f"tornado_{scen}", index=False)
-            probs = ranking_probabilities(scen, comp)
-            startrow = 0
-            for k, df in probs.items():
-                df.insert(0, "indicator", k)
-                df.to_excel(xw, sheet_name=f"rankings_{scen}", startrow=startrow)
-                startrow += len(df) + 3
-        pd.DataFrame([
-            {"parameter": name, **{kk: vv for kk, vv in spec.items()}}
-            for name, spec in PARAMS.items()
-        ]).to_excel(xw, sheet_name="parameters", index=False)
-    print(f"Uncertainty summary written -> {writer_path}")
+    out_dir = os.path.join(str(OUTPUT_DIR), "tables")
+    os.makedirs(out_dir, exist_ok=True)
+    mrio, parts, total = load_groups()
+
+    # verification against closed-form moments
+    groups, G_A, tot_A, _ = run_mc(mrio, parts, "A")
+    am = analytic_moments(mrio, parts)
+    for ind, arr in tot_A.items():
+        mu, sd = am[ind]
+        mcse = sd / np.sqrt(len(arr))
+        assert abs(arr.mean() - mu) < 5 * mcse, f"{ind}: MC mean off analytic value"
+    print(f"PASS: MC means match closed-form moments within 5 MCSE (n={N_DRAWS:,})")
+
+    summaries, ranks, scen_rows = [], [], []
     for scen in ("A", "B"):
-        totals, _, _ = run_mc(comp, pharma_scenario=scen)
-        s = summarize(totals)
-        print(f"\nScenario {scen} (pharma mapping {'as Chemicals nec' if scen=='A' else 'pharma-specific intensity'}):")
-        print(s.round(1).to_string(index=False))
+        _, G, tot, _ = run_mc(mrio, parts, scen)
+        s = summarize(tot, total)
+        s.insert(0, "pharma_scenario", scen)
+        summaries.append(s)
+        r = ranking_probabilities(groups, G)
+        r.insert(0, "pharma_scenario", scen)
+        ranks.append(r)
+    # structural scenarios on the deterministic model
+    for pv in PRICE_VINTAGE:
+        for wv in WASTE_VINTAGE:
+            _, _, tot, _ = run_mc(mrio, parts, "A", price_vintage=pv, waste_vintage=wv,
+                                  n=20_000)
+            for ind, arr in tot.items():
+                scen_rows.append(dict(price_vintage=pv, waste_vintage=wv, indicator=ind,
+                                      median=float(np.median(arr))))
+    # travel-correlation sensitivity
+    rho_rows = []
+    for rho in (0.0, 0.5, 0.8):
+        _, _, tot, _ = run_mc(mrio, parts, "A", rho=rho, n=20_000)
+        a = tot["Global warming (ktCO2eq)"]
+        q = np.percentile(a, [2.5, 50, 97.5])
+        rho_rows.append(dict(rho=rho, median=q[1], p2_5=q[0], p97_5=q[2],
+                             cv_pct=100 * a.std(ddof=1) / a.mean()))
+
+    summ = pd.concat(summaries, ignore_index=True)
+    rk = pd.concat(ranks, ignore_index=True)
+    sob = sobol_first_order(mrio, parts)
+    par = pd.DataFrame([dict(parameter=k, distribution="lognormal, median 1",
+                             gsd=v.get("gsd"), cv=v.get("cv"),
+                             factor_2_5pct=(v["gsd"] ** -1.96 if v.get("gsd") else
+                                            np.exp(-1.96 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
+                             factor_97_5pct=(v["gsd"] ** 1.96 if v.get("gsd") else
+                                             np.exp(1.96 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
+                             source=v["why"]) for k, v in PARAMS.items()])
+    with pd.ExcelWriter(os.path.join(str(OUTPUT_DIR), "uncertainty_summary.xlsx"),
+                        engine="xlsxwriter") as xw:
+        summ.to_excel(xw, sheet_name="totals", index=False)
+        sob.to_excel(xw, sheet_name="variance_shares", index=False)
+        rk.to_excel(xw, sheet_name="ranking_probabilities", index=False)
+        pd.DataFrame(scen_rows).to_excel(xw, sheet_name="structural_scenarios", index=False)
+        pd.DataFrame(rho_rows).to_excel(xw, sheet_name="travel_correlation", index=False)
+        par.to_excel(xw, sheet_name="parameters", index=False)
+    for name, df in (("uncertainty_totals", summ), ("uncertainty_variance_shares", sob),
+                     ("uncertainty_ranking_probabilities", rk),
+                     ("uncertainty_structural_scenarios", pd.DataFrame(scen_rows)),
+                     ("uncertainty_parameters", par)):
+        df.to_csv(os.path.join(out_dir, name + ".csv"), index=False)
+
+    print(summ[["pharma_scenario", "indicator", "deterministic", "median", "mean",
+                "cv_pct", "p2_5", "p97_5"]].round(2).to_string(index=False))
+    print("\nFirst-order variance shares (GWP):")
+    print(sob[sob.indicator == INDICATORS[0]].round(2).to_string(index=False))
+    print("\nTravel-correlation sensitivity (GWP):")
+    print(pd.DataFrame(rho_rows).round(2).to_string(index=False))
 
 
 if __name__ == "__main__":
