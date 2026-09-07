@@ -1,58 +1,86 @@
-# envr-footprint-healthcare - The environmental footprint of the Dutch healthcare sector
+# The environmental footprint of the Danish health care system
 
-## Repository organization
+Environmentally extended multi-regional input–output (EE-MRIO) analysis of
+Danish health care, replicating and extending Steenmeijer et al. (2022),
+*The environmental impact of the Dutch health-care sector beyond climate
+change*, Lancet Planetary Health 6: e949–57.
 
-This project follows a medallion-style ELT boundary: source inputs are kept in
-`data/bronze`, prepared MRIO objects in `data/silver`, and published results in
-`data/gold`. Python implementation lives under `src/`; `scripts/` is reserved
-for notebooks and lightweight operational helpers.
+**Primary analysis year: 2022** (EXIOBASE v3.10.2 industry-by-industry).
+2019 is retained as a pre-COVID validation baseline.
 
-Use the `2019-update` branch for the current organization work. See
-[`docs/data_architecture.md`](docs/data_architecture.md) for the data-flow
-contract and [`data/readme.md`](data/readme.md) for naming guidance.
-This root `readme.md` is the authoritative project guide; folder-level
-`readme.md` files are scoped orientation notes only.
-This project contains the model and some of the input data for the paper: 
-*The environmental footprint of the Dutch healthcare sector: beyond environmental impact*
-*Steenmeijer MA, Rodrigues JFD, Zijp MC, Waaijers-van der Loop SL. The Lancet Planetary Health (in press)*
+## Headline result, Denmark 2022
 
-The work is part of a research project at the RIVM - the national institute for public health and the environment, on building a knowledge base to support the healthcare sector in becoming more sustainable.
+| Indicator | Health care footprint | Share of the national consumption footprint |
+|---|---|---|
+| Climate change | 4,864 kt CO₂e (~0.83 t/capita) | 7.5 % own model · 7.7 % vs DST AFTRYK · 8.5 % vs Eurostat FIGARO |
+| Material extraction | 5,568 kt | 6.8 % |
+| Blue water | 42.8 Mm³ | 4.9 % |
+| Land use | 3,831 km² | 4.4 % |
+| Waste (domestic, DST accounts) | 216 kt (17 kt hazardous) | — |
 
-## Getting started (steps for the first run)
-### Step 1: Additional input data
-After cloning the project from this repository, it is necessary to download the **Exiobase 3.7 IOT_2016_ixi zip folder** from Zenodo: https://zenodo.org/record/3583071#.Y0MV7NhBw2w .
-The unzipped file should be placed in `data/bronze/exiobase_v3_7`. Do not
-change the internal Exiobase archive structure.
-It is both possible to use newer versions (3.8 and up) and other years, but at this point it will  require manual adjustments in the model's scripts (e.g. F_hh should be changed into F_Y when using v3.8).
+Ten further pressure accounts (PM2.5, PM10, NOx, SOx, NH₃, NMVOC, energy,
+N and P to water) are reported alongside. All monetary values are **million
+euro** (EXIOBASE's native unit); Danish source data are in 1000 DKK.
 
-### Step 2: First run, preparing pickled EE-IO files
-Before running the main script the first time, the Exiobase data will be processed into several pickled files. These files will later on be used to create the so-called **background** that contains all the elements needed for the main script.
-Four pipeline modules are used under
-`src/pipelines/prep_background/`.
-These scripts need to be executed in the following order:
-1. `load`, which filters the desired impact category and builds the MRIO dictionary
-2. `leontief`, which calculates the Leontief inverse
-3. `process`, which calculates total input (**x**) and the transaction matrix (**Z**)
-4. `waste`, which processes the waste-production extension from the hybrid SUT
+## Repository layout — a medallion ELT boundary
 
-The prepared objects are written to `data/silver/background/pickled_mrio/`.
-
-## Running the main script (main.py)
-Run the Netherlands analysis as a module:
-
-```bash
-PYTHONPATH=src python3 -m analysis.main
+```
+data/bronze/     raw inputs, never modified
+                 EXIOBASE (external store), Danish IO tables and SUT,
+                 Eurostat FIGARO extracts, bottom-up source workbooks
+        |        pipelines.prep_background_2022.build_background_2022
+data/silver/     prepared model objects (git-ignored, regenerable)
+                 mrio2022.pkl, leontief2022.pkl, waste.pkl
+                 + derived Danish inputs with provenance breakdowns
+        |        analysis.main_2025 and the approach modules
+data/gold/       published results, one folder per METHOD, indexed by
+                 MANIFEST_lineage.csv (approach, script, equations,
+                 reference, inputs, checksum)
 ```
 
-The 2025 variant is available as
-`analysis.main_2025`. Prepared MRIO objects are
-written to `data/silver/background`; curated outputs are written to
-`data/gold/results`.
-The output from the model is stored in `data/gold/results/`.
+Gold folders: `00_core_footprint`, `01_eriksen_replication`,
+`02_scopes_wood_hertwich`, `03_cabernard_target_scope3`,
+`04_uncertainty_lenzen_ieooc`, `05_waste_dst_accounts`,
+`06_benchmarks_validation`, `scenarios`.
 
-### Output
-For some of the output files, we use the following abbreviations
-- **aggsec** = results aggregated on aggregated sector groups (19 groups)
-- **aggsec_aggreg** = results aggregated on aggregated sector groups and global regions (19 sector groups for 6 global regions)
-- **allsec** = = results aggregated on sector (163 sectors)
-- **full** = unaggregated results, complete list (163 sectors for 49 countries/regions)
+Every table is exported at the most detailed level available — producing
+country × producing sector × purchased product × demand component, ISO3 codes
+for countries and the EXIOBASE rest-of-world labels (WA/WL/WE/WF/WM) kept as
+they are — so all aggregates are derivable and no lineage is lost.
+
+## Running it
+
+```bash
+python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
+
+PYTHONPATH=src python -m pipelines.prep_background_2022.build_background_2022
+HC_ANALYSIS_YEAR=2022 PYTHONPATH=src python -m analysis.main_2025
+for m in export_tables extended_indicators national_totals scopes_detail \
+         double_counting_audit cabernard_target_scope3 waste_validation \
+         waste_domestic_dst demand_vector_consistency figaro_recipe_validation \
+         uncertainty_2025 uncertainty_figures build_manifest; do
+  HC_ANALYSIS_YEAR=2022 PYTHONPATH=src python -m analysis.$m
+done
+```
+
+Scope variants: `HC_SCOPE=health_only | health_eldercare | zorg_en_welzijn`.
+Accounting checks: `PYTHONPATH=src python -m analysis.validate_io_identities`.
+
+## Documentation
+
+| document | content |
+|---|---|
+| `docs/methods_approaches.md` | every methodological layer, its equations and references |
+| `docs/revision/REQUEST_CHECKLIST.md` | status of all outstanding work |
+| `docs/revision/bug_and_method_fixes.md` | defects found and fixed, with effects |
+| `docs/revision/analysis_2022.md` | the 2022 analysis: inputs, method, results |
+| `docs/revision/data_sources_and_models.md` | which external models are used, and why not the others |
+| `docs/revision/dk_snac_feasibility.md` | the planned Danish-SNAC hybrid |
+| `docs/methods/` | the research blueprint and data-access assessments |
+
+## Provenance and reproducibility
+
+The Danish 2022 expenditure vector is built entirely from **public** Statistics
+Denmark tables, so the analysis needs no confidential extract. Direct emissions
+come from DRIVHUS, direct waste from AFFALD01, and every StatBank query is in
+the code. EXIOBASE archives are MD5-verified against Zenodo.
