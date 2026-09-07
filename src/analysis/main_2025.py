@@ -67,7 +67,22 @@ mainpath = str(BRONZE_DIR.parent.parent)
 data_dir = str(BRONZE_DIR) + os.sep
 bg_dir = str(BACKGROUND_DIR) + os.sep
 mrio_dir = str(MRIO_DIR) + os.sep
-output_dir = os.path.join(str(OUTPUT_DIR), "01_eriksen_replication")
+# Output routing. The default boundary writes the headline replication folder;
+# any OTHER scope writes to its own scenario folder instead.
+#
+# Without this, a scenario run silently overwrote the headline results - running
+# HC_SCOPE=zorg_en_welzijn replaced the 4,713 kt default with the 5,282 kt
+# childcare-inclusive figure in 01_eriksen_replication, with nothing in the
+# output to say which boundary the numbers belonged to. The scope is also
+# recorded in the folder so a stale scenario cannot be mistaken for a current
+# one.
+_SCOPE = os.environ.get("HC_SCOPE", "health_eldercare")
+if _SCOPE == "health_eldercare":
+    output_dir = os.path.join(str(OUTPUT_DIR), "01_eriksen_replication")
+else:
+    output_dir = os.path.join(str(OUTPUT_DIR), "scenarios", _SCOPE)
+os.makedirs(output_dir, exist_ok=True)
+print(f"scope boundary '{_SCOPE}' -> {output_dir}")
 os.makedirs(output_dir, exist_ok=True)
 
 # 2C) Find and import background.py

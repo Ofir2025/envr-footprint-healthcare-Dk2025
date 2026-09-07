@@ -79,6 +79,13 @@ APPROACHES = {
         script="analysis.eriksen_tables",
         equations="contribution B L diag(y); hotspot B diag(L y); intensities B",
         inputs="the replication's own workbooks; totals asserted unchanged"),
+    "06_benchmarks_danish_healthcare": dict(
+        approach="Boundary-matched benchmark against the published Danish comparator",
+        reference="Schmidt & Merciai 2023, GHG emissions from Danish consumption 2016 "
+                  "(2.-0 LCA for CONCITO), EXIOBASE v4 hybrid",
+        script="analysis.danish_healthcare_benchmark",
+        equations="match sector boundary (NACE Q) and capital treatment, then compare",
+        inputs="boundary scenarios; capital scenarios; national totals"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",
