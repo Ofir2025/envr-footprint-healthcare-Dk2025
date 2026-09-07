@@ -281,3 +281,32 @@ def eldercare_share_of_social_work_io(io_workbook_path):
     if total <= 0:
         raise ValueError("no eldercare/childcare deliveries found for industry 880000")
     return val.get("13302", 0.0) / total
+
+
+def eldercare_share_diagnostics(io_workbook_2019, io_workbook_2022, sut_2019):
+    """Separate the method effect from the year effect in the eldercare share.
+
+    Two constructions of alpha (the eldercare share of industry 880000's
+    individually consumed output) were available:
+
+      * detailed-SUT method (2019): products SUPPLIED BY 880000 traced through
+        the use table to purposes 12401/12402. This attributes to 880000 the
+        whole flow of every product it supplies, including the part supplied by
+        other industries - it answers a product question, not an industry one.
+      * IO-table method: industry 880000's OWN row read against the eldercare
+        and childcare purpose columns. This is the correct object for
+        allocating industry 880000's emissions.
+
+    Applying the IO method to both years gives 0.3060 (2019) and 0.3092 (2022):
+    stable to about 1 %. The gap to the SUT-derived 0.4914 is therefore a
+    METHOD artefact, not a change between years - which is what justifies the
+    switch. Alpha remains an allocation assumption (it presumes equal emission
+    intensity per unit output across the two service types), and it is a small
+    lever: 0.31 vs 0.49 moves the Danish healthcare climate footprint by
+    10.9 kt CO2e, about 0.2 %.
+    """
+    return {
+        "io_method_2019": eldercare_share_of_social_work_io(io_workbook_2019),
+        "io_method_2022": eldercare_share_of_social_work_io(io_workbook_2022),
+        "sut_method_2019": eldercare_share_of_social_work(sut_2019),
+    }
