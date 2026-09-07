@@ -39,6 +39,13 @@ APPROACHES = {
         script="analysis.capital_gfcf",
         equations="f_A = f + C S L y_cap ; K[:,j] = g_r cfc_j / x_j ; A' = A + K",
         inputs="prepared background; DST NABK69 P.51c/P.51g by asset, 2022"),
+    "12_impact_categories_full": dict(
+        approach="All DESIRE impact categories (CML, USEtox, EcoIndicator 99, ILCD)",
+        reference="DESIRE/EXIOBASE characterisation v3.4; ILCD recommended CFs; "
+                  "Eckelman & Sherman 2016 for the category set and DALY comparison",
+        script="analysis.impact_categories_full",
+        equations="e = R xhat^-1 L y ; impact = Q_full e",
+        inputs="raw 1113-row stressor matrix; characterisation_desire_version3_4_adapted.xlsx"),
     "00_core_footprint": dict(
         approach="Core EE-MRIO final-demand footprint",
         reference="Steenmeijer et al. 2022; Miller & Blair 2009",
