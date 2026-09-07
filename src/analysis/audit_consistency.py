@@ -26,6 +26,12 @@ model, so a table cannot silently retain a withdrawn vintage's label.
 
 **C5 Manifest coverage.** Every gold file must have a lineage row.
 
+**C6 Documentation agreement.** Headline numbers quoted in the revision markdown
+must still reproduce from the gold outputs. Six quoted figures were found to have
+drifted on 8 September 2026, two of them mutually inconsistent between documents,
+because the prose was written before the AR6 restatement and the waste correction.
+Prose can drift; numbers should not be able to.
+
 Exit status is non-zero if any check fails, so this can gate a release.
 
 Run
@@ -222,11 +228,76 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
            + (f": {sorted(missing)[0]}" if missing else ""))
 
 
+#: Headline numbers that the revision documents quote, and where each is
+#: computed from. ``doc`` is the markdown that must contain ``text`` verbatim.
+DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
+    dict(text="4,713", doc="docs/revision/analysis_2022.md",
+         source=("01_eriksen_replication/hotspot_by_producing_node.csv",
+                 "climate_change"),
+         expect=4713.4, tol=1.0, what="health-care climate footprint, kt"),
+    dict(text="3,943", doc="docs/revision/shipping_reallocation_method.md",
+         source=("17_health_subsectors/footprint_by_health_function.csv",
+                 "climate_change"),
+         expect=3943.4, tol=1.0,
+         what="MRIO supply-chain component (SHA functions), kt"),
+    dict(text="77.5 Mt", doc="docs/revision/analysis_2022.md",
+         source=("00_core_footprint/national_totals_summary.csv",
+                 "climate_change"),
+         expect=77477.5, tol=50.0, what="Danish national footprint, kt",
+         column="national_footprint"),
+)
+
+
+def c6_documentation(results: list[dict[str, Any]]) -> None:
+    """Headline numbers quoted in the revision docs must still reproduce.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdict to.
+    """
+    repo = os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))))
+    stale: list[str] = []
+    for entry in DOCUMENTED_NUMBERS:
+        rel, indicator = entry["source"]
+        path = os.path.join(str(OUTPUT_DIR), rel)
+        if not os.path.exists(path):
+            stale.append(f"{rel} missing")
+            continue
+        frame = pd.read_csv(path)
+        rows = frame[frame["indicator"].astype(str).str.contains(indicator)]
+        if "column" in entry:
+            got = float(rows[entry["column"]].iloc[0])
+        else:
+            keep = rows
+            for group in entry.get("subtract_groups", ()):
+                col = next((c for c in rows.columns
+                            if c.endswith("sector_group")), None)
+                if col is not None:
+                    keep = keep[keep[col] != group]
+            got = float(keep["value"].sum())
+        if abs(got - entry["expect"]) > entry["tol"]:
+            stale.append(f"{entry['what']}: gold {got:,.1f} vs registry "
+                         f"{entry['expect']:,.1f}")
+            continue
+        doc = os.path.join(repo, entry["doc"])
+        if not os.path.exists(doc):
+            stale.append(f"{entry['doc']} missing")
+        elif entry["text"] not in open(doc, encoding="utf-8").read():
+            stale.append(f"{entry['doc']} no longer quotes "
+                         f"{entry['text']!r} ({entry['what']})")
+    _check(results, "C6 revision docs quote the current numbers",
+           not stale,
+           "; ".join(stale) if stale
+           else f"{len(DOCUMENTED_NUMBERS)} documented numbers reproduce")
+
+
 def main() -> None:
     """Run every check and write the report; exit non-zero on failure."""
     results: list[dict[str, Any]] = []
     for check in (c1_headline, c2_detail_vs_aggregate, c3_freshness,
-                  c4_provenance, c5_manifest):
+                  c4_provenance, c5_manifest, c6_documentation):
         try:
             check(results)
         except Exception as exc:                            # noqa: BLE001

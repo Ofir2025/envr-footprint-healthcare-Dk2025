@@ -1,0 +1,3 @@
+country_consuming,sector_consuming,cpa_code,value,unit,per_capita_t,source,note
+EU27_2020,Human health services,CPA_Q86,128627.907,kt,0.28792868974392266,"Eurostat env_ac_rmefd (FIGARO), 2022",EU27 aggregate only; Eurostat publishes no member-state detail for this dataset
+EU27_2020,Residential care and social work,CPA_Q87_88,52221.331,kt,0.11689546819349,"Eurostat env_ac_rmefd (FIGARO), 2022",EU27 aggregate only; Eurostat publishes no member-state detail for this dataset

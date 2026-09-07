@@ -12,3 +12,10 @@ data/bronze/exiobase_v3_7/IOT_2016_ixi
 data/bronze/figaro/estat_naio_10_fcp_ii4_*.tsv.gz
 data/silver/background/
 .venv/
+
+# The user's global gitignore excludes *.csv. The gold results ARE the
+# deliverable — detail tables alongside aggregates — so un-ignore them here.
+# Repository .gitignore takes precedence over core.excludesFile.
+!data/gold/results/**/*.csv
+!data/gold/results/*.csv
+!data/gold/results/**/*.csv.gz

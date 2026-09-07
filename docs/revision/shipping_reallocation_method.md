@@ -59,9 +59,16 @@ their own output comes from the national accounts and is also not in dispute.
 
 Verified: row balance to 1×10⁻¹¹, maximum column-balance residual 2×10⁻⁵ M€.
 
-**Effect:** transport falls from 37.5 % to **18.9 %** of the health-care climate
-footprint; the Danish sea-transport node falls from 822 kt to **71 kt**; the
-Danish national footprint falls from 85.2 Mt to 77.5 Mt.
+**Effect:** transport falls from 37.5 % to **18.5 %** of the health-care climate
+supply-chain footprint (the 3,943 kt MRIO component; 15.4 % of the 4,713 kt total
+once the domestic bottom-up items are included); the Danish sea-transport node
+falls from 852 kt to **74 kt**; the Danish national footprint falls from 85.2 Mt
+to **77.5 Mt**.
+
+The basis is stated because the two denominators differ by the bottom-up
+additions, which are entirely Danish and therefore dilute every supply-chain
+share. Quoting a share without its basis is how the earlier drafts of this
+document came to carry three figures that no longer reproduced.
 
 ## 3. How this compares with every alternative
 

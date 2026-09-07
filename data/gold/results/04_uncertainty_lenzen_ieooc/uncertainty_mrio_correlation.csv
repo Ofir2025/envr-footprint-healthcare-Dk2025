@@ -1,0 +1,4 @@
+rho_mrio,interpretation,median,p2_5,p97_5,cv_pct,median_1_lognormal_mean_inflation
+1.0,"perfect correlation (study default, upper bound)",4740.754834468833,4057.2015050328937,5545.702306261544,7.91774161569511,1.003480069557936
+0.76,Rodrigues et al. 2018 measured median for country consumption-based accounts,4739.376149412801,4114.2975375064325,5476.614809800862,7.338779835986881,1.003480069557936
+0.0,independence (lower bound; Rodrigues et al. show this understates uncertainty),4737.923134306791,4314.697258683934,5273.513454289891,5.152459723363281,1.003480069557936

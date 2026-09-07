@@ -481,10 +481,64 @@ Recorded so that a reader knows what *was* checked, not only what failed.
   92,515 M€ (28.4 %). The difference is value added, which has no upstream
   footprint.
 - **An independently rebuilt characterisation reproduces the pipeline.** Building
-  the CML GWP100 row from the workbook without reference to the production code
-  gives the Danish health-care supply-chain footprint as 3.859×10⁹ kg CO₂e,
-  identical to the pipeline's figure.
-- **The national total reconciles**: supply chain 66,745 kt plus household direct
-  9,709 kt equals the 76,454 kt reported by `analysis.national_totals`.
+  the climate row from the workbook without reference to the production code
+  reproduces the pipeline's Danish health-care supply-chain footprint, now
+  3,943.4 kt CO₂e on IPCC AR6 with the shipping correction applied.
+- **The national total reconciles**: supply chain 67,755.5 kt plus household
+  direct 9,722.0 kt equals the 77,477.5 kt reported by
+  `analysis.national_totals`.
 - **All six IO accounting identities pass** at ≤10⁻¹⁰
   (`analysis.validate_io_identities`).
+
+
+## Findings of 8 September 2026
+
+### F1 — `contribution` and `hotspot` were labelled with the wrong node index
+
+**Severity: high (misleading), zero effect on values.**
+
+The two analyses inherited from the original code are named the opposite way round
+from how a reader will guess, and the long-format outputs compounded this by giving
+*both* the `producing_*` column prefix:
+
+| Analysis | Formula | Indexed by | Was labelled | Now labelled |
+|---|---|---|---|---|
+| `hotspot` | $B\,\mathrm{diag}(Ly)$ | producing node | `producing_*` ✓ | `producing_*` |
+| `contribution` | $B\,L\,\mathrm{diag}(y)$ | purchased product | `producing_*` ✗ | `purchased_*` |
+| `intensity` | $[BL]_j$ | purchased product | `producing_*` ✗ | `purchased_*` |
+
+Consequence if read naively: the domestic share of the climate footprint is
+**26.3 %** on the producing-node basis and **61.7 %** on the purchased-product
+basis. A reader taking `contribution_by_producing_node.csv` at face value would have
+reported that 62 % of the footprint *arises* in Denmark, when the correct figure for
+that claim is 26 %. For a manuscript whose title is *geographical displacement of
+impacts*, that is the central number.
+
+**Fixed** in `analysis.eriksen_tables` (`rename_map()`, and `ANALYSES` now carries
+the node prefix explicitly) and in `analysis.detail_tables.domestic_import_split`
+(new `country_column` argument). Files regenerated; values unchanged; all seven
+consistency checks still pass. File *stems* keep the legacy words for continuity
+with the submitted manuscript, but the schema now disambiguates them.
+
+### F2 — Numbers quoted in the revision docs had drifted from the gold outputs
+
+**Severity: medium.** Six figures quoted in `analysis_2022.md`,
+`shipping_reallocation_method.md` and this file no longer reproduced, having been
+written before the AR6 restatement and the waste correction:
+
+| Quantity | Quoted | Actual |
+|---|---|---|
+| Transport share after correction | 18.9 % | 18.5 % |
+| DK sea transport node, before | 822 kt | 852 kt |
+| DK sea transport node, after | 71 kt | 74 kt |
+| Health-care MRIO supply chain | 3,859 kt | 3,943 kt |
+| Danish national footprint, corrected | 76.5 Mt | 77.5 Mt |
+| National supply chain / household direct | 66,745 / 9,709 kt | 67,755.5 / 9,722.0 kt |
+
+Two of these were also mutually inconsistent between documents (76.5 Mt against
+77.5 Mt for the same quantity), which is how the drift was found.
+
+**Fixed**, and guarded: `analysis.audit_consistency` check **C6** now re-reads a
+registry of headline numbers out of the markdown and fails if any of them stops
+matching the gold outputs. Prose can still drift; the numbers can no longer drift
+silently.

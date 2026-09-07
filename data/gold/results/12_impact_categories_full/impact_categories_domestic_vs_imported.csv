@@ -1,0 +1,195 @@
+method,indicator,unit,quality_flag,origin,value,share_of_total_pct
+Damage Approach,"EPS (Steen, 1999))",elu,ok,domestic,336581947.66712177,12.55580440413941
+Damage Approach,"EPS (Steen, 1999))",elu,ok,imported,2344106097.745222,87.44419559586059
+Domestic Extraction,Domestic Extraction,kt,ok,domestic,1946.695876052838,45.980425852084245
+Domestic Extraction,Domestic Extraction,kt,ok,imported,2287.053246487306,54.01957414791576
+ECOINDICATOR 99 (E.E),Carcinogenic effects on humans (E.E),DALY,ok,domestic,263.3408939807132,14.652459737659434
+ECOINDICATOR 99 (E.E),Carcinogenic effects on humans (E.E),DALY,ok,imported,1533.9061122941455,85.34754026234057
+ECOINDICATOR 99 (E.E),Damage to Ecosystem Quality caused by ecotoxic emissions (E.E)),PDF*m2*yr,ok,domestic,32202145.070823714,9.550226426053644
+ECOINDICATOR 99 (E.E),Damage to Ecosystem Quality caused by ecotoxic emissions (E.E)),PDF*m2*yr,ok,imported,304985096.7203672,90.44977357394636
+ECOINDICATOR 99 (E.E),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (E.E),PDF*m2*yr,ok,domestic,52198249.54495244,21.810459155946386
+ECOINDICATOR 99 (E.E),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (E.E),PDF*m2*yr,ok,imported,187128438.49829838,78.18954084405362
+ECOINDICATOR 99 (E.E),Damages to human health caused by climate change (E.E),DALY,ok,domestic,139.00806261607246,18.393977360782625
+ECOINDICATOR 99 (E.E),Damages to human health caused by climate change (E.E),DALY,ok,imported,616.7179007769691,81.60602263921737
+ECOINDICATOR 99 (E.E),Respiratory effects on humans caused by inorganic substances (E.E),DALY,ok,domestic,1003.6574696691106,30.935182981233552
+ECOINDICATOR 99 (E.E),Respiratory effects on humans caused by inorganic substances (E.E),DALY,ok,imported,2240.7308705516893,69.06481701876645
+ECOINDICATOR 99 (E.E),Respiratory effects on humans caused by organic substances (E.E),DALY,ok,domestic,393.9386332406425,17.564755455915588
+ECOINDICATOR 99 (E.E),Respiratory effects on humans caused by organic substances (E.E),DALY,ok,imported,1848.8402897529534,82.4352445440844
+ECOINDICATOR 99 (H.A),Carcinogenic effects on humans (H.A),DALY,ok,domestic,263.3408939807132,14.652459737659434
+ECOINDICATOR 99 (H.A),Carcinogenic effects on humans (H.A),DALY,ok,imported,1533.9061122941455,85.34754026234057
+ECOINDICATOR 99 (H.A),Damage to Ecosystem Quality caused by ecotoxic emissions (H.A),PDF*m2*yr,ok,domestic,32202145.070823714,9.550226426053644
+ECOINDICATOR 99 (H.A),Damage to Ecosystem Quality caused by ecotoxic emissions (H.A),PDF*m2*yr,ok,imported,304985096.7203672,90.44977357394636
+ECOINDICATOR 99 (H.A),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (H.A),PDF*m2*yr,ok,domestic,52198249.54495244,21.810459155946386
+ECOINDICATOR 99 (H.A),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (H.A),PDF*m2*yr,ok,imported,187128438.49829838,78.18954084405362
+ECOINDICATOR 99 (H.A),Damages to human health caused by climate change (H.A),DALY,ok,domestic,139.00806261607246,18.393977360782625
+ECOINDICATOR 99 (H.A),Damages to human health caused by climate change (H.A),DALY,ok,imported,616.7179007769691,81.60602263921737
+ECOINDICATOR 99 (H.A),Respiratory effects on humans caused by inorganic substances (H.A),DALY,ok,domestic,32202168.707429606,9.550261742575039
+ECOINDICATOR 99 (H.A),Respiratory effects on humans caused by inorganic substances (H.A),DALY,ok,imported,304984073.6745193,90.44973825742497
+ECOINDICATOR 99 (H.A),Respiratory effects on humans caused by organic substances (H.A),DALY,ok,domestic,6.319790645814556,46.71232406436326
+ECOINDICATOR 99 (H.A),Respiratory effects on humans caused by organic substances (H.A),DALY,ok,imported,7.20938130698047,53.28767593563674
+ECOINDICATOR 99 (I.I),Carcinogenic effects on humans (I.I),DALY,ok,domestic,16.112044775563128,13.346228633931313
+ECOINDICATOR 99 (I.I),Carcinogenic effects on humans (I.I),DALY,ok,imported,104.61153352879793,86.65377136606868
+ECOINDICATOR 99 (I.I),Damage to Ecosystem Quality caused by ecotoxic emissions (I.I),PDF*m2*yr,ok,domestic,4010776.483182253,9.319014795330801
+ECOINDICATOR 99 (I.I),Damage to Ecosystem Quality caused by ecotoxic emissions (I.I),PDF*m2*yr,ok,imported,39027855.51031788,90.68098520466921
+ECOINDICATOR 99 (I.I),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (I.I),PDF*m2*yr,ok,domestic,52198249.54495244,21.810459155946386
+ECOINDICATOR 99 (I.I),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (I.I),PDF*m2*yr,ok,imported,187128438.49829838,78.18954084405362
+ECOINDICATOR 99 (I.I),Damages to human health caused by climate change (I.I),DALY,ok,domestic,133.46834394281186,18.348018621020337
+ECOINDICATOR 99 (I.I),Damages to human health caused by climate change (I.I),DALY,ok,imported,593.9581248198934,81.65198137897966
+ECOINDICATOR 99 (I.I),Respiratory effects on humans caused by inorganic substances (I.I),DALY,ok,domestic,761.0892898180053,26.702106785013783
+ECOINDICATOR 99 (I.I),Respiratory effects on humans caused by inorganic substances (I.I),DALY,ok,imported,2089.207489929565,73.2978932149862
+ECOINDICATOR 99 (I.I),Respiratory effects on humans caused by organic substances (I.I),DALY,ok,domestic,5.922425201378854,45.7313670012175
+ECOINDICATOR 99 (I.I),Respiratory effects on humans caused by organic substances (I.I),DALY,ok,imported,7.028040944146998,54.26863299878249
+Employment,Employment,1000 p.,ok,domestic,78.6273026907129,23.099155682490647
+Employment,Employment,1000 p.,ok,imported,261.7630724878615,76.90084431750935
+Employment hour,Employment hour,M.hr,ok,domestic,148.62441134353102,21.167834521901906
+Employment hour,Employment hour,M.hr,ok,imported,553.499422767854,78.83216547809809
+ILCD recommended CF,Acidification endpoint,PDF,ok,domestic,0.0794803130479359,34.10733131383765
+ILCD recommended CF,Acidification endpoint,PDF,ok,imported,0.1535496836897157,65.89266868616235
+ILCD recommended CF,Acidification midpoint,Accumulated Exceedance (AE),ok,domestic,17697918.71264554,34.62646629471677
+ILCD recommended CF,Acidification midpoint,Accumulated Exceedance (AE),ok,imported,33413039.483356822,65.37353370528322
+ILCD recommended CF,"Climate change endpoint, ecosystems",PDF,ok,domestic,5.330662957680237,18.174112678072262
+ILCD recommended CF,"Climate change endpoint, ecosystems",PDF,ok,imported,24.000413899303698,81.82588732192774
+ILCD recommended CF,"Climate change endpoint, human health",DALY,ok,domestic,941.3069968054076,18.17255665326832
+ILCD recommended CF,"Climate change endpoint, human health",DALY,ok,imported,4238.520006986677,81.82744334673168
+ILCD recommended CF,Climate change midpoint,kg CO2-Equivalents,ok,domestic,672389144.4627249,18.172686372397028
+ILCD recommended CF,Climate change midpoint,kg CO2-Equivalents,ok,imported,3027609472.6048894,81.82731362760296
+ILCD recommended CF,Ecotoxicity freshwater endpoint,PDF.m3.year,DUPLICATE_OF_MIDPOINT,domestic,197439648.6196673,12.667562184735369
+ILCD recommended CF,Ecotoxicity freshwater endpoint,PDF.m3.year,DUPLICATE_OF_MIDPOINT,imported,1361184226.600661,87.33243781526463
+ILCD recommended CF,Ecotoxicity freshwater midpoint,CTUe = PAF.m3.year,ok,domestic,197439648.6196673,12.667562184735369
+ILCD recommended CF,Ecotoxicity freshwater midpoint,CTUe = PAF.m3.year,ok,imported,1361184226.600661,87.33243781526463
+ILCD recommended CF,Eutrophication marine midpoint,kg-N equivalent,ok,domestic,151734.3781386878,16.670351282351096
+ILCD recommended CF,Eutrophication marine midpoint,kg-N equivalent,ok,imported,758470.6653466828,83.32964871764891
+ILCD recommended CF,Eutrophication terrestrial midpoint,Accumulated Exceedance (AE),ok,domestic,18289411.650645405,16.670351282351092
+ILCD recommended CF,Eutrophication terrestrial midpoint,Accumulated Exceedance (AE),ok,imported,91422803.41232337,83.32964871764891
+ILCD recommended CF,"Human toxicity endpoint, cancer effects",DALY,ok,domestic,58.45367109177484,15.527559108688527
+ILCD recommended CF,"Human toxicity endpoint, cancer effects",DALY,ok,imported,317.9974548232235,84.47244089131148
+ILCD recommended CF,"Human toxicity endpoint, non-cancer effects",DALY,ok,domestic,1223.0291322244339,13.329238976105325
+ILCD recommended CF,"Human toxicity endpoint, non-cancer effects",DALY,ok,imported,7952.506953645872,86.67076102389467
+ILCD recommended CF,"Human toxicity midpoint, cancer effects",CTUh/kg = cases,ok,domestic,5.08534636438169,15.528407633513824
+ILCD recommended CF,"Human toxicity midpoint, cancer effects",CTUh/kg = cases,ok,imported,27.66331972167828,84.47159236648618
+ILCD recommended CF,"Human toxicity midpoint, non-cancer effects",CTUh = cases,ok,domestic,453.37543255614844,13.331372639099609
+ILCD recommended CF,"Human toxicity midpoint, non-cancer effects",CTUh = cases,ok,imported,2947.4404086156956,86.66862736090039
+ILCD recommended CF,Particulate matter/Respiratory inorganics endpoint,DALY,ok,domestic,2261.112985022147,26.662262494815156
+ILCD recommended CF,Particulate matter/Respiratory inorganics endpoint,DALY,ok,imported,6219.461330311562,73.33773750518483
+ILCD recommended CF,Particulate matter/Respiratory inorganics midpoint,kg PM2.5-eq,ok,domestic,1256173.8830427534,26.662262482494604
+ILCD recommended CF,Particulate matter/Respiratory inorganics midpoint,kg PM2.5-eq,ok,imported,3455256.3036021646,73.33773751750539
+ILCD recommended CF,"Photochemical ozone formation endpoint, human health",DALY,ENDPOINT_MIDPOINT_RATIO_IMPLAUSIBLE,domestic,0.23891158625063358,45.188781435829846
+ILCD recommended CF,"Photochemical ozone formation endpoint, human health",DALY,ENDPOINT_MIDPOINT_RATIO_IMPLAUSIBLE,imported,0.2897850916845727,54.81121856417017
+ILCD recommended CF,"Photochemical ozone formation midpoint, human health",kg-C2H4 equivalents,ok,domestic,6126323.091177297,45.192613058340854
+ILCD recommended CF,"Photochemical ozone formation midpoint, human health",kg-C2H4 equivalents,ok,imported,7429704.490738788,54.80738694165914
+Land use,Land use,km2,ok,domestic,375.9985510272477,7.74649251726916
+Land use,Land use,km2,ok,imported,4477.792376789939,92.25350748273084
+"Problem oriented approach: baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP inf. ,"kg 1,4-dichlorobenzene eq.",ok,domestic,3072531.464681918,13.267974243216688
+"Problem oriented approach: baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP inf. ,"kg 1,4-dichlorobenzene eq.",ok,imported,20084971.0173022,86.73202575678333
+"Problem oriented approach: baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP inf,"kg 1,4-dichlorobenzene eq.",ok,domestic,12375334462.817965,13.410471124304115
+"Problem oriented approach: baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP inf,"kg 1,4-dichlorobenzene eq.",ok,imported,79905796812.20378,86.58952887569589
+"Problem oriented approach: baseline (CML, 1999)",Terrestrial ecotoxicity TETP inf,"kg 1,4-dichlorobenzene eq.",ok,domestic,29104569.646867443,15.40542526733724
+"Problem oriented approach: baseline (CML, 1999)",Terrestrial ecotoxicity TETP inf,"kg 1,4-dichlorobenzene eq.",ok,imported,159819586.23849642,84.59457473266275
+"Problem oriented approach: baseline (CML, 1999)","acidification (incl. fate, average Europe total, A&B)",kg SO2 eq.,ok,domestic,16407558.336871965,36.16889146063556
+"Problem oriented approach: baseline (CML, 1999)","acidification (incl. fate, average Europe total, A&B)",kg SO2 eq.,ok,imported,28956171.85853406,63.831108539364436
+"Problem oriented approach: baseline (CML, 1999)",eutrophication (fate not incl.),kg PO4--- eq.,ok,domestic,1530791.8407506605,10.99565298996006
+"Problem oriented approach: baseline (CML, 1999)",eutrophication (fate not incl.),kg PO4--- eq.,ok,imported,12390999.272050006,89.00434701003994
+"Problem oriented approach: baseline (CML, 1999)",global warming GWP100,kg CO2 eq.,ok,domestic,721495973.761314,18.695633199977447
+"Problem oriented approach: baseline (CML, 1999)",global warming GWP100,kg CO2 eq.,ok,imported,3137672453.666886,81.30436680002256
+"Problem oriented approach: baseline (CML, 1999)",human toxicity HTP inf. ,"kg 1,4-dichlorobenzene eq.",ok,domestic,3426475584.619393,14.243864762470498
+"Problem oriented approach: baseline (CML, 1999)",human toxicity HTP inf. ,"kg 1,4-dichlorobenzene eq.",ok,imported,20629324170.285713,85.7561352375295
+"Problem oriented approach: baseline (CML, 1999)",ozone layer depletion ODP steady state ,kg CFC-11 eq.,WRONG_STRESSOR_CLASS,domestic,113.73251489839576,46.71232406436327
+"Problem oriented approach: baseline (CML, 1999)",ozone layer depletion ODP steady state ,kg CFC-11 eq.,WRONG_STRESSOR_CLASS,imported,129.74180836945905,53.287675935636734
+"Problem oriented approach: baseline (CML, 1999)",photochemical oxidation (high NOx),kg ethylene eq.,ok,domestic,1446382.0402879626,43.07294354946355
+"Problem oriented approach: baseline (CML, 1999)",photochemical oxidation (high NOx),kg ethylene eq.,ok,imported,1911600.7700277173,56.92705645053645
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 100,"kg 1,4-dichlorobenzene eq.",ok,domestic,402377.3454589912,8.166229234569922
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 100,"kg 1,4-dichlorobenzene eq.",ok,imported,4524956.114096807,91.83377076543007
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 20,"kg 1,4-dichlorobenzene eq.",ok,domestic,201760.23653864363,6.059550233797576
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 20,"kg 1,4-dichlorobenzene eq.",ok,imported,3127863.7248786814,93.94044976620242
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 500,"kg 1,4-dichlorobenzene eq.",ok,domestic,1102527.0371847714,11.482215116392165
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 500,"kg 1,4-dichlorobenzene eq.",ok,imported,8499514.258930549,88.51778488360785
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 100,"kg 1,4-dichlorobenzene eq.",ok,domestic,1025560.111512832,7.326040905098928
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 100,"kg 1,4-dichlorobenzene eq.",ok,imported,12973271.246349799,92.67395909490108
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 20,"kg 1,4-dichlorobenzene eq.",ok,domestic,522437.32077102916,5.287444480515858
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 20,"kg 1,4-dichlorobenzene eq.",ok,imported,9358277.695645723,94.71255551948414
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 500,"kg 1,4-dichlorobenzene eq.",ok,domestic,2791403.793511035,10.846496915424405
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 500,"kg 1,4-dichlorobenzene eq.",ok,imported,22944129.211080354,89.15350308457559
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP inf.,"kg 1,4-dichlorobenzene eq.",ok,domestic,7004540.6021419205,12.829981451411335
+"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP inf.,"kg 1,4-dichlorobenzene eq.",ok,imported,47590554.71166619,87.17001854858866
+"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 100,"kg 1,4-dichlorobenzene eq.",ok,domestic,145612347.18089265,14.267107713347805
+"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 100,"kg 1,4-dichlorobenzene eq.",ok,imported,875003394.3310527,85.7328922866522
+"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 20,"kg 1,4-dichlorobenzene eq.",ok,domestic,26163927.742276948,11.649845723368887
+"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 20,"kg 1,4-dichlorobenzene eq.",ok,imported,198422117.11661497,88.35015427663112
+"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 500,"kg 1,4-dichlorobenzene eq.",ok,domestic,775804127.1807401,15.03813658785754
+"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 500,"kg 1,4-dichlorobenzene eq.",ok,imported,4383107169.097542,84.96186341214245
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 100,"kg 1,4-dichlorobenzene eq.",ok,domestic,183455747.88594988,13.136897935019265
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 100,"kg 1,4-dichlorobenzene eq.",ok,imported,1213036398.0788035,86.86310206498074
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 20,"kg 1,4-dichlorobenzene eq.",ok,domestic,45936757.968394645,9.82661423284242
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 20,"kg 1,4-dichlorobenzene eq.",ok,imported,421536136.35633856,90.17338576715758
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 500,"kg 1,4-dichlorobenzene eq.",ok,domestic,807018900.4378382,14.695646610004514
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 500,"kg 1,4-dichlorobenzene eq.",ok,imported,4684531909.503625,85.30435338999548
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP inf.,"kg 1,4-dichlorobenzene eq.",ok,domestic,11934796015.505728,13.951165754220522
+"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP inf.,"kg 1,4-dichlorobenzene eq.",ok,imported,73612148417.4009,86.04883424577949
+"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity,"kg 1,4-dichlorobenzene eq.",ok,domestic,5007846.910174282,15.952539763319779
+"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity,"kg 1,4-dichlorobenzene eq.",ok,imported,26384313.739310484,84.04746023668021
+"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity TETP 100,"kg 1,4-dichlorobenzene eq.",ok,domestic,1241571.764530887,15.95074032027723
+"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity TETP 100,"kg 1,4-dichlorobenzene eq.",ok,imported,6542215.944385359,84.04925967972277
+"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity TETP 20,"kg 1,4-dichlorobenzene eq.",ok,domestic,260154.61227216967,15.841664309601638
+"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity TETP 20,"kg 1,4-dichlorobenzene eq.",ok,imported,1382063.0688239376,84.15833569039836
+"Problem oriented approach: non baseline (CML, 1999)",acidification (fate not incl.),kg SO2 eq.,ok,domestic,15419943.020178005,32.95382305325261
+"Problem oriented approach: non baseline (CML, 1999)",acidification (fate not incl.),kg SO2 eq.,ok,imported,31372633.960221924,67.0461769467474
+"Problem oriented approach: non baseline (CML, 1999)","eutrophication (incl. fate, average Europe total, A&B)",kg NOx eq.,ok,domestic,10087786.97969283,18.611324937231487
+"Problem oriented approach: non baseline (CML, 1999)","eutrophication (incl. fate, average Europe total, A&B)",kg NOx eq.,ok,imported,44114624.79762489,81.38867506276851
+"Problem oriented approach: non baseline (CML, 1999)",global warming GWP20 ,kg CO2 eq.,ok,domestic,901956531.4148993,16.978071358227847
+"Problem oriented approach: non baseline (CML, 1999)",global warming GWP20 ,kg CO2 eq.,ok,imported,4410522797.857072,83.02192864177216
+"Problem oriented approach: non baseline (CML, 1999)",global warming GWP500 ,kg CO2 eq.,ok,domestic,633524687.1373277,19.704470559374386
+"Problem oriented approach: non baseline (CML, 1999)",global warming GWP500 ,kg CO2 eq.,ok,imported,2581607052.781098,80.29552944062561
+"Problem oriented approach: non baseline (CML, 1999)",global warming net GWP100 max,kg CO2 eq.,ok,domestic,749729042.0228746,19.037364518883535
+"Problem oriented approach: non baseline (CML, 1999)",global warming net GWP100 max,kg CO2 eq.,ok,imported,3188468607.5478086,80.96263548111646
+"Problem oriented approach: non baseline (CML, 1999)",global warming net GWP100 min,kg CO2 eq.,ok,domestic,736275398.178345,18.91170892951847
+"Problem oriented approach: non baseline (CML, 1999)",global warming net GWP100 min,kg CO2 eq.,ok,imported,3156949698.095872,81.08829107048155
+"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 100,"kg 1,4-dichlorobenzene eq.",ok,domestic,2766427272.4509373,15.501401902482788
+"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 100,"kg 1,4-dichlorobenzene eq.",ok,imported,15079876499.64758,84.49859809751719
+"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 20,"kg 1,4-dichlorobenzene eq.",ok,domestic,2766356572.2905235,15.501475236601136
+"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 20,"kg 1,4-dichlorobenzene eq.",ok,imported,15079406686.155819,84.49852476339886
+"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 500,"kg 1,4-dichlorobenzene eq.",ok,domestic,2766598463.948258,15.500970523355257
+"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 500,"kg 1,4-dichlorobenzene eq.",ok,imported,15081306348.075184,84.49902947664474
+"Problem oriented approach: non baseline (CML, 1999)",odour,m3,ok,domestic,1354771233381.1414,16.670351282351096
+"Problem oriented approach: non baseline (CML, 1999)",odour,m3,ok,imported,6772059512023.953,83.3296487176489
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (EBIR; low NOx),kg formed ozone,ok,domestic,284434.72357196716,25.538163974064794
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (EBIR; low NOx),kg formed ozone,ok,imported,829328.677198832,74.4618360259352
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (MIR; very high NOx),kg formed ozone,ok,domestic,123425.73406653438,25.447972427076344
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (MIR; very high NOx),kg formed ozone,ok,imported,361586.32109905063,74.55202757292366
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (MOIR; high NOx),kg formed ozone,ok,domestic,222721.85653870003,25.563267915167398
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (MOIR; high NOx),kg formed ozone,ok,imported,648535.5166493068,74.4367320848326
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (low NOx),kg ethylene eq.,ok,domestic,296716.89768361347,26.525585170531592
+"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (low NOx),kg ethylene eq.,ok,imported,821889.5186349564,73.47441482946842
+Total Emission relevant energy use,Total Emission relevant energy use,TJ,ok,domestic,10877.77565626414,25.1025452671403
+Total Emission relevant energy use,Total Emission relevant energy use,TJ,ok,imported,32455.581740379424,74.8974547328597
+Total Energy Use,Total Energy Use,TJ,ok,domestic,22658.652420090533,21.521313947857113
+Total Energy Use,Total Energy Use,TJ,ok,imported,82626.05498666457,78.4786860521429
+Total Energy inputs from nature,Total Energy inputs from nature,TJ,ok,domestic,5932.532890643812,7.968695415630906
+Total Energy inputs from nature,Total Energy inputs from nature,TJ,ok,imported,68515.44863224032,92.0313045843691
+Total Energy supply,Total Energy supply,TJ,ok,domestic,12609.573698369817,10.89640549035133
+Total Energy supply,Total Energy supply,TJ,ok,imported,103112.7505996336,89.10359450964867
+USEtox,Fresh water Ecotoxicity,PAF m3.day,ok,domestic,329331178.93383163,13.684998921949477
+USEtox,Fresh water Ecotoxicity,PAF m3.day,ok,imported,2077181096.3840332,86.31500107805051
+USEtox,Human toxicity,cases,ok,domestic,463.04167473327584,13.335689791540245
+USEtox,Human toxicity,cases,ok,imported,3009.157228896107,86.66431020845975
+Unused Domestic Extraction,Unused Domestic Extraction,kt,ok,domestic,412.37918595247186,10.58035121842849
+Unused Domestic Extraction,Unused Domestic Extraction,kt,ok,imported,3485.2153025386483,89.41964878157151
+Value Added,Value Added,M.EUR,ok,domestic,7247.490828955239,60.50932858662532
+Value Added,Value Added,M.EUR,ok,imported,4729.986029971911,39.49067141337468
+Water Consumption Blue - Agriculture,Water Consumption Blue - Agriculture,Mm3,ok,domestic,0.6191729820591851,0.8063954701290795
+Water Consumption Blue - Agriculture,Water Consumption Blue - Agriculture,Mm3,ok,imported,76.16362218419768,99.19360452987092
+Water Consumption Blue - Electricity,Water Consumption Blue - Electricity,Mm3,ok,domestic,2.8949918588496266,79.1104389520563
+Water Consumption Blue - Electricity,Water Consumption Blue - Electricity,Mm3,ok,imported,0.7644390546914974,20.88956104794371
+Water Consumption Blue - Livestock,Water Consumption Blue - Livestock,Mm3,ok,domestic,0.6229323111520602,17.335456946528403
+Water Consumption Blue - Livestock,Water Consumption Blue - Livestock,Mm3,ok,imported,2.970467695975,82.6645430534716
+Water Consumption Blue - Manufacturing,Water Consumption Blue - Manufacturing,Mm3,ok,domestic,0.2994509746425232,2.651950183916252
+Water Consumption Blue - Manufacturing,Water Consumption Blue - Manufacturing,Mm3,ok,imported,10.992276013996106,97.34804981608374
+Water Consumption Blue - Total,Water Consumption Blue - Total,Mm3,ok,domestic,4.4365481267033955,4.654013757401458
+Water Consumption Blue - Total,Water Consumption Blue - Total,Mm3,ok,imported,90.89080494886028,95.34598624259854
+Water Consumption Green - Agriculture,Water Consumption Green - Agriculture,Mm3,ok,domestic,94.52795770723054,13.621410471923092
+Water Consumption Green - Agriculture,Water Consumption Green - Agriculture,Mm3,ok,imported,599.4380445806731,86.37858952807692
+Water Withdrawal Blue - Electricity,Water Withdrawal Blue - Electricity,Mm3,ok,domestic,3.592255427133781,11.872427908406772
+Water Withdrawal Blue - Electricity,Water Withdrawal Blue - Electricity,Mm3,ok,imported,26.664870199126145,88.12757209159322
+Water Withdrawal Blue - Manufacturing,Water Withdrawal Blue - Manufacturing,Mm3,ok,domestic,0.544456317531625,0.9517021061604796
+Water Withdrawal Blue - Manufacturing,Water Withdrawal Blue - Manufacturing,Mm3,ok,imported,56.66423472216402,99.04829789383952
+Water Withdrawal Blue - Total,Water Withdrawal Blue - Total,Mm3,ok,domestic,4.136711744665406,4.729518230492374
+Water Withdrawal Blue - Total,Water Withdrawal Blue - Total,Mm3,ok,imported,83.32910492129017,95.27048176950763

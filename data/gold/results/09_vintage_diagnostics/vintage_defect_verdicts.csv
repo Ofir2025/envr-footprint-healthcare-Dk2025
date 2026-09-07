@@ -1,0 +1,35 @@
+defect,mrio_vintage,mrio_year,metric,value,of,world_total_meur,verdict
+D1 industry 33 emptied in Europe,v3.10.2,2007,European regions with i33 output < 1 M.EUR,10,30,133608.2,ok
+D1 industry 33 emptied in Europe,v3.10.2,2008,European regions with i33 output < 1 M.EUR,10,30,118547.3,ok
+D1 industry 33 emptied in Europe,v3.10.2,2009,European regions with i33 output < 1 M.EUR,11,30,112140.1,ok
+D1 industry 33 emptied in Europe,v3.10.2,2010,European regions with i33 output < 1 M.EUR,12,30,121803.4,ok
+D1 industry 33 emptied in Europe,v3.10.2,2011,European regions with i33 output < 1 M.EUR,7,30,150727.7,ok
+D1 industry 33 emptied in Europe,v3.10.2,2012,European regions with i33 output < 1 M.EUR,11,30,152989.4,ok
+D1 industry 33 emptied in Europe,v3.10.2,2013,European regions with i33 output < 1 M.EUR,20,30,141311.7,ok
+D1 industry 33 emptied in Europe,v3.10.2,2014,European regions with i33 output < 1 M.EUR,24,30,153252.2,ok
+D1 industry 33 emptied in Europe,v3.10.2,2015,European regions with i33 output < 1 M.EUR,25,30,153781.7,DEFECT
+D1 industry 33 emptied in Europe,v3.10.2,2016,European regions with i33 output < 1 M.EUR,26,30,160110.8,DEFECT
+D1 industry 33 emptied in Europe,v3.10.2,2017,European regions with i33 output < 1 M.EUR,27,30,171420.2,DEFECT
+D1 industry 33 emptied in Europe,v3.10.2,2018,European regions with i33 output < 1 M.EUR,28,30,178450.5,DEFECT
+D1 industry 33 emptied in Europe,v3.10.2,2019,European regions with i33 output < 1 M.EUR,28,30,188909.6,DEFECT
+D1 industry 33 emptied in Europe,v3.10.2,2020,European regions with i33 output < 1 M.EUR,28,30,172990.6,DEFECT
+D1 industry 33 emptied in Europe,v3.10.2,2021,European regions with i33 output < 1 M.EUR,28,30,161959.1,DEFECT
+D1 industry 33 emptied in Europe,v3.10.2,2022,European regions with i33 output < 1 M.EUR,56,60,372147.2,DEFECT
+D1 industry 33 emptied in Europe,v3.6,1995,European regions with i33 output < 1 M.EUR,0,30,313234.0,ok
+D1 industry 33 emptied in Europe,v3.6,1996,European regions with i33 output < 1 M.EUR,0,30,330183.6,ok
+D1 industry 33 emptied in Europe,v3.6,1998,European regions with i33 output < 1 M.EUR,0,30,381175.1,ok
+D1 industry 33 emptied in Europe,v3.6,1999,European regions with i33 output < 1 M.EUR,0,30,420102.1,ok
+D1 industry 33 emptied in Europe,v3.6,2000,European regions with i33 output < 1 M.EUR,0,30,546360.7,ok
+D1 industry 33 emptied in Europe,v3.6,2001,European regions with i33 output < 1 M.EUR,0,30,532456.8,ok
+D1 industry 33 emptied in Europe,v3.6,2002,European regions with i33 output < 1 M.EUR,0,30,497129.3,ok
+D1 industry 33 emptied in Europe,v3.6,2003,European regions with i33 output < 1 M.EUR,0,30,458158.3,ok
+D1 industry 33 emptied in Europe,v3.6,2004,European regions with i33 output < 1 M.EUR,0,30,469947.4,ok
+D1 industry 33 emptied in Europe,v3.8.2,2016,European regions with i33 output < 1 M.EUR,0,30,921683.3,ok
+D2 Danish block misallocation,v3.10.2,2016,concordance groups off by more than 2x vs DST,2,12,,ok
+D2 Danish block misallocation,v3.10.2,2017,concordance groups off by more than 2x vs DST,3,12,,ok
+D2 Danish block misallocation,v3.10.2,2018,concordance groups off by more than 2x vs DST,3,12,,ok
+D2 Danish block misallocation,v3.10.2,2019,concordance groups off by more than 2x vs DST,2,12,,ok
+D2 Danish block misallocation,v3.10.2,2020,concordance groups off by more than 2x vs DST,2,12,,ok
+D2 Danish block misallocation,v3.10.2,2021,concordance groups off by more than 2x vs DST,9,12,,DEFECT
+D2 Danish block misallocation,v3.10.2,2022,concordance groups off by more than 2x vs DST,18,24,,DEFECT
+D2 Danish block misallocation,v3.8.2,2016,concordance groups off by more than 2x vs DST,2,12,,ok

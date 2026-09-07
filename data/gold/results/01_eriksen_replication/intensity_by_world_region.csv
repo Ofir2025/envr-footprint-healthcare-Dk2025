@@ -1,0 +1,36 @@
+indicator,unit,purchased_world_region,value
+climate_change,kt CO2eq per MEUR,Europe,21771.56510871102
+material_extraction,kt per MEUR,Europe,14663.433483229497
+climate_change,kt CO2eq per MEUR,America,9031.058362098644
+land_use,km2 per MEUR,Europe,8571.268794806865
+land_use,km2 per MEUR,America,5127.011355478221
+climate_change,kt CO2eq per MEUR,Middle East,3874.268046733118
+land_use,km2 per MEUR,Asia and Pacific,2939.527744889139
+land_use,km2 per MEUR,Africa,2650.922501404567
+material_extraction,kt per MEUR,America,2601.0986794127284
+climate_change,kt CO2eq per MEUR,Africa,2141.1396505921384
+climate_change,kt CO2eq per MEUR,Asia and Pacific,1806.7145671804838
+material_extraction,kt per MEUR,Asia and Pacific,1713.449243527752
+waste_generation,kt per MEUR,Europe,1402.0554131071412
+material_extraction,kt per MEUR,Middle East,883.9595593198775
+land_use,km2 per MEUR,Middle East,648.2827816932107
+material_extraction,kt per MEUR,Africa,617.8106476869995
+climate_change,kt CO2eq per MEUR,Netherlands,572.51095503166
+waste_generation,kt per MEUR,Netherlands,536.1777825699036
+material_extraction,kt per MEUR,Denmark,468.4362662253878
+climate_change,kt CO2eq per MEUR,Denmark,287.6066698165246
+waste_generation,kt per MEUR,America,251.20410422087556
+material_extraction,kt per MEUR,Netherlands,142.80017877022172
+land_use,km2 per MEUR,Denmark,111.07308644095552
+land_use,km2 per MEUR,Netherlands,100.85352369715882
+blue_water_consumption,Mm3 per MEUR,Europe,100.8413883172155
+waste_generation,kt per MEUR,Middle East,72.69284546964394
+blue_water_consumption,Mm3 per MEUR,America,70.61633886999857
+blue_water_consumption,Mm3 per MEUR,Asia and Pacific,54.36886736734987
+waste_generation,kt per MEUR,Asia and Pacific,40.618918242170146
+waste_generation,kt per MEUR,Africa,35.36061354150528
+blue_water_consumption,Mm3 per MEUR,Middle East,29.921075919762462
+blue_water_consumption,Mm3 per MEUR,Africa,16.805511454858287
+waste_generation,kt per MEUR,Denmark,5.717556631295281
+blue_water_consumption,Mm3 per MEUR,Netherlands,1.7613237285878187
+blue_water_consumption,Mm3 per MEUR,Denmark,1.7054522634459985
