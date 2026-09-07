@@ -1,0 +1,41 @@
+consuming_country_iso3,model,analysis_year,indicator,unit,scope,value,basis
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,Scope 1,131.2541696372094,national accounts (DRIVHUS/AFFALD) + medical gases
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,Scope 2,401.4633059329234,generation emissions of purchased electricity/steam/heat (traced)
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,Scope 2 (first-tier variant),401.2654249810106,"sensitivity, not added to the total"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,Scope 2 (full-L variant),404.2157362459191,"sensitivity: includes energy used deeper in the chain, which GHG-P assigns to Scope 3"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,self-supply loop removed,3.2017858062795526,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,Scope 3,4085.680643790094,"footprint residual after Scope 2, plus pMDI and commuting"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,Outside protocol,242.5114,patient and visitor travel
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,climate_change,kt CO2eq,TOTAL,4860.909519360227,S1+S2+S3+outside
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,Scope 1,0.0,EXIOBASE direct of the sector
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,Scope 2,0.0,generation emissions of purchased electricity/steam/heat (traced)
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,Scope 2 (first-tier variant),0.0,"sensitivity, not added to the total"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,Scope 2 (full-L variant),0.0,"sensitivity: includes energy used deeper in the chain, which GHG-P assigns to Scope 3"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,self-supply loop removed,0.0,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,Scope 3,5567.694119299737,"footprint residual after Scope 2, plus pMDI and commuting"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,Outside protocol,0.0,patient and visitor travel
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,material_extraction,kt,TOTAL,5567.694119299737,S1+S2+S3+outside
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,Scope 1,0.0,EXIOBASE direct of the sector
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,Scope 2,0.14367699237606069,generation emissions of purchased electricity/steam/heat (traced)
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,Scope 2 (first-tier variant),0.14346390310499577,"sensitivity, not added to the total"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,Scope 2 (full-L variant),0.14905503665483766,"sensitivity: includes energy used deeper in the chain, which GHG-P assigns to Scope 3"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,self-supply loop removed,0.0,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,Scope 3,42.68485833313459,"footprint residual after Scope 2, plus pMDI and commuting"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,Outside protocol,0.0,patient and visitor travel
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,blue_water_consumption,Mm3,TOTAL,42.82853532551065,S1+S2+S3+outside
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,Scope 1,0.0,EXIOBASE direct of the sector
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,Scope 2,3.02369590045739e-06,generation emissions of purchased electricity/steam/heat (traced)
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,Scope 2 (first-tier variant),2.934000386277777e-06,"sensitivity, not added to the total"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,Scope 2 (full-L variant),5.0415863640853e-06,"sensitivity: includes energy used deeper in the chain, which GHG-P assigns to Scope 3"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,self-supply loop removed,0.0,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,Scope 3,3831.41807793288,"footprint residual after Scope 2, plus pMDI and commuting"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,Outside protocol,0.0,patient and visitor travel
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,land_use,km2,TOTAL,3831.418080956576,S1+S2+S3+outside
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,Scope 1,42.75704592555413,national accounts (DRIVHUS/AFFALD) + medical gases
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,Scope 2,64.50911792234174,generation emissions of purchased electricity/steam/heat (traced)
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,Scope 2 (first-tier variant),64.49895738668224,"sensitivity, not added to the total"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,Scope 2 (full-L variant),64.60306671750645,"sensitivity: includes energy used deeper in the chain, which GHG-P assigns to Scope 3"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,self-supply loop removed,8.819398864250656,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,Scope 3,1363.3727301073288,"footprint residual after Scope 2, plus pMDI and commuting"
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,Outside protocol,0.0,patient and visitor travel
+DNK,EXIOBASE v3.10.2 IOT_2022_ixi (screened),2022,waste_generation,kt,TOTAL,1470.6388939552248,S1+S2+S3+outside
