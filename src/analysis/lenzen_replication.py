@@ -37,6 +37,8 @@ import re
 import numpy as np
 import pandas as pd
 
+from analysis.constants import MODEL_LABEL
+from analysis.detail_tables import detail_rows, domestic_import_split
 from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR
 from analysis.constants import DK_POPULATION, K_DK, N_SECTORS
 from analysis.production_layers import layer_decomposition
@@ -124,7 +126,7 @@ def main():
         idx = [i for i, n in enumerate(names) if rx.match(n)]
         series.append(((R[idx, :].sum(axis=0) * xinv) * scale, ind, unit, 0.0))
 
-    rows = []
+    rows, node_frames = [], []
     for s, ind, unit, direct_extra in series:
         y_serv, y_goods = Ystim[:, 1], Ystim[:, 2] + Ystim[:, 3]
         lay_s, res_s = layer_decomposition(A, s, y_serv, max_layer=2, L=L)
@@ -136,6 +138,15 @@ def main():
         nat = float(s @ (L @ y_nat))
         dom = float(s[K_DK * N_SECTORS:(K_DK + 1) * N_SECTORS]
                     @ (L @ Ystim[:, 0])[K_DK * N_SECTORS:(K_DK + 1) * N_SECTORS])
+        # Producing-node decomposition. f = s . (L y), so the elementwise
+        # product s * (L y) is the per-node contribution and sums to f exactly.
+        by_node = s * (L @ Ystim[:, 0])
+        node_frames.append(detail_rows(
+            by_node, country_consuming="DNK",
+            sector_consuming="health_and_eldercare", indicator=ind, unit=unit,
+            model=MODEL_LABEL,
+            quantity="Lenzen KPI, supply-chain component by producing node"))
+
         ref = LENZEN_DK_2015.get(ind, {})
         rows.append(dict(
             indicator=ind, unit=unit, total=f_total,
@@ -170,6 +181,17 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, "lenzen_kpi_set.csv")
     df.to_csv(out, index=False)
+    if node_frames:
+        node_detail = pd.concat(node_frames, ignore_index=True)
+        node_detail.to_csv(
+            os.path.join(os.path.dirname(out),
+                         "lenzen_kpi_by_producing_node.csv.gz"),
+            index=False, compression="gzip")
+        domestic_import_split(node_detail).to_csv(
+            os.path.join(os.path.dirname(out),
+                         "lenzen_kpi_domestic_vs_imported.csv"), index=False)
+        print(f"  node detail: {len(node_detail):,} rows across "
+              f"{node_detail.indicator.nunique()} indicators")
     print(f"\nwritten -> {out}")
 
 
