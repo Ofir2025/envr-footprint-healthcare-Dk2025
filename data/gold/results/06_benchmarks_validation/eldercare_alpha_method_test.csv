@@ -1,0 +1,4 @@
+method,year,alpha,adopted,note
+IO table (industry 880000 own deliveries),2019,0.306,False,same method as 2022 - shows the year effect is ~1%
+IO table (industry 880000 own deliveries),2022,0.3092,True,"adopted: reads the industry's own deliveries, the correct object for allocating its emissions"
+detailed SUT (products supplied by 880000),2019,0.4914,False,superseded: attributes whole product flows to one industry
