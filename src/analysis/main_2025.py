@@ -235,7 +235,7 @@ else:
           f"{DK_DIRECT_WASTE_KT:.1f} kt")
 
     df.to_csv(dk_csv_path, index=False)
-    print(f"✅ DK SUT overwrite: MEUR totals written, Conversion=1.0, DirectEm={float(direct_em_kt):.1f} kt → {dk_csv_path}")
+    print(f"DK SUT overwrite: MEUR totals written, Conversion=1.0, DirectEm={float(direct_em_kt):.1f} kt → {dk_csv_path}")
 
 
 
@@ -442,7 +442,7 @@ def scale_bottomup_all_to_dk(
     # Write atomically to target_path
     content = df.reset_index().to_csv(sep="\t", index=False)
     _safe_atomic_write(target_path, content)
-    print(f"✅ DK scaling (ALL columns) applied; wrote: {target_path}")
+    print(f"DK scaling (ALL columns) applied; wrote: {target_path}")
 
 # ---- DK scaling constants and paths (These should be defined BEFORE calling the function) ----
 # Commute and visitor factors re-derived from official sources (2026-09 revision):
@@ -509,7 +509,7 @@ _bu = pd.read_csv(BOTTOMUP_2025, sep="\t").set_index("Source")
 _bu.loc["Anaesthetic", "Global warming (ktCO2eq)"] = DK_ANAESTHETIC_KT_CO2E
 _bu.loc["pMDI", "Global warming (ktCO2eq)"] = DK_PMDI_KT_CO2E
 _safe_atomic_write(BOTTOMUP_2025, _bu.reset_index().to_csv(sep="\t", index=False))
-print(f"✅ Danish primary medical-gas values written: anaesthetic {DK_ANAESTHETIC_KT_CO2E} kt, pMDI {DK_PMDI_KT_CO2E} kt CO2e")
+print(f"Danish primary medical-gas values written: anaesthetic {DK_ANAESTHETIC_KT_CO2E} kt, pMDI {DK_PMDI_KT_CO2E} kt CO2e")
 # ===================== End of DK scaling of direct bottom-up emissions =====================
 
 
@@ -1035,7 +1035,7 @@ fig3_rel.to_excel(writer, sheet_name="Fig3_relative_%")
 
 writer.close()
 
-print("✅ Full result tables exported: FullResults_Tables.xlsx")
+print("Full result tables exported: FullResults_Tables.xlsx")
 
 # ===============================
 # OPTIONAL: EXPORT FULL RAW DATA (HIGH RESOLUTION)
@@ -1044,7 +1044,7 @@ print("✅ Full result tables exported: FullResults_Tables.xlsx")
 df_c_all.to_excel("Contribution_full_detail.xlsx")
 df_h_all.to_excel("Hotspot_full_detail.xlsx")
 
-print("✅ Raw tables exported for full traceability")
+print("Raw tables exported for full traceability")
 
 
 # Plot and save figures
@@ -1458,4 +1458,4 @@ output_path = os.path.join(output_dir, "steenmeijer_table.xlsx")
 with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
     t1_display.to_excel(writer, sheet_name='Table')
 
-print(f"✅ Steenmeijer-style table exported to: {output_path}")
+print(f"Steenmeijer-style table exported to: {output_path}")
