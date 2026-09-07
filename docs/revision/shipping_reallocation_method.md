@@ -175,6 +175,53 @@ ours** (3.9.2 against 3.8.2). And their practice of freezing emission factors at
 the last real year rather than using the nowcast is the substance of open
 decision D8.
 
+## 5c. An independent validation: the hybrid EXIOBASE reaches the same place
+
+The strongest check available on our correction does not come from a Danish
+source at all. **EXIOBASE's own hybrid build already allocates Danish sea
+transport almost exactly as Statistics Denmark says it should**, without anyone
+correcting it by hand.
+
+Measured directly on `HIOT_2011.mat` (hybrid v3.3.18), Danish
+*Sea and coastal water transport*:
+
+| Model | Output | Domestic intermediate share |
+|---|---|---|
+| Monetary EXIOBASE v3.8.2, 2016 | 15,432 M€ | 73.5 % |
+| Monetary EXIOBASE v3.8.2, 2022 | 17,805 M€ | **73.6 %** |
+| **Hybrid EXIOBASE v3.3.18, 2011** | 7,616 M€ | **7.83 %** |
+| Statistics Denmark benchmark | — | **9 %** |
+
+The monetary share is 73.5 % in 2016 and 73.6 % in 2022, so it is structural
+rather than a year effect. The hybrid lands within 1.2 percentage points of the
+national-accounts benchmark **by construction**. The mechanism is stated in
+Merciai & Schmidt (2018): the hybrid adopts homogeneous kind-of-activity units,
+and *"a strict correspondence between official monetary and hybrid SUTs is lost
+in the EXIOBASE v3 database, because the monetary tables follow another approach
+linked to the establishment."* In other words the monetary build's
+establishment-based units are what strand Danish shipping revenue in Danish
+intermediate use; the hybrid's activity-based units do not.
+
+Two qualifications, both material:
+
+**The hybrid fixes *who buys* the shipping, not *whose emissions they are*.** Its
+bunker-fuel allocation is inherited verbatim from monetary EXIOBASE's
+residence-principle factors — the correlation between the two allocations across
+countries is **0.95** — so Denmark still carries the emissions of its
+world-serving fleet. Our correction addresses the same half of the problem.
+
+**Years do not match.** The hybrid is 2011 and our model is 2022, and the output
+levels differ roughly twofold. The comparison establishes that the monetary
+build's allocation is the outlier, not that 7.83 % is the right 2022 number.
+
+**What this means for the correction.** It moves from "a defensible
+approximation with no precedent" to "a manual reconstruction of an allocation
+that EXIOBASE's own hybrid build produces natively, and that Denmark's
+statistical office publishes." Three independent routes — the national accounts,
+the hybrid construction, and the Danish Energy Agency's own reallocation — agree
+that the monetary Danish figure is wrong in the direction and roughly the
+magnitude we correct.
+
 ## 6. Limitations
 
 - **One row, not a model.** The other Danish industries retain EXIOBASE's
