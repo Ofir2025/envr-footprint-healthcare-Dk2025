@@ -18,8 +18,12 @@ The residual beyond the last computed layer is closed exactly with
 so the reported layers plus residual sum to the footprint with no truncation
 error of our own.
 
-Denmark 2022 cross-check: climate L0-L2 cumulative 67.9 %, against Malik's 67 %
-for New South Wales - a genuine cross-study convergence.
+Denmark 2022 against Malik et al. (2021) NSW, cumulative share of the first
+three production layers: climate 63.0 % against their 67 %, waste 88.0 %
+against 90 %, blue water 57.0 % against 72 %. The water gap is expected -
+their water is an unqualified physical volume, ours is blue water
+consumption. Regenerate with this module; the comparison is written to
+production_layers_vs_malik.csv.
 
 Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 .venv/bin/python -m analysis.production_layers
 """
@@ -32,6 +36,36 @@ import pandas as pd
 
 from paths import BACKGROUND_DIR, OUTPUT_DIR
 from analysis.constants import BACKGROUND_YEAR, INDICATORS, MODEL_LABEL
+
+# ---------------------------------------------------------------------------
+# Malik et al. (2021), NSW health system, for comparison.
+#
+# Their layer definition, verbatim: "we consider the first layer to be direct
+# q_GHG I y, the second layer (q_GHG A y) as the suppliers of the health
+# sectors, third layer (q_GHG A^2 y) suppliers' of suppliers". Their "first
+# three production layers" are therefore L0 + L1 + L2 in the zero-indexed
+# notation used here, and their figure 3 x-axis 1...8 is L0...L7.
+#
+# Verbatim result: "accounting for not just the direct activities but also the
+# activities of direct suppliers, and the suppliers of those direct suppliers
+# (first three production layers, Fig. 3) explains the vast majority of impacts
+# (nearly 67% of GHG emissions, 72% water emissions, and 90% of waste)."
+#
+# Boundary caution: Malik et al. 2021 exclude capital AND imports entirely
+# ("the results do not consider imports and investments by the health
+# sectors"), and their water is a physical volume never stated to be withdrawal
+# or consumptive use. Their waste share uses a 2011 denominator against a 2017
+# numerator. The layer SHARES are the comparable quantity; the levels are not.
+# ---------------------------------------------------------------------------
+MALIK_LAYER_REFERENCE = {
+    "climate_change": dict(first_three_layers_pct=67.0, first_layer_pct=11.0,
+                           unit="kt CO2e", total=7908.0),
+    "blue_water_consumption": dict(first_three_layers_pct=72.0,
+                                   first_layer_pct=17.0, unit="GL",
+                                   total=246.0),
+    "waste_generation": dict(first_three_layers_pct=90.0,
+                             first_layer_pct=62.0, unit="kt", total=1624.0),
+}
 from analysis.export_tables import _labels
 
 MAX_LAYER = int(os.environ.get("HC_MAX_LAYER", 20))
@@ -110,6 +144,35 @@ def main():
     for k2, v in meta.items():
         df.insert(0, k2, v); dfs.insert(0, k2, v)
     df.to_csv(os.path.join(out_dir, "production_layers.csv"), index=False)
+
+    # explicit comparison against Malik et al. (2021), shares only
+    comparison = []
+    for indicator, published in MALIK_LAYER_REFERENCE.items():
+        subset = df[df.indicator == indicator]
+        if subset.empty:
+            continue
+        ours_three = float(subset[subset.layer == 2]["cumulative_share_pct"]
+                           .iloc[0])
+        ours_first = float(subset[subset.layer == 0]["cumulative_share_pct"]
+                           .iloc[0])
+        comparison.append(dict(
+            indicator=indicator,
+            denmark_first_three_layers_pct=ours_three,
+            malik_nsw_first_three_layers_pct=published["first_three_layers_pct"],
+            denmark_first_layer_pct=ours_first,
+            malik_nsw_first_layer_pct=published["first_layer_pct"],
+            malik_total=published["total"], malik_unit=published["unit"],
+            layer_definition="Malik's 'first three production layers' are "
+                             "L0 + L1 + L2 here; their figure 3 axis 1..8 is "
+                             "L0..L7",
+            comparability="shares are comparable; levels are not - Malik et "
+                          "al. 2021 exclude capital and imports entirely, and "
+                          "their water is an unqualified physical volume",
+            source_malik="Malik et al. 2021, Lancet Planet Health 5:e e-pub, "
+                         "section 3 and figure 3",
+            source_denmark=MODEL_LABEL))
+    pd.DataFrame(comparison).to_csv(
+        os.path.join(out_dir, "production_layers_vs_malik.csv"), index=False)
     dfs.to_csv(os.path.join(out_dir, "production_layers_by_sector_group.csv"), index=False)
     print(f"written -> {out_dir}/production_layers.csv (+ by sector group)")
 
