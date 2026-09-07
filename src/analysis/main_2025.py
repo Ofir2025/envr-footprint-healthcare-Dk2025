@@ -56,7 +56,8 @@ mainpath = str(BRONZE_DIR.parent.parent)
 data_dir = str(BRONZE_DIR) + os.sep
 bg_dir = str(BACKGROUND_DIR) + os.sep
 mrio_dir = str(MRIO_DIR) + os.sep
-output_dir = str(OUTPUT_DIR)
+output_dir = os.path.join(str(OUTPUT_DIR), "01_eriksen_replication")
+os.makedirs(output_dir, exist_ok=True)
 
 # 2C) Find and import background.py
 # if not found, add to the code before importing: 
@@ -93,6 +94,12 @@ INCLUDE_ELDERCARE = SCOPE_SCENARIO != "health_only"
 BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
 # Danmarks Nationalbank annual average DKK/EUR
 DKK_PER_EUR_BY_YEAR = {"2019": 7.4661, "2022": 7.4396}
+# Direct healthcare waste components from Statistics Denmark AFFALD01 (total
+# waste excl. soil, tonnes): QA human health, 870000 residential care, 880000
+# social work. Combined below with the SAME year-specific eldercare share that
+# DRIVHUS uses, so the two direct accounts stay consistent.
+_AFFALD_T = {"2019": dict(qa=28763, res=7460, soc=13214),
+             "2022": dict(qa=30289, res=8422, soc=13084)}[ANALYSIS_YEAR]
 year = BACKGROUND_YEAR  # background pickle year (also used by the Dutch mode)
 
 ## Adding extra_functions.py to calculate 3 new expenditure vectors
@@ -102,6 +109,7 @@ from .extra_functions import (
     calculate_healthcare_totals,
     calculate_healthcare_totals_2022,
     eldercare_share_of_social_work,
+    eldercare_share_of_social_work_io,
 )
 if ANALYSIS_YEAR == "2022":
     hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals_2022(
@@ -197,7 +205,14 @@ else:
     _dh = _drivhus[_drivhus["year"] == DRIVHUS_YEAR].set_index(["industry_code", "emtype"])[
         "value_kt_co2e"
     ]
-    alpha_eldercare = eldercare_share_of_social_work(BRONZE_DIR / "dk_umat_2019.xlsx")
+    if ANALYSIS_YEAR == "2022":
+        # read the share from the analysis year's own IO table (industry 880000's
+        # deliveries to eldercare vs childcare) rather than carrying the 2019
+        # SUT-derived value forward
+        alpha_eldercare = eldercare_share_of_social_work_io(
+            BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx")
+    else:
+        alpha_eldercare = eldercare_share_of_social_work(BRONZE_DIR / "dk_umat_2019.xlsx")
     direct_em_kt = (
         _dh[("VQA", "GHGEXBIO")]
         + _dh[("V870000", "GHGEXBIO")]
@@ -214,6 +229,10 @@ else:
     for col in ['HC service', 'Pharm', 'MedAppl']:
         df.loc[df['Index'] == 'DirectEm', col] = 0.0
     df.loc[df['Index'] == 'DirectEm', 'HC service'] = float(direct_em_kt)
+    DK_DIRECT_WASTE_KT = (_AFFALD_T["qa"] + _AFFALD_T["res"]
+                          + alpha_eldercare * _AFFALD_T["soc"]) / 1e3
+    print(f"Direct healthcare waste (AFFALD01 {DRIVHUS_YEAR}, alpha={alpha_eldercare:.4f}): "
+          f"{DK_DIRECT_WASTE_KT:.1f} kt")
 
     df.to_csv(dk_csv_path, index=False)
     print(f"✅ DK SUT overwrite: MEUR totals written, Conversion=1.0, DirectEm={float(direct_em_kt):.1f} kt → {dk_csv_path}")
@@ -486,7 +505,6 @@ DK_PMDI_KT_CO2E = {"2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
 # 2019: 28,763 + 7,460 + 0.4914*13,214 = 42.7 kt; 2022: 30,289 + 8,422 +
 # 0.4914*13,084 = 45.1 kt. Replaces the hybrid-2011-derived direct waste entry
 # of the B_HEAL row, mirroring the DRIVHUS replacement for GWP.
-DK_DIRECT_WASTE_KT = {"2019": 42.7, "2022": 45.1}[ANALYSIS_YEAR]
 _bu = pd.read_csv(BOTTOMUP_2025, sep="\t").set_index("Source")
 _bu.loc["Anaesthetic", "Global warming (ktCO2eq)"] = DK_ANAESTHETIC_KT_CO2E
 _bu.loc["pMDI", "Global warming (ktCO2eq)"] = DK_PMDI_KT_CO2E
@@ -516,7 +534,7 @@ hc_dir_row = pd.Series(['DNK', 'B_HEAL',
                         bg['Hstim'][:, 0][1],   # Material extraction (kt)
                         bg['Hstim'][:, 0][2],   # Blue water (Mm3)
                         bg['Hstim'][:, 0][3],   # Land use (km2)
-                        DK_DIRECT_WASTE_KT],    # Waste (kt), AFFALD01-based
+                        DK_DIRECT_WASTE_KT],    # Waste (kt), AFFALD01-based (set below)
                        index=cols_df)
 
 

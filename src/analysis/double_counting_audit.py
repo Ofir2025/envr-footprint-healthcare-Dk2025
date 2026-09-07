@@ -97,7 +97,7 @@ def main():
     ]
     df = pd.DataFrame(rows)
     df.insert(0, "analysis_year", year)
-    out = os.path.join(str(OUTPUT_DIR), "tables", "double_counting_ledger.csv")
+    out = os.path.join(str(OUTPUT_DIR), "02_scopes_wood_hertwich", "double_counting_ledger.csv")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     df.to_csv(out, index=False)
     pd.set_option("display.max_colwidth", 60)

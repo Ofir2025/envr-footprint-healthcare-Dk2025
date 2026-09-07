@@ -122,7 +122,7 @@ def main():
     df["source"] = "Statistics Denmark AFF1MU1N / AFF3MU1N (SEEA waste accounts, IO-based)"
     df["boundary"] = "domestic (Danish waste generation); imports not covered"
 
-    out = os.path.join(str(OUTPUT_DIR), "tables", "waste_footprint_domestic_dst.csv")
+    out = os.path.join(str(OUTPUT_DIR), "05_waste_dst_accounts", "waste_footprint_domestic_dst.csv")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     df.to_csv(out, index=False)
 
