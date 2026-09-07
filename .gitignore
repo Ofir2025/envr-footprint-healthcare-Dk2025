@@ -1,5 +1,14 @@
-data/bg
+data/silver/background/
+**/__pycache__/
+data/gold/results/**/*.tmp
+data/gold/results/**/~$*
+scripts/notebooks/.ipynb_checkpoints/
+*.DS_Store
+*.pyc
 .pylint.d
-scripts/__pycache__
-scripts/prep_background/exiobase_3_7-aggregation.py
-data/exiobase_v3.7/IOT_2016_ixi
+data/bronze/exiobase_v3_7/IOT_2016_ixi
+
+# Large external MRIO downloads: reproducible from the documented URLs
+data/bronze/figaro/estat_naio_10_fcp_ii4_*.tsv.gz
+data/silver/background/
+.venv/
