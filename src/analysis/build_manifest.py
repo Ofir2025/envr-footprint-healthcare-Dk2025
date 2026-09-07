@@ -60,6 +60,18 @@ APPROACHES = {
         script="analysis.recipe_validation_2022 and assembled comparisons",
         equations="n/a (comparisons)",
         inputs="published values; env_ac_ghgfp; AFTRYK1; DST IO 2022"),
+    "07_malik_replication": dict(
+        approach="Malik-comparable variants and production layer decomposition",
+        reference="Malik et al. 2018 (Lancet Planet Health 2:e27-35); Malik et al. 2021 (RCR 169:105556)",
+        script="analysis.malik_replication / analysis.production_layers",
+        equations="L = I + A + A^2 + ...; f^(n) = diag(s) A^n y; L_dom = (I - A_DK,DK)^-1",
+        inputs="background pickle; Danish expenditure components"),
+    "08_lenzen_replication": dict(
+        approach="Lenzen KPI set reproduced for Denmark",
+        reference="Lenzen et al. 2020 (Lancet Planet Health 4:e271-79) and SI",
+        script="analysis.lenzen_replication",
+        equations="F = q L y*; S_m and TE_m; import share; per-capita and intensity KPIs",
+        inputs="background pickle; raw stressor blocks for PM10/NOx/SO2/reactive N"),
     "scenarios": dict(
         approach="Scope-boundary scenario runs",
         reference="SHA 2011 boundary; Steenmeijer expansive boundary",
