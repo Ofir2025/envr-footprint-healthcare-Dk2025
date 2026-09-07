@@ -51,6 +51,33 @@ from paths import OUTPUT_DIR
 FOLDER = "06_benchmarks_validation"
 API = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
 
+#: Published Danish national consumption-based GHG footprints, for benchmarking.
+#:
+#: The essential observation is that these split by MODEL FAMILY, not by year:
+#: studies built on EXIOBASE land near 13 t per capita, while those coupling the
+#: Danish national accounts to an MRIO land near 10-11. A result should be
+#: judged against its own family before it is judged against the others.
+PUBLISHED_BENCHMARKS: list[dict[str, Any]] = [
+    dict(source="Eurostat FIGARO (env_ac_ghgfp)", year=2022,
+         model_family="national accounts (FIGARO)", total_mt=57.4,
+         per_capita_t=9.77, capital="exogenous",
+         note="official EU statistical product"),
+    dict(source="Statistics Denmark AFTRYK", year=2022,
+         model_family="national accounts coupled to EXIOBASE", total_mt=62.9,
+         per_capita_t=10.71, capital="exogenous",
+         note="Denmark's official consumption-based account"),
+    dict(source="Rørmose Jensen & Iliev 2022 (Statistics Denmark)", year=2020,
+         model_family="national accounts coupled to EXIOBASE", total_mt=65.4,
+         per_capita_t=11.0, capital="exogenous",
+         note="simplified SNAC; 38 % arises in Denmark, 62 % abroad"),
+    dict(source="Schmidt & Merciai 2023", year=2016,
+         model_family="EXIOBASE (v4 hybrid)", total_mt=73.9, per_capita_t=12.9,
+         capital="ENDOGENISED, contributing 1.1 t per capita",
+         note="consequential/marginal model, so not a like-for-like "
+              "attributional comparison, but the closest published Danish "
+              "EXIOBASE-based figure"),
+]
+
 #: EU27 population, Eurostat ``demo_gind``, 1 January of the reference year.
 EU27_POPULATION: dict[str, int] = {"2022": 446_735_291}
 
@@ -230,6 +257,19 @@ def main() -> None:
     ])
     comparison["ratio_to_figaro_national"] = (
         comparison["value"] / figaro_total)
+
+    published = pd.DataFrame(PUBLISHED_BENCHMARKS)
+    published.loc[len(published)] = dict(
+        source=f"this study ({MODEL_LABEL})", year=int(year),
+        model_family="EXIOBASE (v3.8.2, sea-transport reallocation)",
+        total_mt=ours["national_climate_kt"] / 1e3,
+        per_capita_t=ours["national_climate_kt"] * 1e3 / pop,
+        capital="exogenous (excluded from the headline)",
+        note="attributional")
+    published = published.sort_values("per_capita_t")
+    published.to_csv(
+        os.path.join(out_dir, "published_danish_footprint_benchmarks.csv"),
+        index=False)
     comparison.insert(0, "analysis_year", year)
     comparison.to_csv(
         os.path.join(out_dir, "figaro_vs_this_study_climate.csv"), index=False)
@@ -242,6 +282,9 @@ def main() -> None:
     print()
     print(comparison[["quantity", "source", "value",
                       "per_capita_t"]].to_string(index=False))
+    print("\nPublished Danish national footprints, by model family:")
+    print(published[["source", "year", "model_family", "per_capita_t"]]
+          .to_string(index=False, max_colwidth=46))
     print(f"\nwritten -> {out_dir}")
 
 
