@@ -14,9 +14,9 @@ climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",200.503
 land_use,km2,Transport,180.92257100337918
 material_extraction,kt,"Electrical, electronic and measuring equipment",176.49139346558917
 material_extraction,kt,Food and catering,140.04389055948678
-climate_change,kt CO2eq,Operational impact,131.0762816237094
 land_use,km2,"Electrical, electronic and measuring equipment",130.9241583599659
 material_extraction,kt,Transport,130.91821341573896
+climate_change,kt CO2eq,Operational impact,130.1262816237094
 climate_change,kt CO2eq,Waste management and disposal,105.78862010748969
 waste_generation,kt,Chemical,99.89802720108061
 material_extraction,kt,Non-metallic mineral products,92.48322070850608

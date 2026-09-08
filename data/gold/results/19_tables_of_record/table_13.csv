@@ -1,9 +1,9 @@
 Scenario,Climate (%),Material (%),Blue water (%),Land (%),Waste (%)
-"C3  maximum modelled, KF22 to 2035",-13.45,-4.78,-1.37,-1.44,-3.41
-C1  maximum modelled,-7.67,-4.56,-1.37,-1.42,-1.40
+"C3  maximum modelled, KF22 to 2035",-13.44,-4.78,-1.37,-1.44,-3.41
+C1  maximum modelled,-7.66,-4.56,-1.37,-1.42,-1.40
 B1  KF22 to 2035,-6.81,-0.23,-0.00,-0.02,-2.14
 B1  KF22 to 2030,-6.72,-0.23,-0.00,-0.02,-2.12
-"C2  maximum modelled, with rebound",-6.04,-2.63,0.63,0.58,0.27
+"C2  maximum modelled, with rebound",-6.03,-2.63,0.63,0.58,0.27
 B1  KF25 to 2035,-5.99,-0.20,-0.00,-0.02,-1.89
 B1  KF25 to 2030,-5.74,-0.19,-0.00,-0.02,-1.81
 P5  -30%,-3.99,-0.18,-0.06,-0.01,0.00
@@ -20,8 +20,8 @@ P6  -93% propellant GWP,-0.23,n.r.,n.r.,n.r.,n.r.
 P7  75% substituted,-0.18,n.r.,n.r.,n.r.,n.r.
 P6  -67% propellant GWP,-0.16,n.r.,n.r.,n.r.,n.r.
 P7  50% substituted,-0.12,n.r.,n.r.,n.r.,n.r.
-P8  75%,-0.12,n.r.,n.r.,n.r.,n.r.
-P8  50%,-0.08,n.r.,n.r.,n.r.,n.r.
+P8  75%,-0.11,n.r.,n.r.,n.r.,n.r.
+P8  50%,-0.07,n.r.,n.r.,n.r.,n.r.
 P7  25% substituted,-0.06,n.r.,n.r.,n.r.,n.r.
 P8  25%,-0.04,n.r.,n.r.,n.r.,n.r.
 P3  -23.5 % cradle-to-gate,-0.02,-0.02,-0.02,-0.03,-0.04

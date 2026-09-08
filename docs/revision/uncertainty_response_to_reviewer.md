@@ -62,9 +62,9 @@ so the simulation median reproduces the deterministic result:
 
 | | Climate change |
 |---|---|
-| Deterministic | 4,713 kt CO₂e |
-| Median | 4,735 kt |
-| 95 % interval | **4,065 to 5,532 kt** |
+| Deterministic | 4,712 kt CO₂e |
+| Median | 4,734 kt |
+| 95 % interval | **4,064 to 5,531 kt** |
 | Coefficient of variation | **7.9 %** |
 
 Cross-check: Lenzen et al. report 8.35 % for the same quantity by an entirely different

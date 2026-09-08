@@ -23,7 +23,7 @@ Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.0066880532232
 "Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,0.004836300267680064,0.005071732990711469
 Construction,Scope 3,blue_water_consumption,Mm3,0.003060573821003043,0.003209563583597545
 Private travel,Outside protocol,climate_change,kt CO2eq,263.56770753446403,100.0
-Operational impact,Scope 1,climate_change,kt CO2eq,131.0762816237094,100.0
+Operational impact,Scope 1,climate_change,kt CO2eq,130.1262816237094,100.0
 Electricity,Scope 2,climate_change,kt CO2eq,63.24878686359306,86.23869457431034
 "Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,10.092753353127994,13.761305425689654
 Transport,Scope 3,climate_change,kt CO2eq,728.2074435255541,17.160340899926332
