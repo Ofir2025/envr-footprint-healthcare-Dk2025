@@ -50,7 +50,8 @@ import pandas as pd
 from paths import OUTPUT_DIR
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from analysis.constants import ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL
+from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL,
+                                scopes_folder)
 from analysis.detail_tables import node_labels
 
 STAR_DIR = os.path.join(str(OUTPUT_DIR), "star")
@@ -274,7 +275,7 @@ def main() -> None:
         "footprint_node": _read("00_core_footprint/footprint_by_producing_node.csv"),
         "footprint_product": _read("00_core_footprint/footprint_by_purchased_product.csv"),
         "extended_node": _read("00_core_footprint/extended_indicators_by_producing_node.csv"),
-        "scope_node": _read("02_scopes_wood_hertwich/scope_by_origin_and_industry.csv"),
+        "scope_node": _read(f"{scopes_folder()}/scope_by_origin_and_industry.csv"),
         "national": _read("00_core_footprint/national_totals_summary.csv"),
         "health_function": _read("17_health_subsectors/footprint_by_health_function.csv"),
     }

@@ -56,9 +56,20 @@ make_plot <- function(per_capita) {
   dd <- dd %>% mutate(key = factor(key, levels = ord$key))
 
   unit_expr <- if (per_capita) PC_UNIT else ABS_UNIT
+
+  # The category total carries the magnitude the reader needs to normalise every
+  # share in the panel. It goes on the strip rather than inside the panel: an
+  # in-panel annotation has to fit between the shortest bar and the axis, which
+  # it does not at this label width, and it collided with the bottom row.
+  tot <- dd %>% group_by(indicator) %>%
+    summarise(v = sum(plot_value), .groups = "drop")
+  num <- setNames(ifelse(tot$v >= 100,
+                         formatC(round(tot$v), format = "d", big.mark = ","),
+                         formatC(tot$v, format = "fg", digits = 3)),
+                  as.character(tot$indicator))
   lab <- as_labeller(setNames(
-    sprintf("atop('%s', (%s))", IND_NAME, unit_expr), names(IND_NAME)),
-    default = label_parsed)
+    sprintf("atop('%s', '%s'~%s)", IND_NAME, num[names(IND_NAME)], unit_expr),
+    names(IND_NAME)), default = label_parsed)
 
   ggplot(dd, aes(plot_value, key, fill = contribution_group)) +
     geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
@@ -74,19 +85,19 @@ make_plot <- function(per_capita) {
     facet_wrap(~indicator, ncol = 3, scales = "free", labeller = lab) +
     scale_y_discrete(labels = function(x) sub("\\|\\|\\|.*$", "", x)) +
     scale_fill_manual(values = GROUP_COLS, guide = "none") +
-    scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(3),
+    scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
                        guide = guide_axis(check.overlap = TRUE),
                        expand = expansion(mult = c(0, 0.02))) +
     labs(x = if (per_capita) "Impact per person" else "Impact", y = NULL) +
     theme_dkhc() +
     theme(panel.grid.major.y = element_blank(),
-          axis.text.y = element_text(size = 12.5),
+          axis.text.y = element_text(size = 13.5, colour = INK),
           plot.margin = margin(14, 30, 12, 14))
 }
 
 dk_save(make_plot(FALSE), sprintf("fig1b_activity_absolute_%s", YEAR),
-        w = 18, h = 11)
+        w = 21, h = 12)
 dk_save(make_plot(TRUE),  sprintf("fig1c_activity_per_capita_%s", YEAR),
-        w = 18, h = 11)
+        w = 21, h = 12)
 
 cat("\nabsolute and per-capita figures written to ", fig_dir, "\n", sep = "")

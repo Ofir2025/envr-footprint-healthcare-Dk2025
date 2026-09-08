@@ -331,10 +331,23 @@ print(f"Direct waste replaced in background: hybrid {_hybrid_direct_waste:.1f} k
 # downstream module, so writing it from a scenario run would silently give them
 # that scenario's numbers: a zorg_en_welzijn run put the childcare-inclusive
 # total into the scope partition, which the consistency audit caught.
+# The write is also made idempotent. Every downstream freshness check compares
+# a gold file's mtime with this file's, so re-running the pipeline to rebuild
+# one table used to mark all the others stale even though the background had
+# not changed by a single byte. Only write when the content actually differs.
 if _SCOPE == "health_eldercare":
-    with open(os.path.join(bg_dir, f"gddz_background_information_{year}.pkl"),
-              "wb") as _fh:
-        pkl.dump(bg, _fh)
+    _bg_path = os.path.join(bg_dir, f"gddz_background_information_{year}.pkl")
+    _payload = pkl.dumps(bg)
+    _same = False
+    if os.path.exists(_bg_path):
+        with open(_bg_path, "rb") as _fh:
+            _same = _fh.read() == _payload
+    if _same:
+        print(f"background unchanged, keeping {os.path.basename(_bg_path)} "
+              f"and its timestamp")
+    else:
+        with open(_bg_path, "wb") as _fh:
+            _fh.write(_payload)
 else:
     print(f"scenario boundary '{_SCOPE}': background NOT persisted, so "
           f"downstream modules keep the default boundary")

@@ -92,7 +92,8 @@ from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 from analysis.export_tables import _labels, _node_frame
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL  # noqa: E402
+from analysis.constants import (BACKGROUND_YEAR, MODEL_LABEL,  # noqa: E402
+                                eriksen_folder, scopes_folder)
 GEN_PATTERN = r"\belectricity\b|\bsteam\b|\bhot\s*water\b"
 INDICATORS = [(0, "climate_change", "kt CO2eq"), (1, "material_extraction", "kt"),
               (2, "blue_water_consumption", "Mm3"), (3, "land_use", "km2"),
@@ -100,7 +101,7 @@ INDICATORS = [(0, "climate_change", "kt CO2eq"), (1, "material_extraction", "kt"
 
 
 def main():
-    out_dir = os.path.join(str(OUTPUT_DIR), "02_scopes_wood_hertwich")
+    out_dir = os.path.join(str(OUTPUT_DIR), *scopes_folder().split("/"))
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{BACKGROUND_YEAR}.pkl"), "rb") as fh:
@@ -116,22 +117,27 @@ def main():
     # Direct (Scope 1) impacts are taken from the B_HEAL row that the main
     # pipeline writes, so both use byte-identical numbers: GWP from DRIVHUS and
     # waste from AFFALD01 (Danish measured), the other categories from EXIOBASE.
-    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "contribution_analysis.xlsx"),
-                            sheet_name="full")
+    contrib = pd.read_excel(
+        os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+                     "contribution_analysis.xlsx"), sheet_name="full")
     b_heal = contrib[contrib["SecTxtCode"] == "B_HEAL"].iloc[0]
     DIRECT_COL = {"climate_change": "Global warming (ktCO2eq)",
                   "material_extraction": "Material extraction (kt)",
                   "blue_water_consumption": "Blue water consumption (Mm3)",
                   "land_use": "Land use (km2)",
                   "waste_generation": "Waste generation (kt)"}
-    direct_gwp = float(b_heal[DIRECT_COL["climate_change"]])
+    # Bottom-up items, all five categories. `main_2025` rewrites this file in
+    # place with the Danish primary values for the year it was run for, so this
+    # module must run straight after it for the same year.
     bu = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR), "dk_bottomup_data_2025.txt"),
                      sep="\t").set_index("Source")
-    gwp_col = "Global warming (ktCO2eq)"
-    anaesthetic = float(bu.loc["Anaesthetic", gwp_col])
-    pmdi = float(bu.loc["pMDI", gwp_col])
-    commute = float(bu.loc["Commute (total)", gwp_col])
-    visitor = float(bu.loc["Visitor travel (total)", gwp_col])
+    for _row in ("Anaesthetic", "pMDI", "Commute (total)",
+                 "Visitor travel (total)"):
+        missing = [c for c in DIRECT_COL.values() if c not in bu.columns]
+        if missing:
+            raise AssertionError(f"bottom-up file lacks columns {missing}")
+        if _row not in bu.index:
+            raise AssertionError(f"bottom-up file lacks row {_row!r}")
 
     # energy purchases of the providers = healthcare-services component only
     y_energy = np.zeros(Ystim.shape[0])
@@ -171,14 +177,27 @@ def main():
         s3_nodes = e_nodes - s2_nodes             # residual: no overlap by construction
         s3_mrio = float(s3_nodes.sum())
 
-        if ind == "climate_change":
-            # the B_HEAL GWP already IS the DRIVHUS figure net of medical N2O
-            s1 = direct_gwp + anaesthetic
-            s3 = s3_mrio + pmdi + commute
-            outside = visitor
-        else:
-            s1 = float(b_heal[DIRECT_COL[ind]])
-            s3, outside = s3_mrio, 0.0
+        # The bottom-up items are not climate-only: the ecoinvent inventory
+        # behind commuting and patient/visitor travel carries all five
+        # categories (vehicle manufacture, fuel supply, infrastructure), and the
+        # Eriksen tables place it as the GLO/B_REST node. Treating those columns
+        # as zero here left the non-climate scope tables 0.2-0.6 % below the
+        # study totals reported by figures 1 and 2. The placement is the same
+        # for every category and follows the GHG Protocol: anaesthetic gases are
+        # direct (Scope 1), pMDI propellant and employee commuting are Scope 3
+        # (categories 1 and 7), patient and visitor travel is outside the
+        # protocol because those people are not the reporting entity.
+        # For climate the B_HEAL GWP already IS the DRIVHUS figure net of
+        # medical N2O, so anaesthetic adds without double counting.
+        col = DIRECT_COL[ind]
+        c_direct = float(b_heal[col])
+        c_anae = float(bu.loc["Anaesthetic", col])
+        c_pmdi = float(bu.loc["pMDI", col])
+        c_commute = float(bu.loc["Commute (total)", col])
+        c_visitor = float(bu.loc["Visitor travel (total)", col])
+        s1 = c_direct + c_anae
+        s3 = s3_mrio + c_pmdi + c_commute
+        outside = c_visitor
         total = s1 + s2 + s3 + outside
 
         summary += [
@@ -206,10 +225,34 @@ def main():
             {"indicator": ind, "unit": unit, "scope": "self-supply loop removed",
              "value": loop, "basis": "s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"},
             {"indicator": ind, "unit": unit, "scope": "Scope 3", "value": s3,
-             "basis": "footprint residual after Scope 2, plus pMDI and commuting"},
+             "basis": "footprint residual after Scope 2, plus pMDI (climate) "
+                      "and commuting"},
             {"indicator": ind, "unit": unit, "scope": "Outside protocol", "value": outside,
              "basis": "patient and visitor travel"},
             {"indicator": ind, "unit": unit, "scope": "TOTAL", "value": total, "basis": "S1+S2+S3+outside"},
+        ]
+        # Components of the scopes above, written out so the figure tables can
+        # place each bottom-up term at its own producing node instead of
+        # inferring it. They are parts of the totals, never added to them.
+        summary += [
+            {"indicator": ind, "unit": unit,
+             "scope": "Scope 1 component: direct operations", "value": c_direct,
+             "basis": "national accounts (DRIVHUS / AFFALD01) or EXIOBASE "
+                      "direct row of the Danish health industry. Component"},
+            {"indicator": ind, "unit": unit,
+             "scope": "Scope 1 component: anaesthetic gases", "value": c_anae,
+             "basis": "Medstat N01AB volatiles + NID N2O. Component"},
+            {"indicator": ind, "unit": unit,
+             "scope": "Scope 3 component: pMDI propellant", "value": c_pmdi,
+             "basis": "Danish EPA F-gas inventory, MDI line. Component"},
+            {"indicator": ind, "unit": unit,
+             "scope": "Scope 3 component: employee commuting", "value": c_commute,
+             "basis": "bottom-up commuting, GHG Protocol Scope 3 cat. 7. "
+                      "Component"},
+            {"indicator": ind, "unit": unit,
+             "scope": "Outside protocol component: patient and visitor travel",
+             "value": c_visitor,
+             "basis": "TU purpose 33 + NHS visitor ratio. Component"},
         ]
 
         for scope_name, vec in (("Scope 2", s2_nodes), ("Scope 3", s3_nodes)):
@@ -245,7 +288,10 @@ def main():
         d = det[det["indicator"] == ind]["value"].sum()
         s = summ[(summ["indicator"] == ind) &
                  (summ["scope"].isin(["Scope 2", "Scope 3"]))]["value"].sum()
-        bu_extra = (pmdi + commute) if ind == "climate_change" else 0.0
+        # Node detail is the MRIO array only, so every bottom-up term added to
+        # Scope 3 above has to come back out before the comparison.
+        bu_extra = float(bu.loc["pMDI", DIRECT_COL[ind]]) + \
+            float(bu.loc["Commute (total)", DIRECT_COL[ind]])
         assert abs(d - (s - bu_extra)) < 1e-6, f"{ind}: node detail != scope totals"
     print("PASS: scopes partition exactly and node detail reconciles")
     print(f"written -> {out_dir}/scopes_summary_detailed.csv, scopes_by_producing_node.csv")

@@ -327,10 +327,16 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
 
     bg = {'label': label, 'ragg': ragg, 'L': L, 'A': A,  'B': B, 'H': H, 'Y': Y, 'Q':Q, 'Ystim': Ystim, 'Vstim': Vstim, 'Hstim': Hstim, 'sheetname': sheetname, 'sheettext': sheettext, 'excelname': excelname, 'exceltext': exceltext}
 
-    pkl_str = 'gddz_background_information_' + year + '.pkl'  
-    pkl_out = open(bg_dir + pkl_str,"wb")
-    pkl.dump(bg, pkl_out)
-    pkl_out.close()
+    # The caller (analysis.main_2025) applies the Danish direct-waste
+    # replacement and persists the corrected object, so this write would only
+    # ever be superseded within the same run - and it bumped the file's
+    # timestamp, which every downstream freshness check reads. Write it only
+    # when there is nothing on disk yet, so a module importing this function
+    # directly still gets a background to load.
+    pkl_str = 'gddz_background_information_' + year + '.pkl'
+    if not os.path.exists(bg_dir + pkl_str):
+        with open(bg_dir + pkl_str, "wb") as pkl_out:
+            pkl.dump(bg, pkl_out)
 
     tend = time.time()
     print('Prepared background in %5.2f s\n'% (tend - tstart))
