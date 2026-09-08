@@ -96,7 +96,7 @@ Every claim in `uncertainty_methods_for_manuscript.md` traces to this folder.
 | `_reading_list_mrio_uncertainty.md` | A curated, DOI'd tier list - start here |
 | `lenzen_et_al_2010_uncertainty_analysis_mrio_uk_carbon.pdf` | The method template; the lognormality argument |
 | `rodrigues_et_al_2018_uncertainty_consumption_based_carbon.pdf` | Correlation between country accounts; independence understates by half |
-| `schulte_et_al_2024_uncertainty_ghg_accounts_mrio.pdf` | Per-account uncertainties at EXIOBASE resolution; country CV ~4 % vs sector ~94 % |
+| `schulte_et_al_2024_uncertainty_ghg_accounts_mrio.pdf` | Per-account uncertainties at EXIOBASE resolution; emission accounts, country CV 4 % against sector 94 %; footprints 3 % against 18 % |
 | `schulte_et_al_2026_correlation_uncertainty_data_disaggregation.pdf` | Disaggregation induces negative correlations |
 | `schulte_et_al_2021_relaxing_import_proportionality_mrio.pdf` | Structural uncertainty from the import-proportionality assumption |
 | `wood_et_al_2019_variation_trends_consumption_based_carbon.pdf` | Cross-database spread; **Denmark CBCA RSD 8.8 %**, named as a shipping-driven outlier |
