@@ -56,25 +56,30 @@ import os
 import numpy as np
 import pandas as pd
 
-from analysis.constants import eriksen_folder
+from analysis.constants import scopes_folder
 from paths import OUTPUT_DIR
 
-FOLDER = "02_scopes_wood_hertwich"
+FOLDER = scopes_folder()
 
 #: Components with no producing node, placed at their true Danish origin.
 #: Each carries its OWN industry code: two different activities sharing one code
 #: would collapse to one row on any join, and the star-schema build rejects it.
 #: (scope, summary label, industry code, industry label, industry group)
+#: ``scopes_detail`` writes each of these as a component row of
+#: ``scopes_summary_detailed.csv``, for every indicator rather than for climate
+#: alone, so the placement below is the same in all five categories.
+#: (scope, component row in the summary, industry code, label, group)
 BOTTOM_UP: tuple[tuple[str, str, str, str, str], ...] = (
-    ("Scope 1", "Scope 1 direct (DRIVHUS, excl. medical N2O)",
+    ("Scope 1", "Scope 1 component: direct operations",
      "HEAL", "Health and social work", "Operational impact"),
-    ("Scope 1", "  + Anaesthetic gases (bottom-up)",
+    ("Scope 1", "Scope 1 component: anaesthetic gases",
      "HEAL", "Health and social work", "Operational impact"),
-    ("Scope 3", "  + pMDI (bottom-up, use phase)",
+    ("Scope 3", "Scope 3 component: pMDI propellant",
      "HEAL", "Health and social work", "Operational impact"),
-    ("Scope 3", "  + Commute (bottom-up)",
+    ("Scope 3", "Scope 3 component: employee commuting",
      "BU_COMMUTE", "Bottom-up: employee commuting", "Private travel"),
-    ("Outside protocol", "Outside protocol (patient/visitor travel)",
+    ("Outside protocol",
+     "Outside protocol component: patient and visitor travel",
      "BU_TRAVEL", "Bottom-up: patient and visitor travel", "Private travel"),
 )
 
@@ -87,14 +92,14 @@ def _read(name: str) -> pd.DataFrame:
     Parameters
     ----------
     name : str
-        File name within ``02_scopes_wood_hertwich``.
+        File name within this year's ``02_scopes_wood_hertwich`` folder.
 
     Returns
     -------
     pandas.DataFrame
         The file, unmodified.
     """
-    return pd.read_csv(os.path.join(str(OUTPUT_DIR), FOLDER, name))
+    return pd.read_csv(os.path.join(str(OUTPUT_DIR), *FOLDER.split("/"), name))
 
 
 def build_detail() -> pd.DataFrame:
@@ -115,48 +120,24 @@ def build_detail() -> pd.DataFrame:
         built from.
     """
     nodes = _read("scopes_by_producing_node.csv").copy()
-
     summary = _read("scopes_summary_detailed.csv")
-    eriksen = pd.read_csv(os.path.join(
-        str(OUTPUT_DIR), *eriksen_folder().split("/"), "scopes_summary.csv"))
-    comp = eriksen.set_index("Component")["kt_CO2eq"]
 
-    # Bottom-up items exist only for climate (and, for scope 1, waste, which
-    # comes from the Danish waste account rather than this list). Every other
-    # indicator's scope 1 and outside-protocol terms are zero by construction,
-    # so the loop below adds rows for climate alone and the assertions below
-    # check every indicator against its own scope summary.
+    # One placement rule for all five categories. `scopes_detail` writes each
+    # bottom-up term as its own component row of the summary, so a category
+    # where the term happens to be zero simply contributes no row; nothing is
+    # special-cased on climate any more. This is what closed the 0.2-0.6 % gap
+    # between the non-climate scope tables and the study totals: the ecoinvent
+    # travel inventory behind commuting and patient travel carries material,
+    # water and land as well as greenhouse gases.
+    idx = summary.set_index(["indicator", "scope"])
     rows = []
     for scope, component, code, industry, group in BOTTOM_UP:
-        if component not in comp.index:
-            raise AssertionError(f"component missing from scopes_summary: {component!r}")
-        rows.append({
-            "consuming_country_iso3": "DNK",
-            "model": nodes["model"].iloc[0],
-            "analysis_year": int(nodes["analysis_year"].iloc[0]),
-            "indicator": "climate_change",
-            "unit": "kt CO2eq",
-            "scope": scope,
-            "producing_country_iso3": "DNK",
-            "producing_country_name": "Denmark",
-            "producing_world_region": "Denmark",
-            "producing_sector_code": code,
-            "producing_sector_name": industry,
-            "producing_sector_group": group,
-            "component_type": "bottom-up item",
-            "value": float(comp.loc[component]),
-        })
-    # Scope 1 for indicators other than climate comes from a national account
-    # rather than the BOTTOM_UP list -- waste generation is 42.8 kt from the
-    # Danish SEEA waste account. Without this the scope figure would show those
-    # indicators as having no direct term at all.
-    climate_bu = {r[0] for r in BOTTOM_UP}
-    for indicator in sorted(summary["indicator"].unique()):
-        if indicator == "climate_change":
-            continue
-        sub = summary[(summary["indicator"] == indicator)
-                      & (summary["scope"].isin(("Scope 1", "Outside protocol")))]
-        for _, r in sub.iterrows():
+        for indicator in sorted(summary["indicator"].unique()):
+            if (indicator, component) not in idx.index:
+                raise AssertionError(
+                    f"component missing from scopes_summary_detailed: "
+                    f"{indicator} / {component!r}")
+            r = idx.loc[(indicator, component)]
             if float(r["value"]) == 0.0:
                 continue
             rows.append({
@@ -165,14 +146,14 @@ def build_detail() -> pd.DataFrame:
                 "analysis_year": int(nodes["analysis_year"].iloc[0]),
                 "indicator": indicator,
                 "unit": r["unit"],
-                "scope": r["scope"],
+                "scope": scope,
                 "producing_country_iso3": "DNK",
                 "producing_country_name": "Denmark",
                 "producing_world_region": "Denmark",
-                "producing_sector_code": "HEAL",
-                "producing_sector_name": "Health and social work",
-                "producing_sector_group": "Operational impact",
-                "component_type": "national account",
+                "producing_sector_code": code,
+                "producing_sector_name": industry,
+                "producing_sector_group": group,
+                "component_type": "bottom-up item",
                 "value": float(r["value"]),
             })
 
@@ -180,25 +161,22 @@ def build_detail() -> pd.DataFrame:
     detail = pd.concat([nodes, pd.DataFrame(rows)], ignore_index=True)
     detail = detail[detail["value"] != 0].reset_index(drop=True)
 
-    # Every indicator must reproduce its own Scope 2 and Scope 3 totals from
-    # the scope summary. Scope 1 and outside-protocol are checked for climate,
-    # where the bottom-up rows above supply them.
+    # Every indicator must now reproduce ALL FOUR of its scope totals from the
+    # summary - scope 1 and outside protocol included, since the bottom-up rows
+    # above are written for every category.
     got = detail.groupby(["indicator", "scope"])["value"].sum()
     for indicator in sorted(detail["indicator"].unique()):
         sub = summary[summary["indicator"] == indicator]
         for scope in ("Scope 1", "Scope 2", "Scope 3", "Outside protocol"):
             rows_ = sub.loc[sub.scope == scope, "value"]
-            if rows_.empty or (indicator, scope) not in got.index:
+            if rows_.empty or float(rows_.iloc[0]) == 0.0:
                 continue
+            assert (indicator, scope) in got.index, \
+                f"{indicator} {scope}: summary is non-zero but no rows assembled"
             target = float(rows_.iloc[0])
             assert np.isclose(got[(indicator, scope)], target, rtol=1e-8), (
                 f"{indicator} {scope}: assembled {got[(indicator, scope)]:,.4f} "
                 f"vs summary {target:,.4f}")
-    assert np.isclose(got[("climate_change", "Scope 1")],
-                      float(comp.loc["Scope 1 (Total)"]), rtol=1e-9)
-    assert np.isclose(got[("climate_change", "Outside protocol")],
-                      float(comp.loc["Outside protocol (patient/visitor travel)"]),
-                      rtol=1e-9)
     return detail
 
 
@@ -263,7 +241,8 @@ def top_n_with_remainder(detail: pd.DataFrame, n: int = TOP_N) -> pd.DataFrame:
 
 def main() -> None:
     """Write the detail, top-N and grouped scope tables."""
-    out_dir = os.path.join(str(OUTPUT_DIR), FOLDER)
+    out_dir = os.path.join(str(OUTPUT_DIR), *FOLDER.split("/"))
+    os.makedirs(out_dir, exist_ok=True)
     detail = build_detail()
     detail.to_csv(os.path.join(out_dir, "scope_by_origin_and_industry.csv"),
                   index=False)
