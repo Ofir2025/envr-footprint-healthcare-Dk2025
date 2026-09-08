@@ -127,3 +127,41 @@ control nor purchase it. It is reported separately rather than folded into Scope
 - The double-counting ledger tests each bottom-up item against the MRIO for overlap and
   records the numerical result, so "we checked for double counting" is a table, not a
   claim.
+
+## Figure-ready tables and figures
+
+`analysis.scope_figure_tables` reshapes the partition for plotting. Scope 2 and the MRIO
+part of scope 3 already carry producing nodes; scope 1 and the bottom-up items do not, and
+are placed at their true Danish origin rather than dropped:
+
+| Component | Origin | Industry label |
+|---|---|---|
+| Scope 1 (DRIVHUS) + anaesthetic gases | DNK | Health and social work |
+| pMDI propellants | DNK | Health and social work |
+| Employee commuting | DNK | Bottom-up: employee commuting |
+| Patient and visitor travel | DNK | Bottom-up: patient and visitor travel |
+
+All are Danish by construction — emissions of Danish providers, staff or patients — so
+labelling them as such is what lets the bars be added back to the headline.
+
+| Table | Grain |
+|---|---|
+| `scope_by_origin_and_industry.csv` | scope × producing country × producing industry (7 346 rows) |
+| `scope_by_origin_industry_top25.csv` | the 25 largest (country, industry) pairs, remainder pooled and labelled |
+| `scope_by_industry_group.csv` | scope × industry group |
+| `scope_by_continent.csv` | scope × world region of origin |
+| `scope_by_continent_and_industry_group.csv` | the cross |
+| `scope_by_country.csv` | scope × country |
+
+Each aggregation asserts that it preserves the total, so no view can silently lose mass.
+
+`R/plot_scope_emissions.R` renders four TIFFs from these tables, in the study's figure
+conventions (`R/_dk_common.R`): no on-figure title, facet titles the largest text, legend
+at the bottom without a title, bars ranked descending with the remainder re-sorted into the
+ranking by its own value, per-facet axis ceilings so no bar touches the panel edge, and
+ASCII-only labels because the TIFF font renders a middle dot as `..`.
+
+**A finding visible in the top-origins figure:** the 25 largest origin–industry pairs
+account for 45 % of the footprint; the pooled remainder is the single largest bar. The
+Danish health footprint is diffuse — no supplier dominates it — which is itself worth
+stating, and is why the remainder bar is kept rather than cropped.

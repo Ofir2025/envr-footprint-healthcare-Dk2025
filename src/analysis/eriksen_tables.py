@@ -40,7 +40,7 @@ import numpy as np
 import pandas as pd
 
 from analysis.constants import ANALYSIS_YEAR, MODEL_LABEL
-from analysis.detail_tables import domestic_import_split
+from analysis.detail_tables import domestic_import_split, node_labels
 from paths import OUTPUT_DIR
 
 FOLDER = "01_eriksen_replication"
@@ -160,6 +160,26 @@ def standardise(stem: str, prefix: str, description: str) -> pd.DataFrame:
                      value_vars=present, var_name="_indicator_col",
                      value_name="value")
     long = long.rename(columns=rename_map(prefix))
+
+    # The legacy workbook carries EXIOBASE codes with their A_ / C_ construct
+    # prefix and the Dutch original's world-region aggregation. Normalise both
+    # onto the study's star-schema convention, taking the mapping from the one
+    # source of truth rather than restating it here.
+    regions, _ = node_labels()
+    long[f"{prefix}_sector_code"] = (
+        long[f"{prefix}_sector_code"].astype(str)
+        .str.replace(r"^[AC]_", "", regex=True))
+    # Country coding: ISO3 where one exists, the region name where none does.
+    # The workbook carries EXIOBASE's bare RoW codes and the deprecated ROM.
+    iso = long[f"{prefix}_country_iso3"].astype(str).replace({"ROM": "ROU"})
+    row_mask = iso.isin(["WA", "WL", "WE", "WF", "WM"])
+    long[f"{prefix}_country_iso3"] = iso.where(
+        ~row_mask, long[f"{prefix}_country_name"])
+
+    region_of = dict(zip(regions["iso3"], regions["world_region"]))
+    long[f"{prefix}_world_region"] = (
+        long[f"{prefix}_country_iso3"].map(region_of)
+        .fillna(long[f"{prefix}_world_region"]))
     long["indicator"] = long["_indicator_col"].map(lambda c: mapping[c][0])
     long["unit"] = long["_indicator_col"].map(lambda c: mapping[c][1])
     long = long.drop(columns="_indicator_col")
