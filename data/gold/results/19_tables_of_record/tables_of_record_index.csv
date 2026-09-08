@@ -11,6 +11,6 @@ number,title,source,rows,columns,supersedes
 10,Simulation and error propagation agree to within 0.05 percentage points,04_uncertainty_lenzen_ieooc/uncertainty_totals.csv and uncertainty_tier1_error_propagation.csv,5,7,False
 11,"The uncertainty is the input-output model, not the bottom-up proxies the reviewers questioned",04_uncertainty_lenzen_ieooc/uncertainty_variance_shares.csv,7,2,False
 12,"Every quantified lever, plus a decarbonising grid, leaves the 2035 footprint above today's",18_mitigation_scenarios/target_consistency.csv,12,3,True
-13,Two scenarios improve climate while worsening another pressure,18_mitigation_scenarios/burden_shifting.csv,29,6,False
+13,Two scenarios improve climate while worsening another pressure,18_mitigation_scenarios/burden_shifting.csv,33,6,False
 14,"EXIOBASE v3.10.2 fails against the Danish national accounts from 2015 onward, and v3.8.2 does not",09_vintage_diagnostics/dk_block_vs_national_accounts.csv,13,4,False
 15,Each parameter's spread follows from the kind of source it has,04_uncertainty_lenzen_ieooc/uncertainty_parameters.csv,6,4,False

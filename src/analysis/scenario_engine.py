@@ -302,7 +302,8 @@ def apply_edits(A: np.ndarray, B: np.ndarray, y: np.ndarray,
     return A_alt, B_alt, y_alt, released
 
 
-def rebound_rescale(y_alt: np.ndarray, y_ref: np.ndarray) -> np.ndarray:
+def rebound_rescale(y_alt: np.ndarray, y_ref: np.ndarray,
+                    edited: np.ndarray | None = None) -> np.ndarray:
     """Hold total final expenditure constant (Aguilar-Hernandez et al., 2018, eq. 4).
 
     Parameters
@@ -311,17 +312,34 @@ def rebound_rescale(y_alt: np.ndarray, y_ref: np.ndarray) -> np.ndarray:
         Counterfactual final demand, already edited.
     y_ref : numpy.ndarray
         Baseline final demand.
+    edited : numpy.ndarray, optional
+        Positions the scenario reduced. The released budget is spread over the
+        remaining positions only. Aguilar-Hernandez et al. (2018) distribute it
+        "proportionally to the rest of goods" and Wood et al. (2017, eq. 9) over
+        "all products unaffected by the intervention"; rescaling the reduced
+        rows as well would give part of the cut straight back.
 
     Returns
     -------
     numpy.ndarray
-        ``y_alt`` scaled so that its total equals the baseline total. Returns
-        the input unchanged when the scenario did not reduce spending.
+        ``y_alt`` with the released budget redistributed, so its total equals
+        the baseline total. Returns the input unchanged when the scenario did
+        not reduce spending.
     """
     tot_ref, tot_alt = float(y_ref.sum()), float(y_alt.sum())
-    if tot_alt <= 0 or np.isclose(tot_alt, tot_ref):
+    if tot_alt <= 0 or tot_alt >= tot_ref:
         return y_alt
-    return y_alt * (tot_ref / tot_alt)
+
+    released = tot_ref - tot_alt
+    untouched = np.asarray(y_alt).astype(float).copy()
+    if edited is not None:
+        mask = np.zeros(untouched.shape, dtype=bool)
+        mask[np.asarray(edited, dtype=int)] = True
+        untouched[mask] = 0.0
+    base = float(untouched.sum())
+    if base <= 0:                      # everything was edited; nothing to absorb
+        return y_alt
+    return np.asarray(y_alt).astype(float) + untouched * (released / base)
 
 
 def solve(A: np.ndarray, y: np.ndarray) -> np.ndarray:
@@ -368,11 +386,24 @@ def column_imbalance(A_alt: np.ndarray, A: np.ndarray,
     Returns
     -------
     float
-        Unbalanced value as a percentage of total output. Zero when ``A`` was
-        not edited.
+        Unbalanced value as a percentage of the output driven by health-care
+        final demand. Zero when ``A`` was not edited.
+
+    Notes
+    -----
+    The absolute value is taken **per column**, before summing. Taking it after
+    the inner product would let a column that gained inputs cancel one that lost
+    them, and report a balanced table where two equal and opposite departures
+    sit side by side. Every scenario in the present set edits in one direction,
+    so the two forms agree today; a substitution with a negative weighting
+    factor, which Donati et al. (2020, §4) use, would separate them.
+
+    ``x`` is the output driven by health-care final demand, not economy-wide
+    output, because that is what the counterfactual is solved for. The share is
+    labelled accordingly wherever it is reported.
     """
     if A_alt is A:
         return 0.0
-    gap = float(np.abs((A - A_alt).sum(axis=0) @ x))
-    total = float(x.sum())
-    return 100.0 * gap / total if total else 0.0
+    per_column = np.abs((A - A_alt).sum(axis=0) * np.asarray(x).reshape(-1))
+    total = float(np.asarray(x).sum())
+    return 100.0 * float(per_column.sum()) / total if total else 0.0
