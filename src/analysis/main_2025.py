@@ -599,11 +599,21 @@ scale_bottomup_all_to_dk(
 # same register. A 5% downward correction is applied to sevoflurane for the
 # fraction metabolised rather than exhaled (MacNeill et al. 2017; Schuster 2020).
 #
-# The N2O term is unchanged: Denmark's National Inventory Document 2024 (DCE
-# report 622) category 2.G.3.a, a constant 38 t N2O/yr for 2013-2022, times the
-# model's own DESIRE GWP100 factor of 298 so that the bottom-up item and the
-# MRIO characterisation use one GWP vintage. Hospital N2O was subtracted from
-# the DRIVHUS direct figure, so there is no double counting.
+# The N2O term: Denmark's National Inventory Document 2024 (DCE report 622)
+# category 2.G.3.a, a constant 38 t N2O/yr for 2013-2022, times 298.
+#
+# That factor is AR4. It was chosen when the MRIO climate row still carried
+# EXIOBASE's own DESIRE factors, which are AR4, so the two agreed. The MRIO row
+# is now rebuilt on AR6 (constants.GWP100_AR6, N2O = 273), so the two no longer
+# agree and this item is the study's one remaining vintage mismatch. The size of
+# it is 38 t x (298 - 273) = 0.95 kt CO2e, which is 0.02 % of the 4,713 kt
+# headline. It is left as it stands and reported rather than changed mid-
+# revision, because moving it would restate every gold file, figure and table
+# for a difference two orders of magnitude below the reported interval. See
+# docs/revision/anomalies_bugs_and_open_questions.md A8.
+#
+# Hospital N2O was subtracted from the DRIVHUS direct figure, so there is no
+# double counting.
 DK_ANAESTHETIC_LITRES = {
     "2019": {"sevoflurane": 2714.0, "desflurane": 400.0, "isoflurane": 17.0},
     "2022": {"sevoflurane": 2400.0, "desflurane": 181.0, "isoflurane": 15.0},
