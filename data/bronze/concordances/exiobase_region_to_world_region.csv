@@ -1,0 +1,50 @@
+region_code,region_name,world_region,is_row_region
+AUT,Austria,Europe,False
+BEL,Belgium,Europe,False
+BGR,Bulgaria,Europe,False
+CYP,Cyprus,Middle East,False
+CZE,Czech Republic,Europe,False
+DEU,Germany,Europe,False
+DNK,Denmark,Denmark,False
+EST,Estonia,Europe,False
+ESP,Spain,Europe,False
+FIN,Finland,Europe,False
+FRA,France,Europe,False
+GRC,Greece,Europe,False
+HRV,Croatia,Europe,False
+HUN,Hungary,Europe,False
+IRL,Ireland,Europe,False
+ITA,Italy,Europe,False
+LTU,Lithuania,Europe,False
+LUX,Luxembourg,Europe,False
+LVA,Latvia,Europe,False
+MLT,Malta,Europe,False
+NLD,Netherlands,Europe,False
+POL,Poland,Europe,False
+PRT,Portugal,Europe,False
+ROU,Romania,Europe,False
+SWE,Sweden,Europe,False
+SVN,Slovenia,Europe,False
+SVK,Slovakia,Europe,False
+GBR,United Kingdom,Europe,False
+USA,United States,America,False
+JPN,Japan,Asia and Pacific,False
+CHN,China,Asia and Pacific,False
+CAN,Canada,America,False
+KOR,South Korea,Asia and Pacific,False
+BRA,Brazil,America,False
+IND,India,Asia and Pacific,False
+MEX,Mexico,America,False
+RUS,Russia,Europe,False
+AUS,Australia,Asia and Pacific,False
+CHE,Switzerland,Europe,False
+TUR,Turkey,Middle East,False
+TWN,Taiwan,Asia and Pacific,False
+NOR,Norway,Europe,False
+IDN,Indonesia,Asia and Pacific,False
+ZAF,South Africa,Africa,False
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,True
+RoW America,RoW America,America,True
+RoW Europe,RoW Europe,Europe,True
+RoW Africa,RoW Africa,Africa,True
+RoW Middle East,RoW Middle East,Middle East,True

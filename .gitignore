@@ -27,3 +27,4 @@ data/silver/background/
 # deliverable, so un-ignore the figures tree (repo .gitignore takes precedence).
 !figures/**/*.tiff
 !figures/**/*.png
+!data/bronze/concordances/*.csv
