@@ -13,10 +13,9 @@ here are the 2022 climate result, 100,000 draws, seed 42.
 
 ## 1. The question, and why a single number cannot answer it
 
-The first-round review asked us to vary the study's proxy assumptions
-systematically — by sensitivity analysis or Monte Carlo — across plausible
-ranges and to report the resulting ranges for the main estimates, and questioned
-whether a ±20–50 % band on the scaling factors was the right one.
+The first-round review asked us to propagate the study's proxy assumptions across
+plausible ranges and report what that does to the headline estimates, and
+questioned whether a ±20–50 % band on the scaling factors was the right one.
 
 The underlying worry is fair. Our headline is
 
