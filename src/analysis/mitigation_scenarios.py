@@ -209,8 +209,17 @@ def build_scenarios(bg: dict[str, Any], sec: pd.DataFrame, n_regions: int,
     chem = _sector_positions(sec, ("CHEM",))
     mein = _sector_positions(sec, ("MEIN",))
     heal = _sector_positions(sec, ("HEAL",))
-    repair = _sector_positions(sec, ("OBUS",)) if "OBUS" in set(
-        sec["sector_code"]) else heal
+    # P4 moves device spending into the industry that repairs and refurbishes
+    # them. EXIOBASE has no repair industry, so this is *Other business
+    # services*, which is where maintenance and refurbishment contracts sit.
+    # The name is stated in the lever's note because the substitute is not what
+    # the lever is called. Falling back to the health industry itself, as an
+    # earlier version did, would have substituted the sector into its own
+    # column without saying so.
+    assert "OBUS" in set(sec["sector_code"]), (
+        "P4 substitutes into Other business services (OBUS); this background "
+        "does not carry that industry, so the lever cannot be built")
+    repair = _sector_positions(sec, ("OBUS",))
     incin = _sector_positions(
         sec, tuple(c for c in ("INCF", "INCP", "INCL", "INCM", "INCT", "INCW",
                                "INCO") if c in set(sec["sector_code"])))
@@ -221,26 +230,38 @@ def build_scenarios(bg: dict[str, Any], sec: pd.DataFrame, n_regions: int,
     scenarios: list[Scenario] = []
 
     # ---- B1 background: grid and district-heat decarbonisation ----------
+    #
+    # Reported twice, because the evidence and the modelled scope differ. The
+    # Danish Energy Agency projects the DANISH grid; applying that trajectory
+    # to every region's energy nodes assumes the rest of the world decarbonises
+    # at Denmark's projected rate, which no source here supports. So B1 is the
+    # evidence-matched Denmark-only case and B1G is the global upper bound, and
+    # the difference between them is reported rather than buried in a note.
     base_factor = DK_GRID_FACTOR["KF22"][2022]
     for vintage, factors in DK_GRID_FACTOR.items():
         for year in (2030, 2035):
             if year not in factors:
                 continue
             k_t = 1.0 - factors[year] / base_factor
-            scenarios.append(Scenario(
-                sid="B1", name=f"grid and district heat, {year}",
-                kind="background pathway",
-                ambition=f"{vintage} to {year}",
-                edits=(Edit(target="B", cols=np.flatnonzero(energy),
-                            k_t=k_t, k_p=1.0,
-                            source=(f"Danish Energy Agency {vintage}: "
-                                    f"{base_factor} -> {factors[year]} "
-                                    f"g CO2e/kWh"),
-                            penetration_basis="the whole Danish grid"),),
-                note=("scales the intensity matrix at transmission, "
-                      "distribution and steam nodes in every region; "
-                      "generation technologies carry almost none of the "
-                      "footprint and are not scaled")))
+            src = (f"Danish Energy Agency {vintage}: {base_factor} -> "
+                   f"{factors[year]} g CO2e/kWh")
+            for sid, cols, scope, basis in (
+                    ("B1", dk_energy, "Danish",
+                     "the Danish grid, which is what the projection covers"),
+                    ("B1G", energy, "every region",
+                     "every region's grid, at Denmark's projected rate; an "
+                     "upper bound, not an evidenced trajectory")):
+                scenarios.append(Scenario(
+                    sid=sid, name=f"grid and district heat, {scope}, {year}",
+                    kind="background pathway",
+                    ambition=f"{vintage} to {year}",
+                    edits=(Edit(target="B", cols=np.flatnonzero(cols),
+                                k_t=k_t, k_p=1.0, source=src,
+                                penetration_basis=basis),),
+                    note=("scales the intensity matrix at transmission, "
+                          "distribution and steam nodes in " + scope +
+                          "; generation technologies carry almost none of "
+                          "the footprint and are not scaled")))
 
     # ---- P1 hospital energy and transport, Danske Regioner 2020 ---------
     for k_p in (0.5, 1.0):
@@ -419,7 +440,7 @@ def build_scenarios(bg: dict[str, Any], sec: pd.DataFrame, n_regions: int,
     return scenarios
 
 
-def combine(scenarios: list[Scenario]) -> list[Scenario]:
+def combine(scenarios: list[Scenario]) -> tuple[list[Scenario], list[Scenario]]:
     """Build the two combined scenarios from the most ambitious of each lever.
 
     Parameters
@@ -429,9 +450,17 @@ def combine(scenarios: list[Scenario]) -> list[Scenario]:
 
     Returns
     -------
-    list of Scenario
-        ``C1`` (all interventions applied simultaneously) and ``C2`` (the same
-        with total final expenditure held constant).
+    combined : list of Scenario
+        ``C1`` (all interventions applied simultaneously), ``C2`` (the same
+        with total final expenditure held constant) and ``C3`` (C1 plus the
+        grid pathway).
+    selected : list of Scenario
+        The individual levers C1 was built from, one per lever. The naive sum
+        and the waterfall figure must use exactly this set: selecting by the
+        largest change instead, as they did, picks a different ambition level
+        for any lever that worsens the indicator, and the difference between
+        the sum and the combined solution then contains that mismatch rather
+        than an interaction.
 
     Notes
     -----
@@ -458,8 +487,10 @@ def combine(scenarios: list[Scenario]) -> list[Scenario]:
     # The background pathway is not a health-system lever, but the regions
     # meet their target in a decarbonising grid, so the policy-relevant
     # combination includes it. All three are reported.
+    # The Denmark-only pathway, because it is the one the projection evidences.
     grid = max((s for s in scenarios if s.sid == "B1"),
                key=lambda s: sum(e.k_a for e in s.edits))
+    selected = list(best.values())
     return [
         Scenario(sid="C1", name="all interventions combined",
                  kind="combined", ambition="maximum modelled", edits=edits,
@@ -477,7 +508,7 @@ def combine(scenarios: list[Scenario]) -> list[Scenario]:
                  note=(note + ". The grid pathway is added because the regions "
                        "meet their target in a decarbonising economy; it is "
                        "not something the health system causes")),
-    ]
+    ], selected
 
 
 def main() -> None:
@@ -500,15 +531,30 @@ def main() -> None:
                                   "dk_bottomup_data_2025.txt"),
                      sep="\t").set_index("Source")
 
+    def bottom_up_items(indicator: str, scale: dict[str, float] | None = None
+                        ) -> dict[str, float]:
+        """Bottom-up value per item for one indicator, after any scaling.
+
+        Parameters
+        ----------
+        indicator : str
+            One of the five impact categories.
+        scale : dict of str to float, optional
+            Reduction applied to an item, keyed by its bottom-up code.
+
+        Returns
+        -------
+        dict of str to float
+            One entry per bottom-up item, in the indicator's own unit.
+        """
+        col = BU_COLUMN[indicator]
+        return {key: float(bu.loc[row, col]) * (1.0 - (scale or {}).get(key, 0.0))
+                for key, row in BOTTOM_UP_ROWS.items()}
+
     def bottom_up(indicator: str, scale: dict[str, float] | None = None
                   ) -> float:
         """Bottom-up total for one indicator, with optional per-item scaling."""
-        col = BU_COLUMN[indicator]
-        total = 0.0
-        for key, row in BOTTOM_UP_ROWS.items():
-            v = float(bu.loc[row, col])
-            total += v * (1.0 - (scale or {}).get(key, 0.0))
-        return total
+        return sum(bottom_up_items(indicator, scale).values())
 
     # ---- baseline --------------------------------------------------------
     x0 = solve(A, y0)
@@ -525,7 +571,22 @@ def main() -> None:
         f"study headline {grand:,.1f} kt by more than 1 %")
 
     scenarios = build_scenarios(bg, sec, n_regions, names)
-    scenarios += combine(scenarios)
+    combined, selected = combine(scenarios)
+    scenarios += combined
+    #: (scenario_id, ambition) of the levers C1 was actually built from.
+    in_c1 = {(s.sid, s.ambition) for s in selected}
+
+    # The node vector B_alt[k] * x is what the dot product below collapses to a
+    # scalar. Discarding it would leave the scenario layer as the one part of
+    # the study with no detail behind its aggregates, so it is kept: every
+    # scenario total is reproducible from this table by summation, which is the
+    # property the rest of the gold layer is held to.
+    node_rows: list[pd.DataFrame] = []
+    reg_iso = np.repeat(reg["iso3"].to_numpy(), len(sec))
+    reg_name = np.repeat(reg["country_name"].to_numpy(), len(sec))
+    sec_code = np.tile(sec["sector_code"].to_numpy(), n_regions)
+    sec_name = np.tile(sec["sector_name"].to_numpy(), n_regions)
+    sec_group = np.tile(sec["sector_group"].to_numpy(), n_regions)
 
     rows: list[dict[str, Any]] = []
     for s in scenarios:
@@ -533,21 +594,55 @@ def main() -> None:
                  if e.target == "bottom_up" and e.key}
         A_alt, B_alt, y_alt, _ = apply_edits(A, B, y0, s.edits)
         if s.rebound:
-            y_alt = rebound_rescale(y_alt, y0)
+            y_alt = rebound_rescale(y_alt, y0,
+                                    edited=np.flatnonzero(y_alt < y0))
         x = x0 if A_alt is A and y_alt is y0 else solve(A_alt, y_alt)
         imbalance = column_imbalance(A_alt, A, x)
         for k, name, unit in INDICATORS:
-            value = (float(B_alt[k] @ x) + float(Hstim[k, 0])
-                     + bottom_up(name, scale))
+            contrib = np.asarray(B_alt[k]).reshape(-1) * np.asarray(x).reshape(-1)
+            items = bottom_up_items(name, scale)
+            value = float(contrib.sum()) + float(Hstim[k, 0]) + sum(items.values())
             change = value - base[name]
+
+            keep = np.flatnonzero(np.abs(contrib) > 0)
+            frame = pd.DataFrame({
+                "scenario_id": s.sid, "scenario": s.label,
+                "ambition": s.ambition, "indicator": name,
+                "unit": unit,
+                "producing_country_iso3": reg_iso[keep],
+                "producing_country_name": reg_name[keep],
+                "producing_sector_code": sec_code[keep],
+                "producing_sector_name": sec_name[keep],
+                "producing_sector_group": sec_group[keep],
+                "value_type": "supply chain",
+                "value": contrib[keep]})
+            extra = pd.DataFrame({
+                "scenario_id": s.sid, "scenario": s.label,
+                "ambition": s.ambition, "indicator": name,
+                "unit": unit, "producing_country_iso3": "DNK",
+                "producing_country_name": "Denmark",
+                "producing_sector_code": ["B_HEAL", *items],
+                "producing_sector_name": ["Direct impact from healthcare services",
+                                          *(BOTTOM_UP_ROWS[key] for key in items)],
+                "producing_sector_group": "Operational impact",
+                "value_type": "bottom-up item",
+                "value": [float(Hstim[k, 0]), *items.values()]})
+            node_rows.append(pd.concat([frame, extra], ignore_index=True))
             rows.append(dict(
                 country_consuming="DNK", analysis_year=ANALYSIS_YEAR,
                 scenario_id=s.sid, scenario=s.label, scenario_type=s.kind,
                 ambition=s.ambition, indicator=name, unit=unit,
                 baseline=base[name], scenario_value=value, change=change,
                 change_pct=100 * change / base[name] if base[name] else np.nan,
-                per_capita_change=change * 1e3 / population
-                if unit.startswith("kt") else np.nan,
+                # kt to kg, Mm3 to m3 and km2 to m2 are all a factor of a
+                # million, so one conversion serves every indicator. The
+                # previous factor of a thousand gave tonnes per person under a
+                # column with no unit, which is how it went unnoticed.
+                per_capita_change=change * 1e6 / population,
+                per_capita_unit={"kt CO2eq": "kg CO2eq per capita",
+                                 "kt": "kg per capita",
+                                 "Mm3": "m3 per capita",
+                                 "km2": "m2 per capita"}[unit],
                 k_t=";".join(f"{e.k_t:g}" for e in s.edits),
                 k_p=";".join(f"{e.k_p:g}" for e in s.edits),
                 k_a=";".join(f"{e.k_a:g}" for e in s.edits),
@@ -562,6 +657,29 @@ def main() -> None:
     table = pd.DataFrame(rows)
     table.to_csv(os.path.join(out_dir, "mitigation_scenarios.csv"), index=False)
 
+    # ---- the detail behind every aggregate above -------------------------
+    detail = pd.concat(node_rows, ignore_index=True)
+    detail.insert(0, "analysis_year", ANALYSIS_YEAR)
+    detail.insert(0, "country_consuming", "DNK")
+    detail["model"] = MODEL_LABEL
+    key = ["scenario_id", "ambition", "indicator"]
+    assert not table.duplicated(key).any(), (
+        "the scenario table is not unique on " + ", ".join(key))
+    check = (detail.groupby(key)["value"].sum().rename("detail").reset_index()
+             .merge(table[key + ["scenario_value"]], on=key, validate="1:1"))
+    worst = float((check["detail"] - check["scenario_value"]).abs().max())
+    assert worst < 1e-6, (
+        f"the scenario detail does not reproduce its own aggregate; worst "
+        f"discrepancy {worst:.3e}")
+    detail.to_csv(os.path.join(out_dir, "scenarios_by_producing_node.csv.gz"),
+                  index=False, compression="gzip")
+    pd.DataFrame([dict(scenario_id=s.sid, scenario=s.label, ambition=s.ambition,
+                       in_combined="C1")
+                  for s in selected]).to_csv(
+        os.path.join(out_dir, "scenario_selection.csv"), index=False)
+    print(f"  node detail {len(detail):,} rows, reproduces every scenario "
+          f"total to {worst:.1e}")
+
     # ---- target consistency ---------------------------------------------
     climate = table[table.indicator == "climate_change"]
     combined = float(climate.loc[climate.scenario_id == "C1", "change"].iloc[0])
@@ -570,9 +688,12 @@ def main() -> None:
     # The naive sum must be taken over the SAME levers C1 contains, or the
     # difference is not an interaction term. P7 is an alternative to P6 on the
     # same devices and is excluded from both.
-    naive = float(climate[(climate.scenario_type == "intervention")
-                          & (climate.scenario_id != "P7")]
-                  .groupby("scenario_id")["change"].min().sum())
+    picked = climate[[(r.scenario_id, r.ambition) in in_c1
+                      for r in climate.itertuples()]]
+    assert len(picked) == len(in_c1), (
+        f"the naive sum covers {len(picked)} levers, C1 was built from "
+        f"{len(in_c1)}")
+    naive = float(picked["change"].sum())
     growth = 0.18
     demand = base["climate_change"] * growth
     required = -base["climate_change"] * REGIONAL_TARGET["reduction_pct"] / 100

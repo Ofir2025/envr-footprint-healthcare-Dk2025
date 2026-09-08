@@ -22,11 +22,16 @@ comparable numbers are:
 | | kt CO₂e | share of the target |
 |---|---|---|
 | All interventions, solved simultaneously (C1) | −361 | **15 %** |
-| Interventions **plus** the grid pathway (C3) | −634 | **27 %** |
+| Interventions **plus** the Danish grid pathway (C3) | −461 | **20 %** |
 
-The 27 % is the like-for-like replacement for the old 31 %. The difference is
-partly the tighter, better-sourced lever set and partly that the old sum double
-counted.
+The 20 % is the like-for-like replacement for the old 31 %. Three things
+separate them: a tighter, better-sourced lever set; an old sum that double
+counted where levers overlap; and the grid pathway now being restricted to the
+Danish grid, which is what the Danish Energy Agency's projection covers.
+Applying that trajectory to every region's grid, which an earlier version did,
+would give −321 kt from the pathway instead of −145 and would put the combined
+figure back at 27 %. That variant is still computed and reported as **B1G**, an
+upper bound rather than an evidenced trajectory.
 
 Three things also changed in kind, not just in value:
 
@@ -78,10 +83,10 @@ business-as-usual trajectory.
 | 2022 baseline | 4,712 |
 | Reduction the regional target requires | −2,357 |
 | Every intervention at maximum ambition, solved together | −361 |
-| …with the grid decarbonising too | −634 |
-| …with the money saved actually being respent | −285 |
+| …with the Danish grid decarbonising too | −461 |
+| …with the money saved actually being respent | −281 |
 | Demand growth to 2035 | +848 |
-| **2035 position, grid pathway included** | **4,928, above the 2022 baseline** |
+| **2035 position, grid pathway included** | **5,100, above the 2022 baseline** |
 
 *In words:* pull every lever we can quantify, as hard as the evidence supports,
 let the Danish grid decarbonise on the government's own projection, and the
@@ -115,8 +120,10 @@ rebound assumes the money is destroyed.
   not have selected the intervention that addresses it.
 - **Rebound shifts burden.** Holding expenditure constant improves climate and
   materials but **worsens blue water (+0.63 %), land use (+0.58 %), and waste
-  (+0.27 %)**: the released budget is respent on a basket more land- and
-  water-intensive than the health basket it left. This burden shift is the
+  (+0.27 %)**. The money is respent inside health care, not on a thirstier
+  basket: the purchases the levers cut, energy and devices, are less water-
+  and land-intensive than the health-care average, so holding expenditure
+  constant tilts the basket towards what remains. This burden shift is the
   clearest trade-off in the study and only appears when rebound and all five
   categories are modelled together.
 - **Waste diversion backfires slightly on climate** while cutting waste.

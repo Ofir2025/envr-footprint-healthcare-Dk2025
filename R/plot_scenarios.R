@@ -48,11 +48,16 @@ clim <- ms %>% filter(indicator == "climate_change")
 # P7 is excluded: it is an alternative to P6 on the same devices, so the
 # combined scenario contains one or the other, never both. Showing it as a step
 # would make the waterfall stop adding up.
+#
+# The steps are read from scenario_selection.csv, which the engine writes with
+# the exact levers C1 was built from. Re-deriving them here by slice_min(change)
+# picked a different ambition level for any lever that worsens climate, so the
+# bars were not the set inside the combined bar and the residual was not an
+# interaction.
+selection <- read_csv(gold_path("scenario_selection.csv"), show_col_types = FALSE)
+
 levers <- clim %>%
-  filter(scenario_type == "intervention", scenario_id != "P7") %>%
-  group_by(scenario_id) %>%
-  slice_min(change, n = 1, with_ties = FALSE) %>%
-  ungroup() %>%
+  semi_join(selection, by = c("scenario_id", "ambition")) %>%
   mutate(label = sub("^P[0-9]+ ", "", scenario)) %>%
   arrange(change) %>%
   transmute(step = label, amount = change, kind = "Health-system lever")
@@ -130,9 +135,11 @@ dk_save(p8, sprintf("fig8_mitigation_waterfall_%s", YEAR), w = 16, h = 10)
 # ======================== fig 9  burden shifting ============================
 # Every scenario at its most ambitious level, every indicator, as relative
 # change. Diverging fill so the sign is the first thing read.
+# The same set as fig 8, plus the levers C1 excludes, because burden shifting is
+# a property of every lever rather than only of the combined ones.
 best <- clim %>%
   group_by(scenario_id) %>%
-  slice_min(change, n = 1, with_ties = FALSE) %>%
+  slice_max(abs(change), n = 1, with_ties = FALSE) %>%
   ungroup() %>%
   select(scenario_id, ambition)
 

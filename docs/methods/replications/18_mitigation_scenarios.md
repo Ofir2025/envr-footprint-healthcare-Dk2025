@@ -50,8 +50,13 @@ $$\mathbf{r}^{*} = \mathbf{B}^{*}(\mathbf{I}-\mathbf{A}^{*})^{-1}\mathbf{y}^{*} 
 
 $$\Delta = \mathbf{r}^{*} - \mathbf{r} \tag{3}$$
 
-Equations (1)-(3) are Aguilar-Hernandez et al.'s (2018) equations 1-3 with the
-direct and bottom-up terms this study adds. The counterfactual is **solved**,
+Equations (1) and (2) are Aguilar-Hernandez et al.'s (2018) equations 1 and 2
+with the direct and bottom-up terms this study adds. Equation (3) follows Donati
+et al. (2020, §2.3) rather than Aguilar-Hernandez's equation 3, which is the
+same difference with the opposite sign: theirs is positive when the
+counterfactual is an improvement. The convention here is that a reduction reads
+negative, which is what a reader expects of a mitigation table, and it is used
+consistently in the code and in every output column. The counterfactual is **solved**,
 not approximated from the baseline inverse: `numpy.linalg.solve` on
 $(\mathbf{I}-\mathbf{A}^{*})$ takes about three seconds on a 7,987 × 7,987
 model, and agrees with the stored Leontief inverse to 1 × 10⁻¹¹, so there is no
@@ -63,7 +68,8 @@ Every edit is
 
 $$M^{*}_{ij} = M_{ij}\,(1 - k_a), \qquad k_a = k_t \, k_p \tag{4}$$
 
-after Donati et al. (2020, §2.4). $k_t$ is the **technical** change coefficient
+after Donati et al. (2020, §2.4), who take the split from Wood et al. (2017),
+where it is first set out. $k_t$ is the **technical** change coefficient
 (what the intervention achieves where it is applied), and $k_p$ the **market
 penetration** coefficient (the share of the affected market that adopts it).
 
@@ -89,11 +95,25 @@ released budget over the remaining demand in proportion to existing shares:
 
 $$\mathbf{y}^{**} = \mathbf{y}^{*}\,\frac{\mathbf{i}'\mathbf{y}}{\mathbf{i}'\mathbf{y}^{*}} \tag{6}$$
 
-This redistribution is the zero-cost counterfactual of Donati et al. (2020),
-after Takase et al. (2005) as formalised by Aguilar-Hernandez et al.
-(2018, eq. 4). It is a crude rebound: it assumes the released budget is spent
-on the same basket, and ignores the price and income mechanisms that Onat et
-al. (2023) show can matter more. But reporting a demand-reduction scenario
+This redistribution is Takase et al.'s (2005) closure as formalised by
+Aguilar-Hernandez et al. (2018, eq. 4). It is *not* Donati et al.'s zero-cost
+counterfactual, which this note previously called it: their zero-cost case
+excludes investment and fiscal stimulus and, in their §4.1, excludes rebound as
+well. C1 is the Donati case; C2 is the thing Donati declined to model.
+
+The released budget is spread over the positions the scenario did **not**
+reduce. Aguilar-Hernandez distributes it "proportionally to the rest of goods"
+and Wood et al. (2017, eq. 9) over the products unaffected by the intervention;
+rescaling the reduced rows as well, which an earlier version did, hands part of
+the cut straight back.
+
+It remains a crude rebound. A proportional rescale of the surviving basket is
+equivalent to assuming unit income elasticity for every product in it, which is
+the simplest closure in the taxonomy rather than the best; a
+marginal-expenditure-share vector would be the full answer and is not built
+here. It also ignores the price and income mechanisms that Onat et al. (2023)
+show can matter more, and the circular-economy rebound that Zink and Geyer
+(2017) set out. But reporting a demand-reduction scenario
 *without* it silently assumes the money is destroyed, which is a stronger and
 less defensible assumption. **Both are reported** (C1 and C2), and the
 difference between them is the rebound.
@@ -105,26 +125,52 @@ total output, because the model is not told what an industry does with money it
 stops spending on an input (Donati et al., 2020, §2.3). The engine measures the
 imbalance,
 
-$$\text{imbalance} = \frac{\bigl|\,\mathbf{i}'(\mathbf{A}-\mathbf{A}^{*})\,\mathbf{x}^{*}\bigr|}{\mathbf{i}'\mathbf{x}^{*}} \tag{7}$$
+$$\text{imbalance} = \frac{\sum_j \bigl|\,[\mathbf{i}'(\mathbf{A}-\mathbf{A}^{*})]_j\,x^{*}_j \bigr|}{\mathbf{i}'\mathbf{x}^{*}} \tag{7}$$
 
-and reports it per scenario in `unbalanced_pct_of_output`. It is zero for every
-intensity- and demand-only scenario, zero for the waste diversion (which
-substitutes fully, $\alpha = 1$), and **0.7 % of total output** for the
+The absolute value is taken per column, before summing. Taking it after the
+inner product, as an earlier version did, lets a column that gained inputs
+cancel one that lost them and reports a balanced table where two equal and
+opposite departures sit side by side. Every lever here edits in one direction,
+so the two forms agree on every number reported; a substitution with a negative
+weighting factor, which Donati et al. (2020, §4) use, would separate them.
+
+The denominator is the output driven by health-care final demand, not
+economy-wide output, because that is the system the counterfactual is solved
+for. The engine reports the share per scenario in `unbalanced_pct_of_output`.
+It is zero for every intensity- and demand-only scenario, zero for the waste
+diversion (which substitutes fully, $\alpha = 1$), and **0.7 % of the output
+driven by health-care final demand** for the
 pharmaceutical resource-efficiency lever at full market penetration.
 
-**No balancing procedure is applied to the counterfactual table.** Leaving the
-table unbalanced is a choice, and it is the conservative one. Rebalancing by a
-RAS-type procedure would force the edited table back onto its row and column
-totals, which would partly undo the edit and return a smaller effect than the
-intervention implies; Lenzen et al. (2010, section 2.3) decline to rebalance
-their perturbed tables for the same reason, stating that balancing would reduce
-the perturbation and therefore the reported dispersion. Rebalancing would also
-require an assumption this study does not have: what an industry does with the
-money it stops spending on an input. The engine therefore leaves the imbalance
-in place, measures it, and reports it per scenario, so a reader can see how far
-each counterfactual departs from balance rather than being asked to assume it
-does not. The largest departure in the whole scenario set is 0.7 % of total
-output.
+**No balancing procedure is applied to the counterfactual table.** The
+literature is genuinely split on this, and the split is worth stating rather
+than resolving by assertion.
+
+Donati et al. (2020, §2.3) say plainly that they perform no automatic
+rebalancing of the counterfactual, and Lenzen et al. (2010, §2.3) decline to
+balance their perturbed tables because balancing would reduce the perturbation
+and therefore the dispersion they set out to measure. Against that, Wiebe et
+al. (2018, §3.3) rescale use and value-added coefficients so every edited
+column still sums to one, crediting the procedure to Leontief's own scenario
+work, and treat that as what keeps the system balanced; Schmidt and Merciai (2023, table 2.2) make maintained
+mass balance the discriminator between consequential and attributional models.
+
+The reason this study does not rebalance is narrower than "conservative", and
+it is specific to what the study reports. Column imbalance in a monetary
+input-output table lands on value added: rescaling a column to sum to one is
+exactly the statement that money not spent on an input accrues to the
+industry's own value added instead. **This study reports no value-added,
+output or employment indicator.** All five reported categories are
+environmental and are driven by the physical intensity vector and the solution
+$\mathbf{x}^{*}$, neither of which the rebalancing operation touches. So the
+choice is consequence-free for everything reported here, which is a claim a
+reader can check rather than a disposition.
+
+What rebalancing would buy is a socio-economic indicator, and a study that
+added one would have to do it. The engine therefore leaves the imbalance in
+place, measures it with equation (7), and reports it per scenario, so the
+departure is visible rather than assumed away. The largest in the whole set is
+0.7 % of the output driven by health-care final demand.
 
 ---
 
@@ -222,13 +268,13 @@ input column, not to final demand.
 | 2022 baseline | 4,712 | n/a |
 | Reduction the regional target requires | −2,357 | −50 % |
 | All interventions, solved simultaneously (**C1**) | **−361** | −7.7 % |
-| The same levers summed separately | −362 | n/a |
+| The same levers summed separately | −361 | n/a |
 | Interaction | −0.2 | n/a |
-| Interventions with the grid pathway (**C3**) | **−634** | −13.5 % |
-| Interventions with expenditure held constant (**C2**) | −285 | −6.0 % |
-| Rebound, i.e. what respending removes | +77 | 21 % of the saving |
+| Interventions with the grid pathway (**C3**) | **−461** | −9.8 % |
+| Interventions with expenditure held constant (**C2**) | −281 | −6.0 % |
+| Rebound, i.e. what respending removes | +80 | 22 % of the saving |
 | Demand growth to 2035, business as usual | +848 | +18 % |
-| **Net 2035 position, grid pathway included** | **+215** | **+4.6 %** |
+| **Net 2035 position, grid pathway included** | **+388** | **+8.2 %** |
 
 Three things are worth saying in the paper.
 
@@ -243,7 +289,7 @@ scenario reported without rebound is reporting the case where the money is
 destroyed.
 
 **Demand growth is larger than everything.** Every quantified lever at maximum
-ambition, plus a decarbonising grid, reaches 27 % of the regional target and is
+ambition, plus a decarbonising Danish grid, reaches 20 % of the regional target and is
 then more than cancelled by projected demand growth, leaving the 2035 footprint
 **above** the 2022 baseline. This outcome is the substantive finding, and it
 follows directly from the hotspot analysis: the levers that dominate the
@@ -262,8 +308,11 @@ can be said.
   addresses it is not the one the climate framing would select.
 - **C2 shifts burden.** Holding expenditure constant improves climate (−6.0 %)
   and materials (−2.6 %) but **worsens blue water (+0.63 %), land use (+0.58 %),
-  and waste (+0.27 %)**, because the released budget is respent on a basket that
-  is more land- and water-intensive than the health basket it left. This burden
+  and waste (+0.27 %)**. The mechanism is not that the money leaves for a
+  thirstier basket: it is respent inside health care. It is that the purchases
+  the levers cut, energy and devices, are *less* water- and land-intensive than
+  the health-care average, so holding expenditure constant tilts the basket
+  towards what remains. This burden
   shift is the clearest trade-off in the study, and it only appears once rebound
   and all five categories are modelled together.
 - **P9, waste diversion, backfires slightly on climate** (+0.002 %) while
@@ -291,12 +340,49 @@ can be said.
 | Accounting imbalance from editing **A** | 0 for B- and y-only scenarios; 0.7 % of output at the largest A edit; reported per scenario, never rebalanced away |
 | Two official grid-projection vintages | KF22 and KF25 differ by 1.0 pp on the same lever; both reported rather than the more flattering one |
 | Market penetration | P2 reported at 25 / 50 / 100 % of Danish production, because the share achieving Lundbeck's result is unknown |
-| Rebound on/off | C1 vs C2; 21 % of the saving |
+| Rebound on/off | C1 vs C2; 22 % of the saving |
 | Substitution keeps balance | P9 with $\alpha = 1$ has zero imbalance, as it must |
 
 ---
 
 ## 6. What is deliberately not modelled
+
+- **Scope 1 is out of reach of every lever.** Equation (2) writes $\mathbf{d}^{*}$
+  as an editable object, and Wood et al. (2017, eq. 12) do edit the direct
+  final-demand emission vector, but this engine has no target for it: `Target`
+  is `A`, `B`, `y` or `bottom_up`, so $\mathbf{d}^{*} \equiv \mathbf{d}$
+  throughout. The consequence is specific and it falls on P1. Danske Regioner's
+  target covers on-site combustion and vehicle fuel; P1 edits purchased energy
+  only, so the **118.6 kt of Scope 1** in the scope partition, which is where
+  hospital boilers and the ambulance fleet sit, cannot move. At the target's
+  full ambition that is of the order of 89 kt not modelled, against a combined
+  intervention total of 361 kt. P1 should be read as *purchased* hospital
+  energy.
+- **The avoided virgin material behind waste diversion.** P9 moves the health
+  industry's purchases from incineration to recycling within the same column.
+  It carries no credit for the primary production that recovered material
+  displaces, which in a consequential frame is most of the point of recycling,
+  and no debit for the district heat that Danish incineration supplies and that
+  diverted waste would stop supplying. Monetary input-output also prices
+  secondary feedstock near zero, so the lever is structurally under-weighted;
+  that, not only the small purchase volume, is why P9 comes out at +0.002 %.
+  The counterweight is worth stating too: there is empirical work finding that
+  increased recycling did not in practice displace virgin material, so the
+  credit is not simply owed and should not be hard-coded. That literature has
+  not been read for this study and is not cited here; it is named as an open
+  question rather than as support.
+- **Marginal against average electricity.** A demand reduction should arguably
+  be valued at the marginal generating technology, not the average mix. That is
+  the central consequential objection to attributional models, and it is not
+  small in Denmark, where the marginal mix is overwhelmingly wind. Every lever
+  here uses average intensities.
+- **The by-product structure behind Danish district heat.** The study's own
+  finding is that Danish health emissions sit disproportionately on steam and
+  hot-water supply, which is combined heat and power. A consequential model
+  would decide which of heat and electricity is the determining product and
+  treat the other as a by-product; an attributional one allocates.
+
+
 
 - **Price and market responses.** The model is attributional. A scenario is a
   what-if on the recipe, not a forecast of how the economy reacts. Schmidt and

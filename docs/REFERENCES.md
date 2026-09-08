@@ -95,7 +95,7 @@ without its source.
   <br>*Used for:* Correlation between country accounts; why assuming independence understates uncertainty
 - Rørmose Jensen, P., & Iliev, V. (2022). Consumption-based greenhouse gas account for Denmark using coupled models. *Statistics Denmark, Eurostat grant 101022790, work package 4*. https://www.dst.dk
   <br>*Used for:* Diagnosis of the Danish sea-transport allocation in EXIOBASE (74 % domestic intermediate use against 9 %); the benchmark our correction targets
-- Schmidt, J. H., & Merciai, S. (2023). Danish consumption-based environmental footprints using a hybrid consequential input-output model. *2.-0 LCA consultants*. https://lca-net.com
+- Schmidt, J. H., & Merciai, S. (2023). Technical report: GHG emissions from Danish consumption 2016. Causal link between consumption and GHG emissions. *CONCITO, prepared by 2.-0 LCA consultants*. https://lca-net.com
   <br>*Used for:* Published Danish comparator, 6.1 Mt for NACE Q with capital endogenised; consequential, so not like for like
 - Schulte, S., Jakobs, A., & Lupton, R. (2026). When correlation matters: A practical guide to dealing with uncertainty in the case of data disaggregation. *Journal of Industrial Ecology, 30, 665-681*. https://doi.org/10.1007/s44498-026-00048-6
   <br>*Used for:* Correlation between disaggregates is DERIVED from the relative uncertainty of the aggregate and the shares, not chosen; Dirichlet family for the shares, MaxEnt for the aggregate. Neglecting correlation changed sector multiplier SDs by -34 to +130 % and overstated a national footprint's uncertainty by 46 %
@@ -135,7 +135,11 @@ without its source.
   <br>*Used for:* Hybrid input-output and process data; the pattern used for the bottom-up items
 - Wood, R., Moran, D. D., Rodrigues, J. F. D., & Stadler, K. (2019). Variation in trends of consumption based carbon accounts. *Scientific Data, 6, 99*. https://doi.org/10.1038/s41597-019-0102-x
   <br>*Used for:* Cross-database dispersion. Table 1: unweighted mean relative standard deviation 8.3 % (production-based) and 11.9 % (consumption-based) across regions; DENMARK's own row is PBCA RSD 19.3 % and CBCA RSD 8.8 % raw, 8.3 % and 4.2 % after normalisation. Denmark is named in the text as a country whose variation is driven by the handling of international transport emissions
+- Wood, R., Moran, D., Stadler, K., Ivanova, D., Steen-Olsen, K., Tisserant, A., & Hertwich, E. G. (2017). Prioritizing consumption-based carbon policy based on the evaluation of mitigation potential using input-output methods. *Journal of Industrial Ecology, 22(3), 540-552*. https://doi.org/10.1111/jiec.12702
+  <br>*Used for:* Origin of the change coefficient k_a = k_t k_p that Donati et al. (2020) adopt; also the direct final-demand emission vector as an editable object (eq. 12) and the marginal-share re-spend (eq. 9)
 - Wood, R., Neuhoff, K., Moran, D., Simas, M., Grubb, M., & Stadler, K. (2019). The structure, drivers and policy implications of the European carbon footprint. *Climate Policy, 20(sup1), S39-S57*. https://doi.org/10.1080/14693062.2019.1639489
   <br>*Used for:* European carbon footprint structure
 - World Resources Institute & World Business Council for Sustainable Development (n.d.). Guidance on uncertainty assessment in GHG inventories and calculating statistical parameter uncertainty. *Greenhouse Gas Protocol*. https://ghgprotocol.org/calculation-tools-and-guidance
   <br>*Used for:* Scientific versus estimation uncertainty; the requirement to discuss the direction of systematic bias qualitatively. NOTE: the document carries no publication year, version or imprint; the 2005 commonly attached to it is unverified
+- Zink, T., & Geyer, R. (2017). Circular economy rebound. *Journal of Industrial Ecology, 21(3), 593-602*. https://doi.org/10.1111/jiec.12545
+  <br>*Used for:* The canonical statement of circular-economy rebound, cited by Aguilar-Hernandez et al. (2018) where the rebound equation is introduced
