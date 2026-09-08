@@ -94,6 +94,14 @@ APPROACHES = {
         equations="total_k = m . y*_k with y*_k = E_k M_k; ranking decomposed into "
                   "expenditure and intensity effects",
         inputs="Danish expenditure by purpose code; prepared background"),
+    "19_tables_of_record": dict(
+        approach="Every table circulated during drafting, regenerated from the "
+                 "gold facts so the record carries one verified value each",
+        reference="internal; each table carries its own source and note, and the "
+                  "supersedes line names the earlier value it replaces",
+        script="analysis.build_tables_record",
+        equations="none; the tables are selections and restatements of gold facts",
+        inputs="the gold fact tables listed in each table's source line"),
     "18_mitigation_scenarios": dict(
         approach="Mitigation levers an attributional EE-MRIO can credibly model",
         reference="Danske Regioner 2024 regional target; Danish Energy Agency KF22/KF25 "
