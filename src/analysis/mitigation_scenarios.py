@@ -46,6 +46,7 @@ import numpy as np
 import pandas as pd
 
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, DK_POPULATION,
+                                eriksen_folder,
                                 INDICATORS, MODEL_LABEL)
 from analysis.detail_tables import node_labels
 from paths import BACKGROUND_DIR, OUTPUT_DIR
@@ -148,7 +149,7 @@ def main() -> None:
 
     # bottom-up items, which several scenarios act on directly
     bottom_up = pd.read_csv(os.path.join(
-        str(OUTPUT_DIR), "01_eriksen_replication",
+        str(OUTPUT_DIR), *eriksen_folder().split("/"),
         "scopes_summary.csv")).set_index("Component")["kt_CO2eq"]
     pmdi = float(bottom_up["  + pMDI (bottom-up, use phase)"])
     anaesthetic = float(bottom_up["  + Anaesthetic gases (bottom-up)"])

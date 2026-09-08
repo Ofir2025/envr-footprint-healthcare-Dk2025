@@ -168,3 +168,30 @@ def ar6_gwp_factor(stressor: str) -> float | None:
                      for marker in CH4_FOSSIL_MARKERS)
         return AR6_GWP100["CH4_fossil" if fossil else "CH4_biogenic"]
     return None
+
+
+#: Name of the manuscript-replication folder for one analysis year.
+#:
+#: The study now reports more than one reference year, so the Eriksen outputs
+#: are held in a year subfolder rather than one flat directory. Without this a
+#: 2019 run would silently overwrite the 2022 headline, which is exactly the
+#: accident the scope routing already guards against.
+ERIKSEN_ROOT = "01_eriksen_replication"
+
+
+def eriksen_folder(year: str | None = None) -> str:
+    """Return the Eriksen output folder for one analysis year.
+
+    Parameters
+    ----------
+    year : str, optional
+        Four-digit analysis year. Defaults to the year this process is
+        configured for (``HC_ANALYSIS_YEAR``).
+
+    Returns
+    -------
+    str
+        Path relative to the gold results root, e.g.
+        ``"01_eriksen_replication/2022"``.
+    """
+    return f"{ERIKSEN_ROOT}/{year or ANALYSIS_YEAR}"
