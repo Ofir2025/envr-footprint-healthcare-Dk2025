@@ -35,8 +35,8 @@
 ### `dim_industry.csv`
 
 - **Rows:** 165
-- **Dimensions:** `industry_code`, `industry_name`, `industry_type`
-- **Measures:** `industry_id`, `industry_group_id`
+- **Dimensions:** `industry_code`, `industry_name`, `industry_type`, `technology_group`
+- **Measures:** `industry_id`, `industry_group_id`, `isic_rev3_division`, `isic_rev3_description`
 
 ### `dim_industry_group.csv`
 

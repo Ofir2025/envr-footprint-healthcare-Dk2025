@@ -195,9 +195,23 @@ Inspected 8 September 2026.
   aggregation — a technology-intensity view of the manufactured inputs to health care — but
   it is **not a replacement** for the study's whole-economy grouping: it covers no
   agriculture, mining, energy or services, and EXIOBASE's 163 industries span all of those.
-  **Wiring it needs an EXIOBASE → ISIC Rev. 3 correspondence, which is not in this folder**
-  (`exio_Classifications_v_3_3_18.xlsx` carries EXIOBASE activity codes but no ISIC column).
-  Flagged as an open item rather than silently skipped.
+  **Now wired.** The missing link is the EXIOBASE developers' own
+  `ISIC REV. 3 - EXIOBASE2.0.xlsx`, which is already on disk at
+  `concordances/exiobase/developers_concordances/Other_Ind_Prod/` (byte-identical to the
+  copy mirrored by the BONSAI project at
+  `github.com/BONSAMURAIS/correspondence_tables`, and originally from the EXIOBASE
+  developer set linked from exiobase.eu; EXIOBASE terms, CC BY-SA 4.0).
+  `data/bronze/concordances/exiobase_industry_to_isic_rev3.csv` derives from it:
+  **138 of 163 EXIOBASE industries** carry an ISIC Rev. 3 division, of which 44 fall in
+  manufacturing divisions 15-37 and so carry your Low / Mid / High technology group.
+  `HEAL` maps one-to-one to division 85, *Health and social work*.
+  Two limits, stated rather than smoothed over: 25 industries have no row in the ISIC
+  table because the hybrid release renumbers them (`i24.x`, `i26.w.1`, `i40.2`, `i90.x`),
+  and 5 span several divisions (quarrying 14/15, private households 95/96/97,
+  extra-territorial 93/99) - for those the lowest division is taken as primary and the
+  full set is kept in `isic_multi_division`, so the assignment is visibly a choice.
+  No direct EXIOBASE → ISIC Rev. 4 table exists; the NACE Rev. 2 route is available but
+  weaker (161 industries, only 143 one-to-one).
 * **`exio_Classifications_v_3_3_18.xlsx`** — EXIOBASE activity, product, country, resource,
   land, emission and waste classifications. Sheets: `Activities`, `Products_HSUTs`,
   `Products_HIOT`, `Correspondence_products`, `Country`, `Priority industry`, and others.
