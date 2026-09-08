@@ -21,13 +21,13 @@ single bottom-up item and wrong for anything else:
 - it could not propagate an effect through the supply chain, so no lever could
   act on a production recipe;
 - it reported **climate only**, so a trade-off between impact categories was
-  invisible by construction — and three of the five categories were being set to
+  invisible by construction - and three of the five categories were being set to
   zero rather than computed;
 - levers were combined by adding their separate answers, which double counts
   every interaction between them.
 
 The layer now follows the counterfactual formalism the environmentally extended
-input–output literature has converged on (Aguilar-Hernandez et al., 2018; Donati
+input-output literature has converged on (Aguilar-Hernandez et al., 2018; Donati
 et al., 2020; Wiebe et al., 2018), so that these results are comparable with
 published circular-economy and future-footprint studies rather than being a
 bespoke calculation.
@@ -50,7 +50,7 @@ $$\mathbf{r}^{*} = \mathbf{B}^{*}(\mathbf{I}-\mathbf{A}^{*})^{-1}\mathbf{y}^{*} 
 
 $$\Delta = \mathbf{r}^{*} - \mathbf{r} \tag{3}$$
 
-Equations (1)–(3) are Aguilar-Hernandez et al.'s (2018) equations 1–3 with the
+Equations (1)-(3) are Aguilar-Hernandez et al.'s (2018) equations 1-3 with the
 direct and bottom-up terms this study adds. The counterfactual is **solved**,
 not approximated from the baseline inverse: `numpy.linalg.solve` on
 $(\mathbf{I}-\mathbf{A}^{*})$ takes about three seconds on a 7,987 × 7,987
@@ -64,8 +64,8 @@ Every edit is
 $$M^{*}_{ij} = M_{ij}\,(1 - k_a), \qquad k_a = k_t \, k_p \tag{4}$$
 
 after Donati et al. (2020, §2.4). $k_t$ is the **technical** change coefficient
-— what the intervention achieves where it is applied — and $k_p$ the **market
-penetration** coefficient — the share of the affected market that adopts it.
+- what the intervention achieves where it is applied - and $k_p$ the **market
+penetration** coefficient - the share of the affected market that adopts it.
 
 Splitting the two is what makes an ambition level auditable. A reader can accept
 the engineering evidence for $k_t$ and still disagree about $k_p$, and can see
@@ -91,7 +91,7 @@ $$\mathbf{y}^{**} = \mathbf{y}^{*}\,\frac{\mathbf{i}'\mathbf{y}}{\mathbf{i}'\mat
 
 This is the zero-cost counterfactual of Donati et al. (2020), after Takase et
 al. (2005) as formalised by Aguilar-Hernandez et al. (2018, eq. 4). It is a
-crude rebound — it assumes the released budget is spent on the same basket, and
+crude rebound - it assumes the released budget is spent on the same basket, and
 ignores the price and income mechanisms that Onat et al. (2023) show can matter
 more. But reporting a demand-reduction scenario *without* it silently assumes
 the money is destroyed, which is a stronger and less defensible assumption.
@@ -134,9 +134,9 @@ in the `ambition_basis` column of the output and nowhere else.
 | **P7** | pMDI → dry-powder inhaler | bottom-up, pMDI | 25 / 50 / 75 % substituted; DPI GWP is 0.06 against 23.4 kg CO₂e per 100 doses (Jeswani & Azapagic, 2019) |
 | **P8** | Nitrous oxide capture | bottom-up, anaesthetic | 25 / 50 / 75 %, with $k_p = 0.6$ because N₂O is 60 % of the Danish anaesthetic term |
 | **P9** | Divert health-care waste to recycling | $\mathbf{A}$, incineration → recycling, $\alpha=1$ | 20 / 40 %, **illustrative** |
-| **C1** | All interventions, simultaneous | all | — |
-| **C2** | C1 with expenditure held constant | all, plus eq. (6) | — |
-| **C3** | C1 plus the grid pathway | all | — |
+| **C1** | All interventions, simultaneous | all | - |
+| **C2** | C1 with expenditure held constant | all, plus eq. (6) | - |
+| **C3** | C1 plus the grid pathway | all | - |
 | **X** | Demand growth to 2035 | $\mathbf{y}$, scaled | +18 %, Danske Regioner business-as-usual |
 
 Two structural findings shaped the design, both verified on this model rather
@@ -165,11 +165,11 @@ input column, not to final demand.
 
 | | kt CO₂e | of the 2022 baseline |
 |---|---|---|
-| 2022 baseline | 4,713 | — |
+| 2022 baseline | 4,713 | - |
 | Reduction the regional target requires | −2,357 | −50 % |
 | All interventions, solved simultaneously (**C1**) | **−361** | −7.7 % |
-| The same levers summed separately | −362 | — |
-| Interaction | −0.2 | — |
+| The same levers summed separately | −362 | - |
+| Interaction | −0.2 | - |
 | Interventions with the grid pathway (**C3**) | **−634** | −13.5 % |
 | Interventions with expenditure held constant (**C2**) | −285 | −6.0 % |
 | Rebound, i.e. what respending removes | +77 | 21 % of the saving |
@@ -179,7 +179,7 @@ input column, not to final demand.
 Three things are worth saying in the paper.
 
 **The levers are close to additive.** Summing them separately overstates the
-combined effect by 0.2 kt out of 361 — under 0.1 %. That is a *result*, not an
+combined effect by 0.2 kt out of 361 - under 0.1 %. That is a *result*, not an
 assumption: it had to be computed to be known, and it means the naive additive
 presentation common in this literature happens to be defensible here. It would
 not be if the levers overlapped more.
@@ -194,7 +194,7 @@ then more than cancelled by projected demand growth, leaving the 2035 footprint
 **above** the 2022 baseline. This is the substantive finding, and it follows
 directly from the hotspot analysis: the levers that dominate the sustainable
 healthcare literature act on 2 % of the footprint, while pharmaceuticals and
-chemical products — 37 % of climate and 51 % of material extraction — are acted
+chemical products - 37 % of climate and 51 % of material extraction - are acted
 on by no published scenario we could find.
 
 ### 4.2 Burden shifting
@@ -251,7 +251,7 @@ can be said.
   two cannot be compared directly.
 - **"Green" versions of a product.** EXIOBASE has one *Chemicals nec* industry,
   so a hospital switching to a lower-impact supplier of the same product cannot
-  be represented as a substitution — only as buying less. Green procurement is
+  be represented as a substitution - only as buying less. Green procurement is
   therefore modelled as volume reduction plus lifetime extension (P4), and this
   limitation is why a procurement lever cannot be given the weight the regions'
   own strategy gives it. Resolving it needs a hybrid or physically extended

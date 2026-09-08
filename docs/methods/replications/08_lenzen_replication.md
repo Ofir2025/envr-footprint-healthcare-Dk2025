@@ -1,9 +1,9 @@
-# 08 — Lenzen KPI set
+# 08 - Lenzen KPI set
 
 **Gold folder** `data/gold/results/08_lenzen_replication/`
 **Module** `analysis.lenzen_replication`
 **Source** Lenzen, Malik, Li et al. (2020), *The environmental footprint of health care:
-a global assessment*, Lancet Planet Health 4:e271–79, and its SI §§2, 5
+a global assessment*, Lancet Planet Health 4:e271-79, and its SI §§2, 5
 
 ## Question this layer answers
 

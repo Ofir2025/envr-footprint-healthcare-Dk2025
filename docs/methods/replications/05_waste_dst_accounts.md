@@ -1,9 +1,9 @@
-# 05 — Domestic waste from Danish national accounts
+# 05 - Domestic waste from Danish national accounts
 
 **Gold folder** `data/gold/results/05_waste_dst_accounts/`
 **Modules** `analysis.waste_domestic_dst`, `analysis.waste_validation`
 **Source** Statistics Denmark StatBank AFF1MU1N / AFF3MU1N (IO-based waste multipliers,
-117 industries, 2011–2023) and AFFALD01 (SEEA waste accounts)
+117 industries, 2011-2023) and AFFALD01 (SEEA waste accounts)
 
 ## Question this layer answers
 

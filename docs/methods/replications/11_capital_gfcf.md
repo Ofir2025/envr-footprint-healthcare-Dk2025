@@ -1,9 +1,9 @@
-# 11 — Capital endogenisation
+# 11 - Capital endogenisation
 
 **Gold folder** `data/gold/results/11_capital_gfcf/`
 **Modules** `analysis.capital_endogenised_sodersten`, `analysis.capital_gfcf`
 **Source** Södersten, Wood & Hertwich (2018), *Environmental impacts of capital formation*,
-Environ Sci Technol 52:13250–13259, eq. 13 and SI §4.1.1; capital matrices from
+Environ Sci Technol 52:13250-13259, eq. 13 and SI §4.1.1; capital matrices from
 Zenodo 7073276 (CC BY 4.0)
 
 ## Question this layer answers
@@ -28,7 +28,7 @@ hypersensitive to investment shocks (their SI §4.1.1).
 ### The bridge this study had to supply
 
 The published capital matrices are distributed as
-`Kbar_exio_v3_8_2_<year>_cfc_pxi.mat` — a **9 800 × 7 987** matrix of capital *products*
+`Kbar_exio_v3_8_2_<year>_cfc_pxi.mat` - a **9 800 × 7 987** matrix of capital *products*
 used by *industries*. This study runs the **industry-by-industry** table, which needs
 7 987 × 7 987, so the product rows must be mapped to industries.
 
@@ -42,14 +42,14 @@ $$D_{ip} = \frac{V_{pi}}{q_p}, \qquad \bar{K}^{\text{ixi}} = D\,\bar{K}^{\text{p
 with $V$ the supply table (9 800 products × 7 987 industries) and $q$ total product output.
 
 > An earlier draft of `docs/revision/capital_gfcf_treatment.md` claimed these matrices
-> could not be used with an ixi model. That was wrong — MRSUT files exist for every year in
-> Zenodo record 5589597 — and the claim has been retracted in that document.
+> could not be used with an ixi model. That was wrong - MRSUT files exist for every year in
+> Zenodo record 5589597 - and the claim has been retracted in that document.
 
 ### Three treatments, reported side by side
 
 | Treatment | Definition |
 |---|---|
-| **Baseline** | capital excluded, $f = C S L y_H$ — what Steenmeijer, Eckelman and the NHS report, and the comparable number |
+| **Baseline** | capital excluded, $f = C S L y_H$ - what Steenmeijer, Eckelman and the NHS report, and the comparable number |
 | **A: exogenous service flow** | CFC of the Danish health and residential-care industries (DST NABK69, P.51c) footprinted as an additional final demand, with the commodity composition of the observed Danish health capital asset mix |
 | **B: endogenised (Södersten)** | $L^K$ as above |
 
@@ -102,5 +102,5 @@ Two implementation traps, both recorded because both silently corrupt the result
 
 Product-to-industry conservation holds to 1.17 × 10⁻¹⁴; the inverse is verified by
 $L^K[:,j] - (A+K)L^K[:,j] - I[:,j]$ at 1.64 × 10⁻¹⁴. Productivity is tested by power
-iteration on $A+K$, not by column sums — EXIOBASE has 72 columns summing above 1 while
+iteration on $A+K$, not by column sums - EXIOBASE has 72 columns summing above 1 while
 remaining productive, so a column-sum test gives a false failure.

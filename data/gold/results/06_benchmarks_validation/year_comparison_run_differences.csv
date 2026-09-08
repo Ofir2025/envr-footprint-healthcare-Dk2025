@@ -1,0 +1,5 @@
+dimension,y2019,y2022,kind,effect
+reference year,2019,2022,change in the world,"health-care expenditure rises 15 %, from 35,271 to 40,597 M.EUR"
+background model,EXIOBASE v3.8.2 IOT_2016_ixi,EXIOBASE v3.8.2 IOT_2022_ixi,change in the model,different technology structure and different satellite accounts; not a like-for-like technology comparison
+Danish sea-transport reallocation,not applied,applied,change in the model,removes the phantom domestic shipping input; the dominant single cause of the climate difference
+demand vector,corrected (all individual-consumption transactions),corrected (all individual-consumption transactions),the same in both,"both runs use this study's extraction, not the submitted manuscript's hand-enumerated list, so the demand-vector correction is NOT part of the difference between them"

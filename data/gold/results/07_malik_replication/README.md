@@ -1,6 +1,6 @@
 # 07_malik_replication
 
-**07 — Malik replication and production layers**
+**07 - Malik replication and production layers**
 
 How does Denmark compare with the Australian health system, on Australia's own methodological choices rather than ours; and how far upstream does the pressure occur?
 
