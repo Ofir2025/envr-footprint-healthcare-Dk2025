@@ -124,6 +124,9 @@ STAGES: tuple[tuple[str, str], ...] = (
 #: another stage rather than on their own. Listing them here is what lets
 #: ``--check`` insist that everything else appears in STAGES.
 NOT_STAGES: frozenset[str] = frozenset({
+    # a bronze-layer fetcher: it downloads register data from Statistics
+    # Denmark and is run when the accounts are refreshed, not on every build
+    "fetch_dst_accounts",
     "__init__", "constants", "functions", "functions_2025", "extra_functions",
     "main",                    # the RIVM original, kept for provenance
     "scenario_engine",         # library behind mitigation_scenarios
