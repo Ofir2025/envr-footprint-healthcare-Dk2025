@@ -159,12 +159,25 @@ def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
          "B_HEAL": _ln(rng, PARAMS["direct"]["gsd"], n),
          "B_ANAE": _ln(rng, PARAMS["anaesthetic"]["gsd"], n),
          "B_PMDI": _ln(rng, PARAMS["pmdi"]["gsd"], n)}
-    # correlated travel pair via a shared method factor
+    # Correlated travel pair. Both factors are built from ONE shared standard
+    # normal and one of their own, each scaled by its own sigma:
+    #
+    #     log h_C = sigma_C (sqrt(rho) z0 + sqrt(1 - rho) z_C)
+    #     log h_V = sigma_V (sqrt(rho) z0 + sqrt(1 - rho) z_V)
+    #
+    # so each marginal keeps exactly the GSD declared in PARAMS while the
+    # correlation of the log-factors is exactly rho. The previous construction
+    # drew one shared factor of sigma_m = sqrt(rho sigma_C sigma_V) and topped
+    # each up by sqrt(sigma^2 - sigma_m^2); at rho = 0.8 that root is negative
+    # for commuting (sigma_m = 0.2451 against sigma_C = 0.2231), the clamp to
+    # zero silently raised commuting's realised GSD from the declared 1.25 to
+    # 1.278, and the simulation then no longer matched the analytic moments or
+    # the variance decomposition, both of which use the declared sigmas.
     s_c, s_v = np.log(PARAMS["commute"]["gsd"]), np.log(PARAMS["visitor"]["gsd"])
-    s_m = np.sqrt(rho * s_c * s_v)
-    m = rng.lognormal(0.0, s_m, n)
-    f["B_COMM"] = m * rng.lognormal(0.0, np.sqrt(max(s_c ** 2 - s_m ** 2, 0)), n)
-    f["B_VISI"] = m * rng.lognormal(0.0, np.sqrt(max(s_v ** 2 - s_m ** 2, 0)), n)
+    z_shared = rng.standard_normal(n)
+    a_rho, b_rho = np.sqrt(rho), np.sqrt(1.0 - rho)
+    f["B_COMM"] = np.exp(s_c * (a_rho * z_shared + b_rho * rng.standard_normal(n)))
+    f["B_VISI"] = np.exp(s_v * (a_rho * z_shared + b_rho * rng.standard_normal(n)))
 
     groups = list(mrio.index)
     mrio_factor = {}
@@ -222,8 +235,50 @@ def summarize(totals, deterministic):
     return pd.DataFrame(rows)
 
 
-def sobol_first_order(mrio, parts, pharma_scenario="A"):
-    """Exact first-order variance shares (additive model, independent terms)."""
+#: Which PARAMS entry drives each bottom-up component.
+_PARAM_OF = {"B_HEAL": "direct", "B_ANAE": "anaesthetic", "B_PMDI": "pmdi",
+             "B_COMM": "commute", "B_VISI": "visitor"}
+
+
+def _sigma(name: str) -> float:
+    """Log-scale standard deviation of one parameter's median-1 multiplier."""
+    if name == "mrio":
+        return float(np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2)))
+    return float(np.log(PARAMS[_PARAM_OF[name]]["gsd"]))
+
+
+def sobol_first_order(mrio, parts, pharma_scenario="A", rho=RHO_TRAVEL):
+    """Exact variance decomposition of the additive lognormal model.
+
+    Parameters
+    ----------
+    mrio : pandas.DataFrame
+        Deterministic MRIO amount per contribution group and indicator.
+    parts : dict of pandas.DataFrame
+        Deterministic bottom-up amount per component, group and indicator.
+    pharma_scenario : str, optional
+        Kept for signature compatibility; the decomposition is taken on the
+        central mapping.
+    rho : float, optional
+        Correlation of the log-factors of commuting and visitor travel.
+
+    Returns
+    -------
+    pandas.DataFrame
+        ``indicator``, ``parameter``, ``variance_share_pct``. Shares sum to
+        100 % exactly: the own-variance of each parameter plus one row for the
+        covariance the correlated travel pair contributes. Without that row the
+        shares would not be a decomposition at all when rho > 0.
+
+    Notes
+    -----
+    For :math:`F=\sum_j a_j h_j` with :math:`h_j` lognormal of median 1 and
+    log-scale SD :math:`\sigma_j`,
+
+    .. math::
+        \operatorname{Var}(F)=\sum_j a_j^2 (e^{\sigma_j^2}-1)e^{\sigma_j^2}
+        + 2 a_C a_V e^{(\sigma_C^2+\sigma_V^2)/2}(e^{\rho\sigma_C\sigma_V}-1)
+    """
     rows = []
     for ind in INDICATORS:
         contrib = {"mrio": float(mrio[ind].sum())}
@@ -231,13 +286,13 @@ def sobol_first_order(mrio, parts, pharma_scenario="A"):
             contrib[code] = float(parts[code][ind].sum())
         var = {}
         for name, a in contrib.items():
-            if name == "mrio":
-                sig = np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2))
-            else:
-                key = {"B_HEAL": "direct", "B_ANAE": "anaesthetic", "B_PMDI": "pmdi",
-                       "B_COMM": "commute", "B_VISI": "visitor"}[name]
-                sig = np.log(PARAMS[key]["gsd"])
+            sig = _sigma(name)
             var[name] = (a ** 2) * (np.exp(sig ** 2) - 1) * np.exp(sig ** 2)
+        a_c, a_v = contrib.get("B_COMM", 0.0), contrib.get("B_VISI", 0.0)
+        s_c, s_v = _sigma("B_COMM"), _sigma("B_VISI")
+        cov = 2.0 * a_c * a_v * np.exp((s_c ** 2 + s_v ** 2) / 2.0) * (
+            np.exp(rho * s_c * s_v) - 1.0)
+        var["covariance_commute_visitor"] = float(cov)
         tot = sum(var.values())
         for name, v in var.items():
             rows.append(dict(indicator=ind, parameter=name,
@@ -245,17 +300,25 @@ def sobol_first_order(mrio, parts, pharma_scenario="A"):
     return pd.DataFrame(rows)
 
 
-def analytic_moments(mrio, parts):
-    """Closed-form mean and SD of the additive lognormal sum (verification)."""
+def analytic_moments(mrio, parts, rho=RHO_TRAVEL):
+    """Closed-form mean and SD of the additive lognormal sum (verification).
+
+    The covariance of the correlated travel pair is included; without it the
+    closed form understates the SD and the assertion against the simulation had
+    to be loosened rather than being a real check.
+    """
     res = {}
     for ind in INDICATORS:
-        terms = [(float(mrio[ind].sum()), np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2)))]
+        terms = [(float(mrio[ind].sum()), _sigma("mrio"))]
         for code in BU_TO_GROUP:
-            key = {"B_HEAL": "direct", "B_ANAE": "anaesthetic", "B_PMDI": "pmdi",
-                   "B_COMM": "commute", "B_VISI": "visitor"}[code]
-            terms.append((float(parts[code][ind].sum()), np.log(PARAMS[key]["gsd"])))
+            terms.append((float(parts[code][ind].sum()), _sigma(code)))
         mean = sum(a * np.exp(s ** 2 / 2) for a, s in terms)
         var = sum(a ** 2 * (np.exp(s ** 2) - 1) * np.exp(s ** 2) for a, s in terms)
+        a_c = float(parts["B_COMM"][ind].sum())
+        a_v = float(parts["B_VISI"][ind].sum())
+        s_c, s_v = _sigma("B_COMM"), _sigma("B_VISI")
+        var += 2.0 * a_c * a_v * np.exp((s_c ** 2 + s_v ** 2) / 2.0) * (
+            np.exp(rho * s_c * s_v) - 1.0)
         res[ind] = (mean, np.sqrt(var))
     return res
 

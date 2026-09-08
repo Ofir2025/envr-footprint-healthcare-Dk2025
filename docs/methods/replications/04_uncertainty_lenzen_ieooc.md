@@ -85,7 +85,7 @@ answers "is the reported ranking robust?" directly, rather than by inspection of
 | Median | 4 735.9 kt |
 | 95 % interval | 4 063.9 – 5 540.0 kt |
 | CV | 7.9 % |
-| MRIO share of variance | 86.8 % |
+| MRIO share of variance | 78.8 % |
 
 ## Deviations from the source, stated
 
@@ -108,4 +108,7 @@ manuscript — reporting the interval without it would over-claim.
 
 - Simulation moments are checked against the closed-form mean and variance of a sum of
   lognormals.
-- Sobol shares sum to 100.0 %, so no interaction mass is hidden.
+- Variance shares sum to 100.0 % once the covariance of the correlated travel
+  pair is carried as its own row; without it the own-terms reach only 90.7 %.
+- A step-by-step derivation of every equation, for a reader who does not want
+  to read the code, is in `docs/revision/monte_carlo_explained.md`.

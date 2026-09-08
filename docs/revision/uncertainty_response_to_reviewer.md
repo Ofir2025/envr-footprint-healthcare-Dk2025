@@ -63,8 +63,8 @@ median reproduces the deterministic result:
 | | Climate change |
 |---|---|
 | Deterministic | 4,713 kt CO₂e |
-| Median | 4,736 kt |
-| 95 % interval | **4,064 – 5,540 kt** |
+| Median | 4,735 kt |
+| 95 % interval | **4,065 – 5,532 kt** |
 | Coefficient of variation | **7.9 %** |
 
 Cross-check: Lenzen et al. report 8.35 % for the same quantity by an entirely different
@@ -76,9 +76,10 @@ Sobol shares:
 
 | Source | Share of variance |
 |---|---|
-| MRIO parameters | **86.8 %** |
-| Patient and visitor travel | 7.4 % |
-| Employee commuting | 5.7 % |
+| MRIO parameters | **78.8 %** |
+| Covariance of the two travel items (shared method) | 9.3 % |
+| Patient and visitor travel | 6.7 % |
+| Employee commuting | 5.1 % |
 | All other bottom-up items | 0.1 % |
 
 This is the most useful single result for the reviewer: **the proxies he was worried about

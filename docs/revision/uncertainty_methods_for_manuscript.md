@@ -1,5 +1,11 @@
 # Uncertainty analysis — methods text for the manuscript
 
+> **If you want the method itself explained rather than the text to publish,
+> read `monte_carlo_explained.md` first.** It derives every equation used here
+> from first principles, names every symbol in plain English, and works one
+> complete draw through by hand. This file is the prose to lift into the paper;
+> that one is why the prose is true.
+
 **For Ofir.** This is written so it can be lifted into the Methods and Results
 with light editing. Everything here is reproducible from
 `analysis.uncertainty_2025`; the tables are in
@@ -55,20 +61,21 @@ for uncertainty on the bottom-up parameters.
 ## 2. Results text (draft)
 
 > The Monte Carlo median for the Danish health-care climate footprint is
-> **4,736 kt CO₂e** with a 95 % interval of **4,064–5,540 kt** and a coefficient
+> **4,735 kt CO₂e** with a 95 % interval of **4,065–5,532 kt** and a coefficient
 > of variation of **7.9 %**, closely consistent with the 8.35 % that Lenzen et
 > al. (2020) report for the same quantity.
 >
 > Variance attribution is more informative than the interval alone. **The
-> multi-regional input–output model contributes 86.8 % of the output variance**;
-> patient and visitor travel 7.4 %; employee commuting 5.7 %; and every
-> remaining bottom-up item **less than 0.2 %**. The proxy assumptions that
+> multi-regional input–output model contributes 78.8 % of the output variance**;
+> patient and visitor travel 6.7 %; employee commuting 5.1 %; the covariance of
+> those two, which share a method, a further 9.3 %; and every remaining
+> bottom-up item **less than 0.1 %**. The proxy assumptions that
 > motivated the reviewers' concern are therefore not what the estimate rests on
 > — the estimate rests on the input–output model. This also means that
 > improving the bottom-up items further would not materially narrow the
 > interval, whereas a nationally consistent input–output model would.
 >
-> Under the alternative pharmaceutical mapping the median falls to **3,608 kt**
+> Under the alternative pharmaceutical mapping the median falls to **3,605 kt**
 > with a wider coefficient of variation of 10.7 %, and the identity of the
 > largest contributing group changes (§ pharmaceutical mapping).
 
@@ -84,9 +91,9 @@ uncertainty by roughly half. We report all three:
 
 | Correlation across groups | CV | 95 % interval (kt) |
 |---|---|---|
-| ρ = 1.00 — perfect (reported default) | **7.9 %** | 4,057–5,546 |
-| ρ = 0.76 — Rodrigues et al.'s measured median | 7.3 % | 4,114–5,477 |
-| ρ = 0.00 — independence | 5.2 % | 4,315–5,274 |
+| ρ = 1.00 — perfect (reported default) | **7.9 %** | 4,059–5,531 |
+| ρ = 0.76 — Rodrigues et al.'s measured median | 7.3 % | 4,110–5,465 |
+| ρ = 0.00 — independence | 5.1 % | 4,315–5,263 |
 
 The default is the widest and therefore cannot understate the interval.
 
@@ -94,9 +101,13 @@ The default is the widest and therefore cannot understate the interval.
 mean sits marginally above the deterministic estimate by construction. The
 inflation is **+0.35 %**, immaterial here but stated.
 
-**(c) First-order Sobol indices exclude interaction variance.** In this additive
-model they sum to **100.0 %**, so the first-order decomposition is complete and
-no interaction mass is hidden.
+**(c) The variance decomposition is exact, and the correlated pair is shown as
+its own term.** The model is additive, so the variance splits in closed form
+into each parameter's own contribution plus one covariance term for commuting
+and patient travel, which share a method (ρ = 0.8). Reporting the six own-terms
+alone would not be a decomposition: they would sum to 90.7 %, not 100 %. With
+the covariance row the shares sum to **100.0 %** exactly and nothing is hidden.
+Read as a block, travel accounts for **21.1 %** of the variance.
 
 ## 4. What this analysis does *not* establish — a limitation to state
 
@@ -147,3 +158,123 @@ the reported interval is easy to over-read.
   20(sup1):S90–S106.
 - Wood R, Neuhoff K, Moran D, et al. (2019) The structure, drivers and policy
   implications of the European carbon footprint. *Scientific Data* 6:99.
+
+---
+
+## 6. Supplementary Information — section S*n*, ready to paste
+
+Self-contained: it repeats the few sentences it needs from the Methods so it can
+be read on its own, as an SI section should be. Equations numbered S1–S7; the
+plain-English derivation of each is in `monte_carlo_explained.md`.
+
+> ### S*n*. Uncertainty propagation
+>
+> #### S*n*.1 Model
+>
+> The health-care footprint is
+>
+> $$F=\mathbf{c}\,(\mathbf{I}-\mathbf{A})^{-1}\mathbf{y}+\sum_{c}B_{c}\tag{S1}$$
+>
+> where $\mathbf{c}$ is the impact-intensity vector, $\mathbf{A}$ the technical
+> coefficient matrix, $\mathbf{y}$ the health-care final-demand vector, and
+> $B_c$ the five bottom-up items. Equation (S1) is linear in $\mathbf{y}$ and
+> additive in $B_c$, so writing the supply-chain term as a sum over the nine
+> contribution groups $g$,
+>
+> $$F=\sum_{g}M_{g}+\sum_{c}B_{c}\tag{S2}$$
+>
+> uncertainty can be propagated by resampling the fourteen deterministic
+> amounts $\{M_g, B_c\}$ without re-inverting $(\mathbf{I}-\mathbf{A})$.
+> $\mathbf{A}$ and $\mathbf{L}$ are consequently held fixed; uncertainty in the
+> technical structure is carried by the single multiplier of (S5).
+>
+> #### S*n*.2 Distributions
+>
+> Each uncertain quantity enters as a multiplicative factor
+>
+> $$h=e^{\sigma z},\qquad z\sim\mathcal{N}(0,1)\tag{S3}$$
+>
+> lognormal with median 1, so that the simulation median reproduces the
+> deterministic estimate. Lognormal multipliers are standard for input–output
+> uncertainty propagation (Lenzen et al., 2010) because impacts are products of
+> non-negative quantities. The spread is reported as a geometric standard
+> deviation $\mathrm{GSD}=e^{\sigma}$, whose 95 % factor range is
+> $[\mathrm{GSD}^{-1.96},\mathrm{GSD}^{1.96}]$. For a factor specified by a
+> coefficient of variation instead,
+>
+> $$\sigma=\sqrt{\ln\!\left(1+\mathrm{CV}^{2}\right)}\tag{S4}$$
+>
+> Note that a median-1 lognormal has mean $e^{\sigma^{2}/2}>1$; for the
+> input–output factor this is +0.35 %, and both the simulation mean and median
+> are reported.
+>
+> #### S*n*.3 The input–output factor
+>
+> EXIOBASE publishes no element-level standard deviations. The supply-chain
+> term therefore carries one factor per contribution group,
+>
+> $$f_{g}=\exp\!\left[\sigma_{M}\left(\sqrt{\rho_{M}}\,z_{0}+\sqrt{1-\rho_{M}}\,z_{g}\right)\right]\tag{S5}$$
+>
+> with $\sigma_M$ from (S4) on $\mathrm{CV}=8.35\ \%$ — the relative standard
+> deviation Lenzen et al. (2020, table SI 7.1) obtain for the Danish
+> health-care greenhouse-gas footprint by propagating Eora's transaction,
+> satellite and final-demand matrices, the only published Monte Carlo of this
+> quantity, and independently corroborated by Wood et al. (2019) at 8.8 % for
+> the Danish consumption-based account. The default $\rho_M=1$ applies one
+> shared factor to every group; $\rho_M\in\{0,0.76,1\}$ are reported, and
+> $\rho_M=1$ gives the widest interval.
+>
+> #### S*n*.4 Correlated bottom-up items
+>
+> Employee commuting and patient and visitor travel share a derivation method,
+> so their factors share a random component:
+>
+> $$\ln h_{C}=\sigma_{C}\!\left(\sqrt{\rho}\,z_{0}+\sqrt{1-\rho}\,z_{C}\right),\qquad
+> \ln h_{V}=\sigma_{V}\!\left(\sqrt{\rho}\,z_{0}+\sqrt{1-\rho}\,z_{V}\right)\tag{S6}$$
+>
+> This preserves each marginal GSD exactly while giving the log-factors
+> correlation $\rho$; $\rho=0.8$ is used and $\rho\in\{0,0.5,0.8\}$ reported.
+>
+> #### S*n*.5 Variance decomposition
+>
+> Because (S2) is additive the output variance is available in closed form:
+>
+> $$\operatorname{Var}(F)=\sum_{j}a_{j}^{2}\!\left(e^{\sigma_{j}^{2}}-1\right)e^{\sigma_{j}^{2}}
+> +2a_{C}a_{V}e^{(\sigma_{C}^{2}+\sigma_{V}^{2})/2}\!\left(e^{\rho\sigma_{C}\sigma_{V}}-1\right)\tag{S7}$$
+>
+> where $a_j$ is the deterministic amount carried by parameter $j$. Variance
+> shares are computed from (S7) rather than estimated from the draws, and sum to
+> 100 % exactly once the covariance term is reported as its own contribution.
+> The simulation was verified against the closed-form mean
+> $\sum_j a_j e^{\sigma_j^{2}/2}$ and against (S7); agreement is within five
+> Monte Carlo standard errors at $N=10^{5}$ draws, and the Monte Carlo standard
+> error of the reported median is 0.035 %.
+>
+> #### S*n*.6 Structural choices
+>
+> The pharmaceutical sector mapping, the price vintage and the waste-account
+> vintage are modelling decisions rather than noisy measurements and are
+> reported as discrete scenarios (Table S*m*), not as distributions.
+>
+> #### S*n*.7 Results
+>
+> | | Climate change |
+> |---|---|
+> | Deterministic estimate | 4,713 kt CO₂e |
+> | Simulation median | 4,735 kt CO₂e |
+> | Simulation mean | 4,751 kt CO₂e |
+> | Coefficient of variation | 7.9 % |
+> | 95 % interval | 4,065 – 5,532 kt CO₂e |
+>
+> | Variance contributor | Share |
+> |---|---|
+> | Input–output model | 78.8 % |
+> | Covariance, commuting × patient travel | 9.3 % |
+> | Patient and visitor travel | 6.7 % |
+> | Employee commuting | 5.1 % |
+> | Direct operations | 0.09 % |
+> | Anaesthetic gases | 0.009 % |
+> | Inhaler propellants | 0.002 % |
+>
+> Travel as a block, covariance included, accounts for 21.1 % of the variance;
+> every other bottom-up item accounts for less than 0.1 %.
