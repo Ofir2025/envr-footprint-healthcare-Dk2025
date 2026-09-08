@@ -1,8 +1,8 @@
-# 10 — Danish sea-transport reallocation
+# 10 - Danish sea-transport reallocation
 
 **Gold folder** `data/gold/results/10_snac_shipping_correction/`
 **Module** `analysis.dk_shipping_correction`
-**Source** Rørmose Jensen & Iliev (2022), pp. 11–12, Statistics Denmark
+**Source** Rørmose Jensen & Iliev (2022), pp. 11-12, Statistics Denmark
 
 Narrative version, written for the layman and for the manuscript methods:
 `docs/revision/shipping_reallocation_method.md`.
@@ -22,14 +22,14 @@ operates one of the world's largest merchant fleets; that fleet carries world tr
 Danish production, so the misallocation loads a global fleet's emissions onto Danish
 consumption.
 
-On EXIOBASE v3.8.2 `IOT_2022_ixi` we measure **73.6 %** — Statistics Denmark's 74 %, to the
+On EXIOBASE v3.8.2 `IOT_2022_ixi` we measure **73.6 %** - Statistics Denmark's 74 %, to the
 decimal. EXIOBASE's own hybrid build, which resolves the same source data onto activity
 rather than establishment units, gives **7.8 %** natively, within 1.2 points of the
 benchmark and with no correction applied.
 
 ### The correction
 
-The row's **total output is left unchanged** — it is not in dispute and matches the
+The row's **total output is left unchanged** - it is not in dispute and matches the
 national accounts. Only its *allocation* is corrected:
 
 $$t = \phi \, x_{\text{row}}, \qquad \phi = 0.09$$
@@ -50,7 +50,7 @@ holds.
 
 The 18.5 % is on the 3 943 kt MRIO supply-chain basis; on the 4 713 kt total, which
 includes the entirely-Danish bottom-up items, transport is 15.4 %. **Quote the basis with
-the share** — six figures in the revision documents drifted precisely because it was
+the share** - six figures in the revision documents drifted precisely because it was
 omitted.
 
 ## Why this is not a novel method
@@ -87,7 +87,7 @@ applies is a far easier argument at review than proposing a new one.
 
 `shipping_reallocation_diagnostics.csv` (every quantity above, with its source),
 `phantom_shipping_input_removed_by_industry.csv` (which Danish industries were recorded as
-buying the phantom shipping — including 394 M€ by the health sector, which does not charter
+buying the phantom shipping - including 394 M€ by the health sector, which does not charter
 container ships).
 
 ## Verification

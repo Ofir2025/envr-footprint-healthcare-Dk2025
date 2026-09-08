@@ -1,6 +1,6 @@
 # 03_cabernard_target_scope3
 
-**03 — Target-sector scope 3 without double counting**
+**03 - Target-sector scope 3 without double counting**
 
 A different question from the headline, and the distinction is the point of the folder.
 

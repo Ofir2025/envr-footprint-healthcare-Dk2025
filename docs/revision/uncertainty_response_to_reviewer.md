@@ -16,9 +16,9 @@ Danish measurement exists, a transplanted proxy has been replaced by it:
 
 | Proxy the reviewer questioned | Submitted | Now |
 |---|---|---|
-| Nitrous oxide scaled from one region by births | 9.52 kt, from Region of Southern Denmark × birth ratio | **11.32 kt** from Denmark's National Inventory Document 2024 (DCE 622), category 2.G.3.a — a national measurement |
+| Nitrous oxide scaled from one region by births | 9.52 kt, from Region of Southern Denmark × birth ratio | **11.32 kt** from Denmark's National Inventory Document 2024 (DCE 622), category 2.G.3.a - a national measurement |
 | pMDI scaled from Dutch defined daily doses | 34.6 kt | **11.6 kt** from the Danish EPA F-gas inventory's reported MDI emission |
-| Patient and visitor travel scaled from Dutch totals | Dutch value × 0.54 | **Danish National Travel Survey**, Table 15, purpose 33 *Social/sundhed* — the category that actually measures travel to doctors and hospitals |
+| Patient and visitor travel scaled from Dutch totals | Dutch value × 0.54 | **Danish National Travel Survey**, Table 15, purpose 33 *Social/sundhed* - the category that actually measures travel to doctors and hospitals |
 | Employee commuting | scaled on Dutch commuting | still scaled, but on national-accounts employment (DST NABB69) and the TU distance table |
 
 **Answering a proxy objection by removing the proxy is stronger than quantifying its
@@ -43,7 +43,7 @@ What that produces, as 95 % intervals on the multiplier:
 | Direct emissions (DRIVHUS/AFFALD) | lognormal, GSD 1.10 | −17 % to +21 % | narrower, deliberately |
 | MRIO parameters | lognormal, CV 8.35 % | −15 % to +18 % | narrower, deliberately |
 
-**Every cross-country scaling factor — which is what the reviewer asked about — spans at
+**Every cross-country scaling factor - which is what the reviewer asked about - spans at
 least the range he proposed, and the widest spans twice it.** The two that are narrower
 are not scaling factors: one is a Danish national-accounts measurement, the other is the
 only published Monte Carlo estimate of this exact quantity (Lenzen et al. 2020, SI Table
@@ -64,14 +64,14 @@ median reproduces the deterministic result:
 |---|---|
 | Deterministic | 4,713 kt CO₂e |
 | Median | 4,735 kt |
-| 95 % interval | **4,065 – 5,532 kt** |
+| 95 % interval | **4,065 - 5,532 kt** |
 | Coefficient of variation | **7.9 %** |
 
 Cross-check: Lenzen et al. report 8.35 % for the same quantity by an entirely different
 route. Two independent methods landing within half a percentage point is the best available
 external validation.
 
-**Which assumptions dominate** — the reviewer's second question — by exact first-order
+**Which assumptions dominate** - the reviewer's second question - by exact first-order
 Sobol shares:
 
 | Source | Share of variance |
@@ -95,7 +95,7 @@ misrepresent it as noise. They are run as an explicit factorial
 (`uncertainty_structural_scenarios.csv`) and reported separately, with the pharmaceutical
 mapping carrying the Hagenaars adjustment the manuscript's own appendix cites.
 
-## 5. Mitigation scenarios — the answer to Reviewer 2's R2-7
+## 5. Mitigation scenarios - the answer to Reviewer 2's R2-7
 
 Not out of scope, and already modelled. Fourteen climate scenario rows in
 `18_mitigation_scenarios`, built on the Danish Energy Agency's own projections rather than
@@ -112,7 +112,7 @@ Two are run rather than one because the 2025 projection is materially less optim
 the 2022 one, and reporting a single figure would overstate confidence.
 
 **The honest headline: full Danish grid decarbonisation removes under 7 % of the
-footprint.** That is a finding, not a disappointment — it follows directly from 73.7 % of
+footprint.** That is a finding, not a disappointment - it follows directly from 73.7 % of
 impacts arising abroad, and it is the strongest available argument that health-sector
 mitigation has to be a procurement question rather than an energy question.
 

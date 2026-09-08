@@ -1,7 +1,7 @@
 # Documentation index
 
 Denmark health-care environmental footprint, 2022. This page is the entry point:
-it says where everything lives, what each piece does, and — as importantly —
+it says where everything lives, what each piece does, and - as importantly -
 what it does **not** do.
 
 ## Start here
@@ -96,7 +96,7 @@ aggregated. The detailed file is the record; the aggregate is a convenience.
 Storing only the aggregate would destroy the ability to ask where an impact
 originates, which is the question an EE-MRIO exists to answer.
 
-A *node* is one (region, industry) pair — 49 x 163 = 7,987. Detailed files carry
+A *node* is one (region, industry) pair - 49 x 163 = 7,987. Detailed files carry
 `producing_country_iso3`, `producing_country_name`, `producing_world_region`,
 `producing_sector_code`, `producing_sector_name` and `producing_sector_group`,
 so impacts embodied in **imports** separate from those arising **domestically**,
@@ -122,8 +122,8 @@ Seven checks, non-zero exit on failure, so it can gate a release: headline
 agreement across independently computing modules; detail reconciling to its
 aggregate; no background-derived file older than the background; no file
 carrying a superseded model label; and full manifest coverage. It exists because
-two real defects — a superseded direct-waste value reaching the capital
-sensitivity, and a boundary-scenario run overwriting the headline — were both
+two real defects - a superseded direct-waste value reaching the capital
+sensitivity, and a boundary-scenario run overwriting the headline - were both
 found by hand, which is not a reliable way to find them.
 
 ## Table schema convention

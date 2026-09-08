@@ -34,7 +34,7 @@ another route.
 
 **How to read the results.** Danish-origin transport emissions in this study are corrected
 and should not be compared with uncorrected EXIOBASE studies of Denmark. Other Danish
-industries are **not** individually corrected — only the one row with a published
+industries are **not** individually corrected - only the one row with a published
 benchmark and a first-order effect. Treat Danish sectoral detail as indicative and the
 Danish aggregate as reliable.
 
@@ -52,7 +52,7 @@ defects, with different onsets:
 | Defect | What breaks | Onset in v3.10.2 | v3.8.2 / v3.6 |
 |---|---|---|---|
 | **D1** | medical, precision and optical instruments carry ~zero output across Europe (28 of 30 regions) | **2015**, and never recovers | clean (0 of 30) |
-| **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2× | **2021–2022**, the nowcast years | clean (2 of 12) |
+| **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2× | **2021-2022**, the nowcast years | clean (2 of 12) |
 
 **Why a routine check misses them.** Danish output still totals to within 3 % and the
 table still balances to 10⁻¹¹. Output was *redistributed*, not lost. The decisive test
@@ -61,7 +61,7 @@ industry with 16,326 M€ of *total output* cannot deliver it.
 
 **How to read the results.** This study uses **v3.8.2**, which passes both tests. Our
 results are therefore not comparable, industry by industry, with studies built on v3.10.2
-from 2015 onward — and the difference is a data defect, not a modelling choice.
+from 2015 onward - and the difference is a data defect, not a modelling choice.
 
 **Recommendation for the field.** Anyone using v3.10.2 for a European study from 2015
 should check industry 33 before trusting sectoral results, and anyone using a nowcast year
@@ -76,8 +76,8 @@ EXIOBASE's `ixi` layout has a **single** health and social work industry. Malik 
 (2021) and Lenzen et al. (2020) report sub-sector detail because their MRIOs inherit it
 from national tables; neither method is reproducible here.
 
-**What we did.** Implemented the one route that is reproducible — Malik et al.'s (2018)
-output-prorated concordance — and then published its decomposition rather than its ranking
+**What we did.** Implemented the one route that is reproducible - Malik et al.'s (2018)
+output-prorated concordance - and then published its decomposition rather than its ranking
 alone. Five SHA functions carry only **three distinct intensities**, and **99.99 %** of the
 variation across functions is explained by expenditure alone.
 
@@ -97,8 +97,8 @@ Every EXIOBASE industry is assumed to sell a homogeneous product at a uniform pr
 euro of "Chemicals nec" carries the same intensity whether it buys a generic paracetamol or
 a patented biologic. Pharmaceutical prices are far from cost-reflective.
 
-**How to read the results.** The pharmaceutical footprint — 4.8 % of spend, 36.6 % of the
-function total — is the number in this study most exposed to price heterogeneity, and it is
+**How to read the results.** The pharmaceutical footprint - 4.8 % of spend, 36.6 % of the
+function total - is the number in this study most exposed to price heterogeneity, and it is
 **probably an overestimate** if Danish pharmaceutical prices carry above-average margins.
 The Monte Carlo treats the mapping as a structural scenario, not a distribution, precisely
 because it is a modelling choice rather than measurement error.
@@ -124,9 +124,9 @@ water scarcity, land biodiversity and mineral resources.
 
 EXIOBASE ships no element-level standard deviations. Our Monte Carlo therefore calibrates
 MRIO uncertainty to Lenzen et al.'s published 8.35 % for this exact quantity and applies it
-as a single joint factor — correlation ρ = 1, the conservative bound.
+as a single joint factor - correlation ρ = 1, the conservative bound.
 
-**How to read the interval.** The reported 95 % interval, 4,064–5,540 kt, is **parametric
+**How to read the interval.** The reported 95 % interval, 4,064-5,540 kt, is **parametric
 uncertainty conditional on one model**. It is not a confidence interval on "the" Danish
 health footprint. Our own change of EXIOBASE vintage moved the result by more than this
 interval spans, and Tukker et al. warn that national error statistics do not transfer to

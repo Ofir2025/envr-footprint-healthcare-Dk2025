@@ -1,4 +1,4 @@
-# Results bridge — submitted vs corrected (GWP, kt CO₂e; 2019 expenditure on EXIOBASE 3.8.2-2016)
+# Results bridge - submitted vs corrected (GWP, kt CO₂e; 2019 expenditure on EXIOBASE 3.8.2-2016)
 
 | Step | Component | Submitted | Corrected | Δ | Cause (ledger entry) |
 |---|---|---|---|---|---|
@@ -11,22 +11,22 @@
 | 7 | Private travel | 540.0 | 553.9 | +13.9 | commute factor 0.544→0.5719 (NABB69 employment, TU 2019 distance); visitor 0.636→0.630 |
 | | **Total** | **4,814.7** | **6,293.1** | **+1,478.4 (+30.7%)** | |
 
-**Shares of the national consumption footprint** (denominator unchanged at 85,752 kt CO₂e —
+**Shares of the national consumption footprint** (denominator unchanged at 85,752 kt CO₂e -
 an internal consistency check, since the corrected pipeline rebuilt the same EXIOBASE 3.8.2
 background): GWP **5.61% → 7.34%**; materials 5.51→6.63%; blue water 4.35→5.37%; land
 3.59→4.58%; waste 3.61→4.58%. Per-capita GWP ≈ 1.08 t CO₂e (2019 population 5.815 M).
 
 **Scopes (GHG Protocol, corrected construction):** Scope 1 = 163.6 (direct 150.9 + anaesthetics
-12.7); Scope 2 = 23.9 (generation of purchased energy — structurally low because the
+12.7); Scope 2 = 23.9 (generation of purchased energy - structurally low because the
 EXIOBASE-estimated input recipe of DK Health & social work carries little direct energy
 purchasing; see limitation in the ledger §8 and the SUT-integration memo); Scope 3 = 5,879.7
 (supply chain + pMDI + commuting); outside protocol (patient/visitor travel) = 225.9.
 
 **Monte Carlo (10,000 draws; `uncertainty_summary.xlsx`):** the MC median embodies the
 2019→2016 deflation correction (×0.966), answering Reviewer 2's price-mismatch point:
-Scenario A (pharma as Chemicals nec) GWP median 6,122 (95% interval 5,842–6,452, −4.6/+5.4%);
-Scenario B (pharma-specific intensity) 5,648 (5,335–6,056). Materials drop 31% under
-Scenario B (3,025→2,093) — the upper-bound character of the pharma mapping, as Reviewer 1
+Scenario A (pharma as Chemicals nec) GWP median 6,122 (95% interval 5,842-6,452, −4.6/+5.4%);
+Scenario B (pharma-specific intensity) 5,648 (5,335-6,056). Materials drop 31% under
+Scenario B (3,025→2,093) - the upper-bound character of the pharma mapping, as Reviewer 1
 suspected. Waste carries −42/+94% (extension vintage), and its rankings are reported as
 low-confidence. Transport remains the largest MRIO contribution group with P(rank 1)
 reported in `uncertainty_summary.xlsx` (rankings sheets).

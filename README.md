@@ -1,9 +1,9 @@
 # The environmental footprint of the Danish health care system
 
-Environmentally extended multi-regional input–output (EE-MRIO) analysis of
+Environmentally extended multi-regional input-output (EE-MRIO) analysis of
 Danish health care, replicating and extending Steenmeijer et al. (2022),
 *The environmental impact of the Dutch health-care sector beyond climate
-change*, Lancet Planetary Health 6: e949–57.
+change*, Lancet Planetary Health 6: e949-57.
 
 **Primary analysis year: 2022** (EXIOBASE v3.10.2 industry-by-industry).
 2019 is retained as a pre-COVID validation baseline.
@@ -16,13 +16,13 @@ change*, Lancet Planetary Health 6: e949–57.
 | Material extraction | 5,568 kt | 6.8 % |
 | Blue water | 42.8 Mm³ | 4.9 % |
 | Land use | 3,831 km² | 4.4 % |
-| Waste (domestic, DST accounts) | 216 kt (17 kt hazardous) | — |
+| Waste (domestic, DST accounts) | 216 kt (17 kt hazardous) | - |
 
 Ten further pressure accounts (PM2.5, PM10, NOx, SOx, NH₃, NMVOC, energy,
 N and P to water) are reported alongside. All monetary values are **million
 euro** (EXIOBASE's native unit); Danish source data are in 1000 DKK.
 
-## Repository layout — a medallion ELT boundary
+## Repository layout - a medallion ELT boundary
 
 ```
 data/bronze/     raw inputs, never modified
@@ -43,10 +43,10 @@ Gold folders: `00_core_footprint`, `01_eriksen_replication`,
 `04_uncertainty_lenzen_ieooc`, `05_waste_dst_accounts`,
 `06_benchmarks_validation`, `scenarios`.
 
-Every table is exported at the most detailed level available — producing
+Every table is exported at the most detailed level available - producing
 country × producing sector × purchased product × demand component, ISO3 codes
 for countries and the EXIOBASE rest-of-world labels (WA/WL/WE/WF/WM) kept as
-they are — so all aggregates are derivable and no lineage is lost.
+they are - so all aggregates are derivable and no lineage is lost.
 
 ## Running it
 

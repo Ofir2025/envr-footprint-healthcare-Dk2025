@@ -51,7 +51,7 @@ The **full Danish working-level SUT of roughly 2,350 products × 117 industries 
 However, **free Danish SUTs do exist at more aggregated resolution**:
 
 - Eurostat national SUTs: mandatory A64 and, where voluntarily supplied, A88;
-- FIGARO: 64 industries × 64 products, 2010–2024;
+- FIGARO: 64 industries × 64 products, 2010-2024;
 - Statistics Denmark: public 117-industry IOT and multiplier tables.
 
 Therefore the correct distinction is:

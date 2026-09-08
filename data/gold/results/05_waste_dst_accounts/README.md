@@ -1,6 +1,6 @@
 # 05_waste_dst_accounts
 
-**05 — Domestic waste from Danish national accounts**
+**05 - Domestic waste from Danish national accounts**
 
 How much waste does Danish health care actually generate, and is the waste indicator inherited from Steenmeijer et al. fit to answer that?
 

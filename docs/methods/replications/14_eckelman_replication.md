@@ -1,4 +1,4 @@
-# 14 — Eckelman & Sherman replication
+# 14 - Eckelman & Sherman replication
 
 **Gold folder** `data/gold/results/14_eckelman_replication/`
 **Module** `analysis.eckelman_replication`
@@ -15,7 +15,7 @@ including its health-damage estimate in DALYs.
 ### What can and cannot be compared
 
 Their absolute values are in **TRACI** reference substances as implemented inside the CMU
-EIO-LCA tool — PM₁₀-equivalents, benzene-equivalents, toluene-equivalents. Our
+EIO-LCA tool - PM₁₀-equivalents, benzene-equivalents, toluene-equivalents. Our
 characterisation uses CML 1999 and the ILCD recommended factors, whose reference substances
 differ.
 
@@ -27,7 +27,7 @@ Two things are comparable:
 1. **Share of the national total.** Unit-free, it is what their abstract leads with, and it
    is what a reader wants: how much of a country's environmental burden is its health
    system.
-2. **Damage in DALYs**, where both sides have an endpoint method — theirs via TRACI/ReCiPe
+2. **Damage in DALYs**, where both sides have an endpoint method - theirs via TRACI/ReCiPe
    endpoints, ours via the ILCD endpoint factors in the DESIRE workbook
    ([12](12_impact_categories_full.md)). The method is named on both sides in every row.
 
@@ -41,7 +41,7 @@ their `eckelman_code`.
 
 ## Deviations from the source, stated
 
-- Their model is the CMU EIO-LCA US table for 2007–2013; ours is EXIOBASE 2022. Both the
+- Their model is the CMU EIO-LCA US table for 2007-2013; ours is EXIOBASE 2022. Both the
   model family and the year differ, so this is a *frame* replication, not a like-for-like
   benchmark. It is labelled as such in every output row (`us_method`, `dk_method`).
 - Ozone depletion is **retracted** on our side: the DESIRE factor for that category failed

@@ -20,8 +20,8 @@ The working-level Danish SUT of approximately 2,350 products × 117 industries w
 
 ## Requested reference years
 
-1. **2022** – preferred main Denmark reference year.
-2. **2019** – common pre-pandemic benchmark for sensitivity across multiple MRIO databases.
+1. **2022** - preferred main Denmark reference year.
+2. **2019** - common pre-pandemic benchmark for sensitivity across multiple MRIO databases.
 
 If both years are not available on a comparable revision basis, advice on the closest consistent pair would be appreciated.
 

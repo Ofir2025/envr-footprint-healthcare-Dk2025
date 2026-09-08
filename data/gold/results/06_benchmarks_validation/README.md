@@ -1,6 +1,6 @@
 # 06_benchmarks_validation
 
-**06 — Benchmarks and the standing consistency audit**
+**06 - Benchmarks and the standing consistency audit**
 
 Is the result right? Two independent tests: agreement with published Danish footprints, and internal consistency across the study's own outputs.
 
@@ -82,3 +82,22 @@ Method, equations and verification: [`docs/methods/replications/06_benchmarks_va
 - **Rows:** 11
 - **Dimensions:** `input_group_share_pct`
 - **Measures:** `EXIOBASE v3.10.2 (modelled)`, `Eurostat FIGARO Q86 (official EU)`, `Statistics Denmark IO 86 (national)`
+
+### `year_comparison_2019_2022.csv`
+
+- **Rows:** 5
+- **Units:** Mm3, km2, kt, kt CO2eq
+- **Dimensions:** `indicator`, `unit`, `per_capita_unit`
+- **Measures:** `per_capita_2019`, `per_capita_2022`, `value_2019`, `value_2022`, `ratio_2022_over_2019`, `change_pct`, `comparable_as_a_trend`, `why_not`
+
+### `year_comparison_climate_bridge.csv`
+
+- **Rows:** 9
+- **Dimensions:** `contribution_group`
+- **Measures:** `value_2019`, `share_pct_2019`, `value_2022`, `share_pct_2022`, `delta_kt`, `share_of_total_change_pct`, `driver`
+
+### `year_comparison_run_differences.csv`
+
+- **Rows:** 4
+- **Dimensions:** none
+- **Measures:** `dimension`, `y2019`, `y2022`, `kind`, `effect`

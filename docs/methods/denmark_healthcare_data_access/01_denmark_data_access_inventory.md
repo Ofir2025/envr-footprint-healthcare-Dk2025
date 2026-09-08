@@ -70,11 +70,11 @@ https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/national
 
 The current input-output page provides a 117-industry IOT as a downloadable ZIP and current StatBank tables including:
 
-- `NAIO1` – input-output table, supply by industries, use and price unit;
-- `NAIO2` – unallocated imports;
-- `NAIO3` – primary inputs;
-- `NAIO4` – totals;
-- `NAIO5` – employment.
+- `NAIO1` - input-output table, supply by industries, use and price unit;
+- `NAIO2` - unallocated imports;
+- `NAIO3` - primary inputs;
+- `NAIO4` - totals;
+- `NAIO5` - employment.
 
 ### Use
 
@@ -111,22 +111,22 @@ Countries may voluntarily transmit:
 
 Annual tables include:
 
-- `T1500` – supply table at basic prices including transformation to purchasers' prices;
-- `T1600` – use table at purchasers' prices.
+- `T1500` - supply table at basic prices including transformation to purchasers' prices;
+- `T1600` - use table at purchasers' prices.
 
 For benchmark years ending in 0 or 5, the system also includes:
 
-- `T1610` – use at basic prices;
-- `T1611` – use of domestic output;
-- `T1612` – use of imports;
-- `T1620` – trade and transport margins;
-- `T1630` – taxes less subsidies;
+- `T1610` - use at basic prices;
+- `T1611` - use of domestic output;
+- `T1612` - use of imports;
+- `T1620` - trade and transport margins;
+- `T1630` - taxes less subsidies;
 - symmetric IOTs.
 
 Common Eurostat dataset families include:
 
-- `naio_10_cp15` – supply table;
-- `naio_10_cp16` – use table.
+- `naio_10_cp15` - supply table;
+- `naio_10_cp16` - use table.
 
 ### Limitation
 
@@ -150,7 +150,7 @@ Coverage:
 
 - 64 industries;
 - 64 products;
-- 2010–2024;
+- 2010-2024;
 - EU inter-country supply, use and IOT tables;
 - CSV data for supply, use and IOT;
 - 27 EU states plus candidate countries, major trading partners and rest of world.

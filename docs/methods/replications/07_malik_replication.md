@@ -1,9 +1,9 @@
-# 07 — Malik replication and production layers
+# 07 - Malik replication and production layers
 
 **Gold folder** `data/gold/results/07_malik_replication/`
 **Modules** `analysis.malik_replication`, `analysis.production_layers`
 **Sources** Malik, Lenzen, McAlister & McGain (2018), *The carbon footprint of Australian
-health care*, Lancet Planet Health 2:e27–35; Malik et al. (2021); Lenzen et al. (2020) SI §5
+health care*, Lancet Planet Health 2:e27-35; Malik et al. (2021); Lenzen et al. (2020) SI §5
 
 ## Question this layer answers
 
@@ -44,7 +44,7 @@ $$S_m = \frac{\sum_{n \le m} f^{(n)}}{f}, \qquad TE_m = 1 - S_m$$
 The **diagonalised** form is what allows each layer to be broken down by the sector in
 which the pressure occurs (Malik's Fig. 3); the scalar form $q A^n y$ cannot do that.
 
-Powers of $A$ are never formed — the layer vector is iterated $v \leftarrow A v$, which is
+Powers of $A$ are never formed - the layer vector is iterated $v \leftarrow A v$, which is
 $O(n^2)$ per layer instead of $O(n^3)$.
 
 The residual beyond the last computed layer is closed **exactly**:

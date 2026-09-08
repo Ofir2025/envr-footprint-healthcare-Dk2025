@@ -1,14 +1,14 @@
-# 02 — GHG-Protocol scope decomposition
+# 02 - GHG-Protocol scope decomposition
 
 **Gold folder** `data/gold/results/02_scopes_wood_hertwich/`
 **Module** `analysis.scopes_detail`
 **Sources** Hertwich & Wood (2018), *The growing importance of scope 3 greenhouse gas
-emissions from industry*, Environ Res Lett 13:104013, table 1 and eqs. 1–3; GHG Protocol
+emissions from industry*, Environ Res Lett 13:104013, table 1 and eqs. 1-3; GHG Protocol
 Corporate Standard and Scope 3 Standard; Doucet et al. / OECD (2025), *Measuring
 greenhouse gas emissions in the health sector*, §3.2
 
 > An earlier version of this document and of `scopes_detail.py` attributed the scope
-> partition to *Wood, Neuhoff, Moran et al., Clim Policy 20:S39–S57*. That is a real
+> partition to *Wood, Neuhoff, Moran et al., Clim Policy 20:S39-S57*. That is a real
 > paper but not the source of this method. The table and equation numbers the module
 > follows are Hertwich & Wood (2018) ERL, which is the paper held in the library.
 
@@ -16,7 +16,7 @@ greenhouse gas emissions in the health sector*, §3.2
 
 Of the total health-care footprint, how much is emitted by the providers themselves,
 how much by the generation of the energy they buy, and how much everywhere else in the
-supply chain — using the partition a health system would recognise from its own
+supply chain - using the partition a health system would recognise from its own
 reporting.
 
 ## Method
@@ -24,21 +24,21 @@ reporting.
 The three scopes are computed from three different sources, because computing them all
 from the MRIO would get Scope 1 wrong.
 
-### Scope 1 — direct provider emissions
+### Scope 1 - direct provider emissions
 
 Taken from Danish national accounts (DST DRIVHUS), **not** from the MRIO.
 
 This is a structural point, not a preference. The final-demand vector $y_H$ is the
 providers' *purchase* column. The providers' own combustion is therefore outside
 $f = s L y_H$ by construction: it never appears in what they buy. Adding a national
-accounts figure is not double counting — it is filling a gap the model leaves open.
+accounts figure is not double counting - it is filling a gap the model leaves open.
 
 $$S_1 = \text{DRIVHUS}_{\text{Q}} - \text{medical N}_2\text{O} + \text{anaesthetic gases}_{\text{bottom-up}}$$
 
 Medical nitrous oxide is netted out of the DRIVHUS figure before the bottom-up
 anaesthetics estimate is added, so the gas is counted once.
 
-### Scope 2 — generation of purchased energy
+### Scope 2 - generation of purchased energy
 
 Purchased electricity, steam and heat reach the provider through transmission and
 distribution, which are separate EXIOBASE industries. A first-tier calculation would
@@ -71,14 +71,14 @@ Scope 1 + 2 + 3 decomposition is internally protocol-conforming.
 The OECD form **under-counts on EXIOBASE `ixi`**: electricity reaches the buyer through
 *Transmission* and *Distribution and trade of electricity*, whose own combustion intensity
 is near zero, so generation sits one tier further back than $F A Y$ reaches. This is a
-model-layout artefact, not a flaw in their method — their ICIO tables have a single
+model-layout artefact, not a flaw in their method - their ICIO tables have a single
 sector D.
 
-The spread is 72.1–75.0 kt: 3.9 % of Scope 2 and **0.06 % of the total footprint**. The
+The spread is 72.1-75.0 kt: 3.9 % of Scope 2 and **0.06 % of the total footprint**. The
 choice changes no conclusion. It is reported because the manuscript claims GHG-Protocol
 scopes, and a reader is entitled to know which operationalisation produced the number.
 
-### Scope 3 — everything else
+### Scope 3 - everything else
 
 $$S_3 = f_{\text{MRIO}} - S_2 - s_h (L_{hh} - 1) E_H + \text{pMDI} + \text{commuting}$$
 
@@ -116,9 +116,9 @@ control nor purchase it. It is reported separately rather than folded into Scope
 
 | File | Rows | Content |
 |---|---|---|
-| `scopes_summary_detailed.csv` | — | every scope and variant, with its `basis` stated |
+| `scopes_summary_detailed.csv` | - | every scope and variant, with its `basis` stated |
 | `scopes_by_producing_node.csv` | 23 727 | each scope resolved to producing node |
-| `double_counting_ledger.csv` | — | every overlap risk, its test, and its verdict |
+| `double_counting_ledger.csv` | - | every overlap risk, its test, and its verdict |
 
 ## Verification
 
@@ -141,7 +141,7 @@ are placed at their true Danish origin rather than dropped:
 | Employee commuting | DNK | Bottom-up: employee commuting |
 | Patient and visitor travel | DNK | Bottom-up: patient and visitor travel |
 
-All are Danish by construction — emissions of Danish providers, staff or patients — so
+All are Danish by construction - emissions of Danish providers, staff or patients - so
 labelling them as such is what lets the bars be added back to the headline.
 
 | Table | Grain |
@@ -161,7 +161,7 @@ at the bottom without a title, bars ranked descending with the remainder re-sort
 ranking by its own value, per-facet axis ceilings so no bar touches the panel edge, and
 ASCII-only labels because the TIFF font renders a middle dot as `..`.
 
-**A finding visible in the top-origins figure:** the 25 largest origin–industry pairs
+**A finding visible in the top-origins figure:** the 25 largest origin-industry pairs
 account for 45 % of the footprint; the pooled remainder is the single largest bar. The
-Danish health footprint is diffuse — no supplier dominates it — which is itself worth
+Danish health footprint is diffuse - no supplier dominates it - which is itself worth
 stating, and is why the remainder bar is kept rather than cropped.

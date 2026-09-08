@@ -224,7 +224,7 @@ Representative HS families for **candidate screening only** include:
 
 | HS heading/family | Candidate health use |
 |---|---|
-| 3001–3006 | medicinal and pharmaceutical goods |
+| 3001-3006 | medicinal and pharmaceutical goods |
 | 3822 | diagnostic/laboratory reagents |
 | 9018 | medical, surgical, dental and veterinary instruments |
 | 9019 | mechanotherapy/respiratory-related apparatus |
