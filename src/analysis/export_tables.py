@@ -50,25 +50,23 @@ BILATERAL_TARGET_COVERAGE = 0.995  # keep the largest cells up to this share;
 
 
 def _labels():
-    cls = pd.read_excel(BRONZE_DIR / "exiobase_v3_7" / "classifications.xlsx",
-                        sheet_name="disagg_reg", skiprows=5)
-    reg = pd.DataFrame({
-        "pos": cls["Position"],
-        "iso3": cls["Code1"].astype(str),          # ISO3, or WA/WL/WE/WF/WM for RoW
-        "country_name": cls["Description"].astype(str),
-        "world_region": cls["AggDescription"].astype(str),
-        "is_row_region": cls["Code2"].astype(int).eq(-1),
-    }).sort_values("pos")
-    ind = pd.read_excel(BRONZE_DIR / "exiobase_v3_7" / "classifications.xlsx",
-                        sheet_name="disagg_ind", skiprows=5)
-    ind = ind[ind["Code"].astype(str).str.startswith("A_")].copy()
-    sec = pd.DataFrame({
-        "pos": range(len(ind)),
-        "sector_code": ind["Code"].astype(str).values,
-        "sector_name": ind["Description"].astype(str).values,
-        "sector_group": ind["AggDescription"].astype(str).values,
-    })
-    return reg.reset_index(drop=True), sec
+    """Region and sector label frames, from the single source of truth.
+
+    This used to be a second, independent reader of ``classifications.xlsx``.
+    Two readers meant two places to apply a convention, and the star-schema
+    rules (no ``A_`` / ``C_`` prefix on industry codes; Denmark rather than the
+    Netherlands as the singled-out home region) were applied to only one of
+    them, so half the gold tables silently disagreed with the other half.
+    It now delegates.
+
+    Returns
+    -------
+    tuple of pandas.DataFrame
+        ``(regions, sectors)`` as returned by
+        :func:`analysis.detail_tables.node_labels`.
+    """
+    from analysis.detail_tables import node_labels
+    return node_labels()
 
 
 def _node_frame(reg, sec, prefix):

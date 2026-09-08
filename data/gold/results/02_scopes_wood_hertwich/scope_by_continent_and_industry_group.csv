@@ -1,0 +1,131 @@
+producing_world_region,producing_sector_group,scope,indicator,unit,value,share_of_scope_pct
+Denmark,Private travel,Outside protocol,climate_change,kt CO2eq,263.56770753446403,100.0
+Denmark,Operational impact,Scope 1,climate_change,kt CO2eq,131.0762816237094,100.0
+Denmark,Electricity,Scope 2,climate_change,kt CO2eq,58.513105531321685,79.78166992187239
+Europe,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,4.82078068347456,6.573056236928435
+Denmark,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,4.194322696580718,5.718890937096053
+Europe,Electricity,Scope 2,climate_change,kt CO2eq,3.0115054133530736,4.1061387645449035
+Asia and Pacific,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,0.9693380785071491,1.321676740961258
+Asia and Pacific,Electricity,Scope 2,climate_change,kt CO2eq,0.7946997200240707,1.0835601729603275
+Middle East,Electricity,Scope 2,climate_change,kt CO2eq,0.4391635493597384,0.5987923734107973
+America,Electricity,Scope 2,climate_change,kt CO2eq,0.33163602794058966,0.45218034276430474
+Africa,Electricity,Scope 2,climate_change,kt CO2eq,0.15867662159390392,0.2163529987576228
+Middle East,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,0.10802713373407273,0.1472932439308709
+Africa,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,0.0002645246474083415,0.0003606750643996331
+America,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,2.0236184086469234e-05,2.759170863697734e-05
+Denmark,Private travel,Scope 3,climate_change,kt CO2eq,363.7266,8.571283507008143
+Europe,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,305.09504903744465,7.189620340894754
+Europe,Transport,Scope 3,climate_change,kt CO2eq,291.87408195160845,6.878065846036459
+Europe,Chemical,Scope 3,climate_change,kt CO2eq,207.88135581081562,4.89876197252479
+Asia and Pacific,Transport,Scope 3,climate_change,kt CO2eq,181.48795406552568,4.276796658266104
+Europe,Food and catering,Scope 3,climate_change,kt CO2eq,178.77902906111987,4.2129603476636195
+Europe,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,161.13585778542443,3.7971958064761226
+Asia and Pacific,Food and catering,Scope 3,climate_change,kt CO2eq,153.43959749107935,3.615832032348628
+Denmark,Transport,Scope 3,climate_change,kt CO2eq,134.78024825182243,3.1761210725619424
+Asia and Pacific,Electricity,Scope 3,climate_change,kt CO2eq,134.49358066892927,3.1693656988135115
+Denmark,Food and catering,Scope 3,climate_change,kt CO2eq,122.53282591957637,2.887508336952988
+America,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,112.7749981304002,2.6575633497191937
+Asia and Pacific,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,103.88527548592322,2.448075418167082
+Europe,Electricity,Scope 3,climate_change,kt CO2eq,97.38600004296141,2.294918809847092
+Denmark,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,96.58709368729991,2.2760924362194133
+Denmark,Waste management and disposal,Scope 3,climate_change,kt CO2eq,84.9099619794463,2.000918702935437
+Asia and Pacific,Chemical,Scope 3,climate_change,kt CO2eq,83.96523288345685,1.9786559899003027
+Middle East,Transport,Scope 3,climate_change,kt CO2eq,77.58436427569595,1.8282896601952796
+Africa,Food and catering,Scope 3,climate_change,kt CO2eq,74.15170743905115,1.7473984772871496
+Denmark,Services,Scope 3,climate_change,kt CO2eq,68.61850916593522,1.6170076532468827
+Europe,Waste management and disposal,Scope 3,climate_change,kt CO2eq,68.13784828857165,1.6056807922182683
+Europe,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,66.13056375711159,1.5583787670202867
+Denmark,Chemical,Scope 3,climate_change,kt CO2eq,64.84555738670147,1.5280973581018942
+Europe,Minerals and Metals,Scope 3,climate_change,kt CO2eq,59.748004087645704,1.4079725871385065
+Africa,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,45.581789321575464,1.0741431587129993
+Middle East,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,44.37973940842001,1.0458166338032735
+Middle East,Chemical,Scope 3,climate_change,kt CO2eq,43.932759846607915,1.0352834791037553
+America,Food and catering,Scope 3,climate_change,kt CO2eq,43.53651059029537,1.025945793283428
+Africa,Electricity,Scope 3,climate_change,kt CO2eq,41.11306754249209,0.968836916930118
+America,Transport,Scope 3,climate_change,kt CO2eq,37.55990028016957,0.8851058839146985
+Middle East,Electricity,Scope 3,climate_change,kt CO2eq,37.40209457500269,0.8813871637605809
+Middle East,Food and catering,Scope 3,climate_change,kt CO2eq,36.01091021816566,0.848603651273551
+Asia and Pacific,Waste management and disposal,Scope 3,climate_change,kt CO2eq,34.34056343138724,0.8092416253329187
+America,Electricity,Scope 3,climate_change,kt CO2eq,33.78295265317035,0.7961014258900942
+Asia and Pacific,Metal Products,Scope 3,climate_change,kt CO2eq,33.525339436343316,0.7900307235642902
+Middle East,Services,Scope 3,climate_change,kt CO2eq,32.487154815353875,0.7655657140788241
+Europe,Services,Scope 3,climate_change,kt CO2eq,31.225199028898363,0.7358274963652458
+America,Chemical,Scope 3,climate_change,kt CO2eq,30.64758970005361,0.7222160274382522
+Europe,Metal Products,Scope 3,climate_change,kt CO2eq,29.247886783259933,0.6892317735359397
+Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,28.185053409999647,0.6641859117185094
+Denmark,Minerals and Metals,Scope 3,climate_change,kt CO2eq,25.929120170562513,0.6110244344768149
+Europe,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,22.550433653455265,0.531405071968183
+Asia and Pacific,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,20.16187622445036,0.4751182815690988
+Asia and Pacific,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,19.27189919622711,0.4541458109727056
+Denmark,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,19.176824719926046,0.45190536364040507
+Middle East,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,17.90923455217241,0.4220343707063925
+Denmark,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,15.118692082620422,0.3562747296879002
+America,Waste management and disposal,Scope 3,climate_change,kt CO2eq,15.101287707738654,0.3558645924271833
+Denmark,Electricity,Scope 3,climate_change,kt CO2eq,14.850182607823339,0.34994725506051894
+Asia and Pacific,Services,Scope 3,climate_change,kt CO2eq,13.825626635937827,0.32580340717084305
+Europe,Paper Products,Scope 3,climate_change,kt CO2eq,13.583606643785874,0.3201001620216066
+Denmark,Operational impact,Scope 3,climate_change,kt CO2eq,11.6,0.2733561105547256
+Africa,Waste management and disposal,Scope 3,climate_change,kt CO2eq,11.254376774466186,0.26521143636082023
+Europe,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,11.202786178224676,0.26399569457377037
+Asia and Pacific,Minerals and Metals,Scope 3,climate_change,kt CO2eq,10.059287711667801,0.23704894515624622
+Middle East,Minerals and Metals,Scope 3,climate_change,kt CO2eq,9.438961591533639,0.22243084727043777
+Middle East,Waste management and disposal,Scope 3,climate_change,kt CO2eq,8.690485202361504,0.20479286497852917
+America,Minerals and Metals,Scope 3,climate_change,kt CO2eq,6.316300807631388,0.1488447777472231
+Asia and Pacific,Furniture and timber,Scope 3,climate_change,kt CO2eq,5.807917014114456,0.13686462115542614
+Asia and Pacific,Textile,Scope 3,climate_change,kt CO2eq,5.560674393535744,0.13103830381708523
+Denmark,Metal Products,Scope 3,climate_change,kt CO2eq,5.172521933257213,0.12189142046846567
+Africa,Transport,Scope 3,climate_change,kt CO2eq,4.9208947007320445,0.11596177895185104
+Middle East,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,4.648443628693466,0.10954141986832248
+America,Services,Scope 3,climate_change,kt CO2eq,4.628922162144484,0.10908139295727473
+America,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,4.528948629202796,0.10672549846388212
+Middle East,Textile,Scope 3,climate_change,kt CO2eq,4.436318681290611,0.10454265688783367
+Africa,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,3.5614713182215882,0.08392671960355731
+America,Metal Products,Scope 3,climate_change,kt CO2eq,3.5510585812259583,0.08368134156171637
+Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,2.7760379850858223,0.06541784020303774
+Asia and Pacific,Paper Products,Scope 3,climate_change,kt CO2eq,2.6578230132354514,0.06263208288283482
+Africa,Minerals and Metals,Scope 3,climate_change,kt CO2eq,2.531467555934365,0.05965449354187028
+America,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,2.4499936673285183,0.05773454653315793
+Denmark,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,2.405291524675052,0.056681132408225685
+Africa,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,2.2768341908035046,0.053654011963453624
+Denmark,Paper Products,Scope 3,climate_change,kt CO2eq,2.188277903328131,0.05156716693677826
+Middle East,Furniture and timber,Scope 3,climate_change,kt CO2eq,2.1373115900094826,0.05036613649039039
+Europe,Furniture and timber,Scope 3,climate_change,kt CO2eq,2.09319743797274,0.04932657847132282
+Denmark,Textile,Scope 3,climate_change,kt CO2eq,2.0500836767598085,0.04831059484403384
+America,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,1.9641185608604281,0.046284811246995836
+Africa,Chemical,Scope 3,climate_change,kt CO2eq,1.92702529933844,0.04541070179031998
+Africa,Services,Scope 3,climate_change,kt CO2eq,1.8963434999116346,0.04468767960444656
+Africa,Paper Products,Scope 3,climate_change,kt CO2eq,1.7339654823500377,0.040861212076840944
+America,Textile,Scope 3,climate_change,kt CO2eq,1.6059366321445754,0.03784418892762036
+Europe,Textile,Scope 3,climate_change,kt CO2eq,1.5685190595721943,0.03696243702203543
+Europe,Transport Equipment,Scope 3,climate_change,kt CO2eq,1.5113162995854903,0.03561444357522846
+Europe,Construction,Scope 3,climate_change,kt CO2eq,1.455993848971848,0.03431075996090939
+America,Paper Products,Scope 3,climate_change,kt CO2eq,1.3727248127477827,0.032348509971956714
+Middle East,Metal Products,Scope 3,climate_change,kt CO2eq,1.2340197269674906,0.02907989938893428
+Asia and Pacific,Transport Equipment,Scope 3,climate_change,kt CO2eq,1.1800707712990686,0.02780858243289901
+Asia and Pacific,Construction,Scope 3,climate_change,kt CO2eq,1.1028802885410829,0.025989574662333096
+Asia and Pacific,General and special Machinery,Scope 3,climate_change,kt CO2eq,1.0937581496387414,0.025774609799377575
+Europe,General and special Machinery,Scope 3,climate_change,kt CO2eq,1.0934835918197887,0.02576813979441971
+Denmark,Construction,Scope 3,climate_change,kt CO2eq,1.0553471514817334,0.024869447639142714
+Africa,Metal Products,Scope 3,climate_change,kt CO2eq,0.9943992539413131,0.02343319934447571
+Denmark,Furniture and timber,Scope 3,climate_change,kt CO2eq,0.875940608966703,0.02064169982276515
+Middle East,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,0.8726881163283909,0.020565054241970592
+America,Furniture and timber,Scope 3,climate_change,kt CO2eq,0.7100140168504115,0.016731609490134993
+Africa,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,0.6270907664544715,0.014777508007135872
+Africa,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,0.539327002180793,0.012709338933903584
+America,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,0.4547684117619516,0.010716700365723881
+America,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.4442436158492461,0.010468681635113584
+Africa,Textile,Scope 3,climate_change,kt CO2eq,0.3612662057714528,0.008513303869357544
+Denmark,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,0.2850176725174251,0.006716493310234813
+Denmark,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.2781320742157822,0.0065542329334607324
+Middle East,Paper Products,Scope 3,climate_change,kt CO2eq,0.26980340663252766,0.00635796636650714
+America,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.2658420617301389,0.006264616553137934
+Africa,Construction,Scope 3,climate_change,kt CO2eq,0.2486508908308764,0.005859503483060005
+America,Construction,Scope 3,climate_change,kt CO2eq,0.2110624295106476,0.00497372455303979
+Middle East,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,0.1965110780797325,0.004630819309033765
+Middle East,Construction,Scope 3,climate_change,kt CO2eq,0.1921507025585833,0.004528066266532094
+Africa,Furniture and timber,Scope 3,climate_change,kt CO2eq,0.1497699454577739,0.003529356014511247
+Middle East,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.1305638794073106,0.003076761573596436
+Africa,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.1061272212007886,0.002500907276847292
+Middle East,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.09249178494828755,0.0021795857406662067
+Denmark,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.0827124355093601,0.0019491335918402802
+Africa,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.0304620953461035,0.0007178448192377638

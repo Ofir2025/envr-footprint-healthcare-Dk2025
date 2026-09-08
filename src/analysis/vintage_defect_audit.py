@@ -151,6 +151,32 @@ def discover_vintages():
     return unique
 
 
+def _normalise_country(frame, column="country_producing"):
+    """Apply the study's country-coding convention to one frame.
+
+    ISO3 where an ISO3 code exists; the EXIOBASE region name where none does.
+    ``ROM`` is the deprecated alpha-3 for Romania and becomes ``ROU``.
+
+    Parameters
+    ----------
+    frame : pandas.DataFrame
+        Frame carrying ``column``.
+    column : str, optional
+        Country-code column to normalise.
+
+    Returns
+    -------
+    pandas.DataFrame
+        The same frame, with ``column`` normalised in place.
+    """
+    row_names = {"WA": "RoW Asia and Pacific", "WL": "RoW America",
+                 "WE": "RoW Europe", "WF": "RoW Africa",
+                 "WM": "RoW Middle East"}
+    frame[column] = (frame[column].astype(str)
+                     .replace({"ROM": "ROU"}).replace(row_names))
+    return frame
+
+
 def main():
     out_dir = os.path.join(OUTPUT_DIR, FOLDER)
     os.makedirs(out_dir, exist_ok=True)
@@ -216,8 +242,10 @@ def main():
 
     blk = pd.DataFrame(rows)
     reg = pd.DataFrame(i33)
+    blk = _normalise_country(blk)
     blk.to_csv(os.path.join(out_dir, "dk_block_vs_national_accounts.csv"),
                index=False)
+    reg = _normalise_country(reg)
     reg.to_csv(os.path.join(out_dir, "industry33_output_by_region.csv"),
                index=False)
 
