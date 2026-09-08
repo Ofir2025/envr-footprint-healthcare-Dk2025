@@ -14,4 +14,7 @@ every draw is positive,PASS,"minimum draw 3,350.4 kt",> 0
 median reproduces the deterministic estimate,PASS,"median 4,734.7 kt against deterministic 4,713.4 kt, 0.453% apart",< 1 %
 mean/median ratio matches exp(sigma^2/2),PASS,"expected 1.00348, measured 1.00342",+/- 0.004
 structural scenario is not inside the parametric interval,PASS,"pharmaceutical-mapping scenario median 3,605 kt against the central 2.5th percentile 4,065 kt - a modelling choice moves the answer further than the parameters do",median outside the central 95 % interval
+calibrated total CV held across correlations,PASS,"CV at rho = 1.00 / 0.76 / 0.00 is 7.83 / 7.80 / 7.76 %, a spread of 0.07 pp",< 0.5 pp
+group-level spread widens as correlation falls,PASS,"median group CV 8.4 % at rho = 1 against 16.2 % at rho = 0; the total is unchanged, so rho redistributes variance rather than creating it",rho = 0 wider
+Tier 1 agrees with Tier 2,PASS,Tier 1 error propagation 7.84 % against Tier 2 simulation 7.87 %; IPCC (2000) 6.3.1 requires both to be reported,< 1 pp
 pharmaceutical mapping ratio is bounded above by 1,PASS,"scenario/central median ratio 0.757; the correction can only reduce the mapped intensity, never raise it",< 1

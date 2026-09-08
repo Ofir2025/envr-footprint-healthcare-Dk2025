@@ -48,6 +48,7 @@ CHECKED_DOCS = (
     "docs/revision/uncertainty_methods_for_manuscript.md",
     "docs/revision/exiobase_limitations_and_interpretation.md",
     "docs/revision/scenarios_answer.md",
+    "docs/revision/uncertainty_sources.md",
     "docs/methods/replications/18_mitigation_scenarios.md",
     "docs/methods/replications/10_snac_shipping_correction.md",
 )

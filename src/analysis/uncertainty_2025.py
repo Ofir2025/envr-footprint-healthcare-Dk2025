@@ -146,14 +146,14 @@ def load_groups():
 
 def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
            waste_vintage="central", rho=RHO_TRAVEL, rho_mrio=RHO_MRIO,
-           n=N_DRAWS, seed=SEED):
+           n=N_DRAWS, seed=SEED, cv_target=None):
     """Return (group_draws dict of arrays [n x groups], totals [n x indicators])."""
     rng = np.random.default_rng(seed)
+    cv_target = PARAMS["mrio"]["cv"] if cv_target is None else float(cv_target)
     # MRIO factor, correlated across groups with correlation rho_mrio.
     # log f_g = sigma (sqrt(rho) z0 + sqrt(1-rho) z_g) keeps every marginal
     # median 1 with the same sigma, while the correlation between any two
     # groups' log-factors is exactly rho.
-    sigma_mrio = np.sqrt(np.log(1.0 + PARAMS["mrio"]["cv"] ** 2))
     shared = rng.standard_normal(n)
     f = {"mrio": None,
          "B_HEAL": _ln(rng, PARAMS["direct"]["gsd"], n),
@@ -180,13 +180,23 @@ def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
     f["B_VISI"] = np.exp(s_v * (a_rho * z_shared + b_rho * rng.standard_normal(n)))
 
     groups = list(mrio.index)
-    mrio_factor = {}
-    for g in groups:
-        own = rng.standard_normal(n)
-        mrio_factor[g] = np.exp(sigma_mrio * (np.sqrt(rho_mrio) * shared
-                                              + np.sqrt(1.0 - rho_mrio) * own))
     out, totals = {}, {}
     for ind in INDICATORS:
+        # The MRIO spread is re-solved for THIS indicator at THIS correlation,
+        # so the calibrated block CV is held whatever rho is. At rho = 1 the
+        # solution is the plain sqrt(ln(1 + CV^2)) and the default result is
+        # unchanged; below 1 the spread must widen to compensate for the lost
+        # covariance. Without this the independence case silently abandoned the
+        # calibration and reported an interval half as wide as the evidence
+        # supports. See sigma_for_rho.
+        sigma_mrio = (np.sqrt(np.log(1.0 + cv_target * cv_target))
+                      if rho_mrio >= 1.0
+                      else sigma_for_rho(mrio[ind].values, rho_mrio, cv_target))
+        mrio_factor = {}
+        for g in groups:
+            own = rng.standard_normal(n)
+            mrio_factor[g] = np.exp(sigma_mrio * (np.sqrt(rho_mrio) * shared
+                                                  + np.sqrt(1.0 - rho_mrio) * own))
         G = np.empty((n, len(groups)))
         # pharma-mapping ratio (scenario B), truncated at 1.0 without a point mass
         if pharma_scenario == "B":
@@ -245,6 +255,124 @@ def _sigma(name: str) -> float:
     if name == "mrio":
         return float(np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2)))
     return float(np.log(PARAMS[_PARAM_OF[name]]["gsd"]))
+
+
+def sigma_for_rho(amounts, rho, target_cv=None):
+    r"""Log-scale spread that holds the calibrated total CV at a given correlation.
+
+    Parameters
+    ----------
+    amounts : array_like
+        Deterministic amount carried by each contribution group.
+    rho : float
+        Correlation imposed between the groups' log-factors.
+    target_cv : float, optional
+        Relative standard deviation the MRIO block must reproduce. Defaults to
+        the calibrated value in ``PARAMS["mrio"]["cv"]``.
+
+    Returns
+    -------
+    float
+        :math:`\sigma` such that the block's coefficient of variation equals
+        ``target_cv`` under correlation ``rho``.
+
+    Notes
+    -----
+    This closes an inconsistency that made the correlation sensitivity
+    unusable. Applying the same :math:`\sigma` at every :math:`\rho` fixes each
+    group's marginal spread and lets the TOTAL's spread fall as the correlation
+    falls, so the independence case silently abandoned the calibration target
+    and reported an interval roughly half as wide as the evidence supports
+    (block CV 4.27 % against the calibrated 8.35 %). Rodrigues (2016) shows the
+    two assumptions - uncorrelated disaggregates and a known aggregate
+    uncertainty - are mutually exclusive, and Rodrigues et al. (2018) measure
+    the penalty: assuming independence between country accounts understates the
+    world account's uncertainty by half.
+
+    Holding the total fixed instead turns :math:`\rho` into what a reader wants
+    it to be: a sensitivity on how the variance is DISTRIBUTED across groups,
+    not on how much of it there is. The variance of the block is
+
+    .. math::
+        \operatorname{Var} = \sum_i \sum_j a_i a_j
+        \left(e^{\rho_{ij}\sigma^2} - 1\right) e^{\sigma^2},
+        \qquad \rho_{ii} = 1,
+
+    which is monotone in :math:`\sigma`, so a bisection is exact enough.
+    """
+    a = np.asarray(amounts, dtype=float)
+    target = PARAMS["mrio"]["cv"] if target_cv is None else float(target_cv)
+    total = a.sum()
+    outer = np.outer(a, a)
+    eye = np.eye(len(a), dtype=bool)
+
+    def cv(sigma):
+        rho_ij = np.full(outer.shape, rho)
+        rho_ij[eye] = 1.0
+        var = float((outer * (np.exp(rho_ij * sigma ** 2) - 1.0)
+                     * np.exp(sigma ** 2)).sum())
+        return np.sqrt(var) / total
+
+    lo, hi = 1e-6, 5.0
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if cv(mid) < target:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
+
+
+def tier1_error_propagation(mrio, parts, rho=RHO_TRAVEL):
+    r"""IPCC Tier 1 uncertainty, reported alongside the Tier 2 simulation.
+
+    Parameters
+    ----------
+    mrio, parts : pandas.DataFrame and dict
+        Deterministic amounts, as loaded by :func:`load_groups`.
+    rho : float
+        Correlation of the travel pair's log-factors.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per indicator with the Tier 1 combined uncertainty, in percent.
+
+    Notes
+    -----
+    IPCC (2000) section 6.3.1 and 6.4.2 both require a Tier 1 result to be
+    reported alongside a Tier 2 one, noting it costs "hardly any additional
+    effort". Tier 1 combines source-category uncertainties by the
+    error-propagation rule for a sum (IPCC eq. 6.3),
+
+    .. math::
+        U_{\text{total}} =
+        \frac{\sqrt{\sum_i (U_i x_i)^2}}{\sum_i x_i},
+
+    which assumes the terms are uncorrelated and each has a spread below about
+    30 % of its mean. Both conditions hold for the bottom-up items; the MRIO
+    block is a single term here, so its internal correlation does not enter.
+    The covariance of the correlated travel pair is added, since ignoring it
+    would make the Tier 1 figure inconsistent with the Tier 2 one for a reason
+    that has nothing to do with the tier.
+    """
+    rows = []
+    for ind in INDICATORS:
+        terms = [(float(mrio[ind].sum()), _sigma("mrio"))]
+        for code in BU_TO_GROUP:
+            terms.append((float(parts[code][ind].sum()), _sigma(code)))
+        total = sum(a for a, _ in terms)
+        # A lognormal's relative standard deviation is sqrt(exp(s^2) - 1).
+        var = sum((a * np.sqrt(np.exp(s ** 2) - 1)) ** 2 for a, s in terms)
+        a_c = float(parts["B_COMM"][ind].sum())
+        a_v = float(parts["B_VISI"][ind].sum())
+        s_c, s_v = _sigma("B_COMM"), _sigma("B_VISI")
+        var += 2.0 * a_c * a_v * np.exp((s_c ** 2 + s_v ** 2) / 2.0) * (
+            np.exp(rho * s_c * s_v) - 1.0)
+        rows.append(dict(indicator=ind, deterministic=total,
+                         tier1_uncertainty_pct=100 * np.sqrt(var) / total
+                         if total else np.nan))
+    return pd.DataFrame(rows)
 
 
 def sobol_first_order(mrio, parts, pharma_scenario="A", rho=RHO_TRAVEL):
@@ -379,18 +507,41 @@ def main():
     # perfect-correlation bound; rho = 0 is the independence bound that
     # Rodrigues et al. (2018) show understates uncertainty; rho = 0.76 is their
     # measured median for country consumption-based accounts.
+    # Now that the spread is re-solved at each correlation, the TOTAL interval
+    # is held at the calibration and rho is a sensitivity on how the variance is
+    # DISTRIBUTED across groups. The group-level CVs are therefore the
+    # informative column, not the total. The uncalibrated total is reported
+    # alongside so the size of the defect this corrects is visible.
     mrio_rho_rows = []
-    for rm, label in ((1.0, "perfect correlation (study default, upper bound)"),
-                      (0.76, "Rodrigues et al. 2018 measured median for "
-                             "country consumption-based accounts"),
-                      (0.0, "independence (lower bound; Rodrigues et al. show "
-                            "this understates uncertainty)")):
-        _, _, tot, _ = run_mc(mrio, parts, "A", rho_mrio=rm, n=20_000)
+    for rm, label in ((1.0, "perfect correlation (study default). Rodrigues "
+                            "(2016): the only value consistent with holding a "
+                            "known aggregate uncertainty"),
+                      (0.76, "Rodrigues et al. (2018) measured median "
+                             "correlation between country consumption-based "
+                             "accounts"),
+                      (0.0, "independence. Rodrigues et al. (2018) show this "
+                            "understates aggregate uncertainty by about half "
+                            "unless the spread is re-solved, as it is here")):
+        _, G, tot, _ = run_mc(mrio, parts, "A", rho_mrio=rm, n=40_000, seed=13)
         a = tot["Global warming (ktCO2eq)"]
         q = np.percentile(a, [2.5, 50, 97.5])
+        gwp_groups = G["Global warming (ktCO2eq)"]
+        group_cv = 100 * gwp_groups.std(axis=0, ddof=1) / gwp_groups.mean(axis=0)
+        sig_cal = (np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2)) if rm >= 1.0
+                   else sigma_for_rho(mrio["Global warming (ktCO2eq)"].values, rm))
+        sig_flat = np.sqrt(np.log(1 + PARAMS["mrio"]["cv"] ** 2))
+        amounts = mrio["Global warming (ktCO2eq)"].values
+        outer = np.outer(amounts, amounts)
+        rr = np.full(outer.shape, rm); np.fill_diagonal(rr, 1.0)
+        cv_uncal = 100 * np.sqrt((outer * (np.exp(rr * sig_flat ** 2) - 1)
+                                  * np.exp(sig_flat ** 2)).sum()) / amounts.sum()
         mrio_rho_rows.append(dict(
             rho_mrio=rm, interpretation=label, median=q[1], p2_5=q[0],
-            p97_5=q[2], cv_pct=100 * a.std(ddof=1) / a.mean()))
+            p97_5=q[2], cv_pct=100 * a.std(ddof=1) / a.mean(),
+            sigma_used=sig_cal,
+            mrio_block_cv_if_not_recalibrated_pct=cv_uncal,
+            median_group_cv_pct=float(np.median(group_cv)),
+            max_group_cv_pct=float(group_cv.max())))
     mrio_rho = pd.DataFrame(mrio_rho_rows)
 
     # Median-1 lognormal multipliers have mean exp(sigma^2/2) > 1, so the MC
@@ -402,6 +553,75 @@ def main():
     summ = pd.concat(summaries, ignore_index=True)
     rk = pd.concat(ranks, ignore_index=True)
     sob = sobol_first_order(mrio, parts)
+    tier1 = tier1_error_propagation(mrio, parts)
+
+    # Variance shares at every correlation, because at rho = 1 the MRIO share is
+    # near its maximum by construction and reporting it alone would present an
+    # assumption as a finding.
+    share_rows = []
+    for rm in (1.0, 0.76, 0.0):
+        _, G, tot, f = run_mc(mrio, parts, "A", rho_mrio=rm, n=40_000, seed=17)
+        arr = tot["Global warming (ktCO2eq)"]
+        bu = np.zeros(len(arr))
+        for code in BU_TO_GROUP:
+            amt = float(parts[code]["Global warming (ktCO2eq)"].sum())
+            if amt:
+                bu = bu + amt * f[code]
+        share_rows.append(dict(
+            rho_mrio=rm,
+            mrio_variance_share_pct=100 * (1 - float(bu.var(ddof=1))
+                                           / float(arr.var(ddof=1))),
+            note="frozen-input estimate: the share of output variance that "
+                 "disappears when the bottom-up terms alone are varied"))
+    rho_shares = pd.DataFrame(share_rows)
+
+    # The calibration is a CARBON statistic applied to five categories. Schulte
+    # et al. (2021), on this database and this resolution, find industry-level
+    # footprint CVs above 10 % for carbon but above 30 % for land, material and
+    # water. A single carbon-calibrated factor therefore understates the four
+    # non-carbon categories, and the size of that understatement is not known.
+    # It is reported as a bounding scenario at three times the carbon spread,
+    # labelled as a bound rather than an estimate, because no per-category
+    # calibration for a national footprint exists to be used instead.
+    noncarbon_rows = []
+    for mult, label in ((1.0, "carbon calibration applied unchanged (default)"),
+                        (3.0, "bound: three times the carbon spread, after the "
+                              "carbon-to-other ratio in Schulte et al. (2021) "
+                              "industry footprints. NOT an estimate")):
+        _, _, tot_nc, _ = run_mc(mrio, parts, "A", n=40_000, seed=23,
+                                 cv_target=PARAMS["mrio"]["cv"] * mult)
+        for ind, arr in tot_nc.items():
+            if ind == "Global warming (ktCO2eq)" and mult != 1.0:
+                continue
+            q = np.percentile(arr, [2.5, 50, 97.5])
+            noncarbon_rows.append(dict(
+                indicator=ind, mrio_spread_multiplier=mult, basis=label,
+                median=q[1], p2_5=q[0], p97_5=q[2],
+                cv_pct=100 * arr.std(ddof=1) / arr.mean()))
+    noncarbon = pd.DataFrame(noncarbon_rows)
+
+    # IPCC (2000) section 6.4, step 5: a Tier 2 result is converged when the
+    # 95 % range is determined to within 1 %. Measured rather than assumed.
+    _, _, tot_conv, _ = run_mc(mrio, parts, "A")
+    arr = tot_conv["Global warming (ktCO2eq)"]
+    halves = [np.percentile(h, [2.5, 97.5]) for h in np.array_split(arr, 2)]
+    conv = float(np.max(np.abs(halves[0] - halves[1])
+                        / np.percentile(arr, [2.5, 97.5])))
+    convergence = pd.DataFrame([dict(
+        criterion="IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %",
+        draws=N_DRAWS,
+        max_relative_difference_between_halves_pct=100 * conv,
+        passes=bool(conv < 0.01))])
+
+    # Schulte et al. (2026) section 4: where results are correlated, share the
+    # full sample, or failing that the covariance matrix. Publishing group
+    # medians and spreads alone is the option that paper ranks worst.
+    _, G_full, _, _ = run_mc(mrio, parts, "A")
+    gwp = G_full["Global warming (ktCO2eq)"]
+    cov = pd.DataFrame(np.cov(gwp, rowvar=False), index=groups, columns=groups)
+    cov.to_csv(os.path.join(out_dir, "uncertainty_group_covariance_gwp.csv"))
+    np.save(os.path.join(out_dir, "uncertainty_group_draws_gwp.npy"),
+            gwp.astype(np.float32))
     par = pd.DataFrame([dict(parameter=k, distribution="lognormal, median 1",
                              gsd=v.get("gsd"), cv=v.get("cv"),
                              factor_2_5pct=(v["gsd"] ** -1.96 if v.get("gsd") else
@@ -421,6 +641,10 @@ def main():
     for name, df in (("uncertainty_totals", summ), ("uncertainty_variance_shares", sob),
                      ("uncertainty_ranking_probabilities", rk),
                      ("uncertainty_structural_scenarios", pd.DataFrame(scen_rows)),
+                     ("uncertainty_tier1_error_propagation", tier1),
+                     ("uncertainty_variance_shares_by_correlation", rho_shares),
+                     ("uncertainty_convergence", convergence),
+                     ("uncertainty_noncarbon_bound", noncarbon),
                      ("uncertainty_parameters", par)):
         df.to_csv(os.path.join(out_dir, name + ".csv"), index=False)
 
@@ -439,6 +663,17 @@ def main():
           .round(2).to_string(index=False))
     print("\nTravel-correlation sensitivity (GWP):")
     print(pd.DataFrame(rho_rows).round(2).to_string(index=False))
+    print("\nTier 1 (IPCC error propagation), reported alongside Tier 2:")
+    print(tier1.round(2).to_string(index=False))
+    print("\nMRIO variance share at each correlation:")
+    print(rho_shares[["rho_mrio", "mrio_variance_share_pct"]].round(1)
+          .to_string(index=False))
+    print("\nConvergence:")
+    print(convergence.to_string(index=False))
+    print("\nNon-carbon categories: default against the three-times bound:")
+    print(noncarbon.pivot_table(index="indicator",
+                                columns="mrio_spread_multiplier",
+                                values="cv_pct").round(2).to_string())
 
 
 if __name__ == "__main__":
