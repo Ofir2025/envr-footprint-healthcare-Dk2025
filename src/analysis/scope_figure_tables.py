@@ -113,15 +113,18 @@ def build_detail() -> pd.DataFrame:
         If the assembled table does not reproduce the scope totals it was
         built from.
     """
-    nodes = _read("scopes_by_producing_node.csv")
-    nodes = nodes[nodes["indicator"] == "climate_change"].copy()
+    nodes = _read("scopes_by_producing_node.csv").copy()
 
     summary = _read("scopes_summary_detailed.csv")
-    summary = summary[summary["indicator"] == "climate_change"]
     eriksen = pd.read_csv(os.path.join(
         str(OUTPUT_DIR), "01_eriksen_replication", "scopes_summary.csv"))
     comp = eriksen.set_index("Component")["kt_CO2eq"]
 
+    # Bottom-up items exist only for climate (and, for scope 1, waste, which
+    # comes from the Danish waste account rather than this list). Every other
+    # indicator's scope 1 and outside-protocol terms are zero by construction,
+    # so the loop below adds rows for climate alone and the assertions below
+    # check every indicator against its own scope summary.
     rows = []
     for scope, component, code, industry, group in BOTTOM_UP:
         if component not in comp.index:
@@ -142,24 +145,59 @@ def build_detail() -> pd.DataFrame:
             "component_type": "bottom-up item",
             "value": float(comp.loc[component]),
         })
+    # Scope 1 for indicators other than climate comes from a national account
+    # rather than the BOTTOM_UP list -- waste generation is 42.8 kt from the
+    # Danish SEEA waste account. Without this the scope figure would show those
+    # indicators as having no direct term at all.
+    climate_bu = {r[0] for r in BOTTOM_UP}
+    for indicator in sorted(summary["indicator"].unique()):
+        if indicator == "climate_change":
+            continue
+        sub = summary[(summary["indicator"] == indicator)
+                      & (summary["scope"].isin(("Scope 1", "Outside protocol")))]
+        for _, r in sub.iterrows():
+            if float(r["value"]) == 0.0:
+                continue
+            rows.append({
+                "consuming_country_iso3": "DNK",
+                "model": nodes["model"].iloc[0],
+                "analysis_year": int(nodes["analysis_year"].iloc[0]),
+                "indicator": indicator,
+                "unit": r["unit"],
+                "scope": r["scope"],
+                "producing_country_iso3": "DNK",
+                "producing_country_name": "Denmark",
+                "producing_world_region": "Denmark",
+                "producing_sector_code": "HEAL",
+                "producing_sector_name": "Health and social work",
+                "producing_sector_group": "Operational impact",
+                "component_type": "national account",
+                "value": float(r["value"]),
+            })
+
     nodes["component_type"] = "MRIO supply-chain node"
     detail = pd.concat([nodes, pd.DataFrame(rows)], ignore_index=True)
     detail = detail[detail["value"] != 0].reset_index(drop=True)
 
-    got = detail.groupby("scope")["value"].sum()
-    want = {
-        "Scope 1": float(comp.loc["Scope 1 (Total)"]),
-        "Scope 2": float(summary.loc[summary.scope == "Scope 2", "value"].iloc[0]),
-        # The summary's Scope 3 is already the residual *plus* pMDI and
-        # commuting (see its ``basis`` column), so the two bottom-up rows this
-        # module adds to the node file reconstruct exactly that figure. Adding
-        # them to the target as well would double count them.
-        "Scope 3": float(summary.loc[summary.scope == "Scope 3", "value"].iloc[0]),
-        "Outside protocol": float(comp.loc["Outside protocol (patient/visitor travel)"]),
-    }
-    for scope, target in want.items():
-        assert np.isclose(got[scope], target, rtol=1e-9), (
-            f"{scope}: assembled {got[scope]:,.3f} vs expected {target:,.3f}")
+    # Every indicator must reproduce its own Scope 2 and Scope 3 totals from
+    # the scope summary. Scope 1 and outside-protocol are checked for climate,
+    # where the bottom-up rows above supply them.
+    got = detail.groupby(["indicator", "scope"])["value"].sum()
+    for indicator in sorted(detail["indicator"].unique()):
+        sub = summary[summary["indicator"] == indicator]
+        for scope in ("Scope 1", "Scope 2", "Scope 3", "Outside protocol"):
+            rows_ = sub.loc[sub.scope == scope, "value"]
+            if rows_.empty or (indicator, scope) not in got.index:
+                continue
+            target = float(rows_.iloc[0])
+            assert np.isclose(got[(indicator, scope)], target, rtol=1e-8), (
+                f"{indicator} {scope}: assembled {got[(indicator, scope)]:,.4f} "
+                f"vs summary {target:,.4f}")
+    assert np.isclose(got[("climate_change", "Scope 1")],
+                      float(comp.loc["Scope 1 (Total)"]), rtol=1e-9)
+    assert np.isclose(got[("climate_change", "Outside protocol")],
+                      float(comp.loc["Outside protocol (patient/visitor travel)"]),
+                      rtol=1e-9)
     return detail
 
 
@@ -186,7 +224,10 @@ def top_n_with_remainder(detail: pd.DataFrame, n: int = TOP_N) -> pd.DataFrame:
     keys = ["producing_country_iso3", "producing_country_name",
             "producing_world_region", "producing_sector_code",
             "producing_sector_name", "producing_sector_group"]
-    pair_total = (detail.groupby(keys, dropna=False)["value"].sum()
+    # Rank within the headline indicator so the same pairs are shown in every
+    # panel; ranking each panel separately would make the facets incomparable.
+    rank_basis = detail[detail["indicator"] == "climate_change"]
+    pair_total = (rank_basis.groupby(keys, dropna=False)["value"].sum()
                   .sort_values(ascending=False))
     keep = pair_total.head(n).index
     flagged = detail.set_index(keys)
@@ -238,17 +279,23 @@ def main() -> None:
               "producing_world_region"], "scope_by_country")):
         agg = (detail.groupby(by + ["scope", "indicator", "unit"], dropna=False)
                ["value"].sum().reset_index())
-        agg["share_of_scope_pct"] = 100 * agg["value"] / agg.groupby("scope")[
-            "value"].transform("sum")
-        agg = agg.sort_values(["scope", "value"], ascending=[True, False])
+        agg["share_of_scope_pct"] = 100 * agg["value"] / agg.groupby(
+            ["indicator", "scope"])["value"].transform("sum")
+        agg = agg.sort_values(["indicator", "scope", "value"],
+                              ascending=[True, True, False])
         agg.to_csv(os.path.join(out_dir, f"{stem}.csv"), index=False)
         assert np.isclose(agg["value"].sum(), detail["value"].sum(), rtol=1e-12), \
             f"{stem} lost mass"
 
-    total = detail["value"].sum()
     print(f"scope figure tables -> {out_dir}")
-    print(f"  detail rows {len(detail):,}   total {total:,.1f} kt CO2eq")
-    print(detail.groupby("scope")["value"].sum().round(2).to_string())
+    print(f"  detail rows {len(detail):,}")
+    # Never sum across indicators: the units differ.
+    wide = (detail.pivot_table(index="indicator", columns="scope",
+                               values="value", aggfunc="sum")
+            .round(2).fillna(0.0))
+    unit = detail.groupby("indicator")["unit"].first()
+    wide.insert(0, "unit", unit)
+    print(wide.to_string())
 
 
 if __name__ == "__main__":
