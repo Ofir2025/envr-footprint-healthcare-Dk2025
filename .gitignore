@@ -22,3 +22,8 @@ data/silver/background/
 
 # Excel lock files
 ~$*
+
+# The global excludesFile also drops *.tiff. Publication figures ARE the
+# deliverable, so un-ignore the figures tree (repo .gitignore takes precedence).
+!figures/**/*.tiff
+!figures/**/*.png
