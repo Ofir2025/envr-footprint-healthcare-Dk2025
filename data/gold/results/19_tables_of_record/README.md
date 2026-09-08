@@ -87,7 +87,7 @@
 
 ### `table_13.csv`
 
-- **Rows:** 29
+- **Rows:** 33
 - **Dimensions:** `Scenario`
 - **Measures:** `Climate (%)`, `Material (%)`, `Blue water (%)`, `Land (%)`, `Waste (%)`
 
