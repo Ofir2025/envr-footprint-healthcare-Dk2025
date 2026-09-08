@@ -50,7 +50,7 @@ CHECKED_DOCS = (
     "docs/revision/scenarios_answer.md",
     "docs/revision/uncertainty_sources.md",
     "docs/methods/replications/18_mitigation_scenarios.md",
-    "docs/methods/replications/10_snac_shipping_correction.md",
+    "docs/methods/replications/10_sea_transport_reallocation.md",
 )
 
 #: Author-year citations in running prose. Matches "(Author, 2019)",

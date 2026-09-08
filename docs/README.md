@@ -78,7 +78,7 @@ label.
 | `07_malik_replication` | Domestic-only footprint and production layers | Malik et al. 2018, 2021 |
 | `08_lenzen_replication` | The Lenzen KPI set for Denmark | Lenzen et al. 2020 |
 | `09_vintage_diagnostics` | EXIOBASE vintages against Danish national accounts | this study |
-| `10_snac_shipping_correction` | The Danish sea-transport reallocation and its diagnostics | Rørmose Jensen & Iliev 2022 |
+| `10_sea_transport_reallocation` | The Danish sea-transport reallocation and its diagnostics | Rørmose Jensen & Iliev 2022 |
 | `11_capital_gfcf` | Capital excluded / exogenous / endogenised | Södersten et al. 2018 |
 | `12_impact_categories_full` | All 99 usable DESIRE categories, with a quality screen | DESIRE FP7; ILCD |
 | `13_steenmeijer_replication` | The Dutch template table, side by side | Steenmeijer et al. 2022 |

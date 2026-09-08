@@ -68,7 +68,7 @@ coupling (SNAC, after Palm et al. 2019) is required. We reproduce their diagnosi
 **not** implement full SNAC; that implementation is a larger piece of work, scoped in
 `docs/revision/dk_snac_feasibility.md` and listed as an open item. What we do implement is
 the single reallocation their diagnosis most directly implies
-([10](10_snac_shipping_correction.md)).
+([10](10_sea_transport_reallocation.md)).
 
 ## Outcome
 

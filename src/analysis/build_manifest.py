@@ -25,7 +25,7 @@ APPROACHES = {
         script="analysis.vintage_defect_audit",
         equations="ratio = x_EXIOBASE(group) / x_nationalaccounts(group)",
         inputs="EXIOBASE v3.7/v3.8.2/v3.10.2 x vectors; DST 117-industry IO tables"),
-    "10_snac_shipping_correction": dict(
+    "10_sea_transport_reallocation": dict(
         approach="Danish sea-transport reallocation (simplified SNAC step)",
         reference="Rørmose Jensen & Iliev 2022, pp. 11-12; Palm et al. 2019",
         script="analysis.dk_shipping_correction",
