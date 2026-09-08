@@ -1,4 +1,4 @@
-rho_mrio,interpretation,median,p2_5,p97_5,cv_pct,median_1_lognormal_mean_inflation
-1.0,"perfect correlation (study default, upper bound)",4737.95107948982,4058.744036322647,5530.788783149665,7.879728401444697,1.003480069557936
-0.76,Rodrigues et al. 2018 measured median for country consumption-based accounts,4737.041982984322,4110.144510858054,5464.535850016318,7.296104808137388,1.003480069557936
-0.0,independence (lower bound; Rodrigues et al. show this understates uncertainty),4736.696781531018,4315.190787569998,5263.412418503937,5.086590765855958,1.003480069557936
+rho_mrio,interpretation,median,p2_5,p97_5,cv_pct,sigma_used,mrio_block_cv_if_not_recalibrated_pct,median_group_cv_pct,max_group_cv_pct,median_1_lognormal_mean_inflation
+1.0,perfect correlation (study default). Rodrigues (2016): the only value consistent with holding a known aggregate uncertainty,4735.238652316206,4067.8744023686404,5527.246191369643,7.850983649240221,0.08335500138817992,8.379058580808772,8.370461611866567,26.217627095402428,1.003480069557936
+0.76,Rodrigues et al. (2018) measured median correlation between country consumption-based accounts,4740.008729028685,4074.8368014931516,5531.763984376011,7.830387265994849,0.09153341947671678,7.596226723438768,9.194867053946274,26.217627095402428,1.003480069557936
+0.0,"independence. Rodrigues et al. (2018) show this understates aggregate uncertainty by about half unless the spread is re-solved, as it is here",4772.925747306048,4120.418516667922,5575.416446522172,7.721936432399692,0.16068669156527954,4.270567387887708,16.1525017673782,26.217627095402428,1.003480069557936

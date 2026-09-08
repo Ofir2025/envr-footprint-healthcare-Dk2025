@@ -173,15 +173,25 @@ $$\sigma_M = \sqrt{\ln\left(1 + \mathrm{CV}^{2}\right)} = \sqrt{\ln(1+0.0835^{2}
 spread are related by that formula; for small CVs the two are almost equal, and
 here 8.35 % maps to $\sigma_M = 0.0834$.
 
-**Corroboration, corrected.** An earlier draft attributed "8.8 % for the Danish
-consumption-based account" to Wood et al. (2019). The paper is real and is the
-right kind of evidence, but that decimal is not what it reports: across all
-regions it gives an unweighted mean relative standard deviation of **8 % for
-production-based and 12 % for consumption-based accounts**, and it names Denmark
-explicitly among the countries whose variation is driven by how international
-transport emissions are handled. The 8.35 % used here therefore sits at the
-lower end of the published cross-database spread, which is what one would expect
-of a within-model parametric estimate.
+**Corroboration.** Wood et al. (2019) compare five global input-output databases
+and give, in their Table 1, a **Denmark consumption-based relative standard
+deviation of 8.8 %** (4.2 % after normalising to a common base year), against an
+unweighted mean across all regions of 11.9 %. Denmark's *production*-based figure
+is higher still at 19.3 %, and the paper names Denmark explicitly among the
+countries whose variation is driven by how international transport emissions are
+handled - independent support, from outside this study, for the sea-transport
+correction.
+
+That the between-model dispersion for Denmark (8.8 %) and the within-model
+calibration used here (8.35 %) land within half a percentage point of each other
+is a useful check, and it is not a coincidence of definition: the two are
+measured by completely different exercises. It is not proof either. Wood et al.
+caution that no real measure of uncertainty can be calculated from five
+databases that share much of their source data.
+
+*A correction to an earlier draft.* This note previously withdrew the 8.8 %
+figure as untraceable. It was traceable; it is in Table 1 of the paper, which
+the online abstract does not show. The figure is reinstated.
 
 The same point is visible in this repository without leaving it. Five published
 Danish national footprints span 9.77 to 13.19 t CO₂e per capita - a coefficient
@@ -238,13 +248,27 @@ correlations of $0.63 \pm 0.36$ (median 0.76) between country consumption-based
 accounts and show that assuming independence understates uncertainty by about
 half. All three cases are reported:
 
-| $\rho_M$ | Interpretation | CV | 95 % interval (kt) |
+| $\rho_M$ | $\sigma$ required | Total CV | Median group CV |
 |---|---|---|---|
-| 1.00 | perfect - **study default** | **7.88 %** | 4,059 - 5,531 |
-| 0.76 | Rodrigues et al.'s measured median | 7.30 % | 4,110 - 5,465 |
-| 0.00 | independence | 5.09 % | 4,315 - 5,263 |
+| 1.00, the study default | 0.083 | 7.85 % | 8.4 % |
+| 0.76, Rodrigues et al.'s measured median | 0.092 | 7.83 % | 9.2 % |
+| 0.00, independence | 0.161 | 7.72 % | 16.2 % |
 
-The default is the widest, so it cannot understate the interval.
+**The spread is re-solved at every correlation so that the calibrated total is
+held.** This corrects a defect found on 8 September 2026. Holding $\sigma$ fixed
+while varying $\rho_M$ left each group's own spread unchanged, so the total's
+spread fell as the correlation fell and the independence case reported a
+supply-chain coefficient of variation of 4.27 % against the calibrated 8.35 %.
+The sensitivity was silently abandoning the calibration it was meant to test,
+and understating the interval by roughly half - the same error Rodrigues et al.
+(2018) measure between dependent and independent sampling of country accounts.
+Rodrigues (2016) proves the two assumptions cannot both hold: uncorrelated
+disaggregates and a known aggregate uncertainty are mutually exclusive.
+
+With the total held, $\rho_M$ becomes a sensitivity on how the variance is
+**distributed**, which is what a reader wants it to be. The informative column
+is the last one: at independence each contribution group carries twice the
+uncertainty it does under perfect correlation, while the total is unchanged.
 
 ### 4.6 What is deliberately **not** given a distribution
 
