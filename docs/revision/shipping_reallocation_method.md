@@ -8,7 +8,7 @@ problem plainly, sets out exactly what we do, compares it with every other
 approach we could find, and says what we do *not* claim.
 
 Reproduce with `PYTHONPATH=src .venv/bin/python -m analysis.dk_shipping_correction`
-→ `data/gold/results/10_snac_shipping_correction/`.
+→ `data/gold/results/10_sea_transport_reallocation/`.
 
 ---
 
