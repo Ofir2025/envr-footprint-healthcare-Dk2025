@@ -14,7 +14,7 @@ where the code departs from the published form, the departure is stated in the
 |---|---|---|---|
 | [00](00_core_footprint.md) | Core footprint | Leontief (1970); Miller & Blair (2009) | `main_2025`, `extended_indicators`, `national_totals` |
 | [01](01_eriksen_replication.md) | Eriksen replication (the manuscript) | Eriksen et al., NXSUST-D-26-01589 | `main_2025`, `eriksen_tables` |
-| [02](02_scopes_wood_hertwich.md) | GHG-Protocol scopes | Wood et al. (2018) | `scopes_detail` |
+| [02](02_scopes_wood_hertwich.md) | GHG-Protocol scopes | Hertwich & Wood (2018); OECD (2025) | `scopes_detail` |
 | [03](03_cabernard_target_scope3.md) | Target-sector scope 3 | Cabernard et al. (2019, 2022) | `cabernard_target_scope3` |
 | [04](04_uncertainty_lenzen_ieooc.md) | Monte Carlo uncertainty | Lenzen et al. (2020); Rodrigues et al. (2018) | `uncertainty_2025` |
 | [05](05_waste_dst_accounts.md) | Domestic waste from Danish accounts | Statistics Denmark AFF1MU1N / AFF3MU1N | `waste_domestic_dst` |
