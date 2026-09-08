@@ -2,7 +2,8 @@
 
 The submitted manuscript reports transport as the largest contributor to the Danish
 health-care climate footprint, at **46 %** of sector contributions. That finding leads the
-abstract, the *Research in context* panel and the cover letter. This is the audit of it.
+abstract, the *Research in context* panel, and the cover letter. This note is the audit of
+it.
 
 The headline conclusion is favourable to the authors: **the 46 % is reproducible.** It is
 not an analytical error. It is a faithful report of what an uncorrected EXIOBASE Danish
@@ -26,7 +27,7 @@ The group contains six transport *service* industries and no manufacturing:
 | `TWAI` | Inland water transport |
 | `TAIR` | Air transport (62) |
 
-`MOTO` and `OTRE` - motor vehicle and other transport-equipment *manufacturing* - sit in a
+`MOTO` and `OTRE` (motor vehicle and other transport-equipment *manufacturing*) sit in a
 separate *Transport Equipment* group, correctly.
 
 **The open question.** `TAUX`, *Supporting and auxiliary transport activities; activities of
@@ -45,7 +46,7 @@ ones, and state the alternative rather than switching silently.
 **It was real but immaterial, and I previously overstated it.**
 
 The submitted figure code matched transport by substring, which also caught *Transport
-Equipment*. That is a genuine defect - it is wrong by construction - but on this footprint
+Equipment*. That is a genuine defect (it is wrong by construction), but on this footprint
 vehicle manufacturing barely appears:
 
 | | Transport only | + Transport Equipment | Difference |
@@ -53,11 +54,12 @@ vehicle manufacturing barely appears:
 | 2019, uncorrected | 47.28 % | 47.33 % | **+0.05 pp** |
 | 2022, corrected | 15.45 % | 15.52 % | **+0.07 pp** |
 
-Fixed in `analysis.manuscript_figure_tables` by matching exactly. It changes no conclusion.
+The figure code is fixed in `analysis.manuscript_figure_tables` by matching exactly. It
+changes no conclusion.
 
 ## 3. Does our pipeline reproduce the 46 %?
 
-**Yes - to 1.3 percentage points.** Running our corrected pipeline on the manuscript's own
+**Yes, to 1.3 percentage points.** Running our corrected pipeline on the manuscript's own
 background (EXIOBASE v3.7, 2016, no shipping correction) and its own reference year:
 
 | | Transport share of the MRIO supply chain |
@@ -66,8 +68,8 @@ background (EXIOBASE v3.7, 2016, no shipping correction) and its own reference y
 | **Ours, same background and year** | **47.28 %** |
 
 The residual 1.3 pp is the demand-vector difference (F1 in the manuscript assessment), not
-a modelling disagreement. This is the strongest possible evidence that the finding was
-correctly computed from the data available.
+a modelling disagreement. This agreement is the strongest possible evidence that the
+finding was correctly computed from the data available.
 
 ## 4. Where does 46 % go?
 
@@ -75,12 +77,12 @@ A four-step decomposition, each step measured rather than inferred:
 
 | Step | Transport share | Change |
 |---|---|---|
-| 2019, v3.7/2016 background, uncorrected | **47.3 %** | - |
+| 2019, v3.7/2016 background, uncorrected | **47.3 %** | n/a |
 | 2022 demand and v3.8.2 background, still uncorrected | 37.5 % | −9.8 pp |
 | **Danish sea-transport reallocation applied** | 18.5 % | **−19.0 pp** |
 | Bottom-up items included in the denominator | **15.5 %** | −3.0 pp |
 
-**The reallocation is the whole story.** Year, vintage and demand vector together move the
+**The reallocation is the whole story.** Year, vintage, and demand vector together move the
 share by less than half of what the data correction does.
 
 ## 5. Is the correction itself sound?
@@ -88,27 +90,27 @@ share by less than half of what the data correction does.
 | Test | Result |
 |---|---|
 | Danish national accounts benchmark | 9 % of water-transport output to domestic intermediate use |
-| EXIOBASE v3.8.2 as published | **73.6 %** - Statistics Denmark's reported 74 %, to the decimal |
-| EXIOBASE's own hybrid build, no correction applied | **7.8 %** - within 1.2 pp of the benchmark |
+| EXIOBASE v3.8.2 as published | **73.6 %** (Statistics Denmark's reported 74 %, to the decimal) |
+| EXIOBASE's own hybrid build, no correction applied | **7.8 %** (within 1.2 pp of the benchmark) |
 | Danish Energy Agency statutory practice | performs an equivalent reallocation for shipping and aviation |
 | Row balance after correction | 1.1 × 10⁻¹¹ M€ |
 | Maximum column-balance residual, Danish block | 2.4 × 10⁻⁵ M€ |
-| Industry total output | unchanged - only the allocation moves |
+| Industry total output | unchanged; only the allocation moves |
 
 Three independent sources agree the published monetary allocation is wrong, and none of
-them is ours. The target share is set to the national-accounts benchmark exactly; there is
-no fitted parameter.
+them is ours. The target share is set to the national-accounts benchmark exactly; no
+parameter is fitted.
 
 ## 6. What survives, and what should the paper now say?
 
-Transport is **still the third largest** contributor at 15.5 % of the total climate
-footprint, and **sea and coastal water transport alone is 10.1 %** - the single largest
+Transport is **still the third largest** contributor at 15.4 % of the total climate
+footprint, and **sea and coastal water transport alone is 10.1 %**, the single largest
 transport component even after correction, reflecting genuine international shipping in
 Danish health supply chains.
 
 What changes is the ranking. **Pharmaceuticals and chemical products is the largest
 contributor at 36.9 %**, not transport. The paper's central claim has to move accordingly,
-in the abstract, the *Research in context* panel and the cover letter.
+in the abstract, the *Research in context* panel, and the cover letter.
 
 ## 7. What a reviewer will ask, and the answer
 

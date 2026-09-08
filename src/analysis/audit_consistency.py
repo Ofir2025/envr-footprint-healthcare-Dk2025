@@ -37,6 +37,13 @@ drifted on 8 September 2026, two of them mutually inconsistent between documents
 because the prose was written before the AR6 restatement and the waste correction.
 Prose can drift; numbers should not be able to.
 
+**C6b Superseded values.** Checking that a current number reproduces catches a
+document nobody updated. It does not catch the failure that actually occurs,
+which is a number updated in one document and left standing in another. So the
+superseded form itself is banned from every document that states a current
+claim, and the registers that exist to record what a value used to be are named
+explicitly rather than inferred.
+
 Exit status is non-zero if any check fails, so this can gate a release.
 
 Run
@@ -313,6 +320,84 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
          column="national_footprint"),
 )
 
+#: Values that were quoted in the documentation and have since been superseded.
+#: Checking that a current number reproduces catches a document that was never
+#: updated; it does not catch a document that was updated in one place and not
+#: another, which is how every drift found on 8 September 2026 actually
+#: happened. So the superseded form is banned outright from the documents that
+#: state current claims, and any future legitimate use has to be argued for
+#: here rather than appearing silently.
+SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
+    ("4,064-5,540", "pre-correction 95 % interval; the current one is 4,065 to 5,532"),
+    ("4,059-5,531", "pre-correction 95 % interval from the correlation sweep"),
+    ("4,057-5,546", "pre-correction 95 % interval"),
+    ("4 063.9", "pre-correction interval, also with a thin-space separator"),
+    ("86.8 %", "input-output share of variance before the covariance term was "
+               "reported separately; it is 78.8 %"),
+    ("18.9 %", "transport share after the reallocation; it is 18.5 % of the "
+               "supply-chain component and 15.4 % of the total"),
+    ("67.9 %", "first three production layers; the value is 63.0 %"),
+    ("872.8", "domestic-only Malik total; the value is 839.5 kt"),
+    ("822 kt", "Danish sea-transport node before the reallocation; it is 852 kt"),
+    ("12.7 kt", "anaesthetic-gas item before the medstat register replaced the "
+                "proxy; it is 12.5 kt"),
+    ("4,715 kt", "health-care climate footprint; it is 4,713 kt"),
+    ("4,736 kt", "Monte Carlo median; it is 4,735 kt"),
+    ("4,875 kt", "health-care climate footprint from a superseded run"),
+    ("15.5 % of the total", "transport share on the full-footprint basis; "
+                            "728.2 of 4,713.4 kt is 15.4 %"),
+)
+
+#: Documents that record what a number used to be, and therefore must be
+#: allowed to contain a superseded form. Everything else under the revision,
+#: replication and figure trees states current claims.
+HISTORICAL_DOCS: frozenset[str] = frozenset({
+    # the register of what was asked for and what each answer used to say
+    "docs/revision/REQUEST_CHECKLIST.md",
+    # a before-and-after table of every fix, so the "before" is the point
+    "docs/revision/bug_and_method_fixes.md",
+    # carries its own corrections table, listing the value each figure replaced
+    "docs/revision/anomalies_bugs_and_open_questions.md",
+    # a dated reply, quoting the branch state on the day it was written;
+    # rewriting its numbers would falsify a record rather than correct it
+    "docs/revision/response_to_requests_2026_09_07.md",
+})
+
+#: Trees whose markdown states current claims.
+CLAIM_TREES: tuple[str, ...] = ("docs/revision", "docs/methods/replications",
+                                "figures/manuscript")
+
+
+def c6b_superseded(results: list[dict[str, Any]]) -> None:
+    """No current-claim document may quote a value that has been superseded.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdict to.
+    """
+    repo = os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))))
+    hits: list[str] = []
+    scanned = 0
+    for tree in CLAIM_TREES:
+        for path in sorted(glob.glob(os.path.join(repo, tree, "**", "*.md"),
+                                     recursive=True)):
+            rel = os.path.relpath(path, repo)
+            if rel in HISTORICAL_DOCS:
+                continue
+            scanned += 1
+            body = open(path, encoding="utf-8").read()
+            for text, why in SUPERSEDED_TEXT:
+                if text in body:
+                    hits.append(f"{rel} quotes {text!r} ({why})")
+    detail = ("; ".join(hits[:3]) + (f"; and {len(hits) - 3} more"
+                                     if len(hits) > 3 else "")) if hits else (
+        f"{scanned} documents carry none of the {len(SUPERSEDED_TEXT)} "
+        f"superseded values")
+    _check(results, "C6 no document quotes a superseded value",
+           not hits, detail)
+
 
 def c6_documentation(results: list[dict[str, Any]]) -> None:
     """Headline numbers quoted in the revision docs must still reproduce.
@@ -445,7 +530,8 @@ def main() -> None:
     """Run every check and write the report; exit non-zero on failure."""
     results: list[dict[str, Any]] = []
     for check in (c1_headline, c2_detail_vs_aggregate, c3_freshness,
-                  c4_provenance, c5_manifest, c6_documentation, c7_star_integrity,
+                  c4_provenance, c5_manifest, c6_documentation, c6b_superseded,
+                  c7_star_integrity,
                   c8_citations, c9_gold_scope):
         try:
             check(results)

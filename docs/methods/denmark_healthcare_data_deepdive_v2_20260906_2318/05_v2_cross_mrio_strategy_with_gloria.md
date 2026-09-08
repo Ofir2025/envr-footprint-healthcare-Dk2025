@@ -374,7 +374,7 @@ The preferred outcome is:
 | Materials | | | | n/a/limited | | | | |
 | Land | | | | n/a/limited | | | | |
 | PM | | | | limited | | | | |
-| NOx | | | FIGARO extension if available | | | | |
+| NOx | | | | FIGARO extension if available | | | | |
 | SO2 | | | | | | | | |
 
 Only populate cells where the underlying extension is scientifically comparable.

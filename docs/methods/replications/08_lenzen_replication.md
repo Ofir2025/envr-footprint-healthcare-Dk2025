@@ -7,8 +7,8 @@ a global assessment*, Lancet Planet Health 4:e271-79, and its SI §§2, 5
 
 ## Question this layer answers
 
-Every indicator Lenzen et al. publish per country, reproduced for Denmark so our result
-can be placed directly beside their published Danish row.
+This layer reproduces for Denmark every indicator Lenzen et al. publish per country,
+so our result can be placed directly beside their published Danish row.
 
 ## Method
 
@@ -24,7 +24,7 @@ The trace form of the import share is theirs: $\mathrm{tr}(\hat{q} L \hat{y^*})$
 the diagonal, i.e. pressure arising in the same node that is being supplied, which for a
 single-country demand vector is the domestic part.
 
-Each KPI is split into **direct**, **first-order supplier** and **higher-order**
+Each KPI is split into **direct**, **first-order supplier**, and **higher-order**
 contributions, which is the decomposition their table reports.
 
 ### Indicator correspondence
@@ -47,9 +47,10 @@ approximated.
 
 ## Data requirements
 
-$Q$, $x$, $A$, $L$, $y^{*}$ from [00](00_core_footprint.md). Their published Danish row
-for comparison. `lenzen_expenditure_base_check.csv` documents that our expenditure base
-and theirs are the same concept before any comparison is drawn.
+This layer needs $Q$, $x$, $A$, $L$, and $y^{*}$ from [00](00_core_footprint.md), plus
+their published Danish row for comparison. `lenzen_expenditure_base_check.csv` documents
+that our expenditure base and theirs are the same concept before any comparison is
+drawn.
 
 ## Deviations from the source, stated
 
@@ -66,7 +67,7 @@ and theirs are the same concept before any comparison is drawn.
 
 | File | Content |
 |---|---|
-| `lenzen_kpi_set.csv` | every KPI with total, direct, first-order, higher-order and truncation |
+| `lenzen_kpi_set.csv` | every KPI with total, direct, first-order, higher-order, and truncation |
 | `lenzen_kpi_by_producing_node.csv.gz` | each KPI at full node detail |
 | `lenzen_kpi_domestic_vs_imported.csv` | origin split per KPI |
 | `lenzen_expenditure_base_check.csv` | the base comparison, before any KPI is compared |

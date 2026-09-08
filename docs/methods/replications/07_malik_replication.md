@@ -20,7 +20,7 @@ wrong. Each is matched or declared:
 | Choice | Malik 2018 | Malik 2021 | This study | What we do |
 |---|---|---|---|---|
 | imports | in the value-added block | excluded | full MRIO | compute a domestic-only variant |
-| capital | included (2 776 kt, 8 % of their total) | excluded | excluded | report the capital sensitivity separately |
+| capital | included (2,776 kt, 8 % of their total) | excluded | excluded | report the capital sensitivity separately |
 
 Because both Malik papers are **domestic-only models**, the only Danish number comparable
 with their 7.2 % / 6.6 % national shares is a domestic-only variant:
@@ -29,8 +29,8 @@ $$L_{\text{dom}} = (I - A_{\text{DK,DK}})^{-1} \qquad (163 \times 163)$$
 
 $$f_{\text{dom}} = s_{\text{DK}} \, L_{\text{dom}} \, y_{H,\text{DK}}$$
 
-This is reported in `malik_domestic_vs_full.csv` beside the full-MRIO result, so the
-reader can see both the comparable number and the complete one.
+This variant is reported in `malik_domestic_vs_full.csv` beside the full-MRIO result,
+so the reader can see both the comparable number and the complete one.
 
 ### Production-layer decomposition
 
@@ -44,8 +44,8 @@ $$S_m = \frac{\sum_{n \le m} f^{(n)}}{f}, \qquad TE_m = 1 - S_m$$
 The **diagonalised** form is what allows each layer to be broken down by the sector in
 which the pressure occurs (Malik's Fig. 3); the scalar form $q A^n y$ cannot do that.
 
-Powers of $A$ are never formed - the layer vector is iterated $v \leftarrow A v$, which is
-$O(n^2)$ per layer instead of $O(n^3)$.
+Powers of $A$ are never formed; the layer vector is iterated $v \leftarrow A v$, which
+is $O(n^2)$ per layer instead of $O(n^3)$.
 
 The residual beyond the last computed layer is closed **exactly**:
 
@@ -63,14 +63,15 @@ unaccounted.
 | 2 | 78.0 % |
 | 3 | 89.7 % |
 
-Geographical displacement deepens with every tier. This is the evidence behind the
-manuscript's displacement claim, and it is stronger than the aggregate split because it
-shows a gradient rather than a single ratio.
+Geographical displacement deepens with every tier. This deepening is the evidence
+behind the manuscript's displacement claim, and it is stronger than the aggregate split
+because it shows a gradient rather than a single ratio.
 
 ## Data requirements
 
-$A$, $L$, $s$, $y_H$ from [00](00_core_footprint.md); Malik's published values transcribed
-into `malik_published_reference.csv` with their boundary recorded per row.
+This layer needs $A$, $L$, $s$, and $y_H$ from [00](00_core_footprint.md); Malik's
+published values are transcribed into `malik_published_reference.csv` with their
+boundary recorded per row.
 
 ## Deviations from the source, stated
 
@@ -82,7 +83,7 @@ into `malik_published_reference.csv` with their boundary recorded per row.
 
 ## Outputs
 
-`malik_domestic_vs_full.csv`, `malik_component_intensities.csv`,
+This layer writes `malik_domestic_vs_full.csv`, `malik_component_intensities.csv`,
 `malik_published_reference.csv`, `production_layers.csv`,
 `production_layers_by_sector_group.csv`, `production_layers_domestic_vs_imported.csv`,
 `production_layers_by_producing_node.csv.gz`, `production_layers_vs_malik.csv`.

@@ -31,18 +31,18 @@ inflates the footprint.
 ## 2. Their remedy is structural, ours is a patch
 
 They adopt **simplified SNAC**: the Danish domestic block comes entirely from
-the national accounts and EXIOBASE is never used for it -
+the national accounts, and EXIOBASE is never used for it:
 `A_d = Z x̂⁻¹`, `L_d = (I − A_d)⁻¹`, `e_d = ŝ_d L_d y_d + e_h`. EXIOBASE enters
 only for imports, through `Q = Ŝ L` and `e_m = Q K m`, with `m = A_m L_d y_d +
 y_m` and `K` a 7,987 × 117 concordance.
 
-**There is no shipping correction in their model, because the wrong block is
+**Their model carries no shipping correction, because the wrong block is
 discarded rather than repaired.**
 
 Ours is a targeted reallocation of one row to their published 9 % benchmark. It
 recovers most of the effect for a fraction of the work, and it is honest to call
 it what it is: an approximation of the first step of a method we have not yet
-implemented. Simplification is defensible - Moran et al. (2018) put the Danish
+implemented. Simplification is defensible: Moran et al. (2018) put the Danish
 feedback effect at **0.4 %**, which is why simplified SNAC is used in preference
 to full SNAC by both Rørmose and Palm.
 
@@ -54,7 +54,7 @@ mean of the remaining 48 regions.
 ## 3. The finding that challenges our design
 
 **Statistics Denmark does not use the nowcast years.** They freeze EXIOBASE at
-**2019** - the last year backed by real emission data - for their 2019, 2020 and
+**2019** (the last year backed by real emission data) for their 2019, 2020, and
 2021 footprints, and deflate the demand vector back to 2019 prices.
 
 We do the opposite: 2022 expenditure on the 2022 table, whose CO₂ accounts end
@@ -65,9 +65,9 @@ block is validated against the 2022 national accounts and passes, and that
 expenditure year and model year coincide, which is what reviewer 2 asked for.
 Theirs has the merit that the **emission** side is never extrapolated.
 
-This is an open decision (D8), not a settled one. A defensible middle course is
-to report 2022 as the headline and a 2019-frozen, deflated variant as a
-sensitivity - which would also answer reviewer 2's original concern from the
+This choice is an open decision (D8), not a settled one. A defensible middle
+course is to report 2022 as the headline and a 2019-frozen, deflated variant as a
+sensitivity, which would also answer reviewer 2's original concern from the
 opposite direction.
 
 ## 4. Results worth citing against ours
@@ -76,18 +76,18 @@ opposite direction.
 |---|---|---|
 | Danish national footprint | 65.4 Mt CO₂e | 77.5 Mt |
 | Per capita | 11.0 t | 13.2 t |
-| Share arising in Denmark | 38 % | - |
-| Share arising abroad | **62 %** | - |
-| Government consumption footprint | ~8 Mt, of which **~2/3 abroad** | - |
+| Share arising in Denmark | 38 % | n/a |
+| Share arising abroad | **62 %** | n/a |
+| Government consumption footprint | ~8 Mt, of which **~2/3 abroad** | n/a |
 
 Their government-consumption finding matters directly: **Danish government
-consumption - where public health care sits - is about two-thirds
+consumption, where public health care sits, is about two-thirds
 imported-emissions in their coupled model**, materially more import-exposed than
 households at 55 %. Our health-care footprint is **73.7 % imported** in origin,
 which is consistent with, and slightly above, their government figure.
 
 They publish **no like-for-like raw-versus-coupled comparison**, so the size of
-the SNAC correction for Denmark cannot be cited from them - it would have to be
+the SNAC correction for Denmark cannot be cited from them; it would have to be
 computed.
 
 ## 5. Method points that bear on our claims
@@ -101,15 +101,15 @@ computed.
   first, then the domestic block, then trade.
 - **Scope 2+3 is not an additive account.** Hertwich & Wood (2018) are explicit
   that scope accounting measures reduction opportunities and that the total does
-  not sum to global emissions - and that **the amount of double counting depends
+  not sum to global emissions, and that **the amount of double counting depends
   on sector resolution**. Our scope partition is exact within our own boundary,
   which is a different and weaker claim, and the manuscript should say so.
 - **A GHG-only footprint misses most of the variance.** Steinmann et al. (2017),
-  via Tukker et al.: carbon, energy, land, water and materials together explain
+  via Tukker et al.: carbon, energy, land, water, and materials together explain
   only **~60 %** of environmental variance; adding five impact-oriented
-  indicators reaches **95 %**, with toxicity the systematic omission. This is the
-  published justification for carrying IMPACT World+ alongside the five headline
-  indicators.
+  indicators reaches **95 %**, with toxicity the systematic omission. This result
+  is the published justification for carrying IMPACT World+ alongside the five
+  headline indicators.
 - **Capital stays exogenous in both precedents.** Neither Rørmose nor Palm
   endogenise capital; both keep it as a GFCF final-demand column. That supports
   our baseline choice.
