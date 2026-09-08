@@ -9,21 +9,21 @@ join them to the study's other tables, the indicator sits in the column name
 rather than in a column, and a spreadsheet is not a good archival format.
 
 This module rewrites them as long-format CSVs on the study's standard schema,
-detailed and aggregated, without recomputing anything — the numbers are the
+detailed and aggregated, without recomputing anything - the numbers are the
 replication's own. Every conversion is checked: the standardised table must
 reproduce the workbook's column totals exactly, and the assertion fails loudly
 if it does not.
 
 The three analyses
 ------------------
-**Contribution** — ``B L diag(y)``. Where impacts occur, attributed along the
+**Contribution** - ``B L diag(y)``. Where impacts occur, attributed along the
 chain driven by each element of health-care demand. This is Steenmeijer's
 figure 1.
 
-**Hotspot** — ``B diag(L y)``. Where impacts occur, without attributing them
+**Hotspot** - ``B diag(L y)``. Where impacts occur, without attributing them
 back to a purchase. This is their figures 2 and 3.
 
-**Intensities** — impact per unit of output, by node; the multipliers behind
+**Intensities** - impact per unit of output, by node; the multipliers behind
 both.
 
 Run
@@ -209,7 +209,7 @@ def main() -> None:
     for stem, (out_stem, prefix, noun, description) in ANALYSES.items():
         source = os.path.join(out_dir, f"{stem}.xlsx")
         if not os.path.exists(source):
-            print(f"  skip {stem}: workbook not found — run analysis.main_2025")
+            print(f"  skip {stem}: workbook not found - run analysis.main_2025")
             continue
         detail = standardise(stem, prefix, description)
         detail.to_csv(

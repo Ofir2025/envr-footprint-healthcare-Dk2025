@@ -4,7 +4,7 @@
 This study replicates Steenmeijer et al., *The environmental impact of the
 Dutch health-care sector beyond climate change* (Lancet Planet Health 2022).
 FAIR replication means being able to place our Danish result beside every number
-they published, in their own table structure, for every impact category — not
+they published, in their own table structure, for every impact category - not
 only climate.
 
 This module builds that comparison. Their published values are transcribed here

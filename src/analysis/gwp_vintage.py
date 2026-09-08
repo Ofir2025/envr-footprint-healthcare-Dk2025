@@ -16,7 +16,7 @@ EXIOBASE reports HFC and PFC already aggregated in kg CO2-equivalent rather
 than as individual species. Whatever GWP vintage was used to aggregate them is
 fixed inside the data and cannot be recovered from the satellite account, so
 those two stressors are excluded from the restatement and their share is
-reported. Everything else — CO2, CH4, N2O, SF6 — is an individual gas in kg and
+reported. Everything else - CO2, CH4, N2O, SF6 - is an individual gas in kg and
 is fully restatable.
 
 AR6 also distinguishes **fossil from non-fossil methane** (29.8 against 27.0),
