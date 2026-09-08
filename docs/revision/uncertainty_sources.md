@@ -30,7 +30,7 @@ where
 
 | symbol | meaning | unit |
 |---|---|---|
-| $F$ | the reported footprint for one impact category | kt CO₂-eq, kt, Mm³ or km² |
+| $F$ | the reported footprint for one impact category | kt CO₂-eq, kt, Mm³, or km² |
 | $\mathbf{c}$ | impact intensity of each producing node | impact per M.EUR of output |
 | $\mathbf{A}$ | technical coefficients: input required per unit of output | dimensionless |
 | $(\mathbf{I}-\mathbf{A})^{-1}$ | Leontief inverse: total output pulled by one unit of demand | dimensionless |
@@ -42,7 +42,7 @@ Every term in equation (1) is an estimate, and so is the procedure that
 assembled it. The taxonomy below follows that structure.
 
 ```mermaid
-flowchart TD
+flowchart LR
     F["<b>Reported footprint F</b><br/>equation 1"]
 
     subgraph P["A · Parameter uncertainty"]
@@ -97,7 +97,7 @@ than measurement error. Grey sources are named, and where possible bounded by
 citation, but not quantified in this study; section 6 states why in each case,
 together with the direction of the likely bias. A rendered copy of the diagram
 is at `figures/diagrams/uncertainty_taxonomy.png` for readers whose viewer does
-not draw Mermaid.
+not draw Mermaid; `scripts/render_diagrams.py` produces it.
 
 Two of the grey boxes deserve emphasis, because they are the largest omissions
 rather than the smallest: the allocation of inventory categories across
@@ -127,21 +127,21 @@ section 3.
 
 **A2. Allocation of an inventory category across industries.** A national total
 for, say, road transport must be split across the 163 EXIOBASE industries using
-proxies. This is the specific problem Schulte et al. (2026) solve, and the
-consequences of ignoring it are large: neglecting the correlations that the
-accounting identity forces on the shares changed individual sector multiplier
-standard deviations by between minus 34 and plus 130 per cent in their German
-case study, and overstated the national footprint's uncertainty by 46 per cent.
-*Not captured.* See section 6.
+proxies. This allocation is the specific problem Schulte et al. (2026) solve,
+and the consequences of ignoring it are large: neglecting the correlations that
+the accounting identity forces on the shares changed individual sector
+multiplier standard deviations by between minus 34 and plus 130 per cent in
+their German case study, and overstated the national footprint's uncertainty by
+46 per cent. *Not captured.* See section 6.
 
 **A3. Residence adjustment.** Moving from a territorial to a residence basis
 requires reallocating international transport emissions. Schulte et al. (2024)
 find this the dominant source of carbon-account uncertainty for small open
 economies and name Denmark among the countries where methane from international
-water transport is a significant contributor. This is the same structural
-weakness that the sea-transport correction addresses on the transaction side.
-*Not captured as a distribution*; addressed as a correction, and the correction
-itself is documented separately.
+water transport is a significant contributor. This transport-allocation problem
+is the same structural weakness that the sea-transport correction addresses on
+the transaction side. *Not captured as a distribution*; addressed as a
+correction, and the correction itself is documented separately.
 
 **A4. Within-sector heterogeneity.** EXIOBASE assumes every firm in an industry
 shares one impact intensity. Rodrigues et al. (2018) report that the
@@ -149,15 +149,15 @@ within-sector coefficient of variation of carbon per unit output exceeded one
 for 17 of 23 Japanese manufacturing sectors. Schulte et al. (2024) state the
 consequence precisely: their uncertainty estimates are on the *mean* emissions
 of a sector, and within-sector variability may be substantially larger. This
-matters most for pharmaceuticals and medical devices, which sit inside broad
-sectors. *Not captured.*
+heterogeneity matters most for pharmaceuticals and medical devices, which sit
+inside broad sectors. *Not captured.*
 
 ### 2.2 Parameter uncertainty in the economic core
 
 **B1. Technical coefficients.** Lenzen et al. (2010) perturb the transaction
-matrix, gross output and direct intensities together, deriving standard
-deviations by regressing raw-data dispersion on flow size. Schulte et al. (2024)
-exclude the technical coefficients from their own assessment and say so.
+matrix, gross output, and direct intensities together, deriving standard
+deviations by regressing raw-data dispersion on flow size. Schulte et al.
+(2024) exclude the technical coefficients from their own assessment and say so.
 *Captured here only implicitly.*
 
 **B2. Final demand.** Wood et al. (2019) rank the total and composition of final
@@ -168,21 +168,21 @@ this is not a hypothetical concern. *Not captured as a distribution.* See sectio
 6.
 
 **B3. Import proportionality.** Imported commodities are distributed over
-purchasing industries pro rata because destination data do not exist. Schulte et
-al. (2021) randomised this assumption on EXIOBASE at the same resolution used
-here and found national footprint coefficients of variation generally below 4
-per cent, but a quarter of industry-level footprints above 10 per cent for
-carbon and above 30 per cent for land, material and water. *Not captured*, but
-bounded by citation.
+purchasing industries pro rata because destination data do not exist. Schulte
+et al. (2021) randomised this assumption on EXIOBASE at the same resolution
+used here and found national footprint coefficients of variation generally
+below 4 per cent, but a quarter of industry-level footprints above 10 per cent
+for carbon and above 30 per cent for land, material, and water. *Not captured*,
+but bounded by citation.
 
-**B4. Price vintage and deflation.** Which price year converts expenditure to
-basic prices. Jakobs et al. (2021) show price variance alone moves hybrid
-footprint intensities by a median of minus 2 to plus 4 per cent, with a strongly
-skewed study-level interval. *Run as a discrete scenario.*
+**B4. Price vintage and deflation.** The question is which price year converts
+expenditure to basic prices. Jakobs et al. (2021) show price variance alone
+moves hybrid footprint intensities by a median of minus 2 to plus 4 per cent,
+with a strongly skewed study-level interval. *Run as a discrete scenario.*
 
-**B5. Bottom-up items.** Anaesthetic gases, inhaler propellants, staff commuting,
-patient and visitor travel, and direct operational impacts. *Captured*, each with
-its own spread, in section 3.
+**B5. Bottom-up items.** These items are anaesthetic gases, inhaler
+propellants, staff commuting, patient and visitor travel, and direct
+operational impacts. *Captured*, each with its own spread, in section 3.
 
 ### 2.3 Model and structural uncertainty
 
@@ -207,12 +207,12 @@ EDGAR and UNFCCC can change a country's emissions by as much as 300 per cent.
 *Not captured.* Their published accounts at exactly this study's resolution make
 this the most valuable structural scenario still available.
 
-**C4. Mapping, vintage and boundary choices.** The pharmaceutical sector mapping,
-the waste-account vintage, the sector boundary and the capital treatment. *Run as
-discrete scenarios*, which is what Schulte et al. (2024) recommend and what the
-IPCC (2000, section 6.5.6) sanctions. Their finding that uncertainty due to
-choices outweighs parametric uncertainty for most sectors means these scenarios
-are likely the larger term.
+**C4. Mapping, vintage, and boundary choices.** These choices are the
+pharmaceutical sector mapping, the waste-account vintage, the sector boundary,
+and the capital treatment. *Run as discrete scenarios*, which is what Schulte
+et al. (2024) recommend and what the IPCC (2000, section 6.5.6) sanctions.
+Their finding that uncertainty due to choices outweighs parametric uncertainty
+for most sectors means these scenarios are likely the larger term.
 
 **C5. Double counting between the input-output model and the bottom-up items.**
 Jakobs et al. (2021) measure the difference between two accepted correction
@@ -220,19 +220,20 @@ methods at a factor of almost two. *Not captured.*
 
 ### 2.4 Scientific uncertainty
 
-**D1. Characterisation factors.** The uncertainty of the metric that converts
-gases to a common unit, and of the equivalent factors for the other four
-categories. Both the IPCC (2000, section 6.1) and the GHG Protocol place this
-outside a standard uncertainty assessment, the IPCC explicitly excluding
-global-warming-potential uncertainty from its own chapter while noting that a
-complete assessment would have to consider it. *Excluded, with that warrant.*
-The study does report a separate global-warming-potential vintage sensitivity.
+**D1. Characterisation factors.** This source is the uncertainty of the metric
+that converts gases to a common unit, and of the equivalent factors for the
+other four categories. Both the IPCC (2000, section 6.1) and the GHG Protocol
+place this outside a standard uncertainty assessment, the IPCC explicitly
+excluding global-warming-potential uncertainty from its own chapter while
+noting that a complete assessment would have to consider it. *Excluded, with
+that warrant.* The study does report a separate global-warming-potential
+vintage sensitivity.
 
 ### 2.5 Variability
 
-**E1. Temporal.** The study is a single-year snapshot. **E2. Spatial.** Regional
-differences within Denmark are not resolved. **E3. Between objects.** The same
-issue as A4. *None captured.*
+**E1. Temporal.** The study is a single-year snapshot. **E2. Spatial.**
+Regional differences within Denmark are not resolved. **E3. Between objects.**
+The issue is the same as in A4. *None captured.*
 
 ---
 
@@ -250,11 +251,11 @@ F \;=\; \sum_{g} M_{g} \;+\; \sum_{c} B_{c}
 $$
 
 A draw therefore recombines those fourteen numbers with random multipliers, and
-the Leontief inverse is never recomputed. This is the same simplification the
-IEooc teaching implementation makes, and it must be stated: the technical
-coefficient matrix and the Leontief inverse are held fixed, so uncertainty in
-the technology structure is carried by the factor of section 3.3 rather than by
-resampling the matrix.
+the Leontief inverse is never recomputed. This shortcut is the same
+simplification the IEooc teaching implementation makes, and it must be stated:
+the technical coefficient matrix and the Leontief inverse are held fixed, so
+uncertainty in the technology structure is carried by the factor of section 3.3
+rather than by resampling the matrix.
 
 ### 3.2 The form of the multiplier
 
@@ -337,6 +338,12 @@ it to be, rather than on how much of it there is.
 | 0.76 | 0.092 | 7.83 % | 9.2 % | 7.60 % |
 | 0.00 | 0.161 | 7.72 % | 16.2 % | 4.27 % |
 
+The three rows come from a sensitivity sweep run separately from the headline
+estimate, at 40,000 draws with an independent seed against the headline's
+100,000 at seed 42. The default row therefore reads 7.85 % where the headline
+reads 7.87 %; the gap is Monte Carlo noise of the expected size, not a
+disagreement between the two.
+
 The final column is the size of the corrected defect. The middle value of 0.76 is
 not an arbitrary midpoint: it is the median correlation Rodrigues et al. (2018)
 measure between country consumption-based accounts.
@@ -353,9 +360,9 @@ $$
 \tag{7}
 $$
 
-This preserves each declared geometric standard deviation exactly while giving
-the log-factors correlation $\rho$; $\rho = 0.8$ is used and 0, 0.5 and 0.8 are
-reported.
+This construction preserves each declared geometric standard deviation exactly
+while giving the log-factors correlation $\rho$; $\rho = 0.8$ is used, and 0,
+0.5, and 0.8 are reported.
 
 ### 3.5 The parameters
 
@@ -391,8 +398,8 @@ costs hardly any additional effort. Both are now reported.
 | 95 % interval | 4,065 to 5,532 kt CO₂-eq |
 
 The two tiers agreeing to 0.03 percentage points is expected rather than
-fortunate: the model is additive and every spread is well below the 30 per cent
-limit at which the Tier 1 formula degrades (IPCC, 2000, section 6.3).
+fortunate: the model is additive, and every spread is well below the 30 per
+cent limit at which the Tier 1 formula degrades (IPCC, 2000, section 6.3).
 
 **Convergence.** The IPCC (2000, section 6.4, step 5) criterion is that the 95
 per cent range is determined to within 1 per cent. Measured across the two halves
@@ -420,9 +427,9 @@ $$
 
 The share attributed to the input-output model is stable at 78.6 to 78.9 per
 cent across all three correlation assumptions, so it is a property of the
-calibration rather than of the correlation choice. That had to be tested: at a
-fixed spread, a perfect-correlation assumption would maximise that share by
-construction.
+calibration rather than of the correlation choice. That stability had to be
+tested: at a fixed spread, a perfect-correlation assumption would maximise that
+share by construction.
 
 ---
 
@@ -448,44 +455,45 @@ Following the structure the writing guidelines require, each entry names the
 source, states what it changes about the conclusion, and states what would
 reduce it.
 
-**The interval is parametric uncertainty conditional on one model.** It does not
-capture the effect of using a different database, a different construct, or a
-nationally consistent table. Schulte et al. (2024) find median coefficients of
-variation of 3 per cent for country-level carbon footprints but 18 per cent at
-the sector level, a factor of six; a health-care footprint aggregates many
+**The interval is parametric uncertainty conditional on one model.** It does
+not capture the effect of using a different database, a different construct, or
+a nationally consistent table. Schulte et al. (2024) find median coefficients
+of variation of 3 per cent for country-level carbon footprints but 18 per cent
+at the sector level, a factor of six; a health-care footprint aggregates many
 sectors and therefore sits between the two, nearer the country end, but nothing
-in the present design places it precisely. This constrains any claim that the
-reported interval bounds the true value. A study using the published
-inventory-first accounts of Schulte et al. (2024), which exist at exactly this
-resolution and carry element-level uncertainties and correlations, would resolve
-it.
+in the present design places it precisely. This imprecision constrains any
+claim that the reported interval bounds the true value. A study using the
+published inventory-first accounts of Schulte et al. (2024), which exist at
+exactly this resolution and carry element-level uncertainties and correlations,
+would resolve it.
 
 **The calibration target may be too narrow.** The 8.35 per cent is derived from
 a propagation that treats disaggregates as uncorrelated, and Rodrigues (2016)
 shows that assumption is incompatible with a known aggregate uncertainty.
 Rodrigues et al. (2018) measure the penalty in a comparable setting: assuming
 independence between country accounts understated the world account's
-uncertainty by half. This biases the reported interval **downward**, plausibly
-substantially. Recalibrating against a dependence-aware benchmark would reduce
-it; the candidates are Rodrigues et al.'s median country coefficient of
-variation of 7.5 per cent and Wood et al.'s (2019) Denmark figure of 8.8 per
-cent, both of which are close to the value used, which is mildly reassuring but
-not decisive.
+uncertainty by half. This independence assumption biases the reported interval
+**downward**, plausibly substantially. Recalibrating against a dependence-aware
+benchmark would reduce it; the candidates are Rodrigues et al.'s median country
+coefficient of variation of 7.5 per cent and Wood et al.'s (2019) Denmark
+figure of 8.8 per cent, both of which are close to the value used, which is
+mildly reassuring but not decisive.
 
 **The calibration is a carbon statistic applied to five impact categories.**
-Schulte et al. (2021), on this database and this resolution, find industry-level
-footprint coefficients of variation above 10 per cent for carbon but above 30
-per cent for land, material and water. The four non-carbon categories are
-therefore reported with an interval that is too narrow, and the degree is
-unknown. A bounding run at three times the carbon spread is reported alongside
-the default, and gives coefficients of variation of 21 to 25 per cent rather than
-7 to 8 per cent. That bound is not an estimate, and is labelled as such.
+Schulte et al. (2021), on this database and this resolution, find
+industry-level footprint coefficients of variation above 10 per cent for carbon
+but above 30 per cent for land, material, and water. The four non-carbon
+categories are therefore reported with an interval that is too narrow, and the
+degree is unknown. A bounding run at three times the carbon spread is reported
+alongside the default, and gives coefficients of variation of 21 to 25 per cent
+rather than 7 to 8 per cent. That bound is not an estimate, and is labelled as
+such.
 
 **Within-sector heterogeneity is not represented.** Pharmaceuticals and medical
 devices sit inside broad sectors whose internal intensity spread is large. This
-biases the reported interval downward for precisely the contribution group that
-dominates the footprint. Resolving it requires product-level or firm-level data
-that the model does not contain.
+omission biases the reported interval downward for precisely the contribution
+group that dominates the footprint. Resolving it requires product-level or
+firm-level data that the model does not contain.
 
 **Final demand carries no distribution.** Wood et al. (2019) rank it above the
 technical coefficients as a driver of between-database variation, and this study
@@ -493,10 +501,11 @@ has already found and corrected a demand-vector omission. The direction of the
 residual bias is unknown. A distribution on the expenditure vector, or at
 minimum a scenario, would address it.
 
-**Allocation of inventory categories to industries is not represented.** This is
-the source Schulte et al. (2026) show can change sector-level standard deviations
-by minus 34 to plus 130 per cent. Their published software makes it tractable in
-principle; it requires per-category proxy uncertainties this study does not hold.
+**Allocation of inventory categories to industries is not represented.** This
+allocation is the source Schulte et al. (2026) show can change sector-level
+standard deviations by minus 34 to plus 130 per cent. Their published software
+makes it tractable in principle; it requires per-category proxy uncertainties
+this study does not hold.
 
 **Double counting between the input-output model and the bottom-up items is not
 varied.** Jakobs et al. (2021) measure a factor of almost two between two
@@ -512,8 +521,8 @@ find that at sector level, uncertainty due to choices outweighs parametric
 uncertainty for most sectors. This study's own structural scenarios bear that
 out: the alternative pharmaceutical mapping moves the median to 3,605 kt, which
 lies outside the parametric 95 per cent interval of 4,065 to 5,532 kt entirely.
-That is the strongest single argument for reporting the scenarios beside the
-interval rather than in an appendix.
+That divergence is the strongest single argument for reporting the scenarios
+beside the interval rather than in an appendix.
 
 **Therefore the interval should be read as the precision of this model, not the
 accuracy of the estimate.** It should be reported together with that sentence,

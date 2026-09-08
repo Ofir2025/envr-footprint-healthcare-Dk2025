@@ -1,10 +1,10 @@
 # 04_uncertainty_lenzen_ieooc
 
-**04 - Monte Carlo parameter uncertainty**
+**04: Monte Carlo parameter uncertainty**
 
-Reviewer 1's central request: how precise is the estimate, what drives its imprecision, and are the reported rankings robust?
+Reviewer 1's central request: how precise is the estimate, what drives its imprecision, and do the reported rankings hold across draws?
 
-Method, equations and verification: [`docs/methods/replications/04_uncertainty_lenzen_ieooc.md`](../../../docs/methods/replications/04_uncertainty_lenzen_ieooc.md).
+Method, equations, and verification: [`docs/methods/replications/04_uncertainty_lenzen_ieooc.md`](../../../docs/methods/replications/04_uncertainty_lenzen_ieooc.md).
 
 ## Conventions
 

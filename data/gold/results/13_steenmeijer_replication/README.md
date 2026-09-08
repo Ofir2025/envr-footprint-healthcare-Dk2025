@@ -4,7 +4,7 @@
 
 Denmark placed beside every number the Dutch study published, in their own table structure, for every impact category - not only climate. That is what FAIR replication means here.
 
-Method, equations and verification: [`docs/methods/replications/13_steenmeijer_replication.md`](../../../docs/methods/replications/13_steenmeijer_replication.md).
+Method, equations, and verification: [`docs/methods/replications/13_steenmeijer_replication.md`](../../../docs/methods/replications/13_steenmeijer_replication.md).
 
 ## Conventions
 

@@ -4,7 +4,7 @@
 
 How does Denmark compare with the Australian health system, on Australia's own methodological choices rather than ours; and how far upstream does the pressure occur?
 
-Method, equations and verification: [`docs/methods/replications/07_malik_replication.md`](../../../docs/methods/replications/07_malik_replication.md).
+Method, equations, and verification: [`docs/methods/replications/07_malik_replication.md`](../../../docs/methods/replications/07_malik_replication.md).
 
 ## Conventions
 

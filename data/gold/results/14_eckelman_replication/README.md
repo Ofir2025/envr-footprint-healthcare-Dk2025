@@ -4,7 +4,7 @@
 
 Denmark placed on the nine-category frame of the most-cited health-sector footprint study, including its health-damage estimate in DALYs.
 
-Method, equations and verification: [`docs/methods/replications/14_eckelman_replication.md`](../../../docs/methods/replications/14_eckelman_replication.md).
+Method, equations, and verification: [`docs/methods/replications/14_eckelman_replication.md`](../../../docs/methods/replications/14_eckelman_replication.md).
 
 ## Conventions
 

@@ -4,7 +4,7 @@
 
 The study's headline uses six indicators. The studies it is benchmarked against use different and wider sets - Eckelman & Sherman report nine TRACI categories plus DALYs, Malik et al. several environmental impacts, Lenzen et al. a long KPI list. Comparing one stressor at a time is not a replication.
 
-Method, equations and verification: [`docs/methods/replications/12_impact_categories_full.md`](../../../docs/methods/replications/12_impact_categories_full.md).
+Method, equations, and verification: [`docs/methods/replications/12_impact_categories_full.md`](../../../docs/methods/replications/12_impact_categories_full.md).
 
 ## Conventions
 
