@@ -11,10 +11,10 @@ with light editing. Everything here is reproducible from
 `analysis.uncertainty_2025`; the tables are in
 `data/gold/results/04_uncertainty_lenzen_ieooc/`.
 
-It answers Reviewer 1's central request — *"a systematic sensitivity analysis or
-Monte Carlo simulation that varies the key proxy assumptions within plausible
-ranges… and reports the resulting ranges"* — and Reviewer 2's related request
-for uncertainty on the bottom-up parameters.
+It answers the first-round review's central request — a systematic sensitivity
+analysis or Monte Carlo over the proxy assumptions, with the resulting ranges
+reported — and the second reviewer's related request for uncertainty on the
+bottom-up parameters.
 
 ---
 
