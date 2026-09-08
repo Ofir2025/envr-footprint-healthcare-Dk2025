@@ -24,6 +24,28 @@ REMOTE="origin"
 REDACTED="${REDACTED_RESPONSE:-/tmp/redact/rtr_public.md}"
 DRY_RUN="${1:-}"
 
+# Which gold layers ship.
+#
+# Only 16 and 17 are withheld: IMPACT World+ and the health sub-sector
+# decomposition are follow-on work for the next paper, and neither is cited by
+# anything in the revision.
+#
+# Layers 07, 08, 09, 14 and 15 were considered for exclusion and are KEPT,
+# because the reviewer response asserts things that only they evidence. Ship the
+# response without them and a co-author is left defending claims with no table
+# behind them on the branch he has:
+#
+#   07 malik      capital treatment: Malik et al. include capital where the
+#                 other comparators exclude it (R2-3 boundary discussion)
+#   08 lenzen     the comparator behind the uncertainty calibration and the
+#                 national-total family comparison
+#   09 vintage    the ONLY evidence for rejecting EXIOBASE v3.10.2, which the
+#                 response states as fact
+#   14 eckelman   comparator in the same boundary table as 07 and 08
+#   15 gwp        the AR6-versus-AR4 restatement the response leads on
+#
+# Each is also referenced by 6-12 files in docs/ and src/, so removing them
+# would leave dangling paths throughout the shipped documentation.
 EXCLUDE=(
   data/bronze/exiobase_v3_7 data/bronze/medstat data/bronze/capital data/bronze/figaro
   docs/references reports/source docs/presentation docs/feedback
@@ -74,6 +96,17 @@ tree () { git ls-tree -r "$PUB_BRANCH" --name-only; }
 check "excluded paths present"      0 "$(tree | grep -cE '^(data/bronze/(exiobase_v3_7|medstat|capital|figaro)|docs/references|reports/source|docs/presentation|docs/feedback)' || true)"
 check "follow-on layers present"    0 "$(tree | grep -cE '16_impact_world_plus|17_health_subsectors' || true)"
 check "verbatim referee text"       0 "$(git show "$PUB_BRANCH:docs/revision/response_to_reviewers.md" | grep -c 'absence of formal uncertainty' || true)"
+# The check above guards one file. Referee wording has reached other documents
+# before - a methods note quoting the review in its opening paragraph - so scan
+# the WHOLE published tree for the reports' distinctive phrases. Add a phrase
+# here whenever a new one is quoted anywhere in the working branch.
+REFEREE_PHRASES='absence of formal uncertainty|systematic sensitivity analysis or Monte Carlo|which assumptions contribute most to the uncertainty|distinguish between identifying hotspots|plausible ranges \(e\.g\.'
+leaked=0
+for f in $(tree | grep -E '\.(md|txt|tex)$' | grep -v '^docs/revision/response_to_reviewers\.md$'); do
+  n=$(git show "$PUB_BRANCH:$f" 2>/dev/null | grep -cE "$REFEREE_PHRASES" || true)
+  if [ "$n" -gt 0 ]; then echo "         referee wording in $f"; leaked=$((leaked + n)); fi
+done
+check "referee wording, whole tree" 0 "$leaked"
 check "Claude attribution trailers" 0 "$(git log "$REMOTE/main..$PUB_BRANCH" --grep='Co-Authored-By' -i --format=%H | wc -l | tr -d ' ')"
 [ "$fail" -eq 0 ] || { echo "==> verification FAILED - nothing pushed"; exit 1; }
 
