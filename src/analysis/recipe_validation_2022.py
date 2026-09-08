@@ -27,7 +27,8 @@ import numpy as np
 import os
 import pandas as pd
 
-from paths import BRONZE_DIR, MRIO_DIR, OUTPUT_DIR
+from analysis.constants import BACKGROUND_YEAR
+from paths import BACKGROUND_DIR, BRONZE_DIR, MRIO_DIR, OUTPUT_DIR
 
 GROUPS_EXIO = [
     ("water transport", r"sea and coastal|inland water"),
@@ -100,7 +101,12 @@ def main():
     print(out.to_string())
 
     # hotspot side: healthcare GWP arising in Danish transport industries
-    with open(str(OUTPUT_DIR) + "/../../silver/background/gddz_background_information_2022.pkl", "rb") as fh:
+    # Resolve through paths, not by walking up from the gold directory: bronze
+    # and silver can be pointed elsewhere so two working copies share one copy
+    # of them, and a hand-built relative path silently ignores that.
+    with open(os.path.join(str(BACKGROUND_DIR),
+                           f"gddz_background_information_{BACKGROUND_YEAR}.pkl"),
+              "rb") as fh:
         bg = pickle.load(fh)
     B, L, Ystim = bg["B"], bg["L"], bg["Ystim"]
     x_tot = L @ Ystim[:, 0]
