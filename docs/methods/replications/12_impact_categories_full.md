@@ -4,12 +4,12 @@
 **Module** `analysis.impact_categories_full`
 **Source** DESIRE FP7 characterisation workbook
 (`characterisation_desire_version3_4_adapted.xlsx`), carrying CML 1999, USEtox,
-EcoIndicator 99 and the ILCD recommended factors
+EcoIndicator 99, and the ILCD recommended factors
 
 ## Question this layer answers
 
 The study's headline uses six indicators. The studies it is benchmarked against use
-different and wider sets - Eckelman & Sherman report nine TRACI categories plus DALYs,
+different and wider sets: Eckelman & Sherman report nine TRACI categories plus DALYs,
 Malik et al. several environmental impacts, Lenzen et al. a long KPI list. Comparing one
 stressor at a time is not a replication.
 
@@ -23,7 +23,7 @@ so every replication layer selects the subset it needs from a single consistent
 calculation rather than each rebuilding its own characterisation.
 
 The ILCD block includes **endpoint factors in DALYs** for climate change, ozone depletion,
-human toxicity (cancer and non-cancer), particulate matter and photochemical ozone
+human toxicity (cancer and non-cancer), particulate matter, and photochemical ozone
 formation, which is what makes the Eckelman comparison ([14](14_eckelman_replication.md))
 possible at all.
 
@@ -47,24 +47,25 @@ complete.
 
 ## Data requirements
 
-$S$, $L$, $y_H$ from [00](00_core_footprint.md); the DESIRE workbook; the EXIOBASE
-stressor list, whose order the workbook columns must match.
+This layer needs $S$, $L$, and $y_H$ from [00](00_core_footprint.md); the DESIRE
+workbook; and the EXIOBASE stressor list, whose order the workbook columns must match.
 
 ## Deviations from the source, stated
 
 - The climate row is **not** taken from the workbook, which carries AR4 factors
   (CH₄ = 25, N₂O = 298) under a sheet labelled "CML 1999". It is rebuilt on IPCC AR6 from
-  the stressor names - see [15](15_gwp_vintage.md).
-- DESIRE is a 2014-vintage file with no water-scarcity, land-biodiversity or
+  the stressor names; see [15](15_gwp_vintage.md).
+- DESIRE is a 2014-vintage file with no water-scarcity, land-biodiversity, or
   mineral-resource categories. That gap is the reason for
   [16](16_impact_world_plus.md), which is current and openly licensed.
 
 ## Outputs
 
-`impact_categories_all_methods.csv` (97 usable categories, health-care and national, with
-the health share of each), `impact_categories_by_producing_node.csv.gz`,
-`impact_categories_by_sector_group.csv`, `impact_categories_domestic_vs_imported.csv`
-(carrying `quality_flag`), `stressor_totals_uncharacterised.csv`.
+This layer writes `impact_categories_all_methods.csv` (97 usable categories,
+health-care and national, with the health share of each),
+`impact_categories_by_producing_node.csv.gz`, `impact_categories_by_sector_group.csv`,
+`impact_categories_domestic_vs_imported.csv` (carrying `quality_flag`), and
+`stressor_totals_uncharacterised.csv`.
 
 ## Verification
 
