@@ -88,15 +88,19 @@ the chain, not just the first, and is an upper bound.
 
 ## 5. Results (Denmark 2022, shipping-corrected model)
 
-| Indicator | Baseline (excluded) | A (exogenous CFC) | D (endogenised) |
+| Indicator | Baseline (excluded) | A (exogenous CFC) | D (endogenised, simplified construction) |
 |---|---|---|---|
 | Climate change (kt CO₂e) | **4,062** | 4,598 (**+13.2 %**) | 4,914 (**+21.0 %**) |
 | Material extraction (kt) | **4,234** | 5,028 (**+18.8 %**) | 5,547 (**+31.0 %**) |
-| Blue water (Mm³) | **95** | 102 (**+7.4 %**) | 105 (**+10.6 %**) |
+| Blue water (Mm³) | **95.3** | 102.4 (**+7.4 %**) | 105.4 (**+10.6 %**) |
 | Land use (km²) | **4,854** | 5,362 (**+10.5 %**) | 5,767 (**+18.8 %**) |
-| Waste generation (kt) | **377** | 400 (**+6.3 %**) | 418 (**+11.0 %**) |
+| Waste generation (kt) | **259.4** | 283.2 (**+9.2 %**) | 301.0 (**+16.0 %**) |
 
-*MRIO components; the bottom-up items are unaffected by the capital boundary.*
+*MRIO components; the bottom-up items are unaffected by the capital boundary.
+Source: `11_capital_gfcf/capital_scenarios_by_indicator.csv`. The waste row
+previously read 377, 400 and 418 kt, from the accounts before the hybrid-waste
+boundary was corrected; column D here is this study's own construction, and the
+published Södersten matrices are in the table further down.*
 
 Capital adds **13-21 %** to the climate footprint and more to materials, which
 is what one expects: buildings and equipment are material-intensive. The spread

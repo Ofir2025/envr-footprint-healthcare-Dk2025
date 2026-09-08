@@ -92,10 +92,14 @@ Effect of correcting to their 9 % target:
 
 | | uncorrected | corrected |
 |---|---|---|
-| Transport share of healthcare climate footprint | 37.5 % | **18.9 %** |
-| DK sea transport as a producing node | 822 kt | **71 kt** |
-| Healthcare climate footprint (MRIO part) | 5,231 kt | **3,859 kt** |
-| Danish national consumption-based footprint | 85.2 Mt | **76.5 Mt** |
+| Transport share of the supply-chain climate footprint | 37.5 % | **18.5 %** |
+| DK sea transport as a producing node | 852 kt | **74 kt** |
+| Healthcare climate footprint (MRIO part) | 5,231 kt | **3,943 kt** |
+| Danish national consumption-based footprint | 85.2 Mt | **77.5 Mt** |
+
+The corrected transport share is on the 3,943 kt supply-chain basis; on the
+4,713 kt total it is 15.4 %. Section F2 below records the values this table
+carried before it was reconciled against the gold outputs.
 
 **Consequence for the manuscript:** the submitted finding that transport is
 38-43 % of the Danish health-care footprint must be **withdrawn**. It is not a
@@ -105,7 +109,7 @@ diagnosed by Denmark's own statistical office.
 ### A4: Residual gap against the official Danish footprint `MEDIUM` `ACCEPTED`
 
 After the shipping correction the modelled Danish national consumption-based GHG
-footprint is **76.5 Mt** against DST's official AFTRYK **62.9 Mt** (+21 %).
+footprint is **77.5 Mt** against DST's official AFTRYK **62.9 Mt** (+23 %).
 Foreign shipping rows (RoW-Asia, Germany, RoW-Middle East) carry much of the
 remainder, and no Danish source can correct a foreign region's allocation.
 
@@ -201,20 +205,32 @@ uncharacterised stressor totals that support this):
 | GWP100 vintage | Healthcare (kt) | vs AR4 | National (kt) |
 |---|---|---|---|
 | IPCC SAR (1995) | 3,740 | −3.0 % | 64,767 |
-| **IPCC AR4 (2007), used** | **3,855** | n/a | **66,675** |
-| IPCC AR5 (2013) | 3,926 | +1.8 % | 67,737 |
-| IPCC AR6 (2021) | 3,931 | **+2.0 %** | 67,854 |
+| IPCC TAR (2001) | 3,791 | −1.7 % | 65,563 |
+| IPCC AR4 (2007), as EXIOBASE ships | 3,855 | n/a | 66,675 |
+| IPCC AR5 (2013) | 3,955 | +2.6 % | 68,010 |
+| **IPCC AR6 (2021), used** | **3,943** | **+2.3 %** | **67,756** |
 
-The effect is small, so this discrepancy is a reporting obligation rather than a
-problem: the manuscript must state the vintage, because a reader comparing
-against an AR6-based study is entitled to know. The recomputation captures
-99.9 % of the model's characterised total (3,855 against 3,859 kt), the residue
-being stressors outside the six gas families.
+The study restates to AR6; the row marked as EXIOBASE's own is what the database
+ships, and is shown because a reader comparing against a study that did not
+restate is entitled to know the gap. The effect is small, so the vintage is a
+reporting obligation rather than a problem. The restatement covers 96.1 % of the
+characterised total: the remaining 155.3 kt is HFC and PFC, which EXIOBASE
+supplies already aggregated to CO₂-equivalent and which therefore keep whatever
+vintage EXIOBASE used. That residue is reported rather than silently restated
+(`gwp_vintage_sensitivity.csv`, columns `not_restatable_*`).
 
 **Related mixing:** the bottom-up items do not share this vintage. Volatile
-anaesthetics use the Sulbaek Andersen et al. (2023) recommended GWP₁₀₀ set,
-N₂O uses AR4 (298) for consistency with the MRIO, and pMDI takes the Danish EPA
-F-gas inventory figure as published. Steenmeijer et al. have the same problem in
+anaesthetics use the Sulbaek Andersen et al. (2023) recommended GWP₁₀₀ set, pMDI
+takes the Danish EPA F-gas inventory figure as published, and the N₂O term uses
+**AR4's 298**. That last one is the study's remaining mismatch, and it is worth
+stating exactly. The factor was chosen when the MRIO climate row still carried
+EXIOBASE's own DESIRE factors, which are AR4, so the two agreed; the MRIO row is
+now rebuilt on AR6, where N₂O is 273, so they no longer do. The size of the
+mismatch is 38 t × (298 − 273) = **0.95 kt CO₂e**, or 0.02 % of the headline,
+against a reported 95 % interval spanning 1,467 kt. It is reported rather than
+changed, because restating it would move every gold file, figure and table for a
+difference two orders of magnitude below the interval; the decision is recorded
+here so it is a choice rather than an oversight. Steenmeijer et al. have the same problem in
 a sharper form: their climate factors are AR4/DESIRE while their pMDI
 propellants use genuine ReCiPe GWPs (1,549 and 3,860), so their climate total
 also mixes two vintages.
@@ -456,8 +472,10 @@ These change results and are the author's call, not the analyst's.
    2022 Danish block fails against national accounts. This change is not a
    preference; the health industry's output there is smaller than health final
    demand.
-3. **Headline numbers all moved.** Denmark 2022: climate 4,627 kt, materials
-   4,234 kt, water 95.3 Mm³, land 4,854 km², waste 257 kt.
+3. **Headline numbers all moved.** Denmark 2022, full footprint: climate
+   4,713.4 kt, materials 4,259.4 kt, water 95.5 Mm³, land 4,855.5 km², waste
+   259.4 kt. The supply-chain component alone is 3,943.4 kt of climate; the
+   difference is the Danish bottom-up items, which are almost entirely climate.
 4. Three bottom-up items are now **Danish primary data** rather than scaled Dutch
    proxies: anaesthetics (medstat register), patient travel (national travel
    survey), pMDI (Danish EPA). One of them was carrying a unit error.
