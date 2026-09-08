@@ -23,6 +23,7 @@ import pickle
 import numpy as np
 import pandas as pd
 
+from analysis.constants import scopes_folder
 from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 
 NS, K_DK, K_HEALTH, K_CHEM, K_INSTR = 163, 6, 137, 62, 89
@@ -103,7 +104,8 @@ def main():
     ]
     df = pd.DataFrame(rows)
     df.insert(0, "analysis_year", year)
-    out = os.path.join(str(OUTPUT_DIR), "02_scopes_wood_hertwich", "double_counting_ledger.csv")
+    out = os.path.join(str(OUTPUT_DIR), *scopes_folder().split("/"),
+                       "double_counting_ledger.csv")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     df.to_csv(out, index=False)
     pd.set_option("display.max_colwidth", 60)

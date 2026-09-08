@@ -50,11 +50,11 @@ gold_path <- function(name, year = analysis_year) {
 # Size RANKING is deliberate and must always hold:
 #   facet/panel title > legend text > axis title > axis tick text.
 # Calibrated for the 16-18in canvases used here; the hard floor is 8pt.
-FS_STRIP   <- 19
+FS_STRIP   <- 20
 FS_LEGEND  <- 17
-FS_AXTITLE <- 15
-FS_AXIS    <- 14
-INK        <- "grey15"
+FS_AXTITLE <- 16
+FS_AXIS    <- 15
+INK        <- "#1A1A1A"   # near-black; grey15 read as faint at page scale
 MM_PER_PT  <- 1 / 2.845   # geom_text(size=) is mm, not pt
 
 # ---- palettes --------------------------------------------------------------
@@ -73,8 +73,15 @@ REGION_COLS  <- c(Denmark = "#0072B2", Europe = "#009E73",
                   America = "#56B4E9", Africa = "#D55E00",
                   Unallocated = "grey70")
 
-REMAINDER_LAB <- "Remaining origins"
-REMAINDER_COL <- "grey85"
+REMAINDER_LAB <- "Remaining regions and sector pairs"
+REMAINDER_COL <- "grey78"
+
+# One hue per impact category, so a faceted sheet is not five identical blue
+# panels. Semantically ordered (warming red, materials brown, water blue, land
+# green, waste purple) and drawn from the Okabe-Ito safe set where possible.
+IND_COLS <- c(climate_change = "#D55E00", material_extraction = "#8C564B",
+              blue_water_consumption = "#0072B2", land_use = "#009E73",
+              waste_generation = "#7B3294")
 
 # ---- label hygiene ---------------------------------------------------------
 # ASCII only: the TIFF device's font has no middle dot, en dash or curly quote,
@@ -172,6 +179,68 @@ facet_ceiling <- function(data, group, extent, room = 1.06) {
   geom_blank(data = ceil, mapping = aes(x = .ceiling), inherit.aes = FALSE)
 }
 
+# ---- the remainder bar -------------------------------------------------------
+# House rule: a top-N ranking must always show what it leaves out. The awkward
+# part is that in a 200 x 200 MRIO the tail is routinely several times the
+# largest ranked bar, so a to-scale remainder flattens the ranking it is meant
+# to qualify into slivers.
+#
+# The convention adopted across this study: pin the remainder to the FOOT of
+# every panel, draw it to scale wherever it fits, and where it does not, break
+# the bar and print its true share beside it. Nothing is hidden - the remainder
+# is present, labelled, and the one bar carrying break marks - and the axis
+# title says so. `REMAINDER_NOTE` is that sentence.
+#
+# The three functions below expect `d` to carry `indicator`, `key` (a factor
+# built by the caller's ranking), `share_pct` and `is_rest`. Stacked figures are
+# handled too: every segment of a truncated remainder is scaled by the same
+# factor, so the composition of the bar survives the break.
+REMAINDER_NOTE <- paste(
+  "The remainder sits at the foot of each panel; where it exceeds the ranked",
+  "bars its own bar is broken and its true share printed.")
+
+prepare_remainder <- function(d, room = 1.04) {
+  lv <- levels(d$key)
+  rest <- unique(as.character(d$key[d$is_rest]))
+  d <- d %>% mutate(key = factor(key, levels = c(lv[lv %in% rest],
+                                                 lv[!lv %in% rest])))
+  cap <- d %>% filter(!is_rest) %>%
+    group_by(indicator, key) %>%
+    summarise(.t = sum(share_pct), .groups = "drop_last") %>%
+    summarise(cap = max(.t), .groups = "drop")
+  tot <- d %>% filter(is_rest) %>%
+    group_by(indicator) %>%
+    summarise(rest_total = sum(share_pct), .groups = "drop")
+  d %>% left_join(cap, by = "indicator") %>%
+    left_join(tot, by = "indicator") %>%
+    mutate(trunc = is_rest & rest_total > cap,
+           plot_x = if_else(trunc, share_pct * cap * room / rest_total,
+                            share_pct))
+}
+
+# One label per remainder bar, at its drawn end, carrying the TRUE share.
+remainder_label <- function(d, size = 4.6, hjust = -0.22) {
+  lab <- d %>% filter(is_rest) %>%
+    group_by(indicator, key) %>%
+    summarise(x = sum(plot_x), lab = sprintf("%.0f%%", sum(share_pct)),
+              .groups = "drop")
+  geom_text(data = lab, inherit.aes = FALSE,
+            aes(x = x, y = key, label = lab), hjust = hjust, size = size,
+            fontface = "bold", colour = INK)
+}
+
+# Break marks. The remainder is level 1 of every panel after prepare_remainder,
+# so the row index is constant and needs no per-panel lookup.
+remainder_breaks <- function(d, linewidth = 0.9) {
+  b <- d %>% filter(trunc) %>% distinct(indicator, cap) %>%
+    tidyr::crossing(off = c(0.90, 0.96))
+  if (nrow(b) == 0) return(NULL)
+  geom_segment(data = b, inherit.aes = FALSE,
+               aes(x = cap * off, xend = cap * (off + 0.035),
+                   y = 1 - 0.34, yend = 1 + 0.34),
+               colour = "white", linewidth = linewidth)
+}
+
 # ---- top-N with a re-sorted remainder --------------------------------------
 # House rule: bucket the long tail into ONE bar, and re-sort that bucket into
 # the ranking by its own value -- never append it last.
@@ -192,8 +261,16 @@ dk_save <- function(p, name, w = 16, h = 10, dpi = 300, sub = ".") {
   d <- file.path(fig_dir, sub)
   dir.create(d, recursive = TRUE, showWarnings = FALSE)
   f <- file.path(d, paste0(name, ".tiff"))
-  ggsave(f, p, width = w, height = h, units = "in", dpi = dpi,
-         compression = "lzw", bg = "white")
+  # ragg's TIFF device where it is installed: the base grDevices tiff device on
+  # macOS drops non-ASCII glyphs silently - "Sodersten" came out as "S..dersten"
+  # - and there is no warning to catch it. ragg shapes UTF-8 correctly.
+  if (requireNamespace("ragg", quietly = TRUE)) {
+    ggsave(f, p, width = w, height = h, units = "in", dpi = dpi,
+           device = ragg::agg_tiff, compression = "lzw", bg = "white")
+  } else {
+    ggsave(f, p, width = w, height = h, units = "in", dpi = dpi,
+           compression = "lzw", bg = "white")
+  }
   cat(sprintf("  %-52s %.1f x %.1f in (aspect %.2f)\n", f, w, h, w / h))
   invisible(f)
 }

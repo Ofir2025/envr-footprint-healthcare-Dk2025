@@ -45,6 +45,7 @@ import numpy as np
 import pandas as pd
 
 from analysis.constants import (ANALYSIS_YEAR, DK_POPULATION, INDICATORS,
+                                eriksen_folder,
                                 MODEL_LABEL)
 from paths import OUTPUT_DIR
 
@@ -142,7 +143,7 @@ def _load_bottom_up() -> dict[str, float]:
     RuntimeError
         If an expected component is absent, rather than silently returning zero.
     """
-    path = os.path.join(str(OUTPUT_DIR), "01_eriksen_replication",
+    path = os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
                         "scopes_summary.csv")
     frame = pd.read_csv(path).set_index("Component")["kt_CO2eq"]
     wanted = {

@@ -195,3 +195,27 @@ def eriksen_folder(year: str | None = None) -> str:
         ``"01_eriksen_replication/2022"``.
     """
     return f"{ERIKSEN_ROOT}/{year or ANALYSIS_YEAR}"
+
+
+#: Root of the GHG-Protocol scope decomposition, year-scoped for the same reason
+#: as the Eriksen folder: a 2019 run must not overwrite the 2022 tables that the
+#: manuscript figures are drawn from.
+SCOPES_ROOT = "02_scopes_wood_hertwich"
+
+
+def scopes_folder(year: str | None = None) -> str:
+    """Return the scope-decomposition output folder for one analysis year.
+
+    Parameters
+    ----------
+    year : str, optional
+        Four-digit analysis year. Defaults to the year this process is
+        configured for (``HC_ANALYSIS_YEAR``).
+
+    Returns
+    -------
+    str
+        Path relative to the gold results root, e.g.
+        ``"02_scopes_wood_hertwich/2022"``.
+    """
+    return f"{SCOPES_ROOT}/{year or ANALYSIS_YEAR}"

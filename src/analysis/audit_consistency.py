@@ -54,7 +54,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL, eriksen_folder
+from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL,
+                                eriksen_folder, scopes_folder)
 from paths import BACKGROUND_DIR, OUTPUT_DIR
 
 #: Tolerance for values that should be identical up to floating point.
@@ -84,7 +85,7 @@ def c1_headline(results: list[dict[str, Any]]) -> None:
         "scopes_summary.csv")).set_index("Component")["kt_CO2eq"]
     grand = float(scopes["Grand Total"])
     detailed = pd.read_csv(os.path.join(
-        str(OUTPUT_DIR), "02_scopes_wood_hertwich",
+        str(OUTPUT_DIR), *scopes_folder().split("/"),
         "scopes_summary_detailed.csv"))
     climate = detailed[detailed.indicator == "climate_change"]
     # The table carries variant rows (alternative Scope 2 constructions and the
@@ -183,6 +184,14 @@ def c3_freshness(results: list[dict[str, Any]]) -> None:
         if rel.split(os.sep)[0] in BACKGROUND_INDEPENDENT:
             continue
         if os.path.basename(rel) in BACKGROUND_INDEPENDENT_FILES:
+            continue
+        # Year-scoped folders belong to their own background. A 2019 table is
+        # not stale because the 2022 background was rebuilt after it; it is
+        # derived from IOT_2016 and is checked when the audit runs for 2019.
+        parts = rel.split(os.sep)
+        other_year = {p for p in parts
+                      if len(p) == 4 and p.isdigit() and p.startswith(("19", "20"))}
+        if other_year and ANALYSIS_YEAR not in other_year:
             continue
         if os.path.getmtime(path) < built - 60:
             stale.append(rel)

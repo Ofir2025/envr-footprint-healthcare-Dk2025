@@ -88,6 +88,6 @@
 
 ### `fact_scope_node.csv`
 
-- **Rows:** 7,345
+- **Rows:** 23,737
 - **Dimensions:** none
 - **Measures:** `model_id`, `indicator_id`, `scope_id`, `producing_region_id`, `producing_industry_id`, `value`
