@@ -427,4 +427,84 @@ if (!is.null(bm) && as.character(unique(bm$year[bm$basis != "Schmidt & Merciai 2
   dk_save(p7, sprintf("fig7_boundary_matched_%s", YEAR), w = 13, h = 8.5)
 }
 
+
+# ============ fig 8  mitigation levers against the regional target ==========
+# Reviewer 2 asked us to separate identifying a hotspot from showing that acting
+# on it works. This figure does the second thing. Every lever we can quantify,
+# at maximum ambition, is drawn against the reduction Danske Regioner's target
+# requires and against projected demand growth. The levers are summed
+# independently - interaction is not modelled - so the combined bar is an upper
+# bound, which is stated on the axis rather than buried in a caption.
+ms_path <- tryCatch(gold_path("mitigation_scenarios.csv"),
+                    error = function(e) NA_character_)
+tc_path <- tryCatch(gold_path("target_consistency.csv"),
+                    error = function(e) NA_character_)
+if (!is.na(ms_path) && !is.na(tc_path)) {
+  ms <- read_csv(ms_path, show_col_types = FALSE)
+  tc <- read_csv(tc_path, show_col_types = FALSE)
+  if (as.character(unique(ms$analysis_year))[[1]] == YEAR) {
+    # One row per lever FAMILY (the S-number), at its most ambitious variant.
+    # Plotting every ambition step drew eleven bars, seven of them under 10 kt,
+    # and buried the comparison the figure exists to make.
+    d8 <- ms %>%
+      filter(indicator == "climate_change", scenario_type != "counterfactual") %>%
+      mutate(family = sub("^(S[0-9]+).*$", "\\1", scenario),
+             lever = sub("^S[0-9]+ ", "", scenario)) %>%
+      group_by(family) %>%
+      slice_max(abs(change), n = 1, with_ties = FALSE) %>%
+      ungroup() %>%
+      mutate(kt = abs(change),
+             lever = dplyr::recode(family,
+               S1 = "Grid and heat decarbonisation\nto 2035 (KF22 pathway)",
+               S3 = "Patient, visitor and staff\ntravel \u2212 30 %",
+               S6 = "pMDI to dry-powder inhaler,\n75 % substituted",
+               S7 = "Nitrous oxide capture\nor reduction, 75 %",
+               .default = lever),
+             kind = if_else(scenario_type == "background pathway",
+                            "Background pathway (happens anyway)",
+                            "Health-system intervention")) %>%
+      arrange(kt)
+    req  <- abs(tc$value[tc$quantity == "required reduction for the regional target"][[1]])
+    comb <- abs(tc$value[tc$quantity == "modelled levers at maximum ambition, combined"][[1]])
+    grow <- abs(tc$value[tc$quantity == "demand growth offset (business as usual)"][[1]])
+    d8 <- bind_rows(
+      d8 %>% transmute(lever, kt, kind),
+      tibble(lever = "All levers combined\n(upper bound)", kt = comb,
+             kind = "All levers combined"),
+      tibble(lever = "Demand growth to 2035\n(+18 %), working against us", kt = grow,
+             kind = "Working against us")) %>%
+      mutate(lever = factor(lever, levels = lever))
+
+    p8 <- ggplot(d8, aes(kt, lever, fill = kind)) +
+      geom_col(width = 0.68, colour = "white", linewidth = 0.15) +
+      geom_vline(xintercept = req, linetype = "22", linewidth = 0.9,
+                 colour = "#1A1A1A") +
+      annotate("text", x = req, y = 0.55, hjust = 1.03, vjust = 0, size = 4.8,
+               fontface = "bold", colour = "#1A1A1A",
+               label = sprintf("Regional target needs %s kt",
+                               formatC(round(req), format = "d", big.mark = ","))) +
+      geom_text(aes(label = sprintf("%s kt", formatC(round(kt), format = "d",
+                                                     big.mark = ","))),
+                hjust = -0.18, size = 4.6, fontface = "bold", colour = INK) +
+      scale_fill_manual(values = c(
+        "Health-system intervention" = "#0072B2",
+        "Background pathway (happens anyway)" = "#56B4E9",
+        "All levers combined" = "#009E73",
+        "Working against us" = "#D55E00"), name = NULL) +
+      guides(fill = guide_legend(nrow = 2)) +
+      scale_x_continuous(labels = smart_labs,
+                         breaks = scales::breaks_extended(6),
+                         expand = expansion(mult = c(0, 0.14))) +
+      labs(x = expression("Change in the climate footprint (kt CO"[2]*"-eq); levers summed without interaction, so the combined bar is an upper bound"),
+           y = NULL) +
+      theme_dkhc() +
+      theme(panel.grid.major.y = element_blank(),
+            axis.title.x = element_text(size = 13),
+            axis.text.y = element_text(size = 14, lineheight = 1.05,
+                                       colour = INK))
+
+    dk_save(p8, sprintf("fig8_mitigation_scenarios_%s", YEAR), w = 15, h = 8.8)
+  }
+}
+
 cat("\nmanuscript figures written to ", fig_dir, "\n", sep = "")
