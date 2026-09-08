@@ -45,7 +45,7 @@ import pandas as pd
 from analysis.constants import K_DK, N_FINAL_DEMAND, N_SECTORS
 from paths import MRIO_DIR, OUTPUT_DIR
 
-FOLDER = "10_snac_shipping_correction"
+FOLDER = "10_sea_transport_reallocation"
 YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
 TAG = "_snacship"
 

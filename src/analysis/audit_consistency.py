@@ -166,7 +166,7 @@ def c2_detail_vs_aggregate(results: list[dict[str, Any]]) -> None:
 #: a background rebuild.
 BACKGROUND_INDEPENDENT: frozenset[str] = frozenset({
     "09_vintage_diagnostics",          # compares raw EXIOBASE vintages to DST
-    "10_snac_shipping_correction",     # PRODUCES the corrected background, so
+    "10_sea_transport_reallocation",     # PRODUCES the corrected background, so
                                        # its outputs necessarily predate it
     "scenarios",                       # alternative boundaries, which
                                        # deliberately do not persist a

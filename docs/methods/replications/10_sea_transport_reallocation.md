@@ -1,6 +1,14 @@
-# 10 - Danish sea-transport reallocation
+# 10. Danish sea-transport reallocation
 
-**Gold folder** `data/gold/results/10_snac_shipping_correction/`
+**This layer contains no SNAC coupling.** It was called
+`10_snac_shipping_correction` until 9 September 2026, which promised one.
+What it does is reallocate a single row of the Danish block to the share
+Statistics Denmark publishes. The full national-accounts coupling after
+Palm et al. (2019) is specified in
+[`docs/methods/02_snac_exiobase_and_footprint_accounting.md`](../02_snac_exiobase_and_footprint_accounting.md)
+and is a separate build.
+
+**Gold folder** `data/gold/results/10_sea_transport_reallocation/`
 **Module** `analysis.dk_shipping_correction`
 **Source** Rørmose Jensen & Iliev (2022), pp. 11-12, Statistics Denmark
 

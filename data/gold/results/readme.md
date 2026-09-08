@@ -31,7 +31,7 @@ response to the reviewers.
 | `07_malik_replication` | capital-boundary comparator; Malik et al. include capital where the other comparators exclude it |
 | `08_lenzen_replication` | the comparator behind the uncertainty calibration and the national-total family comparison |
 | `09_vintage_diagnostics` | the **only** evidence for rejecting EXIOBASE v3.10.2, which the response states as fact |
-| `10_snac_shipping_correction` | the sea-transport reallocation, on which the withdrawn transport finding depends |
+| `10_sea_transport_reallocation` | the sea-transport reallocation, on which the withdrawn transport finding depends |
 | `11_capital_gfcf` | the capital treatment; the second step of figure 7 |
 | `12_impact_categories_full` | the full characterisation behind the five reported categories |
 | `13_steenmeijer_replication` | the Dutch study this replicates |
