@@ -1,12 +1,24 @@
-# EXIOBASE weaknesses, and how to read this study's results in light of them
+# EXIOBASE: every limitation this study is exposed to, and how to read the results
 
-Written to be lifted into the manuscript's *Data*, *Methods* and *Limitations*. Every
-weakness below is one we tested on our own model rather than one we inherited from a
-reading of the literature; where a number is given, the test that produced it is named.
+Written to be lifted into the manuscript's *Data*, *Methods* and *Limitations*.
+Each entry follows the same three-part structure the discipline requires of a
+limitation: **what it is**, **what it changes about the conclusion**, and **what
+study design would reduce it**. A limitation named without its consequence is
+not a limitation; it is a disclaimer.
 
-The honest summary: **EXIOBASE is the right model for this study and it has defects that
-change results.** Both halves matter. A limitations section that says only the first is
-promotional; one that says only the second invites the reader to discard the work.
+Every weakness below was tested on this model rather than inherited from a
+reading of the literature. Where a number is given, the test that produced it is
+named. Where a weakness is known from the literature but not measured here, that
+is stated in those words.
+
+The honest summary is two-sided and both halves matter. **EXIOBASE is the right
+model for this study, and it has defects that change results.** A limitations
+section that says only the first is promotional; one that says only the second
+invites the reader to discard the work.
+
+Uncertainty sources are treated separately and in full in
+[`uncertainty_sources.md`](uncertainty_sources.md); this document covers the
+properties of the database itself.
 
 ---
 
@@ -150,13 +162,159 @@ matched to a comparator: agreement with Schmidt & Merciai improves from 25 % apa
 
 ---
 
+## 8. Import proportionality: who buys the imports is assumed, not observed
+
+**What it is.** EXIOBASE does not know which Danish industry buys which imported
+product. It distributes each imported commodity across purchasing industries in
+proportion to their use of the domestic equivalent. Nothing in the source data
+supports that proportionality; it is a modelling necessity.
+
+**What it changes about the conclusion.** Schulte et al. (2021) randomised this
+assumption on EXIOBASE at exactly this study's resolution and found national
+footprints robust, with coefficients of variation generally below 4 per cent,
+but industry-level footprints far less so: a quarter of industries exceeded 10
+per cent for carbon and 30 per cent for land, material and water, with extreme
+cases above 300 per cent. Read across to this study, the **health-care total is
+safe from this assumption and the contribution-group split is softer than its
+point estimates suggest.** It is a second reason, alongside the single health
+industry, not to quote group-level differences finely.
+
+**What would reduce it.** Firm-level or customs-linked import data by purchasing
+industry. None exists for Denmark at this resolution.
+
+---
+
+## 9. Within-sector homogeneity: one intensity for every firm in an industry
+
+**What it is.** Every firm in an EXIOBASE industry is assumed to produce the same
+product with the same technology and the same impact intensity. A Danish
+manufacturer of generic paracetamol and a manufacturer of a patented biologic
+are one row.
+
+**What it changes about the conclusion.** Rodrigues et al. (2018) report a
+within-sector coefficient of variation of carbon per unit output above one for
+17 of 23 Japanese manufacturing sectors. Schulte et al. (2024) state the
+consequence exactly: their uncertainty estimates are on the *mean* emissions of
+a sector, and within-sector variability may be substantially larger. Since
+pharmaceuticals are 37 per cent of this study's climate footprint and 51 per
+cent of its material footprint, and since hospitals buy a narrow and atypical
+slice of the chemicals sector, **the pharmaceutical figure carries more
+uncertainty than any interval reported here shows, and the direction of the bias
+is unknown.**
+
+**What would reduce it.** Product-level or firm-level intensity data for the
+specific pharmaceuticals purchased, or a hybrid model in which the
+pharmaceutical column is replaced by process data.
+
+---
+
+## 10. The reference year is a nowcast, not a benchmark table
+
+**What it is.** EXIOBASE's 2022 table is projected forward from the most recent
+benchmark year rather than compiled from a 2022 supply-and-use table, because
+no country has published one.
+
+**What it changes about the conclusion.** Nowcast years carry the errors this
+study documents in section 2, and Lenzen et al. (2010) observe that uncertainty
+grows with distance from the benchmark year, although they did not prove it.
+This is why the vintage tests in section 2 were run at all, and why v3.10.2 was
+rejected: its nowcast years fail against the Danish national accounts.
+**Sectoral detail for 2022 should be read as less firm than the same detail for
+a benchmark year would be.**
+
+**What would reduce it.** Statistics Denmark's own 2022 supply-and-use table,
+coupled to the global model. That is the SNAC route.
+
+---
+
+## 11. Correlation between elements is not published, and cannot be assumed away
+
+**What it is.** EXIOBASE publishes no covariance information for its cells. A
+user who wants to propagate uncertainty must therefore assume a correlation
+structure, and Rodrigues (2016) proves the two convenient assumptions -
+uncorrelated elements, and a known aggregate uncertainty - are mutually
+exclusive.
+
+**What it changes about the conclusion.** It means no reported interval for an
+EXIOBASE result can be simultaneously calibrated and independence-based, and a
+study that reports one without saying which it chose is reporting an artefact.
+This study holds the calibration and varies the correlation, and reports what
+that does; see `uncertainty_sources.md` section 3.3.
+
+**What would reduce it.** Schulte et al. (2024) published greenhouse-gas
+accounts at exactly this resolution with element-level uncertainties **and**
+correlations attached. Adopting them is the single most valuable methodological
+upgrade available to this study after SNAC coupling.
+
+---
+
+## 12. Waste, water and land extensions are weaker than the greenhouse-gas one
+
+**What it is.** The greenhouse-gas extension is built from energy balances and
+national inventories and is the most scrutinised part of the satellite account.
+The material, water, land and waste extensions rest on thinner source data and
+have received far less validation in the literature.
+
+**What it changes about the conclusion.** Every uncertainty statement in this
+study is calibrated on a **carbon** figure. Schulte et al. (2021) find
+industry-level footprint dispersion roughly three times higher for land, material
+and water than for carbon on this same database. The four non-carbon categories
+are therefore reported with intervals that are **too narrow, by an unknown
+factor**, and a bounding run at three times the carbon spread is reported
+alongside them for that reason.
+
+**What would reduce it.** A per-category uncertainty assessment of the EXIOBASE
+extensions. None exists. This is a gap in the field, not only in this study.
+
+---
+
 ## What this means for a reader of the paper
 
-1. **Trust the aggregate, qualify the sectoral detail.** The Danish health footprint and
-   its domestic/imported split rest on corrected, benchmarked quantities. Industry-level
-   Danish detail rests on an estimated national block.
-2. **Read every share with its basis.** Transport is 18.5 % of the supply chain and 15.4 %
-   of the total; both are correct and they are not interchangeable.
-3. **Treat the uncertainty interval as conditional.** Model choice moves the answer more
-   than the parameters do.
-4. **Do not compare across EXIOBASE vintages** without checking the defects in §2.
+1. **Trust the aggregate, qualify the sectoral detail.** The Danish health-care
+   footprint and its domestic and imported split rest on corrected, benchmarked
+   quantities. Industry-level Danish detail rests on an estimated national
+   block, an assumed import allocation and a homogeneous-sector assumption, and
+   three separate limitations above converge on the same advice.
+2. **Read every share with its basis.** Transport is 18.5 per cent of the supply
+   chain and 15.4 per cent of the total; both are correct and they are not
+   interchangeable.
+3. **Treat the uncertainty interval as conditional.** Model choice moves the
+   answer more than the parameters do. This study's own structural scenario on
+   the pharmaceutical mapping lands entirely outside its parametric 95 per cent
+   interval, which is the clearest possible demonstration.
+4. **Do not compare across EXIOBASE vintages** without checking the defects in
+   section 2.
+5. **Do not read the non-carbon categories with the carbon interval.** Section
+   12 explains why, and the bounding run is reported for that purpose.
+
+---
+
+## References
+
+Full entries with DOIs are in [`docs/REFERENCES.md`](../REFERENCES.md).
+
+- Lenzen, M., Wood, R., & Wiedmann, T. (2010). Uncertainty analysis for
+  multi-region input-output models. *Economic Systems Research, 22*(1), 43-63.
+  https://doi.org/10.1080/09535311003661226
+- Rodrigues, J. F. D. (2016). Maximum-entropy prior uncertainty and correlation
+  of statistical economic data. *Journal of Business & Economic Statistics,
+  34*(3), 357-367. https://doi.org/10.1080/07350015.2015.1038545
+- Rodrigues, J. F. D., Moran, D., Wood, R., & Behrens, P. (2018). Uncertainty of
+  consumption-based carbon accounts. *Environmental Science & Technology,
+  52*(13), 7577-7586. https://doi.org/10.1021/acs.est.8b00632
+- Schulte, S., Jakobs, A., & Pauliuk, S. (2021). Relaxing the import
+  proportionality assumption in multi-regional input-output modelling. *Journal
+  of Economic Structures, 10*, 20. https://doi.org/10.1186/s40008-021-00250-8
+- Schulte, S., Jakobs, A., & Pauliuk, S. (2024). Estimating the uncertainty of
+  the greenhouse gas emission accounts in global multi-regional input-output
+  analysis. *Earth System Science Data, 16*(6), 2669-2700.
+  https://doi.org/10.5194/essd-16-2669-2024
+- Stadler, K., Wood, R., Bulavskaya, T., Södersten, C.-J., Simas, M., Schmidt,
+  S., Usubiaga, A., Acosta-Fernández, J., Kuenen, J., Bruckner, M., Giljum, S.,
+  Lutter, S., Merciai, S., Schmidt, J. H., Theurl, M. C., Plutzar, C., Kastner,
+  T., Eisenmenger, N., Erb, K.-H., de Koning, A., & Tukker, A. (2018).
+  EXIOBASE 3. *Journal of Industrial Ecology, 22*(3), 502-515.
+  https://doi.org/10.1111/jiec.12715
+- Tukker, A., Wood, R., & Schmidt, S. (2020). Towards accepted procedures for
+  calculating international consumption-based carbon accounts. *Climate Policy,
+  20*(sup1), S90-S106. https://doi.org/10.1080/14693062.2020.1722605

@@ -143,6 +143,18 @@ existed. Both are corrected in this revision:
    model behind the intervention levels, no price response, and interaction
    between levers computed but not driven by any market mechanism.
 
+**We do not rebalance the table.** When a scenario changes a production recipe,
+the edited table no longer satisfies the identity that column sums plus value
+added equal total output, because the model is not told what the industry does
+with the money it stops spending. We leave that imbalance in place, measure it,
+and report it per scenario rather than forcing the table back onto its totals.
+Rebalancing would partly undo the intervention and return a smaller effect than
+it implies, and would require an assumption we do not have; Lenzen et al. (2010)
+decline to rebalance for the same reason. The largest departure across the whole
+scenario set is 0.7 % of total output, on the pharmaceutical lever at full
+market penetration. Every intensity-only and demand-only scenario is exactly
+balanced, and so is the waste diversion, because it substitutes fully.
+
 What we still do not claim, and should say plainly:
 
 - The model is **attributional**. A scenario is a what-if on the recipe, not a

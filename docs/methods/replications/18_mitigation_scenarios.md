@@ -98,7 +98,7 @@ the money is destroyed, which is a stronger and less defensible assumption.
 **Both are reported** (C1 and C2), and the difference between them is the
 rebound.
 
-### 2.4 What the accounts do to an edited table
+### 2.4 The counterfactual table is not rebalanced, and this is deliberate
 
 Editing $\mathbf{A}$ breaks the identity that column sums plus value added equal
 total output, because the model is not told what an industry does with money it
@@ -110,9 +110,20 @@ $$\text{imbalance} = \frac{\bigl|\,\mathbf{i}'(\mathbf{A}-\mathbf{A}^{*})\,\math
 and reports it per scenario in `unbalanced_pct_of_output`. It is zero for every
 intensity- and demand-only scenario, zero for the waste diversion (which
 substitutes fully, $\alpha = 1$), and **0.7 % of total output** for the
-pharmaceutical resource-efficiency lever at full market penetration. Stating it
-is the point: a reader can see how far each counterfactual departs from balance
-instead of being asked to assume it does not.
+pharmaceutical resource-efficiency lever at full market penetration.
+
+**No balancing procedure is applied to the counterfactual table.** This is a
+choice, and it is the conservative one. Rebalancing by a RAS-type procedure
+would force the edited table back onto its row and column totals, which would
+partly undo the edit and return a smaller effect than the intervention
+implies; Lenzen et al. (2010, section 2.3) decline to rebalance their perturbed
+tables for the same reason, stating that balancing would reduce the perturbation
+and therefore the reported dispersion. Rebalancing would also require an
+assumption this study does not have: what an industry does with the money it
+stops spending on an input. The engine therefore leaves the imbalance in place,
+measures it, and reports it per scenario, so a reader can see how far each
+counterfactual departs from balance rather than being asked to assume it does
+not. The largest departure in the whole scenario set is 0.7 % of total output.
 
 ---
 
@@ -234,7 +245,7 @@ can be said.
 | Baseline reproduces the study headline | asserted in code; scenario baseline within 1 % of 4,713.368 kt, and equal to it |
 | Counterfactual solve against the stored inverse | agrees to 1 × 10⁻¹¹ |
 | Levers summed vs solved simultaneously | 0.2 kt apart on climate; reported, not assumed |
-| Accounting imbalance from editing **A** | 0 for B- and y-only scenarios; 0.7 % of output at the largest A edit; reported per scenario |
+| Accounting imbalance from editing **A** | 0 for B- and y-only scenarios; 0.7 % of output at the largest A edit; reported per scenario, never rebalanced away |
 | Two official grid-projection vintages | KF22 and KF25 differ by 1.0 pp on the same lever; both reported rather than the more flattering one |
 | Market penetration | P2 reported at 25 / 50 / 100 % of Danish production, because the share achieving Lundbeck's result is unknown |
 | Rebound on/off | C1 vs C2; 21 % of the saving |
