@@ -61,6 +61,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from analysis import gold_scope
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL,
                                 eriksen_folder, scopes_folder)
 from paths import BACKGROUND_DIR, OUTPUT_DIR
@@ -130,6 +131,11 @@ def c2_detail_vs_aggregate(results: list[dict[str, Any]]) -> None:
          ["indicator"], "healthcare_supply_chain"),
     ]
     for folder, detail_name, agg_name, keys, agg_col in pairs:
+        if not gold_scope.is_present(folder):
+            _check(results, f"C2 {folder} detail reconciles", True,
+                   "skipped: this layer is classified private and is not in "
+                   "this working copy")
+            continue
         detail_path = os.path.join(str(OUTPUT_DIR), folder, detail_name)
         agg_path = os.path.join(str(OUTPUT_DIR), folder, agg_name)
         if not os.path.isdir(os.path.join(str(OUTPUT_DIR), folder)):
@@ -538,13 +544,43 @@ def c7_star_integrity(results: list[dict[str, Any]]) -> None:
            else f"{len(STAR_GRAIN)} facts, no duplicate key tuples")
 
 
+def c10_repo_profile(results: list[dict[str, Any]]) -> None:
+    """A paper-scope working copy may not hold private material.
+
+    The two working copies exist to carry different scopes. The copy that feeds
+    the co-author's branch holds the manuscript's deliverables; the private copy
+    holds those plus the follow-on layers, the reference PDFs, the deck and the
+    feedback. Until now the separation happened only at publish time, inside a
+    filter that rewrites history on the way out, which means the private
+    material sat in the copy that pushes and a mistake there is a disclosure.
+    This check makes the separation a property of the working copy instead.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdict to.
+    """
+    prof = gold_scope.profile()
+    stray = gold_scope.out_of_profile()
+    if prof == "undeclared":
+        _check(results, "C10 working copy carries only its declared scope", True,
+               "skipped: this copy declares no scope in .repo_scope")
+        return
+    _check(results, "C10 working copy carries only its declared scope",
+           not stray,
+           f"profile {prof!r}, nothing out of place" if not stray else
+           f"profile {prof!r}, {len(stray)} private path(s) present: "
+           + ", ".join(stray[:3]))
+
+
 def main() -> None:
     """Run every check and write the report; exit non-zero on failure."""
     results: list[dict[str, Any]] = []
     for check in (c1_headline, c2_detail_vs_aggregate, c3_freshness,
                   c4_provenance, c5_manifest, c6_documentation, c6b_superseded,
                   c7_star_integrity,
-                  c8_citations, c9_gold_scope):
+                  c8_citations, c9_gold_scope,
+                  c10_repo_profile):
         try:
             check(results)
         except Exception as exc:                            # noqa: BLE001

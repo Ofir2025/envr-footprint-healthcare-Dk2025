@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -106,6 +107,100 @@ PRIVATE_COMPANIONS: dict[str, tuple[str, ...]] = {
 }
 
 
+#: Marker naming which scope a working copy carries. ``paper`` copies hold the
+#: manuscript's deliverables and nothing else; ``full`` copies hold those plus
+#: the follow-on layers and the private material. The marker is explicit rather
+#: than inferred from the git remote, because a clone can be re-pointed and the
+#: consequence of guessing wrong is publishing private work.
+PROFILE_FILE = REPO / ".repo_scope"
+
+
+def profile() -> str:
+    """Which scope this working copy declares.
+
+    Returns
+    -------
+    str
+        ``"paper"``, ``"full"``, or ``"undeclared"`` when the marker is absent.
+    """
+    if not PROFILE_FILE.exists():
+        return "undeclared"
+    return PROFILE_FILE.read_text(encoding="utf-8").strip().split()[0].lower()
+
+
+def _tracked(path: str) -> bool:
+    """Whether git tracks anything under a repository-relative path.
+
+    Parameters
+    ----------
+    path : str
+        Repository-relative file or directory.
+
+    Returns
+    -------
+    bool
+        True when ``git ls-files`` reports at least one entry.
+    """
+    out = subprocess.run(["git", "ls-files", "--", path], cwd=str(REPO),
+                         capture_output=True, text=True)
+    return bool(out.stdout.strip())
+
+
+def out_of_profile() -> list[str]:
+    """Private paths **tracked** in a copy that declares itself ``paper``.
+
+    Tracking is the test rather than presence on disk, because tracking is what
+    a push or a merge carries. An untracked copy of a reference PDF sitting in
+    a working directory is untidy; a tracked one is a disclosure waiting for
+    someone to run the wrong command.
+
+    Returns
+    -------
+    list of str
+        Repository-relative paths that should not be tracked here. Empty for a
+        ``full`` or ``undeclared`` copy, where nothing is out of place by
+        definition.
+    """
+    if profile() != "paper":
+        return []
+    bad: list[str] = []
+    for name, (scope, _) in sorted(SCOPE.items()):
+        if scope != "private":
+            continue
+        if _tracked(f"data/gold/results/{name}"):
+            bad.append(f"data/gold/results/{name}")
+        bad.extend(c for c in PRIVATE_COMPANIONS.get(name, ()) if _tracked(c))
+    for extra in ("docs/presentation", "docs/references", "docs/feedback",
+                  "reports/source"):
+        if _tracked(extra):
+            bad.append(extra)
+    return bad
+
+
+def is_present(folder: str) -> bool:
+    """Whether a gold folder exists in this working copy.
+
+    The two working copies hold different scopes on purpose: the copy that
+    feeds the co-author's branch carries the paper's deliverables, and the
+    private copy carries those plus the follow-on layers. A module that reads a
+    private layer must therefore ask whether it is here rather than assume it,
+    and must skip cleanly and say so when it is not. Failing instead would make
+    the same pipeline pass in one copy and fail in the other for no reason but
+    scope.
+
+    Parameters
+    ----------
+    folder : str
+        Gold folder name, for example ``"17_health_subsectors"``.
+
+    Returns
+    -------
+    bool
+        True when the folder exists under ``data/gold/results``.
+    """
+    return (GOLD / folder).is_dir()
+
+
 def folders_on_disk() -> list[str]:
     """Gold folders present in the working copy."""
     if not GOLD.exists():
@@ -122,6 +217,20 @@ def unclassified() -> list[str]:
         Empty when every folder is classified.
     """
     return [f for f in folders_on_disk() if f not in SCOPE]
+
+
+def missing_private() -> list[str]:
+    """Private folders declared in :data:`SCOPE` but absent from this copy.
+
+    Returns
+    -------
+    list of str
+        Sorted folder names. Non-empty in the working copy that feeds the
+        co-author's branch, empty in the private one.
+    """
+    on_disk = set(folders_on_disk())
+    return sorted(name for name, (scope, _) in SCOPE.items()
+                  if scope == "private" and name not in on_disk)
 
 
 def exclude_paths() -> list[str]:

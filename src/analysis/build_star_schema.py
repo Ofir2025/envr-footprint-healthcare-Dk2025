@@ -50,6 +50,7 @@ import pandas as pd
 from paths import OUTPUT_DIR
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from analysis import gold_scope
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL,
                                 scopes_folder)
 from analysis.detail_tables import node_labels
@@ -277,8 +278,15 @@ def main() -> None:
         "extended_node": _read("00_core_footprint/extended_indicators_by_producing_node.csv"),
         "scope_node": _read(f"{scopes_folder()}/scope_by_origin_and_industry.csv"),
         "national": _read("00_core_footprint/national_totals_summary.csv"),
-        "health_function": _read("17_health_subsectors/footprint_by_health_function.csv"),
     }
+    # The health sub-sector layer is classified private, so it is absent from
+    # the working copy that feeds the co-author's branch. Its fact and its
+    # dimension are then simply not built, and the model is smaller rather than
+    # broken.
+    has_functions = gold_scope.is_present("17_health_subsectors")
+    if has_functions:
+        src["health_function"] = _read(
+            "17_health_subsectors/footprint_by_health_function.csv")
 
     dim_region = build_dim_region()
     dim_industry, dim_industry_group = build_dim_industry()
@@ -289,8 +297,9 @@ def main() -> None:
         pd.concat([src["footprint_node"]["demand_component"],
                    src["extended_node"]["demand_component"]]),
         "demand_component_id", "demand_component_name")
-    dim_function = _simple_dim(src["health_function"]["function"],
-                               "health_function_id", "health_function_name")
+    dim_function = (_simple_dim(src["health_function"]["function"],
+                                "health_function_id", "health_function_name")
+                    if has_functions else None)
 
     # ---- facts ------------------------------------------------------------
     facts: dict[str, pd.DataFrame] = {}
@@ -346,12 +355,13 @@ def main() -> None:
     n.insert(0, "model_id", 1)
     facts["fact_national_total"] = n
 
-    h = src["health_function"][["indicator", "function", "value",
-                                "expenditure_meur", "intensity_per_meur"]].copy()
-    h = _key(h, dim_indicator, "indicator", "indicator_code", "indicator_id", "health_function.indicator")
-    h = _key(h, dim_function, "function", "health_function_name", "health_function_id", "health_function.function")
-    h.insert(0, "model_id", 1)
-    facts["fact_health_function"] = h
+    if has_functions:
+        h = src["health_function"][["indicator", "function", "value",
+                                    "expenditure_meur", "intensity_per_meur"]].copy()
+        h = _key(h, dim_indicator, "indicator", "indicator_code", "indicator_id", "health_function.indicator")
+        h = _key(h, dim_function, "function", "health_function_name", "health_function_id", "health_function.function")
+        h.insert(0, "model_id", 1)
+        facts["fact_health_function"] = h
 
     # Enforce each fact's declared grain. Sources can carry a finer grain than
     # the model does -- the scope detail distinguishes DRIVHUS combustion from
@@ -379,8 +389,9 @@ def main() -> None:
         "dim_industry_group": dim_industry_group,
         "dim_indicator": dim_indicator, "dim_scope": dim_scope,
         "dim_demand_component": dim_component, "dim_model": dim_model,
-        "dim_health_function": dim_function,
     }
+    if has_functions:
+        dims["dim_health_function"] = dim_function
 
     # ---- integrity --------------------------------------------------------
     for name, dim in dims.items():
