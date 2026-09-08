@@ -56,6 +56,7 @@ import os
 import numpy as np
 import pandas as pd
 
+from analysis.constants import eriksen_folder
 from paths import OUTPUT_DIR
 
 FOLDER = "02_scopes_wood_hertwich"
@@ -117,7 +118,7 @@ def build_detail() -> pd.DataFrame:
 
     summary = _read("scopes_summary_detailed.csv")
     eriksen = pd.read_csv(os.path.join(
-        str(OUTPUT_DIR), "01_eriksen_replication", "scopes_summary.csv"))
+        str(OUTPUT_DIR), *eriksen_folder().split("/"), "scopes_summary.csv"))
     comp = eriksen.set_index("Component")["kt_CO2eq"]
 
     # Bottom-up items exist only for climate (and, for scope 1, waste, which
