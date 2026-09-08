@@ -136,7 +136,8 @@ def load_groups():
         if grp in mrio.index:
             mrio.loc[grp] -= bu[code]
             parts[code].loc[grp] = bu[code].values
-    t1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "table_1.xlsx"), index_col=0)
+    t1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+                                    "table_1.xlsx"), index_col=0)
     total = t1.loc["Total", INDICATORS].astype(float)
     assert np.allclose(fig1.sum().values, total.values, rtol=1e-6), \
         "group table does not reproduce the reported total - stale outputs?"

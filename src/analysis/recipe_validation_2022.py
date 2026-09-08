@@ -24,6 +24,7 @@ import pickle
 import re
 
 import numpy as np
+import os
 import pandas as pd
 
 from paths import BRONZE_DIR, MRIO_DIR, OUTPUT_DIR
@@ -117,8 +118,10 @@ def main():
     print(f"  Danish land-transport industries  : {_share(r'land transport|transport via', dk_block):5.1f} %")
     print(f"  ALL water-transport (any region)  : {_share(r'sea and coastal|inland water'):5.1f} %")
     print(f"  ALL transport industries          : {_share(r'transport'):5.1f} %")
-    out.to_csv(str(OUTPUT_DIR) + "/recipe_validation_2022.csv")
-    print(f"\nwritten -> {OUTPUT_DIR}/recipe_validation_2022.csv")
+    out_path = os.path.join(str(OUTPUT_DIR), "06_benchmarks_validation",
+                            "recipe_validation_2022.csv")
+    out.to_csv(out_path)
+    print(f"\nwritten -> {out_path}")
 
 
 if __name__ == "__main__":
