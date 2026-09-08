@@ -28,35 +28,35 @@ Method, equations and verification: [`docs/methods/replications/02_scopes_wood_h
 
 ### `scope_by_continent.csv`
 
-- **Rows:** 14
-- **Units:** kt CO2eq
+- **Rows:** 61
+- **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_world_region`, `scope`, `indicator`, `unit`
 - **Measures:** `value`, `share_of_scope_pct`
 
 ### `scope_by_continent_and_industry_group.csv`
 
-- **Rows:** 130
-- **Units:** kt CO2eq
+- **Rows:** 590
+- **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_world_region`, `producing_sector_group`, `scope`, `indicator`, `unit`
 - **Measures:** `value`, `share_of_scope_pct`
 
 ### `scope_by_country.csv`
 
-- **Rows:** 96
-- **Units:** kt CO2eq
+- **Rows:** 404
+- **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `scope`, `indicator`, `unit`
 - **Measures:** `value`, `share_of_scope_pct`
 
 ### `scope_by_industry_group.csv`
 
-- **Rows:** 25
-- **Units:** kt CO2eq
+- **Rows:** 110
+- **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_sector_group`, `scope`, `indicator`, `unit`
 - **Measures:** `value`, `share_of_scope_pct`
 
 ### `scope_by_origin_and_industry.csv`
 
-- **Rows:** 7,346
+- **Rows:** 23,732
 - **Resolution:** 1+ regions x 15+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `consuming_country_iso3`, `model`, `indicator`, `unit`, `scope`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `component_type`
@@ -64,9 +64,9 @@ Method, equations and verification: [`docs/methods/replications/02_scopes_wood_h
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 32
+- **Rows:** 111
 - **Resolution:** 11+ regions x 13+ industries (sampled)
-- **Units:** kt CO2eq
+- **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`
 - **Measures:** `value`, `rank`, `is_remainder`
 
