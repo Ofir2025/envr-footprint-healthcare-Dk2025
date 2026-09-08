@@ -9,7 +9,7 @@ them.
 What can and cannot be compared
 -------------------------------
 Their absolute values are in TRACI reference substances as implemented inside
-the CMU EIO-LCA tool — PM\\ :sub:`10`-equivalents, benzene-equivalents,
+the CMU EIO-LCA tool - PM\\ :sub:`10`-equivalents, benzene-equivalents,
 toluene-equivalents. Our characterisation uses CML 1999 and the ILCD
 recommended factors, whose reference substances differ. **Absolute values are
 therefore not comparable and are not compared here.**
@@ -29,9 +29,9 @@ Their supplementary table S3 contradicts their table 1, figure 2 and body text
 on the demand-side shares, and their S4 toxicity values disagree with table 2 by
 factors of 2.9 and 13. Table 2 is the table the paper was written from and is
 what is transcribed here. Their table 2 PM row also mixes reference substances
-between its own columns — the health-care figure is in PM\\ :sub:`10`-equivalents
+between its own columns - the health-care figure is in PM\\ :sub:`10`-equivalents
 and the national total in PM\\ :sub:`2.5`-equivalents, with a factor 1.67
-conversion applied silently between them — so a reader recomputing the
+conversion applied silently between them - so a reader recomputing the
 percentage from the printed table gets 14.7 % rather than the reported 8.9 %.
 
 Run

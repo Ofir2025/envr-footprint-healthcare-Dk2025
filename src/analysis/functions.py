@@ -113,8 +113,8 @@ def get_cbsdata(data_dir):
     
     sut_file = os.path.join(data_dir, 'nl_supply_tables_2015_2018.xlsx')
     sut = pd.read_excel(sut_file, sheet_name = "Supply 2016 current prices", skiprows = 1, header=[0], index_col = [1], nrows=98)
-    sut = sut[['Supply at basic prices (columns 82–85)  ','Total']]
-    sut['conversion'] = sut['Supply at basic prices (columns 82–85)  '] / sut['Total'] 
+    sut = sut[['Supply at basic prices (columns 82-85)  ','Total']]
+    sut['conversion'] = sut['Supply at basic prices (columns 82-85)  '] / sut['Total'] 
     
     l_ = ['Basic pharmaceutical products and preparations',
           'Computer, electronic and optical products',

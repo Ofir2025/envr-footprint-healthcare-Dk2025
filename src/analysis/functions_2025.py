@@ -2,9 +2,9 @@
 """Shared routines for the Danish analysis: background assembly and reporting.
 
 ``createBackground`` assembles the prepared model object used by every analysis
-module — A, L, the characterised intensity matrix B (including the waste
+module - A, L, the characterised intensity matrix B (including the waste
 extension and unit scaling), the healthcare demand vector ``Ystim`` and the
-direct-impact vector ``Hstim`` — so that all modules share one construction
+direct-impact vector ``Hstim`` - so that all modules share one construction
 rather than each rebuilding it.
 
 Script for:
@@ -121,8 +121,8 @@ def get_val_GWP_health(cbs_data):
     
     sut_file = os.path.join(data_dir, 'nl_supply_tables_2015_2018.xlsx')
     sut = pd.read_excel(sut_file, sheet_name = "Supply 2016 current prices", skiprows = 1, header=[0], index_col = [1], nrows=98)
-    sut = sut[['Supply at basic prices (columns 82–85)  ','Total']]
-    sut['conversion'] = sut['Supply at basic prices (columns 82–85)  '] / sut['Total'] 
+    sut = sut[['Supply at basic prices (columns 82-85)  ','Total']]
+    sut['conversion'] = sut['Supply at basic prices (columns 82-85)  '] / sut['Total'] 
     
     l_ = ['Basic pharmaceutical products and preparations',
           'Computer, electronic and optical products',

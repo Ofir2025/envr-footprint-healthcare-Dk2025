@@ -13,7 +13,7 @@ Design decisions (documented for the methods section):
 * A is derived as Z x̂⁻¹ from the официал Z and x files (v3.7-era releases
   shipped A directly; v3.10.2 ships Z and x).
 * Labels are REUSED from the 2016 background (exio2016.pkl) after hard
-  assertions that the v3.10.2 region and industry orderings are identical —
+  assertions that the v3.10.2 region and industry orderings are identical -
   EXIOBASE's 49-region/163-industry ordering is stable across v3.x, and the
   assertion turns any silent change into a loud failure.
 * The characterisation matrix Q (6 x n_stressors) is rebuilt by NAME-matching
@@ -24,7 +24,7 @@ Design decisions (documented for the methods section):
   any GWP-carrying name is lost.
 * The waste extension row is the 2011 hybrid-EXIOBASE waste account prepared
   by the canonical waste stage (waste.pkl); region/industry layout is identical
-  (asserted), so it is reused as-is — the same Steenmeijer-precedent vintage
+  (asserted), so it is reused as-is - the same Steenmeijer-precedent vintage
   carry-forward as in the 2016 model, treated in the uncertainty analysis.
 
 Run:  PYTHONPATH=src .venv/bin/python -m pipelines.prep_background_2022.build_background_2022
@@ -123,7 +123,7 @@ def main():
     # Screening applies ONLY to the air-emissions rows: emission accounts are
     # compiled independently of the monetary core (the DST-documented failure
     # mode), whereas extraction/land/water accounts are legitimately
-    # concentrated in few region-sectors — a cross-region median test would
+    # concentrated in few region-sectors - a cross-region median test would
     # wrongly crush real mines and irrigated agriculture (cf. the concentrated-
     # stressor caution in Jakobs 2023, ch. 3).
     air_start = 9 + 12                      # after factor_inputs + employment
@@ -180,7 +180,7 @@ def main():
     #  - abiotic material extraction = Domestic Extraction Used, metal ores +
     #    non-metallic minerals (Steenmeijer et al. SI S4.2);
     #  - land use = all land-account rows (artificial surfaces, cropland incl.
-    #    fallowed, forest, permanent pastures) — v3.7's "Other land Use: Total"
+    #    fallowed, forest, permanent pastures) - v3.7's "Other land Use: Total"
     #    category no longer exists;
     #  - employment = the six "Employment people" rows (head counts, not hours).
     def _rebuild_row(row, predicate, what):

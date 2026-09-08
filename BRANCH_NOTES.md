@@ -1,4 +1,4 @@
-# Branch notes — revision materials for NXSUST-D-26-01589
+# Branch notes - revision materials for NXSUST-D-26-01589
 
 Everything needed to answer both reviewers. Start with
 [`docs/revision/response_to_reviewers.md`](docs/revision/response_to_reviewers.md).
@@ -29,10 +29,10 @@ Everything needed to answer both reviewers. Start with
    | Defect | What breaks | Onset | v3.8.2 / v3.6 |
    |---|---|---|---|
    | **D1** | medical, precision and optical instruments carry ~zero output across Europe (28 of 30 regions) | **2015**, and never recovers | clean (0 of 30) |
-   | **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2x | **2021–2022**, the nowcast years | clean (2 of 12) |
+   | **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2x | **2021-2022**, the nowcast years | clean (2 of 12) |
 
    D2 in 2022 gives the Danish health industry 16,326 M€ of total output against
-   45,321 M€ in the national accounts — which cannot deliver 40,597 M€ of health final
+   45,321 M€ in the national accounts - which cannot deliver 40,597 M€ of health final
    demand. That is an arithmetic impossibility, not a tolerance question. Danish output
    still totals to within 3 % and the table still balances to 10⁻¹¹, so a total-level
    check misses both. The consequence is not only ours: anyone running a European study on
@@ -43,26 +43,26 @@ Everything needed to answer both reviewers. Start with
    sensitivity and the non-restatable share (HFC/PFC, pre-aggregated by EXIOBASE) reported.
    See `docs/methods/replications/15_gwp_vintage.md`.
 
-## Scope 1–3 emissions, by origin and by industry
+## Scope 1-3 emissions, by origin and by industry
 
 Six figure-ready tables in `data/gold/results/02_scopes_wood_hertwich/` (`scope_by_*`) at
-three resolutions — full detail (scope × producing country × producing industry), the top
-25 origin–industry pairs with the remainder pooled, and aggregations by industry group, by
+three resolutions - full detail (scope × producing country × producing industry), the top
+25 origin-industry pairs with the remainder pooled, and aggregations by industry group, by
 continent and the cross. `R/plot_scope_emissions.R` renders four TIFFs from them.
 
 Scope 1 and the bottom-up items have no producing node in the model; they are placed at
 their true Danish origin rather than dropped, so the bars add back to the headline.
 
-A finding worth a sentence in the paper: the 25 largest origin–industry pairs account for
+A finding worth a sentence in the paper: the 25 largest origin-industry pairs account for
 **44 %** of the footprint, and the pooled remainder is the single largest bar. The Danish
-health footprint is diffuse — no supplier dominates it.
+health footprint is diffuse - no supplier dominates it.
 
 ## Conventions in the data
 
 Star schema throughout: dimension columns, then measure and unit. EXIOBASE industry and
 product codes carry **no** `A_` / `C_` prefix. Countries are ISO3 (`ROU`, not the
 deprecated `ROM`); EXIOBASE regions with no ISO3 code carry their region name
-(`RoW Europe`, …). The world-region aggregation singles out **Denmark** — the Dutch
+(`RoW Europe`, …). The world-region aggregation singles out **Denmark** - the Dutch
 original singled out the Netherlands, which in a Danish study split NL out of Europe in
 every regional chart.
 
@@ -77,11 +77,11 @@ Rscript R/plot_scope_emissions.R
 
 ## What is deliberately not on this branch
 
-* **`data/bronze/`** — raw third-party inputs (EXIOBASE, the Södersten capital matrices,
+* **`data/bronze/`** - raw third-party inputs (EXIOBASE, the Södersten capital matrices,
   Danish Medstat ATC files, StatBank extracts), obtained under each provider's own terms
   and not ours to redistribute from a public repository. Every source, its licence and its
   access route is in `docs/revision/data_sources_and_models.md`.
-* **`docs/references/`, `reports/source/`** — PDFs of published articles.
+* **`docs/references/`, `reports/source/`** - PDFs of published articles.
 * **Referee comments.** The response document reproduces our replies in full but withholds
   the referee text: reports for a manuscript under review are confidential. The headings
   state each point addressed; the full text is in the submission system.
