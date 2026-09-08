@@ -21,7 +21,7 @@ single bottom-up item and wrong for anything else:
 - it could not propagate an effect through the supply chain, so no lever could
   act on a production recipe;
 - it reported **climate only**, so a trade-off between impact categories was
-  invisible by construction - and three of the five categories were being set to
+  invisible by construction, and three of the five categories were being set to
   zero rather than computed;
 - levers were combined by adding their separate answers, which double counts
   every interaction between them.
@@ -64,8 +64,8 @@ Every edit is
 $$M^{*}_{ij} = M_{ij}\,(1 - k_a), \qquad k_a = k_t \, k_p \tag{4}$$
 
 after Donati et al. (2020, §2.4). $k_t$ is the **technical** change coefficient
-- what the intervention achieves where it is applied - and $k_p$ the **market
-penetration** coefficient - the share of the affected market that adopts it.
+(what the intervention achieves where it is applied), and $k_p$ the **market
+penetration** coefficient (the share of the affected market that adopts it).
 
 Splitting the two is what makes an ambition level auditable. A reader can accept
 the engineering evidence for $k_t$ and still disagree about $k_p$, and can see
@@ -89,14 +89,14 @@ released budget over the remaining demand in proportion to existing shares:
 
 $$\mathbf{y}^{**} = \mathbf{y}^{*}\,\frac{\mathbf{i}'\mathbf{y}}{\mathbf{i}'\mathbf{y}^{*}} \tag{6}$$
 
-This is the zero-cost counterfactual of Donati et al. (2020), after Takase et
-al. (2005) as formalised by Aguilar-Hernandez et al. (2018, eq. 4). It is a
-crude rebound - it assumes the released budget is spent on the same basket, and
-ignores the price and income mechanisms that Onat et al. (2023) show can matter
-more. But reporting a demand-reduction scenario *without* it silently assumes
-the money is destroyed, which is a stronger and less defensible assumption.
-**Both are reported** (C1 and C2), and the difference between them is the
-rebound.
+This redistribution is the zero-cost counterfactual of Donati et al. (2020),
+after Takase et al. (2005) as formalised by Aguilar-Hernandez et al.
+(2018, eq. 4). It is a crude rebound: it assumes the released budget is spent
+on the same basket, and ignores the price and income mechanisms that Onat et
+al. (2023) show can matter more. But reporting a demand-reduction scenario
+*without* it silently assumes the money is destroyed, which is a stronger and
+less defensible assumption. **Both are reported** (C1 and C2), and the
+difference between them is the rebound.
 
 ### 2.4 The counterfactual table is not rebalanced, and this is deliberate
 
@@ -112,26 +112,69 @@ intensity- and demand-only scenario, zero for the waste diversion (which
 substitutes fully, $\alpha = 1$), and **0.7 % of total output** for the
 pharmaceutical resource-efficiency lever at full market penetration.
 
-**No balancing procedure is applied to the counterfactual table.** This is a
-choice, and it is the conservative one. Rebalancing by a RAS-type procedure
-would force the edited table back onto its row and column totals, which would
-partly undo the edit and return a smaller effect than the intervention
-implies; Lenzen et al. (2010, section 2.3) decline to rebalance their perturbed
-tables for the same reason, stating that balancing would reduce the perturbation
-and therefore the reported dispersion. Rebalancing would also require an
-assumption this study does not have: what an industry does with the money it
-stops spending on an input. The engine therefore leaves the imbalance in place,
-measures it, and reports it per scenario, so a reader can see how far each
-counterfactual departs from balance rather than being asked to assume it does
-not. The largest departure in the whole scenario set is 0.7 % of total output.
+**No balancing procedure is applied to the counterfactual table.** Leaving the
+table unbalanced is a choice, and it is the conservative one. Rebalancing by a
+RAS-type procedure would force the edited table back onto its row and column
+totals, which would partly undo the edit and return a smaller effect than the
+intervention implies; Lenzen et al. (2010, section 2.3) decline to rebalance
+their perturbed tables for the same reason, stating that balancing would reduce
+the perturbation and therefore the reported dispersion. Rebalancing would also
+require an assumption this study does not have: what an industry does with the
+money it stops spending on an input. The engine therefore leaves the imbalance
+in place, measures it, and reports it per scenario, so a reader can see how far
+each counterfactual departs from balance rather than being asked to assume it
+does not. The largest departure in the whole scenario set is 0.7 % of total
+output.
 
 ---
 
+The whole procedure, from a stated ambition to a reported difference:
+
+```mermaid
+flowchart LR
+    REF["<b>Reference system</b>, equation (1)<br/>r = B(I − A)<sup>−1</sup>y + d + u<br/><br/><b>B</b> impact intensities · <b>A</b> technical coefficients, 7,987 × 7,987<br/><b>y</b> health-care final demand · <b>d</b> direct operational emissions<br/><b>u</b> bottom-up items outside the MRIO"]
+
+    K["<b>Change coefficient</b>, equation (4)<br/>k<sub>a</sub> = k<sub>t</sub> · k<sub>p</sub><br/>technical achievement × market penetration<br/><i>split so a reader can accept the engineering<br/>and still dispute the uptake</i>"]
+
+    subgraph EDITS["Edited objects"]
+      direction TB
+      E1["<b>intensity or coefficient</b><br/>M*<sub>ij</sub> = M<sub>ij</sub>(1 − k<sub>a</sub>)"]
+      E2["<b>substitution</b>, equation (5)<br/>M*<sub>ij</sub> = M<sub>ij</sub> + α(M*<sub>mn</sub> − M<sub>mn</sub>)<br/><i>spread over rows that already exist</i>"]
+    end
+
+    SOLVE["<b>Solve the counterfactual</b>, equation (2)<br/>r* = B*(I − A*)<sup>−1</sup>y* + d* + u*<br/><i>solved, not approximated from the stored inverse</i>"]
+
+    REB["<b>Rebound</b>, equation (6)<br/>y** = y*(i'y ⁄ i'y*)<br/>reported with and without"]
+
+    DELTA["<b>Δ = r* − r</b>, equation (3)<br/>all five impact categories, always"]
+
+    IMB["<b>Imbalance</b>, equation (7)<br/>|i'(A − A*)x*| ⁄ i'x*<br/><b>measured and reported,<br/>never rebalanced</b><br/>largest in the set 0.7 % of output"]
+
+    REF --> SOLVE
+    K --> EDITS --> SOLVE
+    SOLVE --> REB --> DELTA
+    SOLVE -. "scenarios that do not touch y" .-> DELTA
+    SOLVE --> IMB
+
+    classDef ref fill:#EDF5F3,stroke:#0B4F4A,stroke-width:1.5px,color:#123
+    classDef lever fill:#D6ECE6,stroke:#0B4F4A,stroke-width:2px,color:#123
+    classDef core fill:#0B4F4A,stroke:#0B4F4A,stroke-width:2px,color:#FFFFFF
+    classDef warn fill:#FBF1EE,stroke:#B4552D,stroke-width:2px,color:#123
+    class REF,REB ref
+    class K,E1,E2 lever
+    class SOLVE,DELTA core
+    class IMB warn
+    style EDITS fill:#FFFFFF,stroke:#9FC3BA,stroke-width:1px,stroke-dasharray:4 3,color:#0B4F4A
+```
+
+A rendered copy is at `figures/diagrams/scenario_workflow.png` for readers whose
+viewer does not draw Mermaid; `scripts/render_diagrams.py` produces it.
+
 ## 3. The scenarios
 
-Grounded in stated Danish policy and measured Danish outcomes wherever
-possible. Ambition levels that are **not** sourced are labelled *illustrative*
-in the `ambition_basis` column of the output and nowhere else.
+The scenarios are grounded in stated Danish policy and measured Danish outcomes
+wherever possible. Ambition levels that are **not** sourced are labelled
+*illustrative* in the `ambition_basis` column of the output and nowhere else.
 
 | ID | Lever | Object edited | $k_t$ and its evidence |
 |---|---|---|---|
@@ -140,27 +183,27 @@ in the `ambition_basis` column of the output and nowhere else.
 | **P2** | Pharmaceutical raw-material efficiency | $\mathbf{A}$, Danish chemicals column | −15 % raw-material use 2020→2022 while production rose 18 % (Lundbeck, in Healthcare Denmark, 2024) |
 | **P3** | Medical-device packaging carbon | $\mathbf{A}$, paper and plastics into medical instruments | −12 % to −23.5 % cradle-to-gate (Demant, in Healthcare Denmark, 2024) |
 | **P4** | Reuse of medical equipment | $\mathbf{y}$, devices, with $\alpha=0.3$ into repair services | −10 % / −20 %, **illustrative**; the direction is the regions' stated procurement focus |
-| **P5** | Patient, visitor and staff travel | bottom-up, **all five categories** | −10 % / −20 % / −30 %, **illustrative** |
+| **P5** | Patient, visitor, and staff travel | bottom-up, **all five categories** | −10 % / −20 % / −30 %, **illustrative** |
 | **P6** | Inhaler propellant change | bottom-up, pMDI | −67 % (low-charge) and −93 % (HFA-152a) of propellant GWP (Jeswani & Azapagic, 2019) |
 | **P7** | pMDI → dry-powder inhaler | bottom-up, pMDI | 25 / 50 / 75 % substituted; DPI GWP is 0.06 against 23.4 kg CO₂e per 100 doses (Jeswani & Azapagic, 2019) |
 | **P8** | Nitrous oxide capture | bottom-up, anaesthetic | 25 / 50 / 75 %, with $k_p = 0.6$ because N₂O is 60 % of the Danish anaesthetic term |
 | **P9** | Divert health-care waste to recycling | $\mathbf{A}$, incineration → recycling, $\alpha=1$ | 20 / 40 %, **illustrative** |
-| **C1** | All interventions, simultaneous | all | - |
-| **C2** | C1 with expenditure held constant | all, plus eq. (6) | - |
-| **C3** | C1 plus the grid pathway | all | - |
+| **C1** | All interventions, simultaneous | all | n/a |
+| **C2** | C1 with expenditure held constant | all, plus eq. (6) | n/a |
+| **C3** | C1 plus the grid pathway | all | n/a |
 | **X** | Demand growth to 2035 | $\mathbf{y}$, scaled | +18 %, Danske Regioner business-as-usual |
 
 Two structural findings shaped the design, both verified on this model rather
 than assumed.
 
 **Danish electricity emissions are not on the generation technologies.** Direct
-intensities are 3.208 kt CO₂e per M.EUR for *Transmission of electricity* and
-18.733 for *Steam and hot water supply*, against 0.013 for coal generation and
+intensities are 3.21 kt CO₂e per M.EUR for *Transmission of electricity* and
+18.7 for *Steam and hot water supply*, against 0.013 for coal generation and
 0.020 for wind. All eleven Danish generation-by-technology industries together
 contribute 0.82 kt to the health-care footprint; transmission contributes 68.2
 and steam 94.0. A technology-mix reallocation in $\mathbf{A}$ is therefore
 inoperative, and grid decarbonisation must act on $\mathbf{B}$ at the
-transmission, distribution and steam nodes. Two Danish nodes (solar thermal,
+transmission, distribution, and steam nodes. Two Danish nodes (solar thermal,
 tide/wave) carry nowcast-artefact intensities of 13,256 and 55,322 and are
 excluded from any scaling.
 
@@ -176,11 +219,11 @@ input column, not to final demand.
 
 | | kt CO₂e | of the 2022 baseline |
 |---|---|---|
-| 2022 baseline | 4,713 | - |
+| 2022 baseline | 4,713 | n/a |
 | Reduction the regional target requires | −2,357 | −50 % |
 | All interventions, solved simultaneously (**C1**) | **−361** | −7.7 % |
-| The same levers summed separately | −362 | - |
-| Interaction | −0.2 | - |
+| The same levers summed separately | −362 | n/a |
+| Interaction | −0.2 | n/a |
 | Interventions with the grid pathway (**C3**) | **−634** | −13.5 % |
 | Interventions with expenditure held constant (**C2**) | −285 | −6.0 % |
 | Rebound, i.e. what respending removes | +77 | 21 % of the saving |
@@ -190,7 +233,7 @@ input column, not to final demand.
 Three things are worth saying in the paper.
 
 **The levers are close to additive.** Summing them separately overstates the
-combined effect by 0.2 kt out of 361 - under 0.1 %. That is a *result*, not an
+combined effect by 0.2 kt out of 361, under 0.1 %. That is a *result*, not an
 assumption: it had to be computed to be known, and it means the naive additive
 presentation common in this literature happens to be defensible here. It would
 not be if the levers overlapped more.
@@ -202,11 +245,11 @@ destroyed.
 **Demand growth is larger than everything.** Every quantified lever at maximum
 ambition, plus a decarbonising grid, reaches 27 % of the regional target and is
 then more than cancelled by projected demand growth, leaving the 2035 footprint
-**above** the 2022 baseline. This is the substantive finding, and it follows
-directly from the hotspot analysis: the levers that dominate the sustainable
-healthcare literature act on 2 % of the footprint, while pharmaceuticals and
-chemical products - 37 % of climate and 51 % of material extraction - are acted
-on by no published scenario we could find.
+**above** the 2022 baseline. This outcome is the substantive finding, and it
+follows directly from the hotspot analysis: the levers that dominate the
+sustainable healthcare literature act on 2 % of the footprint, while
+pharmaceuticals and chemical products (37 % of climate and 51 % of material
+extraction) are acted on by no published scenario we could find.
 
 ### 4.2 Burden shifting
 
@@ -218,16 +261,16 @@ can be said.
   pharmaceutical hotspot is a materials hotspot, and the intervention that
   addresses it is not the one the climate framing would select.
 - **C2 shifts burden.** Holding expenditure constant improves climate (−6.0 %)
-  and materials (−2.6 %) but **worsens blue water (+0.63 %), land use (+0.58 %)
+  and materials (−2.6 %) but **worsens blue water (+0.63 %), land use (+0.58 %),
   and waste (+0.27 %)**, because the released budget is respent on a basket that
-  is more land- and water-intensive than the health basket it left. This is the
-  clearest trade-off in the study and it only appears once rebound and all five
-  categories are modelled together.
+  is more land- and water-intensive than the health basket it left. This burden
+  shift is the clearest trade-off in the study, and it only appears once rebound
+  and all five categories are modelled together.
 - **P9, waste diversion, backfires slightly on climate** (+0.002 %) while
   cutting waste (−0.04 %). Recycling services have their own supply chain. The
   magnitudes are trivial because the health sector's direct purchases of
   incineration are small, but the sign is real and is reported.
-- **P6, P7 and P8 are climate-only by data, not by finding.** The bottom-up
+- **P6, P7, and P8 are climate-only by data, not by finding.** The bottom-up
   inventory behind propellants and anaesthetic gases carries no non-climate
   columns, so those cells are marked `n.r.` in figure 9 rather than plotted as
   zero. Jeswani and Azapagic (2019) report the dry-powder inhaler as **worse**
@@ -262,8 +305,9 @@ can be said.
   two cannot be compared directly.
 - **"Green" versions of a product.** EXIOBASE has one *Chemicals nec* industry,
   so a hospital switching to a lower-impact supplier of the same product cannot
-  be represented as a substitution - only as buying less. Green procurement is
-  therefore modelled as volume reduction plus lifetime extension (P4), and this
+  be represented as a substitution, only as buying less. Green procurement is
+  therefore modelled as volume reduction plus lifetime extension (P4, after
+  Kagawa et al., 2009), and this
   limitation is why a procurement lever cannot be given the weight the regions'
   own strategy gives it. Resolving it needs a hybrid or physically extended
   table, which is the natural next study.
@@ -271,11 +315,11 @@ can be said.
   anything with the released expenditure, and it does the simplest possible
   thing.
 - **Behavioural response.** The intervention levels are imposed, not modelled.
-  P4, P5 and P9 are illustrative ambitions and say so.
-- **Dynamics.** These are comparative-static counterfactuals on a 2022 table,
-  not a pathway. Wiebe et al. (2018) show how exogenous scenario trajectories
-  can be implemented in a global MRIO; doing so here would require projecting
-  $\mathbf{A}$, which this study does not attempt.
+  P4, P5, and P9 are illustrative ambitions and say so.
+- **Dynamics.** These scenarios are comparative-static counterfactuals on a
+  2022 table, not a pathway. Wiebe et al. (2018) show how exogenous scenario
+  trajectories can be implemented in a global MRIO; doing so here would require
+  projecting $\mathbf{A}$, which this study does not attempt.
 
 ---
 
@@ -305,6 +349,10 @@ Full entries with DOIs are in [`docs/REFERENCES.md`](../../REFERENCES.md).
 - Kagawa, S., Nansai, K., & Kudoh, Y. (2009). Does product lifetime extension
   increase our income at the expense of energy consumption? *Energy Economics,
   31*(4), 597-606. https://doi.org/10.1016/j.eneco.2008.08.011
+- Lenzen, M., Wood, R., & Wiedmann, T. (2010). Uncertainty analysis for
+  multi-region input-output models: A case study of the UK's carbon footprint.
+  *Economic Systems Research, 22*(1), 43-63.
+  https://doi.org/10.1080/09535311003661226
 - Onat, N. C., Mandouri, J., Kucukvar, M., Sen, B., Abbasi, S. A., Alhajyaseen,
   W., Kutty, A. A., Jabbar, R., Contreras, M. T., & Jraisat, L. (2023). Rebound
   effects undermine carbon footprint reduction potential of autonomous electric

@@ -92,6 +92,38 @@ def _fmt(x: Any, digits: int = 1) -> str:
     return str(x)
 
 
+def _sigfig(x: Any, figures: int = 3) -> str:
+    """Format a value to a fixed number of significant figures.
+
+    The house rule caps reported values at three significant figures. A fixed
+    number of decimal places cannot honour that across a column whose values
+    span orders of magnitude: three decimals turns 78.8 into 78.758, and one
+    decimal turns 0.009 into 0.0.
+
+    Parameters
+    ----------
+    x : Any
+        The value to format. Non-numeric values are returned unchanged.
+    figures : int, default 3
+        Significant figures to keep.
+
+    Returns
+    -------
+    str
+        The formatted value, thousands-separated, with no trailing zeros
+        beyond those the significant figures require.
+    """
+    if x is None or (isinstance(x, float) and np.isnan(x)):
+        return ""
+    if not isinstance(x, (int, float, np.integer, np.floating)):
+        return str(x)
+    if x == 0:
+        return "0"
+    exponent = int(np.floor(np.log10(abs(float(x)))))
+    decimals = max(0, figures - 1 - exponent)
+    return f"{float(x):,.{decimals}f}"
+
+
 @dataclass
 class Table:
     """One table of record.
@@ -437,7 +469,7 @@ def t_variance() -> Table:
             "B_PMDI": "Inhaler propellants"}
     rows = [{
         "Contributor": name.get(r["parameter"], r["parameter"]),
-        "Share of variance (%)": _fmt(r["variance_share_pct"], 3),
+        "Share of variance (%)": _sigfig(r["variance_share_pct"]),
     } for _, r in d.iterrows()]
     return Table(
         11, "The uncertainty is the input-output model, not the bottom-up "
@@ -670,7 +702,10 @@ def build_document(tables: list[Table]) -> str:
         "a number moves and no figure in it can drift from the pipeline that "
         "produced it. Each table states the file it was read from. Where an "
         "earlier version of a table is known to be circulating with a value "
-        "that later work superseded, the note says so and says why.").font.size = Pt(10.5)
+        "that later work superseded, the note says so and says why. Values are "
+        "carried at the precision the pipeline reports, because the purpose of "
+        "this document is to fix the record; the three-significant-figure rule "
+        "applies to the manuscript prose, not to the register behind it.").font.size = Pt(10.5)
 
     meta = doc.add_paragraph()
     mr = meta.add_run(f"Model: {MODEL_LABEL}\nGenerated: {date.today().isoformat()}"
