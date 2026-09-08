@@ -1,0 +1,2 @@
+model_id,model_label,background_year,analysis_year,mrio,danish_block_correction,gwp_vintage,scope_boundary,capital
+1,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),2022_snacship,2022,EXIOBASE v3.8.2 IOT ixi,sea-transport reallocation (Rormose Jensen & Iliev 2022),IPCC AR6,health and eldercare,excluded from the headline

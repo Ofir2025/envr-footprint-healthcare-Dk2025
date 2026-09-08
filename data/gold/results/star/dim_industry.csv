@@ -1,0 +1,166 @@
+industry_id,industry_code,industry_name,industry_group_id,industry_type
+1,PARI,Cultivation of paddy rice,6.0,MRIO industry
+2,WHEA,Cultivation of wheat,6.0,MRIO industry
+3,OCER,Cultivation of cereal grains nec,6.0,MRIO industry
+4,FVEG,"Cultivation of vegetables, fruit, nuts",6.0,MRIO industry
+5,OILS,Cultivation of oil seeds,6.0,MRIO industry
+6,SUGB,"Cultivation of sugar cane, sugar beet",6.0,MRIO industry
+7,FIBR,Cultivation of plant-based fibers,16.0,MRIO industry
+8,OTCR,Cultivation of crops nec,6.0,MRIO industry
+9,CATL,Cattle farming,6.0,MRIO industry
+10,PIGS,Pigs farming,6.0,MRIO industry
+11,PLTR,Poultry farming,6.0,MRIO industry
+12,OMEA,Meat animals nec,6.0,MRIO industry
+13,OANP,Animal products nec,6.0,MRIO industry
+14,MILK,Raw milk,6.0,MRIO industry
+15,WOOL,"Wool, silk-worm cocoons",16.0,MRIO industry
+16,MANC,"Manure treatment (conventional), storage and land application",6.0,MRIO industry
+17,MANB,"Manure treatment (biogas), storage and land application",6.0,MRIO industry
+18,FORE,"Forestry, logging and related service activities (02)",6.0,MRIO industry
+19,FISH,"Fishing, operating of fish hatcheries and fish farms; service activities incidental to fishing (05)",6.0,MRIO industry
+20,COAL,Mining of coal and lignite; extraction of peat (10),2.0,MRIO industry
+21,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",2.0,MRIO industry
+22,GASE,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",11.0,MRIO industry
+23,OGPL,"Extraction, liquefaction, and regasification of other petroleum and gaseous materials",11.0,MRIO industry
+24,ORAN,Mining of uranium and thorium ores (12),10.0,MRIO industry
+25,IRON,Mining of iron ores,10.0,MRIO industry
+26,COPO,Mining of copper ores and concentrates,10.0,MRIO industry
+27,NIKO,Mining of nickel ores and concentrates,10.0,MRIO industry
+28,ALUO,Mining of aluminium ores and concentrates,10.0,MRIO industry
+29,PREO,Mining of precious metal ores and concentrates,10.0,MRIO industry
+30,LZTO,"Mining of lead, zinc and tin ores and concentrates",10.0,MRIO industry
+31,ONFO,Mining of other non-ferrous metal ores and concentrates,10.0,MRIO industry
+32,STON,Quarrying of stone,10.0,MRIO industry
+33,SDCL,Quarrying of sand and clay,10.0,MRIO industry
+34,CHMF,"Mining of chemical and fertilizer minerals, production of salt, other mining and quarrying n.e.c.",10.0,MRIO industry
+35,PCAT,Processing of meat cattle,6.0,MRIO industry
+36,PPIG,Processing of meat pigs,6.0,MRIO industry
+37,PPLT,Processing of meat poultry,6.0,MRIO industry
+38,POME,Production of meat products nec,6.0,MRIO industry
+39,VOIL,Processing vegetable oils and fats,6.0,MRIO industry
+40,DAIR,Processing of dairy products,6.0,MRIO industry
+41,RICE,Processed rice,6.0,MRIO industry
+42,SUGR,Sugar refining,6.0,MRIO industry
+43,OFOD,Processing of Food products nec,6.0,MRIO industry
+44,BEVR,Manufacture of beverages,6.0,MRIO industry
+45,FSHP,Manufacture of fish products,6.0,MRIO industry
+46,TOBC,Manufacture of tobacco products (16),6.0,MRIO industry
+47,TEXT,Manufacture of textiles (17),16.0,MRIO industry
+48,GARM,Manufacture of wearing apparel; dressing and dyeing of fur (18),16.0,MRIO industry
+49,LETH,"Tanning and dressing of leather; manufacture of luggage, handbags, saddlery, harness and footwear (19)",16.0,MRIO industry
+50,WOOD,"Manufacture of wood and of products of wood and cork, except furniture; manufacture of articles of straw and plaiting materials (20)",7.0,MRIO industry
+51,WOOW,Re-processing of secondary wood material into new wood material,7.0,MRIO industry
+52,PULP,Pulp,13.0,MRIO industry
+53,PAPR,Re-processing of secondary paper into new pulp,13.0,MRIO industry
+54,PAPE,Paper,13.0,MRIO industry
+55,MDIA,"Publishing, printing and reproduction of recorded media (22)",13.0,MRIO industry
+56,COKE,Manufacture of coke oven products,2.0,MRIO industry
+57,REFN,Petroleum Refinery,2.0,MRIO industry
+58,NUCF,Processing of nuclear fuel,1.0,MRIO industry
+59,PLAS,"Plastics, basic",1.0,MRIO industry
+60,PLAW,Re-processing of secondary plastic into new plastic,1.0,MRIO industry
+61,NFER,N-fertiliser,1.0,MRIO industry
+62,PFER,P- and other fertiliser,1.0,MRIO industry
+63,CHEM,Chemicals nec,1.0,MRIO industry
+64,RUBP,Manufacture of rubber and plastic products (25),1.0,MRIO industry
+65,GLAS,Manufacture of glass and glass products,12.0,MRIO industry
+66,GLAW,Re-processing of secondary glass into new glass,12.0,MRIO industry
+67,CRMC,Manufacture of ceramic goods,12.0,MRIO industry
+68,BRIK,"Manufacture of bricks, tiles and construction products, in baked clay",12.0,MRIO industry
+69,CMNT,"Manufacture of cement, lime and plaster",12.0,MRIO industry
+70,ASHW,Re-processing of ash into clinker,12.0,MRIO industry
+71,ONMM,Manufacture of other non-metallic mineral products n.e.c.,12.0,MRIO industry
+72,STEL,Manufacture of basic iron and steel and of ferro-alloys and first products thereof,9.0,MRIO industry
+73,STEW,Re-processing of secondary steel into new steel,9.0,MRIO industry
+74,PREM,Precious metals production,9.0,MRIO industry
+75,PREW,Re-processing of secondary preciuos metals into new preciuos metals,9.0,MRIO industry
+76,ALUM,Aluminium production,9.0,MRIO industry
+77,ALUW,Re-processing of secondary aluminium into new aluminium,9.0,MRIO industry
+78,LZTP,"Lead, zinc and tin production",9.0,MRIO industry
+79,LZTW,"Re-processing of secondary lead into new lead, zinc and tin",9.0,MRIO industry
+80,COPP,Copper production,9.0,MRIO industry
+81,COPW,Re-processing of secondary copper into new copper,9.0,MRIO industry
+82,ONFM,Other non-ferrous metal production,9.0,MRIO industry
+83,ONFW,Re-processing of secondary other non-ferrous metals into new other non-ferrous metals,9.0,MRIO industry
+84,METC,Casting of metals,9.0,MRIO industry
+85,FABM,"Manufacture of fabricated metal products, except machinery and equipment (28)",9.0,MRIO industry
+86,MACH,Manufacture of machinery and equipment n.e.c. (29),8.0,MRIO industry
+87,OFMA,Manufacture of office machinery and computers (30),8.0,MRIO industry
+88,ELMA,Manufacture of electrical machinery and apparatus n.e.c. (31),4.0,MRIO industry
+89,RATV,"Manufacture of radio, television and communication equipment and apparatus (32)",4.0,MRIO industry
+90,MEIN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",4.0,MRIO industry
+91,MOTO,"Manufacture of motor vehicles, trailers and semi-trailers (34)",18.0,MRIO industry
+92,OTRE,Manufacture of other transport equipment (35),18.0,MRIO industry
+93,FURN,Manufacture of furniture; manufacturing n.e.c. (36),7.0,MRIO industry
+94,RYMS,Recycling of waste and scrap,19.0,MRIO industry
+95,BOTW,Recycling of bottles by direct reuse,19.0,MRIO industry
+96,POWC,Production of electricity by coal,5.0,MRIO industry
+97,POWG,Production of electricity by gas,5.0,MRIO industry
+98,POWN,Production of electricity by nuclear,5.0,MRIO industry
+99,POWH,Production of electricity by hydro,5.0,MRIO industry
+100,POWW,Production of electricity by wind,5.0,MRIO industry
+101,POWP,Production of electricity by petroleum and other oil derivatives,5.0,MRIO industry
+102,POWB,Production of electricity by biomass and waste,5.0,MRIO industry
+103,POWS,Production of electricity by solar photovoltaic,5.0,MRIO industry
+104,POWE,Production of electricity by solar thermal,5.0,MRIO industry
+105,POWO,"Production of electricity by tide, wave, ocean",5.0,MRIO industry
+106,POWM,Production of electricity by Geothermal,5.0,MRIO industry
+107,POWZ,Production of electricity nec,5.0,MRIO industry
+108,POWT,Transmission of electricity,5.0,MRIO industry
+109,POWD,Distribution and trade of electricity,5.0,MRIO industry
+110,GASD,Manufacture of gas; distribution of gaseous fuels through mains,11.0,MRIO industry
+111,HWAT,Steam and hot water supply,15.0,MRIO industry
+112,WATR,"Collection, purification and distribution of water (41)",15.0,MRIO industry
+113,CONS,Construction (45),3.0,MRIO industry
+114,CONW,Re-processing of secondary construction material into aggregates,3.0,MRIO industry
+115,TDMO,"Sale, maintenance, repair of motor vehicles, motor vehicles parts, motorcycles, motor cycles parts and accessoiries",14.0,MRIO industry
+116,TDFU,Retail sale of automotive fuel,14.0,MRIO industry
+117,TDWH,"Wholesale trade and commission trade, except of motor vehicles and motorcycles (51)",14.0,MRIO industry
+118,TDRT,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",14.0,MRIO industry
+119,HORE,Hotels and restaurants (55),6.0,MRIO industry
+120,TRAI,Transport via railways,17.0,MRIO industry
+121,TLND,Other land transport,17.0,MRIO industry
+122,TPIP,Transport via pipelines,17.0,MRIO industry
+123,TWAS,Sea and coastal water transport,17.0,MRIO industry
+124,TWAI,Inland water transport,17.0,MRIO industry
+125,TAIR,Air transport (62),17.0,MRIO industry
+126,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),14.0,MRIO industry
+127,PTEL,Post and telecommunications (64),14.0,MRIO industry
+128,FINT,"Financial intermediation, except insurance and pension funding (65)",14.0,MRIO industry
+129,FINS,"Insurance and pension funding, except compulsory social security (66)",14.0,MRIO industry
+130,FAUX,Activities auxiliary to financial intermediation (67),14.0,MRIO industry
+131,REAL,Real estate activities (70),14.0,MRIO industry
+132,MARE,Renting of machinery and equipment without operator and of personal and household goods (71),14.0,MRIO industry
+133,COMP,Computer and related activities (72),14.0,MRIO industry
+134,RESD,Research and development (73),14.0,MRIO industry
+135,OBUS,Other business activities (74),14.0,MRIO industry
+136,PADF,Public administration and defence; compulsory social security (75),14.0,MRIO industry
+137,EDUC,Education (80),14.0,MRIO industry
+138,HEAL,Health and social work (85),14.0,MRIO industry
+139,INCF,Incineration of waste: Food,19.0,MRIO industry
+140,INCP,Incineration of waste: Paper,19.0,MRIO industry
+141,INCL,Incineration of waste: Plastic,19.0,MRIO industry
+142,INCM,Incineration of waste: Metals and Inert materials,19.0,MRIO industry
+143,INCT,Incineration of waste: Textiles,19.0,MRIO industry
+144,INCW,Incineration of waste: Wood,19.0,MRIO industry
+145,INCO,Incineration of waste: Oil/Hazardous waste,19.0,MRIO industry
+146,BIOF,"Biogasification of food waste, incl. land application",19.0,MRIO industry
+147,BIOP,"Biogasification of paper, incl. land application",19.0,MRIO industry
+148,BIOS,"Biogasification of sewage slugde, incl. land application",19.0,MRIO industry
+149,COMF,"Composting of food waste, incl. land application",19.0,MRIO industry
+150,COMW,"Composting of paper and wood, incl. land application",19.0,MRIO industry
+151,WASF,"Waste water treatment, food",19.0,MRIO industry
+152,WASO,"Waste water treatment, other",19.0,MRIO industry
+153,LANF,Landfill of waste: Food,19.0,MRIO industry
+154,LANP,Landfill of waste: Paper,19.0,MRIO industry
+155,LANL,Landfill of waste: Plastic,19.0,MRIO industry
+156,LANI,Landfill of waste: Inert/metal/hazardous,19.0,MRIO industry
+157,LANT,Landfill of waste: Textiles,19.0,MRIO industry
+158,LANW,Landfill of waste: Wood,19.0,MRIO industry
+159,ORGA,Activities of membership organisation n.e.c. (91),14.0,MRIO industry
+160,RECR,"Recreational, cultural and sporting activities (92)",14.0,MRIO industry
+161,OSER,Other service activities (93),14.0,MRIO industry
+162,PRHH,Private households with employed persons (95),14.0,MRIO industry
+163,EXTO,Extra-territorial organizations and bodies,14.0,MRIO industry
+164,BU_COMMUTE,Bottom-up: employee commuting,,bottom-up item
+165,BU_TRAVEL,Bottom-up: patient and visitor travel,,bottom-up item
