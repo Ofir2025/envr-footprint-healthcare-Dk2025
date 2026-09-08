@@ -248,7 +248,7 @@ def _sigma(name: str) -> float:
 
 
 def sobol_first_order(mrio, parts, pharma_scenario="A", rho=RHO_TRAVEL):
-    """Exact variance decomposition of the additive lognormal model.
+    r"""Exact variance decomposition of the additive lognormal model.
 
     Parameters
     ----------

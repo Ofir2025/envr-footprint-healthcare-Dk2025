@@ -19,6 +19,12 @@ Method, equations and verification: [`docs/methods/replications/04_uncertainty_l
 
 ## Tables
 
+### `uncertainty_audit.csv`
+
+- **Rows:** 16
+- **Dimensions:** `check`
+- **Measures:** `status`, `detail`, `tolerance`
+
 ### `uncertainty_mrio_correlation.csv`
 
 - **Rows:** 3
