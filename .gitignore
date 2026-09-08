@@ -19,3 +19,6 @@ data/silver/background/
 !data/gold/results/**/*.csv
 !data/gold/results/*.csv
 !data/gold/results/**/*.csv.gz
+
+# Excel lock files
+~$*
