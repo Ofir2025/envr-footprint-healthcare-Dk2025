@@ -35,7 +35,11 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 SRC = REPO / "src"
-PY = REPO / ".venv" / "bin" / "python"
+#: The interpreter to run stages with. A working copy without its own virtual
+#: environment, which is the normal state of the second one, falls back to the
+#: interpreter running this script.
+_LOCAL_VENV = REPO / ".venv" / "bin" / "python"
+PY = _LOCAL_VENV if _LOCAL_VENV.exists() else Path(sys.executable)
 
 #: (module, why it sits here). Order is dependency order: every module reads
 #: only what an earlier one has already written.
