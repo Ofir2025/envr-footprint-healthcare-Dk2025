@@ -450,8 +450,7 @@ def fetch_all(years: Sequence[str] = YEARS,
             "industry_variable": industry_var["id"],
             "industry_variable_text": industry_var.get("text"),
             "n_industries": len(names), "n_substances": len(second_values),
-            "rows": len(frame),
-            "first_period": None, "years": list(years),
+            "rows": len(frame), "years": list(years),
         }
 
     out = pd.concat(frames, ignore_index=True)

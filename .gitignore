@@ -33,3 +33,8 @@ data/silver/background/
 # and audit check C8 verifies every in-text citation against it, so a clone
 # without it cannot run the check that guards the reference list.
 !docs/references.csv
+
+# Danish register inputs. These are small, public, and the pipeline cannot
+# be reproduced without them, so they belong in version control even though
+# the global excludesFile drops every .csv.
+!data/bronze/*.csv
