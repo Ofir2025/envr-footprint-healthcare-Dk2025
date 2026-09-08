@@ -6,3 +6,4 @@ XlsxWriter
 openpyxl
 pyxlsb
 scipy>=1.11
+pyarrow>=15  # parquet for the large star-schema facts
