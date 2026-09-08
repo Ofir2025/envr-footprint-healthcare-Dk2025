@@ -1,0 +1,7 @@
+paper
+
+This working copy carries the manuscript deliverables and nothing else. It is
+the copy that feeds the co-author branch, so the follow-on layers, the
+reference PDFs, the deck and the feedback are deliberately absent: the full
+complement lives in the private repository. Audit check C10 fails if private
+material appears here.

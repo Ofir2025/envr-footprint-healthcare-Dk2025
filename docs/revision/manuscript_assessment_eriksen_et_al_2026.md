@@ -1,6 +1,6 @@
-# Assessment of Ofir et al. (2026) against the 2022 re-analysis
+# Assessment of Eriksen et al. (2026) against the 2022 re-analysis
 
-We read the full submission package in `docs/ofir_et_al_2026/`: revised manuscript,
+We read the full submission package in `docs/eriksen_et_al_2026/`: revised manuscript,
 appendices A and B, reviewer responses, SI figures, and cover letter.
 
 Findings are ordered by how much they change the paper. Each carries the test that
