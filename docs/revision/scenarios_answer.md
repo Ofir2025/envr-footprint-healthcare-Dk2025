@@ -75,7 +75,7 @@ business-as-usual trajectory.
 
 | | kt CO₂e |
 |---|---|
-| 2022 baseline | 4,713 |
+| 2022 baseline | 4,712 |
 | Reduction the regional target requires | −2,357 |
 | Every intervention at maximum ambition, solved together | −361 |
 | …with the grid decarbonising too | −634 |

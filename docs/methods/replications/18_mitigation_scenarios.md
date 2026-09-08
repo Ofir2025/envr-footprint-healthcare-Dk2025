@@ -219,7 +219,7 @@ input column, not to final demand.
 
 | | kt CO₂e | of the 2022 baseline |
 |---|---|---|
-| 2022 baseline | 4,713 | n/a |
+| 2022 baseline | 4,712 | n/a |
 | Reduction the regional target requires | −2,357 | −50 % |
 | All interventions, solved simultaneously (**C1**) | **−361** | −7.7 % |
 | The same levers summed separately | −362 | n/a |
@@ -285,7 +285,7 @@ can be said.
 
 | Test | Result |
 |---|---|
-| Baseline reproduces the study headline | asserted in code; scenario baseline within 1 % of 4,713.368 kt, and equal to it |
+| Baseline reproduces the study headline | asserted in code; scenario baseline within 1 % of 4,712.418 kt, and equal to it |
 | Counterfactual solve against the stored inverse | agrees to 1 × 10⁻¹¹ |
 | Levers summed vs solved simultaneously | 0.2 kt apart on climate; reported, not assumed |
 | Accounting imbalance from editing **A** | 0 for B- and y-only scenarios; 0.7 % of output at the largest A edit; reported per scenario, never rebalanced away |

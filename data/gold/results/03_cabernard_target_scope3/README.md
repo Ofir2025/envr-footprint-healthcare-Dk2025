@@ -2,7 +2,7 @@
 
 **03 - Target-sector scope 3 without double counting**
 
-A different question from the headline, and the distinction is the point of the folder.
+This layer answers a different question from the headline, and the distinction is the point of the folder.
 
 Method, equations, and verification: [`docs/methods/replications/03_cabernard_target_scope3.md`](../../../docs/methods/replications/03_cabernard_target_scope3.md).
 
