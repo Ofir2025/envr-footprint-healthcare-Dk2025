@@ -70,11 +70,12 @@ import scipy.io as sio
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, DK_POPULATION,
                                 INDICATORS, MODEL_LABEL)
 from analysis.detail_tables import detail_rows, domestic_import_split
-from paths import BACKGROUND_DIR, OUTPUT_DIR
+from paths import BACKGROUND_DIR, BRONZE_DIR, OUTPUT_DIR
 
 FOLDER = "11_capital_gfcf"
 KBAR_YEAR = 2020
-KBAR_PATH = f"data/bronze/capital/Kbar_exio_v3_8_2_{KBAR_YEAR}_cfc_pxi.mat"
+KBAR_PATH = str(BRONZE_DIR / "capital"
+                / f"Kbar_exio_v3_8_2_{KBAR_YEAR}_cfc_pxi.mat")
 SUPPLY_PATH = ("/Users/kwametutu/Library/CloudStorage/OneDrive-Personal/Data/"
                f"lca/input_output/mrio/exiobase/versions/v3_8_2/"
                f"MRSUT_{KBAR_YEAR}/supply.csv")
