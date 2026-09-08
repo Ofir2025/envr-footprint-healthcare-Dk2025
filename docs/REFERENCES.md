@@ -1,0 +1,119 @@
+# References
+
+Every source cited anywhere in this repository's documentation, in APA
+7. Generated from `docs/references.csv` by `analysis.bibliography` -
+edit the CSV, never this file.
+
+Each DOI was resolved against Crossref rather than transcribed. Entries
+without a DOI are official statistics, national inventories or
+institutional reports, which do not have one; they carry a URL instead,
+as APA requires.
+
+In-text citations use author-year form and are checked against this
+list by the consistency audit (check C8), so a citation cannot be added
+without its source.
+
+---
+
+- Aguilar-Hernandez, G. A., Sigüenza-Sanchez, C. P., Donati, F., Rodrigues, J. F. D., & Tukker, A. (2018). Assessing circularity interventions: A review of EEIOA-based studies. *Journal of Economic Structures, 7, 14*. https://doi.org/10.1186/s40008-018-0113-3
+  <br>*Used for:* Taxonomy and causality sequences for modelling circularity interventions in EEIOA; source of the reference/counterfactual formalism used in analysis.scenario_engine
+- Belkhir, L., & Elmeligi, A. (2019). Carbon footprint of the global pharmaceutical industry and relative impact of its major players. *Journal of Cleaner Production, 214, 185-194*. https://doi.org/10.1016/j.jclepro.2018.11.204
+  <br>*Used for:* Context for the pharmaceutical hotspot
+- Bulle, C., Margni, M., Patouillard, L., Boulay, A.-M., Bourgault, G., De Bruille, V., Cao, V., Hauschild, M., Henderson, A., Humbert, S., Kashef-Haghighi, S., Kounina, A., Laurent, A., Levasseur, A., Liard, G., Rosenbaum, R. K., Roy, P.-O., Shaked, S., Fantke, P., & Jolliet, O. (2019). IMPACT World+: A globally regionalized life cycle impact assessment method. *The International Journal of Life Cycle Assessment, 24(9), 1653-1674*. https://doi.org/10.1007/s11367-019-01583-0
+  <br>*Used for:* Characterisation method computed alongside the DESIRE workbook in layer 16
+- Cabernard, L., Pfister, S., & Hellweg, S. (2019). A new method for analyzing sustainability performance of global supply chains and its application to material resources. *Science of the Total Environment, 684, 164-177*. https://doi.org/10.1016/j.scitotenv.2019.04.434
+  <br>*Used for:* Target-sector perspective and the double-counting correction reproduced in layer 03
+- Danish Energy Agency [Energistyrelsen] (2022). Klimastatus og -fremskrivning 2022 (KF22). *Danish Energy Agency*. https://ens.dk
+  <br>*Used for:* Grid and district-heat emission-factor projection used in scenario B1
+- Danish Energy Agency [Energistyrelsen] (2025). Klimastatus og -fremskrivning 2025 (KF25). *Danish Energy Agency*. https://ens.dk
+  <br>*Used for:* Second official projection vintage; reported alongside KF22 as a real uncertainty band
+- Danske Regioner (2024). Klimahandling i regionerne [Climate action in the regions]. *Danske Regioner*. https://www.regioner.dk
+  <br>*Used for:* Target: halve hospitals' consumption-based CO2 by 2035 against 2022; the 2020 target of -75 % on energy and transport by 2030 against 2018
+- Donati, F., Aguilar-Hernandez, G. A., Sigüenza-Sánchez, C. P., de Koning, A., Rodrigues, J. F. D., & Tukker, A. (2020). Modeling the circular economy in environmentally extended input-output tables: Methods software and case study. *Resources, Conservation and Recycling, 152, 104508*. https://doi.org/10.1016/j.resconrec.2019.104508
+  <br>*Used for:* Change-coefficient and substitution formalism (k_a = k_t k_p) implemented in analysis.scenario_engine
+- Doucet, C., Lioussis, M., & Yamano, N. (2025). Measuring greenhouse gas emissions in the health sector. *OECD Health Working Papers No. 179*. https://doi.org/10.1787/4d15c6ef-en
+  <br>*Used for:* First-tier Scope 2 convention reported as a sensitivity in layer 02
+- DTU Management [Center for Transport Analytics] (2023). Transportvaneundersøgelsen: Tabel 15 - trips distance and time by purpose [Data set]. *Technical University of Denmark*. https://www.dtu.dk/tu
+  <br>*Used for:* Purpose code 33 (social/health) used for Danish patient travel
+- Eckelman, M. J., & Sherman, J. (2016). Environmental impacts of the U.S. health care system and effects on public health. *PLOS ONE, 11(6), e0157014*. https://doi.org/10.1371/journal.pone.0157014
+  <br>*Used for:* Comparator replicated in layer 14
+- Ghosh, B., Jensen, J. V., & Munch-Petersen, N. (2014). Measuring Denmark's CO2 emissions 1996-2009. *Rockwool Foundation Research Unit*. https://www.rockwoolfonden.dk
+  <br>*Used for:* Independent Danish evidence that shipping dominates the gap between production- and consumption-based accounts
+- Healthcare Denmark (2024). Transitioning towards a sustainable healthcare sector [White paper]. *Healthcare Denmark*. https://www.healthcaredenmark.dk
+  <br>*Used for:* Danish health green-transition interventions: Lundbeck raw-material efficiency, Demant packaging, Circular Industrial Plastic partnership, regional procurement focus
+- Hertwich, E. G. (2011). The life cycle environmental impacts of consumption. *Economic Systems Research, 23(1), 27-47*. https://doi.org/10.1080/09535314.2010.536905
+  <br>*Used for:* Capital endogenisation as a modelling choice; sizes what is at stake
+- Hertwich, E. G., & Wood, R. (2018). The growing importance of scope 3 greenhouse gas emissions from industry. *Environmental Research Letters, 13(10), 104013*. https://doi.org/10.1088/1748-9326/aae19a
+  <br>*Used for:* Scope partition E_Z = m-hat Z with m = s L; the study's reported Scope 2 convention
+- Huijbregts, M. A. J., Steinmann, Z. J. N., Elshout, P. M. F., Stam, G., Verones, F., Vieira, M., Zijp, M., Hollander, A., & van Zelm, R. (2017). ReCiPe2016: A harmonised life cycle impact assessment method at midpoint and endpoint level. *The International Journal of Life Cycle Assessment, 22(2), 138-147*. https://doi.org/10.1007/s11367-016-1246-y
+  <br>*Used for:* Characterisation cited by the submitted manuscript; see the correction in the assessment note
+- Jeswani, H. K., & Azapagic, A. (2019). Life cycle environmental impacts of inhalers. *Journal of Cleaner Production, 237, 117733*. https://doi.org/10.1016/j.jclepro.2019.117733
+  <br>*Used for:* Propellant and device-class scenarios P6 and P7; source of the dry-powder burden shift
+- Kagawa, S., Nansai, K., & Kudoh, Y. (2009). Does product lifetime extension increase our income at the expense of energy consumption?. *Energy Economics, 31(4), 597-606*. https://doi.org/10.1016/j.eneco.2008.08.011
+  <br>*Used for:* Product lifetime extension in an input-output setting; scenario P4
+- Lenzen, M., Malik, A., Li, M., Fry, J., Weisz, H., Pichler, P.-P., Chaves, L. S. M., Capon, A., & Pencheon, D. (2020). The environmental footprint of health care: A global assessment. *The Lancet Planetary Health, 4(7), e271-e279*. https://doi.org/10.1016/S2542-5196(20)30121-2
+  <br>*Used for:* Danish health-care GHG footprint 2.84 +/- 0.24 Mt (SI table 7.1), the 8.35 % calibrating the MRIO uncertainty factor
+- Lenzen, M., Wood, R., & Wiedmann, T. (2010). Uncertainty analysis for multi-region input-output models - A case study of the UK's carbon footprint. *Economic Systems Research, 22(1), 43-63*. https://doi.org/10.1080/09535311003661226
+  <br>*Used for:* Lognormal multipliers as the standard choice for input-output uncertainty propagation
+- Leontief, W. (1970). Environmental repercussions and the economic structure: An input-output approach. *The Review of Economics and Statistics, 52(3), 262-271*. https://doi.org/10.2307/1926294
+  <br>*Used for:* Origin of the environmentally extended input-output model
+- Malik, A., Lenzen, M., McAlister, S., & McGain, F. (2018). The carbon footprint of Australian health care. *The Lancet Planetary Health, 2(1), e27-e35*. https://doi.org/10.1016/S2542-5196(17)30180-8
+  <br>*Used for:* Output-prorated health sub-sector concordance reproduced in layer 07; includes capital
+- Malik, A., Padget, M., Carter, S., Wakiyama, T., Maitland-Scott, I., Vyas, A., Boylan, S., Mulcahy, G., Li, M., Lenzen, M., Charlson, F., Stanaway, J., & Feigin, V. (2021). Environmental impacts of Australia's largest health system. *Resources, Conservation and Recycling, 169, 105556*. https://doi.org/10.1016/j.resconrec.2021.105556
+  <br>*Used for:* Sub-sector environmental detail; not reproducible on a one-industry MRIO
+- Melo, D. (2019). Bottom-up and top-down environmental extensions for the EUREGIO MRIO [Master's thesis]. *Leiden University and TNO*. https://studenttheses.universiteitleiden.nl
+  <br>*Used for:* Compares top-down and bottom-up satellite construction; the caution about satellite error propagation
+- Miller, R. E., & Blair, P. D. (2009). Input-output analysis: Foundations and extensions (2nd ed.). *Cambridge University Press*. https://doi.org/10.1017/CBO9780511626982
+  <br>*Used for:* Standard reference for the Leontief inverse and structural decomposition
+- Moran, D., & Wood, R. (2014). Convergence between the Eora, WIOD, EXIOBASE, and OpenEU's consumption-based carbon accounts. *Economic Systems Research, 26(3), 245-261*. https://doi.org/10.1080/09535314.2014.935298
+  <br>*Used for:* Cross-database dispersion of national consumption-based accounts
+- Moran, D., Wood, R., & Rodrigues, J. F. D. (2018). A note on the magnitude of the feedback effect in environmentally extended multi-region input-output tables. *Journal of Industrial Ecology, 22(3), 532-539*. https://doi.org/10.1111/jiec.12658
+  <br>*Used for:* Size of the feedback effect; relevant to the sea-transport reallocation
+- Nielsen O.-K. et al. (2024). Denmark's national inventory document 2024 (DCE Scientific Report No. 622). *Aarhus University, Danish Centre for Environment and Energy*. https://dce2.au.dk
+  <br>*Used for:* Medical N2O under category 2.G.3.a used instead of the manuscript's birth-scaled estimate
+- Onat, N. C., Mandouri, J., Kucukvar, M., Sen, B., Abbasi, S. A., Alhajyaseen, W., Kutty, A. A., Jabbar, R., Contreras, M. T., & Jraisat, L. (2023). Rebound effects undermine carbon footprint reduction potential of autonomous electric vehicles. *Nature Communications, 14, 6258*. https://doi.org/10.1038/s41467-023-41992-2
+  <br>*Used for:* Why a demand-reduction scenario reported without rebound overstates its saving
+- Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). Environmental pressures from Swedish consumption - A hybrid multi-regional input-output approach. *Journal of Cleaner Production, 228, 634-644*. https://doi.org/10.1016/j.jclepro.2019.04.181
+  <br>*Used for:* The SNAC method: coupling a national account to an MRIO
+- Pichler, P.-P., Jaccard, I. S., Weisz, U., & Weisz, H. (2019). International comparison of health care carbon footprints. *Environmental Research Letters, 14(6), 064004*. https://doi.org/10.1088/1748-9326/ab19e1
+  <br>*Used for:* Cross-country comparator; excludes capital
+- Rodrigues, J. F. D., Moran, D., Wood, R., & Behrens, P. (2018). Uncertainty of consumption-based carbon accounts. *Environmental Science & Technology, 52(13), 7577-7586*. https://doi.org/10.1021/acs.est.8b00632
+  <br>*Used for:* Correlation between country accounts; why assuming independence understates uncertainty
+- Rørmose Jensen, P., & Iliev, V. (2022). Consumption-based greenhouse gas account for Denmark using coupled models. *Statistics Denmark, Eurostat grant 101022790, work package 4*. https://www.dst.dk
+  <br>*Used for:* Diagnosis of the Danish sea-transport allocation in EXIOBASE (74 % domestic intermediate use against 9 %); the benchmark our correction targets
+- Schmidt, J. H., & Merciai, S. (2023). Danish consumption-based environmental footprints using a hybrid consequential input-output model. *2.-0 LCA consultants*. https://lca-net.com
+  <br>*Used for:* Published Danish comparator, 6.1 Mt for NACE Q with capital endogenised; consequential, so not like for like
+- Schulte, S., Jakobs, A., & Pauliuk, S. (2024). Estimating the uncertainty of the greenhouse gas emission accounts in global multi-regional input-output analysis. *Earth System Science Data, 16(6), 2669-2700*. https://doi.org/10.5194/essd-16-2669-2024
+  <br>*Used for:* Country-level versus sector-level uncertainty; the limitation stated with the Monte Carlo interval
+- Stadler, K., Wood, R., Bulavskaya, T., Södersten, C.-J., Simas, M., Schmidt, S., Usubiaga, A., Acosta-Fernández, J., Kuenen, J., Bruckner, M., Giljum, S., Lutter, S., Merciai, S., Schmidt, J. H., Theurl, M. C., Plutzar, C., Kastner, T., Eisenmenger, N., Erb, K.-H., de Koning, A., & Tukker, A. (2018). EXIOBASE 3: Developing a time series of detailed environmentally extended multi-regional input-output tables. *Journal of Industrial Ecology, 22(3), 502-515*. https://doi.org/10.1111/jiec.12715
+  <br>*Used for:* The background model used throughout
+- Stadler, K., Wood, R., Simas, M., Bulavskaya, T., de Koning, A., Kuenen, J., Acosta-Fernández, J., Usubiaga, A., Merciai, S., Schmidt, J., Theurl, M., Kastner, T., Eisenmenger, N., Giljum, S., Lutter, S., Bruckner, M., Tukker, A., & Simas, M. (2015). Integrated report on EXIOBASE 3 (DESIRE project deliverable 5.3). *European Commission FP7 DESIRE*. https://cordis.europa.eu/project/id/308552
+  <br>*Used for:* Methodological report cited inside the EXIOBASE hybrid documentation quoted in the shipping note; the source of the residency-approach statement
+- Statistics Denmark [Danmarks Statistik] (2024). AFFALD01: Waste by industry and waste category [Data set]. *Statistics Denmark*. https://www.statistikbanken.dk
+  <br>*Used for:* Danish SEEA waste account replacing the 2011 hybrid waste extension
+- Statistics Denmark [Danmarks Statistik] (2024). DRIVHUS: Greenhouse gas emissions by industry [Data set]. *Statistics Denmark*. https://www.statistikbanken.dk
+  <br>*Used for:* Direct operational emissions of the Danish health industry
+- Steenmeijer, M. A., Rodrigues, J. F. D., Zijp, M. C., & Waaijers-van der Loop, S. L. (2022). The environmental impact of the Dutch health-care sector beyond climate change: An input-output analysis of key impact categories. *The Lancet Planetary Health, 6(12), e949-e957*. https://doi.org/10.1016/S2542-5196(22)00244-3
+  <br>*Used for:* The study replicated for Denmark
+- Södersten, C.-J. H., Wood, R., & Hertwich, E. G. (2018). Endogenizing capital in MRIO models: The implications for consumption-based accounting. *Environmental Science & Technology, 52(22), 13250-13259*. https://doi.org/10.1021/acs.est.8b02791
+  <br>*Used for:* Capital endogenisation implemented in layer 11
+- Takase, K., Kondo, Y., & Washizu, A. (2005). An analysis of sustainable consumption by the waste input-output model. *Journal of Industrial Ecology, 9(1-2), 201-219*. https://doi.org/10.1162/1088198054084653
+  <br>*Used for:* Budget-neutral reallocation of released expenditure; the rebound form used in scenario C2
+- Tennison, I., Roschnik, S., Ashby, B., Boyd, R., Hamilton, I., Oreszczyn, T., Owen, A., Romanello, M., Ruyssevelt, P., Sherman, J. D., Smith, A. Z. P., Steele, K., Watts, N., & Eckelman, M. J. (2021). Health care's response to climate change: A carbon footprint assessment of the NHS in England. *The Lancet Planetary Health, 5(2), e84-e92*. https://doi.org/10.1016/S2542-5196(20)30271-0
+  <br>*Used for:* Visitor-to-patient travel ratio used for the Danish visitor term
+- Tukker, A., Giljum, S., & Wood, R. (2018). Recent progress in assessment of resource efficiency and environmental impacts embodied in trade: An introduction to this special issue. *Journal of Industrial Ecology, 22(3), 489-501*. https://doi.org/10.1111/jiec.12736
+  <br>*Used for:* Context for MRIO comparison studies
+- Tukker, A., Wood, R., & Schmidt, S. (2020). Towards accepted procedures for calculating international consumption-based carbon accounts. *Climate Policy, 20(sup1), S90-S106*. https://doi.org/10.1080/14693062.2020.1722605
+  <br>*Used for:* National error statistics do not transfer to a single sector
+- Usubiaga, A., & Acosta-Fernández, J. (2015). Carbon emission accounting in MRIO models: The territory vs. the residence principle. *Economic Systems Research, 27(4), 458-477*. https://doi.org/10.1080/09535314.2015.1049126
+  <br>*Used for:* Residence versus territory principle; central to the Danish shipping question
+- Vestbo, J., & Press-Kristensen, K. (2023). Translated impact on carbon footprint from choice of inhaled therapy: A Danish scenario. *European Respiratory Journal, 62(2), 2300856*. https://doi.org/10.1183/13993003.00856-2023
+  <br>*Used for:* Danish pMDI dispensing measurement used to test the manuscript's dose-based scaling
+- Wiebe, K. S., Bjelle, E. L., Többen, J., & Wood, R. (2018). Implementing exogenous scenarios in a global MRIO model for the estimation of future environmental footprints. *Journal of Economic Structures, 7, 20*. https://doi.org/10.1186/s40008-018-0118-y
+  <br>*Used for:* Exogenous scenario implementation in a global MRIO; the yardstick for the scenario layer
+- Wiedmann, T. O., Suh, S., Feng, K., Lenzen, M., Acquaye, A., Scott, K., & Barrett, J. R. (2011). Application of hybrid life cycle approaches to emerging energy technologies - The case of wind power in the UK. *Environmental Science & Technology, 45(13), 5900-5907*. https://doi.org/10.1021/es2007287
+  <br>*Used for:* Hybrid input-output and process data; the pattern used for the bottom-up items
+- Wood, R., Moran, D. D., Rodrigues, J. F. D., & Stadler, K. (2019). Variation in trends of consumption based carbon accounts. *Scientific Data, 6, 99*. https://doi.org/10.1038/s41597-019-0102-x
+  <br>*Used for:* Cross-database dispersion of national accounts: unweighted mean relative standard deviation 8 % for production-based and 12 % for consumption-based accounts. Names Denmark explicitly as a country whose variation is driven by the handling of international transport emissions - independent support for the sea-transport correction
+- Wood, R., Neuhoff, K., Moran, D., Simas, M., Grubb, M., & Stadler, K. (2019). The structure, drivers and policy implications of the European carbon footprint. *Climate Policy, 20(sup1), S39-S57*. https://doi.org/10.1080/14693062.2019.1639489
+  <br>*Used for:* European carbon footprint structure

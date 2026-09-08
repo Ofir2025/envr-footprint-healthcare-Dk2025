@@ -38,10 +38,7 @@ reviewer's related request for uncertainty on the bottom-up parameters.
 > et al. (2020, supplementary table 7.1) obtain for the Danish health-care
 > greenhouse-gas footprint from a full Monte Carlo over the transaction,
 > satellite and final-demand matrices, and the only published uncertainty
-> estimate for this exact quantity. It is independently corroborated by Wood et
-> al. (2019), who compare five multi-regional input–output databases and report
-> a relative standard deviation of 8.8 % for the Danish consumption-based
-> account.
+> estimate for this exact quantity.
 >
 > Employee commuting and patient and visitor travel share a common method and
 > are therefore drawn with correlation ρ = 0.8; results for ρ ∈ {0, 0.5, 0.8}
@@ -218,8 +215,7 @@ plain-English derivation of each is in `monte_carlo_explained.md`.
 > deviation Lenzen et al. (2020, table SI 7.1) obtain for the Danish
 > health-care greenhouse-gas footprint by propagating Eora's transaction,
 > satellite and final-demand matrices, the only published Monte Carlo of this
-> quantity, and independently corroborated by Wood et al. (2019) at 8.8 % for
-> the Danish consumption-based account. The default $\rho_M=1$ applies one
+> quantity. The default $\rho_M=1$ applies one
 > shared factor to every group; $\rho_M\in\{0,0.76,1\}$ are reported, and
 > $\rho_M=1$ gives the widest interval.
 >

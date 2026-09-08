@@ -52,6 +52,6 @@ Method, equations and verification: [`docs/methods/replications/04_uncertainty_l
 
 ### `uncertainty_variance_shares.csv`
 
-- **Rows:** 30
+- **Rows:** 35
 - **Dimensions:** `indicator`, `parameter`
 - **Measures:** `variance_share_pct`
