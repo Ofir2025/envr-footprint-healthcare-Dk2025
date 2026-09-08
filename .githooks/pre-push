@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 # Refuse a direct push of the full working branch to the public remote.
-# The public branch is a filtered view; see scripts/release/publish_ofir_branch.sh.
-while read -r _local_ref _local_sha remote_ref _remote_sha; do
-  if [ "$remote_ref" = "refs/heads/2019-update" ]; then
-    if [ "$(git rev-parse --abbrev-ref HEAD)" = "2019-update" ]; then
-      echo "pre-push: refusing to push 2019-update directly." >&2
-      echo "  It carries data/bronze, docs/feedback and the unredacted reviewer" >&2
-      echo "  response. Publish with:  scripts/release/publish_ofir_branch.sh" >&2
-      exit 1
-    fi
+#
+# The public branch is a FILTERED view of 2019-update; see
+# scripts/release/publish_ofir_branch.sh, which pushes refs/heads/ofir-revision
+# to refs/heads/2019-update and is therefore allowed through.
+#
+# git feeds pre-push one line per ref:  <local ref> <local sha> <remote ref> <remote sha>
+# Judge the LOCAL ref being pushed, not the branch that happens to be checked out.
+while read -r local_ref _local_sha remote_ref _remote_sha; do
+  if [ "$remote_ref" = "refs/heads/2019-update" ] && \
+     [ "$local_ref" = "refs/heads/2019-update" ]; then
+    echo "pre-push: refusing to push 2019-update directly to the public remote." >&2
+    echo "  It carries data/bronze, docs/feedback and the unredacted reviewer" >&2
+    echo "  response, which is confidential while the manuscript is under review." >&2
+    echo "  Publish with:  scripts/release/publish_ofir_branch.sh" >&2
+    exit 1
   fi
 done
 exit 0
