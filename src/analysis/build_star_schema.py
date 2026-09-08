@@ -48,6 +48,8 @@ import numpy as np
 import pandas as pd
 
 from paths import OUTPUT_DIR
+
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from analysis.constants import ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL
 from analysis.detail_tables import node_labels
 
@@ -117,8 +119,30 @@ def build_dim_industry() -> tuple[pd.DataFrame, pd.DataFrame]:
     extra["industry_type"] = "bottom-up item"
 
     dim = pd.concat([dim, extra], ignore_index=True)
+
+    # Secondary aggregations, joined from the editable concordance rather than
+    # hard-coded: ISIC Rev.3 division (EXIOBASE developers' own
+    # "ISIC REV. 3 - EXIOBASE2.0" table) and, for manufacturing divisions
+    # 15-37 only, the technology-intensity group. Five industries have no ISIC
+    # row because the hybrid release renumbers them (i24.x, i26.w.1, i40.2,
+    # i90.x); they are left blank rather than guessed.
+    isic_path = os.path.join(REPO, "data", "bronze", "concordances",
+                             "exiobase_industry_to_isic_rev3.csv")
+    if os.path.exists(isic_path):
+        isic = pd.read_csv(isic_path, dtype={"isic_rev3_division": str})
+        dim = dim.merge(
+            isic[["exiobase_industry_code", "isic_rev3_division",
+                  "isic_rev3_description", "technology_group"]],
+            left_on="industry_code", right_on="exiobase_industry_code",
+            how="left").drop(columns=["exiobase_industry_code"])
+    else:
+        for col in ("isic_rev3_division", "isic_rev3_description",
+                    "technology_group"):
+            dim[col] = pd.NA
+
     dim = dim[["industry_id", "industry_code", "industry_name",
-               "industry_group_id", "industry_type"]]
+               "industry_group_id", "industry_type", "isic_rev3_division",
+               "isic_rev3_description", "technology_group"]]
     return dim, groups[["industry_group_id", "industry_group_name"]]
 
 
