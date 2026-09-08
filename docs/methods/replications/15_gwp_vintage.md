@@ -21,7 +21,7 @@ The climate row is rebuilt from the stressor names rather than read from the wor
 | CH₄, fossil | 29.8 |
 | CH₄, non-fossil | 27.0 |
 | N₂O | 273 |
-| SF₆ | 25 200 |
+| SF₆ | 25,200 |
 
 AR6 distinguishes fossil from non-fossil methane. The fossil marker list
 (`CH4_FOSSIL_MARKERS`) covers gas and oil extraction, coal and lignite mining, and oil
@@ -42,18 +42,18 @@ cannot be recovered from the satellite account. Those two stressors are therefor
 from the restatement, and the share of the footprint that **cannot** be restated is
 reported (`not_restatable` column).
 
-Everything else - CO₂, CH₄, N₂O, SF₆ - is an individual gas in kg and is fully restatable.
+Everything else (CO₂, CH₄, N₂O, SF₆) is an individual gas in kg and is fully restatable.
 
 ## Data requirements
 
-The EXIOBASE stressor list with species names and units; $S$, $L$, $y_H$; the four IPCC
-assessment factor sets.
+This layer needs the EXIOBASE stressor list with species names and units; $S$, $L$, and
+$y_H$; and the four IPCC assessment factor sets.
 
 ## Deviations from the source, stated
 
-- The DESIRE workbook's climate row is **not used**. This is a deliberate departure from
-  the inherited pipeline and is the reason the study's climate figures differ from the
-  submitted manuscript's beyond the vintage and shipping changes.
+- The DESIRE workbook's climate row is **not used**. This substitution is a deliberate
+  departure from the inherited pipeline and is the reason the study's climate figures
+  differ from the submitted manuscript's beyond the vintage and shipping changes.
 - The fossil/non-fossil methane split relies on EXIOBASE's industry naming, which is a
   proxy for the physical distinction. The marker list is explicit in `constants.py` so the
   assignment can be audited and changed.
@@ -63,7 +63,7 @@ assessment factor sets.
 | File | Content |
 |---|---|
 | `gwp_vintage_sensitivity.csv` | health-care and national footprints under four vintages, with the non-restatable share |
-| `gwp_by_species.csv` | mass, AR6 factor and CO₂e contribution per species |
+| `gwp_by_species.csv` | mass, AR6 factor, and CO₂e contribution per species |
 
 ## Verification
 

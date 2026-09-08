@@ -13,7 +13,7 @@ which writes `data/gold/results/09_vintage_diagnostics/`.
 ## 1. Why this test was run at all
 
 Rørmose Jensen & Iliev (2022, Statistics Denmark) show that EXIOBASE's Danish
-block misallocates output between industries - their headline case is Danish
+block misallocates output between industries; their headline case is Danish
 water transport, 74 % of whose output EXIOBASE sends to Danish intermediate use
 against 9 % in the national accounts. Palm et al. (2019) build the same argument
 into the SNAC method: for a small, open, highly specialised economy, the
@@ -25,14 +25,15 @@ table annually, so the test is direct.
 
 The prompt to run it was an anomaly, not a hunch: the medical-appliance
 component of the footprint (1,094 M.EUR of expenditure, 921 kt CO₂e, 22 % of the
-climate total) was landing on Greece, China and the RoW aggregates, with a
+climate total) was landing on Greece, China, and the RoW aggregates, with a
 Danish contribution of exactly zero.
 
 ## 2. What the test found
 
-Two **distinct** defects, with different scope and different consequences.
+The test found two **distinct** defects, with different scope and different
+consequences.
 
-### Defect D1 - industry 33 is empty across Europe (v3.10.2, all years)
+### Defect D1: industry 33 is empty across Europe (v3.10.2, all years)
 
 `Manufacture of medical, precision and optical instruments, watches and clocks
 (33)` carries essentially zero output in every European region of v3.10.2, in
@@ -43,18 +44,18 @@ Two **distinct** defects, with different scope and different consequences.
 | DK | 4,919 | 0 | 0 | **6,276** |
 | DE | 68,118 | 4.6 | 0 | **76,025** |
 | FR | 30,720 | 0 | 0 | **35,274** |
-| NL | 12,455 | 0 | 0 | - |
-| US | 239,045 | 298 | 2,195 | - |
+| NL | 12,455 | 0 | 0 | n/a |
+| US | 239,045 | 298 | 2,195 | n/a |
 
 *M.EUR total industry output.* The whole-world v3.10.2 2022 total for this
 industry is 186,074 M.EUR, against a global medical-devices industry an order of
 magnitude larger.
 
-This is a version defect, not a modelling result. Its consequence for this study
-is direct and large: with domestic and all European supply set to zero, the
-Danish medical-appliance demand can only be met by whichever regions retain a
-non-zero i33. The resulting geography - Greece, Russia, RoW - is an artefact of
-the empty rows, not a finding about Danish procurement.
+This emptiness is a version defect, not a modelling result. Its consequence for
+this study is direct and large: with domestic and all European supply set to
+zero, the Danish medical-appliance demand can only be met by whichever regions
+retain a non-zero i33. The resulting geography (Greece, Russia, RoW) is an
+artefact of the empty rows, not a finding about Danish procurement.
 
 It also explains, retrospectively, the **multiplier-outlier screening** that this
 project introduced for the v3.10.2 build. That screening was motivated by GB
@@ -62,7 +63,7 @@ medical instruments carrying an intensity of 2×10⁸ kt CO₂e per M.EUR. An
 emission account divided by an output of zero is exactly what D1 produces. The
 screening was treating a symptom.
 
-### Defect D2 - the Danish block is misallocated (v3.10.2, 2022 only)
+### Defect D2: the Danish block is misallocated (v3.10.2, 2022 only)
 
 Against Statistics Denmark's published 2022 IO table (`Total Output` row,
 117 industries, converted at 7.4396 DKK/EUR):
@@ -75,19 +76,20 @@ Against Statistics Denmark's published 2022 IO table (`Total Output` row,
 | Machinery n.e.c. | 21,150 | 18,700 | **0.88** | 28 | **0.001** |
 | Medical/optical instruments | 9,130 | 6,276 | 0.69 | 0 | **0.00** |
 | Real estate | 46,965 | 45,673 | **0.97** | 9,915 | **0.21** |
-| *Total, all industries* | *706,281* | - | - | *681,918* | *0.97* |
+| *Total, all industries* | *706,281* | n/a | n/a | *681,918* | *0.97* |
 
 *M.EUR.* The **total** is right to 3 %, so output has been redistributed between
-industries rather than lost. The table is also internally consistent -
-`x = Z·1 + Y·1` holds to 7×10⁻¹¹ and there are no orphan rows - so this is a
-classification/allocation failure upstream of the balancing, not corruption.
+industries rather than lost. The table is also internally consistent
+(`x = Z·1 + Y·1` holds to 7×10⁻¹¹, and no orphan rows appear), so the
+discrepancy is a classification/allocation failure upstream of the balancing, not
+corruption.
 
 D2 is **year-specific**: v3.10.2's own 2016 Danish block is sound (health
 36,756; education 20,369; machinery 33,165 M.EUR). It appears with the nowcast
 years. It is also **country-specific**: Germany (health 4.05 % of national
-output), France (4.70 %), Italy (4.68 %), the Netherlands (4.22 %) and the
+output), France (4.70 %), Italy (4.68 %), the Netherlands (4.22 %), and the
 United States (3.43 %) are all plausible in v3.10.2 2022. The affected group is
-**Denmark, Bulgaria, Malta and Switzerland**, which share one signature -
+**Denmark, Bulgaria, Malta, and Switzerland**, which share one signature:
 education inflated, health deflated, financial intermediation collapsed to
 near-zero.
 
@@ -104,14 +106,14 @@ the source of the services recipe through the Steenmeijer Z-column construction;
 the medical-instruments industry, which carries the appliance component; and the
 financial and machinery industries, which are part of the services supply chain.
 
-**Decision: the background model is EXIOBASE v3.8.2 `IOT_2022_ixi`.** This is
-the best available combination on all three criteria that matter:
+**Decision: the background model is EXIOBASE v3.8.2 `IOT_2022_ixi`.** This
+vintage is the best available combination on all three criteria that matter:
 
 1. *Correct analysis year.* 2022 is the study's agreed year and v3.8.2 publishes
    a 2022 table (Zenodo 5589597).
 2. *Sound Danish block.* Every checkable industry group falls within ±12 % of
-   Danish national accounts, and the two the study most depends on - health and
-   social work, and real estate - within 3 %.
+   Danish national accounts, and the two the study most depends on (health and
+   social work, and real estate) within 3 %.
 3. *Continuity with the submitted manuscript.* v3.8.2 is the vintage the
    original submission was built on, established earlier by fingerprinting. The
    revision therefore changes the year and the corrected method, not the model

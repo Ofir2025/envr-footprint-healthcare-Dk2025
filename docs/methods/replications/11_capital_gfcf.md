@@ -8,10 +8,10 @@ Zenodo 7073276 (CC BY 4.0)
 
 ## Question this layer answers
 
-Steenmeijer, Eckelman and the NHS reports all **exclude** capital: the Leontief matrix
-carries current inputs only, so hospital buildings, scanners and IT systems never enter the
-supply chain. Wood & Hertwich and Södersten et al. both show this is the largest single
-boundary omission for service sectors. How large is it here?
+Steenmeijer, Eckelman, and the NHS reports all **exclude** capital: the Leontief
+matrix carries current inputs only, so hospital buildings, scanners, and IT systems
+never enter the supply chain. Wood & Hertwich and Södersten et al. both show this is
+the largest single boundary omission for service sectors. How large is it here?
 
 ## Method
 
@@ -28,9 +28,9 @@ hypersensitive to investment shocks (their SI §4.1.1).
 ### The bridge this study had to supply
 
 The published capital matrices are distributed as
-`Kbar_exio_v3_8_2_<year>_cfc_pxi.mat` - a **9 800 × 7 987** matrix of capital *products*
+`Kbar_exio_v3_8_2_<year>_cfc_pxi.mat`, a **9,800 × 7,987** matrix of capital *products*
 used by *industries*. This study runs the **industry-by-industry** table, which needs
-7 987 × 7 987, so the product rows must be mapped to industries.
+7,987 × 7,987, so the product rows must be mapped to industries.
 
 Södersten's SI (line 166) states they apply "the industry technology construct … to conform
 with the way the A matrix is constructed". That construct needs the **market-share matrix**,
@@ -39,17 +39,19 @@ record:
 
 $$D_{ip} = \frac{V_{pi}}{q_p}, \qquad \bar{K}^{\text{ixi}} = D\,\bar{K}^{\text{pxi}}$$
 
-with $V$ the supply table (9 800 products × 7 987 industries) and $q$ total product output.
+with $V$ the supply table (9,800 products × 7,987 industries) and $q$ total product
+output.
 
 > An earlier draft of `docs/revision/capital_gfcf_treatment.md` claimed these matrices
-> could not be used with an ixi model. That was wrong - MRSUT files exist for every year in
-> Zenodo record 5589597 - and the claim has been retracted in that document.
+> could not be used with an ixi model. That assertion was wrong (MRSUT files exist for
+> every year in Zenodo record 5589597), and the claim has been retracted in that
+> document.
 
 ### Three treatments, reported side by side
 
 | Treatment | Definition |
 |---|---|
-| **Baseline** | capital excluded, $f = C S L y_H$ - what Steenmeijer, Eckelman and the NHS report, and the comparable number |
+| **Baseline** | capital excluded, $f = C S L y_H$, what Steenmeijer, Eckelman, and the NHS report, and the comparable number |
 | **A: exogenous service flow** | CFC of the Danish health and residential-care industries (DST NABK69, P.51c) footprinted as an additional final demand, with the commodity composition of the observed Danish health capital asset mix |
 | **B: endogenised (Södersten)** | $L^K$ as above |
 
@@ -57,7 +59,7 @@ with $V$ the supply table (9 800 products × 7 987 industries) and $q$ total pro
 
 | Indicator | Change |
 |---|---|
-| Climate change | 4 062 → 4 849 kt, **+19.4 %** |
+| Climate change | 4,062 → 4,849 kt, **+19.4 %** |
 | Material extraction | +33.2 % |
 | Blue water | +10.2 % |
 | Land use | +20.0 % |
@@ -93,14 +95,14 @@ Two implementation traps, both recorded because both silently corrupt the result
 
 ## Outputs
 
-`capital_endogenised_sodersten.csv`, `capital_scenarios_by_indicator.csv`,
-`capital_asset_mix.csv`, `capital_diagnostics.csv`,
-`capital_endogenised_by_producing_node.csv.gz`,
+This layer writes `capital_endogenised_sodersten.csv`,
+`capital_scenarios_by_indicator.csv`, `capital_asset_mix.csv`,
+`capital_diagnostics.csv`, `capital_endogenised_by_producing_node.csv.gz`, and
 `capital_endogenised_domestic_vs_imported.csv`.
 
 ## Verification
 
 Product-to-industry conservation holds to 1.17 × 10⁻¹⁴; the inverse is verified by
 $L^K[:,j] - (A+K)L^K[:,j] - I[:,j]$ at 1.64 × 10⁻¹⁴. Productivity is tested by power
-iteration on $A+K$, not by column sums - EXIOBASE has 72 columns summing above 1 while
+iteration on $A+K$, not by column sums: EXIOBASE has 72 columns summing above 1 while
 remaining productive, so a column-sum test gives a false failure.

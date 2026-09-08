@@ -9,8 +9,8 @@ Eurostat `env_ac_ghgfp` (FIGARO); Statistics Denmark AFTRYK
 
 ## Question this layer answers
 
-Is the result right? Two independent tests: agreement with published Danish footprints,
-and internal consistency across the study's own outputs.
+Is the result right? Two independent tests answer it: agreement with published Danish
+footprints, and internal consistency across the study's own outputs.
 
 ## Method
 
@@ -31,11 +31,11 @@ one at a time and each step is reported:
 | **+ their capital treatment (endogenised)** | **6.39** | **1.088** | **8.2** | **1.017** |
 
 Boundary-matched agreement is **1.7 % on per capita and 0.1 percentage points on the
-national share**. The apparent 25 % gap was entirely boundary, not model, data or
+national share**. The apparent 25 % gap was entirely boundary, not model, data, or
 implementation.
 
 What remains and cannot be adjusted away: their model is **consequential (marginal)**,
-ours is attributional. This is stated, not corrected.
+ours is attributional. This difference is stated, not corrected.
 
 ### Model-family benchmark
 
@@ -51,18 +51,19 @@ Published Danish consumption-based footprints separate by **model family**, not 
 
 The two EXIOBASE-family results agree to 2.3 %; the three national-accounts-family results
 cluster 20 % below. Our gap against Statistics Denmark is a property of the model family,
-with a named cause (the Danish domestic block - see [09](09_vintage_diagnostics.md)), not
+with a named cause (the Danish domestic block, see [09](09_vintage_diagnostics.md)), not
 an implementation error.
 
 ### Recipe validation
 
-The Danish health column's input structure is compared three ways - EXIOBASE, Eurostat
-FIGARO Q86, and Statistics Denmark IO 86 - so the model's *composition*, not only its
+The Danish health column's input structure is compared three ways (EXIOBASE, Eurostat
+FIGARO Q86, and Statistics Denmark IO 86), so the model's *composition*, not only its
 total, is tested (`recipe_validation_three_way.csv`).
 
 ### Standing consistency audit
 
-`analysis.audit_consistency` runs six families of check and exits non-zero on failure:
+`analysis.audit_consistency` runs these families of check, several of which cover
+more than one table, and exits non-zero on failure:
 
 | Check | What it enforces |
 |---|---|
@@ -87,7 +88,7 @@ the outputs, two of them mutually inconsistent between documents.
 
 ## Outputs
 
-`danish_healthcare_benchmark_boundary_matched.csv`,
+This layer writes `danish_healthcare_benchmark_boundary_matched.csv`,
 `published_danish_footprint_benchmarks.csv`, `figaro_vs_this_study_climate.csv`,
 `figaro_dk_footprint_by_origin.csv`, `figaro_dk_footprint_by_final_demand.csv`,
 `figaro_eu27_material_footprint_health.csv`, `recipe_validation_2022.csv`,
@@ -96,4 +97,6 @@ the outputs, two of them mutually inconsistent between documents.
 
 ## Verification
 
-The audit is the verification, and it is a gate: 8 of 8 checks pass at the current build.
+The audit is the verification, and it is a gate. Every check passes at the current
+build; the count grows as families are added, so the report itself is the record
+rather than a number quoted here.

@@ -41,12 +41,12 @@ W_{\text{total}} = \sum_i m_i \, x_i, \qquad
 W_{\text{hazardous}} = \sum_i h_i \, x_i$$
 
 with $d_i$ the direct waste intensity (t per M DKK), $m_i$ the direct-plus-indirect
-multiplier and $h_i$ the hazardous multiplier, applied to Danish health-care expenditure
-$x_i$ in million DKK.
+multiplier, and $h_i$ the hazardous multiplier, applied to Danish health-care
+expenditure $x_i$ in million DKK.
 
-This is a **domestic** account by construction: DST's multipliers cover the Danish
-economy. It therefore complements, rather than replaces, the MRIO waste indicator, which
-covers the global chain. Both are reported.
+This route is a **domestic** account by construction: DST's multipliers cover the
+Danish economy. It therefore complements, rather than replaces, the MRIO waste
+indicator, which covers the global chain. Both are reported.
 
 ## Data requirements
 
