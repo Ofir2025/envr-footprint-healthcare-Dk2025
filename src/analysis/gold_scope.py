@@ -36,7 +36,7 @@ GOLD = REPO / "data" / "gold" / "results"
 # rename here would be a no-op on disk and a phantom rename in git.
 README = GOLD / "readme.md"
 
-#: folder -> (scope, why). ``paper`` folders back a number, figure or table in
+#: folder -> (scope, why). ``paper`` folders back a number, figure, or table in
 #: the manuscript or in the response to the reviewers, and ship. ``private``
 #: folders are follow-on work: real analysis, but for the next paper.
 SCOPE: dict[str, tuple[str, str]] = {
@@ -64,8 +64,8 @@ SCOPE: dict[str, tuple[str, str]] = {
         "paper", "the comparator behind the uncertainty calibration and the "
                  "national-total family comparison"),
     "09_vintage_diagnostics": (
-        "paper", "the ONLY evidence for rejecting EXIOBASE v3.10.2, which the "
-                 "response states as fact"),
+        "paper", "the **only** evidence for rejecting EXIOBASE v3.10.2, which "
+                 "the response states as fact"),
     "10_snac_shipping_correction": (
         "paper", "the sea-transport reallocation, on which the withdrawn "
                  "transport finding depends"),
@@ -150,8 +150,8 @@ def render() -> str:
         "# Gold results",
         "",
         "Every table here is a deliverable at the most detailed level the model",
-        "supports - producing country x producing sector x purchased product x",
-        "demand component - so all aggregates are derivable and no lineage is",
+        "supports (producing country x producing sector x purchased product x",
+        "demand component), so all aggregates are derivable and no lineage is",
         "lost. Lineage for every file is in `MANIFEST_lineage.csv`.",
         "",
         "## Two scopes, one tree",
@@ -160,12 +160,12 @@ def render() -> str:
         "co-author holds the layers below marked **paper**. Nothing is",
         "duplicated on disk: the classification lives in `analysis.gold_scope`,",
         "the publish filter reads it, and the consistency audit fails if a",
-        "folder appears here without being classified. This file is generated -",
+        "folder appears here without being classified. This file is generated:",
         "edit `src/analysis/gold_scope.py`, never this text.",
         "",
         f"### Paper deliverables ({len(paper)} folders)",
         "",
-        "Each backs a number, figure or table in the manuscript or in the",
+        "Each backs a number, figure, or table in the manuscript or in the",
         "response to the reviewers.",
         "",
         "| folder | why it ships |",
@@ -176,8 +176,8 @@ def render() -> str:
         "",
         f"### Private extensions ({len(private)} folders)",
         "",
-        "Real analysis, kept in this repository only: follow-on work that",
-        "nothing in the current revision cites.",
+        "Each is real analysis, kept in this repository only: follow-on work",
+        "that nothing in the current revision cites.",
         "",
         "| folder | why it stays here |",
         "|---|---|",
@@ -187,11 +187,11 @@ def render() -> str:
         "",
         "## Naming",
         "",
-        "Lowercase `snake_case`, the analysis year where a table is",
-        "year-specific, no editor lock files or temporary artefacts. Layers",
-        "whose results differ by reference year are stored under a year",
-        "subdirectory (`01_eriksen_replication/2022`), so a run for one year",
-        "cannot overwrite another.",
+        "Use lowercase `snake_case`, add the analysis year where a table is",
+        "year-specific, and keep out editor lock files and temporary",
+        "artefacts. Layers whose results differ by reference year are stored",
+        "under a year subdirectory (`01_eriksen_replication/2022`), so a run for",
+        "one year cannot overwrite another.",
         "",
     ]
     text = "\n".join(lines)

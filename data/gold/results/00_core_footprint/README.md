@@ -4,7 +4,7 @@
 
 What environmental pressure, anywhere in the world, is caused by Danish health-care final expenditure - and where does it physically arise?
 
-Method, equations and verification: [`docs/methods/replications/00_core_footprint.md`](../../../docs/methods/replications/00_core_footprint.md).
+Method, equations, and verification: [`docs/methods/replications/00_core_footprint.md`](../../../docs/methods/replications/00_core_footprint.md).
 
 ## Conventions
 

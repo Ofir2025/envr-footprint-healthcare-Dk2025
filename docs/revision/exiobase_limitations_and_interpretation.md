@@ -1,6 +1,7 @@
 # EXIOBASE: every limitation this study is exposed to, and how to read the results
 
-Written to be lifted into the manuscript's *Data*, *Methods* and *Limitations*.
+This document is written to be lifted into the manuscript's *Data*, *Methods*,
+and *Limitations* sections.
 Each entry follows the same three-part structure the discipline requires of a
 limitation: **what it is**, **what it changes about the conclusion**, and **what
 study design would reduce it**. A limitation named without its consequence is
@@ -11,7 +12,7 @@ reading of the literature. Where a number is given, the test that produced it is
 named. Where a weakness is known from the literature but not measured here, that
 is stated in those words.
 
-The honest summary is two-sided and both halves matter. **EXIOBASE is the right
+The honest summary is two-sided, and both halves matter. **EXIOBASE is the right
 model for this study, and it has defects that change results.** A limitations
 section that says only the first is promotional; one that says only the second
 invites the reader to discard the work.
@@ -38,7 +39,7 @@ and the Danish national footprint as 85.2 Mt instead of 77.5 Mt.
 misallocates output between industries, which is why Statistics Denmark rebuild it rather
 than patch it.
 
-**What we did.** Reproduced the diagnosis on our own model (73.6 % against their 74 %, to
+**What we did.** We reproduced the diagnosis on our own model (73.6 % against their 74 %, to
 the decimal) and applied the single reallocation it implies, with the target set to the
 national-accounts benchmark rather than fitted. EXIOBASE's own hybrid build gives 7.8 %
 natively, so the correction reconstructs an allocation the data already supports by
@@ -46,9 +47,9 @@ another route.
 
 **How to read the results.** Danish-origin transport emissions in this study are corrected
 and should not be compared with uncorrected EXIOBASE studies of Denmark. Other Danish
-industries are **not** individually corrected - only the one row with a published
-benchmark and a first-order effect. Treat Danish sectoral detail as indicative and the
-Danish aggregate as reliable.
+industries are **not** individually corrected: the correction covers only the one
+row with a published benchmark and a first-order effect. Treat Danish sectoral detail as
+indicative and the Danish aggregate as reliable.
 
 **Recommendation.** Full national-accounts coupling (SNAC, after Palm et al. 2019) would
 remove the remaining allocation error. It is scoped in `dk_snac_feasibility.md` and is the
@@ -59,21 +60,21 @@ single most valuable methodological upgrade available to this study.
 ## 2. Vintage defects are real, version-specific, and invisible to a balance check
 
 We tested every vintage on disk against Statistics Denmark's own table, year by year. Two
-defects, with different onsets:
+defects appeared, with different onsets:
 
 | Defect | What breaks | Onset in v3.10.2 | v3.8.2 / v3.6 |
 |---|---|---|---|
 | **D1** | medical, precision and optical instruments carry ~zero output across Europe (28 of 30 regions) | **2015**, and never recovers | clean (0 of 30) |
 | **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2× | **2021-2022**, the nowcast years | clean (2 of 12) |
 
-**Why a routine check misses them.** Danish output still totals to within 3 % and the
+**Why a routine check misses them.** Danish output still totals to within 3 %, and the
 table still balances to 10⁻¹¹. Output was *redistributed*, not lost. The decisive test
 needed no external source: Danish health final expenditure is 40,597 M€, and a health
 industry with 16,326 M€ of *total output* cannot deliver it.
 
 **How to read the results.** This study uses **v3.8.2**, which passes both tests. Our
 results are therefore not comparable, industry by industry, with studies built on v3.10.2
-from 2015 onward - and the difference is a data defect, not a modelling choice.
+from 2015 onward, and the difference is a data defect, not a modelling choice.
 
 **Recommendation for the field.** Anyone using v3.10.2 for a European study from 2015
 should check industry 33 before trusting sectoral results, and anyone using a nowcast year
@@ -88,10 +89,10 @@ EXIOBASE's `ixi` layout has a **single** health and social work industry. Malik 
 (2021) and Lenzen et al. (2020) report sub-sector detail because their MRIOs inherit it
 from national tables; neither method is reproducible here.
 
-**What we did.** Implemented the one route that is reproducible - Malik et al.'s (2018)
-output-prorated concordance - and then published its decomposition rather than its ranking
-alone. Five SHA functions carry only **three distinct intensities**, and **99.99 %** of the
-variation across functions is explained by expenditure alone.
+**What we did.** We implemented the one route that is reproducible, namely Malik et al.'s
+(2018) output-prorated concordance, and then published its decomposition rather than its
+ranking alone. Five SHA functions carry only **three distinct intensities**, and
+**99.99 %** of the variation across functions is explained by expenditure alone.
 
 **How to read the results.** The services / pharmaceuticals / appliances split is a genuine
 intensity finding. The ordering *within* the three service functions is an expenditure
@@ -109,8 +110,8 @@ Every EXIOBASE industry is assumed to sell a homogeneous product at a uniform pr
 euro of "Chemicals nec" carries the same intensity whether it buys a generic paracetamol or
 a patented biologic. Pharmaceutical prices are far from cost-reflective.
 
-**How to read the results.** The pharmaceutical footprint - 4.8 % of spend, 36.6 % of the
-function total - is the number in this study most exposed to price heterogeneity, and it is
+**How to read the results.** The pharmaceutical footprint (4.8 % of spend, 36.6 % of the
+function total) is the number in this study most exposed to price heterogeneity, and it is
 **probably an overestimate** if Danish pharmaceutical prices carry above-average margins.
 The Monte Carlo treats the mapping as a structural scenario, not a distribution, precisely
 because it is a modelling choice rather than measurement error.
@@ -126,9 +127,9 @@ The DESIRE characterisation workbook is 2014-vintage: three of its rows failed o
 magnitude from its published damage factor, an SF₆ factor matching no IPCC assessment) and
 **ozone depletion was retracted** on that basis.
 
-**Recommendation.** IMPACT World+ v2.2.1 is current, openly licensed and aligned to the
+**Recommendation.** IMPACT World+ v2.2.1 is current, openly licensed, and aligned to the
 EXIOBASE v3.8.2 stressor list; it is computed alongside DESIRE and should displace it for
-water scarcity, land biodiversity and mineral resources.
+water scarcity, land biodiversity, and mineral resources.
 
 ---
 
@@ -136,12 +137,12 @@ water scarcity, land biodiversity and mineral resources.
 
 EXIOBASE ships no element-level standard deviations. Our Monte Carlo therefore calibrates
 MRIO uncertainty to Lenzen et al.'s published 8.35 % for this exact quantity and applies it
-as a single joint factor - correlation ρ = 1, the conservative bound.
+as a single joint factor: correlation ρ = 1, the conservative bound.
 
-**How to read the interval.** The reported 95 % interval, 4,064-5,540 kt, is **parametric
-uncertainty conditional on one model**. It is not a confidence interval on "the" Danish
-health footprint. Our own change of EXIOBASE vintage moved the result by more than this
-interval spans, and Tukker et al. warn that national error statistics do not transfer to
+**How to read the interval.** The reported 95 % interval, 4,065 to 5,532 kt, is **parametric
+uncertainty conditional on one model**. The interval is not a confidence interval on "the"
+Danish health footprint. Our own change of EXIOBASE vintage moved the result by more than
+this interval spans, and Tukker et al. warn that national error statistics do not transfer to
 sector studies. Report the interval and this sentence together, or not at all.
 
 ---
@@ -171,16 +172,16 @@ supports that proportionality; it is a modelling necessity.
 
 **What it changes about the conclusion.** Schulte et al. (2021) randomised this
 assumption on EXIOBASE at exactly this study's resolution and found national
-footprints robust, with coefficients of variation generally below 4 per cent,
-but industry-level footprints far less so: a quarter of industries exceeded 10
-per cent for carbon and 30 per cent for land, material and water, with extreme
+footprints insensitive to it, with coefficients of variation generally below 4 per
+cent, but industry-level footprints far less so: a quarter of industries exceeded 10
+per cent for carbon and 30 per cent for land, material, and water, with extreme
 cases above 300 per cent. Read across to this study, the **health-care total is
-safe from this assumption and the contribution-group split is softer than its
-point estimates suggest.** It is a second reason, alongside the single health
-industry, not to quote group-level differences finely.
+safe from this assumption, and the contribution-group split is softer than its
+point estimates suggest.** Import proportionality is a second reason, alongside
+the single health industry, not to quote group-level differences finely.
 
 **What would reduce it.** Firm-level or customs-linked import data by purchasing
-industry. None exists for Denmark at this resolution.
+industry would reduce it. None exists for Denmark at this resolution.
 
 ---
 
@@ -203,8 +204,8 @@ uncertainty than any interval reported here shows, and the direction of the bias
 is unknown.**
 
 **What would reduce it.** Product-level or firm-level intensity data for the
-specific pharmaceuticals purchased, or a hybrid model in which the
-pharmaceutical column is replaced by process data.
+specific pharmaceuticals purchased would reduce it, as would a hybrid model in
+which the pharmaceutical column is replaced by process data.
 
 ---
 
@@ -217,13 +218,13 @@ no country has published one.
 **What it changes about the conclusion.** Nowcast years carry the errors this
 study documents in section 2, and Lenzen et al. (2010) observe that uncertainty
 grows with distance from the benchmark year, although they did not prove it.
-This is why the vintage tests in section 2 were run at all, and why v3.10.2 was
-rejected: its nowcast years fail against the Danish national accounts.
+This growth in uncertainty is why the vintage tests in section 2 were run at all,
+and why v3.10.2 was rejected: its nowcast years fail against the Danish national accounts.
 **Sectoral detail for 2022 should be read as less firm than the same detail for
 a benchmark year would be.**
 
 **What would reduce it.** Statistics Denmark's own 2022 supply-and-use table,
-coupled to the global model. That is the SNAC route.
+coupled to the global model, would reduce it. That coupling is the SNAC route.
 
 ---
 
@@ -231,13 +232,14 @@ coupled to the global model. That is the SNAC route.
 
 **What it is.** EXIOBASE publishes no covariance information for its cells. A
 user who wants to propagate uncertainty must therefore assume a correlation
-structure, and Rodrigues (2016) proves the two convenient assumptions -
-uncorrelated elements, and a known aggregate uncertainty - are mutually
+structure, and Rodrigues (2016) proves the two convenient assumptions
+(uncorrelated elements, and a known aggregate uncertainty) are mutually
 exclusive.
 
-**What it changes about the conclusion.** It means no reported interval for an
-EXIOBASE result can be simultaneously calibrated and independence-based, and a
-study that reports one without saying which it chose is reporting an artefact.
+**What it changes about the conclusion.** The missing covariance information
+means that no reported interval for an EXIOBASE result can be simultaneously
+calibrated and independence-based, and a study that reports one without saying
+which it chose is reporting an artefact.
 This study holds the calibration and varies the correlation, and reports what
 that does; see `uncertainty_sources.md` section 3.3.
 
@@ -248,23 +250,24 @@ upgrade available to this study after SNAC coupling.
 
 ---
 
-## 12. Waste, water and land extensions are weaker than the greenhouse-gas one
+## 12. Waste, water, and land extensions are weaker than the greenhouse-gas one
 
 **What it is.** The greenhouse-gas extension is built from energy balances and
 national inventories and is the most scrutinised part of the satellite account.
-The material, water, land and waste extensions rest on thinner source data and
+The material, water, land, and waste extensions rest on thinner source data and
 have received far less validation in the literature.
 
 **What it changes about the conclusion.** Every uncertainty statement in this
 study is calibrated on a **carbon** figure. Schulte et al. (2021) find
-industry-level footprint dispersion roughly three times higher for land, material
+industry-level footprint dispersion roughly three times higher for land, material,
 and water than for carbon on this same database. The four non-carbon categories
 are therefore reported with intervals that are **too narrow, by an unknown
 factor**, and a bounding run at three times the carbon spread is reported
 alongside them for that reason.
 
 **What would reduce it.** A per-category uncertainty assessment of the EXIOBASE
-extensions. None exists. This is a gap in the field, not only in this study.
+extensions would reduce it. None exists. This absence is a gap in the field, not
+only in this study.
 
 ---
 
@@ -273,10 +276,10 @@ extensions. None exists. This is a gap in the field, not only in this study.
 1. **Trust the aggregate, qualify the sectoral detail.** The Danish health-care
    footprint and its domestic and imported split rest on corrected, benchmarked
    quantities. Industry-level Danish detail rests on an estimated national
-   block, an assumed import allocation and a homogeneous-sector assumption, and
+   block, an assumed import allocation, and a homogeneous-sector assumption, and
    three separate limitations above converge on the same advice.
 2. **Read every share with its basis.** Transport is 18.5 per cent of the supply
-   chain and 15.4 per cent of the total; both are correct and they are not
+   chain and 15.4 per cent of the total; both are correct, and they are not
    interchangeable.
 3. **Treat the uncertainty interval as conditional.** Model choice moves the
    answer more than the parameters do. This study's own structural scenario on
