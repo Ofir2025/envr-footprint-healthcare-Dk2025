@@ -87,6 +87,9 @@ SCOPE: dict[str, tuple[str, str]] = {
         "private", "health sub-sector decomposition; the follow-on paper"),
     "18_mitigation_scenarios": (
         "paper", "the counterfactual scenarios; figures 8 and 9"),
+    "19_tables_of_record": (
+        "paper", "the verified tables of record, regenerated from the gold "
+                 "facts, that supersede the values circulated during drafting"),
     "scenarios": (
         "paper", "the sector-boundary scenarios behind the childcare step of "
                  "figure 7"),

@@ -14,7 +14,7 @@ the publish filter reads it, and the consistency audit fails if a
 folder appears here without being classified. This file is generated -
 edit `src/analysis/gold_scope.py`, never this text.
 
-### Paper deliverables (19 folders)
+### Paper deliverables (20 folders)
 
 Each backs a number, figure or table in the manuscript or in the
 response to the reviewers.
@@ -38,6 +38,7 @@ response to the reviewers.
 | `14_eckelman_replication` | comparator in the same boundary table as 07 and 08 |
 | `15_gwp_vintage` | the AR6-versus-AR4 restatement the response leads on |
 | `18_mitigation_scenarios` | the counterfactual scenarios; figures 8 and 9 |
+| `19_tables_of_record` | the verified tables of record, regenerated from the gold facts, that supersede the values circulated during drafting |
 | `scenarios` | the sector-boundary scenarios behind the childcare step of figure 7 |
 | `star` | the star schema over the reported facts |
 
