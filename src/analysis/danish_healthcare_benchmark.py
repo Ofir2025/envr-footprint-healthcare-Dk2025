@@ -35,7 +35,7 @@ from typing import Any
 
 import pandas as pd
 
-from analysis.constants import ANALYSIS_YEAR, DK_POPULATION, MODEL_LABEL
+from analysis.constants import ANALYSIS_YEAR, DK_POPULATION, MODEL_LABEL, eriksen_folder
 from paths import OUTPUT_DIR
 
 FOLDER = "06_benchmarks_validation"
@@ -75,7 +75,7 @@ def _scope_total(scope: str) -> float:
         If the scenario has not been generated, rather than falling back to a
         stale or default value.
     """
-    folder = "01_eriksen_replication" if scope == "health_eldercare" \
+    folder = eriksen_folder() if scope == "health_eldercare" \
         else os.path.join("scenarios", scope)
     path = os.path.join(str(OUTPUT_DIR), folder, "scopes_summary.csv")
     if not os.path.exists(path):

@@ -41,6 +41,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 from .functions_2025 import *
+from analysis.constants import eriksen_folder
 from paths import (
     BRONZE_DIR,
     BACKGROUND_DIR,
@@ -78,7 +79,7 @@ mrio_dir = str(MRIO_DIR) + os.sep
 # one.
 _SCOPE = os.environ.get("HC_SCOPE", "health_eldercare")
 if _SCOPE == "health_eldercare":
-    output_dir = os.path.join(str(OUTPUT_DIR), "01_eriksen_replication")
+    output_dir = os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"))
 else:
     output_dir = os.path.join(str(OUTPUT_DIR), "scenarios", _SCOPE)
 os.makedirs(output_dir, exist_ok=True)

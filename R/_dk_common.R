@@ -21,14 +21,28 @@ suppressPackageStartupMessages({
 gold_root <- Sys.getenv("DKHC_GOLD_ROOT", "data/gold/results")
 fig_dir   <- Sys.getenv("DKHC_FIG_DIR",   "figures")
 
+# Results are held per analysis year, so the same basename exists under
+# .../01_eriksen_replication/2019/ and .../2022/. Resolve to the configured year
+# first and only fall back to a unique match, so a figure can never silently
+# take the wrong year's data.
+analysis_year <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
+
 .gold_index <- NULL
-gold_path <- function(name) {
+gold_path <- function(name, year = analysis_year) {
   if (is.null(.gold_index)) {
     .gold_index <<- list.files(gold_root, pattern = "\\.csv(\\.gz)?$",
                                recursive = TRUE, full.names = TRUE)
   }
   hit <- .gold_index[basename(.gold_index) == name]
-  if (length(hit) < 1) stop(sprintf("gold fact '%s' not found under %s/", name, gold_root))
+  if (length(hit) < 1)
+    stop(sprintf("gold fact '%s' not found under %s/", name, gold_root))
+  if (length(hit) > 1) {
+    inyear <- hit[grepl(sprintf("/%s/", year), hit, fixed = TRUE)]
+    if (length(inyear) == 1) return(inyear[[1]])
+    stop(sprintf(paste0("gold fact '%s' is ambiguous for year %s (%d matches). ",
+                        "Set HC_ANALYSIS_YEAR or pass year=."),
+                 name, year, length(hit)))
+  }
   hit[[1]]
 }
 
@@ -47,7 +61,7 @@ MM_PER_PT  <- 1 / 2.845   # geom_text(size=) is mm, not pt
 # GHG-Protocol scopes. Okabe-Ito hues, colourblind-safe, one hue per key.
 SCOPE_ORDER <- c("Scope 1", "Scope 2", "Scope 3", "Outside protocol")
 SCOPE_COLS  <- c(`Scope 1` = "#0072B2", `Scope 2` = "#009E73",
-                 `Scope 3` = "#E69F00", `Outside protocol` = "#7F7F7F")
+                 `Scope 3` = "#E69F00", `Outside protocol` = "#4D4D4D")
 
 # World regions as the study aggregates them. Denmark is singled out because
 # the domestic/imported split is the paper's subject; the remainder bucket is

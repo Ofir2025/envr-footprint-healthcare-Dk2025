@@ -58,7 +58,7 @@ GROUP_COLS <- c(
   "Individual travel" = "#CC79A7",
   "Medical, electrical equipment and machinery" = "#D55E00",
   "Operational impacts" = "#8C564B",
-  "Heat and electricity" = "#F0E442", "Electricity sector" = "#F0E442",
+  "Heat and electricity" = "#B8860B", "Electricity sector" = "#B8860B",
   "Fossil fuel industry" = "#7F7F7F", "Mining of minerals and metals" = "#B87333",
   "Denmark" = "#0072B2", "Europe" = "#009E73", "Asia and Pacific" = "#E69F00",
   "Middle East" = "#CC79A7", "America" = "#56B4E9", "Africa" = "#D55E00",
@@ -68,9 +68,14 @@ gold <- function(f) read_csv(gold_path(f), show_col_types = FALSE)
 strip_key <- function(x) sub("\\|\\|\\|.*$", "", x)
 
 # Order a per-panel key by its own value, so every panel ranks independently.
-order_key <- function(d) {
-  o <- d %>% group_by(key) %>% summarise(v = sum(value), .groups = "drop") %>%
-    arrange(v)
+# Ranking on `value` is only valid inside one indicator: summing kt CO2-eq with
+# Mm3 and km2 is meaningless and produced panels that were not descending.
+# `share_pct` is unit-free and is the correct ranking variable wherever a key
+# spans indicators.
+order_key <- function(d, by = c("share_pct", "value")) {
+  by <- match.arg(by)
+  o <- d %>% group_by(key) %>%
+    summarise(v = sum(.data[[by]]), .groups = "drop") %>% arrange(v)
   d %>% mutate(key = factor(key, levels = o$key))
 }
 
@@ -91,7 +96,7 @@ d1 <- bind_rows(f1, f2, f3) %>%
                                                 "B  Sector contribution",
                                                 "C  Geographical origin")),
          key = paste0(group, "|||", as.integer(analysis))) %>%
-  order_key()
+  order_key(by = "share_pct")
 
 p1 <- ggplot(d1, aes(share_pct, key, fill = group)) +
   geom_col(width = 0.74, colour = "white", linewidth = 0.15) +
@@ -127,8 +132,14 @@ d2 <- gold("figure2b_top_origin_industry_pairs.csv") %>%
 
 p2 <- ggplot(d2, aes(share_pct, key, fill = is_rest)) +
   geom_col(width = 0.74, colour = "white", linewidth = 0.15) +
+  # Strips name the category only. They used to carry a total, but this figure
+  # covers the MRIO supply chain alone (~84 % of each indicator), so printing a
+  # total here understated the study figure by 16 %.
+  facet_ceiling(d2 %>% group_by(indicator, key) %>%
+                  summarise(value = sum(share_pct), .groups = "drop"),
+                "indicator", "value", room = 1.02) +
   facet_wrap(~indicator, ncol = 3, scales = "free_y",
-             labeller = make_labeller(d2)) +
+             labeller = ind_only_labeller) +
   scale_y_discrete(labels = strip_key) +
   scale_fill_manual(values = c(`FALSE` = "#0072B2", `TRUE` = "grey80"),
                     guide = "none") +
@@ -165,10 +176,15 @@ d3 <- d3 %>% mutate(lab = factor(lab, levels = rev(unique(lab[order(indicator)])
 p3 <- ggplot(d3, aes(share_pct, lab, fill = scope)) +
   geom_col(width = 0.68, colour = "white", linewidth = 0.2,
            position = position_stack(reverse = TRUE)) +
-  geom_text(aes(label = if_else(share_pct >= 6, sprintf("%.0f%%", share_pct),
-                                NA_character_)),
+  # Luminance-driven label colour: white on the amber Scope 3 fill is 2.25:1,
+  # below the 4.5:1 floor; black on the same fill is 9.4:1.
+  geom_text(aes(label = if_else(share_pct >= 4, sprintf("%.0f%%", share_pct),
+                                NA_character_),
+                colour = scope %in% c("Scope 3")),
             position = position_stack(vjust = 0.5, reverse = TRUE),
-            colour = "white", fontface = "bold", size = 4.6, na.rm = TRUE) +
+            fontface = "bold", size = 4.6, na.rm = TRUE, show.legend = FALSE) +
+  scale_colour_manual(values = c(`TRUE` = "#1A1A1A", `FALSE` = "white"),
+                      guide = "none") +
   scale_fill_manual(values = SCOPE_COLS, name = NULL) +
   scale_x_continuous(labels = function(x) paste0(smart_labs(x), "%"),
                      breaks = seq(0, 100, 25),
@@ -189,18 +205,35 @@ pairs_src <- gold("scope_by_origin_and_industry.csv") %>%
          pair = paste0(region_code(producing_country_iso3), SEP,
                        producing_sector_code))
 
-scope_source_plot <- function(which_scope, n = 12) {
-  d <- pairs_src %>% filter(scope == which_scope) %>%
+scope_source_plot <- function(which_scope, n = 10) {
+  full <- pairs_src %>% filter(scope == which_scope) %>%
     group_by(indicator, pair) %>%
     summarise(value = sum(value), .groups = "drop") %>%
     group_by(indicator) %>%
-    mutate(share_pct = 100 * value / sum(value)) %>%
-    slice_max(value, n = n, with_ties = FALSE) %>% ungroup() %>%
-    mutate(key = paste0(pair, "|||", as.integer(indicator))) %>%
+    mutate(share_pct = 100 * value / sum(value)) %>% ungroup()
+  keep <- full %>% group_by(indicator) %>%
+    slice_max(value, n = n, with_ties = FALSE) %>% ungroup()
+  # Pool the tail into one labelled bar, so the reader can see what the top n
+  # actually covers rather than having to assume it is most of the category.
+  rest <- full %>% anti_join(keep, by = c("indicator", "pair")) %>%
+    group_by(indicator) %>%
+    summarise(value = sum(value), share_pct = sum(share_pct),
+              pair = "All other pairs", .groups = "drop")
+  d <- bind_rows(keep, rest) %>%
+    mutate(is_rest = pair == "All other pairs",
+           key = paste0(pair, "|||", as.integer(indicator))) %>%
     order_key()
   ggplot(d, aes(share_pct, key)) +
-    geom_col(width = 0.72, colour = "white", linewidth = 0.15,
-             fill = unname(SCOPE_COLS[which_scope])) +
+    geom_col(aes(fill = is_rest), width = 0.72, colour = "white",
+             linewidth = 0.15) +
+    scale_fill_manual(values = setNames(c(unname(SCOPE_COLS[which_scope]),
+                                          "grey80"), c("FALSE", "TRUE")),
+                      labels = c(`FALSE` = which_scope,
+                                 `TRUE` = "All other pairs"), name = NULL) +
+    guides(fill = guide_legend(nrow = 1)) +
+    facet_ceiling(d %>% group_by(indicator, key) %>%
+                    summarise(value = sum(share_pct), .groups = "drop"),
+                  "indicator", "value", room = 1.02) +
     facet_wrap(~indicator, ncol = 3, scales = "free",
                labeller = ind_only_labeller) +
     scale_y_discrete(labels = strip_key) +
@@ -208,7 +241,7 @@ scope_source_plot <- function(which_scope, n = 12) {
                        guide = guide_axis(check.overlap = TRUE),
                        expand = expansion(mult = c(0, 0.07))) +
     labs(x = sprintf("Share of %s within the impact category (%%)",
-                     tolower(which_scope)), y = NULL) +
+                     which_scope), y = NULL) +
     theme_dkhc() +
     theme(panel.grid.major.y = element_blank(),
           axis.text.y = element_text(size = 12.5, family = "mono"),
@@ -228,9 +261,13 @@ d6 <- pairs_src %>%
 top6 <- d6 %>% group_by(indicator, pair) %>%
   summarise(v = sum(value), .groups = "drop") %>%
   group_by(indicator) %>% slice_max(v, n = 12, with_ties = FALSE) %>% ungroup()
-d6 <- d6 %>% semi_join(top6, by = c("indicator", "pair")) %>%
-  group_by(indicator) %>% mutate(share_pct = 100 * value / sum(value)) %>%
-  ungroup() %>%
+# Share must be computed against the WHOLE indicator, before the top-12 filter.
+# Computing it after made every bar a share of the top 12 while the axis claimed
+# a share of the category - DNK-HEAL climate was drawn at 14.3 % against a true
+# 3.5 %.
+d6 <- d6 %>% group_by(indicator) %>%
+  mutate(share_pct = 100 * value / sum(value)) %>% ungroup() %>%
+  semi_join(top6, by = c("indicator", "pair")) %>%
   mutate(scope = factor(scope, levels = SCOPE_ORDER),
          key = paste0(pair, "|||", as.integer(indicator))) %>%
   order_key()
@@ -238,6 +275,9 @@ d6 <- d6 %>% semi_join(top6, by = c("indicator", "pair")) %>%
 p6 <- ggplot(d6, aes(share_pct, key, fill = scope)) +
   geom_col(width = 0.72, colour = "white", linewidth = 0.15,
            position = position_stack(reverse = TRUE)) +
+  facet_ceiling(d6 %>% group_by(indicator, key) %>%
+                  summarise(value = sum(share_pct), .groups = "drop"),
+                "indicator", "value", room = 1.02) +
   facet_wrap(~indicator, ncol = 3, scales = "free",
              labeller = ind_only_labeller) +
   scale_y_discrete(labels = strip_key) +
@@ -262,7 +302,10 @@ dS <- gold("figure3_geographical_origin.csv") %>%
 
 pS <- ggplot(dS, aes(share_pct, key, fill = producing_world_region)) +
   geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
-  facet_wrap(~indicator, ncol = 3, scales = "free_y",
+  facet_ceiling(dS %>% group_by(indicator, key) %>%
+                  summarise(value = sum(share_pct), .groups = "drop"),
+                "indicator", "value", room = 1.02) +
+  facet_wrap(~indicator, ncol = 3, scales = "free",
              labeller = make_labeller(dS)) +
   scale_y_discrete(labels = strip_key) +
   scale_fill_manual(values = GROUP_COLS, guide = "none") +

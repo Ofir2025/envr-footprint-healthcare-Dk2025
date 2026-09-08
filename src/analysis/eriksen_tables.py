@@ -39,11 +39,11 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from analysis.constants import ANALYSIS_YEAR, MODEL_LABEL
+from analysis.constants import ANALYSIS_YEAR, MODEL_LABEL, eriksen_folder
 from analysis.detail_tables import domestic_import_split, node_labels
 from paths import OUTPUT_DIR
 
-FOLDER = "01_eriksen_replication"
+FOLDER = eriksen_folder()
 
 #: Legacy workbook column -> study schema column.
 #: Workbook column -> schema column, given the node-index prefix.

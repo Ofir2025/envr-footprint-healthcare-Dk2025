@@ -54,7 +54,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL, eriksen_folder
 from paths import BACKGROUND_DIR, OUTPUT_DIR
 
 #: Tolerance for values that should be identical up to floating point.
@@ -80,7 +80,7 @@ def _check(results: list[dict[str, Any]], name: str, passed: bool,
 def c1_headline(results: list[dict[str, Any]]) -> None:
     """Climate totals must agree across independently computing modules."""
     scopes = pd.read_csv(os.path.join(
-        str(OUTPUT_DIR), "01_eriksen_replication",
+        str(OUTPUT_DIR), *eriksen_folder().split("/"),
         "scopes_summary.csv")).set_index("Component")["kt_CO2eq"]
     grand = float(scopes["Grand Total"])
     detailed = pd.read_csv(os.path.join(
@@ -100,7 +100,7 @@ def c1_headline(results: list[dict[str, Any]]) -> None:
            f"= {total_row + loop:,.2f} vs grand total {grand:,.2f} kt")
 
     eriksen = pd.read_csv(os.path.join(
-        str(OUTPUT_DIR), "01_eriksen_replication",
+        str(OUTPUT_DIR), *eriksen_folder().split("/"),
         "hotspot_by_producing_node.csv"))
     hotspot = float(eriksen.loc[eriksen.indicator == "climate_change",
                                 "value"].sum())
@@ -244,7 +244,7 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
 #: computed from. ``doc`` is the markdown that must contain ``text`` verbatim.
 DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
     dict(text="4,713", doc="docs/revision/analysis_2022.md",
-         source=("01_eriksen_replication/hotspot_by_producing_node.csv",
+         source=(f"{eriksen_folder()}/hotspot_by_producing_node.csv",
                  "climate_change"),
          expect=4713.4, tol=1.0, what="health-care climate footprint, kt"),
     dict(text="3,943", doc="docs/revision/shipping_reallocation_method.md",
