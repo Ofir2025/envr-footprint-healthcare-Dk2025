@@ -2,9 +2,15 @@
 
 **Gold folder** `data/gold/results/02_scopes_wood_hertwich/`
 **Module** `analysis.scopes_detail`
-**Source** Wood, Neuhoff, Moran et al. (2018), *The structure, drivers and policy
-implications of the European carbon footprint*, Clim Policy 20:S39–S57, table 1 and
-eqs. 1–2; GHG Protocol Corporate Standard and Scope 3 Standard
+**Sources** Hertwich & Wood (2018), *The growing importance of scope 3 greenhouse gas
+emissions from industry*, Environ Res Lett 13:104013, table 1 and eqs. 1–3; GHG Protocol
+Corporate Standard and Scope 3 Standard; Doucet et al. / OECD (2025), *Measuring
+greenhouse gas emissions in the health sector*, §3.2
+
+> An earlier version of this document and of `scopes_detail.py` attributed the scope
+> partition to *Wood, Neuhoff, Moran et al., Clim Policy 20:S39–S57*. That is a real
+> paper but not the source of this method. The table and equation numbers the module
+> follows are Hertwich & Wood (2018) ERL, which is the paper held in the library.
 
 ## Question this layer answers
 
@@ -44,13 +50,33 @@ $$L_{EE} = (I_{EE} - A_{EE})^{-1}, \qquad S_2 = d_E \cdot L_{EE}\, y_E$$
 where $E$ indexes the electricity, steam and hot-water nodes in all 49 regions and
 $y_E$ is the providers' own first-tier energy purchases.
 
-Two variants are computed and reported as sensitivities, **not** added to the total:
+### Three published conventions, all computed
 
-| Variant | Value (kt) | What it does |
-|---|---|---|
-| first-tier only | 72.08 | stops at the retailer; misses generation behind the grid |
-| **energy-block inverse** | **73.34** | protocol-conforming: reaches generation, stops there |
-| full $L$ | 74.98 | also captures energy used deeper in the chain, which GHG-P assigns to Scope 3 |
+Scope 2 is not one number in the EE-MRIO literature. Three conventions differ by how much
+of the purchased-energy chain they count, and the study computes all three:
+
+| Convention | Formula | Value (kt) | What it counts |
+|---|---|---|---|
+| OECD (Doucet et al. 2025 §3.2) | $F A Y$, energy sectors | 72.08 | direct emissions of the *first-tier* energy supplier only |
+| GHG Protocol strict | $d_E L_{EE} y_E$ | **73.34** | traces through T&D to **generation**, stops inside the energy block |
+| **Hertwich & Wood (2018)** | $E_Z = \hat{m}Z$, $m = s(I-A)^{-1}$, energy rows | **74.98** | cradle-to-gate: generation **plus** the upstream fuel supply behind it |
+
+**The manuscript reports 74.98**, the Hertwich & Wood convention, because that is the
+method this pipeline inherits and the paper it follows. It is broader than the corporate
+standard, which assigns upstream fuel supply to Scope 3 category 3.
+
+**This folder's own partition uses 73.34**, the strict-protocol figure, so that its
+Scope 1 + 2 + 3 decomposition is internally protocol-conforming.
+
+The OECD form **under-counts on EXIOBASE `ixi`**: electricity reaches the buyer through
+*Transmission* and *Distribution and trade of electricity*, whose own combustion intensity
+is near zero, so generation sits one tier further back than $F A Y$ reaches. This is a
+model-layout artefact, not a flaw in their method — their ICIO tables have a single
+sector D.
+
+The spread is 72.1–75.0 kt: 3.9 % of Scope 2 and **0.06 % of the total footprint**. The
+choice changes no conclusion. It is reported because the manuscript claims GHG-Protocol
+scopes, and a reader is entitled to know which operationalisation produced the number.
 
 ### Scope 3 — everything else
 
@@ -78,13 +104,13 @@ control nor purchase it. It is reported separately rather than folded into Scope
 
 ## Deviations from the source, stated
 
-- Wood et al. define the scopes for a national footprint; the application to a sector's
-  final demand is ours, and the self-supply subtraction is a consequence of that
-  application which their paper does not need.
-- The manuscript layer ([01](01_eriksen_replication.md)) reports the **full-$L$**
-  Scope 2 (74.98) rather than the protocol-conforming energy-block figure (73.34). The
-  difference is 1.6 kt and does not change the total, but it does mean the reported
-  Scope 2 slightly exceeds what the GHG Protocol would assign. Both are in the output.
+- Hertwich & Wood define the scopes for *gross production* of whole sectors; the
+  application to one sector's **final demand** is ours, and the self-supply subtraction is
+  a consequence of that application which their paper does not need.
+- The manuscript layer ([01](01_eriksen_replication.md)) totals 4 713.37 kt using the
+  Hertwich & Wood Scope 2; this folder totals 4 711.53 kt using the strict-protocol
+  Scope 2 and removing the self-supply loop. Both are correct on their stated basis, and
+  audit check C1 reconciles them: 4 711.53 + 1.83 = 4 713.37.
 
 ## Outputs
 
