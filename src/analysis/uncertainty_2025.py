@@ -43,6 +43,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import truncnorm
 
+from analysis.constants import eriksen_folder
 from paths import OUTPUT_DIR, SILVER_INPUT_DIR
 
 N_DRAWS = int(os.environ.get("HC_MC_DRAWS", 100_000))
@@ -122,9 +123,9 @@ def _ln_cv(rng, cv, n):
 
 def load_groups():
     """Group x component decomposition, from the model's own outputs."""
-    fig1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "full_results_tables.xlsx"),
+    fig1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"), "full_results_tables.xlsx"),
                          sheet_name="Fig1_absolute", index_col=0)[INDICATORS].astype(float)
-    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), "01_eriksen_replication", "contribution_analysis.xlsx"),
+    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"), "contribution_analysis.xlsx"),
                             sheet_name="full")
     bu = {code: contrib[contrib["SecTxtCode"] == code][INDICATORS].astype(float).sum()
           for code in BU_TO_GROUP}

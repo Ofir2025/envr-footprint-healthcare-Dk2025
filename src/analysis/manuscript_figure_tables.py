@@ -38,9 +38,10 @@ import os
 import numpy as np
 import pandas as pd
 
+from analysis.constants import eriksen_folder
 from paths import BRONZE_DIR, OUTPUT_DIR
 
-FOLDER = "01_eriksen_replication"
+FOLDER = eriksen_folder()
 OUT = os.path.join(str(OUTPUT_DIR), FOLDER)
 
 #: Impact categories, in the manuscript's order, with display units.
