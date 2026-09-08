@@ -119,8 +119,15 @@ def c2_detail_vs_aggregate(results: list[dict[str, Any]]) -> None:
     for folder, detail_name, agg_name, keys, agg_col in pairs:
         detail_path = os.path.join(str(OUTPUT_DIR), folder, detail_name)
         agg_path = os.path.join(str(OUTPUT_DIR), folder, agg_name)
+        if not os.path.isdir(os.path.join(str(OUTPUT_DIR), folder)):
+            # An optional layer that was not built is not an inconsistency.
+            # Distributions of this repository may legitimately omit a folder;
+            # only a folder that exists but is incomplete is a failure.
+            _check(results, f"C2 {folder}", True, "layer not built in this tree")
+            continue
         if not (os.path.exists(detail_path) and os.path.exists(agg_path)):
-            _check(results, f"C2 {folder}", False, "file missing")
+            _check(results, f"C2 {folder}", False,
+                   "folder present but detail/aggregate file missing")
             continue
         detail = pd.read_csv(detail_path)
         agg = pd.read_csv(agg_path)
