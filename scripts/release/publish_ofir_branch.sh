@@ -26,33 +26,29 @@ DRY_RUN="${1:-}"
 
 # Which gold layers ship.
 #
-# Only 16 and 17 are withheld: IMPACT World+ and the health sub-sector
-# decomposition are follow-on work for the next paper, and neither is cited by
-# anything in the revision.
+# NOT decided here. `analysis.gold_scope` classifies every gold folder as a
+# paper deliverable or a private extension, with a reason per folder, and this
+# script asks it. A hand-maintained array in a shell script is exactly the list
+# that drifts from what anyone believes it contains; the audit fails if a folder
+# exists without a classification, so the two cannot diverge.
 #
 # Layers 07, 08, 09, 14 and 15 were considered for exclusion and are KEPT,
-# because the reviewer response asserts things that only they evidence. Ship the
-# response without them and a co-author is left defending claims with no table
-# behind them on the branch he has:
-#
-#   07 malik      capital treatment: Malik et al. include capital where the
-#                 other comparators exclude it (R2-3 boundary discussion)
-#   08 lenzen     the comparator behind the uncertainty calibration and the
-#                 national-total family comparison
-#   09 vintage    the ONLY evidence for rejecting EXIOBASE v3.10.2, which the
-#                 response states as fact
-#   14 eckelman   comparator in the same boundary table as 07 and 08
-#   15 gwp        the AR6-versus-AR4 restatement the response leads on
-#
-# Each is also referenced by 6-12 files in docs/ and src/, so removing them
-# would leave dangling paths throughout the shipped documentation.
+# because the response asserts things only they evidence - 09 is the sole basis
+# for rejecting EXIOBASE v3.10.2, 15 is the AR6 restatement the response leads
+# on, and 07/08/14 are the comparators in the capital-boundary table. Shipping
+# the response without them leaves a co-author defending claims with no table
+# behind them. The reasons live in gold_scope.SCOPE, not in this comment.
+GOLD_EXCLUDE=$(PYTHONPATH=src python3 -m analysis.gold_scope --exclude) || {
+  echo "==> refusing to publish: could not read the gold scope" >&2; exit 1; }
+if [ -z "$GOLD_EXCLUDE" ]; then
+  echo "==> refusing to publish: the gold scope returned nothing" >&2; exit 1
+fi
+echo "==> withholding $(echo "$GOLD_EXCLUDE" | wc -l | tr -d ' ') paths declared private"
+
 EXCLUDE=(
   data/bronze/exiobase_v3_7 data/bronze/medstat data/bronze/capital data/bronze/figaro
   docs/references reports/source docs/presentation docs/feedback
-  data/gold/results/16_impact_world_plus data/gold/results/17_health_subsectors
-  docs/methods/replications/16_impact_world_plus.md
-  docs/methods/replications/17_health_subsectors.md
-  src/analysis/impact_world_plus.py src/analysis/health_subsector_footprints.py
+  $GOLD_EXCLUDE
 )
 
 if [ -n "$(git status --porcelain)" ]; then
