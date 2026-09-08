@@ -88,7 +88,7 @@ These deviations are the ones a reviewer will need to see declared.
 | 2019 expenditure on the 2016 model | 2022 on 2022 | reviewer R2-4; removes the deflation question entirely |
 | EXIOBASE v3.7 | v3.8.2 | v3.10.2 tested and rejected, see [09](09_vintage_diagnostics.md) |
 | AR4 climate factors (implicit in the DESIRE sheet) | IPCC AR6 | [15](15_gwp_vintage.md) |
-| transport 37.5 % of the supply-chain footprint | 18.5 %, or 15.5 % of the total | EXIOBASE artefact, see [10](10_snac_shipping_correction.md) |
+| transport 37.5 % of the supply-chain footprint | 18.5 %, or 15.5 % of the total | EXIOBASE artefact, see [10](10_sea_transport_reallocation.md) |
 | aggregate results only | aggregate **and** full node detail | reviewer R1-11 |
 | no uncertainty | Monte Carlo, 10⁵ draws | reviewer R1-1, see [04](04_uncertainty_lenzen_ieooc.md) |
 

@@ -20,7 +20,7 @@ Everything needed to answer both reviewers. Start with
    own hybrid build gives 7.8 % natively, so the correction reconstructs an allocation
    official Danish practice already applies rather than proposing a new method.
    Transport falls from 37.5 % to **18.5 %** of the supply-chain footprint.
-   See `docs/methods/replications/10_snac_shipping_correction.md`.
+   See `docs/methods/replications/10_sea_transport_reallocation.md`.
 
 2. **The background model changed, and the v3.10.2 defects are datable.** Every vintage on
    disk was tested against Statistics Denmark's own table, year by year. Two distinct

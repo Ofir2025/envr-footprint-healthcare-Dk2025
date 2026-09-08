@@ -22,7 +22,7 @@ the *Deviations* section rather than left for the reader to discover.
 | [07](07_malik_replication.md) | Malik replication | Malik et al. (2018, 2021) | `malik_replication`, `production_layers` |
 | [08](08_lenzen_replication.md) | Lenzen KPI set | Lenzen et al. (2020) | `lenzen_replication` |
 | [09](09_vintage_diagnostics.md) | EXIOBASE vintage defects | Rørmose Jensen & Iliev (2022) | `vintage_defect_audit` |
-| [10](10_snac_shipping_correction.md) | Shipping reallocation | Rørmose Jensen & Iliev (2022) | `dk_shipping_correction` |
+| [10](10_sea_transport_reallocation.md) | Shipping reallocation | Rørmose Jensen & Iliev (2022) | `dk_shipping_correction` |
 | [11](11_capital_gfcf.md) | Capital endogenisation | Södersten et al. (2018) | `capital_endogenised_sodersten`, `capital_gfcf` |
 | [12](12_impact_categories_full.md) | Full impact-category profile | DESIRE FP7 characterisation | `impact_categories_full` |
 | [13](13_steenmeijer_replication.md) | Steenmeijer replication | Steenmeijer et al. (2022) | `steenmeijer_replication` |
