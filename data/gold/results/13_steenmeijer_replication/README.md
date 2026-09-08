@@ -1,8 +1,8 @@
 # 13_steenmeijer_replication
 
-**13 — Steenmeijer replication**
+**13 - Steenmeijer replication**
 
-Denmark placed beside every number the Dutch study published, in their own table structure, for every impact category — not only climate. That is what FAIR replication means here.
+Denmark placed beside every number the Dutch study published, in their own table structure, for every impact category - not only climate. That is what FAIR replication means here.
 
 Method, equations and verification: [`docs/methods/replications/13_steenmeijer_replication.md`](../../../docs/methods/replications/13_steenmeijer_replication.md).
 

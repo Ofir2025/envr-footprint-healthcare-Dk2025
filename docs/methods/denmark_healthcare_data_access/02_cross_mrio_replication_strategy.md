@@ -88,8 +88,8 @@ Do **not** substitute their native health-sector final demand directly and then 
 | EXIOBASE 3.10.2 | 49 regions, 163 industries, 200 products; core economic update through 2022 | broad health/social-work service plus separate goods sectors | very strong GHG, energy, water, land, materials | academic/non-commercial release on Zenodo | preferred environmental MRIO sensitivity |
 | GLORIA | release-dependent; current UNEP interface describes 164 regions and 97 industry/commodity sectors; widely used v59 has 120 sectors | broad human health/social work; separate pharmaceutical manufacturing in the 97-sector technical classification | especially strong materials/resources, plus emissions, water, land and social indicators | IELab registration/download; commercial licensing separately | high-country-resolution resource/material sensitivity |
 | Eora | full Eora has country-specific sector detail; Eora26 is harmonised 26-sector model | Denmark in Lenzen-era Eora had pharmaceuticals, hospital activities, medical/dental/veterinary activities; detail varies by country | broad global satellite accounts | academic registration/licensing | methodological replication of Lenzen et al. |
-| OECD ICIO 2025 | 80 economies + RoW; 50 unique industries; 1995–2022 | one `Q Human health and social work activities` industry | primarily economic/value-chain framework; environmental extensions need external pairing | open downloadable CSV | trade/economic structural sensitivity |
-| FIGARO 2026 | 64 industries × 64 products; 2010–2024 | broad NACE/CPA health categories | strong official EU economic/trade consistency; environmental footprint products available separately | open Eurostat CSV/Excel | official EU sensitivity and bridge |
+| OECD ICIO 2025 | 80 economies + RoW; 50 unique industries; 1995-2022 | one `Q Human health and social work activities` industry | primarily economic/value-chain framework; environmental extensions need external pairing | open downloadable CSV | trade/economic structural sensitivity |
+| FIGARO 2026 | 64 industries × 64 products; 2010-2024 | broad NACE/CPA health categories | strong official EU economic/trade consistency; environmental footprint products available separately | open Eurostat CSV/Excel | official EU sensitivity and bridge |
 
 ---
 
@@ -106,7 +106,7 @@ The current UNEP GLORIA interface describes:
 - 97 commodities;
 - six final-demand agents;
 - five valuation layers;
-- 1990–2024 time coverage.
+- 1990-2024 time coverage.
 
 The older/widely used GLORIA v59 family used in many academic workflows has a 120-sector classification. Because the sector count is **release-dependent**, never store "GLORIA" as though it were one immutable database.
 
@@ -215,11 +215,11 @@ The current regular 2025 ICIO edition contains:
 
 - 80 economies plus a rest-of-world aggregate;
 - 50 unique industries;
-- 1995–2022.
+- 1995-2022.
 
 Healthcare is represented as:
 
-`Q Human health and social work activities (ISIC 86–88)`.
+`Q Human health and social work activities (ISIC 86-88)`.
 
 ## Use
 
@@ -240,7 +240,7 @@ FIGARO provides an official EU inter-country SUT/IOT framework:
 
 - 64 industries;
 - 64 products;
-- 2010–2024;
+- 2010-2024;
 - supply, use, product-by-product and industry-by-industry tables.
 
 ## Use

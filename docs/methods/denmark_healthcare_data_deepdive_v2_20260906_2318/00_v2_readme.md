@@ -68,14 +68,14 @@ The EPA, Statistics Denmark and Eurostat layers share underlying reporting chain
 FIGARO 2026 provides:
 
 - 64 industries × 64 products;
-- 2010–2024;
+- 2010-2024;
 - supply tables;
 - use tables;
 - industry-by-industry IOTs;
 - product-by-product IOTs;
 - direct purchases abroad.
 
-At A64, **human health activities (Q86) are separate from residential/social work (Q87–Q88)**, and pharmaceutical manufacturing (C21) is separately identifiable. This makes FIGARO more useful for healthcare than a generic “health and social work” description suggests.
+At A64, **human health activities (Q86) are separate from residential/social work (Q87-Q88)**, and pharmaceutical manufacturing (C21) is separately identifiable. This makes FIGARO more useful for healthcare than a generic “health and social work” description suggests.
 
 Its limitation is still material: medical-device and clinical-supply detail is coarse.
 

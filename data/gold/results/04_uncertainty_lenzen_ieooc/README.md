@@ -1,6 +1,6 @@
 # 04_uncertainty_lenzen_ieooc
 
-**04 — Monte Carlo parameter uncertainty**
+**04 - Monte Carlo parameter uncertainty**
 
 Reviewer 1's central request: how precise is the estimate, what drives its imprecision, and are the reported rankings robust?
 

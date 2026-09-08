@@ -52,7 +52,7 @@ The MRIO systems then serve different sensitivity functions.
 
 The current UNEP GLORIA interface describes a homogeneous MR-SUT with:
 
-- **1990–2024**;
+- **1990-2024**;
 - **164 regions**;
 - **97 industries**;
 - **97 commodities**;
@@ -138,7 +138,7 @@ Strengths:
 
 - Eurostat national-account foundations;
 - trade balancing;
-- Q86 human health separated from Q87–Q88;
+- Q86 human health separated from Q87-Q88;
 - C21 pharmaceuticals separate;
 - official Eurostat FIGARO GHG footprint datasets.
 
@@ -208,7 +208,7 @@ Reasons:
 - healthcare/medicines data available;
 - EXIOBASE/OECD data coverage can be aligned.
 
-Statistics Denmark states that SUTs from 2014 onward are consistent with the latest 2022 table under the current revision, with previous-year-price consistency from 2015–2022.
+Statistics Denmark states that SUTs from 2014 onward are consistent with the latest 2022 table under the current revision, with previous-year-price consistency from 2015-2022.
 
 ## Common MRIO benchmark
 

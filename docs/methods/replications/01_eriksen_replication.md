@@ -1,9 +1,9 @@
-# 01 — Eriksen replication (the manuscript layer)
+# 01 - Eriksen replication (the manuscript layer)
 
 **Gold folder** `data/gold/results/01_eriksen_replication/`
 **Modules** `analysis.main_2025`, `analysis.eriksen_tables`
 **Source** Eriksen et al., *The environmental impacts of the Danish health care system:
-supply-chain origins and geographical displacement of impacts*, NXSUST-D-26-01589 —
+supply-chain origins and geographical displacement of impacts*, NXSUST-D-26-01589 -
 itself following Steenmeijer et al. (2022)
 
 ## Question this layer answers
@@ -12,7 +12,7 @@ Everything the manuscript reports, in the manuscript's own table and figure stru
 for reference year 2022 on a 2022 background model.
 
 This folder is the deliverable for the resubmission. It is deliberately kept in the
-submitted paper's shape — the same tables, the same figure numbering — so that the
+submitted paper's shape - the same tables, the same figure numbering - so that the
 revision can be described as a change of inputs and corrections, not a change of study.
 
 ## Method
@@ -24,9 +24,9 @@ manuscript did not fully separate.
 > the opposite way round from how most readers will guess, and the names cannot be
 > changed without breaking continuity with the submitted manuscript. In this study:
 >
-> * `hotspot` $= B\,\mathrm{diag}(L y)$ — indexed by the **producing node**, i.e.
+> * `hotspot` $= B\,\mathrm{diag}(L y)$ - indexed by the **producing node**, i.e.
 >   *where the pressure physically occurs*.
-> * `contribution` $= B\,L\,\mathrm{diag}(y)$ — indexed by the **purchased
+> * `contribution` $= B\,L\,\mathrm{diag}(y)$ - indexed by the **purchased
 >   product**, i.e. *which purchase drives it*.
 >
 > Reading them the intuitive way inverts the domestic/imported split: 26.3 % of the
@@ -51,7 +51,7 @@ $E$ from [00](00_core_footprint.md):
 $$h_j = y_{H,j}\,[s\,L]_j$$
 
 This is what "which purchase drives it" means. It also sums to $f$. Contribution and
-hotspot are marginals of the same table and must not be added together — doing so
+hotspot are marginals of the same table and must not be added together - doing so
 double counts the whole footprint. The tables are written separately for exactly this
 reason.
 

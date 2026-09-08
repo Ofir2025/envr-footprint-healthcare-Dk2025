@@ -1,6 +1,6 @@
 # 08_lenzen_replication
 
-**08 — Lenzen KPI set**
+**08 - Lenzen KPI set**
 
 Every indicator Lenzen et al. publish per country, reproduced for Denmark so our result can be placed directly beside their published Danish row.
 

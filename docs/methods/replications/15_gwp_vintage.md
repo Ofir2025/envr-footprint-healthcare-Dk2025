@@ -1,4 +1,4 @@
-# 15 — Climate characterisation vintage
+# 15 - Climate characterisation vintage
 
 **Gold folder** `data/gold/results/15_gwp_vintage/`
 **Module** `analysis.gwp_vintage`
@@ -42,7 +42,7 @@ cannot be recovered from the satellite account. Those two stressors are therefor
 from the restatement, and the share of the footprint that **cannot** be restated is
 reported (`not_restatable` column).
 
-Everything else — CO₂, CH₄, N₂O, SF₆ — is an individual gas in kg and is fully restatable.
+Everything else - CO₂, CH₄, N₂O, SF₆ - is an individual gas in kg and is fully restatable.
 
 ## Data requirements
 

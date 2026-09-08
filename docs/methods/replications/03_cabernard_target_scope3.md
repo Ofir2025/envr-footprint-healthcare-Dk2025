@@ -1,21 +1,21 @@
-# 03 — Target-sector scope 3 without double counting
+# 03 - Target-sector scope 3 without double counting
 
 **Gold folder** `data/gold/results/03_cabernard_target_scope3/`
 **Module** `analysis.cabernard_target_scope3`
 **Source** Cabernard, Pfister & Hellweg (2019), *A new method for analyzing
-sustainability performance of global supply chains*, Sci Total Environ 684:164–177,
+sustainability performance of global supply chains*, Sci Total Environ 684:164-177,
 eqs. 8, 9, 12; extended in Cabernard & Pfister (2022)
 
 ## Question this layer answers
 
 A different question from the headline, and the distinction is the point of the folder.
 
-**(a) Final-demand footprint** — what the headline answers:
+**(a) Final-demand footprint** - what the headline answers:
 $$f = s\,L\,y_H$$
 Each emission is allocated once, to Danish health-care final demand. This is additive
 over any number of target nodes and does not double count (Wood & Hertwich 2018 p. 5).
 
-**(b) Target-sector scope 3** — what Cabernard et al. answer: *what is the scope 3 of
+**(b) Target-sector scope 3** - what Cabernard et al. answer: *what is the scope 3 of
 the health sector-regions themselves?* Here the naive form does double count.
 
 ## Method
@@ -32,15 +32,15 @@ $$L'_{O-O} = (I_{O-O} - A_{O-O})^{-1} \quad (7)$$
 
 $d_{\text{all},i}$ is the 1 × 7 987 row vector of direct impact per unit output.
 
-### Eq. (8) — target scope 3 **with** double counting
+### Eq. (8) - target scope 3 **with** double counting
 
 $$e_{T,i} = d_{\text{all},i} \; L_{\text{all}-T} \; \mathrm{diag}(x^T) \qquad (8)$$
 
 This is the form Cabernard attributes to previous studies, including Hertwich & Wood
-(2018). Every delivery from one target node to another is counted twice — once as the
+(2018). Every delivery from one target node to another is counted twice - once as the
 supplying target's own output, and again inside the receiving target's upstream chain.
 
-### Eq. (9) — target scope 3 **without** double counting
+### Eq. (9) - target scope 3 **without** double counting
 
 The correction **replaces the gross output vector**; it does not subtract impacts. The
 overbar is a row sum across final-demand columns:
@@ -49,7 +49,7 @@ $$e^{\text{wdc}}_{T,i} = d_{\text{all},i} \; L_{\text{all}-T} \;
 \mathrm{diag}\!\left( \overline{Y_{T-\text{all}} + A_{T-O} \, L'_{O-O} \, Y_{O-\text{all}}} \right) \qquad (9)$$
 
 Gross output $x^T$ is replaced by (i) final demand met directly by target outputs, plus
-(ii) final demand for target products embodied in **non-target** outputs — deliberately
+(ii) final demand for target products embodied in **non-target** outputs - deliberately
 omitting target-into-target inputs. Because $A_{T-O}$ selects only the $T \to O$ block and
 $L'_{O-O}$ propagates through non-target sectors only, this removes **both** direct
 $T \to T$ deliveries **and** indirect $T \to \dots \to T$ loops.
@@ -58,7 +58,7 @@ $L_{\text{all}-T}$ is untouched: the complete upstream chain, including inputs f
 target sectors, is still fully counted for whichever target's corrected output it attaches
 to.
 
-### Eq. (12) — the overestimation factor
+### Eq. (12) - the overestimation factor
 
 $$f_{T,i} = \frac{e_{T,i} - e^{\text{wdc}}_{T,i}}{e_{T,i}} \qquad (12)$$
 
@@ -103,10 +103,10 @@ chains. Three of our numbers could in principle be exposed to it; each is checke
 
 | Our quantity | Form | Exposed? |
 |---|---|---|
-| Headline footprint | $f = s L y_H$ — a **final-demand** footprint | **No.** Hertwich & Wood state it themselves: $E_y$ sums to the total while $E_Z$ does not. Each emission is allocated once, to Danish health final demand. |
+| Headline footprint | $f = s L y_H$ - a **final-demand** footprint | **No.** Hertwich & Wood state it themselves: $E_y$ sums to the total while $E_Z$ does not. Each emission is allocated once, to Danish health final demand. |
 | Scope 2 ([02](02_scopes_wood_hertwich.md)) | energy **rows** of $E_Z$ for the single health **column** | **No.** One row-slice of one purchasing column is not a sum over overlapping targets. There is no second target to double count against. |
 | Scope 1 + 2 + 3 | $S_3$ is the footprint **residual** after $S_1$ and $S_2$ | **No.** The partition is constructed to sum to $f$ exactly, so it cannot exceed it. Audit check C1 asserts this. |
-| Target-sector scope 3 (this folder) | Eq. (8) | **Yes** — which is precisely why Eq. (9) is implemented here. |
+| Target-sector scope 3 (this folder) | Eq. (8) | **Yes** - which is precisely why Eq. (9) is implemented here. |
 
 So the exposure is confined to the one quantity this folder exists to compute, and there it
 is corrected with Cabernard's own equation rather than an approximation of it. The

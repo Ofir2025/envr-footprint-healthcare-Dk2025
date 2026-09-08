@@ -11,7 +11,7 @@ Reproduce with `PYTHONPATH=src .venv/bin/python -m analysis.capital_gfcf`
 An input-output model's intermediate matrix `Z` records **current** inputs only.
 Gross fixed capital formation sits in final demand, so in the standard Leontief
 construction `f = C S L y` a hospital's building, its MRI scanner and its
-patient-record system are never in the health sector's supply chain — they are
+patient-record system are never in the health sector's supply chain - they are
 somebody else's final demand. For manufacturing this matters little; for
 services, whose capital stock is large relative to annual purchases, it is the
 single largest boundary omission (Wood & Hertwich 2018; Södersten et al. 2018).
@@ -23,14 +23,14 @@ single largest boundary omission (Wood & Hertwich 2018; Södersten et al. 2018).
 | **Steenmeijer et al. 2022** (NL, the template) | **Excluded** | not quantified |
 | **Eckelman & Sherman 2016; Eckelman et al. 2020** (US) | **Excluded** (US EEIO, no capital closure) | not quantified |
 | **Tennison et al. 2021 / NHS England** | **Included** for the built estate via a separate capital-spend line, outside the EEIO | capital ≈ 4 % of the NHS footprint |
-| **Malik et al. 2018** (Australia) | **Included** — the Australian IELab table is capital-endogenised | one reason their 7.2 % national share exceeds most others |
+| **Malik et al. 2018** (Australia) | **Included** - the Australian IELab table is capital-endogenised | one reason their 7.2 % national share exceeds most others |
 | **Malik et al. 2021** (NSW) | **Excluded** | stated as a limitation |
 | **Lenzen et al. 2020** (global, 189 countries) | **Excluded** | stated as a limitation |
-| **Pichler et al. 2019; Weisz et al. 2020** (AT, EU) | **Excluded** | — |
-| **Arup/HCWH 2019** | **Excluded** | — |
-| **Södersten et al. 2018** (method paper, EXIOBASE) | **Endogenised** | raises global consumption footprints ~10–15 %, and more for services |
+| **Pichler et al. 2019; Weisz et al. 2020** (AT, EU) | **Excluded** | - |
+| **Arup/HCWH 2019** | **Excluded** | - |
+| **Södersten et al. 2018** (method paper, EXIOBASE) | **Endogenised** | raises global consumption footprints ~10-15 %, and more for services |
 
-So the field is split, and — importantly for comparability — **the studies this
+So the field is split, and - importantly for comparability - **the studies this
 one is benchmarked against mostly exclude capital**. Any headline that included
 capital would not be comparable to Steenmeijer, Eckelman, Lenzen or Pichler.
 
@@ -39,14 +39,14 @@ capital would not be comparable to Steenmeijer, Eckelman, Lenzen or Pichler.
 **(a) EXIOBASE understates Danish health capital.** Its consumption of fixed
 capital for the Danish health-and-social-work industry is **1,269 M€**, against
 **2,274 M€** in Statistics Denmark's own capital accounts (NABK69, P.51c,
-V86000 + V87880, 2022) — understated **1.79×**. Any capital scenario built on
+V86000 + V87880, 2022) - understated **1.79×**. Any capital scenario built on
 EXIOBASE's own CFC row would therefore understate the effect by nearly half.
 Scenario A below is grounded in the national accounts instead.
 
 **(b) An earlier claim in this repository was wrong and is withdrawn.** A note in
 `double_counting_audit.py` and in the response letter attributed the *zero*
 intermediate purchases of medical instruments by Danish providers to the capital
-boundary — equipment sitting in GFCF rather than in `Z`. That was incorrect. The
+boundary - equipment sitting in GFCF rather than in `Z`. That was incorrect. The
 zero is a data defect: EXIOBASE v3.10.2 carries ~zero output for industry 33 in
 every European region in every year tested. See
 [`exiobase_vintage_defects.md`](exiobase_vintage_defects.md). Both places are
@@ -59,10 +59,10 @@ comparable. Danish health capital is 36.6 % buildings, 44.7 % ICT/machinery/
 equipment, 16.4 % intellectual property products, 1.7 % transport equipment
 (NABK69 by asset; `capital_asset_mix.csv`).
 
-**Baseline — capital excluded.** `f = C S L y_H`. The Steenmeijer-comparable
+**Baseline - capital excluded.** `f = C S L y_H`. The Steenmeijer-comparable
 number, and the study's headline.
 
-**Scenario A — exogenous capital service flow.**
+**Scenario A - exogenous capital service flow.**
 
 ```
 f_A = f + C S L y_cap ,   sum(y_cap) = CFC_health = 2,274 M€
@@ -75,8 +75,8 @@ above-trend hospital investment. `y_cap` is spread over EXIOBASE products by the
 Danish asset mix, and within each asset class by Denmark's own GFCF column, so
 the import geography comes from the model rather than from an assumption.
 
-**Scenario D — full endogenisation** (Södersten, Wood & Hertwich 2018;
-Lenzen–Treloar augmentation):
+**Scenario D - full endogenisation** (Södersten, Wood & Hertwich 2018;
+Lenzen-Treloar augmentation):
 
 ```
 K[:, j] = g_r(j) · cfc_j / x_j ,   A' = A + K ,   L' = (I − A')⁻¹
@@ -88,7 +88,7 @@ not just the first, and is an upper bound.
 
 ## 5. Results (Denmark 2022, shipping-corrected model)
 
-| Indicator | Baseline (excluded) | A — exogenous CFC | D — endogenised |
+| Indicator | Baseline (excluded) | A - exogenous CFC | D - endogenised |
 |---|---|---|---|
 | Climate change (kt CO₂e) | **4,062** | 4,598 (**+13.2 %**) | 4,914 (**+21.0 %**) |
 | Material extraction (kt) | **4,234** | 5,028 (**+18.8 %**) | 5,547 (**+31.0 %**) |
@@ -98,7 +98,7 @@ not just the first, and is an upper bound.
 
 *MRIO components; the bottom-up items are unaffected by the capital boundary.*
 
-Capital adds **13–21 %** to the climate footprint and more to materials, which
+Capital adds **13-21 %** to the climate footprint and more to materials, which
 is what one expects: buildings and equipment are material-intensive. The spread
 between A and D is the honest measure of how much the answer depends on the
 method rather than on the data.
@@ -119,7 +119,7 @@ splits the national consumption-based total by final-demand category:
 | **Total** | **57,402** | 100 % |
 
 Capital formation carries **31 % of Denmark's entire consumption-based
-footprint** — three times the whole of general-government consumption. A
+footprint** - three times the whole of general-government consumption. A
 health-sector study that excludes capital is therefore excluding a category that
 is large in the national accounts, not a rounding term. This is an argument for
 reporting the capital sensitivity prominently, not for changing the headline:
@@ -128,11 +128,11 @@ decision with a quantified consequence rather than as a technical detail.
 
 ## 5c. The published framing of the choice
 
-Hertwich (2011, *Economic Systems Research* 23(1):27–47, §3.4) treats
+Hertwich (2011, *Economic Systems Research* 23(1):27-47, §3.4) treats
 endogenisation explicitly as a modelling **choice** rather than a correctness
 question, and sizes what is at stake:
 
-> *"Some input–output studies endogenize gross fixed capital expenditure: they
+> *"Some input-output studies endogenize gross fixed capital expenditure: they
 > treat investment as a prerequisite for production and hence assign the
 > emissions connected to the building of factories and machines to the products
 > that are produced in these factories and machines… **When investments are kept
@@ -152,8 +152,8 @@ Composition: construction about 10 %, with most of the remainder machinery, and
 transport also material.
 
 **Why this matters here specifically.** Hospital estate, imaging equipment and
-vehicle fleets sit in gross fixed capital formation. With capital exogenous —
-which is what both Rørmose Jensen & Iliev and Palm et al. do — a health-care
+vehicle fleets sit in gross fixed capital formation. With capital exogenous -
+which is what both Rørmose Jensen & Iliev and Palm et al. do - a health-care
 footprint defined over government and household health consumption **excludes
 them**, and the excluded pool is globally about 18 % of greenhouse-gas
 emissions, larger than all government consumption at about 10 %. That is the
@@ -161,11 +161,11 @@ strongest available argument for reporting the capital sensitivity prominently
 rather than as a footnote.
 
 The canonical method reference Hertwich points to, Lenzen & Treloar (2004)
-*Journal of Applied Input–Output Analysis* 10:1–11, is not held locally and
+*Journal of Applied Input-Output Analysis* 10:1-11, is not held locally and
 would need fetching if the endogenisation algebra is to be cited at source
 rather than through Södersten et al. (2018).
 
-## 5d. Södersten et al. (2018) — the method, and how ours differs
+## 5d. Södersten et al. (2018) - the method, and how ours differs
 
 The paper is now held locally (`docs/references/sodersten_et_al_2018_endogenizing_capital_mrio.pdf`
 and its SI), obtained from the author's NTNU doctoral thesis, which reprints it
@@ -181,7 +181,7 @@ L^K = (I − (A + K))⁻¹
 The double-counting fix is that **gross fixed capital formation is removed from
 final demand**. A residual `y_r^K = GFCF − CFC` is added back only to keep
 same-year global totals comparable, and they describe it themselves as *"only a
-workaround"* — it can go negative.
+workaround"* - it can go negative.
 
 **They endogenise consumption of fixed capital, not gross formation**, breaking
 with Lenzen & Treloar. Their reasons: GFCF charges this year's investment to
@@ -193,8 +193,8 @@ both flows so the choice is ours to make rather than imposed by data.
 **Their effect sizes.** Final-consumption footprints rise **7 % (Poland) to 48 %
 (Brazil)**, up to 57 %; global traded emissions rise 11 %; 45 of 49 regions
 widen their consumption-minus-production gap. The result that matters here:
-**service multipliers rise most in relative terms** — post and telecommunications
-by more than 200 %, real estate by about 200 %, other services 23–110 %. Health
+**service multipliers rise most in relative terms** - post and telecommunications
+by more than 200 %, real estate by about 200 %, other services 23-110 %. Health
 care is a service sector, which is why our +21 % endogenised figure is at the
 lower end rather than an outlier. The paper reports no Danish or Nordic values
 and does not mention health care.
@@ -230,7 +230,7 @@ L^K     = (I − (A + K))⁻¹        their eq. 13
 ```
 
 `D` is block diagonal by region by construction, and each of its columns sums to
-one, so total capital use by industry is conserved by the mapping — asserted in
+one, so total capital use by industry is conserved by the mapping - asserted in
 code at 1.2×10⁻¹⁴. The augmented inverse verifies at 1.6×10⁻¹⁴.
 
 **Result on the published matrices** (`analysis.capital_endogenised_sodersten`):
@@ -253,7 +253,7 @@ One vintage assumption is recorded in the output: the published matrices stop at
 2022 *levels*. Capital composition moves slowly; the level comes from the model's
 own consumption of fixed capital.
 
-A newer record (20762989, 1995–2022 on EXIOBASE v3.10.2) exists but is access-
+A newer record (20762989, 1995-2022 on EXIOBASE v3.10.2) exists but is access-
 restricted.
 
 ## 5e. A Danish capital anomaly worth reporting
@@ -268,7 +268,7 @@ misallocation documented in `shipping_reallocation_method.md`.
 **In our model it does the opposite.** EXIOBASE records **zero consumption of
 fixed capital for Danish sea and coastal water transport**, against 1,269 M€ for
 Danish health. Ships plainly depreciate, so this is another symptom of the
-broken Danish water-transport block — the same block that carries a negative
+broken Danish water-transport block - the same block that carries a negative
 value added in EXIOBASE. The practical consequence is that our capital
 scenarios **under**-capitalise Danish shipping rather than over-capitalising it,
 which is the conservative direction but should be stated.
@@ -277,11 +277,11 @@ which is the conservative direction but should be stated.
 
 Their capital treatment is the mirror image of Södersten's: they fix the *level*
 at gross fixed capital formation and use consumption of fixed capital as the
-distribution *key*, then rebalance iteratively. It is cheaper — no KLEMS — and
+distribution *key*, then rebalance iteratively. It is cheaper - no KLEMS - and
 conserves yearly global totals exactly, but models no asset composition. Their
 Danish 2016 effect is **−1.1 Mt CO₂-eq, −1.6 %** of a 69.2 Mt baseline: a
 between-country reallocation, because Denmark exports more capital-intensive
-goods than it imports, not a contradiction of Södersten's +7–48 %.
+goods than it imports, not a contradiction of Södersten's +7-48 %.
 
 It is not reproducible: the EXIOBASE-hybrid v4 database is not public, the code
 repository their documentation cites has been deleted, and the base year is
@@ -291,11 +291,11 @@ repository their documentation cites has been deleted, and the base year is
 
 **Keep the baseline (capital excluded) as the headline**, because that is what
 makes the result comparable with Steenmeijer, Eckelman, Lenzen, Pichler and
-Arup — the studies the paper is positioned against. **Report Scenario A as the
+Arup - the studies the paper is positioned against. **Report Scenario A as the
 headline sensitivity** (it is grounded in Danish national accounts and uses the
 correct annual flow) and **Scenario D as the bound**. State explicitly that
 Malik et al. 2018's higher Australian share (7.2 %) is partly a capital-boundary
-difference, not only a real difference — which materially changes how that
+difference, not only a real difference - which materially changes how that
 comparison should be read.
 
 ## 7. Verification and honest limits
@@ -318,10 +318,10 @@ comparison should be read.
 
 - Södersten C-J, Wood R, Hertwich EG (2018) Endogenizing capital in MRIO models:
   the implications for consumption-based accounting. *Environ Sci Technol*
-  52(22):13250–13259.
+  52(22):13250-13259.
 - Wood R, Hertwich EG (2018) *Environ Res Lett* 13:104013.
 - Malik A, Lenzen M, McAlister S, McGain F (2018) The carbon footprint of
-  Australian health care. *Lancet Planet Health* 2:e27–e35.
+  Australian health care. *Lancet Planet Health* 2:e27-e35.
 - Lenzen M, Malik A, Li M, et al. (2020) The environmental footprint of health
-  care. *Lancet Planet Health* 4:e271–e279.
+  care. *Lancet Planet Health* 4:e271-e279.
 - Statistics Denmark, NABK69, accumulation account and balance sheets.

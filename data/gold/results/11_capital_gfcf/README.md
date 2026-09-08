@@ -1,6 +1,6 @@
 # 11_capital_gfcf
 
-**11 — Capital endogenisation**
+**11 - Capital endogenisation**
 
 Steenmeijer, Eckelman and the NHS reports all **exclude** capital: the Leontief matrix carries current inputs only, so hospital buildings, scanners and IT systems never enter the supply chain. Wood & Hertwich and Södersten et al. both show this is the largest single boundary omission for service sectors. How large is it here?
 

@@ -1,4 +1,4 @@
-# 06 — Benchmarks and the standing consistency audit
+# 06 - Benchmarks and the standing consistency audit
 
 **Gold folder** `data/gold/results/06_benchmarks_validation/`
 **Modules** `analysis.danish_healthcare_benchmark`, `analysis.figaro_benchmarks`,
@@ -51,13 +51,13 @@ Published Danish consumption-based footprints separate by **model family**, not 
 
 The two EXIOBASE-family results agree to 2.3 %; the three national-accounts-family results
 cluster 20 % below. Our gap against Statistics Denmark is a property of the model family,
-with a named cause (the Danish domestic block — see [09](09_vintage_diagnostics.md)), not
+with a named cause (the Danish domestic block - see [09](09_vintage_diagnostics.md)), not
 an implementation error.
 
 ### Recipe validation
 
-The Danish health column's input structure is compared three ways — EXIOBASE, Eurostat
-FIGARO Q86, and Statistics Denmark IO 86 — so the model's *composition*, not only its
+The Danish health column's input structure is compared three ways - EXIOBASE, Eurostat
+FIGARO Q86, and Statistics Denmark IO 86 - so the model's *composition*, not only its
 total, is tested (`recipe_validation_three_way.csv`).
 
 ### Standing consistency audit

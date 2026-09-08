@@ -9,13 +9,13 @@ pipeline was wrong, that is stated too.
 
 ---
 
-## F1 — The demand vector omits roughly a third of health-care services expenditure
+## F1 - The demand vector omits roughly a third of health-care services expenditure
 
 **Severity: critical. It changes every reported number.**
 
 Appendix A enumerates the Danish SUT cells by hand, as (transaction × purpose) pairs.
 Running the same extraction over the 2019 table, our components reproduce the manuscript
-almost exactly for two of three categories — which is what makes the third one decisive:
+almost exactly for two of three categories - which is what makes the third one decisive:
 
 | Component | Manuscript 2019 | Our extraction, 2019 | Agreement |
 |---|---|---|---|
@@ -25,13 +25,13 @@ almost exactly for two of three categories — which is what makes the third one
 
 Pharmaceuticals and appliances agreeing to within 2 % rules out a price base, exchange
 rate or boundary explanation. The services gap is ~70 bn DKK, and it is concentrated in
-individual-consumption cells the hand-enumerated list does not reach — above all
+individual-consumption cells the hand-enumerated list does not reach - above all
 **non-market government consumption of residential care**, 57.9 bn DKK in 2019 alone,
 plus other individual health consumption and NPISH hospital cells.
 
 The paper defines its own scope as *"Health and social care services (including
 residential & elder care)"*. On the demand vector actually used, publicly provided
-eldercare — which in Denmark is nearly all eldercare — is largely absent.
+eldercare - which in Denmark is nearly all eldercare - is largely absent.
 
 **Consequence.** Table 1's services row, and therefore the headline for all five impact
 categories, is understated. This is not a modelling choice to be defended in a limitations
@@ -44,7 +44,7 @@ pairs, so a purpose cannot be silently half-covered. Recorded in
 
 ---
 
-## F2 — pMDI emissions are overstated about threefold
+## F2 - pMDI emissions are overstated about threefold
 
 **Severity: high.** Appendix A scales the Dutch pMDI footprint by defined daily doses:
 (28 / 62) × 76.9 kt = **34.6 kt CO₂e**.
@@ -68,12 +68,12 @@ which only works if HFC per pMDI DDD is equal in the two countries. It is not.
 Press-Kristensen's ~31 kt and calls it *"convergence… supports the robustness of the
 dose-based scaling approach"*, while acknowledging in the same paragraph that the two use
 different GWP time horizons. If 31 kt is a GWP20 figure, its GWP100 equivalent is
-≈ 10.9 kt — which is not corroboration of 34.6 kt, it is contradiction of it. **Two
+≈ 10.9 kt - which is not corroboration of 34.6 kt, it is contradiction of it. **Two
 estimates on different time horizons cannot be compared, and their agreement cannot be
 evidence of anything.**
 
 Our 2022 value, 11.6 kt, is the Danish EPA F-gas inventory's actual reported MDI emission
-on GWP100 — a national measurement, not a scaled proxy — and it sits almost exactly where
+on GWP100 - a national measurement, not a scaled proxy - and it sits almost exactly where
 the GWP100 conversion of Vestbo lands.
 
 **Recommendation.** Replace the DDD scaling with Danish primary data and delete the
@@ -81,10 +81,10 @@ convergence claim.
 
 ---
 
-## F3 — Volatile anaesthetics are missing entirely
+## F3 - Volatile anaesthetics are missing entirely
 
 **Severity: moderate.** The bottom-up covers N₂O and pMDIs. Sevoflurane, desflurane and
-isoflurane — the agents that dominate anaesthetic climate impact in most health systems —
+isoflurane - the agents that dominate anaesthetic climate impact in most health systems -
 appear nowhere.
 
 Denmark has a mandatory national register for this: Medstat ATC N01AB, all sectors. Our
@@ -93,9 +93,9 @@ metabolised correction. Small, but it is a named omission rather than an uncerta
 
 ---
 
-## F4 — N₂O is scaled from one region by birth counts when a national measurement exists
+## F4 - N₂O is scaled from one region by birth counts when a national measurement exists
 
-**Severity: moderate.** Appendix A eq. A4–A7 scales the Region of Southern Denmark's N₂O
+**Severity: moderate.** Appendix A eq. A4-A7 scales the Region of Southern Denmark's N₂O
 purchases to the country by the ratio of births (5.267), giving 31.9 t N₂O and 9.52 kt CO₂e.
 
 Two assumptions are load-bearing and neither is tested: that N₂O use per birth is uniform
@@ -107,14 +107,14 @@ estimate, and it removes both assumptions.
 
 ---
 
-## F5 — The characterisation is described inconsistently, and partly incorrectly
+## F5 - The characterisation is described inconsistently, and partly incorrectly
 
-**Severity: moderate — a reviewer will catch it.**
+**Severity: moderate - a reviewer will catch it.**
 
 The main text states ReCiPe 2016 (H) for climate, land use and blue water, and DESIRE FP7
 for material extraction and waste. Appendix A instead describes `Q` as *"characterization
 matrices assembled to quantify five impact categories (GWP100, abiotic material extraction,
-water use, land use, and waste flows)"* — i.e. EXIOBASE's own characterisation, which is
+water use, land use, and waste flows)"* - i.e. EXIOBASE's own characterisation, which is
 the DESIRE workbook. The two descriptions are not the same method.
 
 Separately, **blue water in Mm³ and land use in km² are not ReCiPe midpoints.** ReCiPe's
@@ -129,7 +129,7 @@ satellite accounts; waste from the DESIRE extension.
 
 ---
 
-## F6 — N₂O is characterised on GWP 298 while citing AR6
+## F6 - N₂O is characterised on GWP 298 while citing AR6
 
 **Severity: low, but trivially fixable.** Eq. A7 uses GWP100 = 298 (AR4/AR5) and cites the
 IPCC AR6 synthesis report. AR6's N₂O GWP100 is **273**. Using 298 overstates the N₂O term
@@ -137,27 +137,27 @@ by 9 %. This study reports AR6 throughout.
 
 ---
 
-## F7 — Patient and visitor travel is scaled by a proxy when Denmark measures it
+## F7 - Patient and visitor travel is scaled by a proxy when Denmark measures it
 
 **Severity: moderate.** Appendix B derives the distance factor as the unweighted mean of
-three ratios — commuting (1.079), errands (1.402) and all-purpose travel (1.293) — giving
+three ratios - commuting (1.079), errands (1.402) and all-purpose travel (1.293) - giving
 1.258. The appendix is candid that *"none of these categories are perfectly aligned with
 patient and visitor travel"*.
 
 Denmark's National Travel Survey has a purpose code that is aligned: TU Table 15, purpose
-33 *Social/sundhed* — travel to doctors and hospitals — at 0.9 km/person/day in 2019 and
+33 *Social/sundhed* - travel to doctors and hospitals - at 0.9 km/person/day in 2019 and
 0.8 in 2022. Using it removes the heuristic entirely.
 
 **Where the manuscript is right and we were wrong.** Appendix B applies the weekly-hours
 ratio to commuting (0.5057 activity scaling) but **not** to patient and visitor travel
-(0.4292). That is correct — hours worked scale how often staff commute, not how far
-patients travel — and our module had the hours ratio in both. Corrected 8 September 2026.
+(0.4292). That is correct - hours worked scale how often staff commute, not how far
+patients travel - and our module had the hours ratio in both. Corrected 8 September 2026.
 No reported number moves, because that item's GWP column is already taken from Danish TU
 data, but the derivation now matches the appendix.
 
 ---
 
-## F8 — The Netherlands is a top-level world region in a Danish study
+## F8 - The Netherlands is a top-level world region in a Danish study
 
 **Severity: low, but it distorts Figure 3.** Appendix A: *"The original codebase also keeps
 the Netherlands explicit, which was deemed safest to leave un-altered."* Understandable as
@@ -169,13 +169,13 @@ submitted figure and must be declared** if Figure 3 is regenerated.
 
 ---
 
-## F9 — The transport finding does not survive
+## F9 - The transport finding does not survive
 
 **Severity: critical for framing.** The abstract, the Research-in-context panel and the
 cover letter all lead on transport (46 % of GHG in the sector view).
 
 EXIOBASE routes 73.6 % of Danish sea-transport output to Danish intermediate use against
-9 % in the national accounts — a defect Statistics Denmark published (Rørmose Jensen &
+9 % in the national accounts - a defect Statistics Denmark published (Rørmose Jensen &
 Iliev 2022) and which EXIOBASE's own hybrid build does not reproduce (7.8 % natively).
 Correcting it takes transport from 37.5 % to 18.5 % of the supply-chain footprint.
 
@@ -184,7 +184,7 @@ abstract.
 
 ---
 
-## F10 — Known pharmaceutical bias is acknowledged but neither bounded nor carried
+## F10 - Known pharmaceutical bias is acknowledged but neither bounded nor carried
 
 **Severity: moderate.** Appendix A cites Hagenaars: mapping pharmaceuticals to Chemicals
 n.e.c. overstates material extraction by **61 %** and greenhouse gases by **11 %**. The
@@ -199,7 +199,7 @@ because it is a modelling choice and not measurement error.
 
 ---
 
-## F11 — Venue and format are inconsistent
+## F11 - Venue and format are inconsistent
 
 **Severity: editorial, but it will be noticed on submission.**
 
@@ -234,12 +234,12 @@ the Danish sea-transport correction), and the demand vector (F1). The last is th
 Climate is nearly flat because two large changes offset: a 57 % larger demand vector
 against the withdrawal of the phantom shipping emissions. The other four rise roughly with
 the demand vector. Waste falls because the 2011 hybrid waste extension was replaced with
-Denmark's own SEEA waste accounts, which are 4.6× lower at the health sector — a change of
+Denmark's own SEEA waste accounts, which are 4.6× lower at the health sector - a change of
 concept, not a correction of arithmetic.
 
 **The decisive outstanding test** is to run our corrected pipeline on **2019** and compare
 with Table 1 directly. That isolates the method change from the year change and would let
 the paper state exactly how much of the revision is each. It needs year-aware output
-routing first, so that a 2019 run cannot overwrite the 2022 headline — the same guard the
+routing first, so that a 2019 run cannot overwrite the 2022 headline - the same guard the
 scope scenarios already have. Recorded in
 `docs/revision/anomalies_bugs_and_open_questions.md` as the next task.

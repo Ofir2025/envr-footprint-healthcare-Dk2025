@@ -21,11 +21,11 @@ data/gold/results/
 
 ---
 
-## 00 — Core EE-MRIO final-demand footprint
+## 00 - Core EE-MRIO final-demand footprint
 
 **Reference:** Steenmeijer et al. (2022); Miller & Blair (2009).
 **Equations:** `f = C S L y_H`, decomposed cell-wise as `E[i,j] = s_i L_ij y_j`
-— pressure arising in node *i* caused by Danish healthcare demand for node *j*.
+- pressure arising in node *i* caused by Danish healthcare demand for node *j*.
 Summing over *i* gives the consumption perspective, over *j* the production
 perspective; both are marginals of one array, verified equal to machine
 precision (`analysis.validate_io_identities`, tests T5/T6).
@@ -34,7 +34,7 @@ precision (`analysis.validate_io_identities`, tests T5/T6).
 demand is additive and sums to the total; the embodied-flow table `E_Z` is the
 construct that double counts, and we never sum it (Wood & Hertwich 2018, p. 5).
 
-## 01 — Eriksen/Steenmeijer replication (corrected)
+## 01 - Eriksen/Steenmeijer replication (corrected)
 
 The original study's outputs, with the audit corrections: complete eldercare
 coverage, DRIVHUS direct emissions, AFFALD direct waste, Danish bottom-up
@@ -42,12 +42,12 @@ medical gases, year-consistent currency, exact-match transport grouping.
 Every correction is listed in `docs/revision/bug_and_method_fixes.md` with its
 effect on the result.
 
-## 02 — GHG-Protocol scopes (Wood & Hertwich)
+## 02 - GHG-Protocol scopes (Wood & Hertwich)
 
-**Reference:** Wood & Hertwich (2018), table 1 and eqs. 1–2; GHG Protocol.
+**Reference:** Wood & Hertwich (2018), table 1 and eqs. 1-2; GHG Protocol.
 - **Scope 1** from national accounts. The services demand vector is
   `y = A[:,h]·E_H`, and we verified the identity `F = (m_h − s_h)·E_H`, i.e.
-  the construction yields a *pure upstream* quantity — the exact complement to
+  the construction yields a *pure upstream* quantity - the exact complement to
   a national-accounts Scope 1. (Using the true final-demand column instead
   would double count Scope 1 outright.)
 - **Scope 2** = `d_E · L_EE · y_E` with `L_EE = (I_EE − A_EE)^-1` over the
@@ -63,13 +63,13 @@ risk numerically, including the intra-sector self-supply term (3.2 kt CO₂e,
 removed) and the pharma-component-vs-procurement question (cleared: different
 channels).
 
-## 03 — Target-sector scope 3 (Cabernard)
+## 03 - Target-sector scope 3 (Cabernard)
 
 **Reference:** Cabernard et al. (2019) eqs. 8/9/12; Cabernard et al. (2022) SI.
 
 This answers a **different question** from 00: not "what does Danish healthcare
 demand cause?" but "what is the scope 3 of the health sector-regions
-themselves?" — and *that* question double counts unless corrected, because a
+themselves?" - and *that* question double counts unless corrected, because a
 delivery from one target node to another is counted for the supplier and again
 for the recipient. Corrected output replaces gross output with output net of
 target-to-target deliveries:
@@ -91,13 +91,13 @@ f_T     = (e_T − e_T,wdc) / e_T
 The complement identity `d L Y·1 == e_T,wdc + d_O L'_OO Y_O·1` holds to 2×10⁻¹⁶,
 confirming the implementation. **Read this correctly:** the study's headline is a
 final-demand footprint (00) and is *unaffected*. But any target-perspective or
-sub-sector reporting — which is exactly what the planned health-subsector
-disaggregation will produce — must use eq. 9, and at T3 the error is nearly a
+sub-sector reporting - which is exactly what the planned health-subsector
+disaggregation will produce - must use eq. 9, and at T3 the error is nearly a
 fifth. This is the quantitative answer to "is one target enough?": for a single
 Danish health node the correction is 1.3 %, but the moment pharmaceuticals and
 device manufacturing join the target set it is 19 %.
 
-## 04 — Uncertainty (Lenzen calibration, IEooc conventions)
+## 04 - Uncertainty (Lenzen calibration, IEooc conventions)
 
 **References:** Lenzen et al. (2020) SI 7 for the MRIO standard deviation;
 IEooc Methods5 Exercise 4b for reporting conventions.
@@ -107,7 +107,7 @@ one shared factor at the published Danish health-care relative SD of 8.35 %;
 correlated travel items; exact first-order Sobol shares (free for an additive
 independent model); verified against closed-form lognormal moments.
 
-## 05 — Waste from Denmark's own accounts
+## 05 - Waste from Denmark's own accounts
 
 **Reference:** Statistics Denmark AFFALD01 / AFF1MU1N / AFF3MU1N.
 The inherited hybrid-2011 extension was tested as absolute values, as a
@@ -116,7 +116,7 @@ coefficient, and as an allocation key, and fails all three (see
 uses Denmark's published IO waste multipliers; the imported tier is reported
 separately and relabelled as upstream solid residuals.
 
-## 06 — Benchmarks and validation
+## 06 - Benchmarks and validation
 
 Recipe validation of EXIOBASE's Danish health input structure against the DST
 117-industry health columns; three independent national denominators (own model
@@ -128,7 +128,7 @@ Arup/HCWH, Pichler, Lenzen and the Dutch template.
 ## Lineage rule
 
 Every gold table is exported at the **most detailed level available** and every
-aggregate is a `groupby` of it — never the reverse. `MANIFEST_lineage.csv` maps
+aggregate is a `groupby` of it - never the reverse. `MANIFEST_lineage.csv` maps
 each file to its approach, script, equations, references and inputs, so any
 number in the manuscript can be traced to the code that made it and the method
 it implements.

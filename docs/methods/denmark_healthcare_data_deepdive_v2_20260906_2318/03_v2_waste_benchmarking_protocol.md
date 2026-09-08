@@ -143,7 +143,7 @@ DST\ industry\ allocation
 AFFALD.
 \]
 
-Statistics Denmark then allocates residual records without industry activity codes. Approximately **1–2% of total waste annually** is proportionally distributed in this way, with variation by waste type.
+Statistics Denmark then allocates residual records without industry activity codes. Approximately **1-2% of total waste annually** is proportionally distributed in this way, with variation by waste type.
 
 Therefore:
 

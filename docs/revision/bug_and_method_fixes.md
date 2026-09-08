@@ -1,4 +1,4 @@
-# Revision ledger — bugs, method corrections and data-source upgrades
+# Revision ledger - bugs, method corrections and data-source upgrades
 
 **Scope:** revision of the Danish healthcare environmental-footprint model (Eriksen et al.,
 Next Sustainability NXSUST-D-26-01589) following the forensic audit of 2026-09-06 and the
@@ -19,26 +19,26 @@ file `F_Y.txt` evidently renamed to `F_hh.txt` to satisfy the v3.7-era loader.
 now accepts both `F_Y.txt`/`F_hh.txt` names, and the manuscript's data statement must be
 corrected from v3.7 to v3.8.2.
 
-## 1. E1 — Expenditure vector omitted ~90% of eldercare (critical)
+## 1. E1 - Expenditure vector omitted ~90% of eldercare (critical)
 
 **Defect:** `calculate_healthcare_totals` enumerated (transaction × purpose) columns by
 hand and omitted (i) non-market government consumption of purpose 12401 (retirement
-homes/day care/home help) = **DKK 68.4 bn**, and (ii) NPISH hospital services = DKK 2.3 bn —
+homes/day care/home help) = **DKK 68.4 bn**, and (ii) NPISH hospital services = DKK 2.3 bn -
 while the manuscript stated eldercare was included.
 
 **Fix:** complete coverage of all individual-consumption transactions (3110/3130/3141/3142)
 for purposes 06112, 06130, 06200, 06300, 12401; every included column is exported to
 `data/silver/inputs/dk_expenditure_breakdown_2019.csv` as a provenance record. Childcare
-(12402, DKK 60.4 bn — inside Steenmeijer's wider "zorg en welzijn" scope) remains excluded
+(12402, DKK 60.4 bn - inside Steenmeijer's wider "zorg en welzijn" scope) remains excluded
 by default and is available via `include_childcare=True` for a scope sensitivity.
 
 **Effect:** healthcare-services expenditure rises from DKK 173.0 bn to **DKK 243.7 bn**
 (23.2 → 32.6 b€), +41%.
 
-## 2. E2 — Direct (Scope-1) operational emissions (critical)
+## 2. E2 - Direct (Scope-1) operational emissions (critical)
 
 **Defect:** the "operational impacts" (B_HEAL) GWP entry was computed as
-`B·(L·Ystim)` over the DK health rows = **1.39 kt CO₂e** — the MRIO-induced intra-health
+`B·(L·Ystim)` over the DK health rows = **1.39 kt CO₂e** - the MRIO-induced intra-health
 emissions, which (a) are already inside the contribution totals (a double count) and
 (b) are not the sector's direct emissions. An unsourced `DirectEm = 1,699 kt` sat unused
 in `dk_data_2025.csv`.
@@ -53,7 +53,7 @@ B_ANAE). For 2019: 106 + 23 + 0.4914×67 − 11 ≈ **151 kt CO₂e**. This rest
 Steenmeijer design (national-accounts direct figure excluding medical gases, injected via
 `Hstim`).
 
-## 3. E3 — GHG-Protocol scopes misconstructed
+## 3. E3 - GHG-Protocol scopes misconstructed
 
 **Defect:** "Scope 2" summed electricity/heat-sector emissions over the **entire global
 supply chain** (i.e. mostly Scope 3); "Scope 1 (MRIO)" was the 1.39 kt artifact; pMDIs
@@ -63,9 +63,9 @@ were booked to Scope 1.
 energy purchased *directly* by the providers (energy-sector entries of the scaled
 intermediate-input column × those sectors' own direct intensity); Scope 3 = remaining
 supply chain + pMDI (use-phase at patients' homes) + commuting; patient/visitor travel =
-outside protocol — matching Steenmeijer et al.'s Table S8 classification.
+outside protocol - matching Steenmeijer et al.'s Table S8 classification.
 
-## 4. Bottom-up items — Danish primary data replace NL-scaled proxies
+## 4. Bottom-up items - Danish primary data replace NL-scaled proxies
 
 | Item | Old (NL × factor) | New | Source |
 |---|---|---|---|
@@ -83,7 +83,7 @@ hospital N₂O, removed from B_HEAL and re-entered via B_ANAE).
 
 DKK→EUR at the Danmarks Nationalbank 2019 annual average **7.4661** (was flat 7450 per
 kDKK→M€, −0.22%). Basic-price basis verified: the loader reads sheet `Ubas` (use table at
-basic prices), which is why `Conversion=1.0` is correct — now documented in code. The
+basic prices), which is why `Conversion=1.0` is correct - now documented in code. The
 2019-expenditure-on-2016-price-model mismatch (Reviewer 2) is addressed via a deflation
 scenario in the uncertainty package (`src/analysis/uncertainty_2025.py`), and disappears
 entirely in the planned 2022-on-2022 analysis.
@@ -93,7 +93,7 @@ entirely in the planned 2022-on-2022 analysis.
 - Transport disaggregation mask changed from substring (`contains('Transport')`, which
   also captured **Transport Equipment** = vehicle manufacturing) to exact group match.
 - Stray no-op statement removed; `.count()[0]` → `.count().iloc[0]`, label writes made
-  Copy-on-Write-safe, NumPy scalar conversions fixed (pandas 3 / NumPy 2 compatibility —
+  Copy-on-Write-safe, NumPy scalar conversions fixed (pandas 3 / NumPy 2 compatibility -
   numerically neutral).
 - Loader accepts `F_Y.txt` (EXIOBASE ≥3.8) and `F_hh.txt` (3.7).
 - Bottom-up file's `ISO2` provenance column no longer breaks row widths.

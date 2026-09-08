@@ -1,4 +1,4 @@
-# Denmark 2022 — primary analysis (Steenmeijer replication tier)
+# Denmark 2022 - primary analysis (Steenmeijer replication tier)
 
 > **Model changed, 2026-09-07.** The background is now **EXIOBASE v3.8.2
 > `IOT_2022_ixi`**, with a Danish sea-transport reallocation applied. v3.10.2 was
@@ -26,20 +26,20 @@ HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship python -m analysis.main_2025
 ## 1. Inputs (all public, API-reproducible)
 
 - **Expenditure, basic prices:** built from the published 117-industry IO workbook
-  (`input_output_en_2022.xlsx` — StatBank): household consumption from the CP sheet's
+  (`input_output_en_2022.xlsx` - StatBank): household consumption from the CP sheet's
   COICOP columns, NPISH + marketed/non-market individual government from the IO sheet's
   purpose columns; only industry-coded (basic-price) rows summed. COICOP-2018 codes:
   06112 pharma; 06134 appliances; 06200 out-patient; 06300/06340/06400 hospital;
   13302 eldercare (13301 childcare excluded, flag available). Totals: pharma
   DKK 14.51 bn, appliances 8.14 bn, services 279.37 bn → **DKK 302.0 bn = €40,597 M**
   at 7.4396 DKK/EUR (DNB 2022 average). Cross-check: SHA1 CHE 2022 = 271.9 bn + social
-  LTC 30.0 bn. Unlike 2019, no confidential SUT extract is needed — the 2022 vector is
+  LTC 30.0 bn. Unlike 2019, no confidential SUT extract is needed - the 2022 vector is
   fully reproducible from public tables. Provenance: `dk_expenditure_breakdown_2022.csv`.
 - **Direct emissions:** DRIVHUS 2022, QA 92 + 870000 19 + α×880000 60 − hospital
   medical N₂O 11 = **118.6 kt CO₂e**. The eldercare share α = **0.3092** is now read
   from the analysis year's own IO table (industry 880000's deliveries to eldercare
   13302 vs childcare 13301: 15.54 vs 34.72 bn DKK), replacing the 0.4914 carried
-  forward from the 2019 detailed SUT — a documented open item now closed.
+  forward from the 2019 detailed SUT - a documented open item now closed.
 - **Direct waste:** AFFALD01 2022 (excl. soil), same boundary and same α = **42.8 kt**.
 - **Bottom-up:** anaesthetics 12.7 kt (NID 2.G.3.a 38 t N₂O ×298 + volatiles proxy);
   pMDI **11.6 kt** (Danish EPA F-gas inventory 2022 actual, GWP100); commuting factor
@@ -54,11 +54,11 @@ stressor name from the Steenmeijer/DESIRE selection; abiotic material extraction
 rows: Metal Ores + Non-Metallic Minerals), land (all 26 land-account rows) and
 employment are rebuilt from the restructured v3.10.2 names with the same concept
 definitions. **Multiplier-outlier screening** (Rørmose Jensen & Iliev 2022 failure
-mode: emission accounts on near-zero-output industries — observed here as GB medical
+mode: emission accounts on near-zero-output industries - observed here as GB medical
 instruments at 2×10⁸ kt CO₂e/M€ injecting 2,025 kt into the appliances footprint):
 air-emission entries with intensity >100× the cross-region sector median, or sitting
 on outputs <1 M€, are replaced by the median intensity × actual output (96,833
-entries). Screening is restricted to air emissions — extraction/land/water accounts
+entries). Screening is restricted to air emissions - extraction/land/water accounts
 are legitimately concentrated and a median test would crush real mines (concentrated-
 stressor caution, Jakobs 2023). Validation: the screened model's Danish national CBA
 GWP is **64.7 Mt vs DST's official AFTRYK 62.9 Mt (+2.9%)**; unscreened: 69.3 Mt.
@@ -94,7 +94,7 @@ table (`contribution_by_purchased_product.csv`, `B L diag(y)`) and gives a
 different ranking; the two must not be quoted interchangeably.
 
 **Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median
-**4,736 kt**, 95 % interval **4,064–5,540**, CV **7.9 %** — alongside Lenzen et
+**4,736 kt**, 95 % interval **4,064-5,540**, CV **7.9 %** - alongside Lenzen et
 al.'s published 8.35 % for Denmark. First-order variance shares: MRIO parameters
 86.8 %, patient and visitor travel 7.4 %, commuting 5.7 %; every other bottom-up item
 below 0.5 %.
@@ -105,8 +105,8 @@ Steenmeijer, Eckelman, Lenzen and Pichler. Including it adds **13.2 %**
 endogenisation). See [`capital_gfcf_treatment.md`](capital_gfcf_treatment.md).
 
 Scope 2 is 1.6 % of the total, against Arup's 8.3 % for Denmark in 2014. The
-direction is right — the Danish grid fell from roughly 300 to 120 g CO₂/kWh over
-that period — but 2022 was also an energy-price spike year, so a given euro of
+direction is right - the Danish grid fell from roughly 300 to 120 g CO₂/kWh over
+that period - but 2022 was also an energy-price spike year, so a given euro of
 electricity spend buys far less power and a monetary model understates physical
 consumption. Both effects push the same way and neither is separately identified
 here; flagged as an open item, not claimed as a finding.
@@ -130,7 +130,7 @@ their vintage is fixed inside the data. See `15_gwp_vintage/`.
 | Direct operational | 118.6 kt CO₂e, 42.8 kt waste | DRIVHUS, AFFALD01 |
 
 The travel item previously scaled a **whole-population** Dutch quantity by an
-employment ratio and by weekly working hours — a unit error, since those belong
+employment ratio and by weekly working hours - a unit error, since those belong
 to commuting alone. It is now built from Danish measurement instead of the
 England → Netherlands → Denmark double transplant. The anaesthetics item is no
 longer a population-scaled Dutch proxy and now shows the Danish desflurane
@@ -138,15 +138,15 @@ phase-out (400 L in 2019 → 181 L in 2022), which a fixed proxy could not.
 
 ## 4. The transport headline was a Danish shipping artefact
 
-The submitted manuscript reported transport at 38–43 % of the Danish healthcare
+The submitted manuscript reported transport at 38-43 % of the Danish healthcare
 footprint. On the uncorrected v3.8.2 2022 model that finding reproduces exactly:
 **transport 37.5 %** of the supply-chain footprint, with Danish sea and coastal
 water transport alone contributing 852 kt.
 
 It is an artefact, and the source is documented by Statistics Denmark. Rørmose
-Jensen & Iliev (2022, pp. 11–12) report that EXIOBASE sends **74 %** of Danish
+Jensen & Iliev (2022, pp. 11-12) report that EXIOBASE sends **74 %** of Danish
 water-transport output to Danish *intermediate* use, against **9 %** in the
-national accounts — the Danish-operated fleet carries world trade, not Danish
+national accounts - the Danish-operated fleet carries world trade, not Danish
 production. Measured on our own model the figure is **73.6 %**, reproducing their
 diagnosis to the decimal. EXIOBASE even has the Danish health sector itself
 buying 394 M€ of sea transport.
@@ -163,7 +163,7 @@ added) gives:
 | Danish national CBA footprint | 85.2 Mt | **77.5 Mt** |
 
 **Consequence for the manuscript: the "transport ≈ 40 %" finding must be
-withdrawn** — not as vintage-dependent, but as a known and published
+withdrawn** - not as vintage-dependent, but as a known and published
 misallocation in EXIOBASE's Danish block. Pharmaceuticals, chemicals and
 equipment remain the robust story, consistent with Steenmeijer's Dutch result.
 
@@ -201,12 +201,12 @@ Arup/HCWH 2014: 4.4 Mt, 6.3%, 0.78 t/cap, S2 8.3%, 39.1% domestic. Pichler 2014:
 against all three; the per-capita stability 2014→2022 despite expenditure growth
 mirrors the intensity-decline mechanism in Lenzen et al. (2020).
 
-## 5b. Waste boundary — what the filter does and does not establish
+## 5b. Waste boundary - what the filter does and does not establish
 
 The hybrid extension's 19 fractions were previously summed in full. Manure,
 sewage, mining waste and unused mining material are not waste under Regulation
-(EC) 2150/2002 or in Statistics Denmark's AFFALD01 — the account that supplies
-the domestic tier — so the unfiltered sum was not comparable with the Danish
+(EC) 2150/2002 or in Statistics Denmark's AFFALD01 - the account that supplies
+the domestic tier - so the unfiltered sum was not comparable with the Danish
 entry it sits beside. Construction and demolition waste and ashes are in scope
 and are retained.
 
@@ -221,12 +221,12 @@ consumption-based figure. What can be said is that the unfiltered model exceeded
 the national production total, and the filtered one no longer does. The
 underlying extension is still the 2011 hybrid extrapolated over 2022 output,
 which remains the largest single uncertainty in the waste indicator, and no
-consumption-based waste account exists anywhere against which to test it —
+consumption-based waste account exists anywhere against which to test it -
 not in Eurostat, FIGARO, OECD, GLORIA or UNEP.
 
 ## 6. Remaining gaps (carried into the response letter)
 
-Volatile anaesthetics proxy; no Danish patient/visitor-travel source (verified —
+Volatile anaesthetics proxy; no Danish patient/visitor-travel source (verified -
 TU microdata named as route); waste extension vintage (rebuild per
 `03_v2_waste_benchmarking_protocol`); α eldercare share from 2019 SUT; capital
 excluded (Steenmeijer-consistent); pharma mapping as Scenario B; EXIOBASE recipe

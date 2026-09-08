@@ -15,7 +15,7 @@ here are the 2022 climate result, 100,000 draws, seed 42.
 
 The first-round review asked us to propagate the study's proxy assumptions across
 plausible ranges and report what that does to the headline estimates, and
-questioned whether a ±20–50 % band on the scaling factors was the right one.
+questioned whether a ±20-50 % band on the scaling factors was the right one.
 
 The underlying worry is fair. Our headline is
 
@@ -35,7 +35,7 @@ as much as we actually believe it might, how much does the answer wobble?"*
 
 Take the recipe that produced 4,713 kt. Instead of running it once, run it a
 hundred thousand times. On each run, multiply each uncertain ingredient by a
-random number close to 1 — sometimes 0.9, sometimes 1.15, drawn from a spread
+random number close to 1 - sometimes 0.9, sometimes 1.15, drawn from a spread
 that reflects how well we know that ingredient. Each run gives a slightly
 different total. Collect all hundred thousand totals and look at the histogram:
 the middle of it is the central estimate, and the range that contains 95 % of
@@ -46,7 +46,7 @@ widen the histogram. That last question turns out to be the important one.
 
 ## 3. The model being perturbed
 
-### 3.1 Why the input–output algebra does not have to be re-run
+### 3.1 Why the input-output algebra does not have to be re-run
 
 The footprint is
 
@@ -55,7 +55,7 @@ $$F = \mathbf{c}\,\mathbf{L}\,\mathbf{y} + \sum_{c} B_c$$
 *In words:* the footprint is the impact intensity vector $\mathbf{c}$ multiplied
 by the Leontief inverse $\mathbf{L}=(\mathbf{I}-\mathbf{A})^{-1}$ multiplied by
 the health-care final-demand vector $\mathbf{y}$, plus the bottom-up items $B_c$
-that the input–output model cannot see (anaesthetic gases, inhaler propellants,
+that the input-output model cannot see (anaesthetic gases, inhaler propellants,
 staff commuting, patient and visitor travel, and the providers' own direct
 emissions).
 
@@ -71,12 +71,12 @@ For 2022, climate:
 
 | Part | Amount (kt CO₂e) |
 |---|---|
-| $\sum_g M_g$ — MRIO supply chain | 3,943.397 |
-| $B_{\text{HEAL}}$ — direct operations | 118.554 |
-| $B_{\text{COMM}}$ — employee commuting | 363.727 |
-| $B_{\text{VISI}}$ — patient and visitor travel | 263.568 |
-| $B_{\text{ANAE}}$ — anaesthetic gases | 12.522 |
-| $B_{\text{PMDI}}$ — inhaler propellants | 11.600 |
+| $\sum_g M_g$ - MRIO supply chain | 3,943.397 |
+| $B_{\text{HEAL}}$ - direct operations | 118.554 |
+| $B_{\text{COMM}}$ - employee commuting | 363.727 |
+| $B_{\text{VISI}}$ - patient and visitor travel | 263.568 |
+| $B_{\text{ANAE}}$ - anaesthetic gases | 12.522 |
+| $B_{\text{PMDI}}$ - inhaler propellants | 11.600 |
 | **Total** | **4,713.368** |
 
 Because the model is linear and additive, a draw only has to **recombine these
@@ -96,7 +96,7 @@ resampling the matrix.
 Every uncertain quantity enters as a **multiplier** $h$, not as an additive
 error. Multipliers are the right choice because impacts are products of
 non-negative quantities (a price times a quantity times an intensity), so their
-errors compound rather than add, and the result is right-skewed — it can be
+errors compound rather than add, and the result is right-skewed - it can be
 twice too big far more easily than it can be minus-100 % too small.
 
 The multiplier is drawn from a lognormal distribution:
@@ -134,22 +134,22 @@ $$\text{95 \% factor range} = \left[\mathrm{GSD}^{-1.96},\ \mathrm{GSD}^{+1.96}\
 "multiply by GSD to the power 1.96".
 
 So a GSD of 1.25 means *"I am 95 % sure the true value is between 0.65 and 1.55
-times what I have used"* — a −35 %/+55 % range. **This is exactly the ±20–50 %
+times what I have used"* - a −35 %/+55 % range. **This is exactly the ±20-50 %
 band the reviewer questioned, expressed properly.** The band is not a guess
 imposed on the analysis; it is what these GSDs imply.
 
 | Parameter | GSD | $\sigma=\ln(\mathrm{GSD})$ | 95 % factor range | Which is |
 |---|---|---|---|---|
-| MRIO model | 1.087 | 0.0834 | 0.85 – 1.18 | −15 % / +18 % |
-| Direct operations | 1.10 | 0.0953 | 0.83 – 1.21 | −17 % / +21 % |
-| Inhaler propellants | 1.15 | 0.1398 | 0.76 – 1.32 | −24 % / +32 % |
-| Employee commuting | 1.25 | 0.2231 | 0.65 – 1.55 | −35 % / +55 % |
-| Anaesthetic gases | 1.30 | 0.2624 | 0.60 – 1.67 | −40 % / +67 % |
-| Patient and visitor travel | 1.40 | 0.3365 | 0.52 – 1.93 | −48 % / +93 % |
+| MRIO model | 1.087 | 0.0834 | 0.85 - 1.18 | −15 % / +18 % |
+| Direct operations | 1.10 | 0.0953 | 0.83 - 1.21 | −17 % / +21 % |
+| Inhaler propellants | 1.15 | 0.1398 | 0.76 - 1.32 | −24 % / +32 % |
+| Employee commuting | 1.25 | 0.2231 | 0.65 - 1.55 | −35 % / +55 % |
+| Anaesthetic gases | 1.30 | 0.2624 | 0.60 - 1.67 | −40 % / +67 % |
+| Patient and visitor travel | 1.40 | 0.3365 | 0.52 - 1.93 | −48 % / +93 % |
 
 The ordering is the argument. The two items taken from a Danish national account
-are the tightest. The item with no Danish source at all — visitor travel, where
-we import an English ratio — is the loosest, at roughly a factor of two either
+are the tightest. The item with no Danish source at all - visitor travel, where
+we import an English ratio - is the loosest, at roughly a factor of two either
 way. **No parameter was given a range because it looked reasonable; each range
 follows from what the source is.**
 
@@ -223,8 +223,8 @@ We use $\rho = 0.8$ and report $\rho \in \{0,\,0.5,\,0.8\}$.
 > to zero silently raised commuting's realised GSD from the declared 1.25 to
 > 1.278, and the simulation then no longer matched the closed-form moments it
 > was supposed to be checked against. The construction above preserves both
-> marginals exactly. The effect on the reported interval is small — the climate
-> CV moves from 7.91 % to 7.87 % — but the check is now a real check.
+> marginals exactly. The effect on the reported interval is small - the climate
+> CV moves from 7.91 % to 7.87 % - but the check is now a real check.
 
 ### 4.5 The same reasoning applied across contribution groups
 
@@ -240,9 +240,9 @@ half. All three cases are reported:
 
 | $\rho_M$ | Interpretation | CV | 95 % interval (kt) |
 |---|---|---|---|
-| 1.00 | perfect — **study default** | **7.88 %** | 4,059 – 5,531 |
-| 0.76 | Rodrigues et al.'s measured median | 7.30 % | 4,110 – 5,465 |
-| 0.00 | independence | 5.09 % | 4,315 – 5,263 |
+| 1.00 | perfect - **study default** | **7.88 %** | 4,059 - 5,531 |
+| 0.76 | Rodrigues et al.'s measured median | 7.30 % | 4,110 - 5,465 |
+| 0.00 | independence | 5.09 % | 4,315 - 5,263 |
 
 The default is the widest, so it cannot understate the interval.
 
@@ -255,7 +255,7 @@ discrete scenarios instead:
 |---|---|
 | Mapping pharmaceuticals to *Chemicals nec* | There is no "true value with measurement error" here. Either you accept the proxy or you apply Hagenaars' correction. Both are run; the answer differs by a third. |
 | Price vintage | A convention about which year's prices to use. |
-| Waste-account vintage | The 2011 hybrid extension against Denmark's own SEEA account — a change of *concept*, 4.6× at the health sector. |
+| Waste-account vintage | The 2011 hybrid extension against Denmark's own SEEA account - a change of *concept*, 4.6× at the health sector. |
 
 Dressing a decision up as measurement error would tell the reader that the truth
 lies somewhere in between. It does not; it lies at one of them.
@@ -270,35 +270,35 @@ bottom-up items, $z_{\text{HEAL}} = -0.30$, $z_0^{\text{travel}} = +0.80$,
 $z_C = -0.20$, $z_V = +0.10$, $z_{\text{ANAE}} = +1.10$,
 $z_{\text{PMDI}} = -0.60$.
 
-**Step 1 — the supply chain.**
+**Step 1 - the supply chain.**
 $f = e^{0.08335 \times 0.50} = e^{0.04168} = 1.04256$
 $3{,}943.397 \times 1.04256 = 4{,}111.22$ kt
 
-**Step 2 — direct operations.** $\sigma = 0.09531$.
+**Step 2 - direct operations.** $\sigma = 0.09531$.
 $h = e^{0.09531 \times (-0.30)} = 0.9718$
 $118.554 \times 0.9718 = 115.21$ kt
 
-**Step 3 — commuting.** $\sigma_C = 0.22314$, $\rho = 0.8$, so
+**Step 3 - commuting.** $\sigma_C = 0.22314$, $\rho = 0.8$, so
 $\sqrt{\rho} = 0.8944$ and $\sqrt{1-\rho} = 0.4472$.
 $\ln h_C = 0.22314\,(0.8944 \times 0.80 + 0.4472 \times (-0.20)) = 0.1397$
 $h_C = 1.1499$, and $363.727 \times 1.1499 = 418.26$ kt
 
-**Step 4 — patient and visitor travel.** $\sigma_V = 0.33647$, **same**
-$z_0^{\text{travel}} = 0.80$ — this is where the correlation acts.
+**Step 4 - patient and visitor travel.** $\sigma_V = 0.33647$, **same**
+$z_0^{\text{travel}} = 0.80$ - this is where the correlation acts.
 $\ln h_V = 0.33647\,(0.8944 \times 0.80 + 0.4472 \times 0.10) = 0.2558$
 $h_V = 1.2915$, and $263.568 \times 1.2915 = 340.40$ kt
 
-**Step 5 — anaesthetics and inhalers.**
+**Step 5 - anaesthetics and inhalers.**
 $12.522 \times e^{0.26236 \times 1.10} = 12.522 \times 1.3346 = 16.71$ kt
 $11.600 \times e^{0.13976 \times (-0.60)} = 11.600 \times 0.9196 = 10.67$ kt
 
-**Step 6 — add up.**
+**Step 6 - add up.**
 
 $$4{,}111.22 + 115.21 + 418.26 + 340.40 + 16.71 + 10.67 = 5{,}012.5 \text{ kt}$$
 
 That is **one** draw: 5,012 kt against a deterministic 4,713 kt. Repeat 100,000
 times with fresh random numbers and sort the results. Notice in step 4 that
-because commuting drew high, travel drew high too — that is the correlation
+because commuting drew high, travel drew high too - that is the correlation
 doing its work, and it is why the pair together widens the interval more than
 either would alone.
 
@@ -315,14 +315,14 @@ either would alone.
 | Simulation mean | $\bar{F}$ | 4,750.9 kt |
 | Standard deviation | $s$ | 373.8 kt |
 | Coefficient of variation | $s/\bar{F}$ | 7.87 % |
-| 95 % interval | 2.5th–97.5th percentile | **4,065 – 5,532 kt** |
+| 95 % interval | 2.5th-97.5th percentile | **4,065 - 5,532 kt** |
 
 The median reproduces the deterministic estimate to 0.5 %, as designed. The CV
 of 7.87 % is close to the 8.35 % Lenzen et al. report for the same quantity by a
-completely different route — a useful external check, not a coincidence, since
+completely different route - a useful external check, not a coincidence, since
 the MRIO factor dominates.
 
-### 6.2 The variance decomposition — the part that actually answers the reviewer
+### 6.2 The variance decomposition - the part that actually answers the reviewer
 
 The interval alone does not say *which* assumption to worry about. For an
 additive model the variance splits exactly:
@@ -347,16 +347,16 @@ the draws, and the shares sum to 100 % by construction:
 | Inhaler propellants | 0.002 % |
 
 **This is the answer to the reviewers.** The proxy assumptions that worried them
-— anaesthetics, inhalers, the scaled bottom-up items — together account for less
+- anaesthetics, inhalers, the scaled bottom-up items - together account for less
 than 0.11 % of the variance. Travel, taken as a block including its covariance,
-accounts for 21.1 %. Everything else is the input–output model.
+accounts for 21.1 %. Everything else is the input-output model.
 
 Two consequences follow, and both should be stated in the paper:
 
 1. Tightening the bottom-up proxies further would not narrow the interval. The
    effort would be wasted.
-2. The one change that would narrow it is a nationally consistent input–output
-   model — which is precisely what SNAC coupling would deliver.
+2. The one change that would narrow it is a nationally consistent input-output
+   model - which is precisely what SNAC coupling would deliver.
 
 ### 6.3 Verification
 
@@ -376,17 +376,17 @@ Two independent checks run on every execution:
 ## 7. Answers to the five questions a referee will ask
 
 **"Why 100,000 draws?"** Because the Monte Carlo standard error at that size is
-0.035 % of the median — two orders of magnitude smaller than the quantity being
+0.035 % of the median - two orders of magnitude smaller than the quantity being
 reported. More draws would change no reported digit.
 
 **"Why lognormal rather than normal?"** A normal distribution puts positive
 probability on negative emissions. A lognormal cannot go below zero and is
 right-skewed, which is how multiplicative errors actually behave. This is the
-standard choice in input–output uncertainty analysis (Lenzen et al., 2010).
+standard choice in input-output uncertainty analysis (Lenzen et al., 2010).
 
-**"Where do the ±20–50 % ranges come from?"** They are not assumed; they are
+**"Where do the ±20-50 % ranges come from?"** They are not assumed; they are
 what the GSDs in §4.2 imply, and each GSD follows from the type of source. Two
-of the six ranges are *narrower* than 20–50 % precisely because those quantities
+of the six ranges are *narrower* than 20-50 % precisely because those quantities
 come from a national account, and one is *wider* because it has no Danish source
 at all.
 
@@ -402,7 +402,7 @@ the paper says so. See §8.
 ## 8. The limitation that must be stated with the interval
 
 > **Scope of the uncertainty estimate.** The interval reported here is
-> *parametric* uncertainty conditional on one input–output model. It does not
+> *parametric* uncertainty conditional on one input-output model. It does not
 > capture structural or model-choice uncertainty: the effect of using a
 > different global database, a different construct, or a nationally consistent
 > table. Tukker et al. (2020) caution that national error statistics do not
@@ -444,16 +444,16 @@ HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analy
 ## References
 
 - Lenzen M, Wood R, Wiedmann T (2010) Uncertainty analysis for multi-region
-  input–output models. *Economic Systems Research* 22(1):43–63.
+  input-output models. *Economic Systems Research* 22(1):43-63.
 - Lenzen M, Malik A, Li M, et al. (2020) The environmental footprint of health
-  care. *Lancet Planetary Health* 4:e271–e279 (SI table 7.1).
+  care. *Lancet Planetary Health* 4:e271-e279 (SI table 7.1).
 - Rodrigues JFD, Moran D, Wood R, Behrens P (2018) Uncertainty of
   consumption-based carbon accounts. *Environmental Science & Technology*
-  52:7577–7586.
+  52:7577-7586.
 - Schulte S, Jakobs A, Pauliuk S (2024) Uncertainty in greenhouse gas emission
-  accounts. *Earth System Science Data* 16:2669–2700.
+  accounts. *Earth System Science Data* 16:2669-2700.
 - Tukker A, Wood R, Schmidt S (2020) Towards accepted procedures for calculating
   international consumption-based carbon accounts. *Climate Policy*
-  20(sup1):S90–S106.
+  20(sup1):S90-S106.
 - Wood R, Neuhoff K, Moran D, et al. (2019) The structure, drivers and policy
   implications of the European carbon footprint. *Scientific Data* 6:99.

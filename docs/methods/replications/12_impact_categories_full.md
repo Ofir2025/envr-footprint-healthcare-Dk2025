@@ -1,4 +1,4 @@
-# 12 — Full impact-category profile
+# 12 - Full impact-category profile
 
 **Gold folder** `data/gold/results/12_impact_categories_full/`
 **Module** `analysis.impact_categories_full`
@@ -9,7 +9,7 @@ EcoIndicator 99 and the ILCD recommended factors
 ## Question this layer answers
 
 The study's headline uses six indicators. The studies it is benchmarked against use
-different and wider sets — Eckelman & Sherman report nine TRACI categories plus DALYs,
+different and wider sets - Eckelman & Sherman report nine TRACI categories plus DALYs,
 Malik et al. several environmental impacts, Lenzen et al. a long KPI list. Comparing one
 stressor at a time is not a replication.
 
@@ -54,7 +54,7 @@ stressor list, whose order the workbook columns must match.
 
 - The climate row is **not** taken from the workbook, which carries AR4 factors
   (CH₄ = 25, N₂O = 298) under a sheet labelled "CML 1999". It is rebuilt on IPCC AR6 from
-  the stressor names — see [15](15_gwp_vintage.md).
+  the stressor names - see [15](15_gwp_vintage.md).
 - DESIRE is a 2014-vintage file with no water-scarcity, land-biodiversity or
   mineral-resource categories. That gap is the reason for
   [16](16_impact_world_plus.md), which is current and openly licensed.
