@@ -142,6 +142,41 @@ NOT_STAGES: frozenset[str] = frozenset({
 })
 
 
+#: Modules allowed to name a data path relative to the repository root. Only
+#: ``gold_scope`` qualifies: it reports repository-relative paths as *text*, for
+#: a human and for git, and never opens them.
+RELATIVE_PATH_EXEMPT: frozenset[str] = frozenset({"gold_scope"})
+
+
+def relative_data_paths() -> list[str]:
+    """Modules that build a data path relative to the working directory.
+
+    Every data path must resolve through :mod:`paths`, because bronze and
+    silver can be pointed elsewhere so two working copies share one physical
+    copy of them, and because a relative literal breaks as soon as the caller
+    is not standing in the repository root. Two such literals survived until a
+    run from the second working copy found them, one at a time; this makes the
+    class visible instead.
+
+    Returns
+    -------
+    list of str
+        ``module:line`` for each offending literal.
+    """
+    hits: list[str] = []
+    for path in sorted((SRC / "analysis").glob("*.py")):
+        if path.stem in RELATIVE_PATH_EXEMPT:
+            continue
+        for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            if line.lstrip().startswith("#"):
+                continue
+            for quote in ('"data/', "'data/", '"./data/', 'f"data/'):
+                if quote in line:
+                    hits.append(f"{path.stem}:{n}")
+                    break
+    return hits
+
+
 def modules_on_disk() -> set[str]:
     """Analysis modules present in ``src/analysis``.
 
@@ -214,11 +249,14 @@ def main() -> int:
     if args.check:
         for name, why in STAGES:
             print(f"  {name:34s} {why[:74]}")
+        loose = relative_data_paths()
         print(f"\n{len(STAGES)} stages, {len(NOT_STAGES)} modules excused, "
-              f"{len(missing)} unlisted")
+              f"{len(missing)} unlisted, {len(loose)} relative data path(s)")
         for m in missing:
             print(f"  UNLISTED  {m}")
-        return 1 if missing else 0
+        for m in loose:
+            print(f"  RELATIVE PATH  {m}  (resolve it through paths.py)")
+        return 1 if (missing or loose) else 0
     if missing:
         print(f"refusing to run: {len(missing)} module(s) neither staged nor "
               f"excused: {', '.join(missing)}", file=sys.stderr)

@@ -35,7 +35,7 @@ import pandas as pd
 import scipy.io as sio
 
 from analysis.constants import K_DK, N_SECTORS
-from paths import OUTPUT_DIR
+from paths import BRONZE_DIR, OUTPUT_DIR
 
 FOLDER = "09_vintage_diagnostics"
 DKK_PER_EUR_2022 = 7.4396
@@ -44,7 +44,8 @@ DKK_PER_EUR_2016 = 7.4452
 EXIO_ROOT = os.path.expanduser(
     "~/Library/CloudStorage/OneDrive-Personal/Data/lca/input_output/mrio/"
     "exiobase/versions")
-DST_IO = "data/bronze/input_output/2016_2022/input_output_en_{year}.xlsx"
+DST_IO = str(BRONZE_DIR / "input_output" / "2016_2022"
+             / "input_output_en_{year}.xlsx")
 KEEP_YEARS = {"2016", "2019", "2022"}
 
 # EXIOBASE regions in file order; DK is index 6 (constants.K_DK).
