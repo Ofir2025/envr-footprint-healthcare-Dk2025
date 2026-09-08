@@ -1,95 +1,157 @@
 # -*- coding: utf-8 -*-
-"""Mitigation scenarios for the Danish health-care footprint.
+r"""Counterfactual scenarios for the Danish health-care footprint.
 
-Reviewer 2 asked us to *"distinguish between identifying hotspots and
-demonstrating effective mitigation strategies"*. This module answers that by
-modelling the levers an attributional EE-MRIO can credibly represent, reporting
-**all five impact categories for every scenario** so that burden shifting is
-visible, and stating plainly which levers cannot be modelled and why.
+The second reviewer asked us to separate identifying a hotspot from showing that
+acting on it works. This module answers that by modelling the levers an
+attributional EE-MRIO can credibly represent, **for all five impact categories**
+so that burden shifting is visible, and by stating which levers cannot be
+modelled and why.
 
-Two structural findings shaped the design, both verified against the model
-rather than assumed:
+Every scenario is a full counterfactual solution of the Leontief system through
+:mod:`analysis.scenario_engine`, following Aguilar-Hernandez et al. (2018) and
+Donati et al. (2020): each edit carries a technical change coefficient
+:math:`k_t` with a named source and a market penetration coefficient
+:math:`k_p`, and the combined scenario applies every edit **simultaneously** and
+re-solves, rather than summing separate answers.
+
+Where the levers come from
+--------------------------
+Scenarios are grounded in stated Danish policy and in measured Danish outcomes
+rather than invented ambition levels. The exceptions are labelled *illustrative*
+in the ``ambition_basis`` column and nowhere else.
+
+======  ==============================================  ==========================
+ID      Lever                                            Evidence for ``k_t``
+======  ==============================================  ==========================
+B1      Grid and district-heat decarbonisation           Danish Energy Agency KF22 / KF25
+B2      Danish demand growth to 2035                     Danske Regioner baseline
+P1      Hospital energy and transport, -75 % by 2030     Danske Regioner (2020) target
+P2      Pharmaceutical raw-material efficiency           Lundbeck, -15 % 2020-2022
+P3      Medical-device packaging carbon                  Demant, -12 % to -23.5 %
+P4      Reuse of medical equipment (lifetime extension)  Danske Regioner procurement focus
+P5      Patient, visitor and staff travel                Danish national travel survey
+P6      Low-charge pMDI / HFA-152a propellant            Jeswani & Azapagic (2019)
+P7      pMDI to dry-powder inhaler                       Jeswani & Azapagic (2019)
+P8      Nitrous oxide capture                            Denmark NID 2.G.3.a
+P9      Divert health-care waste from incineration       Danish circular-plastic partnership
+C1      All interventions, solved simultaneously         -
+C2      C1 with expenditure held constant (rebound)      Takase et al. (2005) form
+======  ==============================================  ==========================
+
+Two structural findings shaped the design, both verified against this model
+rather than assumed.
 
 **Danish electricity emissions are not on the generation technologies.** The
 Danish direct intensities are 3.208 kt CO2e per M.EUR for *Transmission of
 electricity* and 18.733 for *Steam and hot water supply*, against 0.013 for coal
 generation and 0.020 for wind. All eleven Danish generation-by-technology
-industries together contribute **0.82 kt** to the health-care footprint, while
+industries together contribute 0.82 kt to the health-care footprint, while
 transmission contributes 68.2 and steam 94.0. A technology-mix reallocation in
 ``A`` is therefore inoperative; grid decarbonisation must be applied to the
-**intensity matrix** at the transmission, distribution and steam nodes. Two
-Danish nodes (solar thermal, tide/wave) carry nowcast-artefact intensities of
-13,256 and 55,322 and are explicitly excluded from any scaling.
+intensity matrix at the transmission, distribution and steam nodes. Two Danish
+nodes (solar thermal, tide/wave) carry nowcast-artefact intensities of 13,256
+and 55,322 and are excluded from any scaling.
 
 **The health sector buys catering, not food.** 78 % of its food-related spend is
 *Hotels and restaurants*, so a dietary lever is a change to that industry's
 input column, not to final demand.
 
-Scenario taxonomy, following the author's own note: every scenario is labelled
-as an *intervention* (a policy could cause it), a *background pathway* (it
-happens regardless), or a *counterfactual* (a demand trajectory). A
-burden-shifting claim is only made where a non-climate indicator rises while
-climate falls.
+What is deliberately not modelled
+---------------------------------
+* **Price and market responses.** The model is attributional. A scenario is a
+  what-if on the recipe, not a forecast of how the economy reacts.
+* **"Green" versions of a product.** EXIOBASE has one *Chemicals nec* industry,
+  so switching a hospital to a lower-impact supplier of the same product cannot
+  be represented as a substitution; it can only appear as buying less. Green
+  procurement is therefore modelled as volume reduction plus lifetime extension
+  (P4), and the limitation is stated rather than papered over.
+* **Capacity constraints and interaction with the rest of the economy.** The
+  released Danish output is not re-employed unless the rebound scenario (C2) is
+  used.
 
 Run
 ---
-``PYTHONPATH=src .venv/bin/python -m analysis.mitigation_scenarios``
+``HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src
+python -m analysis.mitigation_scenarios``
+
+References
+----------
+Aguilar-Hernandez, G. A., Sigüenza-Sanchez, C. P., Donati, F., Rodrigues,
+J. F. D., & Tukker, A. (2018). Assessing circularity interventions: A review of
+EEIOA-based studies. *Journal of Economic Structures*, 7, 14.
+https://doi.org/10.1186/s40008-018-0113-3
+
+Donati, F., Aguilar-Hernandez, G. A., Sigüenza-Sánchez, C. P., de Koning, A.,
+Rodrigues, J. F. D., & Tukker, A. (2020). Modeling the circular economy in
+environmentally extended input-output tables: Methods, software and case study.
+*Resources, Conservation and Recycling*, 152, 104508.
+https://doi.org/10.1016/j.resconrec.2019.104508
+
+Healthcare Denmark. (2024). *Transitioning towards a sustainable healthcare
+sector* [White paper]. Healthcare Denmark.
+
+Jeswani, H. K., & Azapagic, A. (2019). Life cycle environmental impacts of
+inhalers. *Journal of Cleaner Production*, 237, 117733.
+https://doi.org/10.1016/j.jclepro.2019.117733
 """
 
 from __future__ import annotations
 
 import os
 import pickle
-from typing import Any, Callable
+from typing import Any
 
 import numpy as np
 import pandas as pd
 
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, DK_POPULATION,
-                                eriksen_folder,
-                                INDICATORS, MODEL_LABEL)
+                                INDICATORS, K_DK, MODEL_LABEL, N_SECTORS,
+                                eriksen_folder)
 from analysis.detail_tables import node_labels
-from paths import BACKGROUND_DIR, OUTPUT_DIR
+from analysis.scenario_engine import (Edit, Scenario, apply_edits,
+                                      column_imbalance, rebound_rescale, solve)
+from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 
 FOLDER = "18_mitigation_scenarios"
 
 #: Danish grid emission factor, g CO2e per kWh, from the Danish Energy Agency's
-#: own published notes. Two official vintages give a genuine uncertainty band
+#: published projections. Two official vintages give a real uncertainty band
 #: rather than an invented one.
 DK_GRID_FACTOR: dict[str, dict[int, float]] = {
-    "KF22 (Klimastatus og -fremskrivning 2022)": {2022: 122.7, 2030: 16.9,
-                                                  2035: 15.6},
-    "KF25 (Klimastatus og -fremskrivning 2025)": {2030: 32.4, 2035: 28.4},
+    "KF22": {2022: 122.7, 2030: 16.9, 2035: 15.6},
+    "KF25": {2030: 32.4, 2035: 28.4},
 }
 
 #: Nodes whose intensity a grid-decarbonisation scenario may scale. Generation
-#: technologies are deliberately absent: they carry almost none of the
-#: footprint (see module docstring).
+#: technologies are deliberately absent (see module docstring).
 ENERGY_NODE_PATTERNS = ("transmission of electricity",
                         "distribution and trade of electricity",
                         "steam and hot water supply")
 
-#: Nodes excluded from any scaling because their intensities are nowcast
-#: artefacts rather than measurements.
+#: Excluded from any scaling: nowcast artefacts, not measurements.
 ARTEFACT_NODE_PATTERNS = ("production of electricity by solar thermal",
                           "production of electricity by tide, wave, ocean")
 
-#: Danske Regioner (January 2024) committed the five Danish regions to halving
-#: hospitals' consumption-based CO2 emissions by 2035 against a 2022 baseline -
-#: this study's own reference year, on a consumption basis.
+#: Danske Regioner (2020) committed all Danish public hospitals to reducing
+#: CO2 from energy and transport by 75 % by 2030 against 2018, and (January
+#: 2024) to halving hospitals' consumption-based CO2 by 2035 against 2022.
 REGIONAL_TARGET = dict(
     source="Danske Regioner, January 2024",
     reduction_pct=50.0, target_year=2035, baseline_year=2022,
     basis="consumption-based CO2 of hospitals, against a 2022 baseline")
 
-#: Counter-burdens of switching pressurised metered-dose inhalers to dry-powder
-#: inhalers, per Jeswani & Azapagic (2019). Climate falls; three other
-#: pressures rise. This is the only lever that demonstrates burden shifting.
-PMDI_COUNTER_BURDENS = dict(
-    material_extraction=0.71,      # packaging, +71 %
-    waste_generation=1.80,         # mixed waste, +2.8x
-    blue_water_consumption=1.50,   # use phase, +150 %
-)
+#: Bottom-up items and the row of the bottom-up table that carries them.
+BOTTOM_UP_ROWS = {"B_COMM": "Commute (total)",
+                  "B_VISI": "Visitor travel (total)",
+                  "B_PMDI": "pMDI",
+                  "B_ANAE": "Anaesthetic"}
+
+#: Column of the bottom-up table for each indicator.
+BU_COLUMN = {"climate_change": "Global warming (ktCO2eq)",
+             "material_extraction": "Material extraction (kt)",
+             "blue_water_consumption": "Blue water consumption (Mm3)",
+             "land_use": "Land use (km2)",
+             "waste_generation": "Waste generation (kt)"}
 
 
 def _node_mask(names: list[str], patterns: tuple[str, ...]) -> np.ndarray:
@@ -98,38 +160,328 @@ def _node_mask(names: list[str], patterns: tuple[str, ...]) -> np.ndarray:
     return np.array([any(p in n for p in patterns) for n in lowered])
 
 
-def _baseline(bg: dict[str, Any], bottom_up_climate: float) -> dict[str, float]:
-    """Deterministic footprint by indicator, on the study's reported basis.
+def _dk_nodes(sector_positions: list[int]) -> np.ndarray:
+    """Node indices of the given sector positions within the Danish block."""
+    return np.array([K_DK * N_SECTORS + p for p in sector_positions])
+
+
+def _sector_positions(sec: pd.DataFrame, codes: tuple[str, ...]) -> list[int]:
+    """Positions of the given EXIOBASE sector codes."""
+    idx = {c: i for i, c in enumerate(sec["sector_code"])}
+    missing = [c for c in codes if c not in idx]
+    if missing:
+        raise AssertionError(f"sector codes not found: {missing}")
+    return [idx[c] for c in codes]
+
+
+def _all_region_nodes(sector_positions: list[int], n_regions: int) -> np.ndarray:
+    """Node indices of the given sector positions in every region."""
+    return np.array([r * N_SECTORS + p
+                     for r in range(n_regions) for p in sector_positions])
+
+
+def build_scenarios(bg: dict[str, Any], sec: pd.DataFrame, n_regions: int,
+                    names: list[str]) -> list[Scenario]:
+    """Assemble every scenario, with its evidence.
 
     Parameters
     ----------
     bg : dict
         The prepared background.
-    bottom_up_climate : float
-        Climate contribution of the bottom-up items that are not in the MRIO
-        or the direct vector - anaesthetics, pMDI, commuting and patient and
-        visitor travel, in kt CO2-equivalent.
+    sec : pandas.DataFrame
+        Sector labels, from :func:`analysis.detail_tables.node_labels`.
+    n_regions : int
+        Number of regions in the model.
+    names : list of str
+        Sector name of every node, region-major.
 
     Returns
     -------
-    dict
-        Indicator name to baseline value.
+    list of Scenario
+        Ordered so that the combined scenarios come last.
+    """
+    energy = _node_mask(names, ENERGY_NODE_PATTERNS) & ~_node_mask(
+        names, ARTEFACT_NODE_PATTERNS)
+    dk_energy = energy.copy()
+    dk_energy[:K_DK * N_SECTORS] = False
+    dk_energy[(K_DK + 1) * N_SECTORS:] = False
+
+    chem = _sector_positions(sec, ("CHEM",))
+    mein = _sector_positions(sec, ("MEIN",))
+    heal = _sector_positions(sec, ("HEAL",))
+    repair = _sector_positions(sec, ("OBUS",)) if "OBUS" in set(
+        sec["sector_code"]) else heal
+    incin = _sector_positions(
+        sec, tuple(c for c in ("INCF", "INCP", "INCL", "INCM", "INCT", "INCW",
+                               "INCO") if c in set(sec["sector_code"])))
+    recyc = _sector_positions(
+        sec, tuple(c for c in ("RYMS", "PLAW", "BOTW")
+                   if c in set(sec["sector_code"])))
+
+    scenarios: list[Scenario] = []
+
+    # ---- B1 background: grid and district-heat decarbonisation ----------
+    base_factor = DK_GRID_FACTOR["KF22"][2022]
+    for vintage, factors in DK_GRID_FACTOR.items():
+        for year in (2030, 2035):
+            if year not in factors:
+                continue
+            k_t = 1.0 - factors[year] / base_factor
+            scenarios.append(Scenario(
+                sid="B1", name=f"grid and district heat, {year}",
+                kind="background pathway",
+                ambition=f"{vintage} to {year}",
+                edits=(Edit(target="B", cols=np.flatnonzero(energy),
+                            k_t=k_t, k_p=1.0,
+                            source=(f"Danish Energy Agency {vintage}: "
+                                    f"{base_factor} -> {factors[year]} "
+                                    f"g CO2e/kWh"),
+                            penetration_basis="the whole Danish grid"),),
+                note=("scales the intensity matrix at transmission, "
+                      "distribution and steam nodes in every region; "
+                      "generation technologies carry almost none of the "
+                      "footprint and are not scaled")))
+
+    # ---- P1 hospital energy and transport, Danske Regioner 2020 ---------
+    for k_p in (0.5, 1.0):
+        scenarios.append(Scenario(
+            sid="P1", name="hospital energy and transport",
+            kind="intervention",
+            ambition=f"-75 % by 2030, {k_p:.0%} of the target met",
+            edits=(Edit(target="y", rows=np.flatnonzero(dk_energy),
+                        k_t=0.75, k_p=k_p,
+                        source=("Danske Regioner (2020): all public hospitals "
+                                "to cut CO2 from energy and transport by 75 % "
+                                "by 2030 against 2018"),
+                        penetration_basis=(
+                            "share of the stated target actually met; both "
+                            "half and full delivery are reported")),),
+            note=("acts on the health sector's purchases of Danish "
+                  "electricity, distribution and steam. The regions' own "
+                  "measures - climate-friendly buildings, heating conversion, "
+                  "hybrid ambulances - are inputs to this reduction, not "
+                  "separate levers, and cannot be resolved individually in a "
+                  "model with one health industry")))
+
+    # ---- P2 pharmaceutical raw-material efficiency ----------------------
+    for k_p in (0.25, 0.50, 1.00):
+        scenarios.append(Scenario(
+            sid="P2", name="pharmaceutical raw-material efficiency",
+            kind="intervention",
+            ambition=f"-15 % inputs, {k_p:.0%} of Danish production",
+            edits=(Edit(target="A", cols=_dk_nodes(chem),
+                        k_t=0.15, k_p=k_p,
+                        source=("Lundbeck, reported in Healthcare Denmark "
+                                "(2024): raw-material use down 15 % from 2020 "
+                                "to 2022 while chemical production rose 18 %"),
+                        penetration_basis=(
+                            "share of Danish pharmaceutical output achieving "
+                            "what one firm achieved; reported as a range "
+                            "because that share is unknown")),),
+            note=("a resource-efficiency edit on the input column of the "
+                  "Danish chemicals industry - Aguilar-Hernandez et al. "
+                  "(2018) section 4.4, lower input coefficients at the same "
+                  "output. Only the Danish column is edited: a plant-level "
+                  "Danish result is not evidence about chemical production "
+                  "elsewhere")))
+
+    # ---- P3 medical-device packaging ------------------------------------
+    for k_t, lab in ((0.12, "-12 %"), (0.235, "-23.5 %")):
+        scenarios.append(Scenario(
+            sid="P3", name="medical-device packaging carbon",
+            kind="intervention", ambition=f"{lab} cradle-to-gate",
+            edits=(Edit(target="A", cols=_all_region_nodes(mein, n_regions),
+                        rows=_all_region_nodes(
+                            _sector_positions(sec, ("PAPE", "PLAS"))
+                            if {"PAPE", "PLAS"} <= set(sec["sector_code"])
+                            else chem, n_regions),
+                        k_t=k_t, k_p=1.0,
+                        source=("Demant, reported in Healthcare Denmark "
+                                "(2024): 12 % to 23.5 % lower cradle-to-gate "
+                                "packaging carbon across the hearing-aid "
+                                "portfolio, using recycled PET"),
+                        penetration_basis=(
+                            "applied to the paper and plastics inputs of "
+                            "medical-instrument manufacturing in every region")),),
+            note=("packaging is not a separate EXIOBASE product, so the edit "
+                  "acts on the paper and plastics inputs of the "
+                  "medical-instruments column. That is broader than packaging "
+                  "alone and therefore an upper bound on this lever")))
+
+    # ---- P4 reuse of medical equipment, lifetime extension --------------
+    for k_t in (0.10, 0.20):
+        scenarios.append(Scenario(
+            sid="P4", name="reuse of medical equipment",
+            kind="intervention", ambition=f"-{k_t:.0%} device purchases",
+            edits=(Edit(target="y", rows=_all_region_nodes(mein, n_regions),
+                        k_t=k_t, k_p=1.0, alpha=0.30,
+                        substitute_rows=_dk_nodes(repair),
+                        source=("Danske Regioner procurement focus on reuse "
+                                "of medical equipment, reported in Healthcare "
+                                "Denmark (2024). The reduction level is "
+                                "ILLUSTRATIVE - no Danish reuse rate is "
+                                "published"),
+                        penetration_basis="illustrative ambition"),),
+            note=("product lifetime extension, Aguilar-Hernandez et al. "
+                  "(2018) section 4.3: lower final demand for the device, "
+                  "with 30 % of the saving reappearing as maintenance and "
+                  "repair services rather than disappearing")))
+
+    # ---- P5 travel, all five categories ---------------------------------
+    for k_t in (0.10, 0.20, 0.30):
+        scenarios.append(Scenario(
+            sid="P5", name="patient, visitor and staff travel",
+            kind="intervention", ambition=f"-{k_t:.0%}",
+            edits=(Edit(target="bottom_up", key="B_COMM", k_t=k_t, k_p=1.0,
+                        source="Danish national travel survey (TU) purpose 33",
+                        penetration_basis="illustrative ambition"),
+                   Edit(target="bottom_up", key="B_VISI", k_t=k_t, k_p=1.0,
+                        source="Danish national travel survey (TU) purpose 33",
+                        penetration_basis="illustrative ambition")),
+            note=("acts on the bottom-up travel items in ALL FIVE categories - "
+                  "the ecoinvent inventory behind them carries material, "
+                  "water and land as well as greenhouse gases, and treating "
+                  "the non-climate columns as zero understated this lever")))
+
+    # ---- P6 propellant change, the better-evidenced inhaler lever -------
+    for k_t, lab in ((0.67, "low-charge pMDI"), (0.93, "HFA-152a propellant")):
+        scenarios.append(Scenario(
+            sid="P6", name=f"inhaler propellant: {lab}",
+            kind="intervention", ambition=f"-{k_t:.0%} propellant GWP",
+            edits=(Edit(target="bottom_up", key="B_PMDI", k_t=k_t, k_p=1.0,
+                        source=("Jeswani & Azapagic (2019): reducing propellant "
+                                "by 67 % cuts the carbon footprint of use and "
+                                "end-of-life by 67 %; replacing HFA-134a with "
+                                "HFA-152a cuts it by 93 %"),
+                        penetration_basis=(
+                            "full substitution of the Danish pMDI stock; a "
+                            "device change, not a change of therapy")),),
+            note=("this lever is better evidenced than switching device class "
+                  "and carries no therapeutic trade-off, because the "
+                  "medicine and the delivery route are unchanged")))
+
+    # ---- P7 device switch, with the burden shift named ------------------
+    for k_t in (0.25, 0.50, 0.75):
+        scenarios.append(Scenario(
+            sid="P7", name="pMDI to dry-powder inhaler",
+            kind="intervention", ambition=f"{k_t:.0%} substituted",
+            edits=(Edit(target="bottom_up", key="B_PMDI", k_t=k_t, k_p=1.0,
+                        source=("Jeswani & Azapagic (2019): dry-powder inhaler "
+                                "GWP is 0.06 kg CO2e per 100 doses against "
+                                "23.4 for the HFA inhaler, a factor of 380"),
+                        penetration_basis="share of the pMDI stock switched"),),
+            note=("BURDEN SHIFT, sourced and directional. Jeswani & Azapagic "
+                  "report the dry-powder inhaler as WORSE than the HFA "
+                  "inhaler for abiotic depletion of elements, eutrophication "
+                  "and freshwater and terrestrial ecotoxicity. Those act on "
+                  "the device life cycle, which this MRIO does not resolve, "
+                  "so the direction is reported and the magnitude is not "
+                  "invented. Dry-powder inhalers are also not clinically "
+                  "suitable for every patient")))
+
+    # ---- P8 nitrous oxide -----------------------------------------------
+    for k_t in (0.25, 0.50, 0.75):
+        scenarios.append(Scenario(
+            sid="P8", name="nitrous oxide capture or reduction",
+            kind="intervention", ambition=f"{k_t:.0%}",
+            edits=(Edit(target="bottom_up", key="B_ANAE", k_t=k_t, k_p=0.60,
+                        source=("Denmark National Inventory Document category "
+                                "2.G.3.a: 38 t N2O per year"),
+                        penetration_basis=(
+                            "N2O is 60 % of the Danish anaesthetic-gas term; "
+                            "the volatile agents are a separate item that "
+                            "capture does not touch")),),
+            note=("acts on the N2O share of the anaesthetic term only. The "
+                  "volatile agents already reflect the Danish desflurane "
+                  "phase-out and are not reduced again here")))
+
+    # ---- P9 waste diversion ----------------------------------------------
+    if incin and recyc:
+        for k_t in (0.20, 0.40):
+            scenarios.append(Scenario(
+                sid="P9", name="divert health-care waste to recycling",
+                kind="intervention", ambition=f"{k_t:.0%} of incineration",
+                edits=(Edit(target="A", rows=_all_region_nodes(incin, n_regions),
+                            cols=_dk_nodes(heal), k_t=k_t, k_p=1.0, alpha=1.0,
+                            substitute_rows=_all_region_nodes(recyc, n_regions),
+                            substitute_cols=_dk_nodes(heal),
+                            source=("Circular Industrial Plastic partnership "
+                                    "and the regions' stated focus on avoiding "
+                                    "waste, Healthcare Denmark (2024). The "
+                                    "diverted share is ILLUSTRATIVE"),
+                            penetration_basis="illustrative ambition"),),
+                note=("residual waste management, Aguilar-Hernandez et al. "
+                      "(2018) section 4.1: the health industry's purchases of "
+                      "incineration are moved to recycling services. EXIOBASE "
+                      "resolves both explicitly, so this is a real "
+                      "substitution rather than an intensity fudge")))
+
+    return scenarios
+
+
+def combine(scenarios: list[Scenario]) -> list[Scenario]:
+    """Build the two combined scenarios from the most ambitious of each lever.
+
+    Parameters
+    ----------
+    scenarios : list of Scenario
+        The individual scenarios.
+
+    Returns
+    -------
+    list of Scenario
+        ``C1`` (all interventions applied simultaneously) and ``C2`` (the same
+        with total final expenditure held constant).
 
     Notes
     -----
-    The bottom-up items must be inside the baseline because several scenarios
-    act on them. Comparing a reduction that includes them against a baseline
-    that excludes them would overstate every percentage.
+    Summing the separate answers, which the previous implementation did, double
+    counts every interaction: a lever that cuts electricity purchases and a
+    lever that decarbonises electricity both claim the same avoided emission.
+    Applying the edits together and re-solving prices that overlap correctly.
+    P7 is excluded because it is an alternative to P6 on the same devices, not
+    an addition to it.
     """
-    B, L, Ystim, Hstim = bg["B"], bg["L"], bg["Ystim"], bg["Hstim"]
-    out = {name: float(B[k] @ (L @ Ystim[:, 0])) + float(Hstim[k, 0])
-           for k, name, _ in INDICATORS}
-    out["climate_change"] += bottom_up_climate
-    return out
+    best: dict[str, Scenario] = {}
+    for s in scenarios:
+        if s.kind != "intervention" or s.sid == "P7":
+            continue
+        prev = best.get(s.sid)
+        if prev is None or sum(e.k_a for e in s.edits) > sum(
+                e.k_a for e in prev.edits):
+            best[s.sid] = s
+    edits = tuple(e for s in best.values() for e in s.edits)
+    note = ("every intervention at its most ambitious modelled level, applied "
+            "simultaneously and re-solved. P7 is excluded as an alternative to "
+            "P6 on the same devices. This is NOT the sum of the individual "
+            "rows: overlapping levers are netted by the solution")
+    # The background pathway is not a health-system lever, but the regions
+    # meet their target in a decarbonising grid, so the policy-relevant
+    # combination includes it. All three are reported.
+    grid = max((s for s in scenarios if s.sid == "B1"),
+               key=lambda s: sum(e.k_a for e in s.edits))
+    return [
+        Scenario(sid="C1", name="all interventions combined",
+                 kind="combined", ambition="maximum modelled", edits=edits,
+                 note=note),
+        Scenario(sid="C2", name="all interventions, expenditure held constant",
+                 kind="combined", ambition="maximum modelled, with rebound",
+                 edits=edits, rebound=True,
+                 note=(note + ". Total final expenditure is held at the "
+                       "baseline, so money not spent on one product is spent "
+                       "on the rest of the basket")),
+        Scenario(sid="C3", name="interventions and the grid pathway",
+                 kind="combined",
+                 ambition="maximum modelled, " + grid.ambition,
+                 edits=edits + tuple(grid.edits),
+                 note=(note + ". The grid pathway is added because the regions "
+                       "meet their target in a decarbonising economy; it is "
+                       "not something the health system causes")),
+    ]
 
 
 def main() -> None:
-    """Run every scenario and write the results with full indicator coverage."""
+    """Run every scenario across all five categories and write the tables."""
     out_dir = os.path.join(str(OUTPUT_DIR), FOLDER)
     os.makedirs(out_dir, exist_ok=True)
 
@@ -137,158 +489,158 @@ def main() -> None:
                            f"gddz_background_information_{BACKGROUND_YEAR}.pkl"),
               "rb") as fh:
         bg = pickle.load(fh)
-    B, L, Ystim, Hstim = bg["B"], bg["L"], bg["Ystim"], bg["Hstim"]
+    A, B, Ystim, Hstim = bg["A"], bg["B"], bg["Ystim"], bg["Hstim"]
+    y0 = Ystim[:, 0]
     reg, sec = node_labels()
-    names = list(np.tile(sec["sector_name"].values, len(reg)))
-    iso3 = list(np.repeat(reg["iso3"].values, len(sec)))
-
-    energy = _node_mask(names, ENERGY_NODE_PATTERNS)
-    artefact = _node_mask(names, ARTEFACT_NODE_PATTERNS)
-    energy = energy & ~artefact
+    n_regions = len(reg)
+    names = list(np.tile(sec["sector_name"].values, n_regions))
     population = DK_POPULATION[ANALYSIS_YEAR]
 
-    # bottom-up items, which several scenarios act on directly
-    bottom_up = pd.read_csv(os.path.join(
+    bu = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR),
+                                  "dk_bottomup_data_2025.txt"),
+                     sep="\t").set_index("Source")
+
+    def bottom_up(indicator: str, scale: dict[str, float] | None = None
+                  ) -> float:
+        """Bottom-up total for one indicator, with optional per-item scaling."""
+        col = BU_COLUMN[indicator]
+        total = 0.0
+        for key, row in BOTTOM_UP_ROWS.items():
+            v = float(bu.loc[row, col])
+            total += v * (1.0 - (scale or {}).get(key, 0.0))
+        return total
+
+    # ---- baseline --------------------------------------------------------
+    x0 = solve(A, y0)
+    base: dict[str, float] = {}
+    for k, name, _ in INDICATORS:
+        base[name] = float(B[k] @ x0) + float(Hstim[k, 0]) + bottom_up(name)
+
+    headline = pd.read_csv(os.path.join(
         str(OUTPUT_DIR), *eriksen_folder().split("/"),
         "scopes_summary.csv")).set_index("Component")["kt_CO2eq"]
-    pmdi = float(bottom_up["  + pMDI (bottom-up, use phase)"])
-    anaesthetic = float(bottom_up["  + Anaesthetic gases (bottom-up)"])
-    n2o = 38.0 * 298.0 / 1e3          # NID 2.G.3.a, netted from DRIVHUS
-    travel = float(bottom_up["Outside protocol (patient/visitor travel)"])
-    commute = float(bottom_up["  + Commute (bottom-up)"])
-    base = _baseline(bg, pmdi + anaesthetic + travel + commute)
+    grand = float(headline["Grand Total"])
+    assert abs(base["climate_change"] - grand) / grand < 0.01, (
+        f"scenario baseline {base['climate_change']:,.1f} kt departs from the "
+        f"study headline {grand:,.1f} kt by more than 1 %")
+
+    scenarios = build_scenarios(bg, sec, n_regions, names)
+    scenarios += combine(scenarios)
 
     rows: list[dict[str, Any]] = []
-
-    def record(scenario: str, kind: str, ambition: str,
-               deltas: dict[str, float], note: str, source: str) -> None:
-        """Record one scenario across every indicator."""
-        for _, name, unit in INDICATORS:
-            change = deltas.get(name, 0.0)
+    for s in scenarios:
+        scale = {e.key: e.k_a for e in s.edits
+                 if e.target == "bottom_up" and e.key}
+        A_alt, B_alt, y_alt, _ = apply_edits(A, B, y0, s.edits)
+        if s.rebound:
+            y_alt = rebound_rescale(y_alt, y0)
+        x = x0 if A_alt is A and y_alt is y0 else solve(A_alt, y_alt)
+        imbalance = column_imbalance(A_alt, A, x)
+        for k, name, unit in INDICATORS:
+            value = (float(B_alt[k] @ x) + float(Hstim[k, 0])
+                     + bottom_up(name, scale))
+            change = value - base[name]
             rows.append(dict(
                 country_consuming="DNK", analysis_year=ANALYSIS_YEAR,
-                scenario=scenario, scenario_type=kind, ambition=ambition,
-                indicator=name, unit=unit, baseline=base[name],
-                change=change, scenario_value=base[name] + change,
+                scenario_id=s.sid, scenario=s.label, scenario_type=s.kind,
+                ambition=s.ambition, indicator=name, unit=unit,
+                baseline=base[name], scenario_value=value, change=change,
                 change_pct=100 * change / base[name] if base[name] else np.nan,
                 per_capita_change=change * 1e3 / population
                 if unit.startswith("kt") else np.nan,
-                note=note, source=source, model=MODEL_LABEL))
-
-    # ---- S1 background energy decarbonisation ---------------------------
-    for label, factors in DK_GRID_FACTOR.items():
-        for year in (2030, 2035):
-            if year not in factors or 2022 not in DK_GRID_FACTOR[
-                    "KF22 (Klimastatus og -fremskrivning 2022)"]:
-                continue
-            base_factor = DK_GRID_FACTOR[
-                "KF22 (Klimastatus og -fremskrivning 2022)"][2022]
-            ratio = factors[year] / base_factor
-            deltas = {}
-            for k, name, _ in INDICATORS:
-                intensity = B[k].copy()
-                intensity[energy] *= ratio
-                deltas[name] = float(intensity @ (L @ Ystim[:, 0])) \
-                    - float(B[k] @ (L @ Ystim[:, 0]))
-            record(f"S1 energy decarbonisation to {year}",
-                   "background pathway", label, deltas,
-                   "scales the intensity matrix at transmission, distribution "
-                   "and steam nodes; generation technologies carry almost none "
-                   "of the footprint and are not scaled",
-                   f"Danish Energy Agency {label}: {base_factor} -> "
-                   f"{factors[year]} g CO2e/kWh")
-
-    # ---- S3 travel reduction -------------------------------------------
-    for cut in (0.10, 0.20, 0.30):
-        record(f"S3 patient, visitor and staff travel -{cut:.0%}",
-               "intervention", f"-{cut:.0%}",
-               {"climate_change": -(travel + commute) * cut},
-               "acts on the bottom-up travel items only; the MRIO transport "
-               "chain is not double counted",
-               "Danish national travel survey; reduction levels are illustrative")
-
-    # ---- S6 pMDI substitution, with counter-burdens ---------------------
-    for cut in (0.25, 0.50, 0.75):
-        # The counter-burdens act on the DEVICE life cycle, which this MRIO
-        # does not resolve, so they are named in the note rather than given a
-        # spurious number. Reporting them as zero would be worse than
-        # reporting them qualitatively.
-        deltas = {"climate_change": -pmdi * cut}
-        record(f"S6 pMDI to dry-powder inhaler, {cut:.0%} substituted",
-               "intervention", f"{cut:.0%}", deltas,
-               "climate falls, but Jeswani & Azapagic report packaging +71 %, "
-               "mixed waste +2.8x and use-phase water +150 % for the dry-powder "
-               "alternative. Those counter-burdens act on the DEVICE life "
-               "cycle, which this MRIO does not resolve, so they are reported "
-               "qualitatively rather than quantified here - the burden shift is "
-               "real and is the reason this scenario is retained",
-               "Jeswani & Azapagic 2019; Wilkinson et al. 2019 give -580 kt "
-               "for full substitution in England")
-
-    # ---- S7 nitrous oxide ----------------------------------------------
-    for cut in (0.25, 0.50, 0.75):
-        record(f"S7 nitrous oxide capture or reduction, {cut:.0%}",
-               "intervention", f"{cut:.0%}",
-               {"climate_change": -n2o * cut},
-               "acts on the national-inventory N2O term; volatile agents are "
-               "separate and already reflect the Danish desflurane phase-out",
-               "Denmark NID 2.G.3.a, 38 t N2O/yr")
-
-    # ---- S8 demand growth, as the counterfactual ------------------------
-    growth = 0.18
-    deltas = {name: base[name] * growth for _, name, _ in INDICATORS}
-    record(f"S8 health demand growth +{growth:.0%} to 2035",
-           "counterfactual", f"+{growth:.0%}", deltas,
-           "Danske Regioner's own business-as-usual trajectory. Guards against "
-           "the failure mode Lenzen et al. document, where intensity fell 39 % "
-           "globally while the footprint rose 40 %",
-           "Danske Regioner 2024 baseline 3.3 -> 3.9 Mt")
-
+                k_t=";".join(f"{e.k_t:g}" for e in s.edits),
+                k_p=";".join(f"{e.k_p:g}" for e in s.edits),
+                k_a=";".join(f"{e.k_a:g}" for e in s.edits),
+                edited_objects=";".join(sorted({e.target for e in s.edits})),
+                rebound=s.rebound,
+                unbalanced_pct_of_output=imbalance,
+                ambition_basis=" | ".join(
+                    dict.fromkeys(e.penetration_basis for e in s.edits)),
+                source=" | ".join(dict.fromkeys(e.source for e in s.edits)),
+                note=s.note, model=MODEL_LABEL))
+        del A_alt, B_alt, y_alt
     table = pd.DataFrame(rows)
     table.to_csv(os.path.join(out_dir, "mitigation_scenarios.csv"), index=False)
 
-    # ---- target consistency --------------------------------------------
-    climate = table[(table.indicator == "climate_change")
-                    & (table.scenario_type == "intervention")]
-    best = climate.groupby("scenario")["change"].min()
-    energy_best = table[(table.indicator == "climate_change")
-                        & table.scenario.str.startswith("S1")]["change"].min()
-    achievable = float(best.sum() + energy_best)
-    required = -base["climate_change"] * REGIONAL_TARGET["reduction_pct"] / 100
+    # ---- target consistency ---------------------------------------------
+    climate = table[table.indicator == "climate_change"]
+    combined = float(climate.loc[climate.scenario_id == "C1", "change"].iloc[0])
+    with_grid = float(climate.loc[climate.scenario_id == "C3", "change"].iloc[0])
+    rebounded = float(climate.loc[climate.scenario_id == "C2", "change"].iloc[0])
+    # The naive sum must be taken over the SAME levers C1 contains, or the
+    # difference is not an interaction term. P7 is an alternative to P6 on the
+    # same devices and is excluded from both.
+    naive = float(climate[(climate.scenario_type == "intervention")
+                          & (climate.scenario_id != "P7")]
+                  .groupby("scenario_id")["change"].min().sum())
+    growth = 0.18
     demand = base["climate_change"] * growth
+    required = -base["climate_change"] * REGIONAL_TARGET["reduction_pct"] / 100
     assessment = pd.DataFrame([
         dict(quantity="baseline climate footprint",
              value=base["climate_change"], unit="kt CO2eq"),
         dict(quantity="required reduction for the regional target",
              value=required, unit="kt CO2eq"),
-        dict(quantity="modelled levers at maximum ambition, combined",
-             value=achievable, unit="kt CO2eq"),
-        dict(quantity="share of the target these levers reach",
-             value=100 * achievable / required, unit="%"),
+        dict(quantity="all interventions, solved simultaneously (C1)",
+             value=combined, unit="kt CO2eq"),
+        dict(quantity="the same levers summed separately",
+             value=naive, unit="kt CO2eq"),
+        dict(quantity="interaction, i.e. what summing would overstate",
+             value=naive - combined, unit="kt CO2eq"),
+        dict(quantity="share of the target the interventions alone reach",
+             value=100 * combined / required, unit="%"),
+        dict(quantity="interventions with the grid pathway (C3)",
+             value=with_grid, unit="kt CO2eq"),
+        dict(quantity="share of the target with the grid pathway",
+             value=100 * with_grid / required, unit="%"),
+        dict(quantity="interventions with expenditure held constant (C2)",
+             value=rebounded, unit="kt CO2eq"),
+        dict(quantity="rebound, i.e. the saving respending removes",
+             value=rebounded - combined, unit="kt CO2eq"),
         dict(quantity="demand growth offset (business as usual)",
              value=demand, unit="kt CO2eq"),
-        dict(quantity="net position after demand growth",
-             value=achievable + demand, unit="kt CO2eq"),
-        dict(quantity="net share of the target",
-             value=100 * (achievable + demand) / required, unit="%"),
+        dict(quantity="net position, grid pathway included",
+             value=with_grid + demand, unit="kt CO2eq"),
     ])
     assessment["target"] = REGIONAL_TARGET["source"]
     assessment["basis"] = REGIONAL_TARGET["basis"]
     assessment["caveat"] = (
-        "levers are summed independently, which ignores interaction and is "
-        "therefore an upper bound; the regional target covers hospitals while "
-        "this baseline covers health and eldercare, so the comparison is "
-        "indicative of scale rather than an assessment of compliance")
+        "the regional target covers hospitals while this baseline covers "
+        "health and eldercare, so the comparison is indicative of scale rather "
+        "than an assessment of compliance; levers are applied simultaneously "
+        "and re-solved, so the combined figure is not an upper bound in the "
+        "way a naive sum would be")
     assessment.to_csv(os.path.join(out_dir, "target_consistency.csv"),
                       index=False)
 
-    pd.set_option("display.width", 210)
-    print(table[table.indicator == "climate_change"][
-        ["scenario", "ambition", "change", "change_pct"]]
-        .round(1).to_string(index=False, max_colwidth=52))
+    # ---- burden shifting -------------------------------------------------
+    shift = (table.pivot_table(index=["scenario_id", "scenario", "ambition"],
+                               columns="indicator", values="change_pct")
+             .reset_index())
+    ind_cols = [c for c in shift.columns if c in BU_COLUMN]
+    others = [c for c in ind_cols if c != "climate_change"]
+    # Burden shifting: climate improves while some other pressure worsens.
+    shift["shifts_burden"] = ((shift["climate_change"] < -1e-9)
+                              & (shift[others] > 1e-9).any(axis=1))
+    # Backfire: the lever makes climate worse. A different failure, and one a
+    # reader must not have to infer from a sign.
+    shift["backfires_on_climate"] = shift["climate_change"] > 1e-9
+    # Several bottom-up levers act on items for which no non-climate inventory
+    # exists, so their zeros mean "not resolved", not "no effect".
+    shift["non_climate_resolved"] = ~shift["scenario_id"].isin(
+        {"P6", "P7", "P8"})
+    shift.to_csv(os.path.join(out_dir, "burden_shifting.csv"), index=False)
+
+    pd.set_option("display.width", 220)
+    print(climate[["scenario", "ambition", "change", "change_pct"]]
+          .round(2).to_string(index=False, max_colwidth=46))
     print("\nTarget consistency:")
     print(assessment[["quantity", "value", "unit"]].round(1)
           .to_string(index=False))
+    print(f"\nBurden shifting: {int(shift['shifts_burden'].sum())} of "
+          f"{len(shift)} scenarios improve climate while worsening another "
+          f"pressure; {int(shift['backfires_on_climate'].sum())} worsen "
+          f"climate itself")
     print(f"\nwritten -> {out_dir}")
 
 

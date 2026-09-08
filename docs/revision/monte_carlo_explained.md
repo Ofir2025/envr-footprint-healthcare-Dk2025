@@ -173,8 +173,21 @@ $$\sigma_M = \sqrt{\ln\left(1 + \mathrm{CV}^{2}\right)} = \sqrt{\ln(1+0.0835^{2}
 spread are related by that formula; for small CVs the two are almost equal, and
 here 8.35 % maps to $\sigma_M = 0.0834$.
 
-It is independently corroborated: Wood et al. (2019), comparing five global
-input–output databases, report 8.8 % for the Danish consumption-based account.
+**Corroboration, corrected.** An earlier draft attributed "8.8 % for the Danish
+consumption-based account" to Wood et al. (2019). The paper is real and is the
+right kind of evidence, but that decimal is not what it reports: across all
+regions it gives an unweighted mean relative standard deviation of **8 % for
+production-based and 12 % for consumption-based accounts**, and it names Denmark
+explicitly among the countries whose variation is driven by how international
+transport emissions are handled. The 8.35 % used here therefore sits at the
+lower end of the published cross-database spread, which is what one would expect
+of a within-model parametric estimate.
+
+The same point is visible in this repository without leaving it. Five published
+Danish national footprints span 9.77 to 13.19 t CO₂e per capita - a coefficient
+of variation of **12.8 %**, and a factor of 1.35 between lowest and highest.
+That is wider than the parametric interval, which is the argument of §8: model
+choice moves the answer more than the parameters do.
 
 ### 4.4 Correlated ingredients
 

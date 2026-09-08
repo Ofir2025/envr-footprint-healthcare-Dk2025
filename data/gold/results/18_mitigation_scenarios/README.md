@@ -1,8 +1,6 @@
 # 18_mitigation_scenarios
 
-**18 — Mitigation scenarios**
-
-Reviewer 2's R2-7: the manuscript identifies hotspots but does not model mitigation. What would plausible Danish decarbonisation actually deliver, and what would it not?
+**18 · Counterfactual scenarios**
 
 Method, equations and verification: [`docs/methods/replications/18_mitigation_scenarios.md`](../../../docs/methods/replications/18_mitigation_scenarios.md).
 
@@ -19,16 +17,22 @@ Method, equations and verification: [`docs/methods/replications/18_mitigation_sc
 
 ## Tables
 
+### `burden_shifting.csv`
+
+- **Rows:** 29
+- **Dimensions:** `scenario_id`, `scenario`
+- **Measures:** `ambition`, `blue_water_consumption`, `climate_change`, `land_use`, `material_extraction`, `waste_generation`, `shifts_burden`, `backfires_on_climate`, `non_climate_resolved`
+
 ### `mitigation_scenarios.csv`
 
-- **Rows:** 70
+- **Rows:** 145
 - **Units:** Mm3, km2, kt, kt CO2eq
-- **Dimensions:** `country_consuming`, `scenario`, `scenario_type`, `indicator`, `unit`, `note`, `source`, `model`
-- **Measures:** `analysis_year`, `ambition`, `baseline`, `change`, `scenario_value`, `change_pct`, `per_capita_change`
+- **Dimensions:** `country_consuming`, `scenario_id`, `scenario`, `scenario_type`, `indicator`, `unit`, `ambition_basis`, `source`, `note`, `model`
+- **Measures:** `analysis_year`, `ambition`, `baseline`, `scenario_value`, `change`, `change_pct`, `per_capita_change`, `k_t`, `k_p`, `k_a`, `edited_objects`, `rebound`, `unbalanced_pct_of_output`
 
 ### `target_consistency.csv`
 
-- **Rows:** 7
+- **Rows:** 12
 - **Units:** %, kt CO2eq
 - **Dimensions:** `quantity`, `unit`, `target`, `basis`
 - **Measures:** `value`, `caveat`
