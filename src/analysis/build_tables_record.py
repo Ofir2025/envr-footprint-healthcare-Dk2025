@@ -35,6 +35,7 @@ from typing import Any, Callable
 import numpy as np
 import pandas as pd
 
+from analysis import gold_scope
 from analysis.constants import (ANALYSIS_YEAR, DK_POPULATION, MODEL_LABEL,
                                 eriksen_folder, scopes_folder)
 from paths import OUTPUT_DIR
@@ -397,8 +398,18 @@ def t_capital() -> Table:
         "wrong; each is a convention that must be reported with the number.")
 
 
-def t_health_functions() -> Table:
-    """Footprint by health-care function, and what the split can support."""
+def t_health_functions() -> Table | None:
+    """Footprint by health-care function, and what the split can support.
+
+    Returns
+    -------
+    Table or None
+        None in a working copy that does not carry the health sub-sector
+        layer, which is classified private and therefore absent from the copy
+        that feeds the co-author's branch.
+    """
+    if not gold_scope.is_present("17_health_subsectors"):
+        return None
     d = _read("17_health_subsectors", "footprint_by_health_function.csv")
     d = d[d["indicator"] == "climate_change"] if "indicator" in d.columns else d
     rows = [{
@@ -610,7 +621,7 @@ def t_parameters() -> Table:
         "a published Monte Carlo estimate of this exact quantity.")
 
 
-BUILDERS: tuple[Callable[[], Table], ...] = (
+BUILDERS: tuple[Callable[[], Table | None], ...] = (
     t_headline, t_year_comparison, t_climate_bridge, t_scopes, t_benchmarks,
     t_boundary_matched, t_gwp_vintage, t_capital, t_health_functions,
     t_uncertainty, t_variance, t_scenarios, t_burden_shift, t_vintage_defect,
@@ -763,6 +774,11 @@ def main() -> None:
             t = build()
         except Exception as exc:                            # noqa: BLE001
             print(f"  SKIP {build.__name__}: {exc}")
+            continue
+        if t is None:
+            # A builder returns None when the layer it reads is not in this
+            # working copy, which is a scope difference rather than a failure.
+            print(f"  skip {build.__name__}: its layer is not in this copy")
             continue
         assert not t.frame.empty, f"{build.__name__} produced an empty table"
         tables.append(t)
