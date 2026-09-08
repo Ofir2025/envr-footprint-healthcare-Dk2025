@@ -515,18 +515,26 @@ def scale_bottomup_all_to_dk(
 #   commuting-distance ratio = 9.0 / 7.88 = 1.14213 km/person/day
 #     (DK: TU aarsrapport Danmark 2019, DTU, Table 20; NL: CBS as in workbook)
 #   -> Commute = 0.42506 * 1.17808 * 1.14213 = 0.5719
-#   Visitor travel = 0.42506 * 1.17808 * 1.258097 = 0.6300 (distance uplift as documented
-#   in data/bronze/commuting_private_travel_calculations_2026.xlsx)
+#   Visitor travel = 0.42506 * 1.258097 = 0.5348
+#
+#   The weekly-hours ratio applies to COMMUTING ONLY. Hours worked scale how
+#   often staff travel to work; they do not scale how far patients and visitors
+#   travel, which is driven by system size and travel behaviour. The appendix is
+#   explicit on this: eq. A10 (commuting) carries the hours term, eqs. A12-A15
+#   (patient and visitor) do not. Until 2026-09 this module applied the hours
+#   ratio to visitor travel as well, overstating it by 17.8 %.
+#   (distance uplift as documented in
+#   data/bronze/commuting_private_travel_calculations_2026.xlsx)
 # Anaesthetic and pMDI factors are retained only for the (all-zero) non-GWP columns;
 # their GWP values are replaced below with Danish primary data.
 SCALING_DK_OVER_NL_BY_YEAR = {
     # 2019: employment 518,889 (NABB69, 86000+87880) / 1,220,750; hours 34.4/29.2;
     #       TU 2019 distance 9.0/7.88 km/person/day
-    "2019": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5719, "Visitor travel": 0.6300},
+    "2019": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5719, "Visitor travel": 0.5348},
     # 2022: employment 556,999 (NABB69 2022: 244,852 + 312,147) / 1,220,750 = 0.45624;
     #       hours 34.4/29.2 = 1.17808; TU aarsrapport 2022 Table 20 distance
-    #       9.3/7.88 = 1.18020 -> Commute 0.6343; Visitor 0.45624*1.17808*1.258097 = 0.6762
-    "2022": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.6343, "Visitor travel": 0.6762},
+    #       9.3/7.88 = 1.18020 -> Commute 0.6343; Visitor 0.45624*1.258097 = 0.5740
+    "2022": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.6343, "Visitor travel": 0.5740},
 }
 SCALING_DK_OVER_NL = SCALING_DK_OVER_NL_BY_YEAR[ANALYSIS_YEAR]
 
