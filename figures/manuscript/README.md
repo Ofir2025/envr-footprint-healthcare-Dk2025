@@ -74,3 +74,23 @@ where it does not the bar is broken and its true share printed beside it. The
 axis title says so. Material extraction is the case where the remainder is
 smaller than the leading pair, so that bar carries no break - which is the check
 that the rule is doing what it claims.
+
+## The cross-year comparison
+
+`comparison/fig10_year_bridge_climate_2019_2022.tiff` is a dumbbell plot of the
+nine activity groups measured in both years, largest movers first.
+
+**Figure-type reasoning.** The question is a paired comparison over categories:
+the same nine groups, measured twice, which moved and by how much. A connected
+dot plot shows the pair and makes the change a property of the connector rather
+than something the reader must difference by eye. Grouped bars were rejected
+because the quantity of interest is the gap between two bars, which is the
+hardest thing to read off a bar chart; a waterfall was rejected because it
+implies a sequence of steps toward a total, which these groups are not; a slope
+graph wastes the horizontal axis on an ordinal year. The house figure library
+carries dumbbells as an exemplar type and this is the canonical use for it.
+
+**One deliberate deviation.** This figure carries a note on the image, against
+the rule that captions belong in the manuscript. The single largest risk with
+this figure is that it is read as a trend, and the note prevents that even when
+the image travels without its caption. No other figure in the study does this.
