@@ -202,6 +202,26 @@ def c3_freshness(results: list[dict[str, Any]]) -> None:
                 + (" ..." if len(stale) > 6 else ""))
 
 
+def c9_gold_scope(results: list[dict[str, Any]]) -> None:
+    """C9: every gold folder is declared as a paper deliverable or private.
+
+    The published branch is a filtered view of this tree. The filter reads
+    `analysis.gold_scope`, so a folder added without a classification would be
+    published or withheld by accident rather than by decision.
+    """
+    try:
+        from analysis import gold_scope
+    except Exception as exc:                            # noqa: BLE001
+        _check(results, "C9 gold scope declared", False, f"unavailable: {exc}")
+        return
+    missing = gold_scope.unclassified()
+    paper = sum(1 for v in gold_scope.SCOPE.values() if v[0] == "paper")
+    private = len(gold_scope.SCOPE) - paper
+    _check(results, "C9 every gold folder is classified", not missing,
+           f"{paper} paper deliverables, {private} private extensions"
+           if not missing else f"unclassified: {', '.join(missing)}")
+
+
 def c8_citations(results: list[dict[str, Any]]) -> None:
     """C8: every in-text citation resolves to the bibliography.
 
@@ -426,7 +446,7 @@ def main() -> None:
     results: list[dict[str, Any]] = []
     for check in (c1_headline, c2_detail_vs_aggregate, c3_freshness,
                   c4_provenance, c5_manifest, c6_documentation, c7_star_integrity,
-                  c8_citations):
+                  c8_citations, c9_gold_scope):
         try:
             check(results)
         except Exception as exc:                            # noqa: BLE001

@@ -21,7 +21,7 @@ Method, equations and verification: [`docs/methods/replications/06_benchmarks_va
 
 ### `consistency_audit.csv`
 
-- **Rows:** 11
+- **Rows:** 12
 - **Dimensions:** `check`
 - **Measures:** `status`, `detail`, `known_conventions`
 
