@@ -20,48 +20,112 @@ the health sector-regions themselves?* Here the naive form does double count.
 
 ## Method
 
-### The double-counting problem
+Cabernard's notation, transcribed from her Table 1 and §2.2 (2019, p. 167). Matrices are
+capitals, vectors lower case; $v_T$ and $v_O$ are index vectors partitioning the 7 987
+sector-regions into the **target set** $T$ and the **non-target set** $O$, with
+$T \cup O = \text{all}$ and $T \cap O = \emptyset$.
 
-The naive target-sector scope 3 is
-$$e_T^{\text{naive}} = s\,L[:,T]\,\widehat{x_T} \qquad \text{(their eq. 8)}$$
+$$A_{T-O} = A(v_T, v_O) \quad (1) \qquad A_{O-O} = A(v_O, v_O) \quad (2)$$
+$$Y_{T-\text{all}} = Y(v_T, :) \quad (3) \qquad Y_{O-\text{all}} = Y(v_O, :) \quad (4)$$
+$$x^T = x^{\text{tot}}(v_T) \quad (5) \qquad L_{\text{all}-T} = L(:, v_T) \quad (6)$$
+$$L'_{O-O} = (I_{O-O} - A_{O-O})^{-1} \quad (7)$$
 
-Every delivery from one target node to another is counted twice: once as the supplying
-target's own output, and again as an input to the receiving target. With one target node
-the overlap is small; with 147 nodes it is not.
+$d_{\text{all},i}$ is the 1 × 7 987 row vector of direct impact per unit output.
 
-### The correction
+### Eq. (8) — target scope 3 **with** double counting
 
-Cabernard's corrected form removes intra-target deliveries before the upstream trace, so
-each unit of pressure is attributed to exactly one target node. The overestimate is
-reported as a factor:
+$$e_{T,i} = d_{\text{all},i} \; L_{\text{all}-T} \; \mathrm{diag}(x^T) \qquad (8)$$
 
-$$f_T = \frac{e_T^{\text{naive}} - e_T^{\text{wdc}}}{e_T^{\text{naive}}}$$
+This is the form Cabernard attributes to previous studies, including Hertwich & Wood
+(2018). Every delivery from one target node to another is counted twice — once as the
+supplying target's own output, and again inside the receiving target's upstream chain.
 
-and the result is checked against the complement identity — target scope 3 plus
-non-target scope 3 must reconstruct the world total exactly.
+### Eq. (9) — target scope 3 **without** double counting
+
+The correction **replaces the gross output vector**; it does not subtract impacts. The
+overbar is a row sum across final-demand columns:
+
+$$e^{\text{wdc}}_{T,i} = d_{\text{all},i} \; L_{\text{all}-T} \;
+\mathrm{diag}\!\left( \overline{Y_{T-\text{all}} + A_{T-O} \, L'_{O-O} \, Y_{O-\text{all}}} \right) \qquad (9)$$
+
+Gross output $x^T$ is replaced by (i) final demand met directly by target outputs, plus
+(ii) final demand for target products embodied in **non-target** outputs — deliberately
+omitting target-into-target inputs. Because $A_{T-O}$ selects only the $T \to O$ block and
+$L'_{O-O}$ propagates through non-target sectors only, this removes **both** direct
+$T \to T$ deliveries **and** indirect $T \to \dots \to T$ loops.
+
+$L_{\text{all}-T}$ is untouched: the complete upstream chain, including inputs from other
+target sectors, is still fully counted for whichever target's corrected output it attaches
+to.
+
+### Eq. (12) — the overestimation factor
+
+$$f_{T,i} = \frac{e_{T,i} - e^{\text{wdc}}_{T,i}}{e_{T,i}} \qquad (12)$$
+
+### As implemented
+
+`analysis.cabernard_target_scope3`, line for line against the equations above:
+
+```python
+L_OO  = np.linalg.inv(np.eye(len(O)) - A[np.ix_(O, O)])          # eq. 7
+e_T   = float(d @ (L[:, T] @ x[T]))                              # eq. 8
+q_T   = (Y[T, :] + A[np.ix_(T, O)] @ (L_OO @ Y[O, :])).sum(axis=1)  # eq. 9 bracket, overbar
+e_wdc = float(d @ (L[:, T] @ q_T))                               # eq. 9
+f_T   = (e_T - e_wdc) / e_T                                      # eq. 12
+```
 
 ### What it shows
 
-| Target set | Nodes | Naive (Mt) | Corrected (Mt) | Overestimate |
+| Target set | Nodes | Eq. (8) naive (Mt) | Eq. (9) corrected (Mt) | $f_T$ |
 |---|---|---|---|---|
 | T1 Danish health and social work | 1 | 4.39 | 4.33 | 1.5 % |
 | T2 health and social work, all regions | 49 | 2 592.1 | 2 554.5 | 1.5 % |
 | T3 T2 + chemicals + medical instruments | 147 | 9 280.5 | 5 999.5 | **54.7 %** |
 
-The T3 row is the finding. A study that defines its target broadly — health plus its
-pharmaceutical and device suppliers, which is exactly how a "health-care supply chain"
-is often defined — and applies the naive formula overstates by more than half.
+The T3 row is the finding, and it is the same mechanism Cabernard reports: a broadly
+defined target set whose members sit in each other's supply chains. Her own G20 paper
+reports overestimation above 40 % for biomass and fossil resources and above 100 % for
+metals and non-metallic minerals; our 54.7 % for a health-plus-suppliers target set is of
+that order.
 
 ## Data requirements
 
 $A$, $L$, $x$ and the characterised intensity $s$ from [00](00_core_footprint.md).
 No additional data.
 
+## Does our headline inherit the Hertwich & Wood double counting?
+
+**No, and the reason is structural rather than a correction we apply.**
+
+Cabernard's objection is to Eq. (8) applied to a *set* of target sectors. The double
+counting arises from summing $E_Z$-type flows over targets that sit in each other's supply
+chains. Three of our numbers could in principle be exposed to it; each is checked:
+
+| Our quantity | Form | Exposed? |
+|---|---|---|
+| Headline footprint | $f = s L y_H$ — a **final-demand** footprint | **No.** Hertwich & Wood state it themselves: $E_y$ sums to the total while $E_Z$ does not. Each emission is allocated once, to Danish health final demand. |
+| Scope 2 ([02](02_scopes_wood_hertwich.md)) | energy **rows** of $E_Z$ for the single health **column** | **No.** One row-slice of one purchasing column is not a sum over overlapping targets. There is no second target to double count against. |
+| Scope 1 + 2 + 3 | $S_3$ is the footprint **residual** after $S_1$ and $S_2$ | **No.** The partition is constructed to sum to $f$ exactly, so it cannot exceed it. Audit check C1 asserts this. |
+| Target-sector scope 3 (this folder) | Eq. (8) | **Yes** — which is precisely why Eq. (9) is implemented here. |
+
+So the exposure is confined to the one quantity this folder exists to compute, and there it
+is corrected with Cabernard's own equation rather than an approximation of it. The
+manuscript's reported numbers are all final-demand footprints and are unaffected.
+
 ## Deviations from the source, stated
 
 - Cabernard et al. apply this to global sector groups; the target sets here are chosen
   to bracket plausible definitions of "the health-care supply chain", which is our
   choice and is documented in the `target` column.
+- **Cabernard excludes extraction sectors** from her target set when quantifying double
+  counting, "because this step is already included in the upstream supply chain of
+  material processing" (2019, §2.7). Our target sets are health, chemicals and medical
+  instruments, none of which is an extraction sector, so the analogous exclusion does not
+  arise. Stated because a reader checking our T3 against her method will look for it.
+- Cabernard formalises **scope 3 only**. The strings "scope 1" and "scope 2" do not appear
+  in either the 2019 or the 2022 paper. Our scope 1 and 2 come from
+  [02](02_scopes_wood_hertwich.md) (Hertwich & Wood and the GHG Protocol), not from her,
+  and this folder makes no scope 1 or scope 2 claim.
 - **This layer does not change the headline.** The study's headline is a final-demand
   footprint, form (a), which was never subject to this double counting. The folder
   exists to demonstrate that, not to correct anything.

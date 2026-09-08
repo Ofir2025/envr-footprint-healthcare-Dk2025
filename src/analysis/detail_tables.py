@@ -77,10 +77,34 @@ def node_labels() -> tuple[pd.DataFrame, pd.DataFrame]:
         ind = ind[ind["Code"].astype(str).str.startswith("A_")]
         sectors = pd.DataFrame({
             "pos": range(len(ind)),
-            "sector_code": ind["Code"].astype(str).values,
+            # Star-schema convention: EXIOBASE industry and product codes are
+            # carried WITHOUT the A_ / C_ activity/commodity prefix, which
+            # encodes the table construct rather than the industry itself and
+            # would not join to a shared dim_industry across ixi and pxp runs.
+            "sector_code": ind["Code"].astype(str)
+                              .str.replace(r"^[AC]_", "", regex=True).values,
             "sector_name": ind["Description"].astype(str).values,
             "sector_group": ind["AggDescription"].astype(str).values,
         })
+        # Country coding, per the study's star-schema convention: ISO3 where an
+        # ISO3 code exists, and the REGION NAME where one does not. EXIOBASE's
+        # five rest-of-world regions have no ISO3 code, so their bare model
+        # codes (WA/WL/WE/WF/WM) are replaced by the names already carried in
+        # ``country_name``. ROM is the deprecated alpha-3 for Romania; the
+        # current code is ROU, and one file in the tree already used ROU, so
+        # the two spellings coexisted until this was applied centrally.
+        regions["iso3"] = regions["iso3"].replace({"ROM": "ROU"})
+        regions.loc[regions["is_row_region"], "iso3"] = \
+            regions.loc[regions["is_row_region"], "country_name"]
+
+        # The world-region aggregation is inherited from the Dutch original,
+        # which singled out the Netherlands as its home region. In a Danish
+        # study that leaves NL as a spurious top-level "world region" while
+        # Denmark is the actual home. Fold NL back into Europe; Denmark is
+        # given its own label so the domestic/imported split stays legible.
+        regions["world_region"] = np.where(
+            regions["iso3"].eq("DNK"), "Denmark",
+            regions["world_region"].replace({"Netherlands": "Europe"}))
         _CACHE["labels"] = (regions, sectors)
     return _CACHE["labels"]
 

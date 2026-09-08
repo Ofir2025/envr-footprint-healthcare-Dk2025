@@ -1,0 +1,26 @@
+producing_sector_group,scope,indicator,unit,value,share_of_scope_pct
+Private travel,Outside protocol,climate_change,kt CO2eq,263.56770753446403,100.0
+Operational impact,Scope 1,climate_change,kt CO2eq,131.0762816237094,100.0
+Electricity,Scope 2,climate_change,kt CO2eq,63.24878686359306,86.23869457431034
+"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,10.092753353127994,13.761305425689654
+Transport,Scope 3,climate_change,kt CO2eq,728.2074435255541,17.160340899926332
+Coal and Petroleum,Scope 3,climate_change,kt CO2eq,630.8936761036896,14.867124264937708
+Food and catering,Scope 3,climate_change,kt CO2eq,608.4505807192878,14.338248638809365
+Chemical,Scope 3,climate_change,kt CO2eq,433.1995209269739,10.208425528859314
+Private travel,Scope 3,climate_change,kt CO2eq,363.7266,8.571283507008143
+Electricity,Scope 3,climate_change,kt CO2eq,359.02787809037915,8.460557270301916
+"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,289.28413856209363,6.817033358836916
+Waste management and disposal,Scope 3,climate_change,kt CO2eq,222.43452338397154,5.241710014253157
+Services,Scope 3,climate_change,kt CO2eq,152.6817553081814,3.597973343423517
+Minerals and Metals,Scope 3,climate_change,kt CO2eq,114.0231419249754,2.6869760853310987
+Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,111.68713512545291,2.631927660077059
+Metal Products,Scope 3,climate_change,kt CO2eq,73.72522571499523,1.737348357863822
+Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,67.20627344735153,1.583728061590116
+Paper Products,Scope 3,climate_change,kt CO2eq,21.806201262079803,0.5138671002565245
+"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,17.662485944281705,0.4162196948669273
+Textile,Scope 3,climate_change,kt CO2eq,15.582798649074386,0.3672114853679661
+Furniture and timber,Scope 3,climate_change,kt CO2eq,11.774150613371567,0.2774600014445507
+Operational impact,Scope 3,climate_change,kt CO2eq,11.6,0.2733561105547256
+Construction,Scope 3,climate_change,kt CO2eq,4.266085311894772,0.10053107656501709
+Transport Equipment,Scope 3,climate_change,kt CO2eq,3.416962128392241,0.08052133425259483
+General and special Machinery,Scope 3,climate_change,kt CO2eq,2.8922418521578654,0.06815620547323015
