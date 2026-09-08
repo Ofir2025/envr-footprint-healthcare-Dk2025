@@ -39,20 +39,30 @@ without its source.
   <br>*Used for:* Comparator replicated in layer 14
 - Ghosh, B., Jensen, J. V., & Munch-Petersen, N. (2014). Measuring Denmark's CO2 emissions 1996-2009. *Rockwool Foundation Research Unit*. https://www.rockwoolfonden.dk
   <br>*Used for:* Independent Danish evidence that shipping dominates the gap between production- and consumption-based accounts
+- Groen, E. A., & Heijungs, R. (2017). Ignoring correlation in uncertainty and sensitivity analysis in life cycle assessment: What is the risk?. *Environmental Impact Assessment Review, 62, 98-109*. https://doi.org/10.1016/j.eiar.2016.10.006
+  <br>*Used for:* The cost of ignoring correlation, in the LCA setting
 - Healthcare Denmark (2024). Transitioning towards a sustainable healthcare sector [White paper]. *Healthcare Denmark*. https://www.healthcaredenmark.dk
   <br>*Used for:* Danish health green-transition interventions: Lundbeck raw-material efficiency, Demant packaging, Circular Industrial Plastic partnership, regional procurement focus
 - Hertwich, E. G. (2011). The life cycle environmental impacts of consumption. *Economic Systems Research, 23(1), 27-47*. https://doi.org/10.1080/09535314.2010.536905
   <br>*Used for:* Capital endogenisation as a modelling choice; sizes what is at stake
 - Hertwich, E. G., & Wood, R. (2018). The growing importance of scope 3 greenhouse gas emissions from industry. *Environmental Research Letters, 13(10), 104013*. https://doi.org/10.1088/1748-9326/aae19a
   <br>*Used for:* Scope partition E_Z = m-hat Z with m = s L; the study's reported Scope 2 convention
+- Huijbregts, M. A. J. (1998). Application of uncertainty and variability in LCA. *The International Journal of Life Cycle Assessment, 3(5), 273-280*. https://doi.org/10.1007/BF02979835
+  <br>*Used for:* The uncertainty/variability taxonomy adopted for MRIO by Schulte et al. (2024)
 - Huijbregts, M. A. J., Steinmann, Z. J. N., Elshout, P. M. F., Stam, G., Verones, F., Vieira, M., Zijp, M., Hollander, A., & van Zelm, R. (2017). ReCiPe2016: A harmonised life cycle impact assessment method at midpoint and endpoint level. *The International Journal of Life Cycle Assessment, 22(2), 138-147*. https://doi.org/10.1007/s11367-016-1246-y
   <br>*Used for:* Characterisation cited by the submitted manuscript; see the correction in the assessment note
+- Intergovernmental Panel on Climate Change (2000). Quantifying uncertainties in practice (Chapter 6). In Good practice guidance and uncertainty management in national greenhouse gas inventories. *IPCC National Greenhouse Gas Inventories Programme*. https://www.ipcc-nggip.iges.or.jp/public/gp/english/
+  <br>*Used for:* Tier 1 versus Tier 2, the rules for combining uncertainties, the correlation guidance, and the convergence criterion this study reports against
+- Jakobs, A., Schulte, S., & Pauliuk, S. (2021). Price variance in hybrid-LCA leads to significant uncertainty in carbon footprints. *Frontiers in Sustainability, 2, 666209*. https://doi.org/10.3389/frsus.2021.666209
+  <br>*Used for:* Price-vintage uncertainty in a hybrid footprint, and the double-counting correction choice worth a factor of almost two
 - Jeswani, H. K., & Azapagic, A. (2019). Life cycle environmental impacts of inhalers. *Journal of Cleaner Production, 237, 117733*. https://doi.org/10.1016/j.jclepro.2019.117733
   <br>*Used for:* Propellant and device-class scenarios P6 and P7; source of the dry-powder burden shift
 - Kagawa, S., Nansai, K., & Kudoh, Y. (2009). Does product lifetime extension increase our income at the expense of energy consumption?. *Energy Economics, 31(4), 597-606*. https://doi.org/10.1016/j.eneco.2008.08.011
   <br>*Used for:* Product lifetime extension in an input-output setting; scenario P4
 - Lenzen, M., Malik, A., Li, M., Fry, J., Weisz, H., Pichler, P.-P., Chaves, L. S. M., Capon, A., & Pencheon, D. (2020). The environmental footprint of health care: A global assessment. *The Lancet Planetary Health, 4(7), e271-e279*. https://doi.org/10.1016/S2542-5196(20)30121-2
   <br>*Used for:* Danish health-care GHG footprint 2.84 +/- 0.24 Mt (SI table 7.1), the 8.35 % calibrating the MRIO uncertainty factor
+- Lenzen, M., Moran, D., Kanemoto, K., & Geschke, A. (2013). Building Eora: A global multi-region input-output database at high country and sector resolution. *Economic Systems Research, 25(1), 20-49*. https://doi.org/10.1080/09535314.2013.769938
+  <br>*Used for:* The uncertainty machinery behind the Lenzen-family standard deviations this study calibrates to
 - Lenzen, M., Wood, R., & Wiedmann, T. (2010). Uncertainty analysis for multi-region input-output models - A case study of the UK's carbon footprint. *Economic Systems Research, 22(1), 43-63*. https://doi.org/10.1080/09535311003661226
   <br>*Used for:* Lognormal multipliers as the standard choice for input-output uncertainty propagation
 - Leontief, W. (1970). Environmental repercussions and the economic structure: An input-output approach. *The Review of Economics and Statistics, 52(3), 262-271*. https://doi.org/10.2307/1926294
@@ -75,16 +85,26 @@ without its source.
   <br>*Used for:* Why a demand-reduction scenario reported without rebound overstates its saving
 - Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). Environmental pressures from Swedish consumption - A hybrid multi-regional input-output approach. *Journal of Cleaner Production, 228, 634-644*. https://doi.org/10.1016/j.jclepro.2019.04.181
   <br>*Used for:* The SNAC method: coupling a national account to an MRIO
+- Perkins, J., & Suh, S. (2019). Uncertainty implications of hybrid approach in LCA: Precision versus accuracy. *Environmental Science & Technology, 53(7), 3681-3688*. https://doi.org/10.1021/acs.est.9b00084
+  <br>*Used for:* Hybridisation moved the mean 38 % while holding relative SD at 3 to 4 %: accuracy gained without precision lost. Supports adding bottom-up items
 - Pichler, P.-P., Jaccard, I. S., Weisz, U., & Weisz, H. (2019). International comparison of health care carbon footprints. *Environmental Research Letters, 14(6), 064004*. https://doi.org/10.1088/1748-9326/ab19e1
   <br>*Used for:* Cross-country comparator; excludes capital
+- Rodrigues, J. F. D. (2016). Maximum-entropy prior uncertainty and correlation of statistical economic data. *Journal of Business & Economic Statistics, 34(3), 357-367*. https://doi.org/10.1080/07350015.2015.1038545
+  <br>*Used for:* Uncorrelated disaggregates and a known aggregate uncertainty are MUTUALLY EXCLUSIVE. The load-bearing warrant for holding the calibrated total when the correlation is varied
 - Rodrigues, J. F. D., Moran, D., Wood, R., & Behrens, P. (2018). Uncertainty of consumption-based carbon accounts. *Environmental Science & Technology, 52(13), 7577-7586*. https://doi.org/10.1021/acs.est.8b00632
   <br>*Used for:* Correlation between country accounts; why assuming independence understates uncertainty
 - Rørmose Jensen, P., & Iliev, V. (2022). Consumption-based greenhouse gas account for Denmark using coupled models. *Statistics Denmark, Eurostat grant 101022790, work package 4*. https://www.dst.dk
   <br>*Used for:* Diagnosis of the Danish sea-transport allocation in EXIOBASE (74 % domestic intermediate use against 9 %); the benchmark our correction targets
 - Schmidt, J. H., & Merciai, S. (2023). Danish consumption-based environmental footprints using a hybrid consequential input-output model. *2.-0 LCA consultants*. https://lca-net.com
   <br>*Used for:* Published Danish comparator, 6.1 Mt for NACE Q with capital endogenised; consequential, so not like for like
+- Schulte, S., Jakobs, A., & Lupton, R. (2026). When correlation matters: A practical guide to dealing with uncertainty in the case of data disaggregation. *Journal of Industrial Ecology, 30, 665-681*. https://doi.org/10.1007/s44498-026-00048-6
+  <br>*Used for:* Correlation between disaggregates is DERIVED from the relative uncertainty of the aggregate and the shares, not chosen; Dirichlet family for the shares, MaxEnt for the aggregate. Neglecting correlation changed sector multiplier SDs by -34 to +130 % and overstated a national footprint's uncertainty by 46 %
+- Schulte, S., Jakobs, A., & Pauliuk, S. (2021). Relaxing the import proportionality assumption in multi-regional input-output modelling. *Journal of Economic Structures, 10, 20*. https://doi.org/10.1186/s40008-021-00250-8
+  <br>*Used for:* Import proportionality on EXIOBASE at 49x163: national footprint CVs generally below 4 % for carbon, but 25 % of industry footprints above 10 % (carbon) and above 30 % (land, material, water). The basis for the non-carbon uncertainty bound
 - Schulte, S., Jakobs, A., & Pauliuk, S. (2024). Estimating the uncertainty of the greenhouse gas emission accounts in global multi-regional input-output analysis. *Earth System Science Data, 16(6), 2669-2700*. https://doi.org/10.5194/essd-16-2669-2024
   <br>*Used for:* Country-level versus sector-level uncertainty; the limitation stated with the Monte Carlo interval
+- Solazzo, E., Crippa, M., Guizzardi, D., Muntean, M., Choulga, M., & Janssens-Maenhout, G. (2021). Uncertainties in the Emissions Database for Global Atmospheric Research (EDGAR) emission inventory of greenhouse gases. *Atmospheric Chemistry and Physics, 21(7), 5655-5683*. https://doi.org/10.5194/acp-21-5655-2021
+  <br>*Used for:* Element-level uncertainties for EDGAR, Denmark's raw emission source in the Schulte et al. (2024) compilation
 - Stadler, K., Wood, R., Bulavskaya, T., Södersten, C.-J., Simas, M., Schmidt, S., Usubiaga, A., Acosta-Fernández, J., Kuenen, J., Bruckner, M., Giljum, S., Lutter, S., Merciai, S., Schmidt, J. H., Theurl, M. C., Plutzar, C., Kastner, T., Eisenmenger, N., Erb, K.-H., de Koning, A., & Tukker, A. (2018). EXIOBASE 3: Developing a time series of detailed environmentally extended multi-regional input-output tables. *Journal of Industrial Ecology, 22(3), 502-515*. https://doi.org/10.1111/jiec.12715
   <br>*Used for:* The background model used throughout
 - Stadler, K., Wood, R., Simas, M., Bulavskaya, T., de Koning, A., Kuenen, J., Acosta-Fernández, J., Usubiaga, A., Merciai, S., Schmidt, J., Theurl, M., Kastner, T., Eisenmenger, N., Giljum, S., Lutter, S., Bruckner, M., Tukker, A., & Simas, M. (2015). Integrated report on EXIOBASE 3 (DESIRE project deliverable 5.3). *European Commission FP7 DESIRE*. https://cordis.europa.eu/project/id/308552
@@ -114,6 +134,8 @@ without its source.
 - Wiedmann, T. O., Suh, S., Feng, K., Lenzen, M., Acquaye, A., Scott, K., & Barrett, J. R. (2011). Application of hybrid life cycle approaches to emerging energy technologies - The case of wind power in the UK. *Environmental Science & Technology, 45(13), 5900-5907*. https://doi.org/10.1021/es2007287
   <br>*Used for:* Hybrid input-output and process data; the pattern used for the bottom-up items
 - Wood, R., Moran, D. D., Rodrigues, J. F. D., & Stadler, K. (2019). Variation in trends of consumption based carbon accounts. *Scientific Data, 6, 99*. https://doi.org/10.1038/s41597-019-0102-x
-  <br>*Used for:* Cross-database dispersion of national accounts: unweighted mean relative standard deviation 8 % for production-based and 12 % for consumption-based accounts. Names Denmark explicitly as a country whose variation is driven by the handling of international transport emissions - independent support for the sea-transport correction
+  <br>*Used for:* Cross-database dispersion. Table 1: unweighted mean relative standard deviation 8.3 % (production-based) and 11.9 % (consumption-based) across regions; DENMARK's own row is PBCA RSD 19.3 % and CBCA RSD 8.8 % raw, 8.3 % and 4.2 % after normalisation. Denmark is named in the text as a country whose variation is driven by the handling of international transport emissions
 - Wood, R., Neuhoff, K., Moran, D., Simas, M., Grubb, M., & Stadler, K. (2019). The structure, drivers and policy implications of the European carbon footprint. *Climate Policy, 20(sup1), S39-S57*. https://doi.org/10.1080/14693062.2019.1639489
   <br>*Used for:* European carbon footprint structure
+- World Resources Institute & World Business Council for Sustainable Development (n.d.). Guidance on uncertainty assessment in GHG inventories and calculating statistical parameter uncertainty. *Greenhouse Gas Protocol*. https://ghgprotocol.org/calculation-tools-and-guidance
+  <br>*Used for:* Scientific versus estimation uncertainty; the requirement to discuss the direction of systematic bias qualitatively. NOTE: the document carries no publication year, version or imprint; the 2005 commonly attached to it is unverified

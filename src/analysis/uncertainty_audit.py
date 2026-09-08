@@ -209,7 +209,45 @@ def audit() -> pd.DataFrame:
          f"choice moves the answer further than the parameters do",
          "median outside the central 95 % interval")
 
-    # ---- 13. the pharma scenario multiplier is a proper distribution -----
+    # ---- 13. the calibration survives the correlation sensitivity --------
+    # This is the check for the defect corrected on 8 September 2026: applying
+    # one sigma at every rho let the total's spread collapse as the correlation
+    # fell, so the independence case reported an interval roughly half as wide
+    # as the calibration supports.
+    cvs = []
+    for rm in (1.0, 0.76, 0.0):
+        _, _, t, _ = u.run_mc(mrio, parts, "A", rho_mrio=rm, n=40_000, seed=29)
+        arr = t[GWP]
+        cvs.append(100 * float(arr.std(ddof=1) / arr.mean()))
+    spread = max(cvs) - min(cvs)
+    _add(rows, "calibrated total CV held across correlations", spread < 0.5,
+         f"CV at rho = 1.00 / 0.76 / 0.00 is "
+         f"{cvs[0]:.2f} / {cvs[1]:.2f} / {cvs[2]:.2f} %, a spread of "
+         f"{spread:.2f} pp", "< 0.5 pp")
+
+    # ---- 14. group-level spread widens as correlation falls --------------
+    # The point of rho once the total is held: it redistributes variance.
+    _, G1, _, _ = u.run_mc(mrio, parts, "A", rho_mrio=1.0, n=40_000, seed=31)
+    _, G0, _, _ = u.run_mc(mrio, parts, "A", rho_mrio=0.0, n=40_000, seed=31)
+    cv1 = float(np.median(100 * G1[GWP].std(axis=0, ddof=1)
+                          / G1[GWP].mean(axis=0)))
+    cv0 = float(np.median(100 * G0[GWP].std(axis=0, ddof=1)
+                          / G0[GWP].mean(axis=0)))
+    _add(rows, "group-level spread widens as correlation falls", cv0 > cv1,
+         f"median group CV {cv1:.1f} % at rho = 1 against {cv0:.1f} % at "
+         f"rho = 0; the total is unchanged, so rho redistributes variance "
+         f"rather than creating it", "rho = 0 wider")
+
+    # ---- 15. Tier 1 agrees with Tier 2 -----------------------------------
+    t1 = u.tier1_error_propagation(mrio, parts)
+    t1_gwp = float(t1.loc[t1.indicator == GWP, "tier1_uncertainty_pct"].iloc[0])
+    t2_gwp = 100 * float(totals[GWP].std(ddof=1) / totals[GWP].mean())
+    _add(rows, "Tier 1 agrees with Tier 2", abs(t1_gwp - t2_gwp) < 1.0,
+         f"Tier 1 error propagation {t1_gwp:.2f} % against Tier 2 simulation "
+         f"{t2_gwp:.2f} %; IPCC (2000) 6.3.1 requires both to be reported",
+         "< 1 pp")
+
+    # ---- 16. the pharma scenario multiplier is a proper distribution -----
     _, _, _, _ = u.run_mc(mrio, parts, "B", n=20_000, seed=3)
     ratio_med = float(np.median(tot_b[GWP] / totals[GWP][:len(tot_b[GWP])]))
     _add(rows, "pharmaceutical mapping ratio is bounded above by 1",

@@ -21,15 +21,33 @@ Method, equations and verification: [`docs/methods/replications/04_uncertainty_l
 
 ### `uncertainty_audit.csv`
 
-- **Rows:** 16
+- **Rows:** 19
 - **Dimensions:** `check`
 - **Measures:** `status`, `detail`, `tolerance`
+
+### `uncertainty_convergence.csv`
+
+- **Rows:** 1
+- **Dimensions:** none
+- **Measures:** `criterion`, `draws`, `max_relative_difference_between_halves_pct`, `passes`
+
+### `uncertainty_group_covariance_gwp.csv`
+
+- **Rows:** 9
+- **Dimensions:** none
+- **Measures:** `Unnamed: 0`, `Food and food services`, `Heat and electricity`, `Individual travel`, `Medical, electrical equipment and machinery`, `Operational impacts`, `Pharmaceuticals and chemical products`, `Services`, `Transport`, `Unallocated`
 
 ### `uncertainty_mrio_correlation.csv`
 
 - **Rows:** 3
 - **Dimensions:** none
-- **Measures:** `rho_mrio`, `interpretation`, `median`, `p2_5`, `p97_5`, `cv_pct`, `median_1_lognormal_mean_inflation`
+- **Measures:** `rho_mrio`, `interpretation`, `median`, `p2_5`, `p97_5`, `cv_pct`, `sigma_used`, `mrio_block_cv_if_not_recalibrated_pct`, `median_group_cv_pct`, `max_group_cv_pct`, `median_1_lognormal_mean_inflation`
+
+### `uncertainty_noncarbon_bound.csv`
+
+- **Rows:** 9
+- **Dimensions:** `indicator`, `basis`
+- **Measures:** `mrio_spread_multiplier`, `median`, `p2_5`, `p97_5`, `cv_pct`
 
 ### `uncertainty_parameters.csv`
 
@@ -49,6 +67,12 @@ Method, equations and verification: [`docs/methods/replications/04_uncertainty_l
 - **Dimensions:** `price_vintage`, `waste_vintage`, `indicator`
 - **Measures:** `median`
 
+### `uncertainty_tier1_error_propagation.csv`
+
+- **Rows:** 5
+- **Dimensions:** `indicator`
+- **Measures:** `deterministic`, `tier1_uncertainty_pct`
+
 ### `uncertainty_totals.csv`
 
 - **Rows:** 10
@@ -61,3 +85,9 @@ Method, equations and verification: [`docs/methods/replications/04_uncertainty_l
 - **Rows:** 35
 - **Dimensions:** `indicator`, `parameter`
 - **Measures:** `variance_share_pct`
+
+### `uncertainty_variance_shares_by_correlation.csv`
+
+- **Rows:** 3
+- **Dimensions:** `note`
+- **Measures:** `rho_mrio`, `mrio_variance_share_pct`
