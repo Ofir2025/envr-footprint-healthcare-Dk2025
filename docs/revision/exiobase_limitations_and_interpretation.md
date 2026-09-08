@@ -139,7 +139,7 @@ EXIOBASE ships no element-level standard deviations. Our Monte Carlo therefore c
 MRIO uncertainty to Lenzen et al.'s published 8.35 % for this exact quantity and applies it
 as a single joint factor: correlation ρ = 1, the conservative bound.
 
-**How to read the interval.** The reported 95 % interval, 4,065 to 5,532 kt, is **parametric
+**How to read the interval.** The reported 95 % interval, 4,064 to 5,531 kt, is **parametric
 uncertainty conditional on one model**. The interval is not a confidence interval on "the"
 Danish health footprint. Our own change of EXIOBASE vintage moved the result by more than
 this interval spans, and Tukker et al. warn that national error statistics do not transfer to

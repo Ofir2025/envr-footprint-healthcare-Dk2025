@@ -41,7 +41,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 from .functions_2025 import *
-from analysis.constants import eriksen_folder
+from analysis.constants import AR6_GWP100, eriksen_folder
 from paths import (
     BRONZE_DIR,
     BACKGROUND_DIR,
@@ -600,17 +600,14 @@ scale_bottomup_all_to_dk(
 # fraction metabolised rather than exhaled (MacNeill et al. 2017; Schuster 2020).
 #
 # The N2O term: Denmark's National Inventory Document 2024 (DCE report 622)
-# category 2.G.3.a, a constant 38 t N2O/yr for 2013-2022, times 298.
+# category 2.G.3.a, a constant 38 t N2O/yr for 2013-2022, characterised on the
+# same AR6 factor the MRIO climate row uses.
 #
-# That factor is AR4. It was chosen when the MRIO climate row still carried
-# EXIOBASE's own DESIRE factors, which are AR4, so the two agreed. The MRIO row
-# is now rebuilt on AR6 (constants.GWP100_AR6, N2O = 273), so the two no longer
-# agree and this item is the study's one remaining vintage mismatch. The size of
-# it is 38 t x (298 - 273) = 0.95 kt CO2e, which is 0.02 % of the 4,713 kt
-# headline. It is left as it stands and reported rather than changed mid-
-# revision, because moving it would restate every gold file, figure and table
-# for a difference two orders of magnitude below the reported interval. See
-# docs/revision/anomalies_bugs_and_open_questions.md A8.
+# It used to carry AR4's 298, chosen when the MRIO row still ran on EXIOBASE's
+# own DESIRE factors, which are AR4. The MRIO row moved to AR6 and this term did
+# not, which left the study mixing two vintages in one total: 38 t x (298 - 273)
+# = 0.95 kt CO2e. Reading the factor from AR6_GWP100 rather than restating it
+# means the two cannot drift apart again.
 #
 # Hospital N2O was subtracted from the DRIVHUS direct figure, so there is no
 # double counting.
@@ -628,7 +625,7 @@ DK_VOLATILE_KT_CO2E = sum(
     DK_ANAESTHETIC_LITRES[a] * DK_ANAESTHETIC_DENSITY_KG_PER_L[a]
     * DK_ANAESTHETIC_EXHALED[a] * DK_ANAESTHETIC_GWP100[a]
     for a in DK_ANAESTHETIC_LITRES) / 1e6           # kg -> kt
-DK_N2O_KT_CO2E = 38.0 * 298.0 / 1e3
+DK_N2O_KT_CO2E = 38.0 * AR6_GWP100["N2O"] / 1e3
 DK_ANAESTHETIC_KT_CO2E = DK_N2O_KT_CO2E + DK_VOLATILE_KT_CO2E
 DK_PMDI_KT_CO2E = {"2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
 # Direct healthcare waste (Statistics Denmark AFFALD01, total waste excl. soil,

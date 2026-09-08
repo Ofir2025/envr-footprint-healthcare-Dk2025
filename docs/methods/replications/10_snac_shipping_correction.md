@@ -48,8 +48,8 @@ holds.
 | DK sea transport as a producing node | 852 kt | **74 kt** |
 | Danish national footprint | 85.2 Mt | **77.5 Mt** |
 
-The 18.5 % is on the 3,943 kt MRIO supply-chain basis; on the 4,713 kt total, which
-includes the entirely-Danish bottom-up items, transport is 15.4 %. **Quote the basis with
+The 18.5 % is on the 3,943 kt MRIO supply-chain basis; on the 4,712 kt total, which
+includes the entirely-Danish bottom-up items, transport is 15.5 %. **Quote the basis with
 the share**: six figures in the revision documents drifted precisely because it was
 omitted.
 

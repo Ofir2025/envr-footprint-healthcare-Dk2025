@@ -390,12 +390,12 @@ costs hardly any additional effort. Both are now reported.
 
 | | Climate change |
 |---|---|
-| Deterministic estimate | 4,713 kt CO₂-eq |
-| Simulation median | 4,735 kt CO₂-eq |
+| Deterministic estimate | 4,712 kt CO₂-eq |
+| Simulation median | 4,734 kt CO₂-eq |
 | Simulation mean | 4,751 kt CO₂-eq |
 | Coefficient of variation, Tier 2 | 7.87 % |
 | Coefficient of variation, Tier 1 | 7.84 % |
-| 95 % interval | 4,065 to 5,532 kt CO₂-eq |
+| 95 % interval | 4,064 to 5,531 kt CO₂-eq |
 
 The two tiers agreeing to 0.03 percentage points is expected rather than
 fortunate: the model is additive, and every spread is well below the 30 per
@@ -422,7 +422,7 @@ $$
 | Patient and visitor travel | 6.7 % |
 | Employee commuting | 5.1 % |
 | Direct operations | 0.09 % |
-| Anaesthetic gases | 0.009 % |
+| Anaesthetic gases | 0.007 % |
 | Inhaler propellants | 0.002 % |
 
 The share attributed to the input-output model is stable at 78.6 to 78.9 per
@@ -520,7 +520,7 @@ the IPCC (2000, section 6.1) and the GHG Protocol.
 find that at sector level, uncertainty due to choices outweighs parametric
 uncertainty for most sectors. This study's own structural scenarios bear that
 out: the alternative pharmaceutical mapping moves the median to 3,605 kt, which
-lies outside the parametric 95 per cent interval of 4,065 to 5,532 kt entirely.
+lies outside the parametric 95 per cent interval of 4,064 to 5,531 kt entirely.
 That divergence is the strongest single argument for reporting the scenarios
 beside the interval rather than in an appendix.
 

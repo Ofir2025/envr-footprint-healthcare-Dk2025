@@ -2,7 +2,7 @@
 
 **06 - Benchmarks and the standing consistency audit**
 
-Is the result right? Two independent tests: agreement with published Danish footprints, and internal consistency across the study's own outputs.
+Is the result right? Two independent tests answer it: agreement with published Danish footprints, and internal consistency across the study's own outputs.
 
 Method, equations, and verification: [`docs/methods/replications/06_benchmarks_validation.md`](../../../docs/methods/replications/06_benchmarks_validation.md).
 
@@ -21,7 +21,7 @@ Method, equations, and verification: [`docs/methods/replications/06_benchmarks_v
 
 ### `consistency_audit.csv`
 
-- **Rows:** 12
+- **Rows:** 13
 - **Dimensions:** `check`
 - **Measures:** `status`, `detail`, `known_conventions`
 

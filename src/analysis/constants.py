@@ -83,10 +83,20 @@ MODEL_LABEL = model_label()
 # factors (CH4 = 25, N2O = 298) under a sheet labelled "CML 1999". This study
 # restates climate on AR6, the current assessment.
 #
-# Source: IPCC (2021) AR6 WG1 Chapter 7, Table 7.15 (GWP100, including
-# carbon-cycle responses for non-CO2 gases, which is the set used for emission
-# metrics). AR6 distinguishes fossil from non-fossil methane, which the AR4 row
-# did not: fossil CH4 carries the extra CO2 produced by its oxidation.
+# Source: IPCC (2021) AR6 WG1 Chapter 7, Table 7.15, with SF6 from the full
+# version of that table, Supplementary Table 7.SM.7. Both are in
+# data/bronze/characterisation/. Carbon-cycle responses are included: the note
+# to Table 7.15 states they are included in every metric it presents, so the
+# whole set is on one basis. AR6 distinguishes fossil from non-fossil methane,
+# which the AR4 row did not: fossil CH4 carries the extra CO2 produced by its
+# oxidation.
+#
+# Verified against the primary source on 9 September 2026, value by value:
+# Table 7.15 gives CH4-fossil 29.8, CH4-non-fossil 27.0 and N2O 273; Table
+# 7.SM.7 gives SF6 25,200. The GHG Protocol's AR6 adaptation (in the
+# dk_kommune_footprints reference library) agrees on the first three and prints
+# 24,300 for SF6. Where the two disagree this study follows the IPCC table it
+# cites, not the adaptation.
 #
 # WHAT CANNOT BE RESTATED: EXIOBASE reports HFC and PFC already aggregated in
 # kg CO2-equivalent rather than as individual species, so their GWP vintage is

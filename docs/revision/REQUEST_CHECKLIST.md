@@ -61,12 +61,12 @@ Validation: `python -m analysis.validate_io_identities` (Leontief identities).
 | # | Request | Status | Evidence |
 |---|---|---|---|
 | 10 | **Capital / GFCF: do we need it, how do others handle it, endogenisation** | **Done** | `docs/revision/capital_gfcf_treatment.md`; `analysis.capital_gfcf` → `11_capital_gfcf/`. Cross-study table; three treatments; +13.2 % (exogenous capital service flow, DST NABK69) and +19.4 % (endogenised on the published Södersten et al. 2018 matrices). *(Corrected 2026-09-08: this row previously gave +21.0 % for the endogenised case, which is the simplified construction the published method later replaced; `capital_endogenised_sodersten.csv` is the source.)* Corrected the earlier wrong claim that zero medical-instrument purchases were a capital artefact |
-| 11 | **Volatile anaesthetics - how far can the proxy go** | **Done** | Replaced by Danish primary data: medstat.dk ATC N01AB sales, both years verified against the register. 12.5 kt for 2022, and the item now shows the desflurane phase-out |
+| 11 | **Volatile anaesthetics - how far can the proxy go** | **Done** | Replaced by Danish primary data: medstat.dk ATC N01AB sales, both years verified against the register. 11.6 kt for 2022, and the item now shows the desflurane phase-out |
 | 12 | **Patient / visitor travel - find a Danish source** | **Done** | A Danish source exists after all: TU (DTU) Tabel 15, purpose code 33, verified in the primary PDFs (0.9 km/person/day 2019, 0.8 in 2022). Also fixed a unit error - a whole-population quantity was being scaled by employment × working hours |
 | 13 | **Imported waste - hybrid EXIOBASE waste data** | **Done** | v3.3.18 confirmed as the newest hybrid with waste accounts (nothing newer exists; the 2024 "October" release is consequential and has none). Fixed a real bug: all 19 fractions were being summed, including manure, sewage, mining and unused waste, none of which are in the Eurostat/DST boundary. World industry waste 13.17 → 2.01 Gt; healthcare waste 829 → 257 kt |
 | 14 | **Figure formatting compliant with house rules** | **Done** | Variance-share figure had three legend keys for series never drawn; sub-visible parameters are now pooled into one labelled residual. Aspect ratios 1.50-1.75, legends at the bottom, no baked-in titles |
 | 15 | **EXIOBASE vintage integrity (not requested - found)** | **Done** | v3.10.2's 2022 Danish block fails against national accounts; background moved to v3.8.2. `docs/revision/exiobase_vintage_defects.md`, `analysis.vintage_defect_audit` → `09_vintage_diagnostics/` |
-| 16 | **"Transport ≈ 40 %" (not requested - found)** | **Done** | Reproduced Statistics Denmark's published 74 % shipping misallocation at 73.6 % on our own model; correcting it moves transport from 37.5 % to **18.5 %** of the 3,943 kt supply-chain component, which is 15.4 % of the 4,713 kt total. *(Corrected 2026-09-08 from 18.9 %, and the basis is now stated, which is the rule this study adopted after three unreproducible shares were found in earlier drafts.)* `analysis.dk_shipping_correction` → `10_snac_shipping_correction/` |
+| 16 | **"Transport ≈ 40 %" (not requested - found)** | **Done** | Reproduced Statistics Denmark's published 74 % shipping misallocation at 73.6 % on our own model; correcting it moves transport from 37.5 % to **18.5 %** of the 3,943 kt supply-chain component, which is 15.5 % of the 4,712 kt total. *(Corrected 2026-09-08 from 18.9 %, and the basis is now stated, which is the rule this study adopted after three unreproducible shares were found in earlier drafts.)* `analysis.dk_shipping_correction` → `10_snac_shipping_correction/` |
 
 ## Round of 2026-09-08
 
@@ -122,7 +122,7 @@ four of them had reached documents intended for the editor.
 | Finding | Where it had reached | Correction |
 |---|---|---|
 | The correlation sensitivity table carried the superseded, pre-calibration values, and the argument built on them no longer held | `uncertainty_methods_for_manuscript.md`, which is the manuscript text, and `response_to_reviewers.md` | Both replaced with the re-solved values, and the argument restated: the correlation assumption governs how variance is distributed, not how much of it there is |
-| The 95 % interval existed in four different forms across five documents | five revision documents | One form everywhere, 4,065 to 5,532 kt, taken from `uncertainty_totals.csv` |
+| The 95 % interval existed in four different forms across five documents | five revision documents | One form everywhere, 4,064 to 5,531 kt, taken from `uncertainty_totals.csv` |
 | The first-order variance share of the input-output model was quoted as 86.8 % | `response_to_reviewers.md`, `analysis_2022.md` | 78.8 %, with the covariance between commuting and visitor travel named separately at 9.3 % rather than folded in |
 | Schulte et al.'s sector-level coefficient of variation of 94 % was quoted where the argument concerns a footprint | four documents | The paper's table 2 gives 94 % for emission *accounts* and 18 % for the *footprints* derived from them. The footprint pair is the one that applies, and using the accounts figure would have overstated the caveat roughly fivefold |
 | A *Scientific Data* reference carried the authors and title of a different Wood et al. (2019) paper | two documents | Corrected to Wood, Moran, Rodrigues and Stadler (2019), which is the paper the 8.8 % Danish figure actually comes from |
@@ -136,7 +136,7 @@ Two stale figures in the earlier rounds of this checklist were corrected at the
 same time, and are marked in place: the Malik production-layer share, which had
 been recorded as agreeing with Malik when it is four points below, and the
 post-correction transport share, which is 18.5 % of the supply-chain component
-and 15.4 % of the total.
+and 15.5 % of the total.
 
 ### Standing audits, and their current state
 

@@ -2,7 +2,7 @@
 
 **08 - Lenzen KPI set**
 
-Every indicator Lenzen et al. publish per country, reproduced for Denmark so our result can be placed directly beside their published Danish row.
+This layer reproduces for Denmark every indicator Lenzen et al. publish per country, so our result can be placed directly beside their published Danish row.
 
 Method, equations, and verification: [`docs/methods/replications/08_lenzen_replication.md`](../../../docs/methods/replications/08_lenzen_replication.md).
 

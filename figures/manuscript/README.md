@@ -25,7 +25,7 @@ mangled: "Södersten" came out as "S..dersten" with no warning.
 |---|---|---|
 | Background | EXIOBASE v3.8.2 IOT_2016 | EXIOBASE v3.8.2 IOT_2022 |
 | Danish sea-transport reallocation | **not applied** | applied |
-| Climate footprint | 6,361 kt CO₂e | 4,713 kt CO₂e |
+| Climate footprint | 6,361 kt CO₂e | 4,712 kt CO₂e |
 | Transport, activity view | 41 % | 13 % |
 
 The 2019 set runs on the background the submitted manuscript used, so it

@@ -103,7 +103,7 @@ parameter is fitted.
 
 ## 6. What survives, and what should the paper now say?
 
-Transport is **still the third largest** contributor at 15.4 % of the total climate
+Transport is **still the third largest** contributor at 15.5 % of the total climate
 footprint, and **sea and coastal water transport alone is 10.1 %**, the single largest
 transport component even after correction, reflecting genuine international shipping in
 Danish health supply chains.

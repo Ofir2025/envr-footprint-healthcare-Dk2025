@@ -98,7 +98,7 @@ Effect of correcting to their 9 % target:
 | Danish national consumption-based footprint | 85.2 Mt | **77.5 Mt** |
 
 The corrected transport share is on the 3,943 kt supply-chain basis; on the
-4,713 kt total it is 15.4 %. Section F2 below records the values this table
+4,712 kt total it is 15.4 %. Section F2 below records the values this table
 carried before it was reconciled against the gold outputs.
 
 **Consequence for the manuscript:** the submitted finding that transport is
@@ -473,7 +473,7 @@ These change results and are the author's call, not the analyst's.
    preference; the health industry's output there is smaller than health final
    demand.
 3. **Headline numbers all moved.** Denmark 2022, full footprint: climate
-   4,713.4 kt, materials 4,259.4 kt, water 95.5 Mm³, land 4,855.5 km², waste
+   4,712.4 kt, materials 4,259.4 kt, water 95.5 Mm³, land 4,855.5 km², waste
    259.4 kt. The supply-chain component alone is 3,943.4 kt of climate; the
    difference is the Danish bottom-up items, which are almost entirely climate.
 4. Three bottom-up items are now **Danish primary data** rather than scaled Dutch

@@ -83,9 +83,9 @@ rather than by inspection of intervals.
 
 | Quantity | Value |
 |---|---|
-| Deterministic climate | 4,713 kt |
-| Median | 4,735 kt |
-| 95 % interval | 4,065 to 5,532 kt |
+| Deterministic climate | 4,712 kt |
+| Median | 4,734 kt |
+| 95 % interval | 4,064 to 5,531 kt |
 | CV | 7.87 % |
 | MRIO share of variance | 78.8 % |
 

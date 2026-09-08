@@ -33,7 +33,7 @@ as much as we actually believe it might, how much does the answer wobble?"*
 
 ## 2. The idea in one paragraph, no symbols
 
-Take the recipe that produced 4,713 kt. Instead of running it once, run it a
+Take the recipe that produced 4,712 kt. Instead of running it once, run it a
 hundred thousand times. On each run, multiply each uncertain ingredient by a
 random number close to 1 (sometimes 0.9, sometimes 1.15), drawn from a spread
 that reflects how well we know that ingredient. Each run gives a slightly
@@ -75,9 +75,9 @@ For 2022, climate:
 | $B_{\text{HEAL}}$, direct operations | 118.554 |
 | $B_{\text{COMM}}$, employee commuting | 363.727 |
 | $B_{\text{VISI}}$, patient and visitor travel | 263.568 |
-| $B_{\text{ANAE}}$, anaesthetic gases | 12.522 |
+| $B_{\text{ANAE}}$, anaesthetic gases | 11.572 |
 | $B_{\text{PMDI}}$, inhaler propellants | 11.600 |
-| **Total** | **4,713.368** |
+| **Total** | **4,712.418** |
 
 Because the model is linear and additive, a draw only has to **recombine these
 fourteen numbers with random multipliers**. The 7,987 × 7,987 matrix
@@ -120,7 +120,7 @@ $$\mathbb{E}[h] = e^{\sigma^{2}/2} > 1$$
 *In words:* because the distribution has a long right tail, its average sits a
 little above its middle. For our MRIO factor $\sigma = 0.0834$, so the mean is
 $e^{0.0834^2/2} = 1.00348$, i.e. **+0.35 %**. This upward shift is why the simulated mean
-(4,751 kt) sits marginally above the deterministic value (4,713 kt). It is
+(4,751 kt) sits marginally above the deterministic value (4,712 kt). It is
 arithmetic, not a modelling error, and both are reported.
 
 ### 4.2 Reading a GSD
@@ -326,7 +326,7 @@ $11.600 \times e^{0.13976 \times (-0.60)} = 11.600 \times 0.9196 = 10.67$ kt
 
 $$4{,}111.22 + 115.21 + 418.26 + 340.40 + 16.71 + 10.67 = 5{,}012.5 \text{ kt}$$
 
-That total is **one** draw: 5,012 kt against a deterministic 4,713 kt. Repeat
+That total is **one** draw: 5,012 kt against a deterministic 4,712 kt. Repeat
 100,000 times with fresh random numbers and sort the results. Notice in step 4
 that because commuting drew high, travel drew high too; that is the correlation
 doing its work, and it is why the pair together widens the interval more than
@@ -340,12 +340,12 @@ either would alone.
 
 | Quantity | Symbol | 2022 climate |
 |---|---|---|
-| Deterministic estimate | $F$ | 4,713.4 kt |
+| Deterministic estimate | $F$ | 4,712.4 kt |
 | Simulation median | $\tilde{F}$ | 4,734.7 kt |
 | Simulation mean | $\bar{F}$ | 4,750.9 kt |
 | Standard deviation | $s$ | 373.8 kt |
 | Coefficient of variation | $s/\bar{F}$ | 7.87 % |
-| 95 % interval | 2.5th to 97.5th percentile | **4,065 to 5,532 kt** |
+| 95 % interval | 2.5th to 97.5th percentile | **4,064 to 5,531 kt** |
 
 The median reproduces the deterministic estimate to 0.5 %, as designed. The CV
 of 7.87 % is close to the 8.35 % Lenzen et al. report for the same quantity by a
@@ -373,7 +373,7 @@ estimated from the draws, and the shares sum to 100 % by construction:
 | Employee commuting | 5.1 % |
 | Covariance of the travel pair | 9.3 % |
 | Direct operations | 0.09 % |
-| Anaesthetic gases | 0.009 % |
+| Anaesthetic gases | 0.007 % |
 | Inhaler propellants | 0.002 % |
 
 **This decomposition is the answer to the reviewers.** The proxy assumptions

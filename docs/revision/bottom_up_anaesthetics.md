@@ -2,11 +2,11 @@
 
 ## Where the number comes from now
 
-Our anaesthetic-gas item (12.5 kt CO₂e) has two parts:
+Our anaesthetic-gas item (11.6 kt CO₂e) has two parts:
 
 | part | value | basis | strength |
 |---|---|---|---|
-| **N₂O** | 11.3 kt | Denmark's National Inventory Document 2024 (DCE report 622), category 2.G.3.a: 38 t N₂O/yr × 298 | **strong**: official national inventory, though the 2013-2022 series is a constant extrapolated from 2005-2012 sales, and it includes non-hospital uses (dental, veterinary) |
+| **N₂O** | 10.4 kt | Denmark's National Inventory Document 2024 (DCE report 622), category 2.G.3.a: 38 t N₂O/yr × 298 | **strong**: official national inventory, though the 2013-2022 series is a constant extrapolated from 2005-2012 sales, and it includes non-hospital uses (dental, veterinary) |
 | **volatile agents** (sevoflurane, desflurane, isoflurane) | 1.2 kt | medstat.dk register, ATC N01AB, actual Danish sales for the year: sevoflurane 2,400 L, desflurane 181 L, isoflurane 15 L; densities from Laster et al. (1994); GWP₁₀₀ from Sulbaek Andersen et al. (2023) | **strong**: a Danish measurement, not a transfer |
 
 Volatile halogenated agents are **not** in UNFCCC inventories at all (they are
@@ -52,8 +52,8 @@ The uncertainty parameter for the whole anaesthetic item (GSD 1.30, a 95 %
 factor range of 0.60 to 1.67) was set when the component was a transfer. It is
 left unchanged, which is now conservative rather than merely convenient.
 
-**Materiality:** the entire anaesthetic item is 12.5 kt of a 4,713 kt footprint
-(0.27 %), and its exact first-order variance share is **0.009 %**. Even a
+**Materiality:** the entire anaesthetic item is 11.6 kt of a 4,712 kt footprint
+(0.25 %), and its exact first-order variance share is **0.007 %**. Even a
 factor-of-three error in the volatile component moves the headline by under
 0.06 %.
 This materiality is worth stating plainly in the response letter: the reviewers

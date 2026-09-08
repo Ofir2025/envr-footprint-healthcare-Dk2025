@@ -61,7 +61,7 @@ flowchart LR
     P --> G1["<b>geographical displacement</b><br/>domestic 26.3 %, imported 73.7 %"]
     Q --> G2["<b>procurement levers</b><br/>domestic 61.7 %, imported 38.3 %"]
 
-    P --> F["<b>f = 4,713 kt CO<sub>2</sub>-eq</b><br/>both marginals sum to f exactly,<br/>asserted at write time"]
+    P --> F["<b>f = 4,712 kt CO<sub>2</sub>-eq</b><br/>both marginals sum to f exactly,<br/>asserted at write time"]
     Q --> F
 
     W["<b>The trap.</b> The two splits are of the same footprint and both are correct.<br/>A share is meaningless without the marginal it was taken on, so every share<br/>in this study is quoted with its basis."]
