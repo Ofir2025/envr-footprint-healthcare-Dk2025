@@ -16,9 +16,9 @@ The Eckelman & Sherman article lists five supporting tables/files. These support
 
 | Source | Coverage | Status | Missing item |
 |---|---|---|---|
-| Eckelman & Sherman (2016) | pp. 1–14, abstract, introduction, methods, tables, figures, results, uncertainty, discussion, conclusion, references | Complete | Supporting files S1 File and S1–S5 Tables not supplied |
-| Lenzen et al. (2020) main article | pp. 1–9 | Complete | None |
-| Lenzen et al. (2020) SI | pp. 1–76 | Complete | None |
+| Eckelman & Sherman (2016) | pp. 1-14, abstract, introduction, methods, tables, figures, results, uncertainty, discussion, conclusion, references | Complete | Supporting files S1 File and S1-S5 Tables not supplied |
+| Lenzen et al. (2020) main article | pp. 1-9 | Complete | None |
+| Lenzen et al. (2020) SI | pp. 1-76 | Complete | None |
 | Malik et al. (2018) main + SI | Previously completed | Complete | Full 15×360 concordance not printed |
 | Malik et al. (2021) | Previously completed | Complete for main article | Separate online SI not supplied |
 
@@ -200,7 +200,7 @@ as well as percentiles or a stated confidence/credible interval.
 
 ## Method
 
-They use U.S. National Health Expenditure categories over 2003–2013, map those categories to a 428-sector 2002 U.S. EIOLCA producer model, apply environmental extensions, use EPA TRACI midpoint characterisation, and for selected effects translate impacts to DALYs using IMPACT2002+ endpoint factors.
+They use U.S. National Health Expenditure categories over 2003-2013, map those categories to a 428-sector 2002 U.S. EIOLCA producer model, apply environmental extensions, use EPA TRACI midpoint characterisation, and for selected effects translate impacts to DALYs using IMPACT2002+ endpoint factors.
 
 The model therefore has three analytical layers:
 
@@ -832,7 +832,7 @@ Fields:
 | Feature | Malik 2018 | Malik 2021 NSW | Eckelman & Sherman 2016 | Lenzen et al. 2020 |
 |---|---|---|---|---|
 | Geography | Australia | NSW + 8 Australian regions | USA | 189-country MRIO |
-| Time | 2014–15 | 2017 | 2003–13 | 2000–15 |
+| Time | 2014-15 | 2017 | 2003-13 | 2000-15 |
 | Health demand | 15 AIHW categories | 16 health sectors + NSW expenditure | NHE categories | health sectors embedded in Eora |
 | Main impacts | GHG | GHG, water, waste | 9 LCIA categories | 7 environmental stressor families |
 | Global supply chains | Limited/unclear | imports excluded | no full MRIO geography | yes |

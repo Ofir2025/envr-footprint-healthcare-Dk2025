@@ -26,9 +26,9 @@ The final purpose is a replicable strategy for:
 
 | Source | Main-paper coverage | Supporting material | Status |
 |---|---|---|---|
-| Wiedmann et al. (2011) | pp. 1–8, sequentially, all main sections, Eq. 1–2, Fig. 1–2, Table 1, discussion, associated content, acknowledgements, references | Separate Supporting Information referenced but not supplied | **MAIN PAPER COMPLETE; SI NEEDS MANUAL CHECK** |
-| Malik et al. (2014/2016) TBL biofuel | pp. 1–15, sequentially, all main sections, equations, Figs. 1–5, Tables 1–5, discussion, SI inventory | Appendices S1–S5 not supplied; Appendix S3 contains stepwise insertion procedure | **MAIN PAPER COMPLETE; SI NEEDS MANUAL CHECK** |
-| Malik et al. (2015) algal biofuel | pp. 1–8, sequentially, all main sections, equations, Figs. 1–4, Table 1, conclusion, Appendix-A availability notice | Table S1 and supplementary process data not supplied | **MAIN PAPER COMPLETE; SUPPLEMENT NEEDS MANUAL CHECK** |
+| Wiedmann et al. (2011) | pp. 1-8, sequentially, all main sections, Eq. 1-2, Fig. 1-2, Table 1, discussion, associated content, acknowledgements, references | Separate Supporting Information referenced but not supplied | **MAIN PAPER COMPLETE; SI NEEDS MANUAL CHECK** |
+| Malik et al. (2014/2016) TBL biofuel | pp. 1-15, sequentially, all main sections, equations, Figs. 1-5, Tables 1-5, discussion, SI inventory | Appendices S1-S5 not supplied; Appendix S3 contains stepwise insertion procedure | **MAIN PAPER COMPLETE; SI NEEDS MANUAL CHECK** |
+| Malik et al. (2015) algal biofuel | pp. 1-8, sequentially, all main sections, equations, Figs. 1-4, Table 1, conclusion, Appendix-A availability notice | Table S1 and supplementary process data not supplied | **MAIN PAPER COMPLETE; SUPPLEMENT NEEDS MANUAL CHECK** |
 | Palm et al. (2019) | Previously read in full in this project; used here only for the requested method synthesis | Online supplement referenced in article but not supplied | **MAIN PAPER COMPLETE; SUPPLEMENT NEEDS MANUAL CHECK** |
 | Hagenaars et al. (2025) | Previously read in full in this project; used here for taxonomy/critique | No underlying study dataset | **COMPLETE** |
 
@@ -63,7 +63,7 @@ while maintaining accounting consistency.
 | Dimension | Wiedmann et al. (2011) | Malik et al. TBL | Malik et al. (2015) algal biofuel |
 |---|---|---|---|
 | Main problem | Make an existing electricity sector technology-specific | Add new forestry/refinery scenario sectors | Add a hypothetical algal bio-crude sector |
-| IO system | UK–ROW SUT/IO hybrid | Australian subnational MRIO/SUT | Australian subnational MRIO/SUT |
+| IO system | UK-ROW SUT/IO hybrid | Australian subnational MRIO/SUT | Australian subnational MRIO/SUT |
 | Foreground data | Ecoinvent 2 MW offshore wind process | Forestry, transport and NREL refinery data | Engineering costs, pilot data, HTL data |
 | Augmentation type | Disaggregate existing electricity sector, then replace wind recipe | Add 38 scenario rows and columns | Add one bio-crude row and column |
 | Initial split | Pro rata for 11 electricity subsectors | Not a simple parent split | New activity absent from IO |
@@ -334,7 +334,7 @@ Palm therefore asks:
 
 > Can we retain the superior official Swedish domestic data and still obtain complete foreign supply-chain impacts from EXIOBASE?
 
-Their answer is a **linked hybrid MRIO–SRIO**, called **simplified SNAC** in the wider literature.
+Their answer is a **linked hybrid MRIO-SRIO**, called **simplified SNAC** in the wider literature.
 
 The core idea is:
 
@@ -820,7 +820,7 @@ Check:
 
 | Palm/Swedish requirement | Purpose | Danish equivalent / preferred source |
 |---|---|---|
-| Swedish SNA IO tables | Domestic production structure | Statistics Denmark 117-industry IOT (`NAIO1`–`NAIO4`) or detailed SUT through Research Service |
+| Swedish SNA IO tables | Domestic production structure | Statistics Denmark 117-industry IOT (`NAIO1`-`NAIO4`) or detailed SUT through Research Service |
 | Swedish SUT/industry/product concordance | Product/industry structure | Danish ~2,350-product × 117-industry SUT; public A88 transmission as fallback |
 | Swedish SEEA air-emission accounts | Domestic environmental extensions | Statistics Denmark Green National Accounts / energy and emissions accounts |
 | Household direct emissions | Fuel combustion by households | Danish energy/emission accounts consistent with residence principle |
@@ -1430,7 +1430,7 @@ This distinction should appear explicitly in the methods paper.
 |---|---|---|
 | Original Danish SUT | Product supply = product use | Use Statistics Denmark's already reconciled SUT; do not rebalance arbitrarily |
 | Health-sector augmentation | Children must aggregate exactly to parent margins and individually balance | Weighted constrained optimisation / SUT reconciliation |
-| Denmark–EXIOBASE coupling | National imports must be distributed to EXIOBASE nodes without changing totals | Column-normalised $K$ concordance; **no global MRIO rebalance in simplified SNAC** |
+| Denmark-EXIOBASE coupling | National imports must be distributed to EXIOBASE nodes without changing totals | Column-normalised $K$ concordance; **no global MRIO rebalance in simplified SNAC** |
 
 This resolves a common conceptual confusion.
 
@@ -1519,7 +1519,7 @@ Advantages:
 Disadvantages:
 
 - very data intensive;
-- complex process–IO concordance;
+- complex process-IO concordance;
 - double-counting correction;
 - temporal-boundary mismatch;
 - not necessary if the primary goal is **sectoral health disaggregation** rather than product/process LCA.
@@ -1719,7 +1719,7 @@ Every estimated child input should carry a provenance grade.
 | E | USEEIO donor prior |
 | F | Parent proportional allocation |
 
-Report, for every child sector, the share of intermediate consumption determined by A–F evidence.
+Report, for every child sector, the share of intermediate consumption determined by A-F evidence.
 
 This would make the model much more transparent than conventional matrix augmentation.
 
@@ -1985,29 +1985,29 @@ The strongest methodological paper will quantify the difference among proportion
 
 # 49. References
 
-Agez, M., Majeau-Bettez, G., Margni, M., Strømman, A. H., & Samson, R. (2020). Lifting the veil on the correction of double counting incidents in hybrid life cycle assessment. *Journal of Industrial Ecology, 24*, 517–533. https://doi.org/10.1111/jiec.12945
+Agez, M., Majeau-Bettez, G., Margni, M., Strømman, A. H., & Samson, R. (2020). Lifting the veil on the correction of double counting incidents in hybrid life cycle assessment. *Journal of Industrial Ecology, 24*, 517-533. https://doi.org/10.1111/jiec.12945
 
-Agez, M., Muller, E., Patouillard, L., Södersten, C.-J. H., Arvesen, A., Margni, M., Samson, R., & Majeau-Bettez, G. (2022). Correcting remaining truncations in hybrid life cycle assessment database compilation. *Journal of Industrial Ecology, 26*, 121–133. https://doi.org/10.1111/jiec.13132
+Agez, M., Muller, E., Patouillard, L., Södersten, C.-J. H., Arvesen, A., Margni, M., Samson, R., & Majeau-Bettez, G. (2022). Correcting remaining truncations in hybrid life cycle assessment database compilation. *Journal of Industrial Ecology, 26*, 121-133. https://doi.org/10.1111/jiec.13132
 
-Bruckner, M., Wood, R., Moran, D., Kuschnig, N., Wieland, H., Maus, V., & Börner, J. (2019). FABIO: The construction of the food and agriculture biomass input-output model. *Environmental Science & Technology, 53*, 11302–11312. https://doi.org/10.1021/acs.est.9b03554
+Bruckner, M., Wood, R., Moran, D., Kuschnig, N., Wieland, H., Maus, V., & Börner, J. (2019). FABIO: The construction of the food and agriculture biomass input-output model. *Environmental Science & Technology, 53*, 11302-11312. https://doi.org/10.1021/acs.est.9b03554
 
-Giljum, S., Bruckner, M., & Martinez, A. (2014). Material footprint assessment in a global input-output framework. *Journal of Industrial Ecology, 19*, 792–804.
+Giljum, S., Bruckner, M., & Martinez, A. (2014). Material footprint assessment in a global input-output framework. *Journal of Industrial Ecology, 19*, 792-804.
 
 Hagenaars, R. H., Heijungs, R., Tukker, A., & Wang, R. (2025). Hybrid LCA for sustainable transitions: Principles, applications, and prospects. *Renewable and Sustainable Energy Reviews, 212*, 115443. https://doi.org/10.1016/j.rser.2025.115443
 
 Jensen, P. R., & Iliev, B. (2022). *Compilation of a consumption based greenhouse gas account for Denmark using coupled models*. Statistics Denmark, technical report for Eurostat.
 
-Malik, A., Lenzen, M., & Geschke, A. (2016). Triple bottom line study of a lignocellulosic biofuel industry. *GCB Bioenergy, 8*, 96–110. https://doi.org/10.1111/gcbb.12240
+Malik, A., Lenzen, M., & Geschke, A. (2016). Triple bottom line study of a lignocellulosic biofuel industry. *GCB Bioenergy, 8*, 96-110. https://doi.org/10.1111/gcbb.12240
 
-Malik, A., Lenzen, M., Ralph, P. J., & Tamburic, B. (2015). Hybrid life-cycle assessment of algal biofuel production. *Bioresource Technology, 184*, 436–443. https://doi.org/10.1016/j.biortech.2014.10.132
+Malik, A., Lenzen, M., Ralph, P. J., & Tamburic, B. (2015). Hybrid life-cycle assessment of algal biofuel production. *Bioresource Technology, 184*, 436-443. https://doi.org/10.1016/j.biortech.2014.10.132
 
-Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). Environmental pressures from Swedish consumption: A hybrid multi-regional input-output approach. *Journal of Cleaner Production, 228*, 634–644. https://doi.org/10.1016/j.jclepro.2019.04.181
+Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). Environmental pressures from Swedish consumption: A hybrid multi-regional input-output approach. *Journal of Cleaner Production, 228*, 634-644. https://doi.org/10.1016/j.jclepro.2019.04.181
 
-Tukker, A., Giljum, S., & Wood, R. (2018). Recent progress in assessment of resource efficiency and environmental impacts embodied in trade. *Journal of Industrial Ecology, 22*, 489–501. https://doi.org/10.1111/jiec.12736
+Tukker, A., Giljum, S., & Wood, R. (2018). Recent progress in assessment of resource efficiency and environmental impacts embodied in trade. *Journal of Industrial Ecology, 22*, 489-501. https://doi.org/10.1111/jiec.12736
 
-Wiedmann, T. (2009). A review of recent multi-region input-output models used for consumption-based emission and resource accounting. *Ecological Economics, 69*, 211–222.
+Wiedmann, T. (2009). A review of recent multi-region input-output models used for consumption-based emission and resource accounting. *Ecological Economics, 69*, 211-222.
 
-Wiedmann, T. O., Suh, S., Feng, K., Lenzen, M., Acquaye, A., Scott, K., & Barrett, J. R. (2011). Application of hybrid life cycle approaches to emerging energy technologies: The case of wind power in the UK. *Environmental Science & Technology, 45*, 5900–5907. https://doi.org/10.1021/es2007287
+Wiedmann, T. O., Suh, S., Feng, K., Lenzen, M., Acquaye, A., Scott, K., & Barrett, J. R. (2011). Application of hybrid life cycle approaches to emerging energy technologies: The case of wind power in the UK. *Environmental Science & Technology, 45*, 5900-5907. https://doi.org/10.1021/es2007287
 
 Wiebe, K. S., Bjelle, E. L., Többen, J., & Wood, R. (2018). Implementing exogenous scenarios in a global MRIO model for the estimation of future environmental footprints. *Journal of Economic Structures, 7*, 20. https://doi.org/10.1186/s40008-018-0118-y
 
@@ -2018,7 +2018,7 @@ Wiebe, K. S., Bjelle, E. L., Többen, J., & Wood, R. (2018). Implementing exogen
 ## Statistics Denmark
 
 - National Accounts: Input-Output and Supply-Use, current statistical documentation.
-- Public 117-industry IO downloads and StatBank tables `NAIO1`–`NAIO4`.
+- Public 117-industry IO downloads and StatBank tables `NAIO1`-`NAIO4`.
 - Research Service information for detailed SUT access.
 - `SHA1` health expenditure.
 - Health Insurance Statistics based on regional LUNA reimbursement information.

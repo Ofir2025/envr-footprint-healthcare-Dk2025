@@ -3,7 +3,7 @@
 **Sources fully read in the main PDFs**
 
 1. Hagenaars, R. H., Heijungs, R., Tukker, A., & Wang, R. (2025). *Hybrid LCA for sustainable transitions: principles, applications, and prospects*. Renewable and Sustainable Energy Reviews, 212, 115443.
-2. Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). *Environmental pressures from Swedish consumption: a hybrid multi-regional input-output approach*. Journal of Cleaner Production, 228, 634–644.
+2. Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). *Environmental pressures from Swedish consumption: a hybrid multi-regional input-output approach*. Journal of Cleaner Production, 228, 634-644.
 
 **External replication sources inspected**
 
@@ -20,8 +20,8 @@
 
 | Source | Pages / sections covered | Status | Unreadable or missing items |
 |---|---:|---|---|
-| Hagenaars et al. (2025) | pp. 1–13, abstract through references, including nomenclature, review method, equations, tables, figures, discussion, conclusion, data availability | **COMPLETE** | None material in the supplied main PDF |
-| Palm et al. (2019) | pp. 1–11, abstract through references, including methods, equations, figures, tables, discussion, conclusion, appendix notice | **COMPLETE for supplied main PDF** | **UNREADABLE / NEEDS MANUAL CHECK:** the article refers to online supplementary data, but that supplementary file was not available among the supplied files and could not be retrieved reliably in this session |
+| Hagenaars et al. (2025) | pp. 1-13, abstract through references, including nomenclature, review method, equations, tables, figures, discussion, conclusion, data availability | **COMPLETE** | None material in the supplied main PDF |
+| Palm et al. (2019) | pp. 1-11, abstract through references, including methods, equations, figures, tables, discussion, conclusion, appendix notice | **COMPLETE for supplied main PDF** | **UNREADABLE / NEEDS MANUAL CHECK:** the article refers to online supplementary data, but that supplementary file was not available among the supplied files and could not be retrieved reliably in this session |
 | USEEIO GitHub | main USEEIO README, current `useeior` platform, health-sector classifications and crosswalk snippets | **TARGETED EXTERNAL INSPECTION COMPLETE** | Not a sequential reading of every repository file, because the task was to inspect relevant sector detail, software and possible disaggregation recipes |
 | Statistics Denmark | current SUT/IOT documentation, coupled-model technical report, health expenditure documentation | **TARGETED EXTERNAL INSPECTION COMPLETE** | Some of the most detailed Danish SUT data are not openly disseminated at the same detail as the internal compilation system |
 
@@ -35,7 +35,7 @@
 
 The paper asks what hybrid life cycle assessment (HLCA) methods currently exist, how their computational structures differ, where they are being applied, how robust current practice is, and what methodological barriers must be resolved if HLCA is to support sustainable technological transitions and policy.
 
-It is not an empirical LCA of one product. It is a methodological and systematic review of **114 HLCA publications from 2016–2022**.
+It is not an empirical LCA of one product. It is a methodological and systematic review of **114 HLCA publications from 2016-2022**.
 
 ### Author claim
 
@@ -60,7 +60,7 @@ It does not itself provide a new operational sector-disaggregation algorithm or 
 The authors use a PRISMA-style literature review.
 
 - Databases: Web of Science and Scopus.
-- Time window: 2016–2022.
+- Time window: 2016-2022.
 - Initial screening after some exclusions: 278 publications.
 - Final review set: 114 publications.
 - The papers were manually classified by method, application and impact-category coverage.
@@ -70,7 +70,7 @@ The authors use a PRISMA-style literature review.
   3. capital goods,
   4. linearity.
 
-**Evidence anchor:** Hagenaars, section 2, pp. 2–3.
+**Evidence anchor:** Hagenaars, section 2, pp. 2-3.
 
 ### Limitation of review design
 
@@ -612,7 +612,7 @@ The Swedish application used:
 - EXIOBASE for water, land and material extraction for both domestic and foreign components where Swedish-specific SEEA data were unavailable;
 - household direct emissions.
 
-The period is 2008–2014. EXIOBASE was extrapolated beyond its original 2011 data for later years.
+The period is 2008-2014. EXIOBASE was extrapolated beyond its original 2011 data for later years.
 
 The model used product-by-product tables.
 
@@ -648,7 +648,7 @@ For Sweden in 2014:
 - more than 90% of sulphur emissions associated with consumption occurred abroad;
 - more than 80% of blue-water use occurred abroad;
 - land use was the main exception;
-- most pressures declined over 2008–2014 while consumption-based value added rose;
+- most pressures declined over 2008-2014 while consumption-based value added rose;
 - material consumption did not show the same decline.
 
 The authors interpret this as evidence of absolute decoupling during the observed period, but explicitly warn that the period is too short to determine whether it is a durable structural trend.
@@ -1875,7 +1875,7 @@ This would directly respond to Hagenaars’ criticism that simple scaling of par
 
 | Claim / concept | Source anchor | Evidence type | Confidence |
 |---|---|---|---|
-| Hagenaars reviewed 114 studies from 2016–2022 | Hagenaars abstract and section 2 | author methods | High |
+| Hagenaars reviewed 114 studies from 2016-2022 | Hagenaars abstract and section 2 | author methods | High |
 | Energy is largest application at 24% | Hagenaars abstract / section 5 | review result | High |
 | MA disaggregates or adds IO sectors | Hagenaars section 4.1.2, p. 6 | method definition | High |
 | MA used by 22% of reviewed studies | Hagenaars section 4.1.2 / Table 1 | review result | High |
@@ -1883,7 +1883,7 @@ This would directly respond to Hagenaars’ criticism that simple scaling of par
 | USEEIO has unusually rich elementary-flow coverage | Hagenaars section 5.3 | review observation | High |
 | Palm does not rebalance the full MRIO | Palm section 2.1 | method choice | High |
 | Palm uses product-by-product Sweden and EXIOBASE tables | Palm section 2.2 | method specification | High |
-| Palm runs 2008–2014 in current prices | Palm section 2.2 | method specification | High |
+| Palm runs 2008-2014 in current prices | Palm section 2.2 | method specification | High |
 | Statistics Denmark uses simplified SNAC | Statistics Denmark 2022 report, section 2.3 | official method | High |
 | Danish feedback effect accepted as about 0.4% | Statistics Denmark 2022 report, section 2.3 | reported literature-based estimate | High |
 | Danish final SUT uses about 2,350 products ×117 industries | Statistics Denmark current SUT/IOT documentation | official metadata | High |
@@ -2001,7 +2001,7 @@ Before a final empirical implementation, the remaining data-access tasks are:
 2. download the exact 117-industry Danish domestic/import IO tables for that year;
 3. obtain SHA1 provider/function data at maximum available detail;
 4. select the matching EXIOBASE year/version and price basis;
-5. construct the exact DB07–ISIC Rev.4–USEEIO–EXIOBASE concordances;
+5. construct the exact DB07-ISIC Rev.4-USEEIO-EXIOBASE concordances;
 6. retrieve Palm’s online supplement manually if its content is needed for exact historical reproduction;
 7. test whether the current Danish climate-footprint publication already provides downloadable mapping artefacts beyond the 2022 technical report.
 

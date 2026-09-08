@@ -1,6 +1,6 @@
 # 10_snac_shipping_correction
 
-**10 — Danish sea-transport reallocation**
+**10 - Danish sea-transport reallocation**
 
 The submitted manuscript's most quotable finding was that transport accounts for roughly 40 % of the Danish health-care footprint. Is that a finding or an artefact?
 

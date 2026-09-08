@@ -4,7 +4,7 @@
 
 | Source | Pages/sections | Status | Unreadable or missing items |
 |---|---|---|---|
-| Wiedmann et al. (2011), main article | pp. 1–8, abstract, introduction, methods/data, equations, figures, table, results, sensitivity analysis, comparison with other studies, discussion, associated content, acknowledgements, references | **COMPLETE** | None in main article |
+| Wiedmann et al. (2011), main article | pp. 1-8, abstract, introduction, methods/data, equations, figures, table, results, sensitivity analysis, comparison with other studies, discussion, associated content, acknowledgements, references | **COMPLETE** | None in main article |
 | Supporting Information | Referenced repeatedly by the article for the SUT framework, construction of the upstream matrix, six-GHG results, structural path analysis and additional numerical detail | **NOT SUPPLIED / NEEDS MANUAL CHECK** | Supporting Information itself was not part of the supplied file set |
 
 The main eight-page article has been read sequentially from first page to last. Claims below refer to the main article unless explicitly marked as interpretation.
@@ -249,7 +249,7 @@ For a Danish health-sector study, this could be valuable after a first augmented
 
 The two hybrid totals are close, but their internal contributions differ substantially.
 
-Steel is dominant in both hybrid methods, contributing roughly 50–60% of the total.
+Steel is dominant in both hybrid methods, contributing roughly 50-60% of the total.
 
 Cement is much larger in IO-based hybrid LCA because that model fully reflects UK-specific 2004 cement production and emissions, whereas the process data combine Danish, Swiss and broader European technologies.
 
@@ -300,10 +300,10 @@ The authors explicitly state that this simple sensitivity test is not a comprehe
 
 The paper reviews a wide range of previous process and hybrid estimates, including approximately:
 
-- Vestas: 5–8 g CO2/kWh;
+- Vestas: 5-8 g CO2/kWh;
 - Martínez et al.: about 6.6 g CO2e/kWh for a 2 MW turbine;
-- floating turbine study: 11.5–12.2 g CO2e/kWh;
-- broader literature: roughly 2–123.7 g/kWh depending on design and assumptions;
+- floating turbine study: 11.5-12.2 g CO2e/kWh;
+- broader literature: roughly 2-123.7 g/kWh depending on design and assumptions;
 - Lenzen and Munksgaard regression estimate: about **31 g CO2/kWh** for a 2 MW turbine.
 
 The latter is close to the two hybrid estimates in this paper.
@@ -514,7 +514,7 @@ The first is simpler. The second is more structurally detailed. Both recover sub
 
 ### Section to personally re-read
 
-**Methods and data, pp. 2–3**, especially the sequence from pro-rata disaggregation to process-informed replacement, double-counting treatment and construction of $C_u$/$C_d$.
+**Methods and data, pp. 2-3**, especially the sequence from pro-rata disaggregation to process-informed replacement, double-counting treatment and construction of $C_u$/$C_d$.
 
 ---
 

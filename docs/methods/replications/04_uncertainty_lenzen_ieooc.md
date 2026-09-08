@@ -1,9 +1,9 @@
-# 04 — Monte Carlo parameter uncertainty
+# 04 - Monte Carlo parameter uncertainty
 
 **Gold folder** `data/gold/results/04_uncertainty_lenzen_ieooc/`
 **Module** `analysis.uncertainty_2025`
 **Sources** Lenzen et al. (2020) SI Tab. SI 7.1; Rodrigues, Moran, Wood & Behrens (2018),
-*Uncertainty of consumption-based carbon accounts*, Environ Sci Technol 52:7577–7586;
+*Uncertainty of consumption-based carbon accounts*, Environ Sci Technol 52:7577-7586;
 Wood et al. (2019); the IEooc reference implementation
 
 Full narrative version, written for the manuscript:
@@ -20,7 +20,7 @@ and are the reported rankings robust?
 
 The footprint is linear in final demand and the bottom-up items are additive, so a draw
 recombines precomputed components. $A$ and $L$ are held **fixed** and $(I-A)$ is never
-re-inverted — the same choice the IEooc reference implementation makes, and it is stated
+re-inverted - the same choice the IEooc reference implementation makes, and it is stated
 in the Methods rather than left implicit.
 
 Each uncertain quantity enters as a **median-1 lognormal multiplier**:
@@ -50,7 +50,7 @@ correct ordering and is visible in the table rather than asserted in prose.
 
 EXIOBASE ships no element-level standard deviations. Rather than omit the largest source
 of uncertainty, it enters as **one multiplicative factor applied jointly to all MRIO
-components** — i.e. correlation $\rho = 1$ between them, which is the conservative bound.
+components** - i.e. correlation $\rho = 1$ between them, which is the conservative bound.
 Rodrigues et al. report an empirical correlation of 0.63 ± 0.36 (median 0.76); the
 $\rho = 1$ assumption is therefore an upper bound on this component's contribution, and
 `uncertainty_mrio_correlation.csv` reports the interval under alternative $\rho$.
@@ -83,7 +83,7 @@ answers "is the reported ranking robust?" directly, rather than by inspection of
 |---|---|
 | Deterministic climate | 4 713.4 kt |
 | Median | 4 735.9 kt |
-| 95 % interval | 4 063.9 – 5 540.0 kt |
+| 95 % interval | 4 063.9 - 5 540.0 kt |
 | CV | 7.9 % |
 | MRIO share of variance | 78.8 % |
 
@@ -102,7 +102,7 @@ national error statistics do not transfer to sector studies; Schulte et al. find
 CV near 4 % but sector-level CV up to 94 %. Our own change of EXIOBASE vintage moved the
 result by more than this interval spans. A limitations paragraph making exactly this point
 is drafted in `uncertainty_methods_for_manuscript.md` and should be carried into the
-manuscript — reporting the interval without it would over-claim.
+manuscript - reporting the interval without it would over-claim.
 
 ## Verification
 

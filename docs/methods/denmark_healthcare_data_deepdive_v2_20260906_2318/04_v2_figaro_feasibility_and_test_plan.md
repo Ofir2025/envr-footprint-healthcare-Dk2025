@@ -12,7 +12,7 @@ The current 2026 FIGARO edition provides:
 
 - 64 industries;
 - 64 products;
-- 2010–2024;
+- 2010-2024;
 - supply tables;
 - use tables;
 - industry-by-industry inter-country IOTs;
@@ -52,7 +52,7 @@ This lets us test both:
 At the A64 classification used in FIGARO, relevant categories include separate:
 
 - **Q86 Human health activities**;
-- **Q87–Q88 Residential care and social work activities**.
+- **Q87-Q88 Residential care and social work activities**.
 
 This is important because healthcare can be separated from broad residential/social-care activities at the principal service-industry level.
 

@@ -4,7 +4,7 @@
 
 | Source | Pages/sections | Status | Unreadable or missing items |
 |---|---|---|---|
-| Malik et al. (2015), main article | pp. 1–8: highlights, abstract, introduction, methodology, IO data, process data, augmentation, equations, assumptions, results, Figures 1–4, Table 1, conclusions, acknowledgements, references | **COMPLETE** | None in main text; some page images unavailable, but text/captions and key rendered figures were readable |
+| Malik et al. (2015), main article | pp. 1-8: highlights, abstract, introduction, methodology, IO data, process data, augmentation, equations, assumptions, results, Figures 1-4, Table 1, conclusions, acknowledgements, references | **COMPLETE** | None in main text; some page images unavailable, but text/captions and key rendered figures were readable |
 | Supplementary data | Referenced in Appendix A and Table S1 | **NOT SUPPLIED / NEEDS MANUAL CHECK** | Process input values in Table S1 are not available in the supplied PDF |
 
 The eight-page article has been read sequentially from first page to last.
@@ -723,7 +723,7 @@ For healthcare, the same logic applies, except we are usually **splitting an exi
 
 ### Section to personally re-read
 
-**Section 2.3, pp. 3–4**, especially the paragraph describing insertion of the production column and construction/scaling of the crude-oil-analogue row.
+**Section 2.3, pp. 3-4**, especially the paragraph describing insertion of the production column and construction/scaling of the crude-oil-analogue row.
 
 ---
 

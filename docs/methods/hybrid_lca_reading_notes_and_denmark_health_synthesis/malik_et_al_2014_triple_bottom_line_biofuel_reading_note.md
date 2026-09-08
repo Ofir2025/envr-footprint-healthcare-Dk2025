@@ -1,13 +1,13 @@
 # Malik, Lenzen and Geschke: triple bottom line study of a lignocellulosic biofuel industry
 
-> **Bibliographic note:** The project filename contains “2014”, reflecting the manuscript/acceptance period, but the article is published in **GCB Bioenergy (2016), 8, 96–110**, DOI 10.1111/gcbb.12240.
+> **Bibliographic note:** The project filename contains “2014”, reflecting the manuscript/acceptance period, but the article is published in **GCB Bioenergy (2016), 8, 96-110**, DOI 10.1111/gcbb.12240.
 
 ## Reading status and coverage ledger
 
 | Source | Pages/sections | Status | Unreadable or missing items |
 |---|---|---|---|
-| Malik, Lenzen & Geschke, main article | pp. 1–15: abstract, introduction, case study, materials and methods, augmentation, process data, equations, results, Figures 1–5, Tables 1–5, discussion, acknowledgements, references, SI inventory | **COMPLETE** | None in the main text; some page images were unavailable but corresponding text/captions were readable |
-| Supporting Information | Appendices S1–S5, Figures S1–S2, Tables S1–S2 | **NOT SUPPLIED / NEEDS MANUAL CHECK** | Critical step-by-step augmentation procedure is in Appendix S3; data preparation is in Appendix S4 |
+| Malik, Lenzen & Geschke, main article | pp. 1-15: abstract, introduction, case study, materials and methods, augmentation, process data, equations, results, Figures 1-5, Tables 1-5, discussion, acknowledgements, references, SI inventory | **COMPLETE** | None in the main text; some page images were unavailable but corresponding text/captions were readable |
+| Supporting Information | Appendices S1-S5, Figures S1-S2, Tables S1-S2 | **NOT SUPPLIED / NEEDS MANUAL CHECK** | Critical step-by-step augmentation procedure is in Appendix S3; data preparation is in Appendix S4 |
 
 The main 15-page article has been read sequentially from first page to last.
 
@@ -367,7 +367,7 @@ EROI ranges from **2.7 to 5.2** across the scenarios.
 
 The value declines as feedstock transport distance increases.
 
-Sawmill-residue scenarios at 10 km have the highest reported EROI values, around 4.9–5.2.
+Sawmill-residue scenarios at 10 km have the highest reported EROI values, around 4.9-5.2.
 
 ## 12.3 Carbon balance
 
@@ -672,7 +672,7 @@ This is precisely why the paper is useful for healthcare disaggregation.
 
 ### Section to personally re-read
 
-**Materials and methods, pp. 4–7**, especially “Augmentation of the MRIO table with process data”, “Process data” and the production-layer equations.
+**Materials and methods, pp. 4-7**, especially “Augmentation of the MRIO table with process data”, “Process data” and the production-layer equations.
 
 ---
 
@@ -680,16 +680,16 @@ This is precisely why the paper is useful for healthcare disaggregation.
 
 | Claim/concept | Anchor | Evidence type | Confidence |
 |---|---|---|---|
-| 19 regions and 344 industries per Australian region | pp. 3–4, IO database | Model scope | High |
+| 19 regions and 344 industries per Australian region | pp. 3-4, IO database | Model scope | High |
 | 38 new rows and columns inserted | p. 4, Augmentation | Method | High |
-| New columns contain production recipes | pp. 4–5 | Method | High |
+| New columns contain production recipes | pp. 4-5 | Method | High |
 | IO forestry/petrol-diesel data fill missing process categories | p. 4 | Method | High |
 | Satellite accounts extended for new sectors | p. 5 | Method | High |
 | Fig. 3 vertical cells are production recipes; horizontal cells sales structures | p. 7 | Figure interpretation stated by authors | High |
-| PLD equations use Leontief power series | p. 6 | Equations 1–3 | High |
+| PLD equations use Leontief power series | p. 6 | Equations 1-3 | High |
 | Layer 2 truncation omits 57% employment, 56% energy, 57% GHG | p. 11 | Result | High |
 | Around 2,800 jobs created and 300 lost | p. 12 | Result | High |
-| EROI 2.7–5.2 | p. 14, Table 5 | Result | High |
+| EROI 2.7-5.2 | p. 14, Table 5 | Result | High |
 | Net sequestration around 298 kt CO2 in highlighted case | p. 11 | Result | High |
 | Exact insertion procedure is in Appendix S3 | pp. 4, 7, 15 | Availability statement | High |
 | Public code repository | Main article | **NOT REPORTED** | High |

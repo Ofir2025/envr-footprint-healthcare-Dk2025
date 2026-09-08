@@ -1,6 +1,6 @@
 # 09_vintage_diagnostics
 
-**09 — EXIOBASE vintage defects**
+**09 - EXIOBASE vintage defects**
 
 Which EXIOBASE vintage can carry this study? Rørmose Jensen & Iliev argue EXIOBASE's Danish block misallocates output between industries. This module turns that argument into a reproducible test rather than accepting or dismissing it.
 

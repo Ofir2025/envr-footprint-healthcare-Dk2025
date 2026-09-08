@@ -1,4 +1,4 @@
-# 00 — Core footprint
+# 00 - Core footprint
 
 **Gold folder** `data/gold/results/00_core_footprint/`
 **Modules** `analysis.main_2025`, `analysis.extended_indicators`, `analysis.national_totals`
@@ -7,7 +7,7 @@
 ## Question this layer answers
 
 What environmental pressure, anywhere in the world, is caused by Danish health-care
-final expenditure — and where does it physically arise?
+final expenditure - and where does it physically arise?
 
 This is the layer every other folder builds on. It carries no study-specific boundary
 choices beyond the health-care demand definition, so its outputs can be re-aggregated
@@ -45,7 +45,7 @@ The *producing node* marginal answers "which country and which industry emits", 
 is the geographical-displacement question. The *purchased product* marginal answers
 "which purchase of ours causes it", which is the procurement-lever question. They are
 different tables and neither can be derived from the other. Reporting only the
-aggregate — which the submitted manuscript did — discards both.
+aggregate - which the submitted manuscript did - discards both.
 
 ### Domestic and imported split
 
@@ -84,12 +84,12 @@ both retained.
 |---|---|---|
 | `footprint_by_producing_node.csv` | 66 646 | pressure by (region, industry) of origin × indicator × demand component |
 | `footprint_by_purchased_product.csv` | 30 931 | pressure by purchased product |
-| `footprint_bilateral_producer_x_purchase.csv.gz` | — | the full $E$ table, zeros dropped |
+| `footprint_bilateral_producer_x_purchase.csv.gz` | - | the full $E$ table, zeros dropped |
 | `extended_indicators_by_producing_node.csv` | 126 403 | the same, for the non-climate indicators |
 | `national_footprint_by_producing_node.csv` | 22 216 | Danish national footprint, same schema, for shares |
-| `national_vs_healthcare_by_product_group.csv` | — | health share of each product group |
+| `national_vs_healthcare_by_product_group.csv` | - | health share of each product group |
 | `expenditure_vector_detail.csv` | 6 187 | $y_H$ itself, by node, with the price conversion |
-| `README_data_dictionary.md` | — | column definitions |
+| `README_data_dictionary.md` | - | column definitions |
 
 ## Verification
 

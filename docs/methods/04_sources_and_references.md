@@ -16,7 +16,7 @@ The methodological blueprint should distinguish claims derived from these source
 
 ## Palm et al. (2019)
 
-Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). *Environmental pressures from Swedish consumption: A hybrid multi-regional input-output approach*. Journal of Cleaner Production, 228, 634–644.
+Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., & Steinbach, N. (2019). *Environmental pressures from Swedish consumption: A hybrid multi-regional input-output approach*. Journal of Cleaner Production, 228, 634-644.
 
 DOI: https://doi.org/10.1016/j.jclepro.2019.04.181
 
@@ -48,7 +48,7 @@ DOI: https://doi.org/10.1016/j.rser.2025.115443
 
 ## Agez et al. (2020)
 
-Agez, M., Majeau-Bettez, G., Margni, M., Strømman, A. H., & Samson, R. (2020). *Lifting the veil on the correction of double counting incidents in hybrid life cycle assessment*. Journal of Industrial Ecology, 24, 517–533.
+Agez, M., Majeau-Bettez, G., Margni, M., Strømman, A. H., & Samson, R. (2020). *Lifting the veil on the correction of double counting incidents in hybrid life cycle assessment*. Journal of Industrial Ecology, 24, 517-533.
 
 DOI: https://doi.org/10.1111/jiec.12945
 
@@ -63,7 +63,7 @@ DOI: https://doi.org/10.1111/jiec.12945
 
 ## Agez et al. (2022)
 
-Agez, M., Muller, E., Patouillard, L., Södersten, C.-J. H., Arvesen, A., Margni, M., Samson, R., & Majeau-Bettez, G. (2022). *Correcting remaining truncations in hybrid life cycle assessment database compilation*. Journal of Industrial Ecology, 26, 121–133.
+Agez, M., Muller, E., Patouillard, L., Södersten, C.-J. H., Arvesen, A., Margni, M., Samson, R., & Majeau-Bettez, G. (2022). *Correcting remaining truncations in hybrid life cycle assessment database compilation*. Journal of Industrial Ecology, 26, 121-133.
 
 DOI: https://doi.org/10.1111/jiec.13132
 
@@ -79,7 +79,7 @@ DOI: https://doi.org/10.1111/jiec.13132
 
 ## Wiedmann et al. (2011)
 
-Wiedmann, T. O., Suh, S., Feng, K., Lenzen, M., Acquaye, A., Scott, K., & Barrett, J. R. (2011). *Application of hybrid life cycle approaches to emerging energy technologies: The case of wind power in the UK*. Environmental Science & Technology, 45, 5900–5907.
+Wiedmann, T. O., Suh, S., Feng, K., Lenzen, M., Acquaye, A., Scott, K., & Barrett, J. R. (2011). *Application of hybrid life cycle approaches to emerging energy technologies: The case of wind power in the UK*. Environmental Science & Technology, 45, 5900-5907.
 
 DOI: https://doi.org/10.1021/es2007287
 
@@ -95,7 +95,7 @@ DOI: https://doi.org/10.1021/es2007287
 
 ## Bruckner et al. (2019)
 
-Bruckner, M., Wood, R., Moran, D., Kuschnig, N., Wieland, H., Maus, V., & Börner, J. (2019). *FABIO: The construction of the food and agriculture biomass input-output model*. Environmental Science & Technology, 53, 11302–11312.
+Bruckner, M., Wood, R., Moran, D., Kuschnig, N., Wieland, H., Maus, V., & Börner, J. (2019). *FABIO: The construction of the food and agriculture biomass input-output model*. Environmental Science & Technology, 53, 11302-11312.
 
 DOI: https://doi.org/10.1021/acs.est.9b03554
 
@@ -152,7 +152,7 @@ DOI: https://doi.org/10.1186/s40008-018-0118-y
 
 ## Gibon et al. (2015)
 
-Gibon, T., Wood, R., Arvesen, A., Bergesen, J. D., Suh, S., & Hertwich, E. G. (2015). *A methodology for integrated, multiregional life cycle assessment scenarios under large-scale technological change*. Environmental Science & Technology, 49, 11218–11226.
+Gibon, T., Wood, R., Arvesen, A., Bergesen, J. D., Suh, S., & Hertwich, E. G. (2015). *A methodology for integrated, multiregional life cycle assessment scenarios under large-scale technological change*. Environmental Science & Technology, 49, 11218-11226.
 
 DOI: https://doi.org/10.1021/acs.est.5b01558
 
@@ -166,7 +166,7 @@ DOI: https://doi.org/10.1021/acs.est.5b01558
 
 ## Malik et al. (2015)
 
-Malik, A., Lenzen, M., Ralph, P. J., & Tamburic, B. (2015). *Hybrid life-cycle assessment of algal biofuel production*. Bioresource Technology, 184, 436–443.
+Malik, A., Lenzen, M., Ralph, P. J., & Tamburic, B. (2015). *Hybrid life-cycle assessment of algal biofuel production*. Bioresource Technology, 184, 436-443.
 
 DOI: https://doi.org/10.1016/j.biortech.2014.10.132
 
@@ -181,7 +181,7 @@ DOI: https://doi.org/10.1016/j.biortech.2014.10.132
 
 ## Malik, Lenzen & Geschke (2016)
 
-Malik, A., Lenzen, M., & Geschke, A. (2016). *Triple bottom line study of a lignocellulosic biofuel industry*. GCB Bioenergy, 8, 96–110.
+Malik, A., Lenzen, M., & Geschke, A. (2016). *Triple bottom line study of a lignocellulosic biofuel industry*. GCB Bioenergy, 8, 96-110.
 
 DOI: https://doi.org/10.1111/gcbb.12240
 
@@ -195,7 +195,7 @@ DOI: https://doi.org/10.1111/gcbb.12240
 
 # 3. Official Statistics Denmark sources
 
-## National Accounts: Input-Output and Supply-Use – statistical presentation
+## National Accounts: Input-Output and Supply-Use - statistical presentation
 
 https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/national-accounts--input-output-and-supply-use/statistical-presentation
 
@@ -211,7 +211,7 @@ Key points used:
 
 ---
 
-## National Accounts: Input-Output and Supply-Use – statistical processing
+## National Accounts: Input-Output and Supply-Use - statistical processing
 
 https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/national-accounts--input-output-and-supply-use/statistical-processing
 
@@ -223,7 +223,7 @@ Key points:
 
 ---
 
-## National Accounts: Input-Output and Supply-Use – comparability
+## National Accounts: Input-Output and Supply-Use - comparability
 
 https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/national-accounts--input-output-and-supply-use/comparability
 
@@ -269,7 +269,7 @@ Includes public 117-industry input-output downloads and links to StatBank.
 
 # 4. Eurostat SUT/IOT sources
 
-## ESA supply, use and input-output tables – information on data
+## ESA supply, use and input-output tables - information on data
 
 https://ec.europa.eu/eurostat/en/web/esa-supply-use-input-tables/information-data
 

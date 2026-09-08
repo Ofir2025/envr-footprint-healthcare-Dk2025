@@ -1,8 +1,8 @@
 # Scenarios: what we now have, and how to answer the reviewer
 
-**For Ofir.** The short version: we model scenarios properly now — fourteen
+**For Ofir.** The short version: we model scenarios properly now - fourteen
 lever families across **all five impact categories**, each a full counterfactual
-solve rather than a scaled term — and the result is a finding worth leading on
+solve rather than a scaled term - and the result is a finding worth leading on
 rather than a limitation to concede.
 
 Method, equations and every assumption:
@@ -45,13 +45,13 @@ Three things also changed in kind, not just in value:
 Grounded in stated Danish policy and measured Danish outcomes. Anything not
 sourced is labelled *illustrative* in the output and nowhere else.
 
-**Background pathway** — happens regardless of what the health system does:
+**Background pathway** - happens regardless of what the health system does:
 grid and district-heat decarbonisation from 122.7 to 16.9 g CO₂e/kWh on the
 Danish Energy Agency's KF22 projection, and to 32.4 on KF25. Both vintages are
 reported rather than the more flattering one; they differ by a percentage point
 on the same lever.
 
-**Interventions** — the health system acts:
+**Interventions** - the health system acts:
 
 | | Lever | Evidence |
 |---|---|---|
@@ -80,7 +80,7 @@ business-as-usual trajectory.
 | …with the grid decarbonising too | −634 |
 | …with the money saved actually being respent | −285 |
 | Demand growth to 2035 | +848 |
-| **2035 position, grid pathway included** | **4,928 — above the 2022 baseline** |
+| **2035 position, grid pathway included** | **4,928 - above the 2022 baseline** |
 
 *In words:* pull every lever we can quantify, as hard as the evidence supports,
 let the Danish grid decarbonise on the government's own projection, and the
@@ -89,15 +89,15 @@ today**, because demand grows faster than the levers bite.
 
 That is a publishable finding and it is the honest answer to the reviewer's
 point. Identifying a hotspot is not the same as showing that acting on it works
-— and when you do the work, the named clinical levers turn out to be worth
-0.1–4 % each while demand growth is worth +18 %.
+- and when you do the work, the named clinical levers turn out to be worth
+0.1-4 % each while demand growth is worth +18 %.
 
 Two further results are worth their own sentences:
 
 **The levers are near-additive.** Summing them separately overstates the
 combined effect by 0.2 kt out of 361, under 0.1 %. That had to be computed to be
 known, and it means the additive presentation common in this literature is
-defensible *here* — it would not be if the levers overlapped more.
+defensible *here* - it would not be if the levers overlapped more.
 
 **Rebound removes a fifth of the saving.** Holding total expenditure constant
 (the money not spent on devices is spent on something else) takes the combined
@@ -106,7 +106,7 @@ rebound assumes the money is destroyed.
 
 ---
 
-## 4. Burden shifting — the reason all five categories matter
+## 4. Burden shifting - the reason all five categories matter
 
 - **Pharmaceutical raw-material efficiency is a materials lever, not a climate
   lever**: −1.6 % climate against **−3.3 % material extraction**. The
@@ -125,7 +125,7 @@ rebound assumes the money is destroyed.
   depletion, eutrophication and ecotoxicity. Those act on the device life cycle,
   which this model does not resolve, so figure 9 marks those cells `n.r.` rather
   than plotting a zero, and the direction is stated in the text. This is also
-  why P6 — changing the propellant, not the device — is the better lever: it
+  why P6 - changing the propellant, not the device - is the better lever: it
   carries no therapeutic trade-off, since medicine and delivery route are
   unchanged.
 
@@ -151,8 +151,8 @@ What we still do not claim, and should say plainly:
 - **"Green" versions of a product cannot be represented.** EXIOBASE has one
   *Chemicals nec* industry, so a hospital switching to a lower-impact supplier
   of the same product appears only as buying less. This is the single biggest
-  limitation on a procurement lever, and it is why green procurement — which the
-  regions say is where most of their emissions sit — cannot be given the weight
+  limitation on a procurement lever, and it is why green procurement - which the
+  regions say is where most of their emissions sit - cannot be given the weight
   their own strategy gives it. A hybrid or physically extended table is the fix,
   and the natural next study.
 - Ambition levels for P4, P5 and P9 are **illustrative**, not policy targets.

@@ -44,7 +44,7 @@ It should be maintained alongside the data warehouse.
 
 | Claim | Status | Source |
 |---|---|---|
-| 2026 FIGARO covers 2010–2024 | Verified | https://ec.europa.eu/eurostat/web/esa-supply-use-input-tables/database |
+| 2026 FIGARO covers 2010-2024 | Verified | https://ec.europa.eu/eurostat/web/esa-supply-use-input-tables/database |
 | 64 industries and 64 products | Verified | same |
 | supply/use/I-I/P-P/direct purchases abroad available | Verified | same |
 | Eurostat publishes FIGARO-based GHG footprint datasets | Verified | https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ghgfp_esms.htm |
@@ -59,7 +59,7 @@ It should be maintained alongside the data warehouse.
 | Claim | Status | Source |
 |---|---|---|
 | built for UNEP IRP resource analysis | Verified | https://footprint.unep.org/gloria-mrio |
-| current interface covers 1990–2024 | Verified | same |
+| current interface covers 1990-2024 | Verified | same |
 | 164 regions | Verified | same |
 | 97 industries and 97 commodities in current interface | Verified | same |
 | 5 valuation layers | Verified | same |
@@ -90,7 +90,7 @@ It should be maintained alongside the data warehouse.
 | 2022 EPA waste statistics include raw-data download | Verified | https://mst.dk/erhverv/groen-produktion-og-affald/affald-og-genanvendelse/affaldshaandtering/affaldsdata-og-affaldsdatasystemet/find-affaldsstatistikker-og-kortlaegning |
 | DST Waste Accounts use EPA ADS as source | Verified | https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/waste-accounts/statistical-processing |
 | DST allocates waste to 117 industries | Verified | https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/waste-accounts/statistical-presentation |
-| about 1–2% of waste annually is proportionally distributed where activity codes are missing | Verified | DST statistical processing |
+| about 1-2% of waste annually is proportionally distributed where activity codes are missing | Verified | DST statistical processing |
 | ADS and AFFALD are independent measurements | **False** | shared lineage |
 | NHS ERIC provides open trust/site CSV | Verified | https://digital.nhs.uk/data-and-information/publications/statistical/estates-returns-information-collection/summary-page-and-dataset-for-eric-2024-25 |
 
