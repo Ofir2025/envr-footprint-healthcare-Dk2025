@@ -28,3 +28,8 @@ data/silver/background/
 !figures/**/*.tiff
 !figures/**/*.png
 !data/bronze/concordances/*.csv
+
+# The bibliography's single source of truth. analysis.bibliography reads it
+# and audit check C8 verifies every in-text citation against it, so a clone
+# without it cannot run the check that guards the reference list.
+!docs/references.csv
