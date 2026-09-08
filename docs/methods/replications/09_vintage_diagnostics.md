@@ -18,39 +18,39 @@ Statistics Denmark's own IO table for the same year:
 
 $$r_i = \frac{x_i^{\text{EXIOBASE}}}{x_i^{\text{national accounts}}}$$
 
-Two defects are detected and, importantly, kept separate - they have different scopes and
-different implications.
+Two defects are detected and, importantly, kept separate; they have different scopes
+and different implications.
 
-### D1 - version-wide, v3.10.2
+### D1: version-wide, v3.10.2
 
 Industry 33 (*medical, precision and optical instruments*) carries approximately **zero
 output in every European region, in both the 2016 and 2022 tables**. In v3.8.2 the same
 industry is normal.
 
-Danish medical-appliance expenditure is 1 094 M€. A zero domestic and zero European supply
-forces that demand onto whichever regions retain a non-zero industry 33 - which is not a
-modelling result but an artefact of the defect.
+Danish medical-appliance expenditure is 1,094 M€. A zero domestic and zero European
+supply forces that demand onto whichever regions retain a non-zero industry 33, which is
+not a modelling result but an artefact of the defect.
 
-### D2 - year-specific, v3.10.2 2022 nowcast
+### D2: year-specific, v3.10.2 2022 nowcast
 
 Output is redistributed between Danish industries:
 
 | Danish industry, 2022 | National accounts | v3.10.2 | v3.8.2 |
 |---|---|---|---|
-| Health and social work | 45 321 M€ | 16 326 (0.36×) | 43 955 (0.97×) |
-| Education | 22 935 M€ | 109 673 (4.78×) | 20 241 (0.88×) |
-| Financial intermediation | 18 980 M€ | 76 | 21 004 (1.11×) |
-| Machinery n.e.c. | 21 150 M€ | 28 | 18 700 (0.88×) |
-| Medical instruments | 9 130 M€ | 0 | 6 276 (0.69×) |
+| Health and social work | 45,321 M€ | 16,326 (0.36×) | 43,955 (0.97×) |
+| Education | 22,935 M€ | 109,673 (4.78×) | 20,241 (0.88×) |
+| Financial intermediation | 18,980 M€ | 76 | 21,004 (1.11×) |
+| Machinery n.e.c. | 21,150 M€ | 28 | 18,700 (0.88×) |
+| Medical instruments | 9,130 M€ | 0 | 6,276 (0.69×) |
 
 Total Danish output is right to 3 % and the table balances to 10⁻¹¹, so output was
-**redistributed, not lost** - which is why a total-level check would miss it.
+**redistributed, not lost**, which is why a total-level check would miss it.
 
 The decisive test is internal to our own data and needs no external source: Danish health
-final expenditure is 40 597 M€, so a health industry with 16 326 M€ of *total output*
-cannot deliver it. That is an arithmetic impossibility, not a discrepancy.
+final expenditure is 40,597 M€, so a health industry with 16,326 M€ of *total output*
+cannot deliver it. That mismatch is an arithmetic impossibility, not a discrepancy.
 
-The defect also affects BG, MT and CH, and is confined to the nowcast years - so it is
+The defect also affects BG, MT, and CH, and is confined to the nowcast years, so it is
 invisible to anyone validating on Germany or France.
 
 ## Data requirements
@@ -65,7 +65,7 @@ invisible to anyone validating on Germany or France.
 
 Rørmose Jensen & Iliev diagnose the Danish block and conclude that a national-accounts
 coupling (SNAC, after Palm et al. 2019) is required. We reproduce their diagnosis but do
-**not** implement full SNAC - that is a larger piece of work, scoped in
+**not** implement full SNAC; that implementation is a larger piece of work, scoped in
 `docs/revision/dk_snac_feasibility.md` and listed as an open item. What we do implement is
 the single reallocation their diagnosis most directly implies
 ([10](10_snac_shipping_correction.md)).
@@ -78,6 +78,6 @@ reviewer will reasonably ask why it was not used.
 
 ## Outputs
 
-`dk_block_vs_national_accounts.csv` (per industry, per vintage, with ratios),
-`industry33_output_by_region.csv` (D1 across all regions),
+This layer writes `dk_block_vs_national_accounts.csv` (per industry, per vintage, with
+ratios), `industry33_output_by_region.csv` (D1 across all regions), and
 `vintage_defect_verdicts.csv` (one verdict row per defect per vintage).

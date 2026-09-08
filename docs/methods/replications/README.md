@@ -1,14 +1,14 @@
 # Methods by replication layer
 
-One document per gold-output folder, stating the source article, the equations as
-they are implemented, the data each needs, the deviations from the source, and the
-verification that runs against it.
+This directory holds one document per gold-output folder, stating the source
+article, the equations as they are implemented, the data each needs, the
+deviations from the source, and the verification that runs against it.
 
-These are written so that a reader who has the source article open can check our
-implementation line by line, and so that a reader who has neither can still
-reproduce the calculation. Every equation shown here is the equation in the code;
-where the code departs from the published form, the departure is stated in the
-*Deviations* section rather than left for the reader to discover.
+These documents are written so that a reader who has the source article open can
+check our implementation line by line, and so that a reader who has neither can
+still reproduce the calculation. Every equation shown here is the equation in the
+code; where the code departs from the published form, the departure is stated in
+the *Deviations* section rather than left for the reader to discover.
 
 | # | Layer | Source | Module |
 |---|---|---|---|
@@ -30,23 +30,23 @@ where the code departs from the published form, the departure is stated in the
 | [15](15_gwp_vintage.md) | GWP vintage sensitivity | IPCC AR4-AR6 | `gwp_vintage` |
 | [16](16_impact_world_plus.md) | IMPACT World+ profile | Bulle et al. (2019); IW+ v2.2.1 | `impact_world_plus` |
 | [17](17_health_subsectors.md) | Footprint by SHA function | Malik et al. (2018); OECD SHA 2011 | `health_subsector_footprints` |
-| [18](18_mitigation_scenarios.md) | Mitigation scenarios | Danish Klimastatus og -fremskrivning | `mitigation_scenarios` |
+| [18](18_mitigation_scenarios.md) | Counterfactual scenarios | Aguilar-Hernandez et al. (2018); Donati et al. (2020); Danish Klimastatus og -fremskrivning | `mitigation_scenarios` |
 
 ## Notation used throughout
 
 | Symbol | Meaning | Shape |
 |---|---|---|
-| $Z$ | inter-industry transactions, M€ basic prices | 7 987 × 7 987 |
-| $x$ | industry gross output, M€ | 7 987 |
-| $A = Z\hat{x}^{-1}$ | direct requirements | 7 987 × 7 987 |
-| $L = (I-A)^{-1}$ | Leontief inverse (total requirements) | 7 987 × 7 987 |
-| $F$ | stressor extension, physical units | 1 113 × 7 987 |
-| $S = F\hat{x}^{-1}$ | direct stressor intensities | 1 113 × 7 987 |
-| $C$ | characterisation matrix | $k$ × 1 113 |
-| $y_H$ | Danish health-care final demand, M€ | 7 987 |
-| $s = CS$ | characterised direct intensity, one indicator | 7 987 |
+| $Z$ | inter-industry transactions, M€ basic prices | 7,987 × 7,987 |
+| $x$ | industry gross output, M€ | 7,987 |
+| $A = Z\hat{x}^{-1}$ | direct requirements | 7,987 × 7,987 |
+| $L = (I-A)^{-1}$ | Leontief inverse (total requirements) | 7,987 × 7,987 |
+| $F$ | stressor extension, physical units | 1,113 × 7,987 |
+| $S = F\hat{x}^{-1}$ | direct stressor intensities | 1,113 × 7,987 |
+| $C$ | characterisation matrix | $k$ × 1,113 |
+| $y_H$ | Danish health-care final demand, M€ | 7,987 |
+| $s = CS$ | characterised direct intensity, one indicator | 7,987 |
 | $f = s L y_H$ | footprint, one indicator | scalar |
 
-A *node* is one (region, industry) pair: 49 regions × 163 industries = 7 987.
+A *node* is one (region, industry) pair: 49 regions × 163 industries = 7,987.
 Denmark is region index 5 (`DNK`), so the Danish block is rows/columns
 $5 \times 163 \dots 6 \times 163 - 1$.
