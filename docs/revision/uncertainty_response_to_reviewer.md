@@ -1,8 +1,8 @@
 # Uncertainty and scenarios: the response to Reviewer 1
 
-The first-round review asked for a systematic sensitivity analysis or Monte Carlo that
-varies the proxy assumptions across plausible ranges — suggesting ±20-50 % for the
-scaling factors — and for the assumptions that drive the uncertainty to be identified.
+The first-round review asked us to propagate the study's proxy assumptions across
+plausible ranges and report what that does to the headline estimates, suggesting
+±20-50 % for the scaling factors, and to identify which assumptions drive the result.
 
 This is what was done, why the ranges are what they are, and how to answer the specific
 doubt about the ±20-50 % figure.
