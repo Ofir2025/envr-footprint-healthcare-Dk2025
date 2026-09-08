@@ -110,7 +110,9 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 - The manuscript layer ([01](01_eriksen_replication.md)) totals 4,713.37 kt using the
   Hertwich & Wood Scope 2; this folder totals 4,711.53 kt using the strict-protocol
   Scope 2 and removing the self-supply loop. Both are correct on their stated basis, and
-  audit check C1 reconciles them: 4,711.53 + 1.83 = 4,713.37.
+  audit check C1 reconciles them: 4,711.53 + 1.83 = 4,713.37. The two terms are
+  rounded independently, so adding the printed figures gives 4,713.36; the check
+  runs on the unrounded values and closes to 1e-9.
 
 ## Outputs
 
