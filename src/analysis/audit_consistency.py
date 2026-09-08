@@ -26,6 +26,11 @@ model, so a table cannot silently retain a withdrawn vintage's label.
 
 **C5 Manifest coverage.** Every gold file must have a lineage row.
 
+**C7 Star-schema referential integrity.** Every foreign key in every fact table
+must resolve to exactly one dimension row, every dimension primary key must be
+unique and non-null, and the declared grain of each fact must hold (no duplicate
+key tuples). A star model that drops rows on a join is worse than none.
+
 **C6 Documentation agreement.** Headline numbers quoted in the revision markdown
 must still reproduce from the gold outputs. Six quoted figures were found to have
 drifted on 8 September 2026, two of them mutually inconsistent between documents,
@@ -305,11 +310,88 @@ def c6_documentation(results: list[dict[str, Any]]) -> None:
     _check(results, "C6 revision docs quote the current numbers", not stale, detail)
 
 
+#: fact -> (foreign key column, dimension file, dimension primary key)
+STAR_KEYS: tuple[tuple[str, str, str, str], ...] = (
+    ("fact_footprint_node", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_footprint_node", "demand_component_id", "dim_demand_component", "demand_component_id"),
+    ("fact_footprint_node", "producing_region_id", "dim_region", "region_id"),
+    ("fact_footprint_node", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_footprint_product", "purchased_region_id", "dim_region", "region_id"),
+    ("fact_footprint_product", "purchased_industry_id", "dim_industry", "industry_id"),
+    ("fact_scope_node", "scope_id", "dim_scope", "scope_id"),
+    ("fact_scope_node", "producing_region_id", "dim_region", "region_id"),
+    ("fact_scope_node", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_national_total", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_health_function", "health_function_id", "dim_health_function", "health_function_id"),
+)
+
+#: fact -> the columns that define its declared grain.
+STAR_GRAIN: dict[str, list[str]] = {
+    "fact_footprint_node": ["model_id", "indicator_id", "demand_component_id",
+                            "producing_region_id", "producing_industry_id"],
+    "fact_footprint_product": ["model_id", "indicator_id", "demand_component_id",
+                               "purchased_region_id", "purchased_industry_id"],
+    "fact_scope_node": ["model_id", "indicator_id", "scope_id",
+                        "producing_region_id", "producing_industry_id"],
+    "fact_national_total": ["model_id", "indicator_id"],
+    "fact_health_function": ["model_id", "indicator_id", "health_function_id"],
+}
+
+
+def c7_star_integrity(results: list[dict[str, Any]]) -> None:
+    """Foreign keys resolve, primary keys are unique, and each grain holds.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdicts to.
+    """
+    star = os.path.join(str(OUTPUT_DIR), "star")
+    if not os.path.isdir(star):
+        _check(results, "C7 star schema", True, "star schema not built in this tree")
+        return
+
+    cache: dict[str, pd.DataFrame] = {}
+
+    def load(name: str) -> pd.DataFrame:
+        if name not in cache:
+            cache[name] = pd.read_csv(os.path.join(star, f"{name}.csv"))
+        return cache[name]
+
+    orphans = []
+    for fact, fk, dim, pk in STAR_KEYS:
+        try:
+            f, d = load(fact), load(dim)
+        except FileNotFoundError as exc:
+            orphans.append(f"{fact}: {exc}")
+            continue
+        missing = set(f[fk].dropna().unique()) - set(d[pk].unique())
+        if missing:
+            orphans.append(f"{fact}.{fk} -> {dim}: {len(missing)} unmatched, "
+                           f"e.g. {sorted(missing)[:3]}")
+    _check(results, "C7 star schema foreign keys resolve", not orphans,
+           "; ".join(orphans) if orphans
+           else f"{len(STAR_KEYS)} foreign keys, 0 orphans")
+
+    dupes = []
+    for fact, grain in STAR_GRAIN.items():
+        try:
+            f = load(fact)
+        except FileNotFoundError:
+            continue
+        n = int(f.duplicated(subset=grain).sum())
+        if n:
+            dupes.append(f"{fact}: {n:,} rows breach the declared grain")
+    _check(results, "C7 star schema grain holds", not dupes,
+           "; ".join(dupes) if dupes
+           else f"{len(STAR_GRAIN)} facts, no duplicate key tuples")
+
+
 def main() -> None:
     """Run every check and write the report; exit non-zero on failure."""
     results: list[dict[str, Any]] = []
     for check in (c1_headline, c2_detail_vs_aggregate, c3_freshness,
-                  c4_provenance, c5_manifest, c6_documentation):
+                  c4_provenance, c5_manifest, c6_documentation, c7_star_integrity):
         try:
             check(results)
         except Exception as exc:                            # noqa: BLE001

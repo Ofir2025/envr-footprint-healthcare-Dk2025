@@ -68,6 +68,14 @@ REMAINDER_COL <- "grey85"
 # explicit whitelist rather than truncated, so the shortening is auditable.
 SEP <- " - "
 
+# EXIOBASE's five rest-of-world regions carry names, not ISO3 codes. On an axis
+# of codes they need a code too, so they get the conventional RoW abbreviations.
+ROW_CODE <- c(`RoW Asia and Pacific` = "RoW AP", `RoW America` = "RoW AM",
+              `RoW Europe` = "RoW EU", `RoW Africa` = "RoW AF",
+              `RoW Middle East` = "RoW ME")
+
+region_code <- function(x) unname(ifelse(x %in% names(ROW_CODE), ROW_CODE[x], x))
+
 clean_sector_label <- function(x) {
   x <- sub("^Extraction of crude petroleum and services related to crude oil extraction.*$",
            "Crude petroleum extraction", x)

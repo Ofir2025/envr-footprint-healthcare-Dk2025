@@ -1,0 +1,14 @@
+indicator_id,indicator_code,unit
+1,blue_water_consumption,Mm3
+2,climate_change,kt CO2eq
+3,land_use,km2
+4,material_extraction,kt
+5,nh3,kt
+6,nitrogen_to_water,kt
+7,nmvoc,kt
+8,nox,kt
+9,phosphorus_to_water,kt
+10,pm10,kt
+11,pm2_5,kt
+12,sox,kt
+13,waste_generation,kt
