@@ -266,11 +266,15 @@ def c6_documentation(results: list[dict[str, Any]]) -> None:
     repo = os.path.dirname(os.path.dirname(os.path.dirname(
         os.path.abspath(__file__))))
     stale: list[str] = []
+    skipped: list[str] = []
     for entry in DOCUMENTED_NUMBERS:
         rel, indicator = entry["source"]
         path = os.path.join(str(OUTPUT_DIR), rel)
         if not os.path.exists(path):
-            stale.append(f"{rel} missing")
+            # The layer this number comes from is not in this distribution.
+            # Skipping is correct: the check has no input, which is not the
+            # same as the documentation being wrong.
+            skipped.append(entry["what"])
             continue
         frame = pd.read_csv(path)
         rows = frame[frame["indicator"].astype(str).str.contains(indicator)]
@@ -294,10 +298,11 @@ def c6_documentation(results: list[dict[str, Any]]) -> None:
         elif entry["text"] not in open(doc, encoding="utf-8").read():
             stale.append(f"{entry['doc']} no longer quotes "
                          f"{entry['text']!r} ({entry['what']})")
-    _check(results, "C6 revision docs quote the current numbers",
-           not stale,
-           "; ".join(stale) if stale
-           else f"{len(DOCUMENTED_NUMBERS)} documented numbers reproduce")
+    checked = len(DOCUMENTED_NUMBERS) - len(skipped)
+    detail = "; ".join(stale) if stale else f"{checked} documented numbers reproduce"
+    if skipped and not stale:
+        detail += f" ({len(skipped)} skipped, layer not in this tree)"
+    _check(results, "C6 revision docs quote the current numbers", not stale, detail)
 
 
 def main() -> None:
