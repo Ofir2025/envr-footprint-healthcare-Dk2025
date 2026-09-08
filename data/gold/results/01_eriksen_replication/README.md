@@ -48,6 +48,35 @@ Method, equations and verification: [`docs/methods/replications/01_eriksen_repli
 - **Dimensions:** `indicator`, `unit`, `origin`
 - **Measures:** `value`, `share_of_total_pct`
 
+### `figure1_activity_contributions.csv`
+
+- **Rows:** 41
+- **Units:** Mm3, km2, kt, kt CO2eq
+- **Dimensions:** `indicator`, `unit`, `contribution_group`
+- **Measures:** `value`, `share_pct`
+
+### `figure2_sector_contributions.csv`
+
+- **Rows:** 37
+- **Units:** Mm3, km2, kt, kt CO2eq
+- **Dimensions:** `indicator`, `unit`, `hotspot_group`
+- **Measures:** `value`, `share_pct`
+
+### `figure2b_top_origin_industry_pairs.csv`
+
+- **Rows:** 105
+- **Resolution:** 18+ regions x 36+ industries (sampled)
+- **Units:** Mm3, km2, kt, kt CO2eq
+- **Dimensions:** `producing_country_iso3`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `indicator`, `unit`
+- **Measures:** `value`, `rank`, `share_pct`, `mrio_coverage_pct`
+
+### `figure3_geographical_origin.csv`
+
+- **Rows:** 34
+- **Units:** Mm3, km2, kt, kt CO2eq
+- **Dimensions:** `indicator`, `unit`, `producing_world_region`
+- **Measures:** `value`, `share_pct`
+
 ### `hotspot_by_producing_node.csv`
 
 - **Rows:** 22,229
