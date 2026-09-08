@@ -3,14 +3,14 @@
 
 A reader opening ``data/gold/results/07_malik_replication/`` should not have to
 guess what is in it. This module writes a ``README.md`` per folder describing
-what the layer answers, which module produced it, and - for every table - its
-grain, row count, columns, units and dimension coverage.
+what the layer answers, which module produced it, and, for every table, its
+grain, row count, columns, units, and dimension coverage.
 
 The descriptions are read from the folder's methods document in
-``docs/methods/replications/`` so the two cannot drift apart; the table
+``docs/methods/replications/``, so the two cannot drift apart; the table
 properties are measured from the files themselves, for the same reason.
 
-Conventions asserted while writing, and reported in each README:
+These conventions are asserted while writing and reported in each README:
 
 * EXIOBASE industry and product codes carry **no** ``A_`` / ``C_`` prefix.
 * Countries are ISO3; EXIOBASE regions with no ISO3 code carry their region
@@ -163,7 +163,7 @@ def write_folder_readme(folder: str) -> str | None:
     if question:
         lines += [question, ""]
     if os.path.exists(os.path.join(METHODS, f"{folder}.md")):
-        lines += [f"Method, equations and verification: "
+        lines += [f"Method, equations, and verification: "
                   f"[`docs/methods/replications/{folder}.md`]"
                   f"(../../../docs/methods/replications/{folder}.md).", ""]
 

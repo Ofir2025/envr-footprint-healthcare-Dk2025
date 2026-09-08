@@ -4,7 +4,7 @@
 
 How much waste does Danish health care actually generate, and is the waste indicator inherited from Steenmeijer et al. fit to answer that?
 
-Method, equations and verification: [`docs/methods/replications/05_waste_dst_accounts.md`](../../../docs/methods/replications/05_waste_dst_accounts.md).
+Method, equations, and verification: [`docs/methods/replications/05_waste_dst_accounts.md`](../../../docs/methods/replications/05_waste_dst_accounts.md).
 
 ## Conventions
 

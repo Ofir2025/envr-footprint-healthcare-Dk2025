@@ -4,7 +4,7 @@
 
 The submitted manuscript's most quotable finding was that transport accounts for roughly 40 % of the Danish health-care footprint. Is that a finding or an artefact?
 
-Method, equations and verification: [`docs/methods/replications/10_snac_shipping_correction.md`](../../../docs/methods/replications/10_snac_shipping_correction.md).
+Method, equations, and verification: [`docs/methods/replications/10_snac_shipping_correction.md`](../../../docs/methods/replications/10_snac_shipping_correction.md).
 
 ## Conventions
 
