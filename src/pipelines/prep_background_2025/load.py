@@ -299,7 +299,7 @@ if not os.path.exists(H_path):
 H_pd = pd.read_csv(H_path, sep='\t', index_col=[0], header=[0,1])
 H = np.array(H_pd)
 
-# primary inputs and industry emissions # only the first 9 – employment not included.
+# primary inputs and industry emissions # only the first 9 - employment not included.
 VR_str = 'satellite/F.txt'
 V_pd = pd.read_csv(iot_dir + VR_str, sep='\t', index_col=[0], header=[0,1]).iloc[pos_pri]
 V = np.array(V_pd)

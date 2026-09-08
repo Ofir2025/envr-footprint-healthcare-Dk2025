@@ -22,7 +22,7 @@ separable part.
 
 ``env_ac_rmefd`` (material footprints) *does* resolve final-use products
 including ``CPA_Q86`` and ``CPA_Q87_88``, which is exactly this study's
-boundary — but only for the EU27 aggregate, not for individual member states.
+boundary - but only for the EU27 aggregate, not for individual member states.
 It is therefore usable as a per-capita sanity check, not as a Danish benchmark.
 
 Notes

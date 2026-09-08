@@ -1,6 +1,6 @@
 # 01_eriksen_replication
 
-**01 — Eriksen replication (the manuscript layer)**
+**01 - Eriksen replication (the manuscript layer)**
 
 Everything the manuscript reports, in the manuscript's own table and figure structure, for reference year 2022 on a 2022 background model.
 

@@ -3,7 +3,7 @@
 
 A reader opening ``data/gold/results/07_malik_replication/`` should not have to
 guess what is in it. This module writes a ``README.md`` per folder describing
-what the layer answers, which module produced it, and — for every table — its
+what the layer answers, which module produced it, and - for every table - its
 grain, row count, columns, units and dimension coverage.
 
 The descriptions are read from the folder's methods document in

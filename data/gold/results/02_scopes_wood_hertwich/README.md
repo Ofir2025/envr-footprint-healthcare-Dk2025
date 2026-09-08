@@ -1,8 +1,8 @@
 # 02_scopes_wood_hertwich
 
-**02 — GHG-Protocol scope decomposition**
+**02 - GHG-Protocol scope decomposition**
 
-Of the total health-care footprint, how much is emitted by the providers themselves, how much by the generation of the energy they buy, and how much everywhere else in the supply chain — using the partition a health system would recognise from its own reporting.
+Of the total health-care footprint, how much is emitted by the providers themselves, how much by the generation of the energy they buy, and how much everywhere else in the supply chain - using the partition a health system would recognise from its own reporting.
 
 Method, equations and verification: [`docs/methods/replications/02_scopes_wood_hertwich.md`](../../../docs/methods/replications/02_scopes_wood_hertwich.md).
 

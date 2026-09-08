@@ -10,15 +10,15 @@ answer.
 
 The node dimension
 ------------------
-A *node* is one (region, industry) pair — 49 x 163 = 7,987 of them. For a
+A *node* is one (region, industry) pair - 49 x 163 = 7,987 of them. For a
 consumption-based footprint the two dimensions that matter are:
 
-*Producing node* — where the impact physically occurs. For Danish health care
+*Producing node* - where the impact physically occurs. For Danish health care
 this separates impacts embodied in **imports** (producing country is not
 Denmark) from those arising **domestically** (producing country is Denmark),
 and within each, which industry is responsible.
 
-*Purchased product* — what the health sector actually bought, which is a
+*Purchased product* - what the health sector actually bought, which is a
 different question from where the impact arose, and is what a procurement
 decision can act on.
 
