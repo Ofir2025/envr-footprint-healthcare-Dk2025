@@ -106,8 +106,10 @@ visitor travel 6.7 %, commuting 5.1 %; every other bottom-up item below 0.1 %.
 
 **Capital boundary.** Capital is excluded in the headline, for comparability with
 Steenmeijer, Eckelman, Lenzen, and Pichler. Including it adds **13.2 %**
-(exogenous CFC from Danish national accounts) to **21.0 %** (full
-endogenisation). See [`capital_gfcf_treatment.md`](capital_gfcf_treatment.md).
+(exogenous CFC from Danish national accounts) or **19.4 %** (endogenised on the
+published Södersten et al. 2018 capital matrices; our own simplified
+endogenisation gave 21.0 %, which the published route reproduces to within 1.6
+percentage points). See [`capital_gfcf_treatment.md`](capital_gfcf_treatment.md).
 
 Scope 2 is 1.6 % of the total, against Arup's 8.3 % for Denmark in 2014. The
 direction is right (the Danish grid fell from roughly 300 to 120 g CO₂/kWh over
