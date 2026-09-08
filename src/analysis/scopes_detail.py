@@ -1,8 +1,36 @@
 # -*- coding: utf-8 -*-
 """GHG-Protocol scope decomposition with full producing-node lineage.
 
-Partition (Wood et al. 2018, table 1 and eqs. 1-2; GHG Protocol corporate
-standard):
+Partition (Hertwich & Wood 2018, *The growing importance of scope 3 greenhouse
+gas emissions from industry*, Environ Res Lett 13:104013, table 1 and eqs. 1-3;
+GHG Protocol corporate standard; OECD/Doucet et al. 2025 for the health-sector
+application):
+
+THREE PUBLISHED SCOPE-2 CONVENTIONS EXIST, and they differ by which part of the
+purchased-energy chain they count. All three are computed and reported; the
+study's headline follows Hertwich & Wood, whose method this pipeline inherits.
+
+    OECD (Doucet et al. 2025 eq.)   E2 = F A Y restricted to energy sectors
+        Direct emissions of the first-tier energy supplier only. On EXIOBASE ixi
+        this UNDER-counts, because electricity reaches the buyer through
+        "Transmission" and "Distribution and trade of electricity", whose own
+        combustion intensity is ~0; generation sits one tier further back.
+
+    GHG Protocol strict              S2 = d_E . L_EE y_E,  L_EE = (I_EE-A_EE)^-1
+        Traces through transmission and distribution to GENERATION and stops
+        inside the energy block, so fuel extraction, refining and grid hardware
+        remain in Scope 3 - the corporate standard's boundary, which assigns
+        upstream fuel supply to Scope 3 category 3.
+
+    Hertwich & Wood 2018 (HEADLINE)  E_Z = mhat Z, m = s (I-A)^-1, energy rows
+        Cradle-to-gate embodied emissions of the purchased energy: generation
+        PLUS the upstream fuel supply behind it. Broader than the corporate
+        standard, and the convention of the paper this study follows.
+
+The spread across the three is 72.1 - 75.0 kt CO2e, i.e. 3.9 % of Scope 2 and
+0.06 % of the total footprint, so the choice does not affect any conclusion. It
+is reported explicitly because the manuscript claims GHG-Protocol scopes and a
+reader is entitled to know which operationalisation produced the number.
 
   Scope 1  direct emissions of the Danish health providers.
            Taken from national accounts (Statistics Denmark DRIVHUS), NOT from
@@ -23,11 +51,9 @@ standard):
            stay in Scope 3 - exactly the GHG Protocol boundary. Using the full
            L instead would additionally capture electricity consumed deep in
            the chain, which the Protocol assigns to Scope 3 category 3.
-           A strict first-tier variant (S2 = sum_i s_i y_E,i) is reported as a
-           sensitivity, together with the full-L variant.
-           NB Wood et al. define scope 2 more broadly (electricity *and fuel*
-           production); we follow the GHG Protocol, where purchased fuels
-           combusted on site are scope 1 and their production is scope 3.
+           The OECD first-tier form and the Hertwich & Wood full-multiplier
+           form are both computed alongside it; see the three conventions set
+           out at the top of this module.
 
   Scope 3  every remaining upstream emission in the footprint:
                S3_mrio = f_total - S2
@@ -160,12 +186,23 @@ def main():
              "basis": "national accounts (DRIVHUS/AFFALD) + medical gases" if ind in
                       ("climate_change", "waste_generation") else "EXIOBASE direct of the sector"},
             {"indicator": ind, "unit": unit, "scope": "Scope 2", "value": s2,
-             "basis": "generation emissions of purchased electricity/steam/heat (traced)"},
-            {"indicator": ind, "unit": unit, "scope": "Scope 2 (first-tier variant)",
-             "value": s2_strict, "basis": "sensitivity, not added to the total"},
-            {"indicator": ind, "unit": unit, "scope": "Scope 2 (full-L variant)",
-             "value": s2_fullL, "basis": "sensitivity: includes energy used deeper in the "
-                                          "chain, which GHG-P assigns to Scope 3"},
+             "basis": "GHG Protocol strict: generation of purchased "
+                      "electricity/steam/heat, traced through T&D with the "
+                      "energy-block inverse; basis of this folder's partition"},
+            {"indicator": ind, "unit": unit,
+             "scope": "Scope 2 (OECD first-tier convention)",
+             "value": s2_strict,
+             "basis": "Doucet et al. 2025: F A Y restricted to energy sectors; "
+                      "under-counts on EXIOBASE ixi because T&D sit between the "
+                      "buyer and generation. Not added to the total"},
+            {"indicator": ind, "unit": unit,
+             "scope": "Scope 2 (Hertwich & Wood 2018 convention)",
+             "value": s2_fullL,
+             "basis": "cradle-to-gate embodied emissions of purchased energy "
+                      "(E_Z = mhat Z, m = s L). Broader than the corporate "
+                      "standard, which puts upstream fuel in Scope 3 cat. 3. "
+                      "THIS IS THE MANUSCRIPT'S REPORTED SCOPE 2. Not added to "
+                      "this folder's total"},
             {"indicator": ind, "unit": unit, "scope": "self-supply loop removed",
              "value": loop, "basis": "s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"},
             {"indicator": ind, "unit": unit, "scope": "Scope 3", "value": s3,
@@ -195,7 +232,7 @@ def main():
     det.to_csv(os.path.join(out_dir, "scopes_by_producing_node.csv"), index=False)
 
     # ---- exactness checks --------------------------------------------------
-    print("Scope partition (GHG Protocol; Wood et al. 2018 table 1):")
+    print("Scope partition (GHG Protocol strict; Hertwich & Wood 2018 table 1):")
     for ind, _, _ in [(i[1], i[0], i[2]) for i in INDICATORS]:
         sub = summ[summ["indicator"] == ind].set_index("scope")["value"]
         parts = sub[["Scope 1", "Scope 2", "Scope 3", "Outside protocol"]].sum()
