@@ -61,18 +61,20 @@ from paths import OUTPUT_DIR
 FOLDER = "02_scopes_wood_hertwich"
 
 #: Components with no producing node, placed at their true Danish origin.
-#: (scope, label, industry label, sector group, source column in the summary)
-BOTTOM_UP: tuple[tuple[str, str, str, str], ...] = (
+#: Each carries its OWN industry code: two different activities sharing one code
+#: would collapse to one row on any join, and the star-schema build rejects it.
+#: (scope, summary label, industry code, industry label, industry group)
+BOTTOM_UP: tuple[tuple[str, str, str, str, str], ...] = (
     ("Scope 1", "Scope 1 direct (DRIVHUS, excl. medical N2O)",
-     "Health and social work", "Operational impact"),
+     "HEAL", "Health and social work", "Operational impact"),
     ("Scope 1", "  + Anaesthetic gases (bottom-up)",
-     "Health and social work", "Operational impact"),
+     "HEAL", "Health and social work", "Operational impact"),
     ("Scope 3", "  + pMDI (bottom-up, use phase)",
-     "Health and social work", "Operational impact"),
+     "HEAL", "Health and social work", "Operational impact"),
     ("Scope 3", "  + Commute (bottom-up)",
-     "Bottom-up: employee commuting", "Private travel"),
+     "BU_COMMUTE", "Bottom-up: employee commuting", "Private travel"),
     ("Outside protocol", "Outside protocol (patient/visitor travel)",
-     "Bottom-up: patient and visitor travel", "Private travel"),
+     "BU_TRAVEL", "Bottom-up: patient and visitor travel", "Private travel"),
 )
 
 TOP_N = 25
@@ -121,7 +123,7 @@ def build_detail() -> pd.DataFrame:
     comp = eriksen.set_index("Component")["kt_CO2eq"]
 
     rows = []
-    for scope, component, industry, group in BOTTOM_UP:
+    for scope, component, code, industry, group in BOTTOM_UP:
         if component not in comp.index:
             raise AssertionError(f"component missing from scopes_summary: {component!r}")
         rows.append({
@@ -134,7 +136,7 @@ def build_detail() -> pd.DataFrame:
             "producing_country_iso3": "DNK",
             "producing_country_name": "Denmark",
             "producing_world_region": "Denmark",
-            "producing_sector_code": "HEAL" if "Health" in industry else "BOTTOMUP",
+            "producing_sector_code": code,
             "producing_sector_name": industry,
             "producing_sector_group": group,
             "component_type": "bottom-up item",

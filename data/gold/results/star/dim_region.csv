@@ -1,0 +1,50 @@
+region_id,region_code,region_name,world_region,is_row_region,is_domestic
+1,AUT,Austria,Europe,False,False
+2,BEL,Belgium,Europe,False,False
+3,BGR,Bulgaria,Europe,False,False
+4,CYP,Cyprus,Middle East,False,False
+5,CZE,Czech Republic,Europe,False,False
+6,DEU,Germany,Europe,False,False
+7,DNK,Denmark,Denmark,False,True
+8,EST,Estonia,Europe,False,False
+9,ESP,Spain,Europe,False,False
+10,FIN,Finland,Europe,False,False
+11,FRA,France,Europe,False,False
+12,GRC,Greece,Europe,False,False
+13,HRV,Croatia,Europe,False,False
+14,HUN,Hungary,Europe,False,False
+15,IRL,Ireland,Europe,False,False
+16,ITA,Italy,Europe,False,False
+17,LTU,Lithuania,Europe,False,False
+18,LUX,Luxembourg,Europe,False,False
+19,LVA,Latvia,Europe,False,False
+20,MLT,Malta,Europe,False,False
+21,NLD,Netherlands,Europe,False,False
+22,POL,Poland,Europe,False,False
+23,PRT,Portugal,Europe,False,False
+24,ROU,Romania,Europe,False,False
+25,SWE,Sweden,Europe,False,False
+26,SVN,Slovenia,Europe,False,False
+27,SVK,Slovakia,Europe,False,False
+28,GBR,United Kingdom,Europe,False,False
+29,USA,United States,America,False,False
+30,JPN,Japan,Asia and Pacific,False,False
+31,CHN,China,Asia and Pacific,False,False
+32,CAN,Canada,America,False,False
+33,KOR,South Korea,Asia and Pacific,False,False
+34,BRA,Brazil,America,False,False
+35,IND,India,Asia and Pacific,False,False
+36,MEX,Mexico,America,False,False
+37,RUS,Russia,Europe,False,False
+38,AUS,Australia,Asia and Pacific,False,False
+39,CHE,Switzerland,Europe,False,False
+40,TUR,Turkey,Middle East,False,False
+41,TWN,Taiwan,Asia and Pacific,False,False
+42,NOR,Norway,Europe,False,False
+43,IDN,Indonesia,Asia and Pacific,False,False
+44,ZAF,South Africa,Africa,False,False
+45,RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,True,False
+46,RoW America,RoW America,America,True,False
+47,RoW Europe,RoW Europe,Europe,True,False
+48,RoW Africa,RoW Africa,Africa,True,False
+49,RoW Middle East,RoW Middle East,Middle East,True,False

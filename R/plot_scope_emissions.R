@@ -80,9 +80,13 @@ dk_save(p2, "scope_emissions_by_industry_group_2022", w = 16, h = 10)
 d_top <- read_csv(gold_path("scope_by_origin_industry_top25.csv"),
                   show_col_types = FALSE) %>%
   mutate(scope = scope_factor(scope),
+         # Axis labels are CODES, not names. Full EXIOBASE industry names run
+         # to 90 characters and squeeze the panel to a sliver; the names are
+         # one join away in dim_industry / the folder README, which is where a
+         # reader who needs them should look.
          pair  = if_else(is_remainder, REMAINDER_LAB,
-                         paste0(producing_country_iso3, SEP,
-                                clean_sector_label(producing_sector_name))))
+                         paste0(region_code(producing_country_iso3), SEP,
+                                producing_sector_code)))
 
 ord_p <- d_top %>% group_by(pair) %>% summarise(v = sum(value), .groups = "drop") %>%
   arrange(v) %>% pull(pair)

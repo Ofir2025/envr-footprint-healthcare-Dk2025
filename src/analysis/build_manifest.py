@@ -163,6 +163,15 @@ APPROACHES = {
         script="analysis.lenzen_replication",
         equations="F = q L y*; S_m and TE_m; import share; per-capita and intensity KPIs",
         inputs="background pickle; raw stressor blocks for PM10/NOx/SO2/reactive N"),
+    "star": dict(
+        approach="Canonical star schema: conformed dimensions with surrogate keys, "
+                 "fact tables carrying ids only",
+        reference="Kimball & Ross, The Data Warehouse Toolkit; "
+                  "docs/methods/denmark_healthcare_star_schema.sql",
+        script="analysis.build_star_schema",
+        equations="none - a re-keying of the denormalised gold tables; totals are "
+                  "asserted to be preserved and every foreign key to resolve",
+        inputs="00_core_footprint, 02_scopes_wood_hertwich, 17_health_subsectors"),
     "scenarios": dict(
         approach="Scope-boundary scenario runs",
         reference="SHA 2011 boundary; Steenmeijer expansive boundary",
