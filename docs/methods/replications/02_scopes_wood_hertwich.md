@@ -107,11 +107,11 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 - Hertwich & Wood define the scopes for *gross production* of whole sectors; the
   application to one sector's **final demand** is ours, and the self-supply subtraction is
   a consequence of that application which their paper does not need.
-- The manuscript layer ([01](01_eriksen_replication.md)) totals 4,713.37 kt using the
-  Hertwich & Wood Scope 2; this folder totals 4,711.53 kt using the strict-protocol
+- The manuscript layer ([01](01_eriksen_replication.md)) totals 4,712.42 kt using the
+  Hertwich & Wood Scope 2; this folder totals 4,710.58 kt using the strict-protocol
   Scope 2 and removing the self-supply loop. Both are correct on their stated basis, and
-  audit check C1 reconciles them: 4,711.53 + 1.83 = 4,713.37. The two terms are
-  rounded independently, so adding the printed figures gives 4,713.36; the check
+  audit check C1 reconciles them: 4,710.58 + 1.83 = 4,712.42. The two terms are
+  rounded independently, so adding the printed figures gives 4,712.41; the check
   runs on the unrounded values and closes to 1e-9.
 
 ## Outputs
@@ -124,8 +124,8 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 
 ## Verification
 
-- `analysis.audit_consistency` C1: partition total 4,711.53 + self-supply loop 1.83
-  = 4,713.37, which equals the manuscript grand total. **PASS.**
+- `analysis.audit_consistency` C1: partition total 4,710.58 + self-supply loop 1.83
+  = 4,712.42, which equals the manuscript grand total. **PASS.**
 - The double-counting ledger tests each bottom-up item against the MRIO for overlap and
   records the numerical result, so "we checked for double counting" is a table, not a
   claim.

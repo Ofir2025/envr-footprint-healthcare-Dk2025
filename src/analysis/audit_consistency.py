@@ -304,10 +304,10 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
 #: Headline numbers that the revision documents quote, and where each is
 #: computed from. ``doc`` is the markdown that must contain ``text`` verbatim.
 DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
-    dict(text="4,713", doc="docs/revision/analysis_2022.md",
+    dict(text="4,712", doc="docs/revision/analysis_2022.md",
          source=(f"{eriksen_folder()}/hotspot_by_producing_node.csv",
                  "climate_change"),
-         expect=4713.4, tol=1.0, what="health-care climate footprint, kt"),
+         expect=4712.4, tol=0.2, what="health-care climate footprint, kt"),
     dict(text="3,943", doc="docs/revision/shipping_reallocation_method.md",
          source=("17_health_subsectors/footprint_by_health_function.csv",
                  "climate_change"),
@@ -344,8 +344,13 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
     ("4,715 kt", "health-care climate footprint; it is 4,713 kt"),
     ("4,736 kt", "Monte Carlo median; it is 4,735 kt"),
     ("4,875 kt", "health-care climate footprint from a superseded run"),
-    ("15.5 % of the total", "transport share on the full-footprint basis; "
-                            "728.2 of 4,713.4 kt is 15.4 %"),
+    ("4,713 kt", "health-care climate footprint before the bottom-up nitrous "
+                 "oxide moved to AR6; it is 4,712 kt"),
+    ("4,713.4", "the same, to one decimal"),
+    ("4,713.37", "the same, to two decimals"),
+    ("4,711.53", "scope partition total before the same change; it is 4,710.58"),
+    ("4,065 to 5,532", "95 % interval before the same change; it is 4,064 to 5,531"),
+    ("4,735 kt", "Monte Carlo median before the same change; it is 4,734 kt"),
 )
 
 #: Documents that record what a number used to be, and therefore must be

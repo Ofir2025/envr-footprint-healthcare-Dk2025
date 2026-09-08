@@ -41,7 +41,7 @@ HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship python -m analysis.main_2025
   13302 vs childcare 13301: 15.54 vs 34.72 bn DKK), replacing the 0.4914 carried
   forward from the 2019 detailed SUT, a documented open item now closed.
 - **Direct waste:** AFFALD01 2022 (excl. soil), same boundary and same α = **42.8 kt**.
-- **Bottom-up:** anaesthetics 12.5 kt (N₂O 11.3 from NID 2.G.3.a, volatiles 1.2
+- **Bottom-up:** anaesthetics 11.6 kt (N₂O 11.3 from NID 2.G.3.a, volatiles 1.2
   from medstat.dk ATC N01AB sales, no longer a proxy);
   pMDI **11.6 kt** (Danish EPA F-gas inventory 2022 actual, GWP100); commuting factor
   0.6343 (NABB69 2022 employment 556,999; TU 2022 distance 9.3 km/p/d); visitor 0.6762.
@@ -70,7 +70,7 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 
 | Indicator | Health-care footprint | Danish national footprint | Share, full footprint | Share, supply-chain component |
 |---|---|---|---|---|
-| Climate change | **4,713.4 kt CO₂e** (802 kg per person) | 77,477.5 kt | 6.1 % | 5.1 % |
+| Climate change | **4,712.4 kt CO₂e** (802 kg per person) | 77,477.5 kt | 6.1 % | 5.1 % |
 | Material extraction | 4,259.4 kt | 53,939.3 kt | 7.9 % | 7.8 % |
 | Blue water | 95.5 Mm³ | 1,276.4 Mm³ | 7.5 % | 7.5 % |
 | Land use | 4,855.5 km² | 99,466.2 km² | 4.9 % | 4.9 % |
@@ -84,11 +84,11 @@ waste and barely at all for the other three. Source:
 `00_core_footprint/national_totals_summary.csv` and the tables of record.*
 
 **Scopes (GHG Protocol, `analysis.scopes_detail`):**
-**S1 131.1 / S2 75.0 / S3 4,245.3 / outside-protocol 263.6 kt CO₂e.**
+**S1 130.1 / S2 75.0 / S3 4,243.5 / outside-protocol 263.6 kt CO₂e.**
 Partition asserted exact; producing-node detail reconciles. All six IO
 identities pass at ≤10⁻¹⁰ (`analysis.validate_io_identities`).
 
-**By producing sector group (climate, share of the 4,713 kt total):**
+**By producing sector group (climate, share of the 4,712 kt total):**
 transport 15.4 %, coal and petroleum 13.4 %, private travel 13.3 %, food and
 catering 12.9 %, chemicals 9.4 %, electricity 9.0 %, steam and hot water 6.4 %,
 waste management 4.7 %, services 3.3 %.
@@ -99,7 +99,7 @@ table (`contribution_by_purchased_product.csv`, `B L diag(y)`) and gives a
 different ranking; the two must not be quoted interchangeably.
 
 **Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median
-**4,735 kt**, 95 % interval **4,065 to 5,532 kt**, CV **7.87 %**, alongside
+**4,734 kt**, 95 % interval **4,064 to 5,531 kt**, CV **7.87 %**, alongside
 Lenzen et al.'s published 8.35 % for Denmark. First-order variance shares: MRIO
 parameters 78.8 %, the covariance between commuting and visitor travel 9.3 %,
 visitor travel 6.7 %, commuting 5.1 %; every other bottom-up item below 0.1 %.
@@ -131,7 +131,7 @@ their vintage is fixed inside the data. See `15_gwp_vintage/`.
 
 | Item | Value | Source |
 |---|---|---|
-| Anaesthetic gases | **12.5 kt** (N₂O 11.3 + volatiles 1.2) | medstat.dk ATC N01AB sales (sevoflurane 2,400 L, desflurane 181 L, isoflurane 15 L), densities from Laster et al. 1994, GWP₁₀₀ from Sulbaek Andersen et al. 2023; N₂O from NID 2.G.3.a |
+| Anaesthetic gases | **11.6 kt** (N₂O 11.3 + volatiles 1.2) | medstat.dk ATC N01AB sales (sevoflurane 2,400 L, desflurane 181 L, isoflurane 15 L), densities from Laster et al. 1994, GWP₁₀₀ from Sulbaek Andersen et al. 2023; N₂O from NID 2.G.3.a |
 | Patient + visitor travel | **263.6 kt** (patient 213.2 + visitor 50.3) | TU (DTU) Tabel 15, purpose 33 "Social/sundhed", 0.8 km/person/day; visitor uplift 0.236 from NHS England |
 | pMDI propellants | 11.6 kt | Danish EPA F-gas inventory 2022 |
 | Direct operational | 118.6 kt CO₂e, 42.8 kt waste | DRIVHUS, AFFALD01 |

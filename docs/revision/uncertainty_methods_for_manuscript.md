@@ -57,7 +57,7 @@ reviewer's related request for uncertainty on the bottom-up parameters.
 ## 2. Results text (draft)
 
 > The Monte Carlo median for the Danish health-care climate footprint is
-> **4,735 kt CO₂e** with a 95 % interval of **4,065 to 5,532 kt** and a
+> **4,734 kt CO₂e** with a 95 % interval of **4,064 to 5,531 kt** and a
 > coefficient of variation of **7.87 %**, closely consistent with the 8.35 % that Lenzen et
 > al. (2020) report for the same quantity.
 >
@@ -275,11 +275,11 @@ numbered S1-S7; the plain-English derivation of each is in
 >
 > | | Climate change |
 > |---|---|
-> | Deterministic estimate | 4,713 kt CO₂e |
-> | Simulation median | 4,735 kt CO₂e |
+> | Deterministic estimate | 4,712 kt CO₂e |
+> | Simulation median | 4,734 kt CO₂e |
 > | Simulation mean | 4,751 kt CO₂e |
 > | Coefficient of variation | 7.9 % |
-> | 95 % interval | 4,065 to 5,532 kt CO₂e |
+> | 95 % interval | 4,064 to 5,531 kt CO₂e |
 >
 > | Variance contributor | Share |
 > |---|---|
@@ -288,7 +288,7 @@ numbered S1-S7; the plain-English derivation of each is in
 > | Patient and visitor travel | 6.7 % |
 > | Employee commuting | 5.1 % |
 > | Direct operations | 0.09 % |
-> | Anaesthetic gases | 0.009 % |
+> | Anaesthetic gases | 0.007 % |
 > | Inhaler propellants | 0.002 % |
 >
 > Travel as a block, covariance included, accounts for 21.1 % of the variance;

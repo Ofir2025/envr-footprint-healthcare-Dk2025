@@ -94,7 +94,7 @@ CYP,Cyprus,Middle East,Scope 3,blue_water_consumption,Mm3,0.0028823146507358775,
 LUX,Luxembourg,Europe,Scope 3,blue_water_consumption,Mm3,0.0017411793778810834,0.0018259405753940148
 MLT,Malta,Europe,Scope 3,blue_water_consumption,Mm3,0.0013796100699225114,0.0014467699519616825
 DNK,Denmark,Denmark,Outside protocol,climate_change,kt CO2eq,263.56770753446403,100.0
-DNK,Denmark,Denmark,Scope 1,climate_change,kt CO2eq,131.0762816237094,100.0
+DNK,Denmark,Denmark,Scope 1,climate_change,kt CO2eq,130.1262816237094,100.0
 DNK,Denmark,Denmark,Scope 2,climate_change,kt CO2eq,62.7074282279024,85.50056085896844
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,climate_change,kt CO2eq,1.7515925630858735,2.388268037335995
 DEU,Germany,Europe,Scope 2,climate_change,kt CO2eq,1.745114465623376,2.379435256563523

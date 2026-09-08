@@ -1,5 +1,5 @@
 indicator,mrio_spread_multiplier,basis,median,p2_5,p97_5,cv_pct
-Global warming (ktCO2eq),1.0,carbon calibration applied unchanged (default),4735.895936084827,4063.4306717031095,5519.5201975682685,7.822317065477949
+Global warming (ktCO2eq),1.0,carbon calibration applied unchanged (default),4734.8998653164945,4062.288374613192,5518.4909947293845,7.823868741006974
 Material extraction (kt),1.0,carbon calibration applied unchanged (default),4257.736400300114,3621.0055837791365,5008.762408522592,8.294545690911503
 Blue water consumption (Mm3),1.0,carbon calibration applied unchanged (default),95.45192255307823,81.130312619262,112.36319358894455,8.329664797146755
 Land use (km2),1.0,carbon calibration applied unchanged (default),4852.748585777341,4123.374329478211,5714.357857220153,8.342865899614957

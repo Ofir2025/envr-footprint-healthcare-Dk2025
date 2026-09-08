@@ -228,7 +228,7 @@ the Danish sea-transport correction), and the demand vector (F1). The last is th
 | | Manuscript 2019 | This study 2022 |
 |---|---|---|
 | Expenditure | 25,857 M€ | 40,597 M€ |
-| Climate change | 4,815 kt (5.6 %) | 4,713 kt (6.1 %) |
+| Climate change | 4,815 kt (5.6 %) | 4,712 kt (6.1 %) |
 | Material extraction | 2,601 kt (5.5 %) | 4,261 kt (7.9 %) |
 | Blue water | 47 Mm³ (4.3 %) | 95.5 Mm³ (7.5 %) |
 | Land use | 2,753 km² (3.6 %) | 4,856 km² (4.9 %) |
