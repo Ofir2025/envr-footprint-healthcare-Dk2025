@@ -103,7 +103,7 @@ for f in $(tree | grep -E '\.(md|txt|tex)$' | grep -v '^docs/revision/response_t
   if [ "$n" -gt 0 ]; then echo "         referee wording in $f"; leaked=$((leaked + n)); fi
 done
 check "referee wording, whole tree" 0 "$leaked"
-check "Claude attribution trailers" 0 "$(git log "$REMOTE/main..$PUB_BRANCH" --grep='Co-Authored-By' -i --format=%H | wc -l | tr -d ' ')"
+check "AI attribution trailers" 0 "$(git log "$REMOTE/main..$PUB_BRANCH" --grep='Co-Authored-By' -i --format=%H | wc -l | tr -d ' ')"
 [ "$fail" -eq 0 ] || { echo "==> verification FAILED - nothing pushed"; exit 1; }
 
 echo "==> $(tree | wc -l | tr -d ' ') files, $(git rev-list --count "$REMOTE/main..$PUB_BRANCH") commits"

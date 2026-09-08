@@ -1,4 +1,4 @@
-# Gold result tables — schema and lineage
+# Gold result tables - schema and lineage
 
 All tables are long-format CSV, one observation per row, with explicit units.
 They are exported at the **most detailed level available**; every published
@@ -11,7 +11,7 @@ figure and aggregate is derived from these by grouping (never the reverse).
 | `analysis_year` | year of the Danish expenditure data and of the MRIO background |
 | `model` | MRIO release actually used (e.g. `EXIOBASE v3.10.2 IOT_2022_ixi (screened)`) |
 | `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |
-| `consuming_country_iso3` | always `DNK` — Denmark is the final consumer in this study |
+| `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |
 | `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |
 | `indicator` | `climate_change`, `material_extraction`, `blue_water_consumption`, `land_use`, `waste_generation` |
 | `unit` | `kt CO2eq`, `kt`, `Mm3`, `km2`, `kt`, or `M.EUR` for monetary rows |
@@ -32,7 +32,7 @@ pressure arising in node *i* caused by Danish healthcare final demand for
 node *j*. Summing over *i* gives the **consumption / contribution**
 perspective (`footprint_by_purchased_product.csv`); summing over *j* gives
 the **production / hotspot** perspective (`footprint_by_producing_node.csv`).
-Both are marginals of the same array, so they sum to the identical total —
+Both are marginals of the same array, so they sum to the identical total -
 verified to machine precision by `analysis.validate_io_identities` (tests
 T5/T6). Allocating production emissions to final demand is additive and does
 not double count (Wood et al. 2018); embodied-flow tables (E_Z) would.
@@ -60,7 +60,7 @@ enter at their full basic-price value, distributed over supplying regions.
 
 ## Units
 
-Monetary values are **million euro (M.EUR)** — EXIOBASE's native unit
+Monetary values are **million euro (M.EUR)** - EXIOBASE's native unit
 (`unit.txt` of the release). No US-dollar values are used anywhere in this
 model; dollar figures appearing in the comparative literature (Karliner et al.
 2019, Lenzen et al. 2020, Pichler et al. 2019) are those studies' own units

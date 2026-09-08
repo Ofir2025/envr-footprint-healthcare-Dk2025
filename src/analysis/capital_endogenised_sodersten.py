@@ -25,7 +25,7 @@ The published capital matrices (Zenodo 7073276, CC BY 4.0) are distributed as
 which needs a 7,987 × 7,987 matrix, so the product rows must be mapped onto
 industry rows.
 
-Södersten do exactly this in the opposite direction — their SI §1.2 states they
+Södersten do exactly this in the opposite direction - their SI §1.2 states they
 convert "from our 9800-by-7987 capital transaction matrix to a symmetric
 9800-by-9800 capital flow matrix K" by applying "the industry technology
 construct ... to conform with the way the A matrix is constructed". The same
@@ -47,7 +47,7 @@ conserved by the mapping. That is asserted, not assumed.
 Data vintages
 -------------
 The published capital matrices stop at 2020 and the study year is 2022. Capital
-*structure* — which products form the capital stock of which industry — moves
+*structure* - which products form the capital stock of which industry - moves
 slowly, whereas capital *level* is taken from the model's own consumption of
 fixed capital for the analysis year. The 2020 structure is therefore applied to
 2022 levels, and the assumption is recorded in the output.

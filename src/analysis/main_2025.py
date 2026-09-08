@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Main analysis: the Danish health-care environmental footprint.
 
-Orchestrates the whole calculation — expenditure vector, background EE-MRIO,
+Orchestrates the whole calculation - expenditure vector, background EE-MRIO,
 Leontief solution, bottom-up additions, scope split, and the output tables and
 figures. Parameterised by ``HC_ANALYSIS_YEAR``, ``HC_BACKGROUND_TAG`` and
 ``HC_SCOPE`` (see ``docs/README.md``).
@@ -228,7 +228,7 @@ else:
     #     is derived from the use/supply tables (split of 880000 products between
     #     purposes 12401 eldercare and 12402 childcare),
     #   - hospital N2O (medical/anaesthetic N2O sits inside the accounts; it is removed
-    #     here because anaesthetic gases enter separately as bottom-up item B_ANAE —
+    #     here because anaesthetic gases enter separately as bottom-up item B_ANAE -
     #     the same medical-gas exclusion Steenmeijer et al. apply to the CBS figure).
     DRIVHUS_YEAR = int(ANALYSIS_YEAR)  # matches the expenditure year
     _drivhus = pd.read_csv(BRONZE_DIR / "dk_direct_emissions_drivhus.csv", comment="#")
@@ -694,8 +694,8 @@ cols_df = df_contrib[0].columns  # same for all
 
 # Adding the direct healthcare emissions from bg['Hstim']
 # (Steenmeijer design restored: the GWP entry of Hstim is the national-accounts
-# direct emission of the sector — here the DRIVHUS-based figure written to
-# dk_data_2025.csv above, excluding medical N2O which enters via B_ANAE — while
+# direct emission of the sector - here the DRIVHUS-based figure written to
+# dk_data_2025.csv above, excluding medical N2O which enters via B_ANAE - while
 # the other four impact categories keep the EXIOBASE-based direct estimates.
 # The previous revision computed this row as B x (L·Ystim) over the DK health
 # rows, i.e. the MRIO-induced intra-health emissions (~1.4 kt CO2e): that value
@@ -1042,7 +1042,7 @@ scope1_direct = float(cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service'])
 # Purchased energy of the providers (column 1 of Ystim = healthcare services
 # component, i.e. the scaled Z-column of DK Health and social work). EXIOBASE
 # books much of the purchase against transmission/distribution sectors whose own
-# combustion emissions are ~0, with generation one tier upstream — so Scope 2 is
+# combustion emissions are ~0, with generation one tier upstream - so Scope 2 is
 # obtained by tracing the purchased-energy demand through the Leontief inverse
 # and collecting the emissions occurring IN energy sectors (generation);
 # non-energy upstream emissions of the energy chain (fuel mining etc.) stay in

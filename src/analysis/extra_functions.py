@@ -1,13 +1,13 @@
 """Danish healthcare expenditure extraction from the Statistics Denmark use table.
 
-Source file: ``data/bronze/dk_umat_2019.xlsx`` — Statistics Denmark detailed
+Source file: ``data/bronze/dk_umat_2019.xlsx`` - Statistics Denmark detailed
 supply-use tables 2019. Sheet ``Ubas`` holds the use table at BASIC PRICES in
 1000 DKK (margins and product taxes are carried on the separate ``Umargins``
 and ``Utaxes`` sheets), which is why no purchaser-to-basic price conversion is
 applied downstream (Conversion = 1.0). Reading a different sheet would change
 the price basis and silently break that assumption.
 
-Scope definition (aligned with the manuscript's stated boundary — Steenmeijer
+Scope definition (aligned with the manuscript's stated boundary - Steenmeijer
 et al. 2022's expansive scope minus childcare):
 
 * HC.5.1  Pharmaceuticals and other medical products  -> purpose 06112
@@ -24,7 +24,7 @@ construction, consistent with Steenmeijer et al. (no capital formation).
 
 Bug fixed 2026-09 (pre-revision code): the previous version enumerated
 (transaction, purpose) pairs by hand and omitted the non-market government
-column for 12401 (DKK 68.4 bn — ~90 % of eldercare spending) and the NPISH
+column for 12401 (DKK 68.4 bn - ~90 % of eldercare spending) and the NPISH
 column for 06300 (DKK 2.3 bn), while the manuscript claimed eldercare was
 included. See docs/revision/bug_and_method_fixes.md.
 
@@ -90,7 +90,7 @@ def calculate_healthcare_totals(file_path, include_childcare=False, include_elde
     """Return (hc51, hc52, healthcare_services, breakdown) in 1000 DKK, basic prices.
 
     ``breakdown`` is a DataFrame listing every (purpose x transaction) column
-    that entered the totals — written out by the pipeline as a provenance
+    that entered the totals - written out by the pipeline as a provenance
     record so the expenditure scope is auditable.
     """
     df = _load_use_table_basic_prices(file_path)
@@ -123,12 +123,12 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
     published 117-industry IO workbook (`input_output_en_2022.xlsx`), which is
     fully reproducible from StatBank. Basic prices: the workbook carries the
     industry-by-purpose flows at basic prices with product taxes and VAT as
-    separate named rows — only rows whose first column is a numeric industry
+    separate named rows - only rows whose first column is a numeric industry
     code (117 domestic + 117 import rows) are summed, which excludes the
     tax/VAT/value-added rows by construction.
 
     Classification note: the 2022 national accounts use the revised (COICOP
-    2018-aligned) purpose codes — pharmaceuticals 06112 (unchanged),
+    2018-aligned) purpose codes - pharmaceuticals 06112 (unchanged),
     therapeutic/assistive appliances 06134 (was 06130), out-patient 06200,
     hospital services 06300 plus the new 06400 "Other hospital services",
     eldercare 13302 (was 12401), childcare 13301 (was 12402).
