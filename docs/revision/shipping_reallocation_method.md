@@ -104,6 +104,12 @@ row of it. Every other Danish industry keeps EXIOBASE's structure, including the
 the Danish feedback effect at **0.4 %**, which is why both Rørmose and Palm use
 *simplified* rather than full SNAC.
 
+**Independent support that Denmark is a known case.** Wood et al. (2019) compare
+consumption-based carbon accounts across multi-regional input-output databases
+and name Denmark explicitly among the countries whose between-model variation is
+driven by the handling of international transport emissions - the same defect
+this note corrects, identified from outside this study and before it.
+
 **Independent support for the direction.** Ghosh et al. (2014, Rockwool
 Foundation) find Danish consumption emissions *"relatively invariant to the
 inclusion of fuel bunkering"*. That near-invariance is impossible if 74 % of
@@ -285,9 +291,32 @@ direction of travel rather than an available alternative.
 
 ## References
 
-- Ghosh B, Jensen JV, et al. (2014) *Measuring Denmark's CO₂ emissions 1996–2009*. Rockwool Foundation.
-- Melo D (2019) *Bottom-up and top-down environmental extensions for the EUREGIO MRIO*. MSc thesis, Leiden University / TNO.
-- Moran D, Wood R, Rodrigues JFD (2018) A note on the magnitude of the feedback effect in MRIO. *Journal of Industrial Ecology*.
-- Palm V, Wood R, Berglund M, et al. (2019) *Journal of Cleaner Production* 228:634–644.
-- Rørmose Jensen P, Iliev V (2022) *Consumption-based GHG account for Denmark using coupled models*. Statistics Denmark, Eurostat grant 101022790, WP4.
-- Usubiaga A, Acosta-Fernández J (2015) Carbon emission accounting in MRIO models: the territory vs. the residence principle. *Economic Systems Research* 27(4):458–477.
+Full entries, with DOIs, are in [`docs/REFERENCES.md`](../REFERENCES.md), which
+is generated from `docs/references.csv`. Cited here:
+
+- Ghosh, B., Jensen, J. V., & Munch-Petersen, N. (2014). *Measuring Denmark's
+  CO₂ emissions 1996-2009*. Rockwool Foundation Research Unit.
+- Melo, D. (2019). *Bottom-up and top-down environmental extensions for the
+  EUREGIO MRIO* [Master's thesis]. Leiden University and TNO.
+- Moran, D., Wood, R., & Rodrigues, J. F. D. (2018). A note on the magnitude of
+  the feedback effect in environmentally extended multi-region input-output
+  tables. *Journal of Industrial Ecology, 22*(3), 532-539.
+  https://doi.org/10.1111/jiec.12658
+- Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., &
+  Steinbach, N. (2019). Environmental pressures from Swedish consumption - A
+  hybrid multi-regional input-output approach. *Journal of Cleaner Production,
+  228*, 634-644. https://doi.org/10.1016/j.jclepro.2019.04.181
+- Rørmose Jensen, P., & Iliev, V. (2022). *Consumption-based greenhouse gas
+  account for Denmark using coupled models*. Statistics Denmark, Eurostat grant
+  101022790, work package 4. https://www.dst.dk
+- Stadler, K., Wood, R., Simas, M., Bulavskaya, T., de Koning, A., Kuenen, J.,
+  Acosta-Fernández, J., Usubiaga, A., Merciai, S., Schmidt, J., Theurl, M.,
+  Kastner, T., Eisenmenger, N., Giljum, S., Lutter, S., Bruckner, M., & Tukker,
+  A. (2015). *Integrated report on EXIOBASE 3* (DESIRE deliverable 5.3).
+  European Commission FP7. https://cordis.europa.eu/project/id/308552
+- Usubiaga, A., & Acosta-Fernández, J. (2015). Carbon emission accounting in
+  MRIO models: The territory vs. the residence principle. *Economic Systems
+  Research, 27*(4), 458-477. https://doi.org/10.1080/09535314.2015.1049126
+- Wood, R., Moran, D. D., Rodrigues, J. F. D., & Stadler, K. (2019). Variation
+  in trends of consumption based carbon accounts. *Scientific Data, 6*, 99.
+  https://doi.org/10.1038/s41597-019-0102-x

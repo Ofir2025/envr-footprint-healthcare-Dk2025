@@ -47,8 +47,8 @@ What that produces, as 95 % intervals on the multiplier:
 least the range he proposed, and the widest spans twice it.** The two that are narrower
 are not scaling factors: one is a Danish national-accounts measurement, the other is the
 only published Monte Carlo estimate of this exact quantity (Lenzen et al. 2020, SI Table
-SI 7.1: 2.84 ± 0.24 Mt, a relative SD of 8.35 %; Wood et al. 2019 independently give 8.8 %
-for Denmark). Widening either to ±50 % would be inventing uncertainty rather than
+SI 7.1: 2.84 ± 0.24 Mt, a relative SD of 8.35 %; Wood et al. 2019 put the cross-database
+spread of consumption-based accounts at 12 % on average, so ours sits at the lower end). Widening either to ±50 % would be inventing uncertainty rather than
 estimating it, and would make the interval uninterpretable.
 
 The ordering is also defensible on its face: the widest distribution sits on patient and

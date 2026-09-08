@@ -202,6 +202,31 @@ def c3_freshness(results: list[dict[str, Any]]) -> None:
                 + (" ..." if len(stale) > 6 else ""))
 
 
+def c8_citations(results: list[dict[str, Any]]) -> None:
+    """C8: every in-text citation resolves to the bibliography.
+
+    A citation that cannot be traced is worse than none, because it reads as
+    evidence. One document carried a corroborating figure attributed to a paper
+    that is not in the reference library and could not be checked; the claim was
+    withdrawn and this check exists so the next one is caught.
+    """
+    try:
+        from analysis import bibliography
+    except Exception as exc:                            # noqa: BLE001
+        _check(results, "C8 citations resolve", False, f"unavailable: {exc}")
+        return
+    try:
+        problems = bibliography.check()
+        n_sources = len(bibliography.load())
+    except AssertionError as exc:
+        _check(results, "C8 citations resolve", False, str(exc))
+        return
+    _check(results, "C8 every citation resolves", not problems,
+           f"{n_sources} sources, {len(bibliography.CHECKED_DOCS)} documents "
+           f"checked" if not problems
+           else f"{len(problems)} unresolved: {problems[0]}")
+
+
 def c4_provenance(results: list[dict[str, Any]]) -> None:
     """Every file naming a model must name the current one."""
     wrong = []
@@ -400,7 +425,8 @@ def main() -> None:
     """Run every check and write the report; exit non-zero on failure."""
     results: list[dict[str, Any]] = []
     for check in (c1_headline, c2_detail_vs_aggregate, c3_freshness,
-                  c4_provenance, c5_manifest, c6_documentation, c7_star_integrity):
+                  c4_provenance, c5_manifest, c6_documentation, c7_star_integrity,
+                  c8_citations):
         try:
             check(results)
         except Exception as exc:                            # noqa: BLE001
