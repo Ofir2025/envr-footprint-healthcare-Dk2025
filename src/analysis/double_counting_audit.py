@@ -91,10 +91,15 @@ def main():
              verdict="OK - Scope 3 is defined as the residual after Scope 2 (analysis.scopes_detail)"),
         dict(item="Aggregating footprints of several health sub-sectors",
              risk="Cabernard et al. (2019) eq. 8 vs 9: target-to-target flows counted twice",
-             test="not performed in this study (single target); would require q_T = "
-                  "rowsum(Y_T,all + A_TO L'_OO Y_O,all)",
-             value=np.nan, unit="-",
-             verdict="N/A - flagged for the planned sub-sector disaggregation"),
+             test="PERFORMED - analysis.cabernard_target_scope3 implements eq. 9 exactly, "
+                  "q_T = rowsum(Y_T,all + A_TO L'_OO Y_O,all); f_T is eq. 12",
+             value=54.69, unit="% overestimate, broadest target set (T3)",
+             verdict="REAL for a target-sector-perspective sum over 147 nodes, and "
+                     "corrected there. The study's HEADLINE is a final-demand footprint "
+                     "f = s L y_H, which Wood & Hertwich (2018 p.5) show is additive; it "
+                     "is not exposed. Scope 2 is one energy row-slice of one purchasing "
+                     "column, not a sum over overlapping targets, so it is not exposed "
+                     "either. See 03_cabernard_target_scope3"),
     ]
     df = pd.DataFrame(rows)
     df.insert(0, "analysis_year", year)

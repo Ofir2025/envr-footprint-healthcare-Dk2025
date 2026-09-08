@@ -22,7 +22,7 @@ Method, equations and verification: [`docs/methods/replications/02_scopes_wood_h
 ### `double_counting_ledger.csv`
 
 - **Rows:** 10
-- **Units:** -, M.EUR (in services column), kt CO2eq, kt CO2eq (deviation)
+- **Units:** % overestimate, broadest target set (T3), -, M.EUR (in services column), kt CO2eq, kt CO2eq (deviation)
 - **Dimensions:** `item`, `risk`, `test`, `unit`, `verdict`
 - **Measures:** `analysis_year`, `value`
 
@@ -65,7 +65,7 @@ Method, equations and verification: [`docs/methods/replications/02_scopes_wood_h
 ### `scope_by_origin_industry_top25.csv`
 
 - **Rows:** 32
-- **Resolution:** 11+ regions x 12+ industries (sampled)
+- **Resolution:** 11+ regions x 13+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`
 - **Measures:** `value`, `rank`, `is_remainder`

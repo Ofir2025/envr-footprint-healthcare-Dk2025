@@ -173,3 +173,50 @@ beyond the third are unrecoverable. The published version is at
 doi:10.5194/essd-16-2669-2024 with data at Zenodo 10.5281/zenodo.10041196.
 Worth re-downloading, because it is the best available per-account uncertainty
 and correlation dataset at EXIOBASE resolution.
+
+## Pinned reference folders (September 2026)
+
+Pinned for this study and for future figure and schema work. Paths are on Albert's
+OneDrive; nothing from them is redistributed in this repository.
+
+| Folder | What it is for | Status |
+|---|---|---|
+| `Career/data_engineer/library/data_visualization/` | Figure design authority: Wickham *ggplot2: Elegant Graphics for Data Analysis*; **The Economist (2017) visual style guide**; Lupton *Sankey view* documentation; **Katsnelson (2021) fixing figures for colour blindness** | pinned; consult before designing any new figure |
+| `Career/data_engineer/library/r_programming/` | R and presentation craft: Duarte *HBR Guide to Persuasive Presentations*; Kampakis *Decision-Maker's Handbook to Data Science*; AWS data-potential report | pinned |
+| `Data/lca/input_output/mrio/classifications/concordances/` | MRIO classifications and concordances (see the note below) | pinned; source of record for aggregations |
+
+### What the concordance folder actually contains, and what we use
+
+Inspected 8 September 2026.
+
+* **`Industry grouping.xlsx`** — an **ISIC Rev. 3, manufacturing-only** grouping (divisions
+  15–37) with a *technology-intensity* classification (Low / Mid / High tech), cross-walked
+  to CEPII BACI, UNIDO INDSTAT and OECD TiVA. It is a genuinely useful **secondary**
+  aggregation — a technology-intensity view of the manufactured inputs to health care — but
+  it is **not a replacement** for the study's whole-economy grouping: it covers no
+  agriculture, mining, energy or services, and EXIOBASE's 163 industries span all of those.
+  **Wiring it needs an EXIOBASE → ISIC Rev. 3 correspondence, which is not in this folder**
+  (`exio_Classifications_v_3_3_18.xlsx` carries EXIOBASE activity codes but no ISIC column).
+  Flagged as an open item rather than silently skipped.
+* **`exio_Classifications_v_3_3_18.xlsx`** — EXIOBASE activity, product, country, resource,
+  land, emission and waste classifications. Sheets: `Activities`, `Products_HSUTs`,
+  `Products_HIOT`, `Correspondence_products`, `Country`, `Priority industry`, and others.
+* **`CountryMappingEXIOBASE.xlsx`**, **`concordance_exio_eora_icio.xlsx`**,
+  **`concordances_literature.xlsx`** — country and cross-MRIO correspondences.
+* **`DK-IOT_health_subsectors.xls`** — Danish health sub-sector IO detail. Directly relevant
+  to the sub-sector limitation in `exiobase_limitations_and_interpretation.md` §3; the
+  route to genuine per-function recipes runs through this file.
+* **Giljum et al. (2019)** on data deviations between EXIOBASE, Eora and ICIO — supports the
+  model-family argument in `06_benchmarks_validation`.
+
+### The aggregations this study uses, now explicit
+
+Both are exported as editable concordances rather than left implicit in a workbook:
+
+| File | Rows | Content |
+|---|---|---|
+| `data/bronze/concordances/exiobase_industry_to_group.csv` | 163 | EXIOBASE industry code and name → one of 19 industry groups |
+| `data/bronze/concordances/exiobase_region_to_world_region.csv` | 49 | region code and name → one of 6 world regions |
+
+They are the source of `dim_industry_group` and `dim_region.world_region` in the star
+schema, so correcting a grouping is a one-file edit followed by a rebuild.
