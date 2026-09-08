@@ -1,127 +1,208 @@
 # Scenarios: what we now have, and how to answer the reviewer
 
-**The short answer.** We *do* now model scenarios — fourteen of them for climate,
-in `data/gold/results/18_mitigation_scenarios/` — and the response to Reviewer 2
-must be rewritten, because the version drafted before that layer existed says we
-do not. The finding is not that mitigation is easy. It is the opposite, and it
-is a stronger paper for it.
+**For Ofir.** The short version: we model scenarios properly now — fourteen
+lever families across **all five impact categories**, each a full counterfactual
+solve rather than a scaled term — and the result is a finding worth leading on
+rather than a limitation to concede.
+
+Method, equations and every assumption:
+[`docs/methods/replications/18_mitigation_scenarios.md`](../methods/replications/18_mitigation_scenarios.md).
+Figures: `fig8_mitigation_waterfall_2022` and `fig9_burden_shifting_2022`.
 
 ---
 
-## 1. What is in the layer
+## 1. What changed, and a correction to an earlier number
 
-Three kinds of scenario, and the distinction matters when writing the text.
+An earlier version of this note reported that "every lever at maximum ambition
+reaches 31 % of the target". That figure came from summing the separate answers
+of levers that had only been computed for climate, and it included the grid
+pathway inside the total without saying so. Both are now fixed, and the
+comparable numbers are:
 
-**Background pathways** — the world changes around the health system, whether or
-not the health system acts. Denmark's electricity and heat carbon intensity is
-projected to fall from 122.7 to 16.9 g CO₂e/kWh. Applied at the transmission,
-distribution and steam nodes (generation technologies carry almost none of the
-footprint, so scaling them would double-count):
-
-| Pathway | Horizon | Effect on the climate footprint |
+| | kt CO₂e | share of the target |
 |---|---|---|
-| KF22 | 2030 | −6.7 % |
-| KF22 | 2035 | −6.8 % |
-| KF25 | 2030 | −5.7 % |
-| KF25 | 2035 | −6.0 % |
+| All interventions, solved simultaneously (C1) | −361 | **15 %** |
+| Interventions **plus** the grid pathway (C3) | −634 | **27 %** |
 
-The two vintages disagree by a percentage point; both are reported rather than
-picking the flattering one.
+The 27 % is the like-for-like replacement for the old 31 %. The difference is
+partly the tighter, better-sourced lever set and partly that the old sum double
+counted.
 
-**Interventions** — the health system acts.
+Three things also changed in kind, not just in value:
 
-| Lever | Ambition | Effect |
-|---|---|---|
-| Patient, visitor and staff travel | −10 % / −20 % / −30 % | −1.3 % / −2.7 % / −4.0 % |
-| pMDI → dry-powder inhaler | 25 % / 50 % / 75 % substituted | −0.06 % / −0.12 % / −0.18 % |
-| Nitrous oxide capture or reduction | 25 % / 50 % / 75 % | −0.06 % / −0.12 % / −0.18 % |
-
-**Counterfactual** — demand growth of +18 % to 2035, which *adds* 848 kt, or
-+18 %.
+1. **All five impact categories** are now computed for every scenario. Three of
+   the five were previously being set to zero rather than calculated, so burden
+   shifting was invisible by construction.
+2. **Levers act on the right object.** A lever that changes a production recipe
+   now edits the technical coefficient matrix and the system is re-solved, so
+   the effect propagates through the supply chain. Previously nothing could.
+3. **Combination is a simultaneous solve**, not a sum.
 
 ---
 
-## 2. The result that should be in the paper
+## 2. The scenario set
 
-`target_consistency.csv` sets the levers against Danske Regioner's January 2024
-target for the consumption-based CO₂ of hospitals:
+Grounded in stated Danish policy and measured Danish outcomes. Anything not
+sourced is labelled *illustrative* in the output and nowhere else.
+
+**Background pathway** — happens regardless of what the health system does:
+grid and district-heat decarbonisation from 122.7 to 16.9 g CO₂e/kWh on the
+Danish Energy Agency's KF22 projection, and to 32.4 on KF25. Both vintages are
+reported rather than the more flattering one; they differ by a percentage point
+on the same lever.
+
+**Interventions** — the health system acts:
+
+| | Lever | Evidence |
+|---|---|---|
+| P1 | Hospital energy and transport | Danske Regioner's own target: −75 % by 2030 against 2018 |
+| P2 | Pharmaceutical raw-material efficiency | Lundbeck: −15 % raw material 2020→2022 while production rose 18 % |
+| P3 | Medical-device packaging carbon | Demant: −12 % to −23.5 % cradle-to-gate |
+| P4 | Reuse of medical equipment | the regions' stated procurement focus; the level is illustrative |
+| P5 | Patient, visitor and staff travel | Danish travel survey; the level is illustrative |
+| P6 | Inhaler **propellant** change | Jeswani & Azapagic: −67 % low-charge, −93 % HFA-152a |
+| P7 | pMDI → dry-powder inhaler | Jeswani & Azapagic: 380× lower GWP per 100 doses |
+| P8 | Nitrous oxide capture | Denmark's national inventory, 38 t N₂O/year |
+| P9 | Waste diverted from incineration to recycling | Circular Industrial Plastic partnership; the level is illustrative |
+
+**Counterfactual**: +18 % demand growth to 2035, Danske Regioner's own
+business-as-usual trajectory.
+
+---
+
+## 3. The result to lead on
 
 | | kt CO₂e |
 |---|---|
 | 2022 baseline | 4,713 |
 | Reduction the regional target requires | −2,357 |
-| **Every modelled lever, at maximum ambition, combined** | **−732** |
-| Share of the target those levers reach | **31 %** |
-| Demand growth to 2035, business as usual | +848 |
-| **Net position after demand growth** | **+117** |
+| Every intervention at maximum ambition, solved together | −361 |
+| …with the grid decarbonising too | −634 |
+| …with the money saved actually being respent | −285 |
+| Demand growth to 2035 | +848 |
+| **2035 position, grid pathway included** | **4,928 — above the 2022 baseline** |
 
-*In words:* pulling every lever we can quantify, as hard as the literature
-supports, closes under a third of the gap — and is then more than cancelled by
-projected demand growth. The health system does not decarbonise by substituting
-inhalers and capturing nitrous oxide, however worthwhile those are.
+*In words:* pull every lever we can quantify, as hard as the evidence supports,
+let the Danish grid decarbonise on the government's own projection, and the
+Danish health-care climate footprint in 2035 is still **higher than it is
+today**, because demand grows faster than the levers bite.
 
-Two caveats belong with the number and are recorded in the file:
+That is a publishable finding and it is the honest answer to the reviewer's
+point. Identifying a hotspot is not the same as showing that acting on it works
+— and when you do the work, the named clinical levers turn out to be worth
+0.1–4 % each while demand growth is worth +18 %.
 
-- The levers are summed independently, ignoring interaction, so **−732 kt is an
-  upper bound**, not a central estimate.
-- The regional target covers hospitals; our baseline covers health **and**
-  eldercare. The comparison is indicative of scale, not a compliance assessment.
+Two further results are worth their own sentences:
 
----
+**The levers are near-additive.** Summing them separately overstates the
+combined effect by 0.2 kt out of 361, under 0.1 %. That had to be computed to be
+known, and it means the additive presentation common in this literature is
+defensible *here* — it would not be if the levers overlapped more.
 
-## 3. Why this strengthens the paper rather than weakening it
-
-Reviewer 2's point was that identifying a hotspot is not the same as
-demonstrating that acting on it works. That criticism is correct and we accepted
-it. The scenario layer now lets us *demonstrate* the point rather than concede
-it: the named clinical levers are real but small, the background grid pathway is
-larger than all of them together, and demand growth is larger than everything.
-
-That is a defensible and publishable finding — the mitigation lever that matters
-for a health system's footprint is **procurement and demand**, not the clinical
-substitutions that dominate the sustainable-healthcare literature. It follows
-directly from the hotspot analysis: 37 % of the climate footprint is
-pharmaceuticals and chemical products, and no scenario in the literature acts on
-that.
+**Rebound removes a fifth of the saving.** Holding total expenditure constant
+(the money not spent on devices is spent on something else) takes the combined
+saving from −361 to −285 kt. Reporting a demand-reduction scenario without
+rebound assumes the money is destroyed.
 
 ---
 
-## 4. What must change in the submitted response
+## 4. Burden shifting — the reason all five categories matter
+
+- **Pharmaceutical raw-material efficiency is a materials lever, not a climate
+  lever**: −1.6 % climate against **−3.3 % material extraction**. The
+  pharmaceutical hotspot is a materials hotspot, and a climate framing would
+  not have selected the intervention that addresses it.
+- **Rebound shifts burden.** Holding expenditure constant improves climate and
+  materials but **worsens blue water (+0.63 %), land use (+0.58 %) and waste
+  (+0.27 %)**: the released budget is respent on a basket more land- and
+  water-intensive than the health basket it left. This is the clearest
+  trade-off in the study and only appears when rebound and all five categories
+  are modelled together.
+- **Waste diversion backfires slightly on climate** while cutting waste.
+  Recycling services have their own supply chain.
+- **Dry-powder inhalers trade climate for other pressures.** Jeswani and
+  Azapagic report them as worse than pressurised inhalers for abiotic
+  depletion, eutrophication and ecotoxicity. Those act on the device life cycle,
+  which this model does not resolve, so figure 9 marks those cells `n.r.` rather
+  than plotting a zero, and the direction is stated in the text. This is also
+  why P6 — changing the propellant, not the device — is the better lever: it
+  carries no therapeutic trade-off, since medicine and delivery route are
+  unchanged.
+
+---
+
+## 5. What must change in the submitted response
 
 Two passages in `response_to_reviewers.md` were written before this layer
-existed and now contradict the repository:
+existed. Both are corrected in this revision:
 
-1. **R2-7** currently reads *"The paper identifies hotspots; it does not model
-   mitigation"* and offers scenario modelling as "the natural next study". That
-   should become: we accept the distinction, we now model it, and here is what
-   it shows.
-2. The **"What we have not done"** bullet *"Mitigation scenarios are not
-   modelled (R2-7)"* is simply no longer true and must be removed.
+1. **R2-7** said "the paper identifies hotspots; it does not model mitigation".
+   It now reports what the scenarios show.
+2. The **"What we have not done"** bullet said mitigation scenarios are not
+   modelled. It now states the real limitations: no behavioural or economic
+   model behind the intervention levels, no price response, and interaction
+   between levers computed but not driven by any market mechanism.
 
-Both are corrected in this revision — see the diff on that file.
+What we still do not claim, and should say plainly:
 
-What we still have not done, and should say so:
-
-- No behavioural or economic model sits behind the intervention levers; they are
-  imposed percentage reductions, not modelled responses to a policy.
-- Interaction between levers is not modelled, which is why the combined figure
-  is an upper bound.
-- Only climate has a full scenario set. The other four categories are computed
-  for the background pathway but the clinical levers do not act on them.
+- The model is **attributional**. A scenario is a what-if on the recipe, not a
+  forecast of how the economy reacts. Schmidt and Merciai's Danish work is
+  consequential and answers a different question.
+- **"Green" versions of a product cannot be represented.** EXIOBASE has one
+  *Chemicals nec* industry, so a hospital switching to a lower-impact supplier
+  of the same product appears only as buying less. This is the single biggest
+  limitation on a procurement lever, and it is why green procurement — which the
+  regions say is where most of their emissions sit — cannot be given the weight
+  their own strategy gives it. A hybrid or physically extended table is the fix,
+  and the natural next study.
+- Ambition levels for P4, P5 and P9 are **illustrative**, not policy targets.
 
 ---
 
-## 5. Where it is
+## 6. Where it is
 
 | | |
 |---|---|
-| Module | `analysis.mitigation_scenarios` |
-| Tables | `data/gold/results/18_mitigation_scenarios/mitigation_scenarios.csv`, `target_consistency.csv` |
-| Figure | `figures/manuscript/2022/fig8_mitigation_scenarios_2022.tiff` |
+| Engine | `analysis.scenario_engine` |
+| Scenarios | `analysis.mitigation_scenarios` |
+| Tables | `18_mitigation_scenarios/mitigation_scenarios.csv`, `target_consistency.csv`, `burden_shifting.csv` |
+| Figures | `figures/manuscript/2022/fig8_mitigation_waterfall_2022.tiff`, `fig9_burden_shifting_2022.tiff` |
 | Method note | `docs/methods/replications/18_mitigation_scenarios.md` |
-
-Reproduce with:
 
 ```bash
 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analysis.mitigation_scenarios
+HC_ANALYSIS_YEAR=2022 Rscript R/plot_scenarios.R
 ```
+
+---
+
+## References
+
+Full entries with DOIs in [`docs/REFERENCES.md`](../REFERENCES.md).
+
+- Aguilar-Hernandez, G. A., Sigüenza-Sanchez, C. P., Donati, F., Rodrigues,
+  J. F. D., & Tukker, A. (2018). Assessing circularity interventions: A review
+  of EEIOA-based studies. *Journal of Economic Structures, 7*, 14.
+  https://doi.org/10.1186/s40008-018-0113-3
+- Donati, F., Aguilar-Hernandez, G. A., Sigüenza-Sánchez, C. P., de Koning, A.,
+  Rodrigues, J. F. D., & Tukker, A. (2020). Modeling the circular economy in
+  environmentally extended input-output tables: Methods, software and case
+  study. *Resources, Conservation and Recycling, 152*, 104508.
+  https://doi.org/10.1016/j.resconrec.2019.104508
+- Healthcare Denmark. (2024). *Transitioning towards a sustainable healthcare
+  sector* [White paper]. https://www.healthcaredenmark.dk
+- Jeswani, H. K., & Azapagic, A. (2019). Life cycle environmental impacts of
+  inhalers. *Journal of Cleaner Production, 237*, 117733.
+  https://doi.org/10.1016/j.jclepro.2019.117733
+- Onat, N. C., Mandouri, J., Kucukvar, M., Sen, B., Abbasi, S. A., Alhajyaseen,
+  W., Kutty, A. A., Jabbar, R., Contreras, M. T., & Jraisat, L. (2023). Rebound
+  effects undermine carbon footprint reduction potential of autonomous electric
+  vehicles. *Nature Communications, 14*, 6258.
+  https://doi.org/10.1038/s41467-023-41992-2
+- Takase, K., Kondo, Y., & Washizu, A. (2005). An analysis of sustainable
+  consumption by the waste input-output model. *Journal of Industrial Ecology,
+  9*(1-2), 201-219. https://doi.org/10.1162/1088198054084653
+- Wiebe, K. S., Bjelle, E. L., Többen, J., & Wood, R. (2018). Implementing
+  exogenous scenarios in a global MRIO model for the estimation of future
+  environmental footprints. *Journal of Economic Structures, 7*, 20.
+  https://doi.org/10.1186/s40008-018-0118-y
