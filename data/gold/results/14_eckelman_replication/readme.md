@@ -30,5 +30,5 @@ Method, equations, and verification: [`docs/methods/replications/14_eckelman_rep
 
 - **Rows:** 9
 - **Format:** csv
-- **Dimensions:** `us_unit`, `dk_method`, `dk_indicator`, `dk_unit`, `source_us`, `source_dk`
-- **Measures:** `analysis_year_denmark`, `reference_year_us`, `eckelman_code`, `effect_category`, `us_health_care`, `us_national`, `us_share_of_national_pct`, `dk_health_care`, `dk_national`, `dk_share_of_national_pct`, `share_difference_pp`, `comparability`
+- **Dimensions:** `eckelman_code`, `effect_category`, `us_unit`, `dk_method`, `dk_indicator`, `dk_unit`, `comparability`, `source_us`, `source_dk`
+- **Measures:** `analysis_year_denmark`, `reference_year_us`, `us_health_care`, `us_national`, `us_share_of_national_pct`, `dk_health_care`, `dk_national`, `dk_share_of_national_pct`, `share_difference_pp`

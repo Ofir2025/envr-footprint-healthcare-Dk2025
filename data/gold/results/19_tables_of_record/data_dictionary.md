@@ -55,18 +55,18 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Impact category` | measure | str |  | Blue water consumption |
+| `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
 | `Health care` | measure | float64 |  | 95.5 |
 | `Per person` | measure | float64 |  | 16.3 |
 | `Danish total` | measure | float64 |  | 1276.4 |
-| `Share of national (%)` | measure | float64 |  | 7.5 |
+| `Share of national (%)` | measure | float64 | % | 7.5 |
 
 ### `table_02.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Impact category` | measure | str |  | Blue water consumption |
+| `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
 | `2019` | measure | float64 |  | 57.5 |
 | `2022` | measure | float64 |  | 95.5 |
@@ -80,13 +80,13 @@ units and are labelled as such wherever they are quoted.
 | `2019 (kt CO₂-eq)` | measure | float64 |  | 2605.2 |
 | `2022 (kt CO₂-eq)` | measure | float64 |  | 595.8 |
 | `Change (kt)` | measure | float64 |  | -2009.3 |
-| `Driver` | measure | str |  | sea-transport reallocation, applied in 2 |
+| `Driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `table_04.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Impact category` | measure | str |  | Blue water consumption |
+| `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
 | `Scope 1` | measure | float64 |  | 0.0 |
 | `Scope 2` | measure | float64 |  | 0.07 |
@@ -103,7 +103,7 @@ units and are labelled as such wherever they are quoted.
 | `Model family` | dimension | str |  | national accounts (FIGARO) |
 | `Mt CO₂-eq` | measure | float64 |  | 57.4 |
 | `t per person` | measure | float64 |  | 9.77 |
-| `Capital` | measure | str |  | exogenous |
+| `Capital` | dimension | str |  | exogenous |
 
 ### `table_06.csv`
 
@@ -112,8 +112,8 @@ units and are labelled as such wherever they are quoted.
 | `Basis` | dimension | str |  | Schmidt & Merciai 2023 (published compar |
 | `Mt CO₂-eq` | measure | float64 |  | 6.1 |
 | `t per person` | measure | float64 |  | 1.07 |
-| `Share of national (%)` | measure | float64 |  | 8.3 |
-| `Comparable` | measure | str |  | yes |
+| `Share of national (%)` | measure | float64 | % | 8.3 |
+| `Comparable` | dimension | str |  | yes |
 
 ### `table_07.csv`
 
@@ -126,7 +126,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Impact category` | measure | str |  | Blue water consumption |
+| `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
 | `Capital excluded (headline)` | measure | float64 |  | 95.3 |
 | `Capital as a service flow` | measure | float64 |  | 102.4 |
@@ -137,7 +137,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Impact category` | measure | str |  | Global warming (ktCO2eq) |
+| `Impact category` | dimension | str |  | Global warming (ktCO2eq) |
 | `Deterministic` | measure | float64 |  | 4712.4 |
 | `Median` | measure | float64 |  | 4733.7 |
 | `2.5th percentile` | measure | float64 |  | 4063.6 |
@@ -149,8 +149,8 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Contributor` | measure | str |  | Input-output model |
-| `Share of variance (%)` | measure | float64 |  | 78.8 |
+| `Contributor` | dimension | str |  | Input-output model |
+| `Share of variance (%)` | measure | float64 | % | 78.8 |
 
 ### `table_12.csv`
 
@@ -166,10 +166,10 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `Scenario` | dimension | str |  | C3  maximum modelled, KF22 to 2035 |
 | `Climate (%)` | measure | float64 |  | -9.77 |
-| `Material (%)` | measure | str |  | -4.56 |
-| `Blue water (%)` | measure | str |  | -1.37 |
-| `Land (%)` | measure | str |  | -1.42 |
-| `Waste (%)` | measure | str |  | -2.58 |
+| `Material (%)` | dimension | str |  | -4.56 |
+| `Blue water (%)` | dimension | str |  | -1.37 |
+| `Land (%)` | dimension | str |  | -1.42 |
+| `Waste (%)` | dimension | str |  | -2.58 |
 
 ### `table_14.csv`
 
@@ -177,16 +177,16 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `Danish industry` | dimension | str |  | TOTAL (all 163 industries) |
 | `National accounts (M.EUR)` | measure | int64 |  | 706281 |
-| `EXIOBASE v3.8.2` | measure | str |  | 592,645  (0.84x) |
-| `EXIOBASE v3.10.2` | measure | str |  | 681,918  (0.97x) |
+| `EXIOBASE v3.8.2` | dimension | str |  | 592,645  (0.84x) |
+| `EXIOBASE v3.10.2` | dimension | str |  | 681,918  (0.97x) |
 
 ### `table_15.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Parameter` | dimension | str |  | Input-output model |
-| `GSD` | measure | str |  | CV 8.35 % |
-| `95 % factor range` | measure | str |  | 0.85 to 1.18 |
+| `GSD` | dimension | str |  | CV 8.35 % |
+| `95 % factor range` | dimension | str |  | 0.85 to 1.18 |
 | `Basis` | dimension | str |  | Lenzen et al. 2020 SI Tab. SI 7.1: relat |
 
 ### `tables_of_record_index.csv`
@@ -194,8 +194,8 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `number` | measure | int64 |  | 1 |
-| `title` | measure | str |  | The Danish health-care footprint in 2022 |
+| `title` | dimension | str |  | The Danish health-care footprint in 2022 |
 | `source` | dimension | str |  | 01_eriksen_replication/2022/figure1_acti |
 | `rows` | measure | int64 |  | 5 |
 | `columns` | measure | int64 |  | 6 |
-| `supersedes` | measure | bool |  | True |
+| `supersedes` | dimension | bool |  | True |

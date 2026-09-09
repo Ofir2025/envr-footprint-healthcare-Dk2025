@@ -41,8 +41,8 @@ Method, equations, and verification: [`docs/methods/replications/11_capital_gfcf
 - **Format:** csv
 - **Resolution:** 41+ regions x 86+ industries (sampled)
 - **Units:** kt CO2eq
-- **Dimensions:** `country_consuming`, `indicator`, `unit`, `model`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
-- **Measures:** `treatment`, `value`
+- **Dimensions:** `country_consuming`, `indicator`, `unit`, `treatment`, `model`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
+- **Measures:** `value`
 
 ### `capital_endogenised_domestic_vs_imported.csv`
 
@@ -57,8 +57,8 @@ Method, equations, and verification: [`docs/methods/replications/11_capital_gfcf
 - **Rows:** 5
 - **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
-- **Dimensions:** `country_consuming`, `sector_consuming`, `indicator`, `unit`, `method`, `model`
-- **Measures:** `analysis_year`, `baseline_capital_excluded`, `endogenised_sodersten`, `change`, `change_pct`, `per_capita_endogenised`, `kbar_year`, `structure_assumption`
+- **Dimensions:** `country_consuming`, `sector_consuming`, `indicator`, `unit`, `method`, `structure_assumption`, `model`
+- **Measures:** `analysis_year`, `baseline_capital_excluded`, `endogenised_sodersten`, `change`, `change_pct`, `per_capita_endogenised`, `kbar_year`
 
 ### `capital_scenarios_by_indicator.csv`
 

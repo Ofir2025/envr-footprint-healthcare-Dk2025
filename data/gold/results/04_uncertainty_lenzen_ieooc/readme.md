@@ -23,29 +23,29 @@ Method, equations, and verification: [`docs/methods/replications/04_uncertainty_
 
 - **Rows:** 19
 - **Format:** csv
-- **Dimensions:** `check`
-- **Measures:** `status`, `detail`, `tolerance`
+- **Dimensions:** `check`, `status`, `detail`, `tolerance`
+- **Measures:** none
 
 ### `uncertainty_convergence.csv`
 
 - **Rows:** 1
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `criterion`, `draws`, `max_relative_difference_between_halves_pct`, `passes`
+- **Dimensions:** `criterion`, `passes`
+- **Measures:** `draws`, `max_relative_difference_between_halves_pct`
 
 ### `uncertainty_group_covariance_gwp.csv`
 
 - **Rows:** 9
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Unnamed: 0`, `Food and food services`, `Heat and electricity`, `Individual travel`, `Medical, electrical equipment and machinery`, `Operational impacts`, `Pharmaceuticals and chemical products`, `Services`, `Transport`, `Unallocated`
+- **Dimensions:** `Unnamed: 0`
+- **Measures:** `Food and food services`, `Heat and electricity`, `Individual travel`, `Medical, electrical equipment and machinery`, `Operational impacts`, `Pharmaceuticals and chemical products`, `Services`, `Transport`, `Unallocated`
 
 ### `uncertainty_mrio_correlation.csv`
 
 - **Rows:** 3
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `rho_mrio`, `interpretation`, `median`, `p2_5`, `p97_5`, `cv_pct`, `sigma_used`, `mrio_block_cv_if_not_recalibrated_pct`, `median_group_cv_pct`, `max_group_cv_pct`, `median_1_lognormal_mean_inflation`
+- **Dimensions:** `interpretation`
+- **Measures:** `rho_mrio`, `median`, `p2_5`, `p97_5`, `cv_pct`, `sigma_used`, `mrio_block_cv_if_not_recalibrated_pct`, `median_group_cv_pct`, `max_group_cv_pct`, `median_1_lognormal_mean_inflation`
 
 ### `uncertainty_noncarbon_bound.csv`
 
@@ -58,8 +58,8 @@ Method, equations, and verification: [`docs/methods/replications/04_uncertainty_
 
 - **Rows:** 6
 - **Format:** csv
-- **Dimensions:** `parameter`, `source`
-- **Measures:** `distribution`, `gsd`, `cv`, `factor_2_5pct`, `factor_97_5pct`
+- **Dimensions:** `parameter`, `distribution`, `source`
+- **Measures:** `gsd`, `cv`, `factor_2_5pct`, `factor_97_5pct`
 
 ### `uncertainty_ranking_probabilities.csv`
 

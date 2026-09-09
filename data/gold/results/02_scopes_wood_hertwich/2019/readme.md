@@ -66,8 +66,8 @@ Method, equations, and verification: [`docs/methods/replications/02_scopes_wood_
 - **Format:** csv
 - **Resolution:** 13+ regions x 16+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
-- **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`
-- **Measures:** `value`, `rank`, `is_remainder`
+- **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
+- **Measures:** `value`, `rank`
 
 ### `scopes_by_producing_node.csv`
 

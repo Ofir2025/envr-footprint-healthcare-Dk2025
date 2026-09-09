@@ -17,8 +17,8 @@
 
 - **Rows:** 4
 - **Format:** csv
-- **Dimensions:** `capital_treatment_id`
-- **Measures:** `treatment_code`, `treatment_name`, `capital_included`, `produced_by`
+- **Dimensions:** `capital_treatment_id`, `treatment_code`, `treatment_name`, `capital_included`, `produced_by`
+- **Measures:** none
 
 ### `dim_demand_component.csv`
 
@@ -38,16 +38,16 @@
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `gwp_vintage_id`, `vintage_code`
-- **Measures:** `is_study_default`
+- **Dimensions:** `gwp_vintage_id`, `vintage_code`, `is_study_default`
+- **Measures:** none
 
 ### `dim_impact_category.csv`
 
 - **Rows:** 97
 - **Format:** csv
 - **Units:** 1000 p., Accumulated Exceedance (AE), CTUe = PAF.m3.year, CTUh = cases, CTUh/kg = cases, DALY
-- **Dimensions:** `impact_category_id`, `method`, `unit`
-- **Measures:** `category_code`, `quality_flag`
+- **Dimensions:** `impact_category_id`, `method`, `category_code`, `unit`, `quality_flag`
+- **Measures:** none
 
 ### `dim_indicator.csv`
 
@@ -61,8 +61,8 @@
 
 - **Rows:** 171
 - **Format:** csv
-- **Dimensions:** `industry_id`, `industry_code`, `industry_name`, `industry_group_id`, `industry_type`, `technology_group`
-- **Measures:** `isic_rev3_division`, `isic_rev3_description`
+- **Dimensions:** `industry_id`, `industry_code`, `industry_name`, `industry_group_id`, `industry_type`, `isic_rev3_description`, `technology_group`
+- **Measures:** `isic_rev3_division`
 
 ### `dim_industry_group.csv`
 
@@ -75,29 +75,29 @@
 
 - **Rows:** 4
 - **Format:** csv
-- **Dimensions:** `model_id`, `model_label`, `background_year`, `gwp_vintage`, `scope_boundary`, `source_folder`, `note`
-- **Measures:** `analysis_year`, `mrio`, `danish_block_correction`, `capital`, `is_headline`
+- **Dimensions:** `model_id`, `model_label`, `background_year`, `mrio`, `danish_block_correction`, `gwp_vintage`, `scope_boundary`, `capital`, `is_headline`, `source_folder`, `note`
+- **Measures:** `analysis_year`
 
 ### `dim_production_layer.csv`
 
 - **Rows:** 22
 - **Format:** csv
-- **Dimensions:** `production_layer_id`, `layer_code`, `layer_name`
-- **Measures:** `layer_number`, `is_residual`, `has_node_detail`
+- **Dimensions:** `production_layer_id`, `layer_code`, `layer_name`, `is_residual`, `has_node_detail`
+- **Measures:** `layer_number`
 
 ### `dim_region.csv`
 
 - **Rows:** 50
 - **Format:** csv
-- **Dimensions:** `region_id`, `region_code`, `region_name`, `world_region`, `region_type`
-- **Measures:** `is_row_region`, `is_domestic`
+- **Dimensions:** `region_id`, `region_code`, `region_name`, `world_region`, `region_type`, `is_row_region`, `is_domestic`
+- **Measures:** none
 
 ### `dim_scenario.csv`
 
 - **Rows:** 33
 - **Format:** csv
-- **Dimensions:** `scenario_id`, `scenario_code`, `scenario_label`, `scenario_kind`, `ambition_basis`, `source`, `note`
-- **Measures:** `ambition`, `k_t`, `k_p`, `k_a`, `edited_objects`, `rebound`, `unbalanced_pct_of_output`, `in_combined`
+- **Dimensions:** `scenario_id`, `scenario_code`, `scenario_label`, `ambition`, `scenario_kind`, `k_t`, `k_p`, `k_a`, `edited_objects`, `rebound`, `ambition_basis`, `source`, `note`, `in_combined`
+- **Measures:** `unbalanced_pct_of_output`
 
 ### `dim_scope.csv`
 
@@ -117,8 +117,8 @@
 
 - **Rows:** 6
 - **Format:** csv
-- **Dimensions:** `substance_id`, `base_unit`, `gwp_vintage`
-- **Measures:** `substance_code`, `gwp100`, `is_restatable`
+- **Dimensions:** `substance_id`, `substance_code`, `base_unit`, `gwp_vintage`, `is_restatable`
+- **Measures:** `gwp100`
 
 ### `fact_capital_node.csv`
 

@@ -60,7 +60,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | kt CO2eq |
 | `origin` | dimension | str |  | domestic |
 | `value` | measure | float64 | kt CO2eq | 1692.585287632406 |
-| `share_of_total_pct` | measure | float64 | kt CO2eq | 39.124088474656496 |
+| `share_of_total_pct` | measure | float64 | % | 39.124088474656496 |
 
 ### `cabernard_target_scope3.csv`
 
@@ -72,7 +72,7 @@ units and are labelled as such wherever they are quoted.
 | `e_T_naive_MtCO2e` | measure | float64 |  | 4.391361962425819 |
 | `e_T_wdc_MtCO2e` | measure | float64 |  | 4.326197372569628 |
 | `double_counting_factor_f_T` | measure | float64 |  | 0.0148392663628651 |
-| `overestimate_vs_correct_pct` | measure | float64 |  | 1.5062787072399624 |
+| `overestimate_vs_correct_pct` | measure | float64 | % | 1.5062787072399624 |
 | `complement_identity_rel_dev` | measure | float64 |  | 7.702710422487045e-16 |
 | `note` | dimension | str |  | target-perspective scope 3 (Cabernard et |
 
@@ -82,7 +82,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
 | `target_set` | dimension | str |  | T1 Danish health and social work |
-| `n_target_nodes` | measure | int64 | kt CO2eq | 1 |
+| `n_target_nodes` | measure | int64 |  | 1 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |

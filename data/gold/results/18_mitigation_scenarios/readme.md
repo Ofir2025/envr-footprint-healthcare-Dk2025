@@ -21,23 +21,23 @@ Method, equations, and verification: [`docs/methods/replications/18_mitigation_s
 
 - **Rows:** 33
 - **Format:** csv
-- **Dimensions:** `scenario_id`, `scenario`
-- **Measures:** `ambition`, `blue_water_consumption`, `climate_change`, `land_use`, `material_extraction`, `waste_generation`, `shifts_burden`, `backfires_on_climate`, `non_climate_resolved`
+- **Dimensions:** `scenario_id`, `scenario`, `ambition`, `shifts_burden`, `backfires_on_climate`, `non_climate_resolved`
+- **Measures:** `blue_water_consumption`, `climate_change`, `land_use`, `material_extraction`, `waste_generation`
 
 ### `mitigation_scenarios.csv`
 
 - **Rows:** 165
 - **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
-- **Dimensions:** `country_consuming`, `scenario_id`, `scenario`, `scenario_type`, `indicator`, `unit`, `per_capita_unit`, `ambition_basis`, `source`, `note`, `model`
-- **Measures:** `analysis_year`, `ambition`, `baseline`, `scenario_value`, `change`, `change_pct`, `per_capita_change`, `k_t`, `k_p`, `k_a`, `edited_objects`, `rebound`, `unbalanced_pct_of_output`
+- **Dimensions:** `country_consuming`, `scenario_id`, `scenario`, `scenario_type`, `ambition`, `indicator`, `unit`, `per_capita_unit`, `k_t`, `k_p`, `k_a`, `edited_objects`, `rebound`, `ambition_basis`, `source`, `note`, `model`
+- **Measures:** `analysis_year`, `baseline`, `scenario_value`, `change`, `change_pct`, `per_capita_change`, `unbalanced_pct_of_output`
 
 ### `scenario_selection.csv`
 
 - **Rows:** 8
 - **Format:** csv
-- **Dimensions:** `scenario_id`, `scenario`
-- **Measures:** `ambition`, `in_combined`
+- **Dimensions:** `scenario_id`, `scenario`, `ambition`, `in_combined`
+- **Measures:** none
 
 ### `scenarios_by_producing_node.csv.gz`
 
@@ -45,13 +45,13 @@ Method, equations, and verification: [`docs/methods/replications/18_mitigation_s
 - **Format:** csv
 - **Resolution:** 3+ regions x 158+ industries (sampled)
 - **Units:** kt CO2eq
-- **Dimensions:** `country_consuming`, `scenario_id`, `scenario`, `indicator`, `unit`, `producing_country_iso3`, `producing_country_name`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `model`
-- **Measures:** `analysis_year`, `ambition`, `value_type`, `value`
+- **Dimensions:** `country_consuming`, `scenario_id`, `scenario`, `ambition`, `indicator`, `unit`, `producing_country_iso3`, `producing_country_name`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `value_type`, `model`
+- **Measures:** `analysis_year`, `value`
 
 ### `target_consistency.csv`
 
 - **Rows:** 12
 - **Format:** csv
 - **Units:** %, kt CO2eq
-- **Dimensions:** `quantity`, `unit`, `target`, `basis`
-- **Measures:** `value`, `caveat`
+- **Dimensions:** `quantity`, `unit`, `target`, `basis`, `caveat`
+- **Measures:** `value`

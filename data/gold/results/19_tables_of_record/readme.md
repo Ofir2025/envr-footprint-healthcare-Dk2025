@@ -17,43 +17,43 @@
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `Unit`
-- **Measures:** `Impact category`, `Health care`, `Per person`, `Danish total`, `Share of national (%)`
+- **Dimensions:** `Impact category`, `Unit`
+- **Measures:** `Health care`, `Per person`, `Danish total`, `Share of national (%)`
 
 ### `table_02.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `Unit`
-- **Measures:** `Impact category`, `2019`, `2022`, `Change (%)`
+- **Dimensions:** `Impact category`, `Unit`
+- **Measures:** `2019`, `2022`, `Change (%)`
 
 ### `table_03.csv`
 
 - **Rows:** 9
 - **Format:** csv
-- **Dimensions:** `Activity group`
-- **Measures:** `2019 (kt CO₂-eq)`, `2022 (kt CO₂-eq)`, `Change (kt)`, `Driver`
+- **Dimensions:** `Activity group`, `Driver`
+- **Measures:** `2019 (kt CO₂-eq)`, `2022 (kt CO₂-eq)`, `Change (kt)`
 
 ### `table_04.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `Unit`
-- **Measures:** `Impact category`, `Scope 1`, `Scope 2`, `Scope 3`, `Outside protocol`, `TOTAL`
+- **Dimensions:** `Impact category`, `Unit`
+- **Measures:** `Scope 1`, `Scope 2`, `Scope 3`, `Outside protocol`, `TOTAL`
 
 ### `table_05.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `Source`, `Model family`
-- **Measures:** `Year`, `Mt CO₂-eq`, `t per person`, `Capital`
+- **Dimensions:** `Source`, `Model family`, `Capital`
+- **Measures:** `Year`, `Mt CO₂-eq`, `t per person`
 
 ### `table_06.csv`
 
 - **Rows:** 4
 - **Format:** csv
-- **Dimensions:** `Basis`
-- **Measures:** `Mt CO₂-eq`, `t per person`, `Share of national (%)`, `Comparable`
+- **Dimensions:** `Basis`, `Comparable`
+- **Measures:** `Mt CO₂-eq`, `t per person`, `Share of national (%)`
 
 ### `table_07.csv`
 
@@ -66,22 +66,22 @@
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `Unit`
-- **Measures:** `Impact category`, `Capital excluded (headline)`, `Capital as a service flow`, `Capital endogenised`, `Endogenised change (%)`
+- **Dimensions:** `Impact category`, `Unit`
+- **Measures:** `Capital excluded (headline)`, `Capital as a service flow`, `Capital endogenised`, `Endogenised change (%)`
 
 ### `table_10.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Impact category`, `Deterministic`, `Median`, `2.5th percentile`, `97.5th percentile`, `CV, Tier 2 (%)`, `CV, Tier 1 (%)`
+- **Dimensions:** `Impact category`
+- **Measures:** `Deterministic`, `Median`, `2.5th percentile`, `97.5th percentile`, `CV, Tier 2 (%)`, `CV, Tier 1 (%)`
 
 ### `table_11.csv`
 
 - **Rows:** 7
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Contributor`, `Share of variance (%)`
+- **Dimensions:** `Contributor`
+- **Measures:** `Share of variance (%)`
 
 ### `table_12.csv`
 
@@ -94,26 +94,26 @@
 
 - **Rows:** 33
 - **Format:** csv
-- **Dimensions:** `Scenario`
-- **Measures:** `Climate (%)`, `Material (%)`, `Blue water (%)`, `Land (%)`, `Waste (%)`
+- **Dimensions:** `Scenario`, `Material (%)`, `Blue water (%)`, `Land (%)`, `Waste (%)`
+- **Measures:** `Climate (%)`
 
 ### `table_14.csv`
 
 - **Rows:** 13
 - **Format:** csv
-- **Dimensions:** `Danish industry`
-- **Measures:** `National accounts (M.EUR)`, `EXIOBASE v3.8.2`, `EXIOBASE v3.10.2`
+- **Dimensions:** `Danish industry`, `EXIOBASE v3.8.2`, `EXIOBASE v3.10.2`
+- **Measures:** `National accounts (M.EUR)`
 
 ### `table_15.csv`
 
 - **Rows:** 6
 - **Format:** csv
-- **Dimensions:** `Parameter`, `Basis`
-- **Measures:** `GSD`, `95 % factor range`
+- **Dimensions:** `Parameter`, `GSD`, `95 % factor range`, `Basis`
+- **Measures:** none
 
 ### `tables_of_record_index.csv`
 
 - **Rows:** 14
 - **Format:** csv
-- **Dimensions:** `source`
-- **Measures:** `number`, `title`, `rows`, `columns`, `supersedes`
+- **Dimensions:** `title`, `source`, `supersedes`
+- **Measures:** `number`, `rows`, `columns`

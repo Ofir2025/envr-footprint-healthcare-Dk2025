@@ -56,9 +56,9 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `check` | dimension | str |  | C1 scope partition vs grand total |
-| `status` | measure | str |  | PASS |
-| `detail` | measure | str |  | partition total 4,710.58 + self-supply l |
-| `known_conventions` | measure | str |  | the capital baseline excludes the bottom |
+| `status` | dimension | str |  | PASS |
+| `detail` | dimension | str |  | partition total 4,710.58 + self-supply l |
+| `known_conventions` | dimension | str |  | the capital baseline excludes the bottom |
 
 ### `danish_healthcare_benchmark_boundary_matched.csv`
 
@@ -66,16 +66,16 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `basis` | dimension | str |  | Schmidt & Merciai 2023 (published compar |
 | `sector_boundary` | dimension | str |  | Health and social work services (NACE Q, |
-| `capital` | measure | str |  | endogenised |
+| `capital` | dimension | str |  | endogenised |
 | `model_type` | dimension | str |  | consequential |
 | `year` | measure | int64 |  | 2016 |
 | `value_kt` | measure | float64 |  | 6100.0 |
 | `t_per_capita` | measure | float64 |  | 1.07 |
-| `share_of_national_pct` | measure | float64 |  | 8.3 |
-| `comparable_with_published` | measure | bool |  | True |
+| `share_of_national_pct` | measure | float64 | % | 8.3 |
+| `comparable_with_published` | dimension | bool |  | True |
 | `ratio_to_published` | measure | float64 |  | 1.0 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `residual_caveat` | measure | str |  | their model is consequential (marginal), |
+| `residual_caveat` | dimension | str |  | their model is consequential (marginal), |
 
 ### `demand_vector_consistency.csv`
 
@@ -87,7 +87,7 @@ units and are labelled as such wherever they are quoted.
 | `exiobase_dk_final_demand_meur` | measure | float64 |  | 50.863367248858005 |
 | `ratio` | measure | float64 |  | 38.34405355606751 |
 | `analysis_year` | measure | int64 |  | 2022 |
-| `interpretation` | measure | str |  | y_H is superimposed on the model rather  |
+| `interpretation` | dimension | str |  | y_H is superimposed on the model rather  |
 
 ### `dst_concordance_validation.csv`
 
@@ -97,26 +97,26 @@ units and are labelled as such wherever they are quoted.
 | `source_national_accounts` | dimension | str |  | Statistics Denmark, published 117-indust |
 | `source_concordance` | dimension | str |  | EXIOBASE developers' NACE rev.2 concorda |
 | `check` | dimension | str |  | completeness |
-| `subject` | measure | str |  | every EXIOBASE industry appears exactly  |
-| `exiobase_industries` | measure | str |  | 163 |
-| `dst_industries` | measure | str |  | 86;87;88 |
+| `subject` | dimension | str |  | every EXIOBASE industry appears exactly  |
+| `exiobase_industries` | dimension | str |  | 163 |
+| `dst_industries` | dimension | str |  | 86;87;88 |
 | `exiobase_output_meur` | measure | float64 |  | 37163.1 |
 | `dst_output_meur` | measure | float64 |  | 36639.5 |
 | `output_difference_meur` | measure | float64 |  | -954.2 |
 | `ratio_exiobase_over_dst` | measure | float64 |  | 1.014 |
 | `ratio_relative_to_national_aggregate` | measure | float64 |  | 0.975 |
-| `share_of_exiobase_output_pct` | measure | float64 |  | 96.17 |
-| `share_of_dst_output_pct` | measure | float64 |  | 98.74 |
-| `flag` | measure | str |  | pass |
-| `detail` | measure | str |  | 163 rows, 163 expected; duplicated []; a |
+| `share_of_exiobase_output_pct` | measure | float64 | % | 96.17 |
+| `share_of_dst_output_pct` | measure | float64 | % | 98.74 |
+| `flag` | dimension | str |  | pass |
+| `detail` | dimension | str |  | 163 rows, 163 expected; duplicated []; a |
 
 ### `figaro_dk_footprint_by_final_demand.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
-| `final_demand_category` | measure | str | kt CO2eq | P31_S14 |
-| `final_demand_label` | measure | str | kt CO2eq | Final consumption expenditure of househo |
+| `final_demand_category` | dimension | str |  | P31_S14 |
+| `final_demand_label` | dimension | str |  | Final consumption expenditure of househo |
 | `value` | measure | float64 | kt CO2eq | 30172.219 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `source` | dimension | str |  | Eurostat env_ac_ghgfp (FIGARO), 2022 |
@@ -127,7 +127,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
 | `country_producing` | dimension | str |  | WORLD |
-| `is_aggregate` | measure | bool | kt CO2eq | True |
+| `is_aggregate` | dimension | bool |  | True |
 | `value` | measure | float64 | kt CO2eq | 57401.691 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `source` | dimension | str |  | Eurostat env_ac_ghgfp (FIGARO), 2022 |
@@ -138,7 +138,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | EU27_2020 |
 | `sector_consuming` | dimension | str |  | Human health services |
-| `cpa_code` | measure | str | kt | CPA_Q86 |
+| `cpa_code` | dimension | str |  | CPA_Q86 |
 | `value` | measure | float64 | kt | 128627.907 |
 | `unit` | dimension | str |  | kt |
 | `per_capita_t` | measure | float64 | kt | 0.2879286897439226 |
@@ -149,7 +149,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `quantity` | dimension | str |  | Danish national consumption-based GHG fo |
 | `source` | dimension | str |  | Eurostat FIGARO (env_ac_ghgfp) |
 | `value` | measure | float64 | kt CO2eq | 57401.691 |
@@ -166,14 +166,14 @@ units and are labelled as such wherever they are quoted.
 | `model_family` | dimension | str |  | national accounts (FIGARO) |
 | `total_mt` | measure | float64 |  | 57.4 |
 | `per_capita_t` | measure | float64 |  | 9.77 |
-| `capital` | measure | str |  | exogenous |
+| `capital` | dimension | str |  | exogenous |
 | `note` | dimension | str |  | official EU statistical product |
 
 ### `recipe_validation_2022.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Unnamed: 0` | measure | str |  | water transport |
+| `Unnamed: 0` | dimension | str |  | water transport |
 | `EXIOBASE 2022 DK health column (%)` | measure | float64 |  | 3.9 |
 | `DST IOT 2022 health industries (%)` | measure | float64 |  | 0.4 |
 
@@ -191,13 +191,13 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `reference_year` | measure | int64 |  | 2019 |
-| `exiobase_code` | measure | str |  | COIL |
-| `exiobase_name` | measure | str |  | Extraction of crude petroleum and servic |
-| `dst_industries` | measure | str |  | 060000;090000 |
+| `exiobase_code` | dimension | str |  | COIL |
+| `exiobase_name` | dimension | str |  | Extraction of crude petroleum and servic |
+| `dst_industries` | dimension | str |  | 060000;090000 |
 | `n_dst` | measure | int64 |  | 2 |
-| `dst_output_share` | measure | str |  | 0.860997;0.139003 |
-| `dst_import_share` | measure | str |  | 0.994294;0.005706 |
-| `member_intensity_kt_per_bndkk` | measure | str |  | 74.609;0.985 |
+| `dst_output_share` | dimension | str |  | 0.860997;0.139003 |
+| `dst_import_share` | dimension | str |  | 0.994294;0.005706 |
+| `member_intensity_kt_per_bndkk` | dimension | str |  | 74.609;0.985 |
 | `q_import_weighted` | measure | float64 |  | 72.65677170822848 |
 | `q_output_weighted` | measure | float64 |  | 59.55176938460458 |
 | `q_equal_weighted` | measure | float64 |  | 37.79709882872971 |
@@ -222,10 +222,10 @@ units and are labelled as such wherever they are quoted.
 | `value_2019` | measure | float64 | varies by row | 57.47920799643595 |
 | `value_2022` | measure | float64 | varies by row | 95.50495307556358 |
 | `ratio_2022_over_2019` | measure | float64 | varies by row | 1.6615565246042612 |
-| `change_pct` | measure | float64 | varies by row | 66.15565246042611 |
+| `change_pct` | measure | float64 | % | 66.15565246042611 |
 | `per_capita_unit` | dimension | str |  | m3 per person |
-| `comparable_as_a_trend` | measure | bool | varies by row | False |
-| `why_not` | measure | str | varies by row | the background model and the sea-transpo |
+| `comparable_as_a_trend` | dimension | bool |  | False |
+| `why_not` | dimension | str |  | the background model and the sea-transpo |
 
 ### `year_comparison_climate_bridge.csv`
 
@@ -233,19 +233,19 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
 | `value_2019` | measure | float64 |  | 2605.151771420495 |
-| `share_pct_2019` | measure | float64 |  | 40.952900791806286 |
+| `share_pct_2019` | measure | float64 | % | 40.952900791806286 |
 | `value_2022` | measure | float64 |  | 595.84969141357 |
-| `share_pct_2022` | measure | float64 |  | 12.644246355856732 |
+| `share_pct_2022` | measure | float64 | % | 12.644246355856732 |
 | `delta_kt` | measure | float64 |  | -2009.3020800069253 |
-| `share_of_total_change_pct` | measure | float64 |  | 121.85573525178977 |
-| `driver` | measure | str |  | sea-transport reallocation, applied in 2 |
+| `share_of_total_change_pct` | measure | float64 | % | 121.85573525178977 |
+| `driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `year_comparison_run_differences.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `dimension` | measure | str |  | reference year |
-| `y2019` | measure | str |  | 2019 |
-| `y2022` | measure | str |  | 2022 |
-| `kind` | measure | str |  | change in the world |
-| `effect` | measure | str |  | health-care expenditure rises 15 %, from |
+| `dimension` | dimension | str |  | reference year |
+| `y2019` | dimension | str |  | 2019 |
+| `y2022` | dimension | str |  | 2022 |
+| `kind` | dimension | str |  | change in the world |
+| `effect` | dimension | str |  | health-care expenditure rises 15 %, from |

@@ -57,39 +57,39 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `scenario_id` | dimension | str |  | B1 |
 | `scenario` | dimension | str |  | B1 grid and district heat, Danish, 2030 |
-| `ambition` | measure | str |  | KF22 to 2030 |
+| `ambition` | dimension | str |  | KF22 to 2030 |
 | `blue_water_consumption` | measure | float64 |  | -1.4879704410679468e-14 |
 | `climate_change` | measure | float64 |  | -3.0476807431981245 |
 | `land_use` | measure | float64 |  | 0.0 |
 | `material_extraction` | measure | float64 |  | 0.0 |
 | `waste_generation` | measure | float64 |  | -1.2821856898918456 |
-| `shifts_burden` | measure | bool |  | False |
-| `backfires_on_climate` | measure | bool |  | False |
-| `non_climate_resolved` | measure | bool |  | True |
+| `shifts_burden` | dimension | bool |  | False |
+| `backfires_on_climate` | dimension | bool |  | False |
+| `non_climate_resolved` | dimension | bool |  | True |
 
 ### `mitigation_scenarios.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `scenario_id` | dimension | str |  | B1 |
 | `scenario` | dimension | str |  | B1 grid and district heat, Danish, 2030 |
 | `scenario_type` | dimension | str |  | background pathway |
-| `ambition` | measure | str | varies by row | KF22 to 2030 |
+| `ambition` | dimension | str |  | KF22 to 2030 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `baseline` | measure | float64 | varies by row | 4712.417605953846 |
 | `scenario_value` | measure | float64 | varies by row | 4568.798162038112 |
 | `change` | measure | float64 | varies by row | -143.61944391573343 |
-| `change_pct` | measure | float64 | varies by row | -3.0476807431981245 |
+| `change_pct` | measure | float64 | % | -3.0476807431981245 |
 | `per_capita_change` | measure | float64 | varies by row | -24.45243893944813 |
 | `per_capita_unit` | dimension | str |  | kg CO2eq per capita |
-| `k_t` | measure | str | varies by row | 0.862266 |
-| `k_p` | measure | str | varies by row | 1 |
-| `k_a` | measure | str | varies by row | 0.862266 |
-| `edited_objects` | measure | str | varies by row | B |
-| `rebound` | measure | bool | varies by row | False |
+| `k_t` | dimension | str |  | 0.862266 |
+| `k_p` | dimension | str |  | 1 |
+| `k_a` | dimension | str |  | 0.862266 |
+| `edited_objects` | dimension | str |  | B |
+| `rebound` | dimension | bool |  | False |
 | `unbalanced_pct_of_output` | measure | float64 | varies by row | 0.0 |
 | `ambition_basis` | dimension | str |  | the Danish grid, which is what the proje |
 | `source` | dimension | str |  | Danish Energy Agency KF22: 122.7 -> 16.9 |
@@ -102,18 +102,18 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `scenario_id` | dimension | str |  | P1 |
 | `scenario` | dimension | str |  | P1 hospital energy and transport |
-| `ambition` | measure | str |  | -75 % by 2030, 100% of the target met |
-| `in_combined` | measure | str |  | C1 |
+| `ambition` | dimension | str |  | -75 % by 2030, 100% of the target met |
+| `in_combined` | dimension | str |  | C1 |
 
 ### `scenarios_by_producing_node.csv.gz`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `scenario_id` | dimension | str |  | B1 |
 | `scenario` | dimension | str |  | B1 grid and district heat, Danish, 2030 |
-| `ambition` | measure | str | kt CO2eq | KF22 to 2030 |
+| `ambition` | dimension | str |  | KF22 to 2030 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `producing_country_iso3` | dimension | str |  | AUT |
@@ -121,7 +121,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_code` | dimension | str |  | WHEA |
 | `producing_sector_name` | dimension | str |  | Cultivation of wheat |
 | `producing_sector_group` | dimension | str |  | Food and catering |
-| `value_type` | measure | str | kt CO2eq | supply chain |
+| `value_type` | dimension | str |  | supply chain |
 | `value` | measure | float64 | kt CO2eq | 0.068653306187386 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 
@@ -134,4 +134,4 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | kt CO2eq |
 | `target` | dimension | str |  | Danske Regioner, January 2024 |
 | `basis` | dimension | str |  | consumption-based CO2 of hospitals, agai |
-| `caveat` | measure | str | varies by row | the regional target covers hospitals whi |
+| `caveat` | dimension | str |  | the regional target covers hospitals whi |

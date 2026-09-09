@@ -30,5 +30,5 @@ Method, equations, and verification: [`docs/methods/replications/05_waste_dst_ac
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `industry`, `source`
-- **Measures:** `analysis_year`, `industry_code`, `expenditure_m_dkk`, `direct_intensity_t_per_mdkk`, `multiplier_t_per_mdkk`, `hazardous_multiplier_t_per_mdkk`, `direct_waste_t`, `total_waste_t`, `hazardous_waste_t`, `boundary`
+- **Dimensions:** `industry`, `source`, `boundary`
+- **Measures:** `analysis_year`, `industry_code`, `expenditure_m_dkk`, `direct_intensity_t_per_mdkk`, `multiplier_t_per_mdkk`, `hazardous_multiplier_t_per_mdkk`, `direct_waste_t`, `total_waste_t`, `hazardous_waste_t`

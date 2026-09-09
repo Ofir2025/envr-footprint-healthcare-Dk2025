@@ -56,10 +56,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `capital_treatment_id` | dimension | int64 |  | 1 |
-| `treatment_code` | measure | str |  | baseline_capital_excluded |
-| `treatment_name` | measure | str |  | Capital excluded (Steenmeijer-comparable |
-| `capital_included` | measure | bool |  | False |
-| `produced_by` | measure | str |  | analysis.capital_gfcf |
+| `treatment_code` | dimension | str |  | baseline_capital_excluded |
+| `treatment_name` | dimension | str |  | Capital excluded (Steenmeijer-comparable |
+| `capital_included` | dimension | bool |  | False |
+| `produced_by` | dimension | str |  | analysis.capital_gfcf |
 
 ### `dim_demand_component.csv`
 
@@ -81,7 +81,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `gwp_vintage_id` | dimension | int64 |  | 1 |
 | `vintage_code` | dimension | str |  | IPCC SAR (1995) |
-| `is_study_default` | measure | bool |  | False |
+| `is_study_default` | dimension | bool |  | False |
 
 ### `dim_impact_category.csv`
 
@@ -89,9 +89,9 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `impact_category_id` | dimension | int64 |  | 1 |
 | `method` | dimension | str |  | Damage Approach |
-| `category_code` | measure | str | varies by row | EPS (Steen, 1999)) |
+| `category_code` | dimension | str |  | EPS (Steen, 1999)) |
 | `unit` | dimension | str |  | elu |
-| `quality_flag` | measure | str | varies by row | ok |
+| `quality_flag` | dimension | str |  | ok |
 
 ### `dim_indicator.csv`
 
@@ -111,7 +111,7 @@ units and are labelled as such wherever they are quoted.
 | `industry_group_id` | dimension | int64 |  | 6 |
 | `industry_type` | dimension | str |  | MRIO industry |
 | `isic_rev3_division` | measure | float64 |  | 1.0 |
-| `isic_rev3_description` | measure | str |  | Agriculture, hunting and related service |
+| `isic_rev3_description` | dimension | str |  | Agriculture, hunting and related service |
 | `technology_group` | dimension | str |  | Low tech |
 
 ### `dim_industry_group.csv`
@@ -129,12 +129,12 @@ units and are labelled as such wherever they are quoted.
 | `model_label` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `background_year` | dimension | str |  | 2022_snacship |
 | `analysis_year` | measure | int64 |  | 2022 |
-| `mrio` | measure | str |  | EXIOBASE v3.8.2 IOT ixi |
-| `danish_block_correction` | measure | str |  | sea-transport reallocation (Rormose Jens |
+| `mrio` | dimension | str |  | EXIOBASE v3.8.2 IOT ixi |
+| `danish_block_correction` | dimension | str |  | sea-transport reallocation (Rormose Jens |
 | `gwp_vintage` | dimension | str |  | IPCC AR6 |
 | `scope_boundary` | dimension | str |  | health and eldercare |
-| `capital` | measure | str |  | excluded from the headline |
-| `is_headline` | measure | bool |  | True |
+| `capital` | dimension | str |  | excluded from the headline |
+| `is_headline` | dimension | bool |  | True |
 | `source_folder` | dimension | str |  | 01_eriksen_replication/2022 |
 | `note` | dimension | str |  | the configured run; every fact this buil |
 
@@ -146,8 +146,8 @@ units and are labelled as such wherever they are quoted.
 | `layer_code` | dimension | str |  | 0 |
 | `layer_number` | measure | float64 |  | 0.0 |
 | `layer_name` | dimension | str |  | direct (on-site, layer 0) |
-| `is_residual` | measure | bool |  | False |
-| `has_node_detail` | measure | bool |  | True |
+| `is_residual` | dimension | bool |  | False |
+| `has_node_detail` | dimension | bool |  | True |
 
 ### `dim_region.csv`
 
@@ -158,8 +158,8 @@ units and are labelled as such wherever they are quoted.
 | `region_name` | dimension | str |  | Austria |
 | `world_region` | dimension | str |  | Europe |
 | `region_type` | dimension | str |  | MRIO region |
-| `is_row_region` | measure | bool |  | False |
-| `is_domestic` | measure | bool |  | False |
+| `is_row_region` | dimension | bool |  | False |
+| `is_domestic` | dimension | bool |  | False |
 
 ### `dim_scenario.csv`
 
@@ -168,18 +168,18 @@ units and are labelled as such wherever they are quoted.
 | `scenario_id` | dimension | int64 |  | 1 |
 | `scenario_code` | dimension | str |  | B1 |
 | `scenario_label` | dimension | str |  | B1 grid and district heat, Danish, 2030 |
-| `ambition` | measure | str |  | KF22 to 2030 |
+| `ambition` | dimension | str |  | KF22 to 2030 |
 | `scenario_kind` | dimension | str |  | background pathway |
-| `k_t` | measure | str |  | 0.862266 |
-| `k_p` | measure | str |  | 1 |
-| `k_a` | measure | str |  | 0.862266 |
-| `edited_objects` | measure | str |  | B |
-| `rebound` | measure | bool |  | False |
+| `k_t` | dimension | str |  | 0.862266 |
+| `k_p` | dimension | str |  | 1 |
+| `k_a` | dimension | str |  | 0.862266 |
+| `edited_objects` | dimension | str |  | B |
+| `rebound` | dimension | bool |  | False |
 | `unbalanced_pct_of_output` | measure | float64 |  | 0.0 |
 | `ambition_basis` | dimension | str |  | the Danish grid, which is what the proje |
 | `source` | dimension | str |  | Danish Energy Agency KF22: 122.7 -> 16.9 |
 | `note` | dimension | str |  | scales the intensity matrix at transmiss |
-| `in_combined` | measure | bool |  | False |
+| `in_combined` | dimension | bool |  | False |
 
 ### `dim_scope.csv`
 
@@ -203,11 +203,11 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `substance_id` | dimension | int64 |  | 1 |
-| `substance_code` | measure | str |  | CH4_biogenic |
+| `substance_code` | dimension | str |  | CH4_biogenic |
 | `base_unit` | dimension | str |  | kg |
 | `gwp100` | measure | float64 |  | 27.0 |
 | `gwp_vintage` | dimension | str |  | IPCC AR6 (2021) |
-| `is_restatable` | measure | bool |  | True |
+| `is_restatable` | dimension | bool |  | True |
 
 ### `fact_capital_node.csv`
 
@@ -286,7 +286,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator_id` | dimension | int64 |  | 2 |
 | `healthcare_kt_co2eq` | measure | float64 |  | 3740.212749906714 |
 | `national_kt_co2eq` | measure | float64 |  | 64766.870324631665 |
-| `healthcare_share_pct` | measure | float64 |  | 5.774885726544461 |
+| `healthcare_share_pct` | measure | float64 | % | 5.774885726544461 |
 | `healthcare_t_per_capita` | measure | float64 |  | 0.6368032168492488 |
 | `not_restatable_kt_co2eq` | measure | float64 |  | 155.29988960547564 |
 
@@ -319,7 +319,7 @@ units and are labelled as such wherever they are quoted.
 | `national_supply_chain` | measure | float64 |  | 67755.50852916535 |
 | `national_direct_households` | measure | float64 |  | 9721.994804699298 |
 | `healthcare_footprint_mrio` | measure | float64 |  | 3943.3970167956713 |
-| `healthcare_share_pct` | measure | float64 |  | 5.089731660302548 |
+| `healthcare_share_pct` | measure | float64 | % | 5.089731660302548 |
 | `indicator_id` | dimension | int64 |  | 2 |
 
 ### `fact_production_layer.parquet`

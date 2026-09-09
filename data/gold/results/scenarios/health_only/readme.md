@@ -17,29 +17,29 @@
 
 - **Rows:** 9
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Contribution`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
+- **Dimensions:** `Contribution`
+- **Measures:** `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
 
 ### `full_results_tables_fig1_relative_pct.csv`
 
 - **Rows:** 9
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Contribution`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
+- **Dimensions:** `Contribution`
+- **Measures:** `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
 
 ### `full_results_tables_fig2_absolute.csv`
 
 - **Rows:** 8
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Hotspot`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
+- **Dimensions:** `Hotspot`
+- **Measures:** `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
 
 ### `full_results_tables_fig2_relative_pct.csv`
 
 - **Rows:** 8
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Hotspot`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
+- **Dimensions:** `Hotspot`
+- **Measures:** `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
 
 ### `full_results_tables_fig3_absolute.csv`
 
@@ -66,19 +66,19 @@
 
 - **Rows:** 7
 - **Format:** csv
-- **Dimensions:** `Category group`
-- **Measures:** `Unnamed: 0`, `Climate change (kt CO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`, `Basic price expenditure (million euros)`
+- **Dimensions:** `Unnamed: 0`, `Category group`, `Climate change (kt CO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`, `Basic price expenditure (million euros)`
+- **Measures:** none
 
 ### `table_01.csv`
 
 - **Rows:** 7
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Unnamed: 0`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`, `Expenditure (MEUR)`
+- **Dimensions:** `Unnamed: 0`
+- **Measures:** `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`, `Expenditure (MEUR)`
 
 ### `table_s05_dk.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Unnamed: 0`, `Healthcare footprint`, `National consumption footprint`, `Healthcare share of national consumption footprint (%)`
+- **Dimensions:** `Unnamed: 0`
+- **Measures:** `Healthcare footprint`, `National consumption footprint`, `Healthcare share of national consumption footprint (%)`

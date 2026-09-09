@@ -58,6 +58,19 @@ DIMENSION_HINTS = (
 ROW_REGIONS = ("RoW Asia and Pacific", "RoW America", "RoW Europe",
                "RoW Africa", "RoW Middle East")
 
+
+def _is_measure_dtype(dtype) -> bool:
+    """Whether a column of this dtype can carry a numeric measure.
+
+    ``pandas.api.types.is_numeric_dtype`` returns ``True`` for boolean
+    columns (bool is a numpy integer subtype), which would otherwise call
+    every ``is_*`` / ``has_*`` flag a measure. A measure is a quantity, and a
+    boolean is not one, so it is excluded here explicitly.
+    """
+    return (pd.api.types.is_numeric_dtype(dtype)
+            and not pd.api.types.is_bool_dtype(dtype))
+
+
 #: Shared material folded in from the hand-written
 #: ``00_core_footprint/README_data_dictionary.md`` (now superseded by this
 #: generator): the column vocabulary, region coding and the reconciliation
@@ -111,6 +124,40 @@ COMMON_COLUMNS: tuple[str, ...] = (
     "units and are labelled as such wherever they are quoted.",
     "",
 )
+
+#: Hand-written knowledge that a regeneration must not erase, keyed by the
+#: folder's *top-level* component (so a year or scenario subfolder inherits
+#: its approach's note, the same lookup `_methods_summary` uses). A full
+#: rewrite of `data_dictionary.md` on every run means anything a human needs
+#: preserved has to live here rather than be edited into the generated file
+#: directly - it would simply be overwritten on the next run. Restored
+#: verbatim from the hand-written `00_core_footprint/README_data_dictionary.md`
+#: this generator superseded (`git show 5a007a5:data/gold/results/00_core_footprint/README_data_dictionary.md`).
+NOTES: dict[str, str] = {
+    "00_core_footprint": (
+        "## Important note on `healthcare_services`\n"
+        "\n"
+        "Following Steenmeijer et al. (2022), the healthcare-services component enters\n"
+        "the model as the **scaled intermediate-input column** of the Danish\n"
+        "\"Health and social work\" industry: value added (wages, surplus) carries no\n"
+        "environmental pressure and is therefore not part of `y_H`. Consequently\n"
+        "`sum(y_H)` is smaller than total health expenditure; `expenditure_summary.csv`\n"
+        "reports both so the relationship is explicit. Pharmaceuticals and appliances\n"
+        "enter at their full basic-price value, distributed over supplying regions."
+    ),
+}
+
+
+def _folder_notes(folder: str) -> str:
+    """Hand-written note for one folder, or ``""`` when it has none.
+
+    Parameters
+    ----------
+    folder : str
+        Gold folder name, relative to the gold root - looked up by its
+        top-level component, exactly like :func:`_methods_summary`.
+    """
+    return NOTES.get(folder.split(os.sep)[0], "")
 
 
 def _read_head(path: str, n: int = 400) -> tuple[pd.DataFrame, int]:
@@ -192,13 +239,31 @@ def describe_table(path: str) -> dict[str, object]:
     """
     head, rows = _read_head(path)
     cols = list(head.columns)
-    # A surrogate key is a dimension column even though it is numeric. Without
-    # this every star fact described itself as having no dimensions and six
-    # measures, which is the opposite of what it is.
+    # A measure is a column that carries a numeric quantity - full stop. Every
+    # non-numeric column (string, boolean, datetime) is a dimension whatever
+    # its name says: `treatment_code` and `capital_included` do not become
+    # measures just because "treatment" and "capital" are not in
+    # DIMENSION_HINTS (`not _is_measure_dtype`, first clause below, decides
+    # this unconditionally; the hint match in the third clause is then
+    # redundant for a non-numeric column, but is kept so the hint list stays
+    # in active use rather than becoming a name-only relic).
+    #
+    # For a *numeric* column, only the explicit `*_id` suffix promotes it to
+    # a surrogate-key dimension - the hint list is deliberately NOT widened
+    # to numeric columns in general: tried, and reverted, because several of
+    # the 35 hints are ordinary English words that also occur inside real
+    # measures' names - `share_of_scope_pct`, `scenario_value`,
+    # `group_imports_bndkk`, `sector_share_of_national_pct` all matched
+    # "scope" / "scenario" / "group" / "sector" and would have been
+    # mislabelled dimensions. A column such as `analysis_year` still ends up
+    # with no unit regardless (see `_column_unit`'s narrower, suffix-anchored
+    # name check); it keeps the `measure` role here rather than being forced
+    # into `dimension` by an incidental name match.
     dims = [c for c in cols
-            if c.endswith("_id")
+            if not _is_measure_dtype(head[c].dtype)
+            or c.endswith("_id")
             or (any(h in c.lower() for h in DIMENSION_HINTS)
-                and not pd.api.types.is_numeric_dtype(head[c]))]
+                and not _is_measure_dtype(head[c].dtype))]
     measures = [c for c in cols if c not in dims]
     units = sorted(head["unit"].dropna().unique().tolist())[:6] if "unit" in cols else []
 
@@ -315,6 +380,81 @@ def write_folder_readme(folder: str) -> str | None:
     return out
 
 
+#: A column named this way is a percentage of *something*, never a physical
+#: quantity, whatever the table's own ``unit`` column says - `share_of_scope_pct`
+#: and `healthcare_share_pct` are `%`, not `kt CO2eq`. Checked only for
+#: numeric columns (see :func:`_column_unit`): a *string* column such as
+#: `input_group_share_pct` is a category label that happens to carry that
+#: suffix, not a percentage value, and a string never carries a unit anyway.
+_PCT_SUFFIXES = ("_pct", "_percent", "_share")
+
+
+def _is_percentage_name(col: str) -> bool:
+    lc = col.lower()
+    return lc.endswith(_PCT_SUFFIXES) or "share" in lc
+
+
+#: Name patterns that never carry a physical unit, whatever the table's own
+#: `unit` column says: identifiers, codes, calendar years, and row/column/
+#: draw counts. Most numeric dimension columns are already caught by
+#: `DIMENSION_HINTS` in `describe_table` (e.g. `analysis_year`, `*_id`); this
+#: catches the rest - a numeric `industry_code`, or a count column such as
+#: `n_stressor_rows` or `n_nonzero_factors`, which sit beside a `unit` column
+#: in their own tables and would otherwise inherit it (e.g. "kt").
+_NO_UNIT_SUFFIXES = ("_id", "_year", "_code", "_count", "_rank", "_flag")
+_NO_UNIT_NAMES = {"id", "year", "code", "count", "rank", "flag", "rows",
+                   "columns", "draws", "index"}
+_NO_UNIT_PREFIXES = ("n_",)
+
+
+def _is_no_unit_name(col: str) -> bool:
+    lc = col.lower()
+    return (lc in _NO_UNIT_NAMES
+            or lc.endswith(_NO_UNIT_SUFFIXES)
+            or lc.startswith(_NO_UNIT_PREFIXES))
+
+
+def _column_unit(col: str, dtype, dims: set[str], unit_of: str) -> str:
+    """The unit for one column - only ever the unit that column itself
+    carries, never the table's shared unit borrowed for an unrelated column.
+
+    Parameters
+    ----------
+    col : str
+        Column name.
+    dtype
+        The column's pandas dtype.
+    dims : set of str
+        Columns this table classifies as dimensions (see `describe_table`).
+    unit_of : str
+        The table's own shared unit, read from its `unit` column: a single
+        value, `"varies by row"` when more than one is present, or `""` when
+        the table carries no `unit` column at all.
+
+    Returns
+    -------
+    str
+        `"%"` for a percentage-named numeric column; `""` for the `unit`
+        column itself, any non-numeric column, any id/code/year/count/rank/
+        flag-named column, or any column this table already calls a
+        dimension; otherwise `unit_of` - and never a guess: a column this
+        function cannot place is left empty, not given the table's unit by
+        default.
+    """
+    if col == "unit":
+        return ""
+    if not _is_measure_dtype(dtype):
+        # every string/bool/datetime column is a dimension, not a measure,
+        # and carries no unit whatever its name says (`input_group_share_pct`
+        # is a category label, not a percentage, despite the suffix)
+        return ""
+    if _is_percentage_name(col):
+        return "%"
+    if _is_no_unit_name(col) or col in dims:
+        return ""
+    return unit_of
+
+
 def column_dictionary(path: str) -> list[dict[str, str]]:
     """Describe every column of one table.
 
@@ -334,14 +474,19 @@ def column_dictionary(path: str) -> list[dict[str, str]]:
     unit_of = ""
     if "unit" in head.columns:
         seen = head["unit"].dropna().unique().tolist()
-        unit_of = seen[0] if len(seen) == 1 else "varies by row"
+        if len(seen) == 1:
+            unit_of = seen[0]
+        elif len(seen) > 1:
+            unit_of = "varies by row"
+        # else: the unit column is entirely empty - unit_of stays "" rather
+        # than the previous behaviour of guessing "varies by row"
     entries = []
     for col in head.columns:
         sample = head[col].dropna()
         entries.append({
             "column": col,
             "dtype": str(head[col].dtype),
-            "unit": "" if col in dims or col == "unit" else unit_of,
+            "unit": _column_unit(col, head[col].dtype, dims, unit_of),
             "role": "dimension" if col in dims else "measure",
             "example": str(sample.iloc[0])[:40] if len(sample) else "",
         })
@@ -371,6 +516,9 @@ def write_folder_dictionary(folder: str) -> str | None:
              "table's own; `varies by row` means the table carries a `unit`",
              "column and the value is read from there.", ""]
     lines += list(COMMON_COLUMNS)
+    notes = _folder_notes(folder)
+    if notes:
+        lines += [notes, ""]
     lines += ["## Tables", ""]
     for name in tables:
         lines += [f"### `{name}`", "",

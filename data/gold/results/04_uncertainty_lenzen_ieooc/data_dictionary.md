@@ -56,24 +56,24 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `check` | dimension | str |  | median-1 multipliers |
-| `status` | measure | str |  | PASS |
-| `detail` | measure | str |  | largest deviation 5.58e-04 (B_COMM) |
-| `tolerance` | measure | str |  | < 5e-3 |
+| `status` | dimension | str |  | PASS |
+| `detail` | dimension | str |  | largest deviation 5.58e-04 (B_COMM) |
+| `tolerance` | dimension | str |  | < 5e-3 |
 
 ### `uncertainty_convergence.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `criterion` | measure | str |  | IPCC (2000) 6.4 step 5: 95 % range deter |
+| `criterion` | dimension | str |  | IPCC (2000) 6.4 step 5: 95 % range deter |
 | `draws` | measure | int64 |  | 100000 |
-| `max_relative_difference_between_halves_pct` | measure | float64 |  | 0.2069875486125891 |
-| `passes` | measure | bool |  | True |
+| `max_relative_difference_between_halves_pct` | measure | float64 | % | 0.2069875486125891 |
+| `passes` | dimension | bool |  | True |
 
 ### `uncertainty_group_covariance_gwp.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Unnamed: 0` | measure | str |  | Food and food services |
+| `Unnamed: 0` | dimension | str |  | Food and food services |
 | `Food and food services` | measure | float64 |  | 1332.6937180922905 |
 | `Heat and electricity` | measure | float64 |  | 227.78876329117747 |
 | `Individual travel` | measure | float64 |  | 9.746502409477351 |
@@ -89,15 +89,15 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `rho_mrio` | measure | float64 |  | 1.0 |
-| `interpretation` | measure | str |  | perfect correlation (study default). Rod |
+| `interpretation` | dimension | str |  | perfect correlation (study default). Rod |
 | `median` | measure | float64 |  | 4734.20181449759 |
 | `p2_5` | measure | float64 |  | 4067.039734534131 |
 | `p97_5` | measure | float64 |  | 5526.229517058415 |
-| `cv_pct` | measure | float64 |  | 7.852589550926811 |
+| `cv_pct` | measure | float64 | % | 7.852589550926811 |
 | `sigma_used` | measure | float64 |  | 0.0833550013881799 |
-| `mrio_block_cv_if_not_recalibrated_pct` | measure | float64 |  | 8.379058580808772 |
-| `median_group_cv_pct` | measure | float64 |  | 8.370461611866572 |
-| `max_group_cv_pct` | measure | float64 |  | 26.217627095402428 |
+| `mrio_block_cv_if_not_recalibrated_pct` | measure | float64 | % | 8.379058580808772 |
+| `median_group_cv_pct` | measure | float64 | % | 8.370461611866572 |
+| `max_group_cv_pct` | measure | float64 | % | 26.217627095402428 |
 | `median_1_lognormal_mean_inflation` | measure | float64 |  | 1.003480069557936 |
 
 ### `uncertainty_noncarbon_bound.csv`
@@ -110,14 +110,14 @@ units and are labelled as such wherever they are quoted.
 | `median` | measure | float64 |  | 4734.8998653164945 |
 | `p2_5` | measure | float64 |  | 4062.288374613191 |
 | `p97_5` | measure | float64 |  | 5518.490994729384 |
-| `cv_pct` | measure | float64 |  | 7.823868741006974 |
+| `cv_pct` | measure | float64 | % | 7.823868741006974 |
 
 ### `uncertainty_parameters.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `parameter` | dimension | str |  | mrio |
-| `distribution` | measure | str |  | lognormal, median 1 |
+| `distribution` | dimension | str |  | lognormal, median 1 |
 | `gsd` | measure | float64 |  | 1.1 |
 | `cv` | measure | float64 |  | 0.0835 |
 | `factor_2_5pct` | measure | float64 |  | 0.8492719697197726 |
@@ -150,7 +150,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `indicator` | dimension | str |  | Global warming (ktCO2eq) |
 | `deterministic` | measure | float64 |  | 4712.417605953842 |
-| `tier1_uncertainty_pct` | measure | float64 |  | 7.840701455400814 |
+| `tier1_uncertainty_pct` | measure | float64 | % | 7.840701455400814 |
 
 ### `uncertainty_totals.csv`
 
@@ -163,14 +163,14 @@ units and are labelled as such wherever they are quoted.
 | `median` | measure | float64 | varies by row | 4733.659773313824 |
 | `mean` | measure | float64 | varies by row | 4749.952065897599 |
 | `sd` | measure | float64 | varies by row | 373.7860346835424 |
-| `cv_pct` | measure | float64 | varies by row | 7.869259089310578 |
+| `cv_pct` | measure | float64 | % | 7.869259089310578 |
 | `p2_5` | measure | float64 | varies by row | 4063.64336676984 |
 | `p16` | measure | float64 | varies by row | 4381.8272825066215 |
 | `p84` | measure | float64 | varies by row | 5118.405571889963 |
 | `p97_5` | measure | float64 | varies by row | 5531.252639583388 |
-| `rel_low_pct` | measure | float64 | varies by row | -14.154300026402945 |
-| `rel_high_pct` | measure | float64 | varies by row | 16.849391474351894 |
-| `mcse_median_pct` | measure | float64 | varies by row | 0.0359398247900488 |
+| `rel_low_pct` | measure | float64 | % | -14.154300026402945 |
+| `rel_high_pct` | measure | float64 | % | 16.849391474351894 |
+| `mcse_median_pct` | measure | float64 | % | 0.0359398247900488 |
 
 ### `uncertainty_travel_correlation.csv`
 
@@ -180,7 +180,7 @@ units and are labelled as such wherever they are quoted.
 | `median` | measure | float64 |  | 4740.432219635996 |
 | `p2_5` | measure | float64 |  | 4095.684785594957 |
 | `p97_5` | measure | float64 |  | 5492.347473800488 |
-| `cv_pct` | measure | float64 |  | 7.486835308286129 |
+| `cv_pct` | measure | float64 | % | 7.486835308286129 |
 
 ### `uncertainty_variance_shares.csv`
 
@@ -188,12 +188,12 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `indicator` | dimension | str |  | Global warming (ktCO2eq) |
 | `parameter` | dimension | str |  | mrio |
-| `variance_share_pct` | measure | float64 |  | 78.75929022214825 |
+| `variance_share_pct` | measure | float64 | % | 78.75929022214825 |
 
 ### `uncertainty_variance_shares_by_correlation.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `rho_mrio` | measure | float64 |  | 1.0 |
-| `mrio_variance_share_pct` | measure | float64 |  | 78.91819521274822 |
+| `mrio_variance_share_pct` | measure | float64 | % | 78.91819521274822 |
 | `note` | dimension | str |  | frozen-input estimate: the share of outp |
