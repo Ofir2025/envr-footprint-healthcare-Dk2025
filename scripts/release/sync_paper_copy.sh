@@ -52,15 +52,25 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
   exit 1
 fi
 
+echo "==> fetching main from $FULL"
+git fetch --quiet "$FULL" main
+
+# Take the incoming gold_scope BEFORE computing the exclusion list from it.
+#
+# The list used to be computed from this copy's own gold_scope, which is one
+# sync behind. A file newly declared private in the full copy is therefore not
+# yet on this copy's list, so the very sync that introduces it also stages it.
+# That is exactly what happened when health_function_recipes.py was added: the
+# post-sync check caught it, but a check that fires after the mistake is a worse
+# design than an order that cannot make it.
+git checkout FETCH_HEAD -- src/analysis/gold_scope.py
+
 # The source and method files that travel with a private gold folder.
 GOLD_EXCLUDE=$(PYTHONPATH=src python3 -m analysis.gold_scope --exclude)
 [ -n "$GOLD_EXCLUDE" ] || { echo "gold_scope listed no private paths" >&2; exit 1; }
 
 EXCLUDE_SPECS=()
 for path in $GOLD_EXCLUDE; do EXCLUDE_SPECS+=(":(exclude)$path"); done
-
-echo "==> fetching main from $FULL"
-git fetch --quiet "$FULL" main
 
 echo "==> taking ${INCLUDE[*]}"
 git checkout FETCH_HEAD -- "${INCLUDE[@]}" "${EXCLUDE_SPECS[@]}"
