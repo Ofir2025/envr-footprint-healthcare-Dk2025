@@ -27,6 +27,13 @@
 - **Dimensions:** `demand_component_id`, `demand_component_name`
 - **Measures:** none
 
+### `dim_draw_group.csv`
+
+- **Rows:** 9
+- **Format:** csv
+- **Dimensions:** `draw_group_id`, `draw_group_name`
+- **Measures:** none
+
 ### `dim_gwp_vintage.csv`
 
 - **Rows:** 5
@@ -134,10 +141,10 @@
 - **Dimensions:** `model_id`, `indicator_id`, `demand_component_id`, `producing_region_id`, `producing_industry_id`, `purchased_region_id`, `purchased_industry_id`
 - **Measures:** `value`
 
-### `fact_footprint_node.csv`
+### `fact_footprint_node.parquet`
 
 - **Rows:** 193,047
-- **Format:** csv
+- **Format:** parquet (pyarrow, snappy)
 - **Dimensions:** `model_id`, `indicator_id`, `demand_component_id`, `producing_region_id`, `producing_industry_id`
 - **Measures:** `value`
 
@@ -209,4 +216,11 @@
 - **Rows:** 23,737
 - **Format:** csv
 - **Dimensions:** `model_id`, `indicator_id`, `scope_id`, `producing_region_id`, `producing_industry_id`
+- **Measures:** `value`
+
+### `fact_uncertainty_draw.parquet`
+
+- **Rows:** 900,000
+- **Format:** parquet (pyarrow, snappy)
+- **Dimensions:** `model_id`, `indicator_id`, `draw_id`, `draw_group_id`
 - **Measures:** `value`

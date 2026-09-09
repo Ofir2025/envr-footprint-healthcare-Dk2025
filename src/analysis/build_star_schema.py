@@ -29,7 +29,7 @@ Fact                            One row per
                                 region x producing industry
 ``fact_scope_component``        model x indicator x scope component
                                 (the GHG-Protocol ladder, per model)
-``fact_national_total``          model x indicator (national and health-care
+``fact_national_total``         model x indicator (national and health-care
                                 totals side by side, with the share)
 ``fact_health_function``        model x indicator x health function
 ``fact_health_function_node``   model x indicator x health function x
@@ -817,12 +817,17 @@ def _grain(facts: dict[str, pd.DataFrame], name: str, keys: list[str],
     facts[name] = out[keys + measures]
 
 
-#: Facts that predate the format rule and stay CSV whatever their row count.
-#: ``fact_footprint_node`` is 193,047 rows and would be Parquet under the rule;
-#: converting it would delete a tracked deliverable rather than add one, which
-#: is a decision for the author of the model, not for a build script.
+#: Facts kept as CSV regardless of the row rule. Only tables under the limit
+#: qualify, so this is a statement about stability rather than an exemption:
+#: these four are the model's oldest facts, they are small enough to diff, and
+#: keeping them legible in review is worth more than the bytes.
+#:
+#: ``fact_footprint_node`` was here too, at 193,047 rows. It is now Parquet, on
+#: the reasoning that the star tree is the semantic model rather than the
+#: publication surface: a reader who wants results as text has the denormalised
+#: gold tables, which stay CSV.
 LEGACY_CSV_FACTS: frozenset[str] = frozenset({
-    "fact_footprint_node", "fact_footprint_product", "fact_scope_node",
+    "fact_footprint_product", "fact_scope_node",
     "fact_national_total", "fact_health_function"})
 
 
@@ -1278,6 +1283,60 @@ def main() -> None:
         ["model_id", "gwp_vintage_id", "indicator_id", "healthcare_kt_co2eq",
          "national_kt_co2eq", "healthcare_share_pct",
          "healthcare_t_per_capita", "not_restatable_kt_co2eq"]]
+
+    # ---- the Monte Carlo, one row per draw per contribution group ---------
+    # The uncertainty layer published its summary and kept its detail in a
+    # NumPy array, which is outside the pattern every other layer follows and
+    # therefore outside the model. It is the finest thing the pipeline produces
+    # anywhere: a hundred thousand draws over nine groups, and the reported
+    # median, interval and coefficient of variation are all derivable from it,
+    # which is asserted below rather than assumed.
+    draws_path = os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc",
+                              "uncertainty_group_draws_gwp.npy")
+    cov_path = os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc",
+                            "uncertainty_group_covariance_gwp.csv")
+    if os.path.exists(draws_path) and os.path.exists(cov_path):
+        draws = np.load(draws_path)
+        groups = pd.read_csv(cov_path).iloc[:, 0].astype(str).tolist()
+        assert draws.ndim == 2 and draws.shape[1] == len(groups), (
+            f"the draw array is {draws.shape} but the covariance file names "
+            f"{len(groups)} groups; the grain cannot be established")
+
+        dim_draw_group = pd.DataFrame({
+            "draw_group_id": range(1, len(groups) + 1),
+            "draw_group_name": groups})
+        dims["dim_draw_group"] = dim_draw_group
+
+        n_draws, n_groups = draws.shape
+        facts["fact_uncertainty_draw"] = pd.DataFrame({
+            "model_id": 1,
+            "indicator_id": int(dim_indicator.loc[
+                dim_indicator["indicator_code"] == "climate_change",
+                "indicator_id"].iloc[0]),
+            "draw_id": np.repeat(np.arange(1, n_draws + 1), n_groups),
+            "draw_group_id": np.tile(np.arange(1, n_groups + 1), n_draws),
+            "value": draws.reshape(-1)})
+
+        # The published summary must be recoverable from the detail, or the
+        # detail is not the same object the paper reports.
+        totals = draws.sum(axis=1).astype("float64")
+        pub = _read("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv")
+        row = pub[(pub["pharma_scenario"] == "A")
+                  & pub["indicator"].str.contains("Global warming")].iloc[0]
+        mcse = float(row["mcse_median_pct"]) / 100.0 * float(row["median"])
+        for label, got, want, tol in (
+                ("median", float(np.median(totals)), float(row["median"]),
+                 max(5 * mcse, 1e-6)),
+                ("2.5th percentile", float(np.percentile(totals, 2.5)),
+                 float(row["p2_5"]), max(5 * mcse, 1e-6)),
+                ("97.5th percentile", float(np.percentile(totals, 97.5)),
+                 float(row["p97_5"]), max(5 * mcse, 1e-6)),
+                ("coefficient of variation",
+                 100.0 * totals.std(ddof=1) / totals.mean(),
+                 float(row["cv_pct"]), 0.01)):
+            assert abs(got - want) <= tol, (
+                f"the draws do not reproduce the published {label}: "
+                f"{got:,.4f} against {want:,.4f}, tolerance {tol:,.4f}")
 
     # ---- the scope ladder, per model --------------------------------------
     # This is what makes the 2019 run and the two sector-boundary runs reachable
