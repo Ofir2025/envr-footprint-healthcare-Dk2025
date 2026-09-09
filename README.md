@@ -5,7 +5,11 @@ Danish health care, replicating and extending Steenmeijer et al. (2022),
 *The environmental impact of the Dutch health-care sector beyond climate
 change*, Lancet Planetary Health 6: e949-57.
 
-**Primary analysis year: 2022** (EXIOBASE v3.10.2 industry-by-industry).
+**Primary analysis year: 2022** (EXIOBASE version 3.8.2, industry-by-industry
+monetary tables, `IOT_2022_ixi`, 49 regions x 163 industries). This study
+rejects v3.10.2: it disagrees with v3.8.2 by a factor of three on the size of
+the Danish health industry. See
+[`docs/methods/exiobase_version_vintage_and_classification.md`](docs/methods/exiobase_version_vintage_and_classification.md).
 2019 is retained as a pre-COVID validation baseline.
 
 ## Headline result, Denmark 2022
@@ -54,12 +58,12 @@ they are - so all aggregates are derivable and no lineage is lost.
 python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 
 PYTHONPATH=src python -m pipelines.prep_background_2022.build_background_2022
-HC_ANALYSIS_YEAR=2022 PYTHONPATH=src python -m analysis.main_2025
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analysis.main_2025
 for m in export_tables extended_indicators national_totals scopes_detail \
          double_counting_audit cabernard_target_scope3 waste_validation \
          waste_domestic_dst demand_vector_consistency figaro_recipe_validation \
          uncertainty_2025 uncertainty_figures build_manifest; do
-  HC_ANALYSIS_YEAR=2022 PYTHONPATH=src python -m analysis.$m
+  HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analysis.$m
 done
 ```
 
