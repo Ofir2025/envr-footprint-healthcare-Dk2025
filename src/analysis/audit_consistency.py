@@ -331,10 +331,16 @@ def c16_gold_clean(results: list[dict[str, Any]]) -> None:
         return
     tracked = {os.path.normpath(line) for line in out.stdout.splitlines()
               if line.strip()}
+    # followlinks=True: this repo already uses a directory symlink under gold's
+    # sibling data/silver/background, so the pattern is live. Plain os.walk
+    # neither descends into a symlinked directory nor lists the link itself in
+    # `names` (only in the discarded `dirs` slot), so without this a symlinked
+    # directory under data/gold - and everything beneath it - is invisible to
+    # this check.
     on_disk = {
         os.path.normpath(os.path.relpath(os.path.join(dirpath, name),
                                          str(PROJECT_ROOT)))
-        for dirpath, _, names in os.walk(gold_root)
+        for dirpath, _, names in os.walk(gold_root, followlinks=True)
         for name in names
     }
     offenders = sorted(on_disk - tracked)

@@ -37,6 +37,7 @@ Tasks main.py:
 import pandas as pd
 import numpy as np
 import numpy.matlib
+import io
 import os
 import sys
 from .functions_2025 import *
@@ -162,9 +163,17 @@ else:
         include_childcare=INCLUDE_CHILDCARE, include_eldercare=INCLUDE_ELDERCARE,
     )
 # Provenance record: every (purpose x transaction) column that entered the totals.
-expenditure_breakdown.to_csv(
-    SILVER_INPUT_DIR / f"dk_expenditure_breakdown_{ANALYSIS_YEAR}.csv", index=False
-)
+# Persist ONLY for the default boundary - mirrors the output_dir/background-pkl
+# guard above. Without it, a scenario run (e.g. HC_SCOPE=zorg_en_welzijn) leaves
+# its childcare-inclusive breakdown sitting in the tracked manuscript-boundary
+# file, contradicting the health_eldercare numbers actually published.
+if _SCOPE == "health_eldercare":
+    expenditure_breakdown.to_csv(
+        SILVER_INPUT_DIR / f"dk_expenditure_breakdown_{ANALYSIS_YEAR}.csv", index=False
+    )
+else:
+    print(f"scope boundary '{_SCOPE}': dk_expenditure_breakdown_{ANALYSIS_YEAR}.csv "
+          f"NOT persisted (manuscript-boundary provenance file only)")
 
 print("HC.51:", hc51)
 print("HC.52:", hc52)
@@ -274,8 +283,19 @@ else:
     print(f"Direct healthcare waste (AFFALD01 {DRIVHUS_YEAR}, alpha={alpha_eldercare:.4f}): "
           f"{DK_DIRECT_WASTE_KT:.1f} kt")
 
-    df.to_csv(dk_csv_path, index=False)
-    print(f"DK SUT overwrite: MEUR totals written, Conversion=1.0, DirectEm={float(direct_em_kt):.1f} kt → {dk_csv_path}")
+    # Persist ONLY for the default boundary - mirrors the output_dir/background-pkl
+    # guard above. Without it, a scenario run leaves the WRONG scope's MEUR totals
+    # sitting in the tracked manuscript-boundary silver file. `cbs_data` below is
+    # built from the in-memory CSV text either way, so this run still uses its own
+    # scope's numbers regardless of whether they are persisted to disk.
+    _dk_csv_text = df.to_csv(index=False)
+    if _SCOPE == "health_eldercare":
+        with open(dk_csv_path, "w") as _fh:
+            _fh.write(_dk_csv_text)
+        print(f"DK SUT overwrite: MEUR totals written, Conversion=1.0, DirectEm={float(direct_em_kt):.1f} kt → {dk_csv_path}")
+    else:
+        print(f"scope boundary '{_SCOPE}': {os.path.basename(dk_csv_path)} NOT persisted "
+              f"(manuscript-boundary file only; this run's MEUR totals stay in-memory)")
 
 
 
@@ -288,7 +308,13 @@ else:
 
 #The following code is added instead of "get_cbsdata". This code retrieves and saves data into "Dk_data_2025"
 
-cbs_data = pd.read_csv(str(SILVER_INPUT_DIR / 'dk_data_2025.csv'), index_col=['Index', 'Unit'])
+# Read back from the in-memory text (not the tracked file) so a scenario run,
+# whose write above was skipped, still gets ITS OWN scope's numbers rather than
+# whatever boundary happens to be on disk. For the default boundary this parses
+# the identical bytes that were just written to dk_csv_path, so the numbers are
+# unchanged from the previous file-round-trip behaviour.
+if mode != "Dutch":
+    cbs_data = pd.read_csv(io.StringIO(_dk_csv_text), index_col=['Index', 'Unit'])
 print("Expenditure data loaded from DK SUT CSV (MEUR).")
 
 # Assert Conversion row exists and equals 1.0 for used columns

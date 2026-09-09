@@ -10,10 +10,10 @@ approach, script, equations, reference, inputs, checksum).
 data/gold/results/
 ├── MANIFEST_lineage.csv          every gold file: approach, script, equations, inputs
 ├── 00_core_footprint/            the detailed footprint arrays (lineage base)
-├── 01_eriksen_replication/       the Steenmeijer-style outputs (tables 1, S5, figures)
+├── 01_eriksen_replication/       the Steenmeijer-style outputs (tables 1, S5)
 ├── 02_scopes_wood_hertwich/      GHG-Protocol scopes + the double-counting ledger
 ├── 03_cabernard_target_scope3/   target-perspective scope 3, corrected
-├── 04_uncertainty_lenzen_ieooc/  Monte Carlo, variance shares, figures
+├── 04_uncertainty_lenzen_ieooc/  Monte Carlo, variance shares
 ├── 05_waste_dst_accounts/        waste from Denmark's own SEEA accounts
 ├── 06_benchmarks_validation/     benchmarks, denominators, recipe validation
 └── scenarios/                    scope-boundary variants

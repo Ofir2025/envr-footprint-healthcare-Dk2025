@@ -72,7 +72,7 @@ label.
 | `01_eriksen_replication` | The Steenmeijer-style replication outputs, corrected | Steenmeijer et al. 2022 |
 | `02_scopes_wood_hertwich` | GHG-Protocol scope partition and the double-counting ledger | Wood & Hertwich 2018 |
 | `03_cabernard_target_scope3` | Target-sector scope 3 without double counting | Cabernard et al. 2019 |
-| `04_uncertainty_lenzen_ieooc` | Monte Carlo, Sobol shares, ranking probabilities, figures | Lenzen et al. 2020 SI |
+| `04_uncertainty_lenzen_ieooc` | Monte Carlo, Sobol shares, ranking probabilities | Lenzen et al. 2020 SI |
 | `05_waste_dst_accounts` | Danish domestic waste from Statistics Denmark | DST AFFALD01 |
 | `06_benchmarks_validation` | Recipe validation, demand-vector consistency, FIGARO benchmarks | Rørmose Jensen & Iliev 2022; Eurostat |
 | `07_malik_replication` | Domestic-only footprint and production layers | Malik et al. 2018, 2021 |

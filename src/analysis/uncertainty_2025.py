@@ -635,30 +635,29 @@ def main():
                              factor_97_5pct=(v["gsd"] ** 1.96 if v.get("gsd") else
                                              np.exp(1.96 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
                              source=v["why"]) for k, v in PARAMS.items()])
+    # Single source of truth for the seven uncertainty_summary sheets: the richer
+    # mrio_correlation frame (with its extra median_1_lognormal_mean_inflation
+    # column) is folded in here rather than written a second time afterwards, so
+    # each CSV has exactly one writer and the result no longer depends on
+    # statement order.
     write_sheets_as_csv({
         "totals": summ, "variance_shares": sob,
         "ranking_probabilities": rk, "structural_scenarios": pd.DataFrame(scen_rows),
-        "travel_correlation": pd.DataFrame(rho_rows), "mrio_correlation": mrio_rho,
+        "travel_correlation": pd.DataFrame(rho_rows),
+        "mrio_correlation": mrio_rho.assign(
+            median_1_lognormal_mean_inflation=mean_inflation),
         "parameters": par,
     }, out_dir, "uncertainty", index=False)
-    for name, df in (("uncertainty_totals", summ), ("uncertainty_variance_shares", sob),
-                     ("uncertainty_ranking_probabilities", rk),
-                     ("uncertainty_structural_scenarios", pd.DataFrame(scen_rows)),
-                     ("uncertainty_tier1_error_propagation", tier1),
+    for name, df in (("uncertainty_tier1_error_propagation", tier1),
                      ("uncertainty_variance_shares_by_correlation", rho_shares),
                      ("uncertainty_convergence", convergence),
-                     ("uncertainty_noncarbon_bound", noncarbon),
-                     ("uncertainty_parameters", par)):
+                     ("uncertainty_noncarbon_bound", noncarbon)):
         df.to_csv(os.path.join(out_dir, name + ".csv"), index=False)
 
     print(summ[["pharma_scenario", "indicator", "deterministic", "median", "mean",
                 "cv_pct", "p2_5", "p97_5"]].round(2).to_string(index=False))
     print("\nFirst-order variance shares (GWP):")
     print(sob[sob.indicator == INDICATORS[0]].round(2).to_string(index=False))
-    mrio_rho.assign(
-        median_1_lognormal_mean_inflation=mean_inflation).to_csv(
-        os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc",
-                     "uncertainty_mrio_correlation.csv"), index=False)
     print(f"\nMRIO-correlation sensitivity (GWP). Median-1 lognormal mean "
           f"inflation exp(sigma^2/2) = {mean_inflation:.5f} "
           f"(+{100 * (mean_inflation - 1):.2f} %):")
