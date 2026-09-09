@@ -566,12 +566,14 @@ scale_bottomup_all_to_dk(
 
 # ---- Danish primary values for the medical-gas items (replace NL-scaled GWP) ----
 # Anaesthetic gases: Denmark's National Inventory Document 2024 (DCE report 622),
-#   category 2.G.3.a: 38 t N2O/yr (constant 2013-2022) x 298 kg CO2e/kg N2O
-#   (the model's DESIRE GWP100 factor) = 11.3 kt CO2e; volatile agents
-#   (sevoflurane/desflurane, not covered by UNFCCC inventories) proxied by
-#   population-scaling the Dutch volatile component: 4.19 kt x (5.83M/17.28M)
-#   = 1.4 kt CO2e. Total 12.7 kt CO2e. The hospital N2O contained in the DRIVHUS
-#   direct-emissions figure was subtracted there, so no double counting.
+#   category 2.G.3.a: 38 t N2O/yr (constant 2013-2022) x 273 kg CO2e/kg N2O
+#   (IPCC AR6, the same factor the MRIO climate row uses) = 10.4 kt CO2e.
+#   The volatile agents are no longer a population-scaled Dutch proxy: they come
+#   from the Danish Medicines Agency register, in the DK_ANAESTHETIC_LITRES
+#   block below, which supersedes the 1.4 kt proxy this line used to quote.
+#   The two together are the 11.572 kt reported as scope1_anaesthetic. The
+#   hospital N2O contained in the DRIVHUS direct-emissions figure was subtracted
+#   there, so no double counting.
 # pMDI propellants: 7.2 t HFC dispensed in Denmark 2019 (Vestbo & Press-
 #   Kristensen 2023, Eur Respir J 62:2300856; ~90% HFC-134a, 10% HFC-227ea),
 #   characterised with the ReCiPe 2016 (H) factors used by Steenmeijer et al.
