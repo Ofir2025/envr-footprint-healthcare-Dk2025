@@ -31,7 +31,15 @@ cd "$REPO"
 #: either generated (data, figures), specific to one copy (.repo_scope,
 #: BRANCH_NOTES.md) or private to the full copy (docs/references,
 #: docs/ofir_et_al_2026, docs/incidents, docs/feedback, docs/presentation).
-INCLUDE=(src scripts R .githooks docs/methods requirements.txt pyproject.toml)
+#
+#: docs/revision and BRANCH_NOTES.md are here because they are PUBLISHED. They
+#: ship to the co-author's branch, so leaving them out of the sync let the
+#: published revision documents drift from the ones being edited: a comparator
+#: corrected here stayed wrong there. The rule is that anything the publish
+#: filter carries and a person authors has to be synced, and only generated
+#: things are rebuilt instead.
+INCLUDE=(src scripts R .githooks docs/methods docs/revision
+         BRANCH_NOTES.md README.md requirements.txt pyproject.toml)
 
 [ -f .repo_scope ] || { echo "no .repo_scope here; is this a working copy?" >&2; exit 1; }
 SCOPE=$(awk 'NF{print tolower($1); exit}' .repo_scope)
