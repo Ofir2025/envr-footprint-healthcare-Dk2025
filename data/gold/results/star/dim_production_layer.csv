@@ -1,0 +1,23 @@
+production_layer_id,layer_code,layer_number,layer_name,is_residual,has_node_detail
+1,0,0,"direct (on-site, layer 0)",False,True
+2,1,1,first-tier suppliers,False,True
+3,2,2,layer 2,False,True
+4,3,3,layer 3,False,True
+5,4,4,layer 4,False,True
+6,5,5,layer 5,False,True
+7,6,6,layer 6,False,True
+8,7,7,layer 7,False,True
+9,8,8,layer 8,False,True
+10,9,9,layer 9,False,True
+11,10,10,layer 10,False,True
+12,11,11,layer 11,False,True
+13,12,12,layer 12,False,True
+14,13,13,layer 13,False,True
+15,14,14,layer 14,False,True
+16,15,15,layer 15,False,True
+17,16,16,layer 16,False,True
+18,17,17,layer 17,False,True
+19,18,18,layer 18,False,True
+20,19,19,layer 19,False,True
+21,20,20,layer 20,False,True
+22,>20,,layers >20 (residual tail),True,False

@@ -7,7 +7,6 @@ number,title,source,rows,columns,supersedes
 6,"Matched to their boundary and capital treatment, this study and Schmidt and Merciai agree to 1.7 %",06_benchmarks_validation/danish_healthcare_benchmark_boundary_matched.csv,4,5,False
 7,The choice of global-warming-potential vintage moves the climate footprint by 5 %,15_gwp_vintage/gwp_vintage_sensitivity.csv,5,2,False
 8,"Endogenising capital raises every impact category, by 10 % to 33 %",11_capital_gfcf/capital_scenarios_by_indicator.csv,5,6,False
-9,"The function split is an expenditure ranking, not an intensity finding",17_health_subsectors/footprint_by_health_function.csv,5,5,False
 10,Simulation and error propagation agree to within 0.05 percentage points,04_uncertainty_lenzen_ieooc/uncertainty_totals.csv and uncertainty_tier1_error_propagation.csv,5,7,False
 11,"The uncertainty is the input-output model, not the bottom-up proxies the reviewers questioned",04_uncertainty_lenzen_ieooc/uncertainty_variance_shares.csv,7,2,False
 12,"Every quantified lever, plus a decarbonising grid, leaves the 2035 footprint above today's",18_mitigation_scenarios/target_consistency.csv,12,3,True

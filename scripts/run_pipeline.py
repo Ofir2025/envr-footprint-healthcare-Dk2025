@@ -73,6 +73,10 @@ STAGES: tuple[tuple[str, str], ...] = (
     ("figaro_benchmarks", "FIGARO as an independent denominator"),
     ("danish_healthcare_benchmark",
      "the boundary-matched ladder to Schmidt and Merciai"),
+    ("build_dst_concordance",
+     "the EXIOBASE-to-Denmark industry bridge and its output validation; the "
+     "national table it validates against is read here, so it follows the "
+     "modules that establish the model's own totals"),
 
     # --- replications of the comparator studies ---------------------------
     ("malik_replication", "Malik's boundary, on Danish data"),
@@ -201,6 +205,28 @@ def unlisted() -> list[str]:
     return sorted(modules_on_disk() - listed)
 
 
+def available(module: str) -> bool:
+    """Whether a stage's module is in this working copy.
+
+    Two stages read layers classified private in :mod:`analysis.gold_scope`,
+    and their modules travel with those layers, so a paper-scope copy does not
+    have them. The pipeline skips them rather than failing: one run order has
+    to serve both copies, and a missing private module is a scope difference
+    rather than a broken build.
+
+    Parameters
+    ----------
+    module : str
+        Module name under ``analysis``.
+
+    Returns
+    -------
+    bool
+        True when the module file exists.
+    """
+    return (SRC / "analysis" / f"{module}.py").exists()
+
+
 def run(module: str, env: dict[str, str]) -> tuple[bool, float, str]:
     """Run one analysis module as a subprocess.
 
@@ -282,6 +308,10 @@ def main() -> int:
           f"background tag {env['HC_BACKGROUND_TAG']!r}\n")
     total = 0.0
     for i, (name, _why) in enumerate(stages, 1):
+        if not available(name):
+            print(f"  [{i:2d}/{len(stages)}] skip {name:34s} "
+                  f"not in this working copy")
+            continue
         ok, elapsed, tail = run(name, env)
         total += elapsed
         mark = "ok  " if ok else "FAIL"

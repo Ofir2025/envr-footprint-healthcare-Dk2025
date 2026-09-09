@@ -672,7 +672,7 @@ def main() -> None:
         f"the scenario detail does not reproduce its own aggregate; worst "
         f"discrepancy {worst:.3e}")
     detail.to_csv(os.path.join(out_dir, "scenarios_by_producing_node.csv.gz"),
-                  index=False, compression="gzip")
+                  index=False, compression={"method": "gzip", "mtime": 0})
     pd.DataFrame([dict(scenario_id=s.sid, scenario=s.label, ambition=s.ambition,
                        in_combined="C1")
                   for s in selected]).to_csv(

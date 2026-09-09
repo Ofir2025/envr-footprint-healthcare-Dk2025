@@ -233,7 +233,7 @@ def main() -> None:
     detail = pd.concat(node_frames, ignore_index=True)
     detail.to_csv(os.path.join(
         out_dir, "capital_endogenised_by_producing_node.csv.gz"),
-        index=False, compression="gzip")
+        index=False, compression={"method": "gzip", "mtime": 0})
     domestic_import_split(detail).to_csv(
         os.path.join(out_dir, "capital_endogenised_domestic_vs_imported.csv"),
         index=False)

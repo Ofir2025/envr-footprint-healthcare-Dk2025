@@ -56,7 +56,9 @@ def _read_head(path: str, n: int = 400) -> tuple[pd.DataFrame, int]:
     Parameters
     ----------
     path : str
-        CSV or gzipped CSV.
+        CSV, gzipped CSV, or Parquet. The large star-schema facts are Parquet,
+        which carries its row count and schema in the footer, so neither needs
+        reading the data.
     n : int, optional
         Rows to read for column inspection.
 
@@ -65,6 +67,14 @@ def _read_head(path: str, n: int = 400) -> tuple[pd.DataFrame, int]:
     tuple
         ``(head_frame, total_rows)``.
     """
+    if path.endswith(".parquet"):
+        import pyarrow.parquet as pq
+
+        handle = pq.ParquetFile(path)
+        total = handle.metadata.num_rows
+        head = next(handle.iter_batches(batch_size=min(n, max(total, 1)))) \
+            .to_pandas() if total else handle.schema_arrow.empty_table().to_pandas()
+        return head, total
     opener = gzip.open if path.endswith(".gz") else open
     head = pd.read_csv(path, nrows=n)
     with opener(path, "rt", encoding="utf-8", errors="ignore") as fh:
@@ -115,9 +125,13 @@ def describe_table(path: str) -> dict[str, object]:
     """
     head, rows = _read_head(path)
     cols = list(head.columns)
+    # A surrogate key is a dimension column even though it is numeric. Without
+    # this every star fact described itself as having no dimensions and six
+    # measures, which is the opposite of what it is.
     dims = [c for c in cols
-            if any(h in c.lower() for h in DIMENSION_HINTS)
-            and not pd.api.types.is_numeric_dtype(head[c])]
+            if c.endswith("_id")
+            or (any(h in c.lower() for h in DIMENSION_HINTS)
+                and not pd.api.types.is_numeric_dtype(head[c]))]
     measures = [c for c in cols if c not in dims]
     units = sorted(head["unit"].dropna().unique().tolist())[:6] if "unit" in cols else []
 
@@ -152,7 +166,8 @@ def write_folder_readme(folder: str) -> str | None:
     """
     fdir = os.path.join(str(OUTPUT_DIR), folder)
     tables = sorted(f for f in os.listdir(fdir)
-                    if f.endswith((".csv", ".csv.gz")) and not f.startswith("_"))
+                    if f.endswith((".csv", ".csv.gz", ".parquet"))
+                    and not f.startswith("_"))
     if not tables:
         return None
 
@@ -186,7 +201,8 @@ def write_folder_readme(folder: str) -> str | None:
     for name in tables:
         d = describe_table(os.path.join(fdir, name))
         lines += [f"### `{d['name']}`", ""]
-        bullets = [f"- **Rows:** {d['rows']:,}"]
+        bullets = [f"- **Rows:** {d['rows']:,}",
+                   f"- **Format:** {'parquet (pyarrow, snappy)' if name.endswith('.parquet') else 'csv'}"]
         if d["coverage"]:
             bullets.append(f"- **Resolution:** {d['coverage']}")
         if d["units"]:

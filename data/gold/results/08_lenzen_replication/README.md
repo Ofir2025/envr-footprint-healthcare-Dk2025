@@ -22,6 +22,7 @@ Method, equations, and verification: [`docs/methods/replications/08_lenzen_repli
 ### `lenzen_expenditure_base_check.csv`
 
 - **Rows:** 5
+- **Format:** csv
 - **Units:** %, -, EUR per capita, bn DKK current prices
 - **Dimensions:** `quantity`, `unit`, `source`
 - **Measures:** `value`
@@ -29,6 +30,7 @@ Method, equations, and verification: [`docs/methods/replications/08_lenzen_repli
 ### `lenzen_kpi_by_producing_node.csv.gz`
 
 - **Rows:** 43,355
+- **Format:** csv
 - **Resolution:** 44+ regions x 84+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `country_consuming`, `sector_consuming`, `indicator`, `unit`, `model`, `quantity`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
@@ -37,6 +39,7 @@ Method, equations, and verification: [`docs/methods/replications/08_lenzen_repli
 ### `lenzen_kpi_domestic_vs_imported.csv`
 
 - **Rows:** 18
+- **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `indicator`, `unit`, `origin`
 - **Measures:** `value`, `share_of_total_pct`
@@ -44,6 +47,7 @@ Method, equations, and verification: [`docs/methods/replications/08_lenzen_repli
 ### `lenzen_kpi_set.csv`
 
 - **Rows:** 11
+- **Format:** csv
 - **Units:** GL, Mm3, km2, kt, kt CO2eq, million people
 - **Dimensions:** `consuming_country_iso3`, `indicator`, `unit`, `lenzen_unit`, `lenzen_note`
 - **Measures:** `analysis_year`, `total`, `direct`, `supplier_first_order`, `higher_order`, `direct_pct`, `supplier_pct`, `higher_order_pct`, `truncation_error_TE0_pct`, `truncation_error_TE1_pct`, `per_capita`, `national_total`, `share_of_national_pct`, `intensity_per_meur`, `domestic_pct`, `import_pct`, `lenzen_dk_2015`, `population`, `health_expenditure_meur`

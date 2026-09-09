@@ -280,7 +280,7 @@ def main() -> None:
         else pd.DataFrame()
     detail.to_csv(os.path.join(
         out_dir, "impact_categories_by_producing_node.csv.gz"),
-        index=False, compression="gzip")
+        index=False, compression={"method": "gzip", "mtime": 0})
     if not detail.empty:
         domestic_import_split(
             detail, by=("method", "indicator", "unit", "quality_flag")).to_csv(

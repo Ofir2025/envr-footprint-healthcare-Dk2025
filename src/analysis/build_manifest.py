@@ -178,8 +178,19 @@ APPROACHES = {
                   "docs/methods/denmark_healthcare_star_schema.sql",
         script="analysis.build_star_schema",
         equations="none - a re-keying of the denormalised gold tables; totals are "
-                  "asserted to be preserved and every foreign key to resolve",
-        inputs="00_core_footprint, 02_scopes_wood_hertwich, 17_health_subsectors"),
+                  "asserted to be preserved and every foreign key to resolve. The "
+                  "bilateral fact is the primary and the two node/product facts "
+                  "are asserted to be its margins; the scenario, layer, "
+                  "expenditure and health-function facts are asserted to "
+                  "reproduce their published aggregates",
+        inputs="00_core_footprint (footprint, bilateral, expenditure vector, "
+               "national totals); 02_scopes_wood_hertwich; 01_eriksen_replication "
+               "and scenarios/ (the scope ladder per model run); "
+               "07_malik_replication (production layers); 11_capital_gfcf "
+               "(capital treatments); 12_impact_categories_full and, where "
+               "present, 16_impact_world_plus (characterisation); 15_gwp_vintage "
+               "(species and vintages); 18_mitigation_scenarios; "
+               "17_health_subsectors where present"),
     "scenarios": dict(
         approach="Scope-boundary scenario runs",
         reference="SHA 2011 boundary; Steenmeijer expansive boundary",
