@@ -38,10 +38,13 @@ import pandas as pd
 from analysis import gold_scope
 from analysis.constants import (ANALYSIS_YEAR, DK_POPULATION, MODEL_LABEL,
                                 eriksen_folder, scopes_folder)
-from paths import OUTPUT_DIR
+from paths import OUTPUT_DIR, PROJECT_ROOT
 
 OUT_DIR = os.path.join(str(OUTPUT_DIR), "19_tables_of_record")
-DOCX = os.path.join(OUT_DIR, "danish_health_footprint_tables_of_record.docx")
+# A Word rendering of the same tables is a document, not data, so it is
+# published under docs/, not in gold: gold publishes tabular data only.
+DOCX = os.path.join(str(PROJECT_ROOT), "docs", "revision",
+                    "tables_of_record.docx")
 
 #: House palette, matching the figures and the slide deck.
 DEEP = "0B4F4A"
@@ -684,6 +687,7 @@ def build_document(tables: list[Table]) -> str:
     from docx.shared import Inches, Pt, RGBColor
 
     os.makedirs(OUT_DIR, exist_ok=True)
+    os.makedirs(os.path.dirname(DOCX), exist_ok=True)
     doc = Document()
     for section in doc.sections:
         section.left_margin = section.right_margin = Inches(0.8)
