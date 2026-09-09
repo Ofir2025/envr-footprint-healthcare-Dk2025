@@ -343,11 +343,26 @@ def write_sheets_as_csv(frames: dict[str, "pd.DataFrame"], out_dir: str,
     -------
     list of str
         Paths written, in order.
+
+    Raises
+    ------
+    ValueError
+        If two sheet names slug to the same filename (e.g. "A B" and "A-B"
+        both become "a_b") - writing both would silently drop the first.
     """
+    os.makedirs(out_dir, exist_ok=True)
+    slugs: dict[str, str] = {}
     written = []
     for sheet, frame in frames.items():
         slug = (sheet.lower().replace(" ", "_").replace("%", "pct")
                 .replace("-", "_").strip("_"))
+        if slug in slugs:
+            raise ValueError(
+                f"write_sheets_as_csv: sheet names {slugs[slug]!r} and "
+                f"{sheet!r} both slug to {slug!r} - would overwrite "
+                f"{stem}_{slug}.csv"
+            )
+        slugs[slug] = sheet
         path = os.path.join(out_dir, f"{stem}_{slug}.csv")
         frame.to_csv(path, index=index)
         written.append(path)
