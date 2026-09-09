@@ -259,6 +259,16 @@ The same limitation is why `17_health_subsectors` decomposes by SHA function
 rather than by industry: the function detail exists in the expenditure data and
 has no counterpart in the model's sector list.
 
+### How much the merge actually costs
+
+The size of the loss is quantified in the follow-on layer rather than here,
+because it is work for the next paper rather than for this manuscript. What the
+manuscript needs is the limitation itself, and it is stated where it belongs: the
+published decomposition is pro-rata, three of its five functions therefore share
+one intensity exactly, and `17_health_subsectors` reports a ranking
+decomposition so that no reader can mistake an expenditure ordering for a
+supply-chain finding.
+
 ---
 
 ## 6. Checklist for the next EXIOBASE project

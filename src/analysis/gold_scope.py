@@ -104,6 +104,7 @@ PRIVATE_COMPANIONS: dict[str, tuple[str, ...]] = {
                              "src/analysis/impact_world_plus.py"),
     "17_health_subsectors": ("docs/methods/replications/17_health_subsectors.md",
                              "src/analysis/health_subsector_footprints.py",
+                             "src/analysis/health_function_recipes.py",
                              # The star schema folder is a paper deliverable,
                              # but three of its files exist only where the
                              # health-function layer has been built, and
