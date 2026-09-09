@@ -4,18 +4,18 @@
 
 This study reports climate change on **IPCC AR6**. The characterisation workbook shipped with the background instead carries **AR4** factors (CH₄ = 25, N₂O = 298) under a sheet labelled "CML 1999". What does the restatement change, and what can it not reach?
 
-Method, equations, and verification: [`docs/methods/replications/15_gwp_vintage.md`](../../../docs/methods/replications/15_gwp_vintage.md).
+Method, equations, and verification: [`docs/methods/replications/15_gwp_vintage.md`](../../../../docs/methods/replications/15_gwp_vintage.md).
 
 ## Conventions
 
 | Item | Convention |
-|---|---|
+|:---|:---|
 | Schema | star schema: dimension columns, then measure and unit |
 | Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |
 | Countries | ISO3 (`DNK`, `DEU`, `ROU`) |
 | Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |
 | Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |
-| Provenance | one row per file in `../MANIFEST_lineage.csv` |
+| Provenance | one row per file in `../manifest_lineage.csv` |
 
 ## Tables
 

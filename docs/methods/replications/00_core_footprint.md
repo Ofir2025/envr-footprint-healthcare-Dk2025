@@ -123,7 +123,7 @@ both retained.
 ## Outputs
 
 | File | Rows | Content |
-|---|---|---|
+|:---|:---|:---|
 | `footprint_by_producing_node.csv` | 66,646 | pressure by (region, industry) of origin × indicator × demand component |
 | `footprint_by_purchased_product.csv` | 30,931 | pressure by purchased product |
 | `footprint_bilateral_producer_x_purchase.csv.gz` | n/a | the full $E$ table, zeros dropped |
@@ -131,7 +131,7 @@ both retained.
 | `national_footprint_by_producing_node.csv` | 22,216 | Danish national footprint, same schema, for shares |
 | `national_vs_healthcare_by_product_group.csv` | n/a | health share of each product group |
 | `expenditure_vector_detail.csv` | 6,187 | $y_H$ itself, by node, with the price conversion |
-| `README_data_dictionary.md` | n/a | column definitions |
+| `data_dictionary.md` | n/a | column definitions (generated; common columns, region coding and the two-perspectives identity for every gold table) |
 
 ## Verification
 

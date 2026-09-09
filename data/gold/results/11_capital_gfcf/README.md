@@ -4,18 +4,18 @@
 
 Steenmeijer, Eckelman, and the NHS reports all **exclude** capital: the Leontief matrix carries current inputs only, so hospital buildings, scanners, and IT systems never enter the supply chain. Wood & Hertwich and Södersten et al. both show this is the largest single boundary omission for service sectors. How large is it here?
 
-Method, equations, and verification: [`docs/methods/replications/11_capital_gfcf.md`](../../../docs/methods/replications/11_capital_gfcf.md).
+Method, equations, and verification: [`docs/methods/replications/11_capital_gfcf.md`](../../../../docs/methods/replications/11_capital_gfcf.md).
 
 ## Conventions
 
 | Item | Convention |
-|---|---|
+|:---|:---|
 | Schema | star schema: dimension columns, then measure and unit |
 | Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |
 | Countries | ISO3 (`DNK`, `DEU`, `ROU`) |
 | Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |
 | Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |
-| Provenance | one row per file in `../MANIFEST_lineage.csv` |
+| Provenance | one row per file in `../manifest_lineage.csv` |
 
 ## Tables
 

@@ -12,7 +12,7 @@
 | 7b | **Volatile anaesthetics** - same | **In progress** - testing whether medstat ATC N01AB is retrievable in mass units | `docs/revision/bottom_up_anaesthetics.md` (updated) |
 | 8 | **Imported waste** - where needed; FIGARO/Eurostat, or the newest hybrid EXIOBASE on Zenodo | **In progress** - hunting the newest attributional hybrid release with waste accounts | `05_waste_dst_accounts/` |
 | 9 | **Repository hygiene: no assistant traces, no stray development notes** | **Done** - all 26 commit trailers stripped by history rewrite, backup ref deleted, authorship is yours alone, the project brief renamed to `project_brief_*.md`, emoji and development chatter removed from console output | verified by scanning commit messages, source and docs |
-| 10 | **Repo organised; ELT/ETL obvious; commit what matters** | **Done** for the gold layer (approach folders + `MANIFEST_lineage.csv`); pipeline documented in `docs/methods_approaches.md` | see below |
+| 10 | **Repo organised; ELT/ETL obvious; commit what matters** | **Done** for the gold layer (approach folders + `manifest_lineage.csv`); pipeline documented in `docs/methods_approaches.md` | see below |
 | 11 | **Enumerate and check off every request** | This file | - |
 | 12 | **Use the assembled literature as source of truth before online sources** | **Standing instruction now in every research brief**; the current round mines your PDFs first and goes online only for genuine gaps | - |
 
@@ -33,7 +33,7 @@ silver (prepared model objects)
   dk_expenditure_breakdown_2022.csv ............... data/silver/inputs/
         |
         v  analysis.main_2025  (+ the approach modules)
-gold (published results, one folder per approach, all indexed by MANIFEST_lineage.csv)
+gold (published results, one folder per approach, all indexed by manifest_lineage.csv)
   00_core_footprint  01_eriksen_replication  02_scopes_wood_hertwich
   03_cabernard_target_scope3  04_uncertainty_lenzen_ieooc
   05_waste_dst_accounts  06_benchmarks_validation  scenarios

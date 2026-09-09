@@ -4,18 +4,18 @@
 
 Reviewer 1's central request: how precise is the estimate, what drives its imprecision, and do the reported rankings hold across draws?
 
-Method, equations, and verification: [`docs/methods/replications/04_uncertainty_lenzen_ieooc.md`](../../../docs/methods/replications/04_uncertainty_lenzen_ieooc.md).
+Method, equations, and verification: [`docs/methods/replications/04_uncertainty_lenzen_ieooc.md`](../../../../docs/methods/replications/04_uncertainty_lenzen_ieooc.md).
 
 ## Conventions
 
 | Item | Convention |
-|---|---|
+|:---|:---|
 | Schema | star schema: dimension columns, then measure and unit |
 | Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |
 | Countries | ISO3 (`DNK`, `DEU`, `ROU`) |
 | Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |
 | Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |
-| Provenance | one row per file in `../MANIFEST_lineage.csv` |
+| Provenance | one row per file in `../manifest_lineage.csv` |
 
 ## Tables
 
@@ -89,6 +89,13 @@ Method, equations, and verification: [`docs/methods/replications/04_uncertainty_
 - **Units:** Mm3, km2, kt, ktCO2eq
 - **Dimensions:** `pharma_scenario`, `indicator`, `unit`
 - **Measures:** `deterministic`, `median`, `mean`, `sd`, `cv_pct`, `p2_5`, `p16`, `p84`, `p97_5`, `rel_low_pct`, `rel_high_pct`, `mcse_median_pct`
+
+### `uncertainty_travel_correlation.csv`
+
+- **Rows:** 3
+- **Format:** csv
+- **Dimensions:** none
+- **Measures:** `rho`, `median`, `p2_5`, `p97_5`, `cv_pct`
 
 ### `uncertainty_variance_shares.csv`
 

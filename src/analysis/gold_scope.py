@@ -274,7 +274,7 @@ def render() -> str:
         "Every table here is a deliverable at the most detailed level the model",
         "supports (producing country x producing sector x purchased product x",
         "demand component), so all aggregates are derivable and no lineage is",
-        "lost. Lineage for every file is in `MANIFEST_lineage.csv`.",
+        "lost. Lineage for every file is in `manifest_lineage.csv`.",
         "",
         "## Two scopes, one tree",
         "",
@@ -291,7 +291,7 @@ def render() -> str:
         "response to the reviewers.",
         "",
         "| folder | why it ships |",
-        "|---|---|",
+        "|:---|:---|",
     ]
     lines += [f"| `{k}` | {w} |" for k, w in paper]
     lines += [
@@ -302,7 +302,7 @@ def render() -> str:
         "that nothing in the current revision cites.",
         "",
         "| folder | why it stays here |",
-        "|---|---|",
+        "|:---|:---|",
     ]
     lines += [f"| `{k}` | {w} |" for k, w in private]
     lines += [

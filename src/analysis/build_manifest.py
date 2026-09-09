@@ -222,7 +222,7 @@ def main():
     df["generated_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     df["monetary_unit"] = "M.EUR (EXIOBASE native); Danish sources in 1000 DKK / m DKK"
     df["country_coding"] = "ISO3 for countries; WA/WL/WE/WF/WM keep RoW region labels"
-    out = os.path.join(root, "MANIFEST_lineage.csv")
+    out = os.path.join(root, "manifest_lineage.csv")
     df.to_csv(out, index=False)
     print(df.groupby("approach_folder").size().to_string())
     print(f"\n{len(df)} gold files -> {out}")

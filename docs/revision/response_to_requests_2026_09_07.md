@@ -133,7 +133,7 @@ implemented rather than promised.
 ## 4. Proper CSV tables with correct schemas, most detailed first
 
 **Now organised by approach**, as you asked, each folder holding the outputs of
-one named method, with `MANIFEST_lineage.csv` at the root mapping every file to
+one named method, with `manifest_lineage.csv` at the root mapping every file to
 its approach, script, equations, published reference, inputs, and content hash:
 
 ```
