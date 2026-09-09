@@ -211,7 +211,7 @@ def main():
     for k, v in meta.items():
         bil.insert(0, k, v)
     bil_path = os.path.join(out_dir, "footprint_bilateral_producer_x_purchase.csv.gz")
-    bil.to_csv(bil_path, index=False, compression="gzip")
+    bil.to_csv(bil_path, index=False, compression={"method": "gzip", "mtime": 0})
     print(f"footprint_bilateral_producer_x_purchase.csv.gz: {len(bil):,} rows "
           f"(gzip; includes explicit remainder rows so totals reconcile exactly)")
     cov = pd.DataFrame(cover)

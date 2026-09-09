@@ -782,8 +782,19 @@ def main() -> None:
             continue
         assert not t.frame.empty, f"{build.__name__} produced an empty table"
         tables.append(t)
-    for i, t in enumerate(tables, start=1):
-        t.number = i
+    # Each table keeps the number its builder declares. Renumbering the survivors
+    # sequentially, which this did, shifts every table after one that is skipped:
+    # the paper-scope copy has no health-function table, so its table 11 became
+    # the full copy's table 12 and every cross-reference between the two copies,
+    # and from the deck, pointed at the wrong table. A gap in the numbering is
+    # the honest cost of a scope difference.
+    numbers = [t.number for t in tables]
+    assert len(set(numbers)) == len(numbers), f"duplicate table numbers: {numbers}"
+    assert numbers == sorted(numbers), f"tables are out of order: {numbers}"
+    missing = sorted(set(range(1, max(numbers) + 1)) - set(numbers))
+    if missing:
+        print(f"  numbering keeps its gaps at {missing}, whose layers are not "
+              f"in this working copy")
     path = build_document(tables)
     os.makedirs(OUT_DIR, exist_ok=True)
     index = pd.DataFrame([dict(number=t.number, title=t.title, source=t.source,

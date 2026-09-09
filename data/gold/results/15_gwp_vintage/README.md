@@ -22,6 +22,7 @@ Method, equations, and verification: [`docs/methods/replications/15_gwp_vintage.
 ### `gwp_by_species.csv`
 
 - **Rows:** 6
+- **Format:** csv
 - **Units:** kg, kg CO2eq
 - **Dimensions:** `country_consuming`, `sector_consuming`, `species`, `unit`
 - **Measures:** `mass_kg`, `ar6_gwp100`, `contribution_kt_co2eq`
@@ -29,5 +30,6 @@ Method, equations, and verification: [`docs/methods/replications/15_gwp_vintage.
 ### `gwp_vintage_sensitivity.csv`
 
 - **Rows:** 5
+- **Format:** csv
 - **Dimensions:** `country_consuming`, `gwp_vintage`, `model`, `note`
 - **Measures:** `analysis_year`, `is_study_default`, `healthcare_kt_co2eq`, `national_kt_co2eq`, `healthcare_share_pct`, `healthcare_t_per_capita`, `not_restatable_kt_co2eq`, `not_restatable_share_pct`

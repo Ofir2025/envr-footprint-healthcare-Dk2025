@@ -1,0 +1,11 @@
+scope_component_id,component_code,component_name,component_role,parent_component_code
+1,scope1_direct,"Scope 1 direct (DRIVHUS, excl. medical N2O)",addend,scope1_total
+2,scope1_anaesthetic,+ Anaesthetic gases (bottom-up),addend,scope1_total
+3,scope1_total,Scope 1 (Total),subtotal,grand_total
+4,scope2,Scope 2 (generation of purchased energy),addend,grand_total
+5,scope3_mrio,Scope 3 (MRIO supply chain excl. Scope 2),addend,scope3_total
+6,scope3_pmdi,"+ pMDI (bottom-up, use phase)",addend,scope3_total
+7,scope3_commute,+ Commute (bottom-up),addend,scope3_total
+8,scope3_total,Scope 3 (Total),subtotal,grand_total
+9,outside_protocol,Outside protocol (patient/visitor travel),addend,grand_total
+10,grand_total,Grand Total,grand total,
