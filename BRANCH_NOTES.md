@@ -3,9 +3,29 @@
 Everything needed to answer both reviewers. Start with
 [`docs/revision/response_to_reviewers.md`](docs/revision/response_to_reviewers.md).
 
+## Cite the background like this
+
+Put this in the methods, verbatim. Each part of it has been got wrong in a draft.
+
+> Environmental extensions and the global supply-chain structure were taken from
+> **EXIOBASE version 3.8.2**, industry-by-industry monetary tables
+> (`IOT_2022_ixi`, 49 regions x 163 industries), reference year **2022**, in
+> basic prices, million euro. The Danish demand vector is Danish 2022
+> expenditure, so demand year and model year coincide.
+
+`3.8.2` and not "EXIOBASE 3": v3.10.2 and v3.8.2 disagree by a factor of three on
+the size of the Danish health industry, and this study rejects v3.10.2 for that
+reason, so the release is not a detail a reader can fill in. `ixi` and not `pxp`:
+those have 163 and 200 sectors and their results are not interchangeable. And the
+2022 tables are themselves a nowcast, compiled in September 2021, which the
+limitations must say. The full argument, the measured size of the projection
+error, and draft wording for the limitations paragraph are in
+[`docs/methods/exiobase_version_vintage_and_classification.md`](docs/methods/exiobase_version_vintage_and_classification.md).
+
 | You want | Go to |
 |---|---|
 | The point-by-point reviewer response | `docs/revision/response_to_reviewers.md` |
+| How to cite the background, and its limitations | `docs/methods/exiobase_version_vintage_and_classification.md` |
 | What changed since submission, and why | `docs/revision/analysis_2022.md` |
 | Method and equations, per analysis layer | `docs/methods/replications/` |
 | What each results folder contains | a `README.md` in every `data/gold/results/*/` |

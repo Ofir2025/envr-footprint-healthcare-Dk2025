@@ -25,7 +25,7 @@ for the same year (`analysis.vintage_defect_audit`):
 
 | DK industry, 2022 | National accounts | v3.10.2 | ratio |
 |---|---|---|---|
-| Health and social work | 45,321 M€ | 16,326 | **0.36** |
+| Health and social work (NACE 75, 86, 87, 88) | 45,854 M€ | 16,326 | **0.36** |
 | Education | 22,935 | 109,673 | **4.78** |
 | Financial intermediation | 18,980 | 76 | **0.004** |
 | Machinery n.e.c. | 21,150 | 28 | **0.001** |
@@ -36,6 +36,11 @@ Total Danish output is right to 3 %, and `x = Z·1 + Y·1` holds to 7×10⁻¹¹
 output was redistributed between industries rather than lost, and the table is
 internally consistent. This redistribution is an allocation failure upstream of
 the balancing, not corruption.
+
+The comparator is the whole of ISIC rev.3 division 85, veterinary medicine
+included, because that is what EXIOBASE's single health industry covers; the
+narrower NACE 86, 87 and 88 group is 45,321 M€, and using it would compare the
+model's full-group output against a partial national-accounts group.
 
 An internal check settles it without leaving our own data: Danish health and
 eldercare **final** expenditure in 2022 is 40,597 M€. A health-and-social-work
@@ -219,21 +224,26 @@ supplies already aggregated to CO₂-equivalent and which therefore keep whateve
 vintage EXIOBASE used. That residue is reported rather than silently restated
 (`gwp_vintage_sensitivity.csv`, columns `not_restatable_*`).
 
-**Related mixing:** the bottom-up items do not share this vintage. Volatile
-anaesthetics use the Sulbaek Andersen et al. (2023) recommended GWP₁₀₀ set, pMDI
-takes the Danish EPA F-gas inventory figure as published, and the N₂O term uses
-**AR4's 298**. That last one is the study's remaining mismatch, and it is worth
-stating exactly. The factor was chosen when the MRIO climate row still carried
-EXIOBASE's own DESIRE factors, which are AR4, so the two agreed; the MRIO row is
-now rebuilt on AR6, where N₂O is 273, so they no longer do. The size of the
-mismatch is 38 t × (298 − 273) = **0.95 kt CO₂e**, or 0.02 % of the headline,
-against a reported 95 % interval spanning 1,467 kt. It is reported rather than
-changed, because restating it would move every gold file, figure and table for a
-difference two orders of magnitude below the interval; the decision is recorded
-here so it is a choice rather than an oversight. Steenmeijer et al. have the same problem in
-a sharper form: their climate factors are AR4/DESIRE while their pMDI
-propellants use genuine ReCiPe GWPs (1,549 and 3,860), so their climate total
-also mixes two vintages.
+**Related mixing, since resolved.** The bottom-up items do not all share the
+MRIO row's vintage. Volatile anaesthetics use the Sulbaek Andersen et al. (2023)
+recommended GWP₁₀₀ set and pMDI takes the Danish EPA F-gas inventory figure as
+published, both of which are deliberate: they are the published values for those
+specific gases. The nitrous oxide term was the one genuine mismatch. It carried
+**AR4's 298**, chosen when the MRIO climate row still ran on EXIOBASE's own
+DESIRE factors, which are AR4, so the two agreed; rebuilding the MRIO row on AR6
+left it stranded at a different vintage from the model around it.
+
+An earlier draft of this register argued for leaving it, on the grounds that
+38 t × (298 − 273) = 0.95 kt CO₂e is 0.02 % of the headline against a 95 %
+interval spanning 1,467 kt. That reasoning was wrong in kind rather than in
+arithmetic: a study that states it reports on AR6 should report on AR6
+everywhere, and the cost of restating is a pipeline run. The term now uses
+`AR6_GWP100["N2O"]` from `analysis.constants`, so it cannot drift from the model
+again, and the headline moved 4,713.368 to **4,712.418 kt**.
+
+Steenmeijer et al. have the same problem and it is not resolved there: their
+climate factors are AR4/DESIRE while their pMDI propellants use genuine ReCiPe
+GWPs (1,549 and 3,860), so their climate total mixes two vintages.
 
 ### A9: Documented errors in the template study itself `MEDIUM` `ACCEPTED`
 

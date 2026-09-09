@@ -20,7 +20,7 @@ structure without deflation"* and asked us to explain the vintage mismatch.
 Option A dissolves that objection: no mismatch and no deflation step remain.
 The Danish **economic** block of EXIOBASE v3.8.2 2022 was tested against
 Statistics Denmark's published 117-industry table and passes on every checkable
-industry group (health 0.97, education 0.88, financial 1.11, real estate 0.97).
+industry group (health 0.96, education 0.88, financial 1.11, real estate 0.97).
 
 ### A qualification the case for A has to carry
 
