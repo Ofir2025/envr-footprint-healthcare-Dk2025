@@ -402,6 +402,9 @@ A gate should not be passed until its balance, classification and validation tes
 5. `04_sources_and_references.md`  
    Annotated scholarly literature and official statistical/API sources.
 
+6. `exiobase_version_vintage_and_classification.md`  
+   Which EXIOBASE release and reference year this study uses and how to state that in the paper; what a nowcast year is and how far the 2022 projection departs from the Danish national accounts; where the sea-transport reallocation is documented; what EXIOBASE's `Health and social work (85)` industry contains and why ISIC Rev.4, NACE Rev.2 and NAICS all separate what it merges; and a checklist for the next project that uses EXIOBASE.
+
 ---
 
 # 11. Overall methodological position
