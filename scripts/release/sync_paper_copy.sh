@@ -77,8 +77,16 @@ git checkout FETCH_HEAD -- src/analysis/gold_scope.py
 GOLD_EXCLUDE=$(PYTHONPATH=src python3 -m analysis.gold_scope --exclude)
 [ -n "$GOLD_EXCLUDE" ] || { echo "gold_scope listed no private paths" >&2; exit 1; }
 
+#: Held back pending the author's decision rather than withheld on principle.
+#: The assessment of the co-author's own submission is a candid critique of his
+#: manuscript, and publishing it to his repository is his co-author's call to
+#: make deliberately, not something a sync should do as a side effect of
+#: widening its include list. Its sibling assessment IS published, so this is a
+#: pause, not a policy. Remove the line to publish it.
+HELD=(docs/revision/manuscript_assessment_ofir_et_al_2026.md)
+
 EXCLUDE_SPECS=()
-for path in $GOLD_EXCLUDE; do EXCLUDE_SPECS+=(":(exclude)$path"); done
+for path in $GOLD_EXCLUDE "${HELD[@]}"; do EXCLUDE_SPECS+=(":(exclude)$path"); done
 
 echo "==> taking ${INCLUDE[*]}"
 git checkout FETCH_HEAD -- "${INCLUDE[@]}" "${EXCLUDE_SPECS[@]}"
