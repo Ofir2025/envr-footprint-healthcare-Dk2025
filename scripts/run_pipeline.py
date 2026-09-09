@@ -130,6 +130,9 @@ STAGES: tuple[tuple[str, str], ...] = (
      "the climate vintage restatement; reads the raw stressor masses, so it "
      "must follow the modules that write them"),
     ("health_subsector_footprints", "the SHA function decomposition"),
+    ("health_function_recipes",
+     "reads that decomposition, so it runs after it: gives each service "
+     "function its own input recipe from the Danish table"),
 
     # --- counterfactuals ---------------------------------------------------
     ("mitigation_scenarios",
