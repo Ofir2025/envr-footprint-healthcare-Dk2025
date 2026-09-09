@@ -56,11 +56,11 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `mrio_vintage` | dimension | str |  | v3.10.2 |
-| `mrio_year` | measure | int64 | M.EUR | 2022 |
+| `mrio_year` | measure | int64 |  | 2022 |
 | `country_producing` | dimension | str |  | DNK |
 | `sector_producing` | dimension | str |  | Health and social work |
 | `exiobase_industry_index` | dimension | str |  | 137 |
-| `dst_nace_prefixes` | measure | str | M.EUR | 86;87;88 |
+| `dst_nace_prefixes` | dimension | str |  | 86;87;88 |
 | `exiobase_output_meur` | measure | float64 | M.EUR | 16326.113359 |
 | `national_accounts_output_meur` | measure | float64 | M.EUR | 45320.98661218329 |
 | `ratio_exiobase_over_dst` | measure | float64 | M.EUR | 0.3602329644476711 |
@@ -72,13 +72,13 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `mrio_vintage` | dimension | str |  | v3.10.2 |
-| `mrio_year` | measure | int64 | M.EUR | 2022 |
+| `mrio_year` | measure | int64 |  | 2022 |
 | `country_producing` | dimension | str |  | AUT |
 | `sector_producing` | dimension | str |  | Manufacture of medical, precision and op |
 | `exiobase_industry_index` | measure | int64 | M.EUR | 89 |
 | `value` | measure | float64 | M.EUR | 0.0 |
 | `unit` | dimension | str |  | M.EUR |
-| `variable` | measure | str | M.EUR | total_industry_output |
+| `variable` | dimension | str |  | total_industry_output |
 
 ### `vintage_defect_verdicts.csv`
 

@@ -31,5 +31,5 @@ Method, equations, and verification: [`docs/methods/replications/15_gwp_vintage.
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `country_consuming`, `gwp_vintage`, `model`, `note`
-- **Measures:** `analysis_year`, `is_study_default`, `healthcare_kt_co2eq`, `national_kt_co2eq`, `healthcare_share_pct`, `healthcare_t_per_capita`, `not_restatable_kt_co2eq`, `not_restatable_share_pct`
+- **Dimensions:** `country_consuming`, `gwp_vintage`, `is_study_default`, `model`, `note`
+- **Measures:** `analysis_year`, `healthcare_kt_co2eq`, `national_kt_co2eq`, `healthcare_share_pct`, `healthcare_t_per_capita`, `not_restatable_kt_co2eq`, `not_restatable_share_pct`

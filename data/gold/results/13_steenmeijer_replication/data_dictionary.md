@@ -58,10 +58,10 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `netherlands_national` | measure | int64 | varies by row | 241358 |
-| `netherlands_health_share_pct` | measure | float64 | varies by row | 7.3 |
+| `netherlands_health_share_pct` | measure | float64 | % | 7.3 |
 | `denmark_national` | measure | float64 | varies by row | 77477.50333386465 |
-| `denmark_health_share_pct` | measure | float64 | varies by row | 5.089731660302548 |
-| `share_difference_pp` | measure | float64 | varies by row | -2.2102683396974516 |
+| `denmark_health_share_pct` | measure | float64 | % | 5.089731660302548 |
+| `share_difference_pp` | measure | float64 | % | -2.2102683396974516 |
 | `comparability_note` | dimension | str |  | NOT on the same boundary: the Dutch figu |
 | `source_netherlands` | dimension | str |  | Steenmeijer et al. 2022 table S7 (= RIVM |
 | `source_denmark` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
@@ -72,7 +72,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `analysis_year_denmark` | measure | int64 | varies by row | 2022 |
 | `reference_year_netherlands` | measure | int64 | varies by row | 2016 |
-| `table_row` | measure | str | varies by row | Total |
+| `table_row` | dimension | str |  | Total |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `netherlands_2016` | measure | float64 | varies by row | 17575.0 |

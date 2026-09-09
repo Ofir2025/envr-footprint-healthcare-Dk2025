@@ -55,7 +55,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `item` | dimension | str |  | MRIO footprint decomposition by producin |
 | `risk` | dimension | str |  | none |
 | `test` | dimension | str |  | partition of one scalar (sum of cells == |
@@ -72,7 +72,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0761 |
-| `share_of_scope_pct` | measure | float64 | varies by row | 100.0 |
+| `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_continent_and_industry_group.csv`
 
@@ -84,7 +84,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0761 |
-| `share_of_scope_pct` | measure | float64 | varies by row | 100.0 |
+| `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_country.csv`
 
@@ -97,7 +97,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0761 |
-| `share_of_scope_pct` | measure | float64 | varies by row | 100.0 |
+| `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_industry_group.csv`
 
@@ -108,7 +108,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0761 |
-| `share_of_scope_pct` | measure | float64 | varies by row | 100.0 |
+| `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_origin_and_industry.csv`
 
@@ -116,7 +116,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `scope` | dimension | str |  | Scope 2 |
@@ -143,8 +143,8 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0761 |
-| `rank` | measure | int64 | varies by row | 2 |
-| `is_remainder` | measure | bool | varies by row | False |
+| `rank` | measure | int64 |  | 2 |
+| `is_remainder` | dimension | bool |  | False |
 
 ### `scopes_by_producing_node.csv`
 
@@ -152,7 +152,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `scope` | dimension | str |  | Scope 2 |
@@ -170,7 +170,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `scope` | dimension | str |  | Scope 1 |

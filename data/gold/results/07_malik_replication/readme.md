@@ -39,8 +39,8 @@ Method, equations, and verification: [`docs/methods/replications/07_malik_replic
 
 - **Rows:** 4
 - **Format:** csv
-- **Dimensions:** `model`, `consuming_country_iso3`, `indicator`
-- **Measures:** `analysis_year`, `study`, `total_kt`, `share_national_pct`, `direct_pct`, `boundary`
+- **Dimensions:** `model`, `consuming_country_iso3`, `study`, `indicator`, `boundary`
+- **Measures:** `analysis_year`, `total_kt`, `share_national_pct`, `direct_pct`
 
 ### `production_layers.csv`
 
@@ -79,5 +79,5 @@ Method, equations, and verification: [`docs/methods/replications/07_malik_replic
 
 - **Rows:** 3
 - **Format:** csv
-- **Dimensions:** `indicator`, `malik_unit`, `layer_definition`, `source_malik`, `source_denmark`
-- **Measures:** `denmark_first_three_layers_pct`, `malik_nsw_first_three_layers_pct`, `denmark_first_layer_pct`, `malik_nsw_first_layer_pct`, `malik_total`, `comparability`
+- **Dimensions:** `indicator`, `malik_unit`, `layer_definition`, `comparability`, `source_malik`, `source_denmark`
+- **Measures:** `denmark_first_three_layers_pct`, `malik_nsw_first_three_layers_pct`, `denmark_first_layer_pct`, `malik_nsw_first_layer_pct`, `malik_total`

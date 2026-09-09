@@ -70,12 +70,12 @@ units and are labelled as such wherever they are quoted.
 | `country_consuming` | dimension | str |  | DNK |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `gwp_vintage` | dimension | str |  | IPCC SAR (1995) |
-| `is_study_default` | measure | bool |  | False |
+| `is_study_default` | dimension | bool |  | False |
 | `healthcare_kt_co2eq` | measure | float64 |  | 3740.212749906714 |
 | `national_kt_co2eq` | measure | float64 |  | 64766.870324631665 |
-| `healthcare_share_pct` | measure | float64 |  | 5.774885726544461 |
+| `healthcare_share_pct` | measure | float64 | % | 5.774885726544461 |
 | `healthcare_t_per_capita` | measure | float64 |  | 0.6368032168492488 |
 | `not_restatable_kt_co2eq` | measure | float64 |  | 155.29988960547564 |
-| `not_restatable_share_pct` | measure | float64 |  | 4.152167269344478 |
+| `not_restatable_share_pct` | measure | float64 | % | 4.152167269344478 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `note` | dimension | str |  | HFC and PFC are supplied by EXIOBASE alr |

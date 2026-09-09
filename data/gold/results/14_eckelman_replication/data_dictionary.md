@@ -69,19 +69,19 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `analysis_year_denmark` | measure | int64 |  | 2022 |
 | `reference_year_us` | measure | int64 |  | 2013 |
-| `eckelman_code` | measure | str |  | GW |
-| `effect_category` | measure | str |  | Global warming |
+| `eckelman_code` | dimension | str |  | GW |
+| `effect_category` | dimension | str |  | Global warming |
 | `us_unit` | dimension | str |  | kg CO2-e |
 | `us_health_care` | measure | float64 |  | 660000000000.0 |
 | `us_national` | measure | float64 |  | 6500000000000.0 |
-| `us_share_of_national_pct` | measure | float64 |  | 9.8 |
+| `us_share_of_national_pct` | measure | float64 | % | 9.8 |
 | `dk_method` | dimension | str |  | Problem oriented approach: baseline (CML |
 | `dk_indicator` | dimension | str |  | global warming GWP100 |
 | `dk_unit` | dimension | str |  | kg CO2 eq. |
 | `dk_health_care` | measure | float64 |  | 3859168427.4281926 |
 | `dk_national` | measure | float64 |  | 66744817262.27816 |
-| `dk_share_of_national_pct` | measure | float64 |  | 5.7819746696786 |
-| `share_difference_pp` | measure | float64 |  | -4.018025330321401 |
-| `comparability` | measure | str |  | shares only; reference substances differ |
+| `dk_share_of_national_pct` | measure | float64 | % | 5.7819746696786 |
+| `share_difference_pp` | measure | float64 | % | -4.018025330321401 |
+| `comparability` | dimension | str |  | shares only; reference substances differ |
 | `source_us` | dimension | str |  | Eckelman & Sherman 2016, PLoS ONE 11(6): |
 | `source_dk` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
