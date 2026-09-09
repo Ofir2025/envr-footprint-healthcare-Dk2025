@@ -48,6 +48,22 @@ superseded form itself is banned from every document that states a current
 claim, and the registers that exist to record what a value used to be are named
 explicitly rather than inferred.
 
+**C14 Gold format.** Gold publishes tabular data only -- CSV, gzipped CSV,
+Parquet, Markdown or ``.npy`` -- never a workbook, document or image, so a
+consumer never has to open anything but a table.
+
+**C15 Gold naming.** Every published file and directory name is lowercase, so
+a path never has to be guessed.
+
+**C16 Gold cleanliness.** Nothing in the published gold tree is untracked. An
+untracked file is invisible to every other check in this module, so it is the
+one defect that could otherwise grow without ever being reported.
+
+**C17 Layer boundary.** No new module reads bronze and writes gold in one
+step (medallion rule 4). The eleven names in ``LAYER_SKIPPERS`` are known
+debt, carried until each module is re-plumbed through silver; the check
+exists so that list can shrink and never grow.
+
 Exit status is non-zero if any check fails, so this can gate a release.
 
 Run
@@ -250,34 +266,42 @@ def c9_gold_scope(results: list[dict[str, Any]]) -> None:
 GOLD_ALLOWED_SUFFIXES = (".csv", ".csv.gz", ".parquet", ".md", ".npy")
 
 
-def c10_gold_format(results: list[dict[str, Any]]) -> None:
-    """C10: gold publishes tabular data, not workbooks, documents or images."""
+def c14_gold_format(results: list[dict[str, Any]]) -> None:
+    """C14: gold publishes tabular data, not workbooks, documents or images."""
     root = str(OUTPUT_DIR)
+    if not os.path.isdir(root):
+        _check(results, "C14 gold holds tabular data only", False,
+               f"unavailable: OUTPUT_DIR does not exist: {root}")
+        return
     offenders = [
         os.path.relpath(os.path.join(dirpath, name), root)
         for dirpath, _, names in os.walk(root)
         for name in names
         if not name.endswith(GOLD_ALLOWED_SUFFIXES)
     ]
-    _check(results, "C10 gold holds tabular data only", not offenders,
+    _check(results, "C14 gold holds tabular data only", not offenders,
            "; ".join(sorted(offenders)[:8]) or "clean")
 
 
-def c11_gold_lowercase(results: list[dict[str, Any]]) -> None:
-    """C11: every published name is lowercase."""
+def c15_gold_lowercase(results: list[dict[str, Any]]) -> None:
+    """C15: every published name is lowercase."""
     root = str(OUTPUT_DIR)
+    if not os.path.isdir(root):
+        _check(results, "C15 every gold name is lowercase", False,
+               f"unavailable: OUTPUT_DIR does not exist: {root}")
+        return
     offenders = [
         os.path.relpath(os.path.join(dirpath, name), root)
         for dirpath, _, names in os.walk(root)
         for name in names
         if name != name.lower()
     ]
-    _check(results, "C11 every gold name is lowercase", not offenders,
+    _check(results, "C15 every gold name is lowercase", not offenders,
            "; ".join(sorted(offenders)[:8]) or "clean")
 
 
-def c12_gold_clean(results: list[dict[str, Any]]) -> None:
-    """C12: nothing in the published tree is untracked.
+def c16_gold_clean(results: list[dict[str, Any]]) -> None:
+    """C16: nothing in the published tree is untracked.
 
     An untracked file is invisible to every other check in this module, so it
     is the one defect that can grow without ever being reported.
@@ -285,8 +309,12 @@ def c12_gold_clean(results: list[dict[str, Any]]) -> None:
     out = subprocess.run(
         ["git", "ls-files", "--others", "--exclude-standard", "--", "data/gold"],
         capture_output=True, text=True, cwd=str(PROJECT_ROOT))
+    if out.returncode != 0:
+        _check(results, "C16 no untracked file in gold", False,
+               f"unavailable: git exited {out.returncode}: {out.stderr.strip()}")
+        return
     offenders = [line for line in out.stdout.splitlines() if line.strip()]
-    _check(results, "C12 no untracked file in gold", not offenders,
+    _check(results, "C16 no untracked file in gold", not offenders,
            f"{len(offenders)} untracked" if offenders else "clean")
 
 
@@ -298,13 +326,13 @@ LAYER_SKIPPERS = {
 }
 
 
-def c13_layer_boundary(results: list[dict[str, Any]]) -> None:
-    """C13: no NEW module reads bronze and writes gold in one step.
+def c17_layer_boundary(results: list[dict[str, Any]]) -> None:
+    """C17: no NEW module reads bronze and writes gold in one step.
 
-    Medallion rule 4. The ten in ``LAYER_SKIPPERS`` are the known debt, carried
-    into the bronze phase where their read paths change anyway. The check exists
-    so the list can shrink and never grow: remove a name when the module is
-    re-plumbed, and C13 fails the moment an eleventh appears.
+    Medallion rule 4. The eleven in ``LAYER_SKIPPERS`` are the known debt,
+    carried into the bronze phase where their read paths change anyway. The
+    check exists so the list can shrink and never grow: remove a name when the
+    module is re-plumbed, and C17 fails the moment a twelfth appears.
     """
     src = os.path.join(str(PROJECT_ROOT), "src", "analysis")
     own_file = os.path.basename(__file__)
@@ -322,7 +350,7 @@ def c13_layer_boundary(results: list[dict[str, Any]]) -> None:
         if ("BRONZE_DIR" in text or "EXIOBASE_DIR" in text) and "OUTPUT_DIR" in text:
             found.add(name[:-3])
     new = sorted(found - LAYER_SKIPPERS)
-    _check(results, "C13 no new bronze-to-gold module", not new,
+    _check(results, "C17 no new bronze-to-gold module", not new,
            f"new: {', '.join(new)}" if new else f"{len(found)} known, none new")
 
 
@@ -780,8 +808,8 @@ def main() -> None:
                   c4_provenance, c5_manifest, c6_documentation, c6b_superseded,
                   c7_star_integrity,
                   c8_citations, c9_gold_scope,
-                  c10_gold_format, c11_gold_lowercase, c12_gold_clean,
-                  c13_layer_boundary,
+                  c14_gold_format, c15_gold_lowercase, c16_gold_clean,
+                  c17_layer_boundary,
                   c10_repo_profile):
         try:
             check(results)
