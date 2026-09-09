@@ -182,7 +182,7 @@ APPROACHES = {
         approach="Canonical star schema: conformed dimensions with surrogate keys, "
                  "fact tables carrying ids only",
         reference="Kimball & Ross, The Data Warehouse Toolkit; "
-                  "docs/methods/denmark_healthcare_star_schema.sql",
+                  "docs/methods/star_schema.sql",
         script="analysis.build_star_schema",
         equations="none - a re-keying of the denormalised gold tables; totals are "
                   "asserted to be preserved and every foreign key to resolve. The "
