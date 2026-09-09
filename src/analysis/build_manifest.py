@@ -190,6 +190,9 @@ APPROACHES = {
                "(capital treatments); 12_impact_categories_full and, where "
                "present, 16_impact_world_plus (characterisation); 15_gwp_vintage "
                "(species and vintages); 18_mitigation_scenarios; "
+               "04_uncertainty_lenzen_ieooc (the Monte Carlo draw array, whose "
+               "sum over groups is asserted to reproduce the published median, "
+               "interval and coefficient of variation); "
                "17_health_subsectors where present"),
     "scenarios": dict(
         approach="Scope-boundary scenario runs",

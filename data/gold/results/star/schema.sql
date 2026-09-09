@@ -397,3 +397,22 @@ CREATE TABLE fact_scope_component (
     value              DOUBLE PRECISION NOT NULL,
     PRIMARY KEY (model_id, indicator_id, scope_component_id)
 );
+
+-- The Monte Carlo, at the grain it was actually simulated on. The uncertainty
+-- layer published its summary and kept its detail in a NumPy array; this is
+-- that array, keyed. Summing value over draw_group_id for one draw_id gives
+-- that draw's total, and the published median, 95 % interval and coefficient
+-- of variation are recovered from the distribution of those totals.
+CREATE TABLE dim_draw_group (
+    draw_group_id   INTEGER      PRIMARY KEY,
+    draw_group_name VARCHAR(120) NOT NULL UNIQUE
+);
+
+CREATE TABLE fact_uncertainty_draw (
+    model_id      INTEGER NOT NULL REFERENCES dim_model (model_id),
+    indicator_id  INTEGER NOT NULL REFERENCES dim_indicator (indicator_id),
+    draw_id       INTEGER NOT NULL,
+    draw_group_id INTEGER NOT NULL REFERENCES dim_draw_group (draw_group_id),
+    value         DOUBLE PRECISION NOT NULL,
+    PRIMARY KEY (model_id, indicator_id, draw_id, draw_group_id)
+);

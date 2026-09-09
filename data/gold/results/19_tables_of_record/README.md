@@ -69,13 +69,6 @@
 - **Dimensions:** `Unit`
 - **Measures:** `Impact category`, `Capital excluded (headline)`, `Capital as a service flow`, `Capital endogenised`, `Endogenised change (%)`
 
-### `table_09.csv`
-
-- **Rows:** 5
-- **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Impact category`, `Deterministic`, `Median`, `2.5th percentile`, `97.5th percentile`, `CV, Tier 2 (%)`, `CV, Tier 1 (%)`
-
 ### `table_10.csv`
 
 - **Rows:** 5
