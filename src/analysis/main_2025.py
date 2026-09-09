@@ -86,6 +86,17 @@ os.makedirs(output_dir, exist_ok=True)
 print(f"scope boundary '{_SCOPE}' -> {output_dir}")
 os.makedirs(output_dir, exist_ok=True)
 
+# Intermediate workbooks that only eriksen_tables.py reads back. They are a
+# handoff between two scripts, not a deliverable, so by the medallion
+# contract they belong in silver rather than in gold's output_dir above.
+if _SCOPE == "health_eldercare":
+    interim_dir = os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+                               *eriksen_folder().split("/"))
+else:
+    interim_dir = os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+                               "scenarios", _SCOPE)
+os.makedirs(interim_dir, exist_ok=True)
+
 # 2C) Find and import background.py
 # if not found, add to the code before importing: 
 #code_dir = mainpath + '\\scripts\\'
@@ -803,8 +814,6 @@ for x in df_hotspot:
 # causing the results from this model to vary slightly (<1%), with insignificant
 # implication to the results.
 
-os.chdir(output_dir)
-
 # 7A) Expenditure vector
 # column 'Total (MEUR)' is the sum of the expenditure on Healthcare services,
 # Pharmaceuticals & consumables and Medical durable goods
@@ -822,7 +831,8 @@ Y_aggsec_aggreg = Y_df.groupby(['RegName', 'SAggDescription'])[cols_Y].sum()
 Y_aggsec = Y_df.groupby(['SAggDescription'])[cols_Y].sum()
 
 # Read expenditure vector to xlsx for several aggregation levels
-writer = pd.ExcelWriter('expenditure_vector.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter(os.path.join(interim_dir, 'expenditure_vector.xlsx'),
+                        engine='xlsxwriter')
 Y_df.to_excel(writer, sheet_name='full')
 Y_allsec.to_excel(writer, sheet_name='allsec')
 Y_aggsec_aggreg.to_excel(writer, sheet_name='aggsec_aggreg')
@@ -849,7 +859,8 @@ for df in [mult_all, mult_aggsec_aggreg, mult_aggsec, mult_allsec]:
 
 
 # Write coefficients/multipliers/intensities to xlsx for several aggregation levels
-writer = pd.ExcelWriter('intensities.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter(os.path.join(interim_dir, 'intensities.xlsx'),
+                        engine='xlsxwriter')
 mult_all.to_excel(writer, sheet_name='full')
 mult_allsec.to_excel(writer, sheet_name='allsec')
 mult_aggsec_aggreg.to_excel(writer, sheet_name='aggsec_aggreg')
@@ -918,7 +929,8 @@ df_c_aggsec = df_c[0].groupby(['SAggDescription'])[cols_impcat].sum()
 df_c_allsec = df_c[0].groupby(['SecTxtCode', 'SecName'])[cols_impcat].sum()
 
 # coefficients/multipliers/intensities to csv for several aggregation levels
-writer = pd.ExcelWriter('contribution_analysis.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter(os.path.join(interim_dir, 'contribution_analysis.xlsx'),
+                        engine='xlsxwriter')
 df_c_all.to_excel(writer, sheet_name='full')
 df_c_allsec.to_excel(writer, sheet_name='allsec')
 df_c_aggsec.to_excel(writer, sheet_name='aggsec')
@@ -934,7 +946,8 @@ df_h_aggreg = df_h_all.groupby(['Scope', 'Region', 'RegName'])[cols_impcat].sum(
 df_h_allreg = df_h_all.groupby(['Scope', 'RegName'])[cols_impcat].sum()
 df_h_allsec = df_h_all.groupby(['Scope', 'SecTxtCode', 'SecName'])[cols_impcat].sum()
 
-writer = pd.ExcelWriter('hotspot_analysis.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter(os.path.join(interim_dir, 'hotspot_analysis.xlsx'),
+                        engine='xlsxwriter')
 df_h_all.to_excel(writer, sheet_name='full')
 df_h_aggsec.to_excel(writer, sheet_name='aggsec')
 df_h_aggsec_aggreg.to_excel(writer, sheet_name='aggsec_aggreg')
@@ -1222,8 +1235,8 @@ print("Full result tables exported: FullResults_Tables.xlsx")
 # OPTIONAL: EXPORT FULL RAW DATA (HIGH RESOLUTION)
 # ===============================
 
-df_c_all.to_excel("Contribution_full_detail.xlsx")
-df_h_all.to_excel("Hotspot_full_detail.xlsx")
+df_c_all.to_excel(os.path.join(interim_dir, 'contribution_full_detail.xlsx'))
+df_h_all.to_excel(os.path.join(interim_dir, 'hotspot_full_detail.xlsx'))
 
 print("Raw tables exported for full traceability")
 
