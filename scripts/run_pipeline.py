@@ -36,10 +36,44 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 SRC = REPO / "src"
 #: The interpreter to run stages with. A working copy without its own virtual
-#: environment, which is the normal state of the second one, falls back to the
-#: interpreter running this script.
+#: environment falls back to the interpreter running this script, and
+#: ``check_interpreter`` then tests that the fallback can actually carry the
+#: pipeline. It could not in this copy: the system interpreter has no
+#: ``pyarrow``, so every parquet fact the star schema writes would have failed
+#: at the last stage, after forty minutes of work. A silent fallback to an
+#: interpreter missing a dependency is worse than no fallback.
 _LOCAL_VENV = REPO / ".venv" / "bin" / "python"
 PY = _LOCAL_VENV if _LOCAL_VENV.exists() else Path(sys.executable)
+
+#: Third-party modules a stage may import, and what depends on each. Checked
+#: once before the first stage runs rather than discovered stage by stage.
+REQUIRED: dict[str, str] = {
+    "numpy": "every module",
+    "pandas": "every module",
+    "scipy": "the Monte Carlo and the .mat readers",
+    "pyarrow": "the parquet facts of the star schema",
+    "openpyxl": "the Danish input-output workbooks",
+    "matplotlib": "the Python figures",
+}
+
+
+def check_interpreter() -> list[str]:
+    """Which required third-party modules the chosen interpreter cannot import.
+
+    Returns
+    -------
+    list of str
+        Module names, empty when the interpreter can carry every stage. The
+        test is an import in a subprocess of ``PY`` itself, not of this
+        process, because the two are different interpreters whenever a local
+        virtual environment exists.
+    """
+    probe = ("import importlib, sys; "
+             "print(' '.join(m for m in sys.argv[1:] "
+             "if importlib.util.find_spec(m) is None))")
+    out = subprocess.run([str(PY), "-c", probe, *REQUIRED],
+                         capture_output=True, text=True, check=False)
+    return out.stdout.split()
 
 #: (module, why it sits here). Order is dependency order: every module reads
 #: only what an earlier one has already written.
@@ -282,7 +316,11 @@ def main() -> int:
             print(f"  UNLISTED  {m}")
         for m in loose:
             print(f"  RELATIVE PATH  {m}  (resolve it through paths.py)")
-        return 1 if (missing or loose) else 0
+        absent = check_interpreter()
+        print(f"  interpreter {PY}")
+        for m in absent:
+            print(f"  MISSING DEPENDENCY  {m}  ({REQUIRED[m]})")
+        return 1 if (missing or loose or absent) else 0
     if missing:
         print(f"refusing to run: {len(missing)} module(s) neither staged nor "
               f"excused: {', '.join(missing)}", file=sys.stderr)
@@ -298,6 +336,17 @@ def main() -> int:
             print(f"no such stage: {args.start}", file=sys.stderr)
             return 1
         stages = stages[names.index(args.start):]
+
+    absent = check_interpreter()
+    if absent:
+        print(f"refusing to run: {PY} cannot import "
+              f"{', '.join(absent)}.\n"
+              f"  needed by: "
+              f"{'; '.join(f'{m} for {REQUIRED[m]}' for m in absent)}\n"
+              f"  fix: python3 -m venv {REPO / '.venv'} && "
+              f"{REPO / '.venv' / 'bin' / 'python'} -m pip install -r "
+              f"{REPO / 'requirements.txt'}", file=sys.stderr)
+        return 1
 
     env = dict(os.environ)
     env["PYTHONPATH"] = str(SRC)

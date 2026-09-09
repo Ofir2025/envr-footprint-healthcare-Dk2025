@@ -103,7 +103,19 @@ PRIVATE_COMPANIONS: dict[str, tuple[str, ...]] = {
     "16_impact_world_plus": ("docs/methods/replications/16_impact_world_plus.md",
                              "src/analysis/impact_world_plus.py"),
     "17_health_subsectors": ("docs/methods/replications/17_health_subsectors.md",
-                             "src/analysis/health_subsector_footprints.py"),
+                             "src/analysis/health_subsector_footprints.py",
+                             # The star schema folder is a paper deliverable,
+                             # but three of its files exist only where the
+                             # health-function layer has been built, and
+                             # table 9 is that layer's table of record. Without
+                             # naming them, C10 would pass on a paper copy that
+                             # had somehow acquired the private decomposition.
+                             "data/gold/results/star/dim_health_function.csv",
+                             "data/gold/results/star/fact_health_function.csv",
+                             "data/gold/results/star/"
+                             "fact_health_function_node.parquet",
+                             "data/gold/results/19_tables_of_record/"
+                             "table_09.csv"),
 }
 
 
