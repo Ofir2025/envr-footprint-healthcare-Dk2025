@@ -22,6 +22,41 @@ The Danish **economic** block of EXIOBASE v3.8.2 2022 was tested against
 Statistics Denmark's published 117-industry table and passes on every checkable
 industry group (health 0.97, education 0.88, financial 1.11, real estate 0.97).
 
+### A qualification the case for A has to carry
+
+The v3.8.2 2022 table is **itself a projection**. Its own `metadata.json`
+records the file as written on 8 September 2021, so a 2022 table produced in
+2021 is a nowcast, not an observation. This study rejected v3.10.2 partly
+because its 2022 nowcast fails against the Danish national accounts; the
+background it kept has a 2022 nowcast too, with a different and milder failure
+profile rather than none.
+
+Measured on the full 163-to-117 concordance rather than on the twelve
+unambiguous groups the vintage audit uses, Danish total output in the model is
+**1.01 times the national-accounts total in 2016 and 0.80 in 2022**. Twenty per
+cent of the Danish economy is missing from the 2022 projection, and where it is
+missing is the useful part:
+
+| group | model | national accounts | ratio |
+|---|---|---|---|
+| Sea and coastal water transport | 19,714 | 78,950 | 0.25 |
+| Chemicals and pharmaceuticals | 5,915 | 35,742 | 0.17 |
+| Wholesale trade | 28,962 | 53,501 | 0.54 |
+| Electricity | 2,540 | 10,789 | 0.24 |
+| **Health and social work** | **43,955** | **45,854** | **0.96** |
+
+None of the four largest gaps is new to this study and none is unaddressed.
+The shipping row is the one this study reallocates, and the reallocation is
+calibrated to the national accounts rather than to the model. The
+pharmaceutical gap is the proxy problem the paper already reports as its
+largest single limitation. Wholesale and electricity are a 2021 projection
+failing to see 2022 prices, and neither carries much of the health-care supply
+chain. **The industry the study models is at 0.96**, which is why the vintage
+audit passes on the groups it tests.
+
+The qualification stands even so, and belongs in the limitations: the choice is
+between two nowcasts, not between a nowcast and an observation.
+
 ## The case for B (Statistics Denmark's)
 
 Rørmose Jensen & Iliev freeze EXIOBASE at 2019 and deflate demand back to 2019

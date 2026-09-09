@@ -1,0 +1,6 @@
+gwp_vintage_id,vintage_code,is_study_default
+1,IPCC SAR (1995),False
+2,IPCC TAR (2001),False
+3,IPCC AR4 (2007),False
+4,IPCC AR5 (2013),False
+5,IPCC AR6 (2021),True

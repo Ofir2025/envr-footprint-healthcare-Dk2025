@@ -29,7 +29,11 @@ model, so a table cannot silently retain a withdrawn vintage's label.
 **C7 Star-schema referential integrity.** Every foreign key in every fact table
 must resolve to exactly one dimension row, every dimension primary key must be
 unique and non-null, and the declared grain of each fact must hold (no duplicate
-key tuples). A star model that drops rows on a join is worse than none.
+key tuples). A star model that drops rows on a join is worse than none. The
+registries are ``STAR_KEYS`` and ``STAR_GRAIN``: a fact added to the model
+without an entry in both is unaudited, which is why the build and this check are
+kept in step. Facts stored as Parquet are read as such; facts whose source layer
+is classified private are skipped where that layer is not in the tree.
 
 **C6 Documentation agreement.** Headline numbers quoted in the revision markdown
 must still reproduce from the gold outputs. Six quoted figures were found to have
@@ -467,7 +471,9 @@ def c6_documentation(results: list[dict[str, Any]]) -> None:
     _check(results, "C6 revision docs quote the current numbers", not stale, detail)
 
 
-#: fact -> (foreign key column, dimension file, dimension primary key)
+#: fact -> (foreign key column, dimension file, dimension primary key).
+#: ``model_id`` is checked on every fact, so it is listed once per fact rather
+#: than repeated here.
 STAR_KEYS: tuple[tuple[str, str, str, str], ...] = (
     ("fact_footprint_node", "indicator_id", "dim_indicator", "indicator_id"),
     ("fact_footprint_node", "demand_component_id", "dim_demand_component", "demand_component_id"),
@@ -475,11 +481,46 @@ STAR_KEYS: tuple[tuple[str, str, str, str], ...] = (
     ("fact_footprint_node", "producing_industry_id", "dim_industry", "industry_id"),
     ("fact_footprint_product", "purchased_region_id", "dim_region", "region_id"),
     ("fact_footprint_product", "purchased_industry_id", "dim_industry", "industry_id"),
+    ("fact_footprint_bilateral", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_footprint_bilateral", "demand_component_id", "dim_demand_component", "demand_component_id"),
+    ("fact_footprint_bilateral", "producing_region_id", "dim_region", "region_id"),
+    ("fact_footprint_bilateral", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_footprint_bilateral", "purchased_region_id", "dim_region", "region_id"),
+    ("fact_footprint_bilateral", "purchased_industry_id", "dim_industry", "industry_id"),
     ("fact_scope_node", "scope_id", "dim_scope", "scope_id"),
     ("fact_scope_node", "producing_region_id", "dim_region", "region_id"),
     ("fact_scope_node", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_scope_component", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_scope_component", "scope_component_id", "dim_scope_component", "scope_component_id"),
     ("fact_national_total", "indicator_id", "dim_indicator", "indicator_id"),
     ("fact_health_function", "health_function_id", "dim_health_function", "health_function_id"),
+    ("fact_health_function_node", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_health_function_node", "health_function_id", "dim_health_function", "health_function_id"),
+    ("fact_health_function_node", "producing_region_id", "dim_region", "region_id"),
+    ("fact_health_function_node", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_health_expenditure", "demand_component_id", "dim_demand_component", "demand_component_id"),
+    ("fact_health_expenditure", "purchased_region_id", "dim_region", "region_id"),
+    ("fact_health_expenditure", "purchased_industry_id", "dim_industry", "industry_id"),
+    ("fact_scenario_node", "scenario_id", "dim_scenario", "scenario_id"),
+    ("fact_scenario_node", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_scenario_node", "producing_region_id", "dim_region", "region_id"),
+    ("fact_scenario_node", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_production_layer", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_production_layer", "production_layer_id", "dim_production_layer", "production_layer_id"),
+    ("fact_production_layer", "producing_region_id", "dim_region", "region_id"),
+    ("fact_production_layer", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_impact_node", "impact_category_id", "dim_impact_category", "impact_category_id"),
+    ("fact_impact_node", "producing_region_id", "dim_region", "region_id"),
+    ("fact_impact_node", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_capital_node", "capital_treatment_id", "dim_capital_treatment", "capital_treatment_id"),
+    ("fact_capital_node", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_capital_node", "producing_region_id", "dim_region", "region_id"),
+    ("fact_capital_node", "producing_industry_id", "dim_industry", "industry_id"),
+    ("fact_capital_scenario", "capital_treatment_id", "dim_capital_treatment", "capital_treatment_id"),
+    ("fact_capital_scenario", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_ghg_species", "substance_id", "dim_substance", "substance_id"),
+    ("fact_gwp_vintage", "gwp_vintage_id", "dim_gwp_vintage", "gwp_vintage_id"),
+    ("fact_gwp_vintage", "indicator_id", "dim_indicator", "indicator_id"),
 )
 
 #: fact -> the columns that define its declared grain.
@@ -488,15 +529,43 @@ STAR_GRAIN: dict[str, list[str]] = {
                             "producing_region_id", "producing_industry_id"],
     "fact_footprint_product": ["model_id", "indicator_id", "demand_component_id",
                                "purchased_region_id", "purchased_industry_id"],
+    "fact_footprint_bilateral": ["model_id", "indicator_id",
+                                 "demand_component_id", "producing_region_id",
+                                 "producing_industry_id", "purchased_region_id",
+                                 "purchased_industry_id"],
     "fact_scope_node": ["model_id", "indicator_id", "scope_id",
                         "producing_region_id", "producing_industry_id"],
+    "fact_scope_component": ["model_id", "indicator_id", "scope_component_id"],
     "fact_national_total": ["model_id", "indicator_id"],
     "fact_health_function": ["model_id", "indicator_id", "health_function_id"],
+    "fact_health_function_node": ["model_id", "indicator_id",
+                                  "health_function_id", "producing_region_id",
+                                  "producing_industry_id"],
+    "fact_health_expenditure": ["model_id", "demand_component_id",
+                                "purchased_region_id", "purchased_industry_id"],
+    "fact_scenario_node": ["model_id", "scenario_id", "indicator_id",
+                           "producing_region_id", "producing_industry_id"],
+    "fact_production_layer": ["model_id", "indicator_id",
+                              "production_layer_id", "producing_region_id",
+                              "producing_industry_id"],
+    "fact_impact_node": ["model_id", "impact_category_id",
+                         "producing_region_id", "producing_industry_id"],
+    "fact_capital_node": ["model_id", "capital_treatment_id", "indicator_id",
+                          "producing_region_id", "producing_industry_id"],
+    "fact_capital_scenario": ["model_id", "capital_treatment_id",
+                              "indicator_id"],
+    "fact_ghg_species": ["model_id", "substance_id"],
+    "fact_gwp_vintage": ["model_id", "gwp_vintage_id", "indicator_id"],
 }
 
 
 def c7_star_integrity(results: list[dict[str, Any]]) -> None:
     """Foreign keys resolve, primary keys are unique, and each grain holds.
+
+    A fact whose source layer is classified private is absent from the working
+    copy that feeds the co-author's branch, and is skipped rather than counted as
+    a broken key: the check has no input, which is not the same as the model
+    being wrong. A fact that IS present with a missing dimension still fails.
 
     Parameters
     ----------
@@ -511,37 +580,84 @@ def c7_star_integrity(results: list[dict[str, Any]]) -> None:
     cache: dict[str, pd.DataFrame] = {}
 
     def load(name: str) -> pd.DataFrame:
+        """Read one star table, whichever of the two formats holds it."""
         if name not in cache:
-            cache[name] = pd.read_csv(os.path.join(star, f"{name}.csv"))
+            csv = os.path.join(star, f"{name}.csv")
+            parquet = os.path.join(star, f"{name}.parquet")
+            if os.path.exists(csv):
+                cache[name] = pd.read_csv(csv)
+            elif os.path.exists(parquet):
+                cache[name] = pd.read_parquet(parquet)
+            else:
+                raise FileNotFoundError(name)
         return cache[name]
 
-    orphans = []
-    for fact, fk, dim, pk in STAR_KEYS:
+    def present(name: str) -> bool:
+        return any(os.path.exists(os.path.join(star, f"{name}{ext}"))
+                   for ext in (".csv", ".parquet"))
+
+    orphans: list[str] = []
+    skipped: set[str] = set()
+    checked = 0
+    facts = {fact for fact, _, _, _ in STAR_KEYS} | set(STAR_GRAIN)
+    # Every fact carries model_id, so check it once per fact rather than listing
+    # it 16 times in the registry.
+    keys = tuple(STAR_KEYS) + tuple(
+        (fact, "model_id", "dim_model", "model_id") for fact in sorted(facts))
+    for fact, fk, dim, pk in keys:
+        if not present(fact):
+            skipped.add(fact)
+            continue
         try:
             f, d = load(fact), load(dim)
-        except FileNotFoundError as exc:
-            orphans.append(f"{fact}: {exc}")
+        except FileNotFoundError:
+            orphans.append(f"{fact}.{fk} -> {dim}: dimension not in this tree")
             continue
+        checked += 1
         missing = set(f[fk].dropna().unique()) - set(d[pk].unique())
         if missing:
             orphans.append(f"{fact}.{fk} -> {dim}: {len(missing)} unmatched, "
                            f"e.g. {sorted(missing)[:3]}")
-    _check(results, "C7 star schema foreign keys resolve", not orphans,
-           "; ".join(orphans) if orphans
-           else f"{len(STAR_KEYS)} foreign keys, 0 orphans")
-
-    dupes = []
-    for fact, grain in STAR_GRAIN.items():
-        try:
-            f = load(fact)
-        except FileNotFoundError:
+    # A duplicated or null dimension primary key is the other way a join goes
+    # wrong -- it fans rows out instead of dropping them -- so it is graded here
+    # rather than as a separate check. The build asserts it before writing; this
+    # asserts it of what is on disk, which is what a consumer actually loads.
+    dims = sorted({dim for _, _, dim, _ in STAR_KEYS}
+                  | {"dim_model", "dim_industry_group"})
+    n_dims = 0
+    for name in dims:
+        if not present(name):
             continue
+        frame = load(name)
+        pk = f"{name[4:]}_id"
+        pk = pk if pk in frame.columns else frame.columns[0]
+        n_dims += 1
+        if not frame[pk].is_unique:
+            orphans.append(f"{name}.{pk} is not unique")
+        elif frame[pk].isna().any():
+            orphans.append(f"{name}.{pk} has nulls")
+
+    detail = (f"{checked} foreign keys, 0 orphans; {n_dims} dimension keys "
+              f"unique and complete")
+    if skipped:
+        detail += (f" ({len(skipped)} fact(s) not in this tree: "
+                   f"{', '.join(sorted(skipped))})")
+    _check(results, "C7 star schema foreign keys resolve", not orphans,
+           "; ".join(orphans) if orphans else detail)
+
+    dupes: list[str] = []
+    graded = 0
+    for fact, grain in STAR_GRAIN.items():
+        if not present(fact):
+            continue
+        f = load(fact)
+        graded += 1
         n = int(f.duplicated(subset=grain).sum())
         if n:
             dupes.append(f"{fact}: {n:,} rows breach the declared grain")
     _check(results, "C7 star schema grain holds", not dupes,
            "; ".join(dupes) if dupes
-           else f"{len(STAR_GRAIN)} facts, no duplicate key tuples")
+           else f"{graded} facts, no duplicate key tuples")
 
 
 def c10_repo_profile(results: list[dict[str, Any]]) -> None:

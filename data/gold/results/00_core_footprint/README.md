@@ -22,6 +22,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `expenditure_summary.csv`
 
 - **Rows:** 3
+- **Format:** csv
 - **Units:** M.EUR
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `demand_component`, `unit`
 - **Measures:** `analysis_year`, `basic_price_expenditure_meur`, `y_H_meur`
@@ -29,6 +30,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `expenditure_vector_detail.csv`
 
 - **Rows:** 6,186
+- **Format:** csv
 - **Resolution:** 1+ regions x 152+ industries (sampled)
 - **Units:** M.EUR
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `demand_component`, `purchased_country_iso3`, `purchased_country_name`, `purchased_world_region`, `purchased_sector_code`, `purchased_sector_name`, `purchased_sector_group`, `unit`, `note`
@@ -37,6 +39,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `extended_indicators_by_producing_node.csv`
 
 - **Rows:** 126,402
+- **Format:** csv
 - **Resolution:** 1+ regions x 158+ industries (sampled)
 - **Units:** kt
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `indicator`, `unit`, `demand_component`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
@@ -45,6 +48,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `extended_indicators_summary.csv`
 
 - **Rows:** 24
+- **Format:** csv
 - **Units:** kt
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `indicator`, `unit`, `demand_component`
 - **Measures:** `analysis_year`, `n_stressor_rows`, `value`
@@ -52,6 +56,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `footprint_bilateral_producer_x_purchase.csv.gz`
 
 - **Rows:** 2,351,620
+- **Format:** csv
 - **Resolution:** 1+ regions x 63+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `indicator`, `unit`, `demand_component`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `purchased_country_iso3`, `purchased_country_name`, `purchased_world_region`, `purchased_sector_code`, `purchased_sector_name`, `purchased_sector_group`
@@ -60,6 +65,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `footprint_by_producing_node.csv`
 
 - **Rows:** 66,645
+- **Format:** csv
 - **Resolution:** 1+ regions x 158+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `indicator`, `unit`, `demand_component`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
@@ -68,6 +74,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `footprint_by_purchased_product.csv`
 
 - **Rows:** 30,930
+- **Format:** csv
 - **Resolution:** 1+ regions x 152+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `indicator`, `unit`, `demand_component`, `purchased_country_iso3`, `purchased_country_name`, `purchased_world_region`, `purchased_sector_code`, `purchased_sector_name`, `purchased_sector_group`
@@ -76,6 +83,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `national_footprint_by_producing_node.csv`
 
 - **Rows:** 22,215
+- **Format:** csv
 - **Resolution:** 1+ regions x 158+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `scope`, `consuming_country_iso3`, `model`, `indicator`, `unit`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
@@ -84,6 +92,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `national_footprint_by_purchased_product.csv`
 
 - **Rows:** 30,562
+- **Format:** csv
 - **Resolution:** 1+ regions x 152+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `scope`, `consuming_country_iso3`, `model`, `indicator`, `unit`, `purchased_country_iso3`, `purchased_country_name`, `purchased_world_region`, `purchased_sector_code`, `purchased_sector_name`, `purchased_sector_group`
@@ -92,6 +101,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `national_totals_summary.csv`
 
 - **Rows:** 5
+- **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `scope`, `consuming_country_iso3`, `model`, `indicator`, `unit`
 - **Measures:** `analysis_year`, `national_footprint`, `national_supply_chain`, `national_direct_households`, `healthcare_footprint_mrio`, `healthcare_share_pct`
@@ -99,6 +109,7 @@ Method, equations, and verification: [`docs/methods/replications/00_core_footpri
 ### `national_vs_healthcare_by_product_group.csv`
 
 - **Rows:** 815
+- **Format:** csv
 - **Resolution:** 1+ regions x 163+ industries (sampled)
 - **Units:** Mm3, kt, kt CO2eq
 - **Dimensions:** `scope`, `consuming_country_iso3`, `model`, `indicator`, `unit`, `sector_code`, `sector_name`, `sector_group`

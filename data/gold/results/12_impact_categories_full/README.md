@@ -22,6 +22,7 @@ Method, equations, and verification: [`docs/methods/replications/12_impact_categ
 ### `impact_categories_all_methods.csv`
 
 - **Rows:** 99
+- **Format:** csv
 - **Units:** 1000 p., Accumulated Exceedance (AE), CTUe = PAF.m3.year, CTUh = cases, CTUh/kg = cases, DALY
 - **Dimensions:** `country_consuming`, `method`, `indicator`, `unit`, `component`, `model`, `sector_consuming`, `quality_note`
 - **Measures:** `analysis_year`, `sheet`, `n_nonzero_factors`, `healthcare_supply_chain`, `national_supply_chain`, `healthcare_share_of_national_pct`, `healthcare_per_capita`, `quality_flag`
@@ -29,6 +30,7 @@ Method, equations, and verification: [`docs/methods/replications/12_impact_categ
 ### `impact_categories_by_producing_node.csv.gz`
 
 - **Rows:** 600,866
+- **Format:** csv
 - **Resolution:** 41+ regions x 79+ industries (sampled)
 - **Units:** M.EUR
 - **Dimensions:** `country_consuming`, `sector_consuming`, `method`, `indicator`, `unit`, `model`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
@@ -37,6 +39,7 @@ Method, equations, and verification: [`docs/methods/replications/12_impact_categ
 ### `impact_categories_by_sector_group.csv`
 
 - **Rows:** 1,826
+- **Format:** csv
 - **Units:** 1000 p., DALY, M.hr, PDF*m2*yr, elu, kt
 - **Dimensions:** `method`, `indicator`, `unit`, `producing_sector_group`
 - **Measures:** `value`
@@ -44,6 +47,7 @@ Method, equations, and verification: [`docs/methods/replications/12_impact_categ
 ### `impact_categories_domestic_vs_imported.csv`
 
 - **Rows:** 194
+- **Format:** csv
 - **Units:** 1000 p., Accumulated Exceedance (AE), CTUe = PAF.m3.year, CTUh = cases, CTUh/kg = cases, DALY
 - **Dimensions:** `method`, `indicator`, `unit`, `origin`
 - **Measures:** `quality_flag`, `value`, `share_of_total_pct`
@@ -51,5 +55,6 @@ Method, equations, and verification: [`docs/methods/replications/12_impact_categ
 ### `stressor_totals_uncharacterised.csv`
 
 - **Rows:** 1,027
+- **Format:** csv
 - **Dimensions:** `country_consuming`, `sector_consuming`, `stressor`, `model`
 - **Measures:** `analysis_year`, `healthcare_supply_chain`, `national_supply_chain`

@@ -166,7 +166,7 @@ def main():
         node_detail.to_csv(
             os.path.join(out_dir,
                          "production_layers_by_producing_node.csv.gz"),
-            index=False, compression="gzip")
+            index=False, compression={"method": "gzip", "mtime": 0})
         domestic_import_split(
             node_detail, by=("indicator", "unit", "layer")).to_csv(
             os.path.join(out_dir,

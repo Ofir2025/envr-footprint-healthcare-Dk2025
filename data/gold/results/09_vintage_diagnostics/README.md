@@ -22,6 +22,7 @@ Method, equations, and verification: [`docs/methods/replications/09_vintage_diag
 ### `dk_block_vs_national_accounts.csv`
 
 - **Rows:** 65
+- **Format:** csv
 - **Units:** M.EUR
 - **Dimensions:** `mrio_vintage`, `country_producing`, `sector_producing`, `exiobase_industry_index`, `unit`, `source_national_accounts`
 - **Measures:** `mrio_year`, `dst_nace_prefixes`, `exiobase_output_meur`, `national_accounts_output_meur`, `ratio_exiobase_over_dst`
@@ -29,6 +30,7 @@ Method, equations, and verification: [`docs/methods/replications/09_vintage_diag
 ### `industry33_output_by_region.csv`
 
 - **Rows:** 245
+- **Format:** csv
 - **Units:** M.EUR
 - **Dimensions:** `mrio_vintage`, `country_producing`, `sector_producing`, `unit`
 - **Measures:** `mrio_year`, `exiobase_industry_index`, `value`, `variable`
@@ -36,5 +38,6 @@ Method, equations, and verification: [`docs/methods/replications/09_vintage_diag
 ### `vintage_defect_verdicts.csv`
 
 - **Rows:** 10
+- **Format:** csv
 - **Dimensions:** `defect`, `mrio_vintage`, `metric`, `verdict`
 - **Measures:** `mrio_year`, `value`, `of`, `world_total_meur`

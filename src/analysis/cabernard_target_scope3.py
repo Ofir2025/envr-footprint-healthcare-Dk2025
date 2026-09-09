@@ -117,7 +117,7 @@ def main():
         node_detail.to_csv(
             os.path.join(os.path.dirname(out),
                          "cabernard_target_scope3_by_producing_node.csv.gz"),
-            index=False, compression="gzip")
+            index=False, compression={"method": "gzip", "mtime": 0})
         domestic_import_split(
             node_detail, by=("target_set", "indicator", "unit")).to_csv(
             os.path.join(os.path.dirname(out),
