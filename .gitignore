@@ -10,8 +10,18 @@ data/bronze/exiobase_v3_7/IOT_2016_ixi
 
 # Large external MRIO downloads: reproducible from the documented URLs
 data/bronze/figaro/estat_naio_10_fcp_ii4_*.tsv.gz
-data/silver/background/
+# No trailing slash: a working copy may hold this as a symlink to another
+# checkout's model pickles rather than a plain directory, and a slash-suffixed
+# pattern only matches a directory, not a symlink of that name.
+data/silver/background
 .venv/
+
+# Handoff workbooks between main_2025.py and eriksen_tables.py. They are
+# regenerable intermediates, not a deliverable, so they belong in silver, not
+# gold - and are ignored explicitly here rather than relying on a personal
+# global excludesFile, which is exactly the mechanism that once hid a
+# required input file from this repository.
+data/silver/inputs/eriksen_interim/
 
 # The user's global gitignore excludes *.csv. The gold results ARE the
 # deliverable — detail tables alongside aggregates — so un-ignore them here.
