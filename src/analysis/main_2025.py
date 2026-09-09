@@ -39,7 +39,6 @@ import numpy as np
 import numpy.matlib
 import os
 import sys
-import matplotlib.pyplot as plt
 from .functions_2025 import *
 from analysis.constants import AR6_GWP100, eriksen_folder
 from paths import (
@@ -51,7 +50,6 @@ from paths import (
     SILVER_INPUT_DIR,
     ensure_runtime_directories,
 )
-from matplotlib.backends.backend_pdf import PdfPages # Added this to save multiple plots in one pdf
 import warnings
 warnings.filterwarnings('ignore', category=FutureWarning)
 
@@ -960,19 +958,17 @@ writer.close()
 # WARNING; it seems almost all MRIO emissions are categorised as SCope 2 and 3
 
 
-# 7F) Scopes (GHG Protocol) for Denmark + separate Figure 4 (Scopes_Figure.pdf)
+# 7F) Scopes (GHG Protocol) for Denmark
 # -----------------------------------------------------------------------------------
 # This block:
 #   • Matches DK healthcare sectors  (Human health services + Residential care & social work).
 #   • Computes Scope 1/2/3 in line with GHG Protocol.
 #   • Adds bottom-up (anaesthetics and pMDI → S1; commuting and visitor → S3).
 #   • Prints diagnostics.
-#   • Saves a separate bar chart figure as Scopes_Figure.pdf (and PNG).
 
 import re
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import os
 
 # --- Inputs from bg / earlier parts of the script ---
@@ -1102,30 +1098,6 @@ print(f"Scope 3 total                              : {scope3_total:.2f} kt CO2eq
 print(f"\nOutside protocol (patient/visitor travel)  : {outside_protocol:.2f} kt CO2eq")
 print(f"\nTotal healthcare footprint                 : {total_footprint:.2f} kt CO2eq")
 
-# --- Figure 4: Scopes bar chart saved separately ---
-scope_labels = ['Scope 1', 'Scope 2', 'Scope 3', 'Outside protocol']
-scope_values = [scope1_total, scope2_total, scope3_total, outside_protocol]
-
-fig_scope, ax_scope = plt.subplots(figsize=(6.5, 5.0))
-bars = ax_scope.bar(scope_labels, scope_values, color=['#1f77b4', '#ff7f0e', '#2ca02c', '#7f7f7f'])
-ax_scope.set_ylabel('kt CO₂eq')
-ax_scope.set_title('Healthcare Footprint by Scope (DK, total)')
-# Annotate bar tops
-for bar, val in zip(bars, scope_values):
-    ax_scope.text(bar.get_x() + bar.get_width()/2, bar.get_height() * 1.01,
-                  f"{val:.0f}", ha='center', va='bottom', fontsize=10)
-plt.tight_layout()
-
-# Save to separate files
-plt.savefig('fig_scope.png', dpi=600)
-fig_scope.savefig('scopes_figure.pdf')
-plt.close(fig_scope)
-
-print("fig_scope.png")
-print("scopes_figure.pdf")
-# -----------------------------------------------------------------------------------
-
-
 # --- CSV export: Scopes summary (kt CO2eq) ---
 scopes_rows = [
     {"Component": "Scope 1 direct (DRIVHUS, excl. medical N2O)", "kt_CO2eq": scope1_direct},
@@ -1241,75 +1213,9 @@ df_h_all.to_excel(os.path.join(interim_dir, 'hotspot_full_detail.xlsx'))
 print("Raw tables exported for full traceability")
 
 
-# Plot and save figures
-pdf_path = 'all_figures.pdf'
-with PdfPages(pdf_path) as pdf:
-    n = 1
-    for df in [fig_1.sort_index(ascending=False), fig_2.sort_index(ascending=False), fig_3]:
-        for col in df.columns:
-            df[col] = 100 * df[col]/df[col].sum()
-        ax = df.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10, 6))
-        plt.xticks(rotation=45, ha='right')
-        handles, labels = ax.get_legend_handles_labels(); ax.legend(handles[::-1], labels[::-1], bbox_to_anchor=(1.05, 1.0), loc='upper left')
-        plt.xlabel("Impact category")
-        plt.ylabel("Share of footprint")
-        plt.tight_layout()
-        png_name = f'fig_{n}.png'
-        plt.savefig(png_name, dpi=600, bbox_inches='tight')
-        pdf.savefig(ax.get_figure())
-        plt.close()  # Close the figure to avoid popups and memory issues
-        print(png_name)
-        n += 1
-
-print(f"All figures saved to {pdf_path}")
-
 ##############################################
 # 8)  Diagnostics and additional checks
 ##############################################
-
-
-# === Figure 5: (Diagnostics) Total contribution (MRIO + bottom-up), grouped like Figure 1,
-# to double check that bottom up was included in the original script ===
-# Start from MRIO aggregated contributions (fig_1 input, pre-group)
-fig5_in = pd.merge(df_c_aggsec.reset_index(),
-                   sec_labels[['SAggDescription','SAggCode']].drop_duplicates(),
-                   on='SAggDescription', how='left')
-fig5_in = pd.merge(fig5_in, fig_labels, on='SAggCode', how='left')
-fig5_in['Contribution'] = fig5_in['Contribution'].fillna('Other')
-
-# Bring in bottom-up totals across impact categories
-BU5 = pd.read_csv(BOTTOMUP_2025, sep='\t').set_index('Source')
-
-# Map bottom-up → Figure 1 groups (Dutch study: op. impacts + individual travel)
-bu_op = BU5.loc[['Anaesthetic','pMDI'], cols_impcat].sum(axis=0) if all([x in BU5.index for x in ['Anaesthetic','pMDI']]) else fig5_in[cols_impcat].iloc[0]*0
-bu_tr = BU5.loc[['Commute (total)','Visitor travel (total)'], cols_impcat].sum(axis=0) if all([x in BU5.index for x in ['Commute (total)','Visitor travel (total)']]) else fig5_in[cols_impcat].iloc[0]*0
-
-# Append bottom-up rows to input (so they participate in the same grouping)
-rows5 = []
-rows5.append(pd.Series(['Bottom-up: Operational impacts','Operational impacts'] + list(bu_op.values),
-                       index=['SAggDescription','Contribution']+cols_impcat))
-rows5.append(pd.Series(['Bottom-up: Individual travel','Individual travel'] + list(bu_tr.values),
-                       index=['SAggDescription','Contribution']+cols_impcat))
-fig5_in = pd.concat([fig5_in, pd.DataFrame(rows5)], ignore_index=True)
-
-# Optional: Disaggregate Transport from 'Other' (exact match, see fig_1 note)
-mask_transport_c = fig5_in['SAggDescription'].eq('Transport')
-fig5_in.loc[mask_transport_c, 'Contribution'] = 'Transport'
-
-# Group and plot shares
-fig5 = fig5_in.groupby('Contribution')[cols_impcat].sum()
-fig5_share = fig5.apply(lambda col: 100*col/col.sum(), axis=0)
-
-ax5 = fig5_share.T.plot(kind='bar', stacked=True, colormap='tab10', figsize=(10,6))
-plt.xticks(rotation=45, ha='right')
-plt.legend(bbox_to_anchor=(1.05,1.0), loc='upper left')
-plt.xlabel("Impact category")
-plt.ylabel("Share of total footprint")
-plt.tight_layout()
-plt.savefig('figure_5_total_contribution.png', dpi=600, bbox_inches='tight')
-plt.close()
-print("figure_5_total_contribution.png")
-
 
 
 # 7H) Diagnostics for large 'Other' and Denmark share
