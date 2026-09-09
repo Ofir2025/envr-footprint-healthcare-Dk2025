@@ -56,20 +56,20 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `method` | dimension | str |  | Value Added |
 | `indicator` | dimension | str |  | Value Added |
 | `unit` | dimension | str |  | M.EUR |
-| `sheet` | measure | str | varies by row | Q_factorinputs |
-| `n_nonzero_factors` | measure | int64 | varies by row | 8 |
+| `sheet` | dimension | str |  | Q_factorinputs |
+| `n_nonzero_factors` | measure | int64 |  | 8 |
 | `healthcare_supply_chain` | measure | float64 | varies by row | 11977.476858927186 |
 | `national_supply_chain` | measure | float64 | varies by row | 286028.6902930252 |
-| `healthcare_share_of_national_pct` | measure | float64 | varies by row | 4.187508898725064 |
+| `healthcare_share_of_national_pct` | measure | float64 | % | 4.187508898725064 |
 | `healthcare_per_capita` | measure | float64 | varies by row | 0.0020392678982479 |
 | `component` | dimension | str |  | supply chain (MRIO) only; the Danish dir |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
-| `quality_flag` | measure | str | varies by row | ok |
+| `quality_flag` | dimension | str |  | ok |
 | `quality_note` | dimension | str |  | WRONG STRESSOR CLASS: the row characteri |
 
 ### `impact_categories_by_producing_node.csv.gz`
@@ -78,11 +78,11 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
-| `analysis_year` | measure | int64 | M.EUR | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `method` | dimension | str |  | Value Added |
 | `indicator` | dimension | str |  | Value Added |
 | `unit` | dimension | str |  | M.EUR |
-| `quality_flag` | measure | str | M.EUR | ok |
+| `quality_flag` | dimension | str |  | ok |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `producing_country_iso3` | dimension | str |  | DNK |
 | `producing_country_name` | dimension | str |  | Denmark |
@@ -109,10 +109,10 @@ units and are labelled as such wherever they are quoted.
 | `method` | dimension | str |  | Damage Approach |
 | `indicator` | dimension | str |  | EPS (Steen, 1999)) |
 | `unit` | dimension | str |  | elu |
-| `quality_flag` | measure | str | varies by row | ok |
+| `quality_flag` | dimension | str |  | ok |
 | `origin` | dimension | str |  | domestic |
 | `value` | measure | float64 | varies by row | 336581947.66712177 |
-| `share_of_total_pct` | measure | float64 | varies by row | 12.55580440413941 |
+| `share_of_total_pct` | measure | float64 | % | 12.55580440413941 |
 
 ### `stressor_totals_uncharacterised.csv`
 

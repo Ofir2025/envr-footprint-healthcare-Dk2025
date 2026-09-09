@@ -76,4 +76,4 @@ units and are labelled as such wherever they are quoted.
 | `total_waste_t` | measure | float64 |  | 121983.21159 |
 | `hazardous_waste_t` | measure | float64 |  | 10587.222138 |
 | `source` | dimension | str |  | Statistics Denmark AFF1MU1N / AFF3MU1N ( |
-| `boundary` | measure | str |  | domestic (Danish waste generation); impo |
+| `boundary` | dimension | str |  | domestic (Danish waste generation); impo |

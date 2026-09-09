@@ -9,7 +9,9 @@ itself following Steenmeijer et al. (2022)
 ## Question this layer answers
 
 This layer reproduces everything the manuscript reports, in the manuscript's own
-table and figure structure, for reference year 2022 on a 2022 background model.
+table and figure structure, once per reference year and its matching background
+model: 2019 expenditure on the 2016 background (as submitted) in `2019/`, and
+2022 expenditure on the 2022 background (the resubmission) in `2022/`.
 
 This folder is the deliverable for the resubmission. It is deliberately kept in the
 submitted paper's shape (the same tables, the same figure numbering) so that the

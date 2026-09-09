@@ -69,7 +69,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `component_type` | dimension | str |  | MRIO supply-chain node |
-| `analysis_year` | measure | int64 | kt CO2eq | 2019 |
+| `analysis_year` | measure | int64 |  | 2019 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
 
 ### `contribution_by_sector_group.csv`
@@ -98,7 +98,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `origin` | dimension | str |  | domestic |
 | `value` | measure | float64 | varies by row | 26.596568643545872 |
-| `share_of_total_pct` | measure | float64 | varies by row | 46.271633814430714 |
+| `share_of_total_pct` | measure | float64 | % | 46.271633814430714 |
 
 ### `figure1_activity_contributions.csv`
 
@@ -108,7 +108,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `contribution_group` | dimension | str |  | Pharmaceuticals and chemical products |
 | `value` | measure | float64 | varies by row | 18.397371608682313 |
-| `share_pct` | measure | float64 | varies by row | 32.00700261879575 |
+| `share_pct` | measure | float64 | % | 32.00700261879575 |
 
 ### `figure2_sector_contributions.csv`
 
@@ -118,7 +118,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `hotspot_group` | dimension | str |  | Agricultural sector |
 | `value` | measure | float64 | varies by row | 48.66995588756262 |
-| `share_pct` | measure | float64 | varies by row | 84.67401967434976 |
+| `share_pct` | measure | float64 | % | 84.67401967434976 |
 
 ### `figure2b_top_origin_industry_pairs.csv`
 
@@ -131,9 +131,9 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 3.641371745948947 |
-| `rank` | measure | int64 | varies by row | 1 |
-| `share_pct` | measure | float64 | varies by row | 6.353060948850069 |
-| `mrio_coverage_pct` | measure | float64 | varies by row | 99.7174630520134 |
+| `rank` | measure | int64 |  | 1 |
+| `share_pct` | measure | float64 | % | 6.353060948850069 |
+| `mrio_coverage_pct` | measure | float64 | % | 99.7174630520134 |
 
 ### `figure3_geographical_origin.csv`
 
@@ -143,7 +143,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `producing_world_region` | dimension | str |  | Asia and Pacific |
 | `value` | measure | float64 | varies by row | 27.654337826041075 |
-| `share_pct` | measure | float64 | varies by row | 48.11189783226622 |
+| `share_pct` | measure | float64 | % | 48.11189783226622 |
 
 ### `hotspot_by_producing_node.csv`
 
@@ -163,7 +163,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `component_type` | dimension | str |  | MRIO supply-chain node |
-| `analysis_year` | measure | int64 | kt CO2eq | 2019 |
+| `analysis_year` | measure | int64 |  | 2019 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
 
 ### `hotspot_by_sector_group.csv`
@@ -192,7 +192,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `origin` | dimension | str |  | domestic |
 | `value` | measure | float64 | varies by row | 4.986885138000327 |
-| `share_of_total_pct` | measure | float64 | varies by row | 8.67598095351198 |
+| `share_of_total_pct` | measure | float64 | % | 8.67598095351198 |
 
 ### `intensity_by_purchased_product.csv`
 
@@ -212,7 +212,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq per MEUR |
 | `component_type` | dimension | str |  | MRIO supply-chain node |
-| `analysis_year` | measure | int64 | kt CO2eq per MEUR | 2019 |
+| `analysis_year` | measure | int64 |  | 2019 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
 
 ### `intensity_by_sector_group.csv`

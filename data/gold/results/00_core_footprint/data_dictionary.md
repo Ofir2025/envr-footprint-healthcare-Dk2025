@@ -49,6 +49,16 @@ model; dollar figures appearing in the comparative literature (Karliner et
 al. 2019, Lenzen et al. 2020, Pichler et al. 2019) are those studies' own
 units and are labelled as such wherever they are quoted.
 
+## Important note on `healthcare_services`
+
+Following Steenmeijer et al. (2022), the healthcare-services component enters
+the model as the **scaled intermediate-input column** of the Danish
+"Health and social work" industry: value added (wages, surplus) carries no
+environmental pressure and is therefore not part of `y_H`. Consequently
+`sum(y_H)` is smaller than total health expenditure; `expenditure_summary.csv`
+reports both so the relationship is explicit. Pharmaceuticals and appliances
+enter at their full basic-price value, distributed over supplying regions.
+
 ## Tables
 
 ### `expenditure_summary.csv`
@@ -58,7 +68,7 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `scenario` | dimension | str |  | baseline |
-| `analysis_year` | measure | int64 | M.EUR | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `demand_component` | dimension | str |  | healthcare_services |
 | `basic_price_expenditure_meur` | measure | float64 | M.EUR | 37552.28493467391 |
 | `y_H_meur` | measure | float64 | M.EUR | 10022.046976724128 |
@@ -71,7 +81,7 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `scenario` | dimension | str |  | baseline |
-| `analysis_year` | measure | int64 | M.EUR | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `demand_component` | dimension | str |  | healthcare_services |
 | `purchased_country_iso3` | dimension | str |  | AUT |
 | `purchased_country_name` | dimension | str |  | Austria |
@@ -90,7 +100,7 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `scenario` | dimension | str |  | baseline |
-| `analysis_year` | measure | int64 | kt | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | pm2_5 |
 | `unit` | dimension | str |  | kt |
 | `demand_component` | dimension | str |  | healthcare_services |
@@ -109,11 +119,11 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `scenario` | dimension | str |  | baseline |
-| `analysis_year` | measure | int64 | kt | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | pm2_5 |
 | `unit` | dimension | str |  | kt |
 | `demand_component` | dimension | str |  | healthcare_services |
-| `n_stressor_rows` | measure | int64 | kt | 48 |
+| `n_stressor_rows` | measure | int64 |  | 48 |
 | `value` | measure | float64 | kt | 1.2820478567488611 |
 
 ### `footprint_bilateral_producer_x_purchase.csv.gz`
@@ -123,7 +133,7 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `scenario` | dimension | str |  | baseline |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `demand_component` | dimension | str |  | healthcare_services |
@@ -148,7 +158,7 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `scenario` | dimension | str |  | baseline |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `demand_component` | dimension | str |  | healthcare_services |
@@ -167,7 +177,7 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `scenario` | dimension | str |  | baseline |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `demand_component` | dimension | str |  | healthcare_services |
@@ -186,7 +196,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | ALL Danish final demand (163 products x  |
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `producing_country_iso3` | dimension | str |  | AUT |
@@ -204,7 +214,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | ALL Danish final demand (163 products x  |
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | kt CO2eq | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `purchased_country_iso3` | dimension | str |  | AUT |
@@ -222,14 +232,14 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | ALL Danish final demand (163 products x  |
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `national_footprint` | measure | float64 | varies by row | 77477.50333386465 |
 | `national_supply_chain` | measure | float64 | varies by row | 67755.50852916535 |
 | `national_direct_households` | measure | float64 | varies by row | 9721.994804699298 |
 | `healthcare_footprint_mrio` | measure | float64 | varies by row | 3943.3970167956713 |
-| `healthcare_share_pct` | measure | float64 | varies by row | 5.089731660302548 |
+| `healthcare_share_pct` | measure | float64 | % | 5.089731660302548 |
 
 ### `national_vs_healthcare_by_product_group.csv`
 
@@ -238,7 +248,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | ALL Danish final demand (163 products x  |
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `sector_code` | dimension | str |  | ALUM |
@@ -246,5 +256,5 @@ units and are labelled as such wherever they are quoted.
 | `sector_group` | dimension | str |  | Metal Products |
 | `national` | measure | float64 | varies by row | 7.953724723473594 |
 | `healthcare` | measure | float64 | varies by row | 0.7812067574513278 |
-| `healthcare_vs_sector_ratio_pct` | measure | float64 | varies by row | 9.821898350916964 |
-| `sector_share_of_national_pct` | measure | float64 | varies by row | 0.0117388606419357 |
+| `healthcare_vs_sector_ratio_pct` | measure | float64 | % | 9.821898350916964 |
+| `sector_share_of_national_pct` | measure | float64 | % | 0.0117388606419357 |

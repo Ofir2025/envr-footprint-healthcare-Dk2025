@@ -55,7 +55,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Contribution` | measure | str |  | Food and food services |
+| `Contribution` | dimension | str |  | Food and food services |
 | `Global warming (ktCO2eq)` | measure | float64 |  | 539.3898178684632 |
 | `Material extraction (kt)` | measure | float64 |  | 174.0255185453556 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 24.950667122841935 |
@@ -66,7 +66,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Contribution` | measure | str |  | Food and food services |
+| `Contribution` | dimension | str |  | Food and food services |
 | `Global warming (ktCO2eq)` | measure | float64 |  | 10.213000929547192 |
 | `Material extraction (kt)` | measure | float64 |  | 3.6170685138073218 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 23.5100000568968 |
@@ -77,7 +77,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Hotspot` | measure | str |  | Agricultural sector |
+| `Hotspot` | dimension | str |  | Agricultural sector |
 | `Global warming (ktCO2eq)` | measure | float64 |  | 706.5277153933312 |
 | `Material extraction (kt)` | measure | float64 |  | 54.88861254250904 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 90.4110443436922 |
@@ -88,7 +88,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Hotspot` | measure | str |  | Agricultural sector |
+| `Hotspot` | dimension | str |  | Agricultural sector |
 | `Global warming (ktCO2eq)` | measure | float64 |  | 13.377650031618863 |
 | `Material extraction (kt)` | measure | float64 |  | 1.1408434455682162 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 85.19065430993561 |
@@ -128,20 +128,20 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Unnamed: 0` | measure | str |  | Total |
+| `Unnamed: 0` | dimension | str |  | Total |
 | `Category group` | dimension | str |  | Total |
-| `Climate change (kt CO2eq)` | measure | str |  | 5,281 (100·0%) |
-| `Material extraction (kt)` | measure | str |  | 4,811 (100·0%) |
-| `Blue water consumption (Mm3)` | measure | str |  | 106 (100·0%) |
-| `Land use (km2)` | measure | str |  | 5,581 (100·0%) |
-| `Waste generation (kt)` | measure | str |  | 289 (100·0%) |
-| `Basic price expenditure (million euros)` | measure | str |  | 49,709 (100·0%) |
+| `Climate change (kt CO2eq)` | dimension | str |  | 5,281 (100·0%) |
+| `Material extraction (kt)` | dimension | str |  | 4,811 (100·0%) |
+| `Blue water consumption (Mm3)` | dimension | str |  | 106 (100·0%) |
+| `Land use (km2)` | dimension | str |  | 5,581 (100·0%) |
+| `Waste generation (kt)` | dimension | str |  | 289 (100·0%) |
+| `Basic price expenditure (million euros)` | dimension | str |  | 49,709 (100·0%) |
 
 ### `table_01.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Unnamed: 0` | measure | str |  | Total |
+| `Unnamed: 0` | dimension | str |  | Total |
 | `Global warming (ktCO2eq)` | measure | float64 |  | 5281.4037870882485 |
 | `Material extraction (kt)` | measure | float64 |  | 4811.230914787854 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 106.1278905251322 |
@@ -153,7 +153,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Unnamed: 0` | measure | str |  | Global warming (ktCO2eq) |
+| `Unnamed: 0` | dimension | str |  | Global warming (ktCO2eq) |
 | `Healthcare footprint` | measure | float64 |  | 5281.4037870882485 |
 | `National consumption footprint` | measure | float64 |  | 77477.50333386465 |
-| `Healthcare share of national consumption footprint (%)` | measure | float64 |  | 6.816693310740435 |
+| `Healthcare share of national consumption footprint (%)` | measure | float64 | % | 6.816693310740435 |

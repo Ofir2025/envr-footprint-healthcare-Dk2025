@@ -59,7 +59,7 @@ units and are labelled as such wherever they are quoted.
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
 | `asset` | dimension | str |  | ICT equipment, other machinery and equip |
 | `consumption_of_fixed_capital_meur` | measure | float64 | M.EUR | 1016.5869132749071 |
-| `share_pct` | measure | float64 | M.EUR | 44.714437743880815 |
+| `share_pct` | measure | float64 | % | 44.714437743880815 |
 | `exiobase_products` | dimension | str |  | Manufacture of office machinery and comp |
 | `unit` | dimension | str |  | M.EUR |
 | `source` | dimension | str |  | DST NABK69 P.51c 2022 |
@@ -80,7 +80,7 @@ units and are labelled as such wherever they are quoted.
 | `country_consuming` | dimension | str |  | DNK |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `treatment` | measure | str | kt CO2eq | capital endogenised (Sodersten et al. 20 |
+| `treatment` | dimension | str |  | capital endogenised (Sodersten et al. 20 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `producing_country_iso3` | dimension | str |  | DNK |
 | `producing_country_name` | dimension | str |  | Denmark |
@@ -98,7 +98,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | kt CO2eq |
 | `origin` | dimension | str |  | domestic |
 | `value` | measure | float64 | kt CO2eq | 816.9225806529726 |
-| `share_of_total_pct` | measure | float64 | kt CO2eq | 17.26914805775572 |
+| `share_of_total_pct` | measure | float64 | % | 17.26914805775572 |
 
 ### `capital_endogenised_sodersten.csv`
 
@@ -106,17 +106,17 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `baseline_capital_excluded` | measure | float64 | varies by row | 4061.9511864328815 |
 | `endogenised_sodersten` | measure | float64 | varies by row | 4849.0862023745485 |
 | `change` | measure | float64 | varies by row | 787.135015941667 |
-| `change_pct` | measure | float64 | varies by row | 19.37824901911025 |
+| `change_pct` | measure | float64 | % | 19.37824901911025 |
 | `per_capita_endogenised` | measure | float64 | varies by row | 0.8255984081462843 |
 | `method` | dimension | str |  | Södersten, Wood & Hertwich (2018) Enviro |
-| `kbar_year` | measure | int64 | varies by row | 2020 |
-| `structure_assumption` | measure | str | varies by row | 2020 capital structure applied to 2022 l |
+| `kbar_year` | measure | int64 |  | 2020 |
+| `structure_assumption` | dimension | str |  | 2020 capital structure applied to 2022 l |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 
 ### `capital_scenarios_by_indicator.csv`
@@ -134,5 +134,5 @@ units and are labelled as such wherever they are quoted.
 | `per_capita` | measure | float64 | varies by row | 691.5819380246741 |
 | `per_capita_unit` | dimension | str |  | kg per capita |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `analysis_year` | measure | int64 | varies by row | 2022 |
+| `analysis_year` | measure | int64 |  | 2022 |
 | `note` | dimension | str |  | Steenmeijer-comparable; capital outside  |
