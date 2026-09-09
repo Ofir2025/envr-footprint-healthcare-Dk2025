@@ -1,0 +1,98 @@
+impact_category_id,method,category_code,unit,quality_flag
+1,Damage Approach,"EPS (Steen, 1999))",elu,ok
+2,Domestic Extraction,Domestic Extraction,kt,ok
+3,ECOINDICATOR 99 (E.E),Carcinogenic effects on humans (E.E),DALY,ok
+4,ECOINDICATOR 99 (E.E),Damage to Ecosystem Quality caused by ecotoxic emissions (E.E)),PDF*m2*yr,ok
+5,ECOINDICATOR 99 (E.E),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (E.E),PDF*m2*yr,ok
+6,ECOINDICATOR 99 (E.E),Damages to human health caused by climate change (E.E),DALY,ok
+7,ECOINDICATOR 99 (E.E),Respiratory effects on humans caused by inorganic substances (E.E),DALY,ok
+8,ECOINDICATOR 99 (E.E),Respiratory effects on humans caused by organic substances (E.E),DALY,ok
+9,ECOINDICATOR 99 (H.A),Carcinogenic effects on humans (H.A),DALY,ok
+10,ECOINDICATOR 99 (H.A),Damage to Ecosystem Quality caused by ecotoxic emissions (H.A),PDF*m2*yr,ok
+11,ECOINDICATOR 99 (H.A),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (H.A),PDF*m2*yr,ok
+12,ECOINDICATOR 99 (H.A),Damages to human health caused by climate change (H.A),DALY,ok
+13,ECOINDICATOR 99 (H.A),Respiratory effects on humans caused by inorganic substances (H.A),DALY,ok
+14,ECOINDICATOR 99 (H.A),Respiratory effects on humans caused by organic substances (H.A),DALY,ok
+15,ECOINDICATOR 99 (I.I),Carcinogenic effects on humans (I.I),DALY,ok
+16,ECOINDICATOR 99 (I.I),Damage to Ecosystem Quality caused by ecotoxic emissions (I.I),PDF*m2*yr,ok
+17,ECOINDICATOR 99 (I.I),Damage to Ecosystem Quality caused by the combined effect of acidification and eutrophication (I.I),PDF*m2*yr,ok
+18,ECOINDICATOR 99 (I.I),Damages to human health caused by climate change (I.I),DALY,ok
+19,ECOINDICATOR 99 (I.I),Respiratory effects on humans caused by inorganic substances (I.I),DALY,ok
+20,ECOINDICATOR 99 (I.I),Respiratory effects on humans caused by organic substances (I.I),DALY,ok
+21,Employment,Employment,1000 p.,ok
+22,Employment hour,Employment hour,M.hr,ok
+23,ILCD recommended CF,Acidification endpoint,PDF,ok
+24,ILCD recommended CF,Acidification midpoint,Accumulated Exceedance (AE),ok
+25,ILCD recommended CF,"Climate change endpoint, ecosystems",PDF,ok
+26,ILCD recommended CF,"Climate change endpoint, human health",DALY,ok
+27,ILCD recommended CF,Climate change midpoint,kg CO2-Equivalents,ok
+28,ILCD recommended CF,Ecotoxicity freshwater endpoint,PDF.m3.year,DUPLICATE_OF_MIDPOINT
+29,ILCD recommended CF,Ecotoxicity freshwater midpoint,CTUe = PAF.m3.year,ok
+30,ILCD recommended CF,Eutrophication marine midpoint,kg-N equivalent,ok
+31,ILCD recommended CF,Eutrophication terrestrial midpoint,Accumulated Exceedance (AE),ok
+32,ILCD recommended CF,"Human toxicity endpoint, cancer effects",DALY,ok
+33,ILCD recommended CF,"Human toxicity endpoint, non-cancer effects",DALY,ok
+34,ILCD recommended CF,"Human toxicity midpoint, cancer effects",CTUh/kg = cases,ok
+35,ILCD recommended CF,"Human toxicity midpoint, non-cancer effects",CTUh = cases,ok
+36,ILCD recommended CF,Particulate matter/Respiratory inorganics endpoint,DALY,ok
+37,ILCD recommended CF,Particulate matter/Respiratory inorganics midpoint,kg PM2.5-eq,ok
+38,ILCD recommended CF,"Photochemical ozone formation endpoint, human health",DALY,ENDPOINT_MIDPOINT_RATIO_IMPLAUSIBLE
+39,ILCD recommended CF,"Photochemical ozone formation midpoint, human health",kg-C2H4 equivalents,ok
+40,Land use,Land use,km2,ok
+41,"Problem oriented approach: baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP inf. ,"kg 1,4-dichlorobenzene eq.",ok
+42,"Problem oriented approach: baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP inf,"kg 1,4-dichlorobenzene eq.",ok
+43,"Problem oriented approach: baseline (CML, 1999)",Terrestrial ecotoxicity TETP inf,"kg 1,4-dichlorobenzene eq.",ok
+44,"Problem oriented approach: baseline (CML, 1999)","acidification (incl. fate, average Europe total, A&B)",kg SO2 eq.,ok
+45,"Problem oriented approach: baseline (CML, 1999)",eutrophication (fate not incl.),kg PO4--- eq.,ok
+46,"Problem oriented approach: baseline (CML, 1999)",global warming GWP100,kg CO2 eq.,ok
+47,"Problem oriented approach: baseline (CML, 1999)",human toxicity HTP inf. ,"kg 1,4-dichlorobenzene eq.",ok
+48,"Problem oriented approach: baseline (CML, 1999)",ozone layer depletion ODP steady state ,kg CFC-11 eq.,WRONG_STRESSOR_CLASS
+49,"Problem oriented approach: baseline (CML, 1999)",photochemical oxidation (high NOx),kg ethylene eq.,ok
+50,"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 100,"kg 1,4-dichlorobenzene eq.",ok
+51,"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 20,"kg 1,4-dichlorobenzene eq.",ok
+52,"Problem oriented approach: non baseline (CML, 1999)",Freshwater aquatic ecotoxicity FAETP 500,"kg 1,4-dichlorobenzene eq.",ok
+53,"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 100,"kg 1,4-dichlorobenzene eq.",ok
+54,"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 20,"kg 1,4-dichlorobenzene eq.",ok
+55,"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP 500,"kg 1,4-dichlorobenzene eq.",ok
+56,"Problem oriented approach: non baseline (CML, 1999)",Freshwater sedimental ecotoxicity FSETP inf.,"kg 1,4-dichlorobenzene eq.",ok
+57,"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 100,"kg 1,4-dichlorobenzene eq.",ok
+58,"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 20,"kg 1,4-dichlorobenzene eq.",ok
+59,"Problem oriented approach: non baseline (CML, 1999)",Marine aquatic ecotoxicity MAETP 500,"kg 1,4-dichlorobenzene eq.",ok
+60,"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 100,"kg 1,4-dichlorobenzene eq.",ok
+61,"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 20,"kg 1,4-dichlorobenzene eq.",ok
+62,"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP 500,"kg 1,4-dichlorobenzene eq.",ok
+63,"Problem oriented approach: non baseline (CML, 1999)",Marine sedimental ecotoxicity MSETP inf.,"kg 1,4-dichlorobenzene eq.",ok
+64,"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity,"kg 1,4-dichlorobenzene eq.",ok
+65,"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity TETP 100,"kg 1,4-dichlorobenzene eq.",ok
+66,"Problem oriented approach: non baseline (CML, 1999)",Terrestrial ecotoxicity TETP 20,"kg 1,4-dichlorobenzene eq.",ok
+67,"Problem oriented approach: non baseline (CML, 1999)",acidification (fate not incl.),kg SO2 eq.,ok
+68,"Problem oriented approach: non baseline (CML, 1999)","eutrophication (incl. fate, average Europe total, A&B)",kg NOx eq.,ok
+69,"Problem oriented approach: non baseline (CML, 1999)",global warming GWP20 ,kg CO2 eq.,ok
+70,"Problem oriented approach: non baseline (CML, 1999)",global warming GWP500 ,kg CO2 eq.,ok
+71,"Problem oriented approach: non baseline (CML, 1999)",global warming net GWP100 max,kg CO2 eq.,ok
+72,"Problem oriented approach: non baseline (CML, 1999)",global warming net GWP100 min,kg CO2 eq.,ok
+73,"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 100,"kg 1,4-dichlorobenzene eq.",ok
+74,"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 20,"kg 1,4-dichlorobenzene eq.",ok
+75,"Problem oriented approach: non baseline (CML, 1999)",human toxicity HTP 500,"kg 1,4-dichlorobenzene eq.",ok
+76,"Problem oriented approach: non baseline (CML, 1999)",odour,m3,ok
+77,"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (EBIR; low NOx),kg formed ozone,ok
+78,"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (MIR; very high NOx),kg formed ozone,ok
+79,"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (MOIR; high NOx),kg formed ozone,ok
+80,"Problem oriented approach: non baseline (CML, 1999)",photochemical oxidation (low NOx),kg ethylene eq.,ok
+81,Total Emission relevant energy use,Total Emission relevant energy use,TJ,ok
+82,Total Energy Use,Total Energy Use,TJ,ok
+83,Total Energy inputs from nature,Total Energy inputs from nature,TJ,ok
+84,Total Energy supply,Total Energy supply,TJ,ok
+85,USEtox,Fresh water Ecotoxicity,PAF m3.day,ok
+86,USEtox,Human toxicity,cases,ok
+87,Unused Domestic Extraction,Unused Domestic Extraction,kt,ok
+88,Value Added,Value Added,M.EUR,ok
+89,Water Consumption Blue - Agriculture,Water Consumption Blue - Agriculture,Mm3,ok
+90,Water Consumption Blue - Electricity,Water Consumption Blue - Electricity,Mm3,ok
+91,Water Consumption Blue - Livestock,Water Consumption Blue - Livestock,Mm3,ok
+92,Water Consumption Blue - Manufacturing,Water Consumption Blue - Manufacturing,Mm3,ok
+93,Water Consumption Blue - Total,Water Consumption Blue - Total,Mm3,ok
+94,Water Consumption Green - Agriculture,Water Consumption Green - Agriculture,Mm3,ok
+95,Water Withdrawal Blue - Electricity,Water Withdrawal Blue - Electricity,Mm3,ok
+96,Water Withdrawal Blue - Manufacturing,Water Withdrawal Blue - Manufacturing,Mm3,ok
+97,Water Withdrawal Blue - Total,Water Withdrawal Blue - Total,Mm3,ok

@@ -1,0 +1,7 @@
+substance_id,substance_code,base_unit,gwp100,gwp_vintage,is_restatable
+1,CH4_biogenic,kg,27.0,IPCC AR6 (2021),True
+2,CH4_fossil,kg,29.8,IPCC AR6 (2021),True
+3,CO2,kg,1.0,IPCC AR6 (2021),True
+4,HFC + PFC (pre-aggregated by EXIOBASE),kg CO2eq,,IPCC AR6 (2021),False
+5,N2O,kg,273.0,IPCC AR6 (2021),True
+6,SF6,kg,25200.0,IPCC AR6 (2021),True

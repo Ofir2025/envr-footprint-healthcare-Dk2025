@@ -22,6 +22,7 @@ Method, equations, and verification: [`docs/methods/replications/13_steenmeijer_
 ### `national_shares_dk_vs_nl.csv`
 
 - **Rows:** 5
+- **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `indicator`, `unit`, `comparability_note`, `source_netherlands`, `source_denmark`
 - **Measures:** `netherlands_national`, `netherlands_health_share_pct`, `denmark_national`, `denmark_health_share_pct`, `share_difference_pp`
@@ -29,6 +30,7 @@ Method, equations, and verification: [`docs/methods/replications/13_steenmeijer_
 ### `template_table_dk_vs_nl.csv`
 
 - **Rows:** 35
+- **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `indicator`, `unit`, `per_capita_unit`, `source_netherlands`, `source_denmark`
 - **Measures:** `analysis_year_denmark`, `reference_year_netherlands`, `table_row`, `netherlands_2016`, `denmark_2022`, `netherlands_per_capita`, `denmark_per_capita`, `dk_as_pct_of_nl_per_capita`

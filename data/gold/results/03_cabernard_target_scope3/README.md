@@ -22,6 +22,7 @@ Method, equations, and verification: [`docs/methods/replications/03_cabernard_ta
 ### `cabernard_domestic_vs_imported.csv`
 
 - **Rows:** 6
+- **Format:** csv
 - **Units:** kt CO2eq
 - **Dimensions:** `target_set`, `indicator`, `unit`, `origin`
 - **Measures:** `value`, `share_of_total_pct`
@@ -29,12 +30,14 @@ Method, equations, and verification: [`docs/methods/replications/03_cabernard_ta
 ### `cabernard_target_scope3.csv`
 
 - **Rows:** 3
+- **Format:** csv
 - **Dimensions:** `target`, `note`
 - **Measures:** `analysis_year`, `n_target_nodes`, `e_T_naive_MtCO2e`, `e_T_wdc_MtCO2e`, `double_counting_factor_f_T`, `overestimate_vs_correct_pct`, `complement_identity_rel_dev`
 
 ### `cabernard_target_scope3_by_producing_node.csv.gz`
 
 - **Rows:** 20,610
+- **Format:** csv
 - **Resolution:** 44+ regions x 89+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `country_consuming`, `target_set`, `indicator`, `unit`, `model`, `quantity`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
