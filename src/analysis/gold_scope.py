@@ -91,6 +91,9 @@ SCOPE: dict[str, tuple[str, str]] = {
     "19_tables_of_record": (
         "paper", "the verified tables of record, regenerated from the gold "
                  "facts, that supersede the values circulated during drafting"),
+    "20_production_layers": (
+        "paper", "how far upstream the pressure occurs; the production-layer "
+                 "decomposition reported for the revision"),
     "scenarios": (
         "paper", "the sector-boundary scenarios behind the childcare step of "
                  "figure 7"),

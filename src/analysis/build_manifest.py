@@ -160,10 +160,17 @@ APPROACHES = {
         equations="n/a (comparisons)",
         inputs="published values; env_ac_ghgfp; AFTRYK1; DST IO 2022"),
     "07_malik_replication": dict(
-        approach="Malik-comparable variants and production layer decomposition",
+        approach="Malik-comparable domestic-only variant, plus the production-layer "
+                 "comparison against Malik et al. 2021",
         reference="Malik et al. 2018 (Lancet Planet Health 2:e27-35); Malik et al. 2021 (RCR 169:105556)",
         script="analysis.malik_replication / analysis.production_layers",
-        equations="L = I + A + A^2 + ...; f^(n) = diag(s) A^n y; L_dom = (I - A_DK,DK)^-1",
+        equations="L_dom = (I - A_DK,DK)^-1; comparison shares from 20_production_layers",
+        inputs="background pickle; Danish expenditure components; 20_production_layers"),
+    "20_production_layers": dict(
+        approach="Production layer decomposition: how far upstream the pressure occurs",
+        reference="Malik et al. 2021 (RCR 169:105556); Lenzen et al. 2020 SI 5",
+        script="analysis.production_layers",
+        equations="L = I + A + A^2 + ...; f^(n) = diag(s) A^n y; S_m = sum_{n<=m} f^(n)/f",
         inputs="background pickle; Danish expenditure components"),
     "08_lenzen_replication": dict(
         approach="Lenzen KPI set reproduced for Denmark",
@@ -186,7 +193,7 @@ APPROACHES = {
         inputs="00_core_footprint (footprint, bilateral, expenditure vector, "
                "national totals); 02_scopes_wood_hertwich; 01_eriksen_replication "
                "and scenarios/ (the scope ladder per model run); "
-               "07_malik_replication (production layers); 11_capital_gfcf "
+               "20_production_layers; 11_capital_gfcf "
                "(capital treatments); 12_impact_categories_full and, where "
                "present, 16_impact_world_plus (characterisation); 15_gwp_vintage "
                "(species and vintages); 18_mitigation_scenarios; "

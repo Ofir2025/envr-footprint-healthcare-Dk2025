@@ -1,4 +1,4 @@
-# 07_malik_replication - data dictionary
+# 20_production_layers - data dictionary
 
 One row per column of every table in this folder. Units are the
 table's own; `varies by row` means the table carries a `unit`
@@ -51,62 +51,62 @@ units and are labelled as such wherever they are quoted.
 
 ## Tables
 
-### `malik_component_intensities.csv`
+### `production_layers.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
+| `method` | dimension | str |  | production layer decomposition, Malik et |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `component` | dimension | str |  | healthcare_services |
-| `footprint` | measure | float64 | varies by row | 2344.885845780632 |
-| `expenditure_meur` | measure | float64 | varies by row | 37552.28493467391 |
-| `total_intensity_per_meur` | measure | float64 | varies by row | 0.0624432268198807 |
-| `direct_intensity_per_meur` | measure | float64 | varies by row | 0.0117217097512177 |
+| `layer` | dimension | str |  | 0 |
+| `value` | measure | float64 | varies by row | 353.33928659046666 |
+| `share_pct` | measure | float64 | % | 8.6988278774147 |
+| `cumulative_share_pct` | measure | float64 | % | 8.6988278774147 |
+| `truncation_error_pct` | measure | float64 | % | 91.3011721225853 |
 
-### `malik_domestic_vs_full.csv`
+### `production_layers_by_producing_node.csv.gz`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `consuming_country_iso3` | dimension | str |  | DNK |
+| `country_consuming` | dimension | str |  | DNK |
+| `sector_consuming` | dimension | str |  | health_and_eldercare |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `full_mrio` | measure | float64 | varies by row | 4061.9511864328815 |
-| `domestic_only` | measure | float64 | varies by row | 839.4965252767034 |
-| `domestic_share_of_full_pct` | measure | float64 | % | 20.66732185459696 |
-| `share_of_national_full_pct` | measure | float64 | % | 5.995012471472214 |
-| `share_of_national_domestic_pct` | measure | float64 | % | 3.983162174492114 |
+| `layer` | measure | int64 | kt CO2eq | 0 |
+| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
+| `producing_country_iso3` | dimension | str |  | DNK |
+| `producing_country_name` | dimension | str |  | Denmark |
+| `producing_world_region` | dimension | str |  | Denmark |
+| `producing_sector_code` | dimension | str |  | HEAL |
+| `producing_sector_name` | dimension | str |  | Health and social work (85) |
+| `producing_sector_group` | dimension | str |  | Services |
+| `value` | measure | float64 | kt CO2eq | 118.5541696372094 |
 
-### `malik_published_reference.csv`
+### `production_layers_by_sector_group.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
+| `method` | dimension | str |  | production layer decomposition, Malik et |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `analysis_year` | measure | int64 |  | 2022 |
-| `study` | dimension | str |  | Malik et al. 2018 (Australia, 2014-15) |
+| `sector_group` | dimension | str |  | Chemical |
+| `value` | measure | float64 | varies by row | 228.7552377324756 |
 | `indicator` | dimension | str |  | climate_change |
-| `total_kt` | measure | float64 |  | 35772.0 |
-| `share_national_pct` | measure | float64 | % | 7.2 |
-| `direct_pct` | measure | float64 | % | 13.4 |
-| `boundary` | dimension | str |  | domestic-only; capital INCLUDED; aged ca |
+| `unit` | dimension | str |  | kt CO2eq |
+| `layer` | measure | int64 | varies by row | 0 |
 
-### `production_layers_vs_malik.csv`
+### `production_layers_domestic_vs_imported.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `indicator` | dimension | str |  | climate_change |
-| `denmark_first_three_layers_pct` | measure | float64 | % | 62.99012726771795 |
-| `malik_nsw_first_three_layers_pct` | measure | float64 | % | 67.0 |
-| `denmark_first_layer_pct` | measure | float64 | % | 8.6988278774147 |
-| `malik_nsw_first_layer_pct` | measure | float64 | % | 11.0 |
-| `malik_total` | measure | float64 |  | 7908.0 |
-| `malik_unit` | dimension | str |  | kt CO2e |
-| `layer_definition` | dimension | str |  | Malik's 'first three production layers'  |
-| `comparability` | dimension | str |  | shares are comparable; levels are not -  |
-| `source_malik` | dimension | str |  | Malik et al. 2021, Lancet Planet Health  |
-| `source_denmark` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
+| `indicator` | dimension | str |  | blue_water_consumption |
+| `unit` | dimension | str |  | Mm3 |
+| `layer` | measure | int64 | varies by row | 0 |
+| `origin` | dimension | str |  | domestic |
+| `value` | measure | float64 | varies by row | 0.1484568765427218 |
+| `share_of_total_pct` | measure | float64 | % | 4.19807516788021 |

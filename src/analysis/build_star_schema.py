@@ -1113,10 +1113,10 @@ def main() -> None:
 
     # ---- production layers ------------------------------------------------
     layer_detail = _read(
-        "07_malik_replication/production_layers_by_producing_node.csv.gz",
+        "20_production_layers/production_layers_by_producing_node.csv.gz",
         usecols=["indicator", "unit", "layer", "producing_country_iso3",
                  "producing_sector_code", "value"])
-    layer_agg = _read("07_malik_replication/production_layers.csv")
+    layer_agg = _read("20_production_layers/production_layers.csv")
     _assert_indicator_subset(layer_detail, dim_indicator, "production layers")
     dim_production_layer = build_dim_production_layer(
         layer_detail["layer"], layer_agg["layer"])
@@ -1599,7 +1599,7 @@ def _assert_layer_totals(facts: dict[str, pd.DataFrame],
     dim_layer, dim_indicator : pandas.DataFrame
         Dimensions the fact was keyed with.
     agg : pandas.DataFrame
-        ``07_malik_replication/production_layers.csv``.
+        ``20_production_layers/production_layers.csv``.
 
     Raises
     ------
