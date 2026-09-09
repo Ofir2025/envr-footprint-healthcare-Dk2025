@@ -89,7 +89,11 @@ check () { # name  expected  actual
   else printf "    FAIL %-42s expected %s, got %s\n" "$1" "$2" "$3"; fail=1; fi
 }
 tree () { git ls-tree -r "$PUB_BRANCH" --name-only; }
-check "excluded paths present"      0 "$(tree | grep -cE '^(data/bronze/(exiobase_v3_7|medstat|capital|figaro)|docs/references|reports/source|docs/presentation|docs/feedback)' || true)"
+# The trailing slash matters. Every excluded entry is a directory, and without
+# it the pattern also matches a sibling FILE whose name starts the same way:
+# docs/references.csv, the bibliography source that check C8 reads and that must
+# ship, was failing this guard as though it were the folder of article PDFs.
+check "excluded paths present"      0 "$(tree | grep -cE '^(data/bronze/(exiobase_v3_7|medstat|capital|figaro)|docs/references|reports/source|docs/presentation|docs/feedback)/' || true)"
 check "follow-on layers present"    0 "$(tree | grep -cE '16_impact_world_plus|17_health_subsectors' || true)"
 check "verbatim referee text"       0 "$(git show "$PUB_BRANCH:docs/revision/response_to_reviewers.md" | grep -c 'absence of formal uncertainty' || true)"
 # The check above guards one file. Referee wording has reached other documents
