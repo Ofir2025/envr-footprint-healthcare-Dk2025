@@ -4,24 +4,24 @@
 
 Is the result right? Two independent tests answer it: agreement with published Danish footprints, and internal consistency across the study's own outputs.
 
-Method, equations, and verification: [`docs/methods/replications/06_benchmarks_validation.md`](../../../docs/methods/replications/06_benchmarks_validation.md).
+Method, equations, and verification: [`docs/methods/replications/06_benchmarks_validation.md`](../../../../docs/methods/replications/06_benchmarks_validation.md).
 
 ## Conventions
 
 | Item | Convention |
-|---|---|
+|:---|:---|
 | Schema | star schema: dimension columns, then measure and unit |
 | Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |
 | Countries | ISO3 (`DNK`, `DEU`, `ROU`) |
 | Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |
 | Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |
-| Provenance | one row per file in `../MANIFEST_lineage.csv` |
+| Provenance | one row per file in `../manifest_lineage.csv` |
 
 ## Tables
 
 ### `consistency_audit.csv`
 
-- **Rows:** 14
+- **Rows:** 18
 - **Format:** csv
 - **Dimensions:** `check`
 - **Measures:** `status`, `detail`, `known_conventions`

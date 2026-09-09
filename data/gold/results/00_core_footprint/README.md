@@ -4,18 +4,18 @@
 
 What environmental pressure, anywhere in the world, is caused by Danish health-care final expenditure, and where does it physically arise?
 
-Method, equations, and verification: [`docs/methods/replications/00_core_footprint.md`](../../../docs/methods/replications/00_core_footprint.md).
+Method, equations, and verification: [`docs/methods/replications/00_core_footprint.md`](../../../../docs/methods/replications/00_core_footprint.md).
 
 ## Conventions
 
 | Item | Convention |
-|---|---|
+|:---|:---|
 | Schema | star schema: dimension columns, then measure and unit |
 | Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |
 | Countries | ISO3 (`DNK`, `DEU`, `ROU`) |
 | Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |
 | Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |
-| Provenance | one row per file in `../MANIFEST_lineage.csv` |
+| Provenance | one row per file in `../manifest_lineage.csv` |
 
 ## Tables
 

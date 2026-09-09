@@ -4,18 +4,18 @@
 
 This layer answers a different question from the headline, and the distinction is the point of the folder.
 
-Method, equations, and verification: [`docs/methods/replications/03_cabernard_target_scope3.md`](../../../docs/methods/replications/03_cabernard_target_scope3.md).
+Method, equations, and verification: [`docs/methods/replications/03_cabernard_target_scope3.md`](../../../../docs/methods/replications/03_cabernard_target_scope3.md).
 
 ## Conventions
 
 | Item | Convention |
-|---|---|
+|:---|:---|
 | Schema | star schema: dimension columns, then measure and unit |
 | Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |
 | Countries | ISO3 (`DNK`, `DEU`, `ROU`) |
 | Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |
 | Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |
-| Provenance | one row per file in `../MANIFEST_lineage.csv` |
+| Provenance | one row per file in `../manifest_lineage.csv` |
 
 ## Tables
 

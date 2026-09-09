@@ -220,7 +220,7 @@ def c3_freshness(results: list[dict[str, Any]]) -> None:
     for path in glob.glob(os.path.join(str(OUTPUT_DIR), "**", "*.csv*"),
                           recursive=True):
         rel = os.path.relpath(path, str(OUTPUT_DIR))
-        if "MANIFEST" in path:
+        if "manifest_lineage" in path:
             continue
         if rel.split(os.sep)[0] in BACKGROUND_INDEPENDENT:
             continue
@@ -415,7 +415,7 @@ def c4_provenance(results: list[dict[str, Any]]) -> None:
     wrong = []
     for path in glob.glob(os.path.join(str(OUTPUT_DIR), "**", "*.csv"),
                           recursive=True):
-        if "MANIFEST" in path:
+        if "manifest_lineage" in path:
             continue
         try:
             head = pd.read_csv(path, nrows=200)
@@ -438,7 +438,7 @@ def c4_provenance(results: list[dict[str, Any]]) -> None:
 
 def c5_manifest(results: list[dict[str, Any]]) -> None:
     """Every gold file must have a lineage row."""
-    manifest_path = os.path.join(str(OUTPUT_DIR), "MANIFEST_lineage.csv")
+    manifest_path = os.path.join(str(OUTPUT_DIR), "manifest_lineage.csv")
     if not os.path.exists(manifest_path):
         _check(results, "C5 manifest", False, "manifest not found")
         return
@@ -448,7 +448,7 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
     on_disk = {os.path.relpath(p, str(OUTPUT_DIR))
                for p in glob.glob(os.path.join(str(OUTPUT_DIR), "**", "*.csv*"),
                                   recursive=True)
-               if "MANIFEST" not in p}
+               if "manifest_lineage" not in p}
     missing = {f for f in on_disk
                if not any(f.endswith(os.path.basename(x)) for x in listed)}
     _check(results, "C5 every gold file has a lineage row",

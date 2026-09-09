@@ -1,4 +1,4 @@
-# 01_eriksen_replication/2022
+# 01_eriksen_replication/2019
 
 **01 - Eriksen replication (the manuscript layer)**
 
@@ -21,7 +21,7 @@ Method, equations, and verification: [`docs/methods/replications/01_eriksen_repl
 
 ### `contribution_by_purchased_product.csv`
 
-- **Rows:** 30,499
+- **Rows:** 30,794
 - **Format:** csv
 - **Resolution:** 3+ regions x 152+ industries (sampled)
 - **Units:** kt CO2eq
@@ -72,7 +72,7 @@ Method, equations, and verification: [`docs/methods/replications/01_eriksen_repl
 
 - **Rows:** 105
 - **Format:** csv
-- **Resolution:** 18+ regions x 36+ industries (sampled)
+- **Resolution:** 21+ regions x 41+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `indicator`, `unit`
 - **Measures:** `value`, `rank`, `share_pct`, `mrio_coverage_pct`
@@ -85,51 +85,9 @@ Method, equations, and verification: [`docs/methods/replications/01_eriksen_repl
 - **Dimensions:** `indicator`, `unit`, `producing_world_region`
 - **Measures:** `value`, `share_pct`
 
-### `full_results_tables_fig1_absolute.csv`
-
-- **Rows:** 9
-- **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Contribution`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
-
-### `full_results_tables_fig1_relative_pct.csv`
-
-- **Rows:** 9
-- **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Contribution`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
-
-### `full_results_tables_fig2_absolute.csv`
-
-- **Rows:** 8
-- **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Hotspot`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
-
-### `full_results_tables_fig2_relative_pct.csv`
-
-- **Rows:** 8
-- **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Hotspot`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
-
-### `full_results_tables_fig3_absolute.csv`
-
-- **Rows:** 7
-- **Format:** csv
-- **Dimensions:** `Region`
-- **Measures:** `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
-
-### `full_results_tables_fig3_relative_pct.csv`
-
-- **Rows:** 7
-- **Format:** csv
-- **Dimensions:** `Region`
-- **Measures:** `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`
-
 ### `hotspot_by_producing_node.csv`
 
-- **Rows:** 22,229
+- **Rows:** 22,228
 - **Format:** csv
 - **Resolution:** 3+ regions x 158+ industries (sampled)
 - **Units:** kt CO2eq
@@ -162,7 +120,7 @@ Method, equations, and verification: [`docs/methods/replications/01_eriksen_repl
 
 ### `intensity_by_purchased_product.csv`
 
-- **Rows:** 30,487
+- **Rows:** 30,782
 - **Format:** csv
 - **Resolution:** 3+ regions x 152+ industries (sampled)
 - **Units:** kt CO2eq per MEUR
@@ -191,24 +149,3 @@ Method, equations, and verification: [`docs/methods/replications/01_eriksen_repl
 - **Format:** csv
 - **Dimensions:** `Component`
 - **Measures:** `kt_CO2eq`
-
-### `steenmeijer_table.csv`
-
-- **Rows:** 7
-- **Format:** csv
-- **Dimensions:** `Category group`
-- **Measures:** `Unnamed: 0`, `Climate change (kt CO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`, `Basic price expenditure (million euros)`
-
-### `table_01.csv`
-
-- **Rows:** 7
-- **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Unnamed: 0`, `Global warming (ktCO2eq)`, `Material extraction (kt)`, `Blue water consumption (Mm3)`, `Land use (km2)`, `Waste generation (kt)`, `Expenditure (MEUR)`
-
-### `table_s05_dk.csv`
-
-- **Rows:** 5
-- **Format:** csv
-- **Dimensions:** none
-- **Measures:** `Unnamed: 0`, `Healthcare footprint`, `National consumption footprint`, `Healthcare share of national consumption footprint (%)`
