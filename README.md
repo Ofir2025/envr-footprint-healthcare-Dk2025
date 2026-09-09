@@ -57,15 +57,28 @@ they are - so all aggregates are derivable and no lineage is lost.
 ```bash
 python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 
-PYTHONPATH=src python -m pipelines.prep_background_2022.build_background_2022
-HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analysis.main_2025
-for m in export_tables extended_indicators national_totals scopes_detail \
-         double_counting_audit cabernard_target_scope3 waste_validation \
-         waste_domestic_dst demand_vector_consistency figaro_recipe_validation \
-         uncertainty_2025 uncertainty_figures build_manifest; do
-  HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analysis.$m
-done
+# Build the background once. This uses EXIOBASE v3.8.2, the version this study
+# actually uses - see docs/revision/exiobase_vintage_defects.md for why v3.10.2
+# is rejected. Do NOT run `pipelines.prep_background_2022.build_background_2022`:
+# it builds from the rejected v3.10.2 and writes to the SAME unsuffixed
+# filenames (mrio2022.pkl, leontief2022.pkl) that the correct build below
+# writes, so running it silently corrupts the background every later stage,
+# including dk_shipping_correction and main_2025, then reads.
+HC_BACKGROUND_YEAR=2022 PYTHONPATH=src python -m pipelines.prep_background_2025.load
+HC_BACKGROUND_YEAR=2022 PYTHONPATH=src python -m pipelines.prep_background_2025.leontief
+HC_BACKGROUND_YEAR=2022 PYTHONPATH=src python -m pipelines.prep_background_2025.process
+PYTHONPATH=src python -m pipelines.prep_background.waste
+PYTHONPATH=src python -m analysis.dk_shipping_correction
+
+# Then run the full pipeline - the supported, executable run order for every
+# analysis stage, in dependency order (replaces a hand-written module list,
+# which drifts as the pipeline grows):
+python scripts/run_pipeline.py
 ```
+
+`python scripts/run_pipeline.py --check` reports stage coverage against the
+modules on disk without running anything. It defaults to
+`HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship` - the published background.
 
 Scope variants: `HC_SCOPE=health_only | health_eldercare | zorg_en_welzijn`.
 Accounting checks: `PYTHONPATH=src python -m analysis.validate_io_identities`.

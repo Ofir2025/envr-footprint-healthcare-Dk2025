@@ -12,7 +12,7 @@ are described below, per table.
 | Column | Meaning |
 |:---|:---|
 | `analysis_year` | year of the Danish expenditure data and of the MRIO background |
-| `model` | MRIO release actually used (e.g. `EXIOBASE v3.10.2 IOT_2022_ixi (screened)`) |
+| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/revision/exiobase_vintage_defects.md`) |
 | `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |
 | `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |
 | `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |
@@ -58,6 +58,15 @@ environmental pressure and is therefore not part of `y_H`. Consequently
 `sum(y_H)` is smaller than total health expenditure; `expenditure_summary.csv`
 reports both so the relationship is explicit. Pharmaceuticals and appliances
 enter at their full basic-price value, distributed over supplying regions.
+
+## Important note on `footprint_bilateral_producer_x_purchase.csv.gz`
+
+This table is **deliberately truncated**: it reports only the largest cells,
+covering >=99.5% of each total, plus an explicit `BELOW_THRESHOLD_REMAINDER`
+row per indicator x demand component so every total still reconciles exactly.
+`_bilateral_coverage.csv` in this folder reports the achieved coverage of the
+named cells. The untruncated marginals - `footprint_by_producing_node.csv`
+and `footprint_by_purchased_product.csv` - are complete.
 
 ## Tables
 

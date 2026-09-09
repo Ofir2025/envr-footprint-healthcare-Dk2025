@@ -1,5 +1,7 @@
 # star
 
+Schema definition (DDL) these tables satisfy: [`docs/methods/star_schema.sql`](../../../../docs/methods/star_schema.sql).
+
 ## Conventions
 
 | Item | Convention |

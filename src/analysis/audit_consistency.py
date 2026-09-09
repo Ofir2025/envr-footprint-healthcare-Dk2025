@@ -85,7 +85,7 @@ import pandas as pd
 from analysis import gold_scope
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL,
                                 eriksen_folder, scopes_folder)
-from paths import BACKGROUND_DIR, OUTPUT_DIR, PROJECT_ROOT
+from paths import BACKGROUND_DIR, GOLD_DIR, OUTPUT_DIR, PROJECT_ROOT
 
 #: Tolerance for values that should be identical up to floating point.
 EXACT = 1e-9
@@ -267,11 +267,18 @@ GOLD_ALLOWED_SUFFIXES = (".csv", ".csv.gz", ".parquet", ".md", ".npy")
 
 
 def c14_gold_format(results: list[dict[str, Any]]) -> None:
-    """C14: gold publishes tabular data, not workbooks, documents or images."""
-    root = str(OUTPUT_DIR)
+    """C14: gold publishes tabular data, not workbooks, documents or images.
+
+    Walks :data:`GOLD_DIR` (``data/gold``), not just :data:`OUTPUT_DIR`
+    (``data/gold/results``), so ``data/gold/readme.md`` is covered on the
+    same footing as everything under ``results/`` - C16 already walks the
+    same root to check tracked-ness, so C14 and C15 match it rather than
+    checking a narrower tree.
+    """
+    root = str(GOLD_DIR)
     if not os.path.isdir(root):
         _check(results, "C14 gold holds tabular data only", False,
-               f"unavailable: OUTPUT_DIR does not exist: {root}")
+               f"unavailable: GOLD_DIR does not exist: {root}")
         return
     offenders = [
         os.path.relpath(os.path.join(dirpath, name), root)
@@ -284,18 +291,31 @@ def c14_gold_format(results: list[dict[str, Any]]) -> None:
 
 
 def c15_gold_lowercase(results: list[dict[str, Any]]) -> None:
-    """C15: every published name is lowercase."""
-    root = str(OUTPUT_DIR)
+    """C15: every published file AND directory name is lowercase.
+
+    Walks :data:`GOLD_DIR` for the same reason as :func:`c14_gold_format`.
+
+    Directory names are checked as well as file names: ``os.walk`` yields
+    them as its second element on every call, and a version that only
+    inspects ``names`` (the files) discards that element - a capitalised
+    *folder* would then pass silently, even though the spec's target state
+    ("every name under ``data/gold/`` is lowercase") and the global lowercase
+    constraint both cover folder names too. Both are collected as `(path,
+    kind)` pairs so the failure detail says which is which.
+    """
+    root = str(GOLD_DIR)
     if not os.path.isdir(root):
         _check(results, "C15 every gold name is lowercase", False,
-               f"unavailable: OUTPUT_DIR does not exist: {root}")
+               f"unavailable: GOLD_DIR does not exist: {root}")
         return
-    offenders = [
-        os.path.relpath(os.path.join(dirpath, name), root)
-        for dirpath, _, names in os.walk(root)
-        for name in names
-        if name != name.lower()
-    ]
+    offenders = []
+    for dirpath, dirnames, names in os.walk(root):
+        for d in dirnames:
+            if d != d.lower():
+                offenders.append(os.path.relpath(os.path.join(dirpath, d), root) + "/")
+        for name in names:
+            if name != name.lower():
+                offenders.append(os.path.relpath(os.path.join(dirpath, name), root))
     _check(results, "C15 every gold name is lowercase", not offenders,
            "; ".join(sorted(offenders)[:8]) or "clean")
 

@@ -30,8 +30,27 @@ import matplotlib.pyplot as plt
 from .functions import *
 from paths import BRONZE_DIR, BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR, EXIOBASE_DIR, ensure_runtime_directories
 
+# Hard guard: this is the superseded Netherlands entry point. It is kept for
+# provenance (its history is referenced elsewhere) but is not runnable
+# end-to-end - its source workbook, nl_supply_tables_2015_2018.xlsx, is not in
+# this repository - and the unmodified script below does `os.chdir(output_dir)`
+# then writes bare filenames, recreating debris directly inside the published
+# gold layer that this data layer restructure removed. Fail fast instead of
+# silently doing that again.
+if __name__ == "__main__":
+    raise SystemExit(
+        "analysis.main is the superseded Netherlands (Steenmeijer et al. "
+        "2022) entry point. It is retained for provenance only and is not "
+        "supported to run: its source workbook "
+        "(nl_supply_tables_2015_2018.xlsx) is not in this repository, and "
+        "running it writes intermediates and results directly into the "
+        "published data/gold layer via os.chdir(output_dir). "
+        "analysis.main_2025 is the Danish study's entry point and replaces "
+        "it - use that instead."
+    )
+
 # These options determine the way floating point numbers, arrays and other NumPy objects are displayed.
-np.set_printoptions(precision=2) 
+np.set_printoptions(precision=2)
 
 ##############################################
 # 1) Prepare paths
