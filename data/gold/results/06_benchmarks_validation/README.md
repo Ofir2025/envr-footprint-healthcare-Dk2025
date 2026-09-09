@@ -100,6 +100,13 @@ Method, equations, and verification: [`docs/methods/replications/06_benchmarks_v
 - **Dimensions:** `input_group_share_pct`
 - **Measures:** `EXIOBASE v3.10.2 (modelled)`, `Eurostat FIGARO Q86 (official EU)`, `Statistics Denmark IO 86 (national)`
 
+### `snac_split_weight_sensitivity.csv`
+
+- **Rows:** 58
+- **Format:** csv
+- **Dimensions:** none
+- **Measures:** `reference_year`, `exiobase_code`, `exiobase_name`, `dst_industries`, `n_dst`, `dst_output_share`, `dst_import_share`, `member_intensity_kt_per_bndkk`, `q_import_weighted`, `q_output_weighted`, `q_equal_weighted`, `q_min`, `q_max`, `spread_within_group`, `ratio_import_over_output`, `ratio_equal_over_import`, `q_import_relative_to_national`, `group_imports_bndkk`, `group_output_bndkk`, `import_penetration`
+
 ### `year_comparison_2019_2022.csv`
 
 - **Rows:** 5
