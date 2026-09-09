@@ -117,8 +117,11 @@ def main():
     # Direct (Scope 1) impacts are taken from the B_HEAL row that the main
     # pipeline writes, so both use byte-identical numbers: GWP from DRIVHUS and
     # waste from AFFALD01 (Danish measured), the other categories from EXIOBASE.
+    # Intermediate workbook, not a deliverable: it lives in silver's
+    # eriksen_interim handoff (see main_2025's interim_dir), not in gold.
     contrib = pd.read_excel(
-        os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+        os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+                     *eriksen_folder().split("/"),
                      "contribution_analysis.xlsx"), sheet_name="full")
     b_heal = contrib[contrib["SecTxtCode"] == "B_HEAL"].iloc[0]
     DIRECT_COL = {"climate_change": "Global warming (ktCO2eq)",
