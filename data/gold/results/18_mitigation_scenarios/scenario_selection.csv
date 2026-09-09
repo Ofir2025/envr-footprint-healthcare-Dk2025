@@ -1,0 +1,9 @@
+scenario_id,scenario,ambition,in_combined
+P1,P1 hospital energy and transport,"-75 % by 2030, 100% of the target met",C1
+P2,P2 pharmaceutical raw-material efficiency,"-15 % inputs, 100% of Danish production",C1
+P3,P3 medical-device packaging carbon,-23.5 % cradle-to-gate,C1
+P4,P4 reuse of medical equipment,-20% device purchases,C1
+P5,"P5 patient, visitor and staff travel",-30%,C1
+P6,P6 inhaler propellant: HFA-152a propellant,-93% propellant GWP,C1
+P8,P8 nitrous oxide capture or reduction,75%,C1
+P9,P9 divert health-care waste to recycling,40% of incineration,C1

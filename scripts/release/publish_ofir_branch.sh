@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+# Build and push the curated public branch for Ofir's repository.
+#
+# The local `2019-update` branch is the FULL working branch: it carries the raw
+# third-party inputs, the follow-on analysis layers, the presentation and the
+# unredacted reviewer response. The public branch is a filtered view of it.
+#
+# The filter must live here, not in someone's shell history. Pushing
+# `2019-update` directly would publish:
+#   * data/bronze  - third-party data obtained under providers' own terms
+#   * docs/references, reports/source - PDFs of published articles
+#   * docs/feedback - internal notes
+#   * docs/revision/response_to_reviewers.md - verbatim referee comments,
+#     which are confidential while the manuscript is under review
+#   * layers 16 and 17 - follow-on work for the next paper
+#
+# Usage:  scripts/release/publish_ofir_branch.sh [--dry-run]
+set -euo pipefail
+
+SRC_BRANCH="2019-update"
+PUB_BRANCH="ofir-revision"
+REMOTE_BRANCH="2019-update"
+REMOTE="origin"
+REDACTED="${REDACTED_RESPONSE:-/tmp/redact/rtr_public.md}"
+DRY_RUN="${1:-}"
+
+# Which gold layers ship.
+#
+# NOT decided here. `analysis.gold_scope` classifies every gold folder as a
+# paper deliverable or a private extension, with a reason per folder, and this
+# script asks it. A hand-maintained array in a shell script is exactly the list
+# that drifts from what anyone believes it contains; the audit fails if a folder
+# exists without a classification, so the two cannot diverge.
+#
+# Layers 07, 08, 09, 14 and 15 were considered for exclusion and are KEPT,
+# because the response asserts things only they evidence - 09 is the sole basis
+# for rejecting EXIOBASE v3.10.2, 15 is the AR6 restatement the response leads
+# on, and 07/08/14 are the comparators in the capital-boundary table. Shipping
+# the response without them leaves a co-author defending claims with no table
+# behind them. The reasons live in gold_scope.SCOPE, not in this comment.
+GOLD_EXCLUDE=$(PYTHONPATH=src python3 -m analysis.gold_scope --exclude) || {
+  echo "==> refusing to publish: could not read the gold scope" >&2; exit 1; }
+if [ -z "$GOLD_EXCLUDE" ]; then
+  echo "==> refusing to publish: the gold scope returned nothing" >&2; exit 1
+fi
+echo "==> withholding $(echo "$GOLD_EXCLUDE" | wc -l | tr -d ' ') paths declared private"
+
+EXCLUDE=(
+  data/bronze/exiobase_v3_7 data/bronze/medstat data/bronze/capital data/bronze/figaro
+  docs/references reports/source docs/presentation docs/feedback
+  $GOLD_EXCLUDE
+)
+
+if [ -n "$(git status --porcelain)" ]; then
+  echo "==> refusing to publish: the working tree is not clean." >&2
+  echo "    git filter-branch cannot rewrite a branch with uncommitted changes." >&2
+  git status --short | head -10 >&2
+  exit 1
+fi
+
+echo "==> redacting the reviewer response"
+mkdir -p "$(dirname "$REDACTED")"
+python3 - "$REDACTED" <<'PY'
+import re, sys
+src = "docs/revision/response_to_reviewers.md"
+text = open(src, encoding="utf-8").read()
+placeholder = ("> *[Referee comment withheld - the referee reports for a manuscript under\n"
+               "> review are confidential. The full text is in the submission system and in\n"
+               "> the private working copy. The heading above states the point addressed.]*\n")
+out, n = re.subn(r"(?:^> .*(?:\n|$))+", lambda m: placeholder, text, flags=re.MULTILINE)
+open(sys.argv[1], "w", encoding="utf-8").write(out)
+print(f"    {n} referee blockquote(s) withheld")
+PY
+
+echo "==> rebuilding $PUB_BRANCH from $SRC_BRANCH"
+git branch -f "$PUB_BRANCH" "$SRC_BRANCH"
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --prune-empty --index-filter "
+  git rm -r -q --cached --ignore-unmatch ${EXCLUDE[*]}
+  if git ls-files --cached --error-unmatch docs/revision/response_to_reviewers.md >/dev/null 2>&1; then
+    H=\$(git hash-object -w '$REDACTED')
+    git update-index --cacheinfo 100644 \"\$H\" docs/revision/response_to_reviewers.md
+  fi
+" "$REMOTE/main..$PUB_BRANCH" >/dev/null 2>&1
+
+echo "==> verifying"
+fail=0
+check () { # name  expected  actual
+  if [ "$2" = "$3" ]; then printf "    ok   %-42s %s\n" "$1" "$3"
+  else printf "    FAIL %-42s expected %s, got %s\n" "$1" "$2" "$3"; fail=1; fi
+}
+tree () { git ls-tree -r "$PUB_BRANCH" --name-only; }
+# The trailing slash matters. Every excluded entry is a directory, and without
+# it the pattern also matches a sibling FILE whose name starts the same way:
+# docs/references.csv, the bibliography source that check C8 reads and that must
+# ship, was failing this guard as though it were the folder of article PDFs.
+check "excluded paths present"      0 "$(tree | grep -cE '^(data/bronze/(exiobase_v3_7|medstat|capital|figaro)|docs/references|reports/source|docs/presentation|docs/feedback)/' || true)"
+check "follow-on layers present"    0 "$(tree | grep -cE '16_impact_world_plus|17_health_subsectors' || true)"
+check "verbatim referee text"       0 "$(git show "$PUB_BRANCH:docs/revision/response_to_reviewers.md" | grep -c 'absence of formal uncertainty' || true)"
+# The check above guards one file. Referee wording has reached other documents
+# before - a methods note quoting the review in its opening paragraph - so scan
+# the WHOLE published tree for the reports' distinctive phrases. Add a phrase
+# here whenever a new one is quoted anywhere in the working branch.
+REFEREE_PHRASES='absence of formal uncertainty|systematic sensitivity analysis or Monte Carlo|which assumptions contribute most to the uncertainty|distinguish between identifying hotspots|plausible ranges \(e\.g\.'
+leaked=0
+for f in $(tree | grep -E '\.(md|txt|tex)$' | grep -v '^docs/revision/response_to_reviewers\.md$'); do
+  n=$(git show "$PUB_BRANCH:$f" 2>/dev/null | grep -cE "$REFEREE_PHRASES" || true)
+  if [ "$n" -gt 0 ]; then echo "         referee wording in $f"; leaked=$((leaked + n)); fi
+done
+check "referee wording, whole tree" 0 "$leaked"
+check "AI attribution trailers" 0 "$(git log "$REMOTE/main..$PUB_BRANCH" --grep='Co-Authored-By' -i --format=%H | wc -l | tr -d ' ')"
+[ "$fail" -eq 0 ] || { echo "==> verification FAILED - nothing pushed"; exit 1; }
+
+echo "==> $(tree | wc -l | tr -d ' ') files, $(git rev-list --count "$REMOTE/main..$PUB_BRANCH") commits"
+if [ "$DRY_RUN" = "--dry-run" ]; then
+  echo "==> dry run, not pushing"; exit 0
+fi
+git push --force-with-lease "$REMOTE" "$PUB_BRANCH:$REMOTE_BRANCH"
+echo "==> pushed $PUB_BRANCH -> $REMOTE/$REMOTE_BRANCH"

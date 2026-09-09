@@ -1,0 +1,15 @@
+category,purpose_code,purpose,transaction,value_kdkk
+HC.5.1 Pharmaceuticals,06112,Pharmaceutical products and other medical products,Household consumption (Transaction code 3110),7075872.598508689
+HC.5.1 Pharmaceuticals,06112,Pharmaceutical products and other medical products,Marketed individual government consumption (Transaction code 3141),5847061.822386127
+HC.5.2 Appliances,06130,Therapeutic appliances and equipment,Household consumption (Transaction code 3110),4194293.0239464
+HC.5.2 Appliances,06130,Therapeutic appliances and equipment,Marketed individual government consumption (Transaction code 3141),1527741.589522968
+HC.5.2 Appliances,06130,Therapeutic appliances and equipment,Non-market individual government consumption (Transaction code 3142),990383.0
+Healthcare services,06200,Out-patient services,Household consumption (Transaction code 3110),12132758.0
+Healthcare services,06300,Hospital services,Household consumption (Transaction code 3110),4380416.0
+Healthcare services,12401,"Retirement homes, day-care centres etc.",Household consumption (Transaction code 3110),5376147.0
+Healthcare services,06300,Hospital services,NPISH (Transaction code 3130),2331910.0
+Healthcare services,12401,"Retirement homes, day-care centres etc.",NPISH (Transaction code 3130),2331910.0
+Healthcare services,06200,Out-patient services,Marketed individual government consumption (Transaction code 3141),16926767.0
+Healthcare services,06200,Out-patient services,Non-market individual government consumption (Transaction code 3142),13028315.0
+Healthcare services,06300,Hospital services,Non-market individual government consumption (Transaction code 3142),118821730.0
+Healthcare services,12401,"Retirement homes, day-care centres etc.",Non-market individual government consumption (Transaction code 3142),68373238.0

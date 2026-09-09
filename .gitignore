@@ -1,5 +1,42 @@
-data/bg
+data/silver/background/
+**/__pycache__/
+data/gold/results/**/*.tmp
+data/gold/results/**/~$*
+scripts/notebooks/.ipynb_checkpoints/
+*.DS_Store
+*.pyc
 .pylint.d
-scripts/__pycache__
-scripts/prep_background/exiobase_3_7-aggregation.py
-data/exiobase_v3.7/IOT_2016_ixi
+data/bronze/exiobase_v3_7/IOT_2016_ixi
+
+# Large external MRIO downloads: reproducible from the documented URLs
+data/bronze/figaro/estat_naio_10_fcp_ii4_*.tsv.gz
+data/silver/background/
+.venv/
+
+# The user's global gitignore excludes *.csv. The gold results ARE the
+# deliverable — detail tables alongside aggregates — so un-ignore them here.
+# Repository .gitignore takes precedence over core.excludesFile.
+!data/gold/results/**/*.csv
+!data/gold/results/*.csv
+!data/gold/results/**/*.csv.gz
+!data/gold/results/**/*.parquet
+!data/gold/results/*.parquet
+
+# Excel lock files
+~$*
+
+# The global excludesFile also drops *.tiff. Publication figures ARE the
+# deliverable, so un-ignore the figures tree (repo .gitignore takes precedence).
+!figures/**/*.tiff
+!figures/**/*.png
+!data/bronze/concordances/*.csv
+
+# The bibliography's single source of truth. analysis.bibliography reads it
+# and audit check C8 verifies every in-text citation against it, so a clone
+# without it cannot run the check that guards the reference list.
+!docs/references.csv
+
+# Danish register inputs. These are small, public, and the pipeline cannot
+# be reproduced without them, so they belong in version control even though
+# the global excludesFile drops every .csv.
+!data/bronze/*.csv

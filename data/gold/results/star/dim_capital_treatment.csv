@@ -1,0 +1,5 @@
+capital_treatment_id,treatment_code,treatment_name,capital_included,produced_by
+1,baseline_capital_excluded,Capital excluded (Steenmeijer-comparable),False,analysis.capital_gfcf
+2,A_exogenous_capital_service_flow,"Capital as an exogenous service flow (CFC of DK health and residential care, DST NABK69)",True,analysis.capital_gfcf
+3,D_full_endogenisation,"Capital fully endogenised, A' = A + K",True,analysis.capital_gfcf
+4,capital endogenised (Sodersten et al. 2018),Capital endogenised on the published capital-use matrices,True,analysis.capital_endogenised_sodersten

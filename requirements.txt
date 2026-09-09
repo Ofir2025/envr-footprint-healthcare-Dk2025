@@ -1,10 +1,9 @@
-import pandas as pd
-import numpy as np
-import numpy.matlib
-import os
-import xlsxwriter
-import sys
-import matplotlib.pyplot as plt
-import time
-import pickle as pkl
-import requests
+matplotlib
+numpy
+pandas
+requests
+XlsxWriter
+openpyxl
+pyxlsb
+scipy>=1.11
+pyarrow>=15  # parquet for the large star-schema facts

@@ -1,0 +1,20 @@
+check,status,detail,tolerance
+median-1 multipliers,PASS,largest deviation 5.58e-04 (B_COMM),< 5e-3
+realised GSD equals declared GSD,PASS,"largest relative deviation 0.394% (B_VISI: declared GSD 1.4, realised 1.4019)",< 2 %
+travel-pair log correlation,PASS,"asked 0.8, realised 0.8015",+/- 0.02
+"MRIO factor correlation across groups, rho = 0.5",PASS,"asked 0.50, realised 0.4979 on two groups with no bottom-up term",+/- 0.06
+simulated moments match the closed form,PASS,largest relative deviation 0.394% (Global warming (ktCO2eq) SD),< 2 %
+variance shares sum to 100 %,PASS,range 100.000000 to 100.000000 %,1e-6
+"MRIO variance share, closed form vs frozen-input estimate",PASS,"closed form 78.8 %, frozen-input 79.0 %",+/- 3 pp
+median stable across simulation halves,PASS,"halves 4,731.2 and 4,735.5 kt, 0.091% apart",< 0.5 %
+interval endpoints converged,PASS,bootstrap SD of the 2.5th and 97.5th percentiles is 0.075% of the endpoint,< 0.5 %
+result does not depend on the seed,PASS,median across five seeds varies by 0.073%,< 0.5 %
+every draw is positive,PASS,"minimum draw 3,349.7 kt",> 0
+"distribution is right-skewed, as a product of non-negative quantities must be",PASS,skewness 0.267,> 0
+median reproduces the deterministic estimate,PASS,"median 4,733.7 kt against deterministic 4,712.4 kt, 0.451% apart",< 1 %
+mean/median ratio matches exp(sigma^2/2),PASS,"expected 1.00348, measured 1.00344",+/- 0.004
+structural scenario is not inside the parametric interval,PASS,"pharmaceutical-mapping scenario median 3,604 kt against the central 2.5th percentile 4,064 kt - a modelling choice moves the answer further than the parameters do",median outside the central 95 % interval
+calibrated total CV held across correlations,PASS,"CV at rho = 1.00 / 0.76 / 0.00 is 7.83 / 7.81 / 7.76 %, a spread of 0.07 pp",< 0.5 pp
+group-level spread widens as correlation falls,PASS,"median group CV 8.4 % at rho = 1 against 16.2 % at rho = 0; the total is unchanged, so rho redistributes variance rather than creating it",rho = 0 wider
+Tier 1 agrees with Tier 2,PASS,Tier 1 error propagation 7.84 % against Tier 2 simulation 7.87 %; IPCC (2000) 6.3.1 requires both to be reported,< 1 pp
+pharmaceutical mapping ratio is bounded above by 1,PASS,"scenario/central median ratio 0.757; the correction can only reduce the mapped intensity, never raise it",< 1

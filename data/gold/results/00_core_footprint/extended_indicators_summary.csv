@@ -1,0 +1,25 @@
+consuming_country_iso3,model,scenario,analysis_year,indicator,unit,demand_component,n_stressor_rows,value
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pm2_5,kt,healthcare_services,48,1.2820478567488611
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pm2_5,kt,pharmaceuticals,48,0.5186794025532908
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pm2_5,kt,medical_appliances,48,0.08617097454590206
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pm10,kt,healthcare_services,47,1.5770739389112736
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pm10,kt,pharmaceuticals,47,0.7236908665992698
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pm10,kt,medical_appliances,47,0.12062251751618336
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nox,kt,healthcare_services,23,12.23923883697616
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nox,kt,pharmaceuticals,23,3.147560565794256
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nox,kt,medical_appliances,23,0.6459766364092626
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,sox,kt,healthcare_services,21,7.698407774422806
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,sox,kt,pharmaceuticals,21,12.14220094222891
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,sox,kt,medical_appliances,21,0.44025337867573916
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nh3,kt,healthcare_services,4,4.896837394707299
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nh3,kt,pharmaceuticals,4,3.077774381652086
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nh3,kt,medical_appliances,4,0.1522189690457089
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nmvoc,kt,healthcare_services,48,3.604620965632952
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nmvoc,kt,pharmaceuticals,48,6.658766958710202
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nmvoc,kt,medical_appliances,48,0.3062776637779578
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nitrogen_to_water,kt,healthcare_services,2,2.4064604685432895
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nitrogen_to_water,kt,pharmaceuticals,2,2.206703165359974
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,nitrogen_to_water,kt,medical_appliances,2,0.059918399506612346
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,phosphorus_to_water,kt,healthcare_services,2,0.034823828837533585
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,phosphorus_to_water,kt,pharmaceuticals,2,0.03488490347780503
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,phosphorus_to_water,kt,medical_appliances,2,0.00108194510700805
