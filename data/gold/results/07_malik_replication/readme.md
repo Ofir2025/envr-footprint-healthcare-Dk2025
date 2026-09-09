@@ -1,6 +1,6 @@
 # 07_malik_replication
 
-**07 - Malik replication and production layers**
+**07 - Malik replication**
 
 How does Denmark compare with the Australian health system, on Australia's own methodological choices rather than ours; and how far upstream does the pressure occur?
 
@@ -41,39 +41,6 @@ Method, equations, and verification: [`docs/methods/replications/07_malik_replic
 - **Format:** csv
 - **Dimensions:** `model`, `consuming_country_iso3`, `study`, `indicator`, `boundary`
 - **Measures:** `analysis_year`, `total_kt`, `share_national_pct`, `direct_pct`
-
-### `production_layers.csv`
-
-- **Rows:** 110
-- **Format:** csv
-- **Units:** Mm3, km2, kt, kt CO2eq
-- **Dimensions:** `method`, `model`, `consuming_country_iso3`, `indicator`, `unit`, `layer`
-- **Measures:** `analysis_year`, `value`, `share_pct`, `cumulative_share_pct`, `truncation_error_pct`
-
-### `production_layers_by_producing_node.csv.gz`
-
-- **Rows:** 444,389
-- **Format:** csv
-- **Resolution:** 49+ regions x 89+ industries (sampled)
-- **Units:** kt CO2eq
-- **Dimensions:** `country_consuming`, `sector_consuming`, `indicator`, `unit`, `model`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
-- **Measures:** `analysis_year`, `layer`, `value`
-
-### `production_layers_by_sector_group.csv`
-
-- **Rows:** 1,995
-- **Format:** csv
-- **Units:** kt, kt CO2eq
-- **Dimensions:** `method`, `model`, `consuming_country_iso3`, `sector_group`, `indicator`, `unit`
-- **Measures:** `analysis_year`, `value`, `layer`
-
-### `production_layers_domestic_vs_imported.csv`
-
-- **Rows:** 210
-- **Format:** csv
-- **Units:** Mm3, km2, kt, kt CO2eq
-- **Dimensions:** `indicator`, `unit`, `origin`
-- **Measures:** `layer`, `value`, `share_of_total_pct`
 
 ### `production_layers_vs_malik.csv`
 

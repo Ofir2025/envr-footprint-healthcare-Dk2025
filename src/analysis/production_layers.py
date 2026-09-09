@@ -152,8 +152,10 @@ def main():
               f"{100*cum[2]:5.1f} %  L0-L8 {100*cum[8]:5.1f} %  "
               f"TE0 {100*(1-cum[0]):5.1f} %  TE1 {100*(1-cum[1]):5.1f} %")
 
-    out_dir = os.path.join(str(OUTPUT_DIR), "07_malik_replication")
+    out_dir = os.path.join(str(OUTPUT_DIR), "20_production_layers")
     os.makedirs(out_dir, exist_ok=True)
+    malik_dir = os.path.join(str(OUTPUT_DIR), "07_malik_replication")
+    os.makedirs(malik_dir, exist_ok=True)
     meta = dict(analysis_year=year, consuming_country_iso3="DNK",
                 model=MODEL_LABEL,
                 method="production layer decomposition, Malik et al. 2021 / Lenzen et al. 2020 SI 5")
@@ -203,7 +205,7 @@ def main():
                          "section 3 and figure 3",
             source_denmark=MODEL_LABEL))
     pd.DataFrame(comparison).to_csv(
-        os.path.join(out_dir, "production_layers_vs_malik.csv"), index=False)
+        os.path.join(malik_dir, "production_layers_vs_malik.csv"), index=False)
     dfs.to_csv(os.path.join(out_dir, "production_layers_by_sector_group.csv"), index=False)
     print(f"written -> {out_dir}/production_layers.csv (+ by sector group)")
 

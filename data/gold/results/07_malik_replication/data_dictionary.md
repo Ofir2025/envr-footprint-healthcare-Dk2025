@@ -95,66 +95,6 @@ units and are labelled as such wherever they are quoted.
 | `direct_pct` | measure | float64 | % | 13.4 |
 | `boundary` | dimension | str |  | domestic-only; capital INCLUDED; aged ca |
 
-### `production_layers.csv`
-
-| Column | Role | Type | Unit | Example |
-|:---|:---|:---|:---|:---|
-| `method` | dimension | str |  | production layer decomposition, Malik et |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `consuming_country_iso3` | dimension | str |  | DNK |
-| `analysis_year` | measure | int64 |  | 2022 |
-| `indicator` | dimension | str |  | climate_change |
-| `unit` | dimension | str |  | kt CO2eq |
-| `layer` | dimension | str |  | 0 |
-| `value` | measure | float64 | varies by row | 353.33928659046666 |
-| `share_pct` | measure | float64 | % | 8.6988278774147 |
-| `cumulative_share_pct` | measure | float64 | % | 8.6988278774147 |
-| `truncation_error_pct` | measure | float64 | % | 91.3011721225853 |
-
-### `production_layers_by_producing_node.csv.gz`
-
-| Column | Role | Type | Unit | Example |
-|:---|:---|:---|:---|:---|
-| `country_consuming` | dimension | str |  | DNK |
-| `sector_consuming` | dimension | str |  | health_and_eldercare |
-| `analysis_year` | measure | int64 |  | 2022 |
-| `indicator` | dimension | str |  | climate_change |
-| `unit` | dimension | str |  | kt CO2eq |
-| `layer` | measure | int64 | kt CO2eq | 0 |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `producing_country_iso3` | dimension | str |  | DNK |
-| `producing_country_name` | dimension | str |  | Denmark |
-| `producing_world_region` | dimension | str |  | Denmark |
-| `producing_sector_code` | dimension | str |  | HEAL |
-| `producing_sector_name` | dimension | str |  | Health and social work (85) |
-| `producing_sector_group` | dimension | str |  | Services |
-| `value` | measure | float64 | kt CO2eq | 118.5541696372094 |
-
-### `production_layers_by_sector_group.csv`
-
-| Column | Role | Type | Unit | Example |
-|:---|:---|:---|:---|:---|
-| `method` | dimension | str |  | production layer decomposition, Malik et |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
-| `consuming_country_iso3` | dimension | str |  | DNK |
-| `analysis_year` | measure | int64 |  | 2022 |
-| `sector_group` | dimension | str |  | Chemical |
-| `value` | measure | float64 | varies by row | 228.7552377324756 |
-| `indicator` | dimension | str |  | climate_change |
-| `unit` | dimension | str |  | kt CO2eq |
-| `layer` | measure | int64 | varies by row | 0 |
-
-### `production_layers_domestic_vs_imported.csv`
-
-| Column | Role | Type | Unit | Example |
-|:---|:---|:---|:---|:---|
-| `indicator` | dimension | str |  | blue_water_consumption |
-| `unit` | dimension | str |  | Mm3 |
-| `layer` | measure | int64 | varies by row | 0 |
-| `origin` | dimension | str |  | domestic |
-| `value` | measure | float64 | varies by row | 0.1484568765427218 |
-| `share_of_total_pct` | measure | float64 | % | 4.19807516788021 |
-
 ### `production_layers_vs_malik.csv`
 
 | Column | Role | Type | Unit | Example |
