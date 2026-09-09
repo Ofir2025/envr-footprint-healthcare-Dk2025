@@ -1,14 +1,23 @@
 # -*- coding: utf-8 -*-
-"""Write a metadata README into every gold results folder.
+"""Write a metadata readme and data dictionary into every gold table folder.
 
 A reader opening ``data/gold/results/07_malik_replication/`` should not have to
-guess what is in it. This module writes a ``README.md`` per folder describing
+guess what is in it. This module writes a ``readme.md`` per folder describing
 what the layer answers, which module produced it, and, for every table, its
-grain, row count, columns, units, and dimension coverage.
+grain, row count, columns, units, and dimension coverage; and a
+``data_dictionary.md`` beside it giving, per table, every column's dtype, unit,
+role and a sample value.
+
+Any folder under the gold root that holds at least one table gets both files,
+however deep it sits - a year subdirectory (``01_eriksen_replication/2019``) or
+a scenario folder (``scenarios/health_only``) is described exactly like a
+top-level approach folder.
 
 The descriptions are read from the folder's methods document in
-``docs/methods/replications/``, so the two cannot drift apart; the table
-properties are measured from the files themselves, for the same reason.
+``docs/methods/replications/`` (looked up by the folder's top-level component,
+so a year subfolder shares its approach's document), so the two cannot drift
+apart; the table properties are measured from the files themselves, for the
+same reason.
 
 These conventions are asserted while writing and reported in each README:
 
@@ -49,6 +58,60 @@ DIMENSION_HINTS = (
 ROW_REGIONS = ("RoW Asia and Pacific", "RoW America", "RoW Europe",
                "RoW Africa", "RoW Middle East")
 
+#: Shared material folded in from the hand-written
+#: ``00_core_footprint/README_data_dictionary.md`` (now superseded by this
+#: generator): the column vocabulary, region coding and the reconciliation
+#: identity are properties of every gold table, not just that one folder's, so
+#: every generated ``data_dictionary.md`` carries them rather than losing them
+#: when the generator started claiming that filename.
+COMMON_COLUMNS: tuple[str, ...] = (
+    "## Common columns",
+    "",
+    "Every gold table shares this vocabulary; columns particular to one table",
+    "are described below, per table.",
+    "",
+    "| Column | Meaning |",
+    "|:---|:---|",
+    "| `analysis_year` | year of the Danish expenditure data and of the MRIO background |",
+    "| `model` | MRIO release actually used (e.g. `EXIOBASE v3.10.2 IOT_2022_ixi (screened)`) |",
+    "| `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |",
+    "| `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |",
+    "| `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |",
+    "| `indicator` | `climate_change`, `material_extraction`, `blue_water_consumption`, `land_use`, `waste_generation` |",
+    "| `unit` | `kt CO2eq`, `kt`, `Mm3`, `km2`, or `M.EUR` for monetary rows |",
+    "| `value` | numeric value in `unit` |",
+    "",
+    "## Country and region coding",
+    "",
+    "`*_country_iso3` uses **ISO 3166-1 alpha-3** for the 44 EXIOBASE countries.",
+    "The five rest-of-world regions are **not countries** and keep their own",
+    "codes and names: `WA` RoW Asia and Pacific, `WL` RoW America, `WE` RoW",
+    "Europe, `WF` RoW Africa, `WM` RoW Middle East. `*_world_region` gives the",
+    "continental grouping (Europe, Asia and Pacific, America, Middle East,",
+    "Africa, Denmark).",
+    "",
+    "## The two perspectives (and why they reconcile)",
+    "",
+    "Every impact cell is `E[i,j] = s_k(i) . L(i,j) . y_H(j)`: pressure arising",
+    "in node *i* caused by Danish healthcare final demand for node *j*. Summing",
+    "over *i* gives the **consumption / contribution** perspective (by",
+    "purchased product); summing over *j* gives the **production / hotspot**",
+    "perspective (by producing node). Both are marginals of the same array, so",
+    "they sum to the identical total - verified to machine precision by",
+    "`analysis.validate_io_identities` (tests T5/T6). Allocating production",
+    "emissions to final demand is additive and does not double count (Wood et",
+    "al. 2018); embodied-flow tables (E_Z) would.",
+    "",
+    "## Units",
+    "",
+    "Monetary values are **million euro (M.EUR)** - EXIOBASE's native unit",
+    "(`unit.txt` of the release). No US-dollar values are used anywhere in this",
+    "model; dollar figures appearing in the comparative literature (Karliner et",
+    "al. 2019, Lenzen et al. 2020, Pichler et al. 2019) are those studies' own",
+    "units and are labelled as such wherever they are quoted.",
+    "",
+)
+
 
 def _read_head(path: str, n: int = 400) -> tuple[pd.DataFrame, int]:
     """Read a table's head and count its rows without loading it whole.
@@ -88,14 +151,18 @@ def _methods_summary(folder: str) -> tuple[str, str]:
     Parameters
     ----------
     folder : str
-        Gold folder name, e.g. ``"07_malik_replication"``.
+        Gold folder name, e.g. ``"07_malik_replication"`` or a nested table
+        folder such as ``"01_eriksen_replication/2019"`` - the methods
+        document is looked up by the top-level component, since a year or
+        scenario subfolder shares its approach's document.
 
     Returns
     -------
     tuple of str
         ``(title, question)``; empty strings when no methods document exists.
     """
-    path = os.path.join(METHODS, f"{folder}.md")
+    top = folder.split(os.sep)[0]
+    path = os.path.join(METHODS, f"{top}.md")
     if not os.path.exists(path):
         return "", ""
     text = open(path, encoding="utf-8").read()
@@ -151,13 +218,44 @@ def describe_table(path: str) -> dict[str, object]:
     }
 
 
+def _folder_tables(fdir: str) -> list[str]:
+    """Table filenames directly inside one gold folder, sorted.
+
+    Parameters
+    ----------
+    fdir : str
+        Full path to the folder.
+
+    Returns
+    -------
+    list of str
+        Filenames of tables (``.csv``, ``.csv.gz``, ``.parquet``) directly in
+        ``fdir``, excluding any leading-underscore auxiliary file.
+    """
+    return sorted(f for f in os.listdir(fdir)
+                 if f.endswith((".csv", ".csv.gz", ".parquet"))
+                 and not f.startswith("_"))
+
+
+def _relative_link(target: str, fdir: str) -> str:
+    """A forward-slash relative path from ``fdir`` to ``target``.
+
+    Both the manifest and the methods-document links are computed this way
+    rather than with a hardcoded ``../`` count, so a nested folder (a year or
+    scenario subdirectory) gets a link with the right number of steps.
+    """
+    return os.path.relpath(target, fdir).replace(os.sep, "/")
+
+
 def write_folder_readme(folder: str) -> str | None:
-    """Write ``README.md`` for one gold folder.
+    """Write ``readme.md`` for one gold folder.
 
     Parameters
     ----------
     folder : str
-        Gold folder name.
+        Gold folder name, relative to the gold root. May contain path
+        separators for a nested table folder, e.g.
+        ``"01_eriksen_replication/2019"`` or ``"scenarios/health_only"``.
 
     Returns
     -------
@@ -165,34 +263,35 @@ def write_folder_readme(folder: str) -> str | None:
         Path written, or ``None`` when the folder holds no tables.
     """
     fdir = os.path.join(str(OUTPUT_DIR), folder)
-    tables = sorted(f for f in os.listdir(fdir)
-                    if f.endswith((".csv", ".csv.gz", ".parquet"))
-                    and not f.startswith("_"))
+    tables = _folder_tables(fdir)
     if not tables:
         return None
 
     title, question = _methods_summary(folder)
+    top = folder.split(os.sep)[0]
     lines = [f"# {folder}", ""]
     if title:
         lines += [f"**{title}**", ""]
     if question:
         lines += [question, ""]
-    if os.path.exists(os.path.join(METHODS, f"{folder}.md")):
+    methods_doc = os.path.join(METHODS, f"{top}.md")
+    if os.path.exists(methods_doc):
         lines += [f"Method, equations, and verification: "
-                  f"[`docs/methods/replications/{folder}.md`]"
-                  f"(../../../docs/methods/replications/{folder}.md).", ""]
+                  f"[`docs/methods/replications/{top}.md`]"
+                  f"({_relative_link(methods_doc, fdir)}).", ""]
 
+    manifest_path = os.path.join(str(OUTPUT_DIR), "manifest_lineage.csv")
     lines += [
         "## Conventions",
         "",
         "| Item | Convention |",
-        "|---|---|",
+        "|:---|:---|",
         "| Schema | star schema: dimension columns, then measure and unit |",
         "| Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |",
         "| Countries | ISO3 (`DNK`, `DEU`, `ROU`) |",
         "| Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |",
         "| Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |",
-        "| Provenance | one row per file in `../MANIFEST_lineage.csv` |",
+        f"| Provenance | one row per file in `{_relative_link(manifest_path, fdir)}` |",
         "",
         "## Tables",
         "",
@@ -211,20 +310,118 @@ def write_folder_readme(folder: str) -> str | None:
         bullets.append(f"- **Measures:** {', '.join(f'`{c}`' for c in d['measures']) or 'none'}")
         lines += bullets + [""]
 
-    out = os.path.join(fdir, "README.md")
+    out = os.path.join(fdir, "readme.md")
     open(out, "w", encoding="utf-8").write("\n".join(lines))
     return out
 
 
+def column_dictionary(path: str) -> list[dict[str, str]]:
+    """Describe every column of one table.
+
+    Parameters
+    ----------
+    path : str
+        Full path to the table.
+
+    Returns
+    -------
+    list of dict
+        One entry per column: name, dtype, unit, role, and a sample value.
+    """
+    head, _ = _read_head(path)
+    described = describe_table(path)
+    dims = set(described["dims"])
+    unit_of = ""
+    if "unit" in head.columns:
+        seen = head["unit"].dropna().unique().tolist()
+        unit_of = seen[0] if len(seen) == 1 else "varies by row"
+    entries = []
+    for col in head.columns:
+        sample = head[col].dropna()
+        entries.append({
+            "column": col,
+            "dtype": str(head[col].dtype),
+            "unit": "" if col in dims or col == "unit" else unit_of,
+            "role": "dimension" if col in dims else "measure",
+            "example": str(sample.iloc[0])[:40] if len(sample) else "",
+        })
+    return entries
+
+
+def write_folder_dictionary(folder: str) -> str | None:
+    """Write ``data_dictionary.md`` for one gold folder.
+
+    Parameters
+    ----------
+    folder : str
+        Gold folder name, relative to the gold root, exactly as accepted by
+        :func:`write_folder_readme`.
+
+    Returns
+    -------
+    str or None
+        Path written, or ``None`` when the folder holds no tables.
+    """
+    fdir = os.path.join(str(OUTPUT_DIR), folder)
+    tables = _folder_tables(fdir)
+    if not tables:
+        return None
+    lines = [f"# {folder} - data dictionary", "",
+             "One row per column of every table in this folder. Units are the",
+             "table's own; `varies by row` means the table carries a `unit`",
+             "column and the value is read from there.", ""]
+    lines += list(COMMON_COLUMNS)
+    lines += ["## Tables", ""]
+    for name in tables:
+        lines += [f"### `{name}`", "",
+                  "| Column | Role | Type | Unit | Example |",
+                  "|:---|:---|:---|:---|:---|"]
+        for e in column_dictionary(os.path.join(fdir, name)):
+            lines.append(f"| `{e['column']}` | {e['role']} | {e['dtype']} | "
+                         f"{e['unit']} | {e['example']} |")
+        lines.append("")
+    out = os.path.join(fdir, "data_dictionary.md")
+    open(out, "w", encoding="utf-8").write("\n".join(lines))
+    return out
+
+
+def _table_folders(root: str) -> list[str]:
+    """Every folder holding at least one table, relative to the gold root.
+
+    Parameters
+    ----------
+    root : str
+        Gold results root, i.e. ``OUTPUT_DIR``.
+
+    Returns
+    -------
+    list of str
+        Sorted relative paths (``os.sep``-joined), one per folder that holds
+        at least one non-auxiliary ``.csv``, ``.csv.gz`` or ``.parquet`` file
+        directly - a year or scenario subfolder counts on its own, its parent
+        does not unless it also holds a table directly.
+    """
+    found = []
+    for dirpath, _, names in os.walk(root):
+        if any(n.endswith((".csv", ".csv.gz", ".parquet")) and not n.startswith("_")
+               for n in names):
+            rel = os.path.relpath(dirpath, root)
+            found.append("" if rel == "." else rel)
+    return sorted(f for f in found if f)
+
+
 def main() -> None:
-    """Write a README into every gold results folder."""
+    """Write a readme and data dictionary into every gold folder holding a table."""
     root = str(OUTPUT_DIR)
-    folders = sorted(f for f in os.listdir(root)
-                     if os.path.isdir(os.path.join(root, f)))
-    written = [w for w in (write_folder_readme(f) for f in folders) if w]
+    folders = _table_folders(root)
+    written = []
+    for folder in folders:
+        for fn in (write_folder_readme(folder), write_folder_dictionary(folder)):
+            if fn:
+                written.append(fn)
     for path in written:
         print(f"  {os.path.relpath(path, root)}")
-    print(f"\n{len(written)} folder READMEs written")
+    print(f"\n{len(written)} files written across {len(folders)} table folders")
 
 
 if __name__ == "__main__":
