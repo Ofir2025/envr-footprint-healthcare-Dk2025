@@ -34,7 +34,7 @@ data/silver/     prepared model objects (git-ignored, regenerable)
                  + derived Danish inputs with provenance breakdowns
         |        analysis.main_2025 and the approach modules
 data/gold/       published results, one folder per METHOD, indexed by
-                 MANIFEST_lineage.csv (approach, script, equations,
+                 manifest_lineage.csv (approach, script, equations,
                  reference, inputs, checksum)
 ```
 

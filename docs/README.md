@@ -11,7 +11,7 @@ what it does **not** do.
 | Understand the headline results and how they were produced | [`revision/analysis_2022.md`](revision/analysis_2022.md) |
 | Know what is broken, uncertain or still undecided | [`revision/anomalies_bugs_and_open_questions.md`](revision/anomalies_bugs_and_open_questions.md) |
 | Understand why the background model is v3.8.2 and not v3.10.2 | [`revision/exiobase_vintage_defects.md`](revision/exiobase_vintage_defects.md) |
-| Trace any published number back to its data and method | `data/gold/results/MANIFEST_lineage.csv` |
+| Trace any published number back to its data and method | `data/gold/results/manifest_lineage.csv` |
 | See which of the author's requests are answered | [`revision/REQUEST_CHECKLIST.md`](revision/REQUEST_CHECKLIST.md) |
 | Understand the modelling approaches implemented | [`methods_approaches.md`](methods_approaches.md) |
 | Understand the data layout | [`data_architecture.md`](data_architecture.md) |
@@ -86,7 +86,7 @@ label.
 | `15_gwp_vintage` | Climate vintage sensitivity, SAR to AR6 | IPCC AR6 table 7.15 |
 | `16_impact_world_plus` | 38 current categories incl. water scarcity and DALYs | IMPACT World+ v2.2.1 |
 
-Every file in every folder has a row in `MANIFEST_lineage.csv` giving its
+Every file in every folder has a row in `manifest_lineage.csv` giving its
 approach, script, equations, inputs, published reference and a content hash.
 
 ## Detail and aggregate are stored separately

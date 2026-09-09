@@ -3,7 +3,7 @@
 Every table here is a deliverable at the most detailed level the model
 supports (producing country x producing sector x purchased product x
 demand component), so all aggregates are derivable and no lineage is
-lost. Lineage for every file is in `MANIFEST_lineage.csv`.
+lost. Lineage for every file is in `manifest_lineage.csv`.
 
 ## Two scopes, one tree
 
@@ -20,7 +20,7 @@ Each backs a number, figure, or table in the manuscript or in the
 response to the reviewers.
 
 | folder | why it ships |
-|---|---|
+|:---|:---|
 | `00_core_footprint` | the footprint itself; every headline number |
 | `01_eriksen_replication` | the replication the manuscript is; figures 1-3 and S1 |
 | `02_scopes_wood_hertwich` | the GHG-Protocol scope split; figures 3-6 |
@@ -48,7 +48,7 @@ Each is real analysis, kept in this repository only: follow-on work
 that nothing in the current revision cites.
 
 | folder | why it stays here |
-|---|---|
+|:---|:---|
 | `16_impact_world_plus` | IMPACT World+ characterisation; a methods paper of its own, cited by nothing in this revision |
 | `17_health_subsectors` | health sub-sector decomposition; the follow-on paper |
 

@@ -28,9 +28,9 @@ error, and draft wording for the limitations paragraph are in
 | How to cite the background, and its limitations | `docs/methods/exiobase_version_vintage_and_classification.md` |
 | What changed since submission, and why | `docs/revision/analysis_2022.md` |
 | Method and equations, per analysis layer | `docs/methods/replications/` |
-| What each results folder contains | a `README.md` in every `data/gold/results/*/` |
+| What each results folder contains | a `readme.md` (and generated `data_dictionary.md`) in every `data/gold/results/**/` that holds a table |
 | Findings against our own submitted results | `docs/revision/anomalies_bugs_and_open_questions.md` |
-| Provenance of every file | `data/gold/results/MANIFEST_lineage.csv` |
+| Provenance of every file | `data/gold/results/manifest_lineage.csv` |
 
 ## The three things that change the paper
 

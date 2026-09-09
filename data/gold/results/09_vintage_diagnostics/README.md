@@ -4,18 +4,18 @@
 
 Which EXIOBASE vintage can carry this study? Rørmose Jensen & Iliev argue EXIOBASE's Danish block misallocates output between industries. This module turns that argument into a reproducible test rather than accepting or dismissing it.
 
-Method, equations, and verification: [`docs/methods/replications/09_vintage_diagnostics.md`](../../../docs/methods/replications/09_vintage_diagnostics.md).
+Method, equations, and verification: [`docs/methods/replications/09_vintage_diagnostics.md`](../../../../docs/methods/replications/09_vintage_diagnostics.md).
 
 ## Conventions
 
 | Item | Convention |
-|---|---|
+|:---|:---|
 | Schema | star schema: dimension columns, then measure and unit |
 | Industry / product codes | EXIOBASE codes **without** the `A_` / `C_` prefix |
 | Countries | ISO3 (`DNK`, `DEU`, `ROU`) |
 | Regions without an ISO3 code | region name (`RoW Europe`, `RoW Africa`, ...) |
 | Monetary unit | M.EUR, EXIOBASE basic prices, unless a column says otherwise |
-| Provenance | one row per file in `../MANIFEST_lineage.csv` |
+| Provenance | one row per file in `../manifest_lineage.csv` |
 
 ## Tables
 

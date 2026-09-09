@@ -3,12 +3,12 @@
 This study is not a single model. It is a **core EE-MRIO footprint** plus a set
 of **named methodological layers**, each implementing a specific published
 method, each writing to its own folder under `data/gold/results/`, and each
-traceable through `data/gold/results/MANIFEST_lineage.csv` (one row per file:
+traceable through `data/gold/results/manifest_lineage.csv` (one row per file:
 approach, script, equations, reference, inputs, checksum).
 
 ```
 data/gold/results/
-├── MANIFEST_lineage.csv          every gold file: approach, script, equations, inputs
+├── manifest_lineage.csv          every gold file: approach, script, equations, inputs
 ├── 00_core_footprint/            the detailed footprint arrays (lineage base)
 ├── 01_eriksen_replication/       the Steenmeijer-style outputs (tables 1, S5)
 ├── 02_scopes_wood_hertwich/      GHG-Protocol scopes + the double-counting ledger
@@ -128,7 +128,7 @@ Arup/HCWH, Pichler, Lenzen and the Dutch template.
 ## Lineage rule
 
 Every gold table is exported at the **most detailed level available** and every
-aggregate is a `groupby` of it - never the reverse. `MANIFEST_lineage.csv` maps
+aggregate is a `groupby` of it - never the reverse. `manifest_lineage.csv` maps
 each file to its approach, script, equations, references and inputs, so any
 number in the manuscript can be traced to the code that made it and the method
 it implements.
