@@ -305,17 +305,42 @@ def c16_gold_clean(results: list[dict[str, Any]]) -> None:
 
     An untracked file is invisible to every other check in this module, so it
     is the one defect that can grow without ever being reported.
+
+    This compares what is on disk against what git tracks, rather than asking
+    git for untracked files directly. ``git ls-files --others
+    --exclude-standard`` honours the caller's PERSONAL ``core.excludesFile``,
+    which is a machine-local setting outside this repository: if that file
+    ignores e.g. ``*.pdf``, ``*.png``, ``*.xlsx`` or ``*.csv``, exactly the
+    debris this check exists to catch becomes invisible to it, on that
+    machine only. Walking the tree and diffing against ``git ls-files``
+    (tracked files, with no ignore semantics at all) cannot be defeated by any
+    ignore file, personal or otherwise.
     """
+    root = str(OUTPUT_DIR)
+    gold_root = os.path.join(str(PROJECT_ROOT), "data", "gold")
+    if not os.path.isdir(root):
+        _check(results, "C16 no untracked file in gold", False,
+               f"unavailable: OUTPUT_DIR does not exist: {root}")
+        return
     out = subprocess.run(
-        ["git", "ls-files", "--others", "--exclude-standard", "--", "data/gold"],
+        ["git", "ls-files", "--", "data/gold"],
         capture_output=True, text=True, cwd=str(PROJECT_ROOT))
     if out.returncode != 0:
         _check(results, "C16 no untracked file in gold", False,
                f"unavailable: git exited {out.returncode}: {out.stderr.strip()}")
         return
-    offenders = [line for line in out.stdout.splitlines() if line.strip()]
+    tracked = {os.path.normpath(line) for line in out.stdout.splitlines()
+              if line.strip()}
+    on_disk = {
+        os.path.normpath(os.path.relpath(os.path.join(dirpath, name),
+                                         str(PROJECT_ROOT)))
+        for dirpath, _, names in os.walk(gold_root)
+        for name in names
+    }
+    offenders = sorted(on_disk - tracked)
     _check(results, "C16 no untracked file in gold", not offenders,
-           f"{len(offenders)} untracked" if offenders else "clean")
+           f"{len(offenders)} untracked: {', '.join(offenders[:8])}"
+           + (" ..." if len(offenders) > 8 else "") if offenders else "clean")
 
 
 LAYER_SKIPPERS = {
