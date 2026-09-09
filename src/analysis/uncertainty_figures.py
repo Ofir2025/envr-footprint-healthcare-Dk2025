@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from paths import OUTPUT_DIR
+from paths import PROJECT_ROOT
 from analysis.uncertainty_2025 import (INDICATORS, PARAMS, load_groups, run_mc,
                                        sobol_first_order, ranking_probabilities)
 
@@ -40,7 +40,9 @@ plt.rcParams.update({"axes.titlesize": 13, "legend.fontsize": 10,
 
 
 def main():
-    fig_dir = os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc", "figures")
+    # Figures live in figures/, never in the gold results tree; that rule has
+    # no exception for one layer.
+    fig_dir = os.path.join(str(PROJECT_ROOT), "figures", "uncertainty")
     os.makedirs(fig_dir, exist_ok=True)
     mrio, parts, total = load_groups()
     groups, G, tot, _ = run_mc(mrio, parts, "A", n=50_000)

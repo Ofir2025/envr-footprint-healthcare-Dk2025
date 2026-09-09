@@ -44,6 +44,7 @@ import pandas as pd
 from scipy.stats import truncnorm
 
 from analysis.constants import eriksen_folder
+from analysis.extra_functions import write_sheets_as_csv
 from paths import OUTPUT_DIR, SILVER_INPUT_DIR
 
 N_DRAWS = int(os.environ.get("HC_MC_DRAWS", 100_000))
@@ -123,9 +124,14 @@ def _ln_cv(rng, cv, n):
 
 def load_groups():
     """Group x component decomposition, from the model's own outputs."""
-    fig1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"), "full_results_tables.xlsx"),
-                         sheet_name="Fig1_absolute", index_col=0)[INDICATORS].astype(float)
-    contrib = pd.read_excel(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"), "contribution_analysis.xlsx"),
+    fig1 = pd.read_csv(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+                                    "full_results_tables_fig1_absolute.csv"),
+                       index_col=0)[INDICATORS].astype(float)
+    # Intermediate workbook, not a deliverable: it lives in silver's
+    # eriksen_interim handoff (see main_2025's interim_dir), not in gold.
+    contrib = pd.read_excel(os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+                                         *eriksen_folder().split("/"),
+                                         "contribution_analysis.xlsx"),
                             sheet_name="full")
     bu = {code: contrib[contrib["SecTxtCode"] == code][INDICATORS].astype(float).sum()
           for code in BU_TO_GROUP}
@@ -136,8 +142,8 @@ def load_groups():
         if grp in mrio.index:
             mrio.loc[grp] -= bu[code]
             parts[code].loc[grp] = bu[code].values
-    t1 = pd.read_excel(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
-                                    "table_1.xlsx"), index_col=0)
+    t1 = pd.read_csv(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+                                  "table_01.csv"), index_col=0)
     total = t1.loc["Total", INDICATORS].astype(float)
     assert np.allclose(fig1.sum().values, total.values, rtol=1e-6), \
         "group table does not reproduce the reported total - stale outputs?"
@@ -629,15 +635,12 @@ def main():
                              factor_97_5pct=(v["gsd"] ** 1.96 if v.get("gsd") else
                                              np.exp(1.96 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
                              source=v["why"]) for k, v in PARAMS.items()])
-    with pd.ExcelWriter(os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc", "uncertainty_summary.xlsx"),
-                        engine="xlsxwriter") as xw:
-        summ.to_excel(xw, sheet_name="totals", index=False)
-        sob.to_excel(xw, sheet_name="variance_shares", index=False)
-        rk.to_excel(xw, sheet_name="ranking_probabilities", index=False)
-        pd.DataFrame(scen_rows).to_excel(xw, sheet_name="structural_scenarios", index=False)
-        pd.DataFrame(rho_rows).to_excel(xw, sheet_name="travel_correlation", index=False)
-        mrio_rho.to_excel(xw, sheet_name="mrio_correlation", index=False)
-        par.to_excel(xw, sheet_name="parameters", index=False)
+    write_sheets_as_csv({
+        "totals": summ, "variance_shares": sob,
+        "ranking_probabilities": rk, "structural_scenarios": pd.DataFrame(scen_rows),
+        "travel_correlation": pd.DataFrame(rho_rows), "mrio_correlation": mrio_rho,
+        "parameters": par,
+    }, out_dir, "uncertainty", index=False)
     for name, df in (("uncertainty_totals", summ), ("uncertainty_variance_shares", sob),
                      ("uncertainty_ranking_probabilities", rk),
                      ("uncertainty_structural_scenarios", pd.DataFrame(scen_rows)),

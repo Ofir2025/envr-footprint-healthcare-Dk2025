@@ -149,6 +149,7 @@ from .extra_functions import (
     calculate_healthcare_totals_2022,
     eldercare_share_of_social_work,
     eldercare_share_of_social_work_io,
+    write_sheets_as_csv,
 )
 if ANALYSIS_YEAR == "2022":
     hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals_2022(
@@ -887,8 +888,8 @@ bp_appl = cbs_data.iloc[0, 2].item() * cbs_data.iloc[1, 2].item()
 
 t1['Expenditure (MEUR)'] = [(bp_HCserv + bp_phar + bp_appl), bp_HCserv, bp_phar, bp_appl, 'NA', 'NA', 'NA']
 
-# Read Table 1 to Excel file
-t1.to_excel('table_1.xlsx')
+# Write Table 1 as CSV, in the scope's own output folder
+t1.to_csv(os.path.join(output_dir, 'table_01.csv'))
 
 
 # 7D)  Results Table S5
@@ -915,8 +916,8 @@ share_hc = pd.concat([R_HC, pd.Series(data = np.add(R_y, R_ind), index = cols_im
 share_hc.columns = ['Healthcare footprint', 'National consumption footprint']
 share_hc['Healthcare share of national consumption footprint (%)'] = 100* share_hc['Healthcare footprint'] / share_hc['National consumption footprint']
 
-# Read Table S5 to Excel file
-share_hc.to_excel('table_s5_dk.xlsx')
+# Write Table S5 as CSV, in the scope's own output folder
+share_hc.to_csv(os.path.join(output_dir, 'table_s05_dk.csv'))
 
 #The following line is a sanity check for the country index
 # print(bg['label']['region'].reset_index().iloc[k_DK])
@@ -1185,23 +1186,13 @@ fig3_rel = create_relative(fig3_abs)
 # SAVE CLEAN RESULT TABLES
 # ===============================
 
-writer = pd.ExcelWriter("full_results_tables.xlsx", engine="xlsxwriter")
+written = write_sheets_as_csv({
+    "Fig1_absolute": fig1_abs, "Fig1_relative_%": fig1_rel,
+    "Fig2_absolute": fig2_abs, "Fig2_relative_%": fig2_rel,
+    "Fig3_absolute": fig3_abs, "Fig3_relative_%": fig3_rel,
+}, output_dir, "full_results_tables")
 
-# --- Contribution analysis (Figure 1)
-fig1_abs.to_excel(writer, sheet_name="Fig1_absolute")
-fig1_rel.to_excel(writer, sheet_name="Fig1_relative_%")
-
-# --- Hotspot analysis (Figure 2)
-fig2_abs.to_excel(writer, sheet_name="Fig2_absolute")
-fig2_rel.to_excel(writer, sheet_name="Fig2_relative_%")
-
-# --- Regional analysis (Figure 3)
-fig3_abs.to_excel(writer, sheet_name="Fig3_absolute")
-fig3_rel.to_excel(writer, sheet_name="Fig3_relative_%")
-
-writer.close()
-
-print("Full result tables exported: FullResults_Tables.xlsx")
+print(f"Full result tables exported: {len(written)} CSVs in {output_dir}")
 
 # ===============================
 # OPTIONAL: EXPORT FULL RAW DATA (HIGH RESOLUTION)
@@ -1552,10 +1543,8 @@ t1_display.index = [
     "Private travel"
 ]
 
-# --- Export to Excel ---
-output_path = os.path.join(output_dir, "steenmeijer_table.xlsx")
-
-with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
-    t1_display.to_excel(writer, sheet_name='Table')
+# --- Export to CSV ---
+output_path = os.path.join(output_dir, "steenmeijer_table.csv")
+t1_display.to_csv(output_path)
 
 print(f"Steenmeijer-style table exported to: {output_path}")

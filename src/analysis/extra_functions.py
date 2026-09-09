@@ -34,6 +34,8 @@ covers childcare and youth care; it is OFF by default because the manuscript
 scopes the study to health plus eldercare.
 """
 
+import os
+
 import pandas as pd
 
 # Individual-consumption transaction blocks that constitute final consumption
@@ -310,3 +312,43 @@ def eldercare_share_diagnostics(io_workbook_2019, io_workbook_2022, sut_2019):
         "io_method_2022": eldercare_share_of_social_work_io(io_workbook_2022),
         "sut_method_2019": eldercare_share_of_social_work(sut_2019),
     }
+
+
+def write_sheets_as_csv(frames: dict[str, "pd.DataFrame"], out_dir: str,
+                        stem: str, index: bool = True) -> list[str]:
+    """Write one CSV per sheet, lowercase, in place of a workbook.
+
+    Gold publishes tabular data only, so a frame that used to become one sheet
+    of a multi-sheet ``.xlsx`` becomes its own CSV instead. The sheet name is
+    folded into the filename rather than kept as workbook structure, which is
+    why it is lowercased and stripped of spaces and ``%`` here rather than left
+    for a consumer to normalise.
+
+    Parameters
+    ----------
+    frames : dict of str to pandas.DataFrame
+        Sheet name to frame, in the order the sheets should be written.
+    out_dir : str
+        Destination folder.
+    stem : str
+        Filename stem; each sheet becomes ``<stem>_<sheet>.csv``.
+    index : bool, default True
+        Passed through to ``DataFrame.to_csv``. Some frames were built with a
+        meaningful row index (written to the workbook with ``index=True``);
+        others are already flat and were written with ``index=False``, and
+        keeping the default here would add a spurious leading column of row
+        numbers to those.
+
+    Returns
+    -------
+    list of str
+        Paths written, in order.
+    """
+    written = []
+    for sheet, frame in frames.items():
+        slug = (sheet.lower().replace(" ", "_").replace("%", "pct")
+                .replace("-", "_").strip("_"))
+        path = os.path.join(out_dir, f"{stem}_{slug}.csv")
+        frame.to_csv(path, index=index)
+        written.append(path)
+    return written
