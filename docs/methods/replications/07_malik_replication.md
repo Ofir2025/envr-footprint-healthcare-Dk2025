@@ -1,4 +1,4 @@
-# 07 - Malik replication and production layers
+# 07 - Malik replication
 
 **Gold folder** `data/gold/results/07_malik_replication/`
 **Modules** `analysis.malik_replication`, `analysis.production_layers`
@@ -84,9 +84,13 @@ boundary recorded per row.
 ## Outputs
 
 This layer writes `malik_domestic_vs_full.csv`, `malik_component_intensities.csv`,
-`malik_published_reference.csv`, `production_layers.csv`,
+`malik_published_reference.csv`, and `production_layers_vs_malik.csv` - the
+comparison stays here rather than moving with the tables it compares against.
+The production-layer decomposition itself (`production_layers.csv`,
 `production_layers_by_sector_group.csv`, `production_layers_domestic_vs_imported.csv`,
-`production_layers_by_producing_node.csv.gz`, `production_layers_vs_malik.csv`.
+`production_layers_by_producing_node.csv.gz`) is written to
+[`20_production_layers`](../../../data/gold/results/20_production_layers/), its
+own gold folder, by the same `analysis.production_layers` module.
 
 ## Verification
 
