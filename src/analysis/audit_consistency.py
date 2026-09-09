@@ -59,6 +59,7 @@ from __future__ import annotations
 
 import glob
 import os
+import subprocess
 import sys
 from typing import Any
 
@@ -68,7 +69,7 @@ import pandas as pd
 from analysis import gold_scope
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL,
                                 eriksen_folder, scopes_folder)
-from paths import BACKGROUND_DIR, OUTPUT_DIR
+from paths import BACKGROUND_DIR, OUTPUT_DIR, PROJECT_ROOT
 
 #: Tolerance for values that should be identical up to floating point.
 EXACT = 1e-9
@@ -244,6 +245,85 @@ def c9_gold_scope(results: list[dict[str, Any]]) -> None:
     _check(results, "C9 every gold folder is classified", not missing,
            f"{paper} paper deliverables, {private} private extensions"
            if not missing else f"unclassified: {', '.join(missing)}")
+
+
+GOLD_ALLOWED_SUFFIXES = (".csv", ".csv.gz", ".parquet", ".md", ".npy")
+
+
+def c10_gold_format(results: list[dict[str, Any]]) -> None:
+    """C10: gold publishes tabular data, not workbooks, documents or images."""
+    root = str(OUTPUT_DIR)
+    offenders = [
+        os.path.relpath(os.path.join(dirpath, name), root)
+        for dirpath, _, names in os.walk(root)
+        for name in names
+        if not name.endswith(GOLD_ALLOWED_SUFFIXES)
+    ]
+    _check(results, "C10 gold holds tabular data only", not offenders,
+           "; ".join(sorted(offenders)[:8]) or "clean")
+
+
+def c11_gold_lowercase(results: list[dict[str, Any]]) -> None:
+    """C11: every published name is lowercase."""
+    root = str(OUTPUT_DIR)
+    offenders = [
+        os.path.relpath(os.path.join(dirpath, name), root)
+        for dirpath, _, names in os.walk(root)
+        for name in names
+        if name != name.lower()
+    ]
+    _check(results, "C11 every gold name is lowercase", not offenders,
+           "; ".join(sorted(offenders)[:8]) or "clean")
+
+
+def c12_gold_clean(results: list[dict[str, Any]]) -> None:
+    """C12: nothing in the published tree is untracked.
+
+    An untracked file is invisible to every other check in this module, so it
+    is the one defect that can grow without ever being reported.
+    """
+    out = subprocess.run(
+        ["git", "ls-files", "--others", "--exclude-standard", "--", "data/gold"],
+        capture_output=True, text=True, cwd=str(PROJECT_ROOT))
+    offenders = [line for line in out.stdout.splitlines() if line.strip()]
+    _check(results, "C12 no untracked file in gold", not offenders,
+           f"{len(offenders)} untracked" if offenders else "clean")
+
+
+LAYER_SKIPPERS = {
+    "build_dst_concordance", "capital_endogenised_sodersten", "capital_gfcf",
+    "export_tables", "figaro_recipe_validation", "impact_categories_full",
+    "main", "main_2025", "manuscript_figure_tables", "recipe_validation_2022",
+    "vintage_defect_audit",
+}
+
+
+def c13_layer_boundary(results: list[dict[str, Any]]) -> None:
+    """C13: no NEW module reads bronze and writes gold in one step.
+
+    Medallion rule 4. The ten in ``LAYER_SKIPPERS`` are the known debt, carried
+    into the bronze phase where their read paths change anyway. The check exists
+    so the list can shrink and never grow: remove a name when the module is
+    re-plumbed, and C13 fails the moment an eleventh appears.
+    """
+    src = os.path.join(str(PROJECT_ROOT), "src", "analysis")
+    own_file = os.path.basename(__file__)
+    found = set()
+    for name in os.listdir(src):
+        if not name.endswith(".py") or name == own_file:
+            # This module is the auditor, not an audited pipeline stage: it
+            # never reads bronze, and the exclusion is necessary rather than
+            # cosmetic, because this very check's condition below spells out
+            # "BRONZE_DIR" and "EXIOBASE_DIR" as string literals next to
+            # "OUTPUT_DIR", so the file that defines the heuristic always
+            # contains the substrings the heuristic searches for.
+            continue
+        text = open(os.path.join(src, name), encoding="utf-8").read()
+        if ("BRONZE_DIR" in text or "EXIOBASE_DIR" in text) and "OUTPUT_DIR" in text:
+            found.add(name[:-3])
+    new = sorted(found - LAYER_SKIPPERS)
+    _check(results, "C13 no new bronze-to-gold module", not new,
+           f"new: {', '.join(new)}" if new else f"{len(found)} known, none new")
 
 
 def c8_citations(results: list[dict[str, Any]]) -> None:
@@ -700,6 +780,8 @@ def main() -> None:
                   c4_provenance, c5_manifest, c6_documentation, c6b_superseded,
                   c7_star_integrity,
                   c8_citations, c9_gold_scope,
+                  c10_gold_format, c11_gold_lowercase, c12_gold_clean,
+                  c13_layer_boundary,
                   c10_repo_profile):
         try:
             check(results)
