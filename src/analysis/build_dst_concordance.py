@@ -45,6 +45,45 @@ dental instruments to NACE 32.5 alongside 26) the seed group is reported as
 ``refined`` and both ratios are given, so the seed's own numbers stay
 reproducible.
 
+The split weights
+-----------------
+A one-to-many row divides one EXIOBASE industry between several Danish
+industries, and until those shares are given the bridge is a binary incidence
+matrix rather than the weighted ``K`` of ``e_m = Q K m``. That is not a neutral
+default: the Danish industries inside a split can differ in emission intensity
+by more than an order of magnitude, so an implementer who averages gets a
+different answer from one who weights. Two share vectors are written out, both
+from the published Danish table, both summing to one across the row:
+
+``dst_import_share``
+    Shares of Danish total imports of the row's products, the ``Total`` column
+    of the workbook's ``Imports`` block. This is the vector a SNAC import
+    estimate multiplies, so it is the sharpest reading of ``K`` and the one
+    this module recommends, with one caveat recorded in
+    :func:`split_sensitivity`: a barely traded group rests its shares on a
+    small base and is better weighted on output.
+``dst_output_share``
+    Shares of Danish output, the production-share proxy of Palm et al. (2019),
+    kept because it is the published convention and because it is defined for
+    every row.
+
+Where the weights are and are not needed. The Danish table publishes imports by
+product at the same 117-industry resolution as the emission accounts, so an
+implementer who keeps the import vector in Danish classification applies ``Q``
+directly and needs no split weights at all. The weights are needed when the
+import vector arrives in EXIOBASE classification, which is the case here
+because the healthcare demand vector is defined on EXIOBASE products, and when
+a Danish-technology estimate has to be attributed back onto EXIOBASE nodes for
+comparison with the model result. A module that holds its own ``m`` should
+weight by that vector rather than by either default written here.
+
+``snac_split_weight_sensitivity.csv`` reports what the choice costs. In 2022
+thirteen of the twenty-nine splits move their intensity by more than a quarter
+between the two, and the two largest by imported footprint move most: chemicals
+because Danish output is three-quarters pharmaceutical while Danish imports are
+only half, and the crude oil group because oil and gas extraction is fifty-five
+times as emission-intensive as mining support.
+
 Declared gaps
 -------------
 Nine EXIOBASE industries have no DST counterpart: the eight metal-ore mining
@@ -63,7 +102,7 @@ Reading the confidence column
            activity maps wholly onto the named DST industries.
 ``medium`` an EXIOBASE hybrid waste or re-processing activity with no DST
            industry of its own, or a split this module had to resolve by
-           judgement and that a SNAC implementer must weight.
+           judgement.
 ``low``    no Danish activity exists, so the assignment rests on the
            classification alone.
 For an ``unmatched`` row the confidence is the confidence that no DST
@@ -118,6 +157,12 @@ CLASSIFICATIONS = EXIOBASE_DIR / "classifications.xlsx"
 DST_IO = (BRONZE_DIR / "input_output" / "2016_2022"
           / "input_output_en_{year}.xlsx")
 EXIOBASE_X = EXIOBASE_DIR / "IOT_{year}_ixi" / "x.txt"
+SATELLITE_CSV = BRONZE_DIR / "dst_emission_accounts_by_industry.csv"
+SENSITIVITY_CSV = "snac_split_weight_sensitivity.csv"
+
+#: Years the split-weight sensitivity is reported for. Both are years of
+#: this study and both are covered by the DST satellite; 2016 is not.
+WEIGHT_YEARS = ("2019", "2022")
 
 #: Danish crowns per euro, annual average, used for the DST workbook.
 DKK_PER_EUR = {"2016": 7.4452, "2022": 7.4396}
@@ -521,6 +566,97 @@ def load_dst_industries(year: str) -> pd.DataFrame:
     return frame
 
 
+def load_dst_totals(year: str) -> pd.DataFrame:
+    """Danish output and total imports by DST industry, in bn DKK.
+
+    The published table is read a second time rather than derived from
+    :func:`load_dst_industries` because the split weights must not depend on
+    the euro conversion: a share within a group is scale-free, and reporting
+    intensities per bn DKK keeps this function free of an exchange rate.
+
+    Parameters
+    ----------
+    year : str
+        Reference year of the published Danish input-output table.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Columns ``dst_industry_code``, ``dst_output_bndkk`` and
+        ``dst_imports_bndkk``. Output is the ``Total Output`` row of the
+        industry columns; imports are the ``Total`` column of the ``Imports``
+        row block, so they cover intermediate use, final consumption, capital
+        formation and re-exports alike, which is the vector a SNAC import
+        estimate multiplies.
+
+    Raises
+    ------
+    ValueError
+        If the workbook does not yield 117 industries and 117 import rows.
+    """
+    sheet = pd.read_excel(str(DST_IO).format(year=year), sheet_name="IO",
+                          header=None)
+    labels = [str(v).strip() for v in sheet.iloc[:, 0].tolist()]
+    header = [str(v).strip() for v in sheet.iloc[2, :].tolist()]
+    banner = [str(v).strip() for v in sheet.iloc[0, :].tolist()]
+
+    industry_columns = {code: j for j, code in enumerate(header)
+                        if re.fullmatch(r"\d{6}", code)}
+    output_row = max(i for i, v in enumerate(labels)
+                     if v.lower() == "total output")
+    imports_row = labels.index("Imports")
+    total_column = banner.index("Total")
+
+    # the DST product codes of the Imports block, which repeats the 117 codes
+    import_rows = {label: i for i, label in enumerate(labels)
+                   if i > imports_row and re.fullmatch(r"\d{6}", label)}
+
+    output = {code: float(sheet.iat[output_row, j]) / 1e6
+              for code, j in industry_columns.items()}
+    imports = {code: float(sheet.iat[i, total_column]) / 1e6
+               for code, i in import_rows.items()}
+    if len(output) != 117 or len(imports) != 117:
+        raise ValueError(f"read {len(output)} output and {len(imports)} "
+                         f"import rows from the {year} table, expected 117")
+    return pd.DataFrame([
+        dict(dst_industry_code=code, dst_output_bndkk=output[code],
+             dst_imports_bndkk=imports[code])
+        for code in output])
+
+
+def load_dst_direct_ghg(year: str) -> dict[str, float]:
+    """Danish direct greenhouse gas emissions by DST industry, kt CO2e.
+
+    Parameters
+    ----------
+    year : str
+        Reference year present in the satellite extract.
+
+    Returns
+    -------
+    dict of str to float
+        DST industry code without the ``V`` prefix, to ``GHGEXBIO``: the
+        territorial account excluding biogenic carbon dioxide, on the direct
+        allocation principle, which is the Scope 1 concept a domestic
+        technology assumption needs.
+
+    Raises
+    ------
+    ValueError
+        If the extract does not carry 117 industries for the year.
+    """
+    frame = pd.read_csv(SATELLITE_CSV, comment="#")
+    part = frame[(frame.year == int(year))
+                 & (frame.account == "greenhouse_gas")
+                 & (frame.substance == "GHGEXBIO")]
+    values = {str(code)[1:]: float(value)
+              for code, value in zip(part.industry_code, part.value)}
+    if len(values) != 117:
+        raise ValueError(f"{year} carries {len(values)} industries in "
+                         f"{SATELLITE_CSV.name}, expected 117")
+    return values
+
+
 def load_exiobase_dk_output(year: str) -> np.ndarray:
     """Danish total output by EXIOBASE industry, M.EUR.
 
@@ -551,6 +687,40 @@ def load_exiobase_dk_output(year: str) -> np.ndarray:
 # ---------------------------------------------------------------------------
 def _split(codes: str) -> list[str]:
     return [c for c in codes.split(";") if c]
+
+
+def _shares(targets: list[str], size: dict[str, float]) -> str:
+    """Semicolon-joined shares of a row's DST industries, summing to one.
+
+    These are the non-zero entries of the ``K`` bridge in ``e_m = Q K m``. A
+    one-to-many row has to divide one EXIOBASE industry's import value between
+    several Danish industries, and the divisor decides which Danish intensity
+    the import inherits; a row with a single target trivially gets ``1.0``, and
+    an unmatched row gets the empty string.
+
+    Parameters
+    ----------
+    targets : list of str
+        The row's DST industry codes, in the order they are written out.
+    size : dict of str to float
+        The weighting variable by DST industry code, output or imports.
+
+    Returns
+    -------
+    str
+        Shares to six decimals, in ``targets`` order, joined by semicolons.
+        Where the variable sums to zero over the row the shares fall back to
+        equal weights, so a share vector is always defined and always sums to
+        one.
+    """
+    if not targets:
+        return ""
+    values = np.array([size.get(code, 0.0) for code in targets], dtype=float)
+    total = values.sum()
+    if total <= 0:
+        values = np.ones(len(targets))
+        total = float(len(targets))
+    return ";".join(f"{v / total:.6f}" for v in values)
 
 
 def _components(pairs: Iterable[tuple[str, str]]) -> dict[str, int]:
@@ -616,6 +786,9 @@ def build_concordance(year: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     dst = load_dst_industries(year)
     dst_name = dict(zip(dst["dst_industry_code"], dst["dst_industry_name"]))
     isic_reference = load_isic_reference()
+    totals = load_dst_totals(year).set_index("dst_industry_code")
+    output = totals["dst_output_bndkk"].to_dict()
+    imports = totals["dst_imports_bndkk"].to_dict()
 
     assigned: dict[str, tuple[str, str, str]] = {}
     for codes, targets, confidence, basis in MAPPING:
@@ -674,6 +847,8 @@ def build_concordance(year: str) -> tuple[pd.DataFrame, pd.DataFrame]:
             confidence=confidence,
             basis=basis,
             mapping_group=(component[f"E:{code}"] if target_list else -1),
+            dst_output_share=_shares(target_list, output),
+            dst_import_share=_shares(target_list, imports),
         ))
     concordance = pd.DataFrame(rows)
 
@@ -980,6 +1155,100 @@ def validate(concordance: pd.DataFrame, dst: pd.DataFrame,
     return report
 
 
+def split_sensitivity(concordance: pd.DataFrame,
+                      years: Iterable[str] = WEIGHT_YEARS) -> pd.DataFrame:
+    """How much the choice of split weight moves a one-to-many row's intensity.
+
+    A one-to-many row divides one EXIOBASE industry between several Danish
+    industries whose emission intensities can differ by more than an order of
+    magnitude, so the divisor is a substantive modelling choice rather than
+    bookkeeping. Three admissible readings are compared:
+
+    ``import``
+        Shares of Danish total imports of the row's products. This is the
+        vector a simplified-SNAC estimate actually multiplies, so it is the
+        sharpest reading of ``K`` for an import-side bridge and the one this
+        module recommends.
+    ``output``
+        Shares of Danish output, the production-share proxy of Palm et al.
+        (2019). Reported because it is the published convention.
+    ``equal``
+        One over the number of targets: what a bridge carrying no weights
+        implies if its user averages, and the reason a binary incidence matrix
+        is not a neutral default.
+
+    Parameters
+    ----------
+    concordance : pandas.DataFrame
+        The frame returned by :func:`build_concordance`.
+    years : iterable of str, optional
+        Reference years to report. Each must be covered by both the published
+        input-output table and the DST satellite.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per one-to-many EXIOBASE industry per year. Intensities are
+        kt CO2e per bn DKK of output, which is also kg CO2e per 1000 DKK, so
+        no exchange rate enters. ``ratio_import_over_output`` and
+        ``ratio_equal_over_import`` are the decision-relevant columns:
+        a value far from one means the row's Danish intensity depends on the
+        weighting choice and the choice has to be stated.
+        ``group_imports_bndkk`` is the guard on the import weighting: care and
+        social services are barely traded, so a row whose group imports little
+        rests its import shares on a small base and should be weighted on
+        output instead.
+    """
+    rows: list[dict[str, object]] = []
+    splits = concordance[concordance.mapping_type == "one-to-many"]
+    for year in years:
+        totals = load_dst_totals(year).set_index("dst_industry_code")
+        output = totals["dst_output_bndkk"].to_dict()
+        imports = totals["dst_imports_bndkk"].to_dict()
+        emissions = load_dst_direct_ghg(year)
+        national = (sum(emissions.values())
+                    / sum(output[c] for c in output if c in emissions))
+        for row in splits.itertuples():
+            targets = _split(row.dst_industry_code)
+            e = np.array([emissions[c] for c in targets])
+            x = np.array([output[c] for c in targets])
+            m = np.array([imports[c] for c in targets])
+            q = np.divide(e, x, out=np.zeros_like(e), where=x > 0)
+            w_out = x / x.sum() if x.sum() > 0 else np.ones(len(x)) / len(x)
+            w_imp = m / m.sum() if m.sum() > 0 else w_out
+            q_out = float(q @ w_out)
+            q_imp = float(q @ w_imp)
+            q_eq = float(q.mean())
+            positive = q[q > 0]
+            rows.append(dict(
+                reference_year=year,
+                exiobase_code=row.exiobase_code,
+                exiobase_name=row.exiobase_name,
+                dst_industries=row.dst_industry_code,
+                n_dst=len(targets),
+                dst_output_share=row.dst_output_share,
+                dst_import_share=row.dst_import_share,
+                member_intensity_kt_per_bndkk=";".join(f"{v:.3f}" for v in q),
+                q_import_weighted=q_imp,
+                q_output_weighted=q_out,
+                q_equal_weighted=q_eq,
+                q_min=float(positive.min()) if positive.size else 0.0,
+                q_max=float(q.max()),
+                spread_within_group=(float(q.max() / positive.min())
+                                     if positive.size else np.inf),
+                ratio_import_over_output=(q_imp / q_out if q_out > 0
+                                          else np.nan),
+                ratio_equal_over_import=(q_eq / q_imp if q_imp > 0
+                                         else np.nan),
+                q_import_relative_to_national=q_imp / national,
+                group_imports_bndkk=float(m.sum()),
+                group_output_bndkk=float(x.sum()),
+                import_penetration=(float(m.sum() / (m.sum() + x.sum()))
+                                    if (m.sum() + x.sum()) > 0 else np.nan),
+            ))
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
     """Build the concordance, validate both years, and write both files."""
     year = ANALYSIS_YEAR
@@ -997,6 +1266,8 @@ def main() -> None:
     out_dir = OUTPUT_DIR / FOLDER
     out_dir.mkdir(parents=True, exist_ok=True)
     report.to_csv(out_dir / VALIDATION_CSV, index=False)
+    sensitivity = split_sensitivity(concordance)
+    sensitivity.to_csv(out_dir / SENSITIVITY_CSV, index=False)
 
     pd.set_option("display.width", 230)
     pd.set_option("display.max_colwidth", 44)
@@ -1029,8 +1300,23 @@ def main() -> None:
         columns = ["exiobase_code", "exiobase_code1", "isic_rev3_division",
                    "isic_rev3_division_bronze_csv"]
         print(mismatch[columns].to_string(index=False))
+    latest = sensitivity[sensitivity.reference_year == ANALYSIS_YEAR]
+    show_weights = ["exiobase_code", "dst_industries", "q_import_weighted",
+                    "q_output_weighted", "q_equal_weighted",
+                    "spread_within_group", "ratio_import_over_output"]
+    print(f"\n{'=' * 100}\nsplit-weight sensitivity, {ANALYSIS_YEAR}, "
+          f"kt CO2e per bn DKK\n{'=' * 100}")
+    print(latest.sort_values("q_import_weighted", ascending=False)
+          [show_weights].to_string(index=False))
+    moved = latest[(latest.ratio_import_over_output > 1.25)
+                   | (latest.ratio_import_over_output < 0.8)]
+    print(f"\nrows whose intensity moves by more than a quarter between the "
+          f"import and output weighting: {len(moved)} of {len(latest)} "
+          f"({', '.join(moved.exiobase_code)})")
+
     print(f"\nwritten -> {CONCORDANCE_CSV}")
     print(f"written -> {out_dir / VALIDATION_CSV}")
+    print(f"written -> {out_dir / SENSITIVITY_CSV}")
 
 
 if __name__ == "__main__":
