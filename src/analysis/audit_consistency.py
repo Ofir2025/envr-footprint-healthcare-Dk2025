@@ -521,6 +521,8 @@ STAR_KEYS: tuple[tuple[str, str, str, str], ...] = (
     ("fact_ghg_species", "substance_id", "dim_substance", "substance_id"),
     ("fact_gwp_vintage", "gwp_vintage_id", "dim_gwp_vintage", "gwp_vintage_id"),
     ("fact_gwp_vintage", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_uncertainty_draw", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_uncertainty_draw", "draw_group_id", "dim_draw_group", "draw_group_id"),
 )
 
 #: fact -> the columns that define its declared grain.
@@ -556,6 +558,8 @@ STAR_GRAIN: dict[str, list[str]] = {
                               "indicator_id"],
     "fact_ghg_species": ["model_id", "substance_id"],
     "fact_gwp_vintage": ["model_id", "gwp_vintage_id", "indicator_id"],
+    "fact_uncertainty_draw": ["model_id", "indicator_id", "draw_id",
+                              "draw_group_id"],
 }
 
 
