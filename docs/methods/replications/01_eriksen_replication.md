@@ -94,15 +94,24 @@ These deviations are the ones a reviewer will need to see declared.
 
 ## Outputs
 
+Gold publishes tabular data only, so every manuscript table below is a CSV; no
+workbook, document or image is published in this folder.
+
 | File | Content |
-|---|---|
+|:---|:---|
 | `hotspot_by_producing_node.csv` (22,229 rows) | $c_i$, indexed by **producing node** |
 | `contribution_by_purchased_product.csv` (30,499) | $h_j$, indexed by **purchased product** |
 | `intensity_by_purchased_product.csv` (30,487) | $m_j$, indexed by purchased product |
 | `*_by_sector_group.csv`, `*_by_world_region.csv`, `*_domestic_vs_imported.csv` | the aggregations the manuscript prints |
-| `table_1.xlsx`, `table_s5_dk.xlsx`, `steenmeijer_table.xlsx` | manuscript tables |
-| `fig_1.png` … `figure_5_total_contribution.png`, `all_figures.pdf` | manuscript figures |
-| `Contribution_full_detail.xlsx`, `Hotspot_full_detail.xlsx` | SI workbooks |
+| `table_01.csv`, `table_s05_dk.csv`, `steenmeijer_table.csv` | manuscript tables |
+| `full_results_tables_fig1_absolute.csv`, `full_results_tables_fig1_relative_pct.csv`, `full_results_tables_fig2_absolute.csv`, `full_results_tables_fig2_relative_pct.csv`, `full_results_tables_fig3_absolute.csv`, `full_results_tables_fig3_relative_pct.csv` | the tables behind figures 1-3, absolute and as a percentage share |
+
+`contribution_full_detail.xlsx` and `hotspot_full_detail.xlsx`, the wide
+raw-detail copies of $h_j$ and $c_i$, are written to silver (`eriksen_interim/`)
+rather than gold: they are a redundant wide copy of the same two frames already
+published above in long format, so nothing is lost by not publishing them here.
+Manuscript figures are not published from this folder either; they are produced
+separately under `figures/manuscript/`.
 
 ## Verification
 
