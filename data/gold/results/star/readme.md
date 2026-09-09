@@ -1,5 +1,7 @@
 # star
 
+Schema definition (DDL) these tables satisfy: [`docs/methods/star_schema.sql`](../../../../docs/methods/star_schema.sql).
+
 ## Conventions
 
 | Item | Convention |
@@ -17,8 +19,8 @@
 
 - **Rows:** 4
 - **Format:** csv
-- **Dimensions:** `capital_treatment_id`
-- **Measures:** `treatment_code`, `treatment_name`, `capital_included`, `produced_by`
+- **Dimensions:** `capital_treatment_id`, `treatment_code`, `treatment_name`, `capital_included`, `produced_by`
+- **Measures:** none
 
 ### `dim_demand_component.csv`
 
@@ -34,20 +36,20 @@
 - **Dimensions:** `draw_group_id`, `draw_group_name`
 - **Measures:** none
 
-### `dim_gwp_vintage.csv`
+### `dim_gwp_revision.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `gwp_vintage_id`, `vintage_code`
-- **Measures:** `is_study_default`
+- **Dimensions:** `gwp_revision_id`, `revision_code`, `is_study_default`
+- **Measures:** none
 
 ### `dim_impact_category.csv`
 
 - **Rows:** 97
 - **Format:** csv
 - **Units:** 1000 p., Accumulated Exceedance (AE), CTUe = PAF.m3.year, CTUh = cases, CTUh/kg = cases, DALY
-- **Dimensions:** `impact_category_id`, `method`, `unit`
-- **Measures:** `category_code`, `quality_flag`
+- **Dimensions:** `impact_category_id`, `method`, `category_code`, `unit`, `quality_flag`
+- **Measures:** none
 
 ### `dim_indicator.csv`
 
@@ -61,8 +63,8 @@
 
 - **Rows:** 171
 - **Format:** csv
-- **Dimensions:** `industry_id`, `industry_code`, `industry_name`, `industry_group_id`, `industry_type`, `technology_group`
-- **Measures:** `isic_rev3_division`, `isic_rev3_description`
+- **Dimensions:** `industry_id`, `industry_code`, `industry_name`, `industry_group_id`, `industry_type`, `isic_rev3_description`, `technology_group`
+- **Measures:** `isic_rev3_division`
 
 ### `dim_industry_group.csv`
 
@@ -75,29 +77,22 @@
 
 - **Rows:** 4
 - **Format:** csv
-- **Dimensions:** `model_id`, `model_label`, `background_year`, `gwp_vintage`, `scope_boundary`, `source_folder`, `note`
-- **Measures:** `analysis_year`, `mrio`, `danish_block_correction`, `capital`, `is_headline`
+- **Dimensions:** `model_id`, `model_label`, `background_year`, `mrio`, `danish_block_correction`, `gwp_revision`, `scope_boundary`, `capital`, `is_headline`, `source_folder`, `note`
+- **Measures:** `analysis_year`
 
 ### `dim_production_layer.csv`
 
 - **Rows:** 22
 - **Format:** csv
-- **Dimensions:** `production_layer_id`, `layer_code`, `layer_name`
-- **Measures:** `layer_number`, `is_residual`, `has_node_detail`
+- **Dimensions:** `production_layer_id`, `layer_code`, `layer_name`, `is_residual`, `has_node_detail`
+- **Measures:** `layer_number`
 
 ### `dim_region.csv`
 
 - **Rows:** 50
 - **Format:** csv
-- **Dimensions:** `region_id`, `region_code`, `region_name`, `world_region`, `region_type`
-- **Measures:** `is_row_region`, `is_domestic`
-
-### `dim_scenario.csv`
-
-- **Rows:** 33
-- **Format:** csv
-- **Dimensions:** `scenario_id`, `scenario_code`, `scenario_label`, `scenario_kind`, `ambition_basis`, `source`, `note`
-- **Measures:** `ambition`, `k_t`, `k_p`, `k_a`, `edited_objects`, `rebound`, `unbalanced_pct_of_output`, `in_combined`
+- **Dimensions:** `region_id`, `region_code`, `region_name`, `world_region`, `region_type`, `is_row_region`, `is_domestic`
+- **Measures:** none
 
 ### `dim_scope.csv`
 
@@ -117,8 +112,8 @@
 
 - **Rows:** 6
 - **Format:** csv
-- **Dimensions:** `substance_id`, `base_unit`, `gwp_vintage`
-- **Measures:** `substance_code`, `gwp100`, `is_restatable`
+- **Dimensions:** `substance_id`, `substance_code`, `base_unit`, `gwp_revision`, `is_restatable`
+- **Measures:** `gwp100`
 
 ### `fact_capital_node.csv`
 
@@ -136,7 +131,7 @@
 
 ### `fact_footprint_bilateral.parquet`
 
-- **Rows:** 2,351,620
+- **Rows:** 2,375,463
 - **Format:** parquet (pyarrow, snappy)
 - **Dimensions:** `model_id`, `indicator_id`, `demand_component_id`, `producing_region_id`, `producing_industry_id`, `purchased_region_id`, `purchased_industry_id`
 - **Measures:** `value`
@@ -150,7 +145,7 @@
 
 ### `fact_footprint_product.csv`
 
-- **Rows:** 30,930
+- **Rows:** 30,960
 - **Format:** csv
 - **Dimensions:** `model_id`, `indicator_id`, `demand_component_id`, `purchased_region_id`, `purchased_industry_id`
 - **Measures:** `value`
@@ -162,16 +157,16 @@
 - **Dimensions:** `model_id`, `substance_id`
 - **Measures:** `mass_kg`, `gwp100`, `co2eq_kt`
 
-### `fact_gwp_vintage.csv`
+### `fact_gwp_revision.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `model_id`, `gwp_vintage_id`, `indicator_id`
+- **Dimensions:** `model_id`, `gwp_revision_id`, `indicator_id`
 - **Measures:** `healthcare_kt_co2eq`, `national_kt_co2eq`, `healthcare_share_pct`, `healthcare_t_per_capita`, `not_restatable_kt_co2eq`
 
 ### `fact_health_expenditure.csv`
 
-- **Rows:** 6,186
+- **Rows:** 6,192
 - **Format:** csv
 - **Dimensions:** `model_id`, `demand_component_id`, `purchased_region_id`, `purchased_industry_id`
 - **Measures:** `expenditure_meur`
@@ -192,16 +187,9 @@
 
 ### `fact_production_layer.parquet`
 
-- **Rows:** 444,389
+- **Rows:** 444,397
 - **Format:** parquet (pyarrow, snappy)
 - **Dimensions:** `model_id`, `indicator_id`, `production_layer_id`, `producing_region_id`, `producing_industry_id`
-- **Measures:** `value`
-
-### `fact_scenario_node.parquet`
-
-- **Rows:** 733,920
-- **Format:** parquet (pyarrow, snappy)
-- **Dimensions:** `model_id`, `scenario_id`, `indicator_id`, `producing_region_id`, `producing_industry_id`
 - **Measures:** `value`
 
 ### `fact_scope_component.csv`
