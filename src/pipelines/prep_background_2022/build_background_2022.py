@@ -6,11 +6,12 @@ Z.txt, Y.txt, x.txt and unit.txt, and the satellite accounts are split into
 per-domain folders (air_emissions, energy, employment, factor_inputs, land,
 material, nutrients, water), each with F.txt / F_Y.txt / unit.txt. This builder
 produces pickles with exactly the structure `analysis.functions_2025.
-createBackground` expects (mrio2022.pkl incl. Z and x, leontief2022.pkl),
-so the downstream analysis runs unchanged with year='2022'.
+createBackground` expects, written under version-tagged names
+(mrio2022_v3_10_2.pkl incl. Z and x, leontief2022_v3_10_2.pkl) so they cannot
+overwrite the v3.8.2 background the study's published numbers rest on.
 
 Design decisions (documented for the methods section):
-* A is derived as Z x̂⁻¹ from the официал Z and x files (v3.7-era releases
+* A is derived as Z x̂⁻¹ from the official Z and x files (v3.7-era releases
   shipped A directly; v3.10.2 ships Z and x).
 * Labels are REUSED from the 2016 background (exio2016.pkl) after hard
   assertions that the v3.10.2 region and industry orderings are identical -
@@ -40,6 +41,8 @@ import pandas as pd
 from paths import MRIO_DIR
 
 YEAR = "2022"
+VERSION_TAG = "_v3_10_2"   # see the write block: the tag prevents a silent
+                           # overwrite of the v3.8.2 background the study uses
 V3102_DIR = (
     "/Users/kwametutu/Library/CloudStorage/OneDrive-Personal/Data/lca/input_output/"
     "mrio/exiobase/versions/v3_10_2/txt"
@@ -214,9 +217,24 @@ def main():
             "Z": Z, "x": x,
             "source": "EXIOBASE v3.10.2 (Zenodo 20051562) IOT_2022_ixi, official txt distribution"}
 
-    with open(mrio_dir + f"mrio{YEAR}.pkl", "wb") as fh:
+    # Version-tagged filenames, and the tag is not optional.
+    #
+    # This builder reads v3.10.2. `pipelines.prep_background_2025` reads v3.8.2,
+    # which is the release the study uses and the one every published number
+    # rests on. Both used to write `mrio2022.pkl` and `leontief2022.pkl`, so
+    # running this module overwrote the headline background in place - and
+    # nothing downstream could notice, because `constants.model_label()` stamps
+    # "EXIOBASE v3.8.2" from a constant rather than from the pickle. Audit check
+    # C4 would have passed on tables built from the rejected vintage.
+    #
+    # The hand-made `mrio2022_v3_10_2.pkl` on disk is the evidence that this
+    # already happened once and was repaired by hand. Writing the tag natively
+    # makes the collision impossible rather than merely unlikely, and lets the
+    # two vintages coexist - which layer 09 needs, since its whole purpose is to
+    # compare them.
+    with open(mrio_dir + f"mrio{YEAR}{VERSION_TAG}.pkl", "wb") as fh:
         pickle.dump(mrio, fh)
-    with open(mrio_dir + f"leontief{YEAR}.pkl", "wb") as fh:
+    with open(mrio_dir + f"leontief{YEAR}{VERSION_TAG}.pkl", "wb") as fh:
         pickle.dump(L, fh)
 
     # waste layout check (region/industry ordering identical -> reusable)
