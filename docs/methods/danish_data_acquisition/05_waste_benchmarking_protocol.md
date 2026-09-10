@@ -224,7 +224,7 @@ Thus EPA, Statistics Denmark and Eurostat form a **statistical chain**.
 The correct framing is:
 
 | Comparison | Meaning |
-|---|---|
+|:---|:---|
 | ADS vs AFFALD | national processing/reconciliation |
 | AFFALD vs Eurostat | harmonisation/aggregation |
 | regional hospitals vs AFFALD | operational-to-national validation |

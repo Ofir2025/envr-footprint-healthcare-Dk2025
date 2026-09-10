@@ -35,7 +35,7 @@ the *Deviations* section rather than left for the reader to discover.
 ## Notation used throughout
 
 | Symbol | Meaning | Shape |
-|---|---|---|
+|:---|:---|:---|
 | $Z$ | inter-industry transactions, M€ basic prices | 7,987 × 7,987 |
 | $x$ | industry gross output, M€ | 7,987 |
 | $A = Z\hat{x}^{-1}$ | direct requirements | 7,987 × 7,987 |

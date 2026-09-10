@@ -68,7 +68,7 @@ outside protocol, matching Steenmeijer et al.'s Table S8 classification.
 ## 4. Bottom-up items: Danish primary data replace NL-scaled proxies
 
 | Item | Old (NL × factor) | New | Source |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Anaesthetic gases | 9.51 kt (NL × 0.67, births proxy) | **12.7 kt** = 38 t N₂O/yr × 298 (11.3) + population-scaled volatiles (1.4) | Denmark's National Inventory Document 2024 (DCE rep. 622), cat. 2.G.3.a; volatiles proxy pending Danish data |
 | pMDI propellants | 34.61 kt (NL × 0.45) | **12.8 kt** = 7.2 t HFC (90/10 HFC-134a/227ea) × ReCiPe 2016 GWP100 | Vestbo & Press-Kristensen 2023, Eur Respir J 62:2300856; Danish EPA F-gas inventory 11.6 kt (2022, GWP100). NB: the often-quoted 31 kt is **GWP20** |
 | Commuting | factor 0.544 | factor **0.5719** | employment DST NABB69 2019 (86000+87880 = 518,889) ÷ NL 1,220,750; hours 34.4/29.2; TU 2019 Table 20 distance 9.0 vs NL 7.88 km/person/day |

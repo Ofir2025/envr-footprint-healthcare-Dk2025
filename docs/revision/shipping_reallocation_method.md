@@ -133,7 +133,7 @@ viewer does not draw Mermaid; `scripts/render_diagrams.py` produces it.
 ## 3. How this compares with every alternative
 
 | Approach | What it does about Danish shipping | Cost | What it buys |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | **Raw EXIOBASE** | Nothing. 74 % of output charged to Danish intermediate use | none | a known-wrong Danish block |
 | **Ours: targeted row reallocation** | Rescales one row to the published 9 % benchmark | ~50 lines | most of the effect, at the cost of being an approximation |
 | **Rørmose Jensen & Iliev (2022), Statistics Denmark** | **Discards EXIOBASE's Danish block entirely.** The domestic block comes from the Danish national accounts; EXIOBASE is used only for imports. No shipping correction is needed because the wrong data is never used | a full coupled model | correctness by construction |
@@ -261,7 +261,7 @@ Measured directly on `HIOT_2011.mat` (hybrid v3.3.18), Danish
 *Sea and coastal water transport*:
 
 | Model | Output | Domestic intermediate share |
-|---|---|---|
+|:---|:---|:---|
 | Monetary EXIOBASE v3.8.2, 2016 | 15,432 M€ | 73.5 % |
 | Monetary EXIOBASE v3.8.2, 2022 | 17,805 M€ | **73.6 %** |
 | **Hybrid EXIOBASE v3.3.18, 2011** | 7,616 M€ | **7.83 %** |

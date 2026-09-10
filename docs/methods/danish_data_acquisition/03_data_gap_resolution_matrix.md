@@ -27,7 +27,7 @@ The revised inventory therefore scores each gap on:
 # 2. Revised gap matrix
 
 | Data need | Evidence data exist? | Public usable data? | Independence from EEIO/MRIO | Preferred route | Residual gap |
-|---|---:|---:|---:|---|---|
+|:---|---:|---:|---:|:---|:---|
 | Detailed Danish SUT | Yes | No at full ~2,350 level | High | DST Research Services/custom extract | access/cost/confidentiality |
 | Product classification | Yes | Exact 2,350 list not verified public | High | request code list + HS/CPA concordance | exact metadata |
 | Health expenditure | Yes | Yes, SHA1 | High | DST SHA | concordance to SUT |
@@ -415,7 +415,7 @@ independence_grade
 Example:
 
 | Source | Access | Resolution | Boundary | Independence |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | DST SHA1 | A | A | A | A |
 | DST full SUT | C until access | A | A | A |
 | regional procurement spend CO2e | B | A/B | B | C if EXIOBASE factor |

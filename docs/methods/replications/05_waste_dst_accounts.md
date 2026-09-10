@@ -21,7 +21,7 @@ which livestock manure and mining overburden dominate. 74 % of the Danish total 
 69 % of the health-care "waste" footprint is mining overburden plus manure.
 
 | Quantity | Value |
-|---|---|
+|:---|:---|
 | Hybrid extension, direct waste of Danish health | 240.4 kt |
 | DST AFFALD01, NACE Q total waste excl. soil | 51.8 kt |
 | DST, study boundary (QA + 870000 + α × 880000, α = 0.4914) | 45.1 kt |
@@ -51,7 +51,7 @@ indicator, which covers the global chain. Both are reported.
 ## Data requirements
 
 | Input | Source |
-|---|---|
+|:---|:---|
 | $d_i$, $m_i$, $h_i$ | DST AFF1MU1N / AFF3MU1N, 2022 |
 | $x_i$ | Danish health expenditure by industry, million DKK |
 | Validation target | DST AFFALD01, NACE Q |
@@ -68,7 +68,7 @@ indicator, which covers the global chain. Both are reported.
 ## Outputs
 
 | File | Content |
-|---|---|
+|:---|:---|
 | `waste_footprint_domestic_dst.csv` | per industry: expenditure, three intensities, three waste quantities |
 | `waste_extension_validation.csv` | the four rows of the table above, with basis |
 

@@ -23,7 +23,7 @@ error, and draft wording for the limitations paragraph are in
 [`docs/methods/exiobase_version_vintage_and_classification.md`](methods/exiobase_version_vintage_and_classification.md).
 
 | You want | Go to |
-|---|---|
+|:---|:---|
 | The point-by-point reviewer response | `docs/revision/response_to_reviewers.md` |
 | How to cite the background, and its limitations | `docs/methods/exiobase_version_vintage_and_classification.md` |
 | What changed since submission, and why | `docs/revision/analysis_2022.md` |

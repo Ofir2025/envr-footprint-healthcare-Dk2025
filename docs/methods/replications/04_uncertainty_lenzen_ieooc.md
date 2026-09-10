@@ -36,7 +36,7 @@ central value.)
 ### Parameters
 
 | Parameter | GSD / CV | Source |
-|---|---|---|
+|:---|:---|:---|
 | `mrio` | CV 8.35 % | Lenzen et al. (2020) SI Tab. SI 7.1: Danish health GHG footprint 2.84 ± 0.24 Mt |
 | `direct` | GSD 1.1 | DST DRIVHUS/AFFALD; residual risk is the α-proration |
 | `anaesthetic` | GSD 1.3 | Denmark NID 2.G.3.a activity ± 25 % |
@@ -82,7 +82,7 @@ rather than by inspection of intervals.
 ## Results
 
 | Quantity | Value |
-|---|---|
+|:---|:---|
 | Deterministic climate | 4,712 kt |
 | Median | 4,734 kt |
 | 95 % interval | 4,064 to 5,531 kt |

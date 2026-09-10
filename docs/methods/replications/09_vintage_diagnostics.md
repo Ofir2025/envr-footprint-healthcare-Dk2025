@@ -36,7 +36,7 @@ not a modelling result but an artefact of the defect.
 Output is redistributed between Danish industries:
 
 | Danish industry, 2022 | National accounts | v3.10.2 | v3.8.2 |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Health and social work | 45,321 M€ | 16,326 (0.36×) | 43,955 (0.97×) |
 | Education | 22,935 M€ | 109,673 (4.78×) | 20,241 (0.88×) |
 | Financial intermediation | 18,980 M€ | 76 | 21,004 (1.11×) |
@@ -56,7 +56,7 @@ invisible to anyone validating on Germany or France.
 ## Data requirements
 
 | Input | Source |
-|---|---|
+|:---|:---|
 | EXIOBASE v3.8.2, v3.10.2, hybrid v3.3.18 | Zenodo 5589597, 20051562, 10148587 |
 | Danish IO table, 117 industries | Statistics Denmark, 2016 and 2022 |
 | NACE ↔ EXIOBASE industry concordance | carried in the output's `dst_nace_prefixes` column |

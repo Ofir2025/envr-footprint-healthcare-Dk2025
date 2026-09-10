@@ -1,7 +1,7 @@
 # Results bridge: submitted vs corrected (GWP, kt CO₂e; 2019 expenditure on EXIOBASE 3.8.2-2016)
 
 | Step | Component | Submitted | Corrected | Δ | Cause (ledger entry) |
-|---|---|---|---|---|---|
+|:---|:---|:---|:---|:---|:---|
 | 1 | Healthcare services, MRIO part | 3,292.5 | 4,628.1 | **+1,335.6** | E1: eldercare (3142×12401) + NPISH hospital columns added (+40.9%); currency 7.4661 vs 7.45 (−0.2%) |
 | 2 | Direct operational (B_HEAL) | 1.4 | 150.9 | **+149.5** | E2: DRIVHUS national accounts replace the MRIO-internal artifact |
 | 3 | Pharmaceuticals component | 755.7 | 754.1 | −1.6 | currency only |

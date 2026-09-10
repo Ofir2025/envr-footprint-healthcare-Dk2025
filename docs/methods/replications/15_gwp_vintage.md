@@ -16,7 +16,7 @@ The climate row is rebuilt from the stressor names rather than read from the wor
 `analysis.constants.ar6_gwp_factor`:
 
 | Species | AR6 GWP100 |
-|---|---|
+|:---|:---|
 | CO₂ | 1 |
 | CH₄, fossil | 29.8 |
 | CH₄, non-fossil | 27.0 |
@@ -61,7 +61,7 @@ $y_H$; and the four IPCC assessment factor sets.
 ## Outputs
 
 | File | Content |
-|---|---|
+|:---|:---|
 | `gwp_vintage_sensitivity.csv` | health-care and national footprints under four vintages, with the non-restatable share |
 | `gwp_by_species.csv` | mass, AR6 factor, and CO₂e contribution per species |
 

@@ -13,7 +13,7 @@
 ## Register
 
 | ID | Dataset | Provider | Access | Main years | Resolution / key variables | Model role | Target table | Next action |
-|---|---|---|---|---|---|---|---|---|
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|
 | DK_ECON_001 | Full working SUT | Statistics Denmark | CONTROLLED | 2019, 2022 requested | ~2,350 products × 117 industries | domestic economic backbone | `fact_io_flow` | Email Peter Rørmose Jensen |
 | DK_ECON_002 | 117-industry IOT / NAIO1-4 | Statistics Denmark | OPEN | current historical series | 117 industries | prototype domestic IO | `fact_io_flow` | Download now |
 | EU_ECON_001 | National SUT T1500/T1600 | Eurostat | OPEN | 2010 onward | A64; voluntary A88 | open SUT fallback | `fact_io_flow` | Download Denmark 2019/2022 |

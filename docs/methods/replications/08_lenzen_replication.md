@@ -33,7 +33,7 @@ Their seven indicator families are matched to EXIOBASE stressor rows explicitly,
 mapping is carried in the output's `notes` column rather than left in the code:
 
 | Lenzen family | EXIOBASE rows used |
-|---|---|
+|:---|:---|
 | climate change | CO₂, CH₄, N₂O, SF₆, HFC, PFC on AR6 |
 | PM | PM10 rows (matching their "PM10 or less") |
 | NOₓ | NOx rows |
@@ -66,7 +66,7 @@ drawn.
 ## Outputs
 
 | File | Content |
-|---|---|
+|:---|:---|
 | `lenzen_kpi_set.csv` | every KPI with total, direct, first-order, higher-order, and truncation |
 | `lenzen_kpi_by_producing_node.csv.gz` | each KPI at full node detail |
 | `lenzen_kpi_domestic_vs_imported.csv` | origin split per KPI |
