@@ -4,6 +4,11 @@
 
 This inventory identifies where the data required to replicate and extend Malik et al., Eckelman & Sherman, and Lenzen et al. can be obtained for Denmark.
 
+The "target" table names below name tables in the published star schema,
+`docs/methods/star_schema.sql`, and the 30 tables actually shipped under
+`data/gold/results/star/`. An earlier draft schema named a different, obsolete
+set of tables; those citations have been corrected to the real names.
+
 Access codes used below:
 
 - **OPEN**: publicly downloadable or API-accessible without a research application.
@@ -50,11 +55,9 @@ The detailed SUT retains the product × industry structure needed to distinguish
 
 ### Target database objects
 
-- `fact_io_flow`
-- `dim_product`
 - `dim_industry`
-- `dim_price_basis`
-- `bridge_health_to_economic_node`
+- `dim_industry_group`
+- `fact_health_expenditure`
 
 ### Official source
 
@@ -204,9 +207,6 @@ with weights that reconcile to the agreed healthcare control total.
 
 - `fact_health_expenditure`
 - `dim_health_function`
-- `dim_provider`
-- `dim_financing`
-- `bridge_health_to_economic_node`
 
 ### Source
 
@@ -226,8 +226,8 @@ Useful healthcare-relevant industries include pharmaceuticals, medical instrumen
 
 ### Target objects
 
-- `fact_environmental_extension`
 - `fact_ghg_species`
+- `fact_scope_component`
 
 ### Source
 
@@ -279,7 +279,7 @@ F=qLy_H.
 
 Validation of:
 
-- `fact_footprint_total`;
+- `fact_national_total`;
 - final-demand multipliers;
 - pollutant intensities.
 
@@ -299,7 +299,7 @@ Provides emissions caused by final demand by the industries in which the emissio
 
 Validation of:
 
-- `fact_supplier_footprint`.
+- `fact_footprint_node`.
 
 ### Source
 
@@ -317,7 +317,7 @@ Physical water account by industry and water type.
 
 ### Target
 
-- `fact_environmental_extension`
+- `fact_footprint_node`
 
 ### Source
 
@@ -381,8 +381,8 @@ Provides direct and direct-plus-indirect waste by final demand, including multip
 
 ### Target
 
-- `fact_footprint_total`
-- `fact_health_category_footprint`
+- `fact_national_total`
+- `fact_health_function`
 
 ### Source
 
@@ -398,7 +398,7 @@ Provides producing-industry attribution for waste caused by final demand.
 
 ### Target
 
-- `fact_supplier_footprint`
+- `fact_footprint_node`
 
 ### Source
 
@@ -485,8 +485,8 @@ F_{\text{foreign}}.
 
 ### Target
 
-- `fact_geographic_footprint`
-- `fact_national_share`
+- `fact_footprint_node`
+- `fact_national_total`
 
 ### Source
 
