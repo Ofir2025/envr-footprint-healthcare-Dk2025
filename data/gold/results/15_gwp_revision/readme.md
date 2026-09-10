@@ -1,6 +1,6 @@
-# 15_gwp_vintage
+# 15_gwp_revision
 
-**Climate characterisation vintage**
+**Climate characterisation revision**
 
 This study reports climate change on **IPCC AR6**. The characterisation workbook shipped with the background instead carries **AR4** factors (CH₄ = 25, N₂O = 298) under a sheet labelled "CML 1999". What does the restatement change, and what can it not reach?
 
@@ -27,9 +27,9 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 15
 - **Dimensions:** `country_consuming`, `sector_consuming`, `species`, `unit`
 - **Measures:** `mass_kg`, `ar6_gwp100`, `contribution_kt_co2eq`
 
-### `gwp_vintage_sensitivity.csv`
+### `gwp_revision_sensitivity.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `country_consuming`, `gwp_vintage`, `is_study_default`, `model`, `note`
+- **Dimensions:** `country_consuming`, `gwp_revision`, `is_study_default`, `model`, `note`
 - **Measures:** `analysis_year`, `healthcare_kt_co2eq`, `national_kt_co2eq`, `healthcare_share_pct`, `healthcare_t_per_capita`, `not_restatable_kt_co2eq`, `not_restatable_share_pct`

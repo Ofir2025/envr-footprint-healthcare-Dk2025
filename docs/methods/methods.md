@@ -180,7 +180,7 @@ anywhere in this study.** The models actually used are below.
 
 **A note on the table above.** The Zenodo record named for the model itself is
 the one the *classification* work drew on; the study's actual background
-model, adopted after the vintage audit, is **EXIOBASE v3.8.2**, not v3.10.2.
+model, adopted after the release audit, is **EXIOBASE v3.8.2**, not v3.10.2.
 That decision, and the evidence for it, is in
 [docs/methods/replications.md, section 09](replications.md#r09) and
 [docs/revision/defects_and_fixes.md, anomalies A1-A2](../revision/defects_and_fixes.md#a-defects-in-the-background-data-exiobase).
@@ -555,9 +555,9 @@ Three further defects: **Danish imports in EXIOBASE are 30-40 % below the
 national accounts**; the satellite vector contains extreme outliers (Mexican
 secondary plastic at 372,548 t CO₂e per EUR turns a 2 M EUR import into 729 Gt);
 and the nowcast years are internally out of sync, so inflation mechanically
-inflates the footprint. The version-and-vintage defects this study found on its
+inflates the footprint. The version-and-release defects this study found on its
 own model, independently of Statistics Denmark's, are documented in full in
-[`exiobase_version_vintage_and_classification.md`](exiobase_version_vintage_and_classification.md).
+[`exiobase_release_and_classification.md`](exiobase_release_and_classification.md).
 
 ### 2. Their remedy is structural, ours is a patch
 
@@ -689,14 +689,14 @@ above); the innovation is entirely in the data plumbing.
 
 **A correction to this section's original wording.** When this feasibility
 question was first scoped, the EXIOBASE copy on disk for the import-side
-multipliers was `IOT_2022_ixi.mat` **v3.10.2**. That vintage has since been
+multipliers was `IOT_2022_ixi.mat` **v3.10.2**. That release has since been
 rejected as the study's background model: it misallocates the Danish block and
 empties the medical-instruments industry across Europe, as set out in full in
-[`exiobase_version_vintage_and_classification.md`](exiobase_version_vintage_and_classification.md).
+[`exiobase_release_and_classification.md`](exiobase_release_and_classification.md).
 **Any Danish-SNAC build must use v3.8.2, the current background model, for the
 import-side multipliers**, not the v3.10.2 copy this memo originally pointed at.
 The rest of the feasibility argument is unaffected: the ingredients on the
-Danish side do not depend on which EXIOBASE vintage supplies the import side.
+Danish side do not depend on which EXIOBASE release supplies the import side.
 
 ### 8. What the resolution buys: the three known weaknesses it removes
 

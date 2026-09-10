@@ -12,7 +12,7 @@ lives - see [`revision_guide.md`](revision_guide.md).
 |:---|:---|
 | Understand the headline results and how they were produced | [`revision/results_2022.md`](revision/results_2022.md) |
 | Know what is broken, uncertain or still undecided | [`revision/defects_and_fixes.md`](revision/defects_and_fixes.md) |
-| Understand why the background model is v3.8.2 and not v3.10.2 | [`methods/exiobase_version_vintage_and_classification.md`](methods/exiobase_version_vintage_and_classification.md) |
+| Understand why the background model is v3.8.2 and not v3.10.2 | [`methods/exiobase_release_and_classification.md`](methods/exiobase_release_and_classification.md) |
 | Trace any published number back to its data and method | `data/gold/results/manifest_lineage.csv` |
 | See which of the author's requests are answered | [`revision/request_checklist.md`](revision/request_checklist.md) |
 | Understand the modelling approaches implemented | [`methods/methods.md`](methods/methods.md) |
@@ -24,7 +24,7 @@ lives - see [`revision_guide.md`](revision_guide.md).
 
 | Folder | Holds |
 |:---|:---|
-| `methods/` | This study's own method ([`methods/methods.md`](methods/methods.md)), every replication layer ([`methods/replications.md`](methods/replications.md)), the Danish data-acquisition record ([`methods/danish_data_acquisition.md`](methods/danish_data_acquisition.md)), the EXIOBASE version/vintage argument ([`methods/exiobase_version_vintage_and_classification.md`](methods/exiobase_version_vintage_and_classification.md)), Ofir Eriksen's own methodology write-ups ([`methods/eriksen_methodology.md`](methods/eriksen_methodology.md)), and the published star schema (`methods/star_schema.sql`) |
+| `methods/` | This study's own method ([`methods/methods.md`](methods/methods.md)), every replication layer ([`methods/replications.md`](methods/replications.md)), the Danish data-acquisition record ([`methods/danish_data_acquisition.md`](methods/danish_data_acquisition.md)), the EXIOBASE release argument ([`methods/exiobase_release_and_classification.md`](methods/exiobase_release_and_classification.md)), Ofir Eriksen's own methodology write-ups ([`methods/eriksen_methodology.md`](methods/eriksen_methodology.md)), and the published star schema (`methods/star_schema.sql`) |
 | `revision/` | The manuscript revision's working record: the 2022 results and the withdrawn transport finding ([`revision/results_2022.md`](revision/results_2022.md)), the full uncertainty account ([`revision/uncertainty.md`](revision/uncertainty.md)), every defect and open decision ([`revision/defects_and_fixes.md`](revision/defects_and_fixes.md)), the formal reviewer correspondence ([`revision/response_to_reviewers.md`](revision/response_to_reviewers.md)), and the request status ledger ([`revision/request_checklist.md`](revision/request_checklist.md)) |
 | `eriksen_et_al_2026/` | The manuscript submission package (Word documents); see [`eriksen_et_al_2026/readme.md`](eriksen_et_al_2026/readme.md) |
 
@@ -49,7 +49,7 @@ data/bronze/          raw inputs, exactly as obtained
   dst_capital/          Statistics Denmark capital accounts (NABK69)
 
 data/silver/          prepared model objects
-  background/pickled_mrio/    A, L, Z, Y, x, V, Q per vintage and variant
+  background/pickled_mrio/    A, L, Z, Y, x, V, Q per release and variant
   inputs/                     the Danish expenditure and bottom-up vectors
 
 data/gold/results/    published tables, one folder per approach
@@ -77,10 +77,10 @@ then any analysis module, then `python -m analysis.build_manifest`.
 | `HC_BACKGROUND_TAG` | *(empty)* | Model variant; `_snacship` selects the Danish sea-transport reallocation |
 | `HC_SCOPE` | `health_eldercare` | `health_only`, `health_eldercare` or `zorg_en_welzijn` (adds childcare) |
 | `HC_WASTE_FRACTIONS` | `statistical` | `all` restores the unfiltered 19-fraction waste sum |
-| `HC_GWP_VINTAGE` | `AR6` | `AR4` reproduces the workbook's supplied climate factors |
+| `HC_GWP_REVISION` | `AR6` | `AR4` reproduces the workbook's supplied climate factors |
 
 Background year and model provenance are defined **once**, in
-`analysis.constants`, so no module can pair one vintage's data with another's
+`analysis.constants`, so no module can pair one release's data with another's
 label.
 
 ## Gold folders
@@ -96,13 +96,13 @@ label.
 | `06_benchmarks_validation` | Recipe validation, demand-vector consistency, FIGARO benchmarks | Rørmose Jensen & Iliev 2022; Eurostat |
 | `07_malik_replication` | Domestic-only footprint and production layers | Malik et al. 2018, 2021 |
 | `08_lenzen_replication` | The Lenzen KPI set for Denmark | Lenzen et al. 2020 |
-| `09_vintage_diagnostics` | EXIOBASE vintages against Danish national accounts | this study |
+| `09_exiobase_release_diagnostics` | EXIOBASE releases against Danish national accounts | this study |
 | `10_sea_transport_reallocation` | The Danish sea-transport reallocation and its diagnostics | Rørmose Jensen & Iliev 2022 |
 | `11_capital_gfcf` | Capital excluded / exogenous / endogenised | Södersten et al. 2018 |
 | `12_impact_categories_full` | All 99 usable DESIRE categories, with a quality screen | DESIRE FP7; ILCD |
 | `13_steenmeijer_replication` | The Dutch template table, side by side | Steenmeijer et al. 2022 |
 | `14_eckelman_replication` | Nine-category frame and DALYs | Eckelman & Sherman 2016 |
-| `15_gwp_vintage` | Climate vintage sensitivity, SAR to AR6 | IPCC AR6 table 7.15 |
+| `15_gwp_revision` | Climate revision sensitivity, SAR to AR6 | IPCC AR6 table 7.15 |
 | `16_impact_world_plus` | 38 current categories incl. water scarcity and DALYs | IMPACT World+ v2.2.1 |
 
 Every file in every folder has a row in `manifest_lineage.csv` giving its

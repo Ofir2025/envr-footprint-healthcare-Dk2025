@@ -1,4 +1,4 @@
-# EXIOBASE in this study: version, vintage, and what the classification cannot say
+# EXIOBASE in this study: release, and what the classification cannot say
 
 **Audience.** Two. First, the manuscript and its supplementary information: the
 version and reference year have to be stated unambiguously, and the nowcast
@@ -6,8 +6,8 @@ qualification has to be stated by us rather than found by a referee. Second, any
 later project of ours that uses EXIOBASE, because most of what follows is not
 specific to Denmark or to health care.
 
-**Status.** Standing reference. This is the full methods statement on version,
-vintage, and classification, decisive for the 2022 headline. The decision it
+**Status.** Standing reference. This is the full methods statement on release
+and classification, decisive for the 2022 headline. The decision it
 supports is
 [`../revision/results_2022.md`, "Decision D8"](../revision/results_2022.md#decision-d8-2022-nowcast-or-the-last-observed-year);
 the defect register behind it is
@@ -48,10 +48,10 @@ different labels. Results are not interchangeable between them.
 Reproduce this section's diagnostics with:
 
 ```
-PYTHONPATH=src .venv/bin/python -m analysis.vintage_defect_audit
+PYTHONPATH=src .venv/bin/python -m analysis.release_defect_audit
 ```
 
-which writes `data/gold/results/09_vintage_diagnostics/`.
+which writes `data/gold/results/09_exiobase_release_diagnostics/`.
 
 ### 2.1 Why this test was run at all
 
@@ -154,18 +154,18 @@ the medical-instruments industry, which carries the appliance component; and the
 financial and machinery industries, which are part of the services supply chain.
 
 **Decision: the background model is EXIOBASE v3.8.2 `IOT_2022_ixi`.** This
-vintage is the best available combination on all three criteria that matter:
+release is the best available combination on all three criteria that matter:
 
 1. *Correct analysis year.* 2022 is the study's agreed year and v3.8.2 publishes
    a 2022 table (Zenodo 5589597).
 2. *Sound Danish block.* Every checkable industry group falls within ±12 % of
    Danish national accounts, and the two the study most depends on (health and
    social work, and real estate) within 3 %.
-3. *Continuity with the submitted manuscript.* v3.8.2 is the vintage the
+3. *Continuity with the submitted manuscript.* v3.8.2 is the release the
    original submission was built on, established earlier by fingerprinting. The
    revision therefore changes the year and the corrected method, not the model
    family, and reviewers can attribute differences to the corrections rather
-   than to a vintage change.
+   than to a release change.
 
 The v3.10.2 artefacts are retained as `mrio2022_v3_10_2.pkl` and
 `leontief2022_v3_10_2.pkl` so that every number in this section can be
@@ -180,7 +180,7 @@ regenerated, and so that a v3.10.2 sensitivity remains available.
   (921 kt, 22 % of the climate footprint, sourced from Greece/China/RoW) was
   built on empty European rows.
 - **The transport finding must be re-examined on the corrected model.** The
-  earlier conclusion that "transport ≈ 40 %" is vintage-dependent was itself
+  earlier conclusion that "transport ≈ 40 %" is release-dependent was itself
   derived partly from the v3.10.2 comparison and has to be re-derived. See
   section 4 below.
 - **The case for the Danish SNAC phase is strengthened, not weakened.** v3.8.2's
@@ -239,7 +239,7 @@ v3.8.2 has no near-zero-output row in the industries this study depends on.
 
 ### 2.5 Honest limits of this test
 
-The concordance in `analysis.vintage_defect_audit` covers twelve industry groups
+The concordance in `analysis.release_defect_audit` covers twelve industry groups
 whose mapping between the Danish DB07/NACE classification and the EXIOBASE 163
 list is unambiguous. It is a plausibility screen, not a full concordance: a group
 passing at ±12 % is evidence that the block is not grossly misallocated, not
@@ -247,7 +247,7 @@ proof that its input structure is correct. The input-structure question is what
 `recipe_validation_2022.csv` addresses, and there v3.8.2 also has known biases
 (see
 [`../revision/uncertainty.md`, section 7](../revision/uncertainty.md#7-how-to-read-the-results-given-every-exiobase-limitation)
-section 1). Neither test was run against a vintage other than those on disk, so
+section 1). Neither test was run against a release other than those on disk, so
 this section makes no claim about v3.9, v3.10.0 or v3.10.1.
 
 ---
@@ -273,7 +273,7 @@ with a milder and differently shaped error.**
 
 Danish total output in the model against the national-accounts total, on the
 full 163-to-117 concordance rather than on the twelve unambiguous groups the
-vintage audit uses:
+release audit uses:
 
 | Year | Model over national accounts |
 |:---|:---|
@@ -293,7 +293,7 @@ missing is the part that matters:
 
 None of the four largest gaps is new to this study and none is unaddressed. The
 industry being modelled is within 4 % of Denmark's own figure, which is why the
-vintage audit passes on the groups it tests.
+release audit passes on the groups it tests.
 
 ### The part with no validation
 
@@ -301,7 +301,7 @@ The economic block was tested. **The emission side was not, because there is
 nothing to test it against.** EXIOBASE v3.8.2's CO2 accounts end in 2019 and its
 other greenhouse gases in 2017, so the 2022 satellite is an extrapolation of
 three to five years on the side that carries the physics. This is the weaker
-half of the vintage argument and it should be stated as such.
+half of the release argument and it should be stated as such.
 
 ### What to write in the paper
 
@@ -466,12 +466,12 @@ here.
    2022 may carry emission accounts ending in 2019, and the distribution will not
    say so on its face.
 4. **Check the characterisation file separately from the tables.** The DESIRE
-   workbook shipped with this vintage has four unusable rows, including an ozone
+   workbook shipped with this release has four unusable rows, including an ozone
    depletion category whose factors fall entirely on NMVOC, a pollutant that does
    not deplete stratospheric ozone. See A7b.
-5. **Check the GWP vintage.** The file is labelled "CML, 1999" and its factors are
+5. **Check the GWP revision.** The file is labelled "CML, 1999" and its factors are
    IPCC AR4. Restate deliberately, and record what cannot be restated: HFC and
-   PFC arrive already aggregated to CO2 equivalent and keep whatever vintage the
+   PFC arrive already aggregated to CO2 equivalent and keep whatever revision the
    compiler used.
 6. **Look for zero and near-zero rows in industries you depend on.** v3.10.2
    empties ISIC 33, medical and optical instruments, across Europe in every year,

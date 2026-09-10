@@ -64,7 +64,7 @@ SCOPE: dict[str, tuple[str, str]] = {
     "08_lenzen_replication": (
         "paper", "the comparator behind the uncertainty calibration and the "
                  "national-total family comparison"),
-    "09_vintage_diagnostics": (
+    "09_exiobase_release_diagnostics": (
         "paper", "the **only** evidence for rejecting EXIOBASE v3.10.2, which "
                  "the response states as fact"),
     "10_sea_transport_reallocation": (
@@ -79,7 +79,7 @@ SCOPE: dict[str, tuple[str, str]] = {
         "paper", "the Dutch study this replicates"),
     "14_eckelman_replication": (
         "paper", "comparator in the same boundary table as 07 and 08"),
-    "15_gwp_vintage": (
+    "15_gwp_revision": (
         "paper", "the AR6-versus-AR4 restatement the response leads on"),
     "16_impact_world_plus": (
         "private", "IMPACT World+ characterisation; a methods paper of its "

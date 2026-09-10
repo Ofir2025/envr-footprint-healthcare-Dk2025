@@ -381,7 +381,7 @@ def _stamp(table: str, meta: dict[str, Any], retrieved: str) -> str:
     Returns
     -------
     str
-        Provenance string naming the table, its vintage and the retrieval date.
+        Provenance string naming the table, its update date and the retrieval date.
     """
 
     updated = str(meta.get("updated", ""))[:10]

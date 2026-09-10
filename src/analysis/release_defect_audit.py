@@ -6,7 +6,7 @@ Motivation
 Rørmose Jensen & Iliev (2022) showed that EXIOBASE's Danish block misallocates
 output between industries, and used that to argue for a national-accounts-based
 coupling (the SNAC route of Palm et al. 2019). This module turns that argument
-into a reproducible test: every EXIOBASE vintage on disk is compared, industry
+into a reproducible test: every EXIOBASE release on disk is compared, industry
 group by industry group, against Statistics Denmark's own 117-industry
 input-output table for the same year.
 
@@ -24,7 +24,7 @@ Two defects are detected and separated:
       intermediation and machinery. v3.10.2's own 2016 Danish block is sound,
       so the defect enters with the nowcast years.
 
-Run: PYTHONPATH=src .venv/bin/python -m analysis.vintage_defect_audit
+Run: PYTHONPATH=src .venv/bin/python -m analysis.release_defect_audit
 """
 
 import os
@@ -37,7 +37,7 @@ import scipy.io as sio
 from analysis.constants import K_DK, N_SECTORS
 from paths import BRONZE_DIR, OUTPUT_DIR
 
-FOLDER = "09_vintage_diagnostics"
+FOLDER = "09_exiobase_release_diagnostics"
 DKK_PER_EUR_2022 = 7.4396
 DKK_PER_EUR_2016 = 7.4452
 
@@ -120,14 +120,14 @@ def _dst_group(dst, prefixes):
     return sum(v for c, v in dst.items() if any(c.startswith(p) for p in prefixes))
 
 
-def discover_vintages():
-    """Every (vintage, year, path) triple present on this machine."""
+def discover_releases():
+    """Every (release, year, path) triple present on this machine."""
     found = []
     txt = os.path.join(EXIO_ROOT, "v3_10_2", "txt")
     if os.path.exists(os.path.join(txt, "x.txt")):
         found.append(("v3.10.2", "2022", txt))
     # v3.6 is superseded and its 20 year-files are large; the comparison that
-    # matters is between the vintages this study could actually use.
+    # matters is between the releases this study could actually use.
     for v, sub in (("v3.10.2", "v3_10_2/industry"), ("v3.8.2", "v3_8_2"),
                    ("v3.7", "v3_7")):
         d = os.path.join(EXIO_ROOT, sub)
@@ -181,31 +181,31 @@ def _normalise_country(frame, column="country_producing"):
 def main():
     out_dir = os.path.join(OUTPUT_DIR, FOLDER)
     os.makedirs(out_dir, exist_ok=True)
-    vintages = discover_vintages()
-    print(f"vintages found: {[(v, y) for v, y, _ in vintages]}")
+    releases = discover_releases()
+    print(f"releases found: {[(v, y) for v, y, _ in releases]}")
 
     dst_cache, rows, i33 = {}, [], []
-    for vintage, year, path in vintages:
+    for release, year, path in releases:
         x = None
         for attempt in range(3):
             try:
                 x = _exiobase_x(path)
                 break
             except OSError as exc:      # OneDrive materialisation can time out
-                print(f"  retry {vintage} {year} ({attempt + 1}/3): {exc}")
+                print(f"  retry {release} {year} ({attempt + 1}/3): {exc}")
             except Exception as exc:                   # noqa: BLE001
-                print(f"  skip {vintage} {year}: {exc}")
+                print(f"  skip {release} {year}: {exc}")
                 break
         if x is None:
             continue
         if x.size != len(REGIONS) * N_SECTORS:
-            print(f"  skip {vintage} {year}: unexpected length {x.size}")
+            print(f"  skip {release} {year}: unexpected length {x.size}")
             continue
         dk = x[K_DK * N_SECTORS:(K_DK + 1) * N_SECTORS]
 
         for r, code in enumerate(REGIONS):
             i33.append(dict(
-                mrio_vintage=vintage, mrio_year=year,
+                mrio_release=release, mrio_year=year,
                 country_producing=ISO3[code],
                 sector_producing="Manufacture of medical, precision and optical "
                                  "instruments, watches and clocks (33)",
@@ -221,7 +221,7 @@ def main():
                 e = float(dk[idx].sum())
                 d = _dst_group(dst, prefixes)
                 rows.append(dict(
-                    mrio_vintage=vintage, mrio_year=year,
+                    mrio_release=release, mrio_year=year,
                     country_producing="DNK", sector_producing=label,
                     exiobase_industry_index=";".join(str(i) for i in idx),
                     dst_nace_prefixes=";".join(prefixes),
@@ -232,7 +232,7 @@ def main():
                                              f"117-industry IO table {year}, "
                                              f"'Total Output' row"))
             rows.append(dict(
-                mrio_vintage=vintage, mrio_year=year, country_producing="DNK",
+                mrio_release=release, mrio_year=year, country_producing="DNK",
                 sector_producing="TOTAL (all 163 industries)",
                 exiobase_industry_index="all", dst_nace_prefixes="all",
                 exiobase_output_meur=float(dk.sum()),
@@ -253,36 +253,36 @@ def main():
     # ---- verdicts -------------------------------------------------------
     verdicts = []
     eu = [ISO3[c] for c in REGIONS[:28]] + ["CHE", "NOR"]
-    for (v, y), g in reg.groupby(["mrio_vintage", "mrio_year"]):
+    for (v, y), g in reg.groupby(["mrio_release", "mrio_year"]):
         e = g[g.country_producing.isin(eu)]
         verdicts.append(dict(
-            defect="D1 industry 33 emptied in Europe", mrio_vintage=v,
+            defect="D1 industry 33 emptied in Europe", mrio_release=v,
             mrio_year=y,
             metric="European regions with i33 output < 1 M.EUR",
             value=int((e.value < 1).sum()), of=len(e),
             world_total_meur=round(float(g.value.sum()), 1),
             verdict="DEFECT" if (e.value < 1).mean() > 0.8 else "ok"))
     if not blk.empty:
-        for (v, y), g in blk.groupby(["mrio_vintage", "mrio_year"]):
+        for (v, y), g in blk.groupby(["mrio_release", "mrio_year"]):
             s = g[g.sector_producing != "TOTAL (all 163 industries)"]
             bad = s[(s.ratio_exiobase_over_dst < 0.5)
                     | (s.ratio_exiobase_over_dst > 2.0)]
             verdicts.append(dict(
-                defect="D2 Danish block misallocation", mrio_vintage=v,
+                defect="D2 Danish block misallocation", mrio_release=v,
                 mrio_year=y,
                 metric="concordance groups off by more than 2x vs DST",
                 value=int(len(bad)), of=int(len(s)),
                 world_total_meur=np.nan,
                 verdict="DEFECT" if len(bad) >= 4 else "ok"))
     ver = pd.DataFrame(verdicts)
-    ver.to_csv(os.path.join(out_dir, "vintage_defect_verdicts.csv"), index=False)
+    ver.to_csv(os.path.join(out_dir, "release_defect_verdicts.csv"), index=False)
 
     pd.set_option("display.width", 200)
     print("\n", ver.to_string(index=False))
     if not blk.empty:
         print("\nDanish block vs national accounts (ratio EXIOBASE / DST):")
         piv = blk.pivot_table(index="sector_producing",
-                              columns=["mrio_vintage", "mrio_year"],
+                              columns=["mrio_release", "mrio_year"],
                               values="ratio_exiobase_over_dst")
         print(piv.round(2).to_string())
     print(f"\nwritten -> {out_dir}")

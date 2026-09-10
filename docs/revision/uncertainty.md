@@ -80,7 +80,7 @@ flowchart LR
         P5["B1 technical coefficients A"]
         P6["B2 final demand y<br/>level and composition"]
         P7["B3 import proportionality"]
-        P8["B4 price vintage and deflation"]
+        P8["B4 price base year and deflation"]
         P9["B5 bottom-up items"]
     end
 
@@ -88,7 +88,7 @@ flowchart LR
         M1["C1 linearity and constant returns"]
         M2["C2 database choice"]
         M3["C3 account construction<br/>inventory-first or energy-first"]
-        M4["C4 mapping, vintage and<br/>boundary choices"]
+        M4["C4 mapping, reference year and<br/>boundary choices"]
         M5["C5 double counting between<br/>MRIO and bottom-up"]
     end
 
@@ -204,7 +204,7 @@ for carbon and above 30 per cent for land, material, and water. *Not captured*,
 but bounded by citation. Section 7.8 below reads across this finding to what it
 means for this study's contribution-group ranking specifically.
 
-**B4. Price vintage and deflation.** The question is which price year converts
+**B4. Price base year and deflation.** The question is which price year converts
 expenditure to basic prices. Jakobs et al. (2021) show price variance alone
 moves hybrid footprint intensities by a median of minus 2 to plus 4 per cent,
 with a strongly skewed study-level interval. *Run as a discrete scenario.*
@@ -236,8 +236,8 @@ EDGAR and UNFCCC can change a country's emissions by as much as 300 per cent.
 *Not captured.* Their published accounts at exactly this study's resolution make
 this the most valuable structural scenario still available.
 
-**C4. Mapping, vintage, and boundary choices.** These choices are the
-pharmaceutical sector mapping, the waste-account vintage, the sector boundary,
+**C4. Mapping, reference year, and boundary choices.** These choices are the
+pharmaceutical sector mapping, the waste-account reference year, the sector boundary,
 and the capital treatment. *Run as discrete scenarios*, which is what Schulte
 et al. (2024) recommend and what the IPCC (2000, section 6.5.6) sanctions.
 Their finding that uncertainty due to choices outweighs parametric uncertainty
@@ -258,7 +258,7 @@ place this outside a standard uncertainty assessment, the IPCC explicitly
 excluding global-warming-potential uncertainty from its own chapter while
 noting that a complete assessment would have to consider it. *Excluded, with
 that warrant.* The study does report a separate global-warming-potential
-vintage sensitivity ([docs/methods/replications.md, section 15](../methods/replications.md#r15)).
+revision sensitivity ([docs/methods/replications.md, section 15](../methods/replications.md#r15)).
 
 #### Variability
 
@@ -547,8 +547,8 @@ discrete scenarios instead:
 | Structural choice | Why it is a scenario, not a distribution |
 |:---|:---|
 | Mapping pharmaceuticals to *Chemicals nec* | No "true value with measurement error" exists here. Either you accept the proxy or you apply Hagenaars' correction. Both are run; the answer differs by a third. |
-| Price vintage | A convention about which year's prices to use. |
-| Waste-account vintage | The 2011 hybrid extension against Denmark's own SEEA account: a change of *concept*, 4.6× at the health sector. |
+| Price base year | A convention about which year's prices to use. |
+| Waste-account reference year | The 2011 hybrid extension against Denmark's own SEEA account: a change of *concept*, 4.6× at the health sector. |
 
 Dressing a decision up as measurement error would tell the reader that the truth
 lies somewhere in between. It does not; it lies at one of them.
@@ -869,7 +869,7 @@ repeated in full as the pasteable limitation paragraph in section 6.4 below:
 > confidence interval on the Danish health-care footprint. Tukker et al. warn that national
 > error statistics do not transfer to sector studies, and Schulte et al. (2024, table 2)
 > report median footprint coefficients of variation of 3 % at country level against 18 %
-> at sector level. This study's own change of EXIOBASE vintage
+> at sector level. This study's own change of EXIOBASE release
 > moved the result by more than this interval spans.
 
 Reporting 7.9 % without that sentence would over-claim, and a referee who knows the
@@ -917,8 +917,8 @@ uncertainty on the bottom-up parameters.
 > are reported.
 >
 > **Structural choices are not treated as parameter uncertainty.** The
-> pharmaceutical sector mapping, the price vintage, and the waste-account
-> vintage are modelling decisions, not noisy measurements, and are reported as
+> pharmaceutical sector mapping, the price base year, and the waste-account
+> reference year are modelling decisions, not noisy measurements, and are reported as
 > discrete scenarios. Representing a structural choice as a distribution would
 > misrepresent a decision as measurement error.
 >
@@ -1011,7 +1011,7 @@ Read as a block, travel accounts for **21.1 %** of the variance.
 > times the spread of a national one, even after supply-chain propagation has
 > cancelled most of the account-level uncertainty. They also show that the
 > *choice* of emission-account source can place a value more than three times
-> outside the parametric 95 % interval. Our own vintage comparison is a direct demonstration: replacing the
+> outside the parametric 95 % interval. Our own release comparison is a direct demonstration: replacing the
 > background release changed the Danish health-care climate footprint by far
 > more than the parametric interval spans. The interval should therefore be read
 > as the precision of this model, not as the accuracy of the estimate.
@@ -1122,8 +1122,8 @@ numbered S1-S7; the plain-English derivation of each is in sections 2.3-2.4 abov
 >
 > #### S*n*.6 Structural choices
 >
-> The pharmaceutical sector mapping, the price vintage, and the waste-account
-> vintage are modelling decisions rather than noisy measurements and are
+> The pharmaceutical sector mapping, the price base year, and the waste-account
+> reference year are modelling decisions rather than noisy measurements and are
 > reported as discrete scenarios (Table S*m*), not as distributions.
 >
 > #### S*n*.7 Results
@@ -1197,7 +1197,7 @@ aggregate as reliable.
 2019) would remove the remaining allocation error; scoped in
 [docs/methods/methods.md, "Danish SNAC"](../methods/methods.md#danish-snac-what-statistics-denmark-does-what-we-patch-and-the-feasibility-of-a-full-build).
 
-### 7.2 Vintage defects are real, version-specific, and invisible to a balance check
+### 7.2 Release defects are real, version-specific, and invisible to a balance check
 
 The full defect tables (D1: industry 33 near-zero across Europe from 2015
 onward in v3.10.2; D2: Danish output redistributed in the 2021-2022 nowcast
@@ -1222,7 +1222,7 @@ defect, not a modelling choice.
 from 2015 should check industry 33 before trusting sectoral results, and
 anyone using a nowcast year should check the national block against national
 accounts. Neither check is standard practice; both should be.
-`analysis.vintage_defect_audit` is a reusable implementation.
+`analysis.release_defect_audit` is a reusable implementation.
 
 ### 7.3 One health industry, so no genuine sub-sector detail
 
@@ -1265,10 +1265,10 @@ precisely because it is a modelling choice rather than measurement error.
 ### 7.5 The satellite account constrains what can be characterised
 
 HFC and PFC arrive **already aggregated in kg CO₂-equivalent**, on an
-unrecoverable GWP vintage, so they cannot be restated on AR6; their share is
+unrecoverable GWP revision, so they cannot be restated on AR6; their share is
 reported rather than hidden
 ([docs/methods/replications.md, section 15](../methods/replications.md#r15)).
-The DESIRE characterisation workbook is 2014-vintage: three of its rows
+The DESIRE characterisation workbook dates to 2014: three of its rows
 failed our tests (an endpoint identical to its own midpoint, a photochemical
 endpoint two orders of magnitude from its published damage factor, an SF₆
 factor matching no IPCC assessment) and **ozone depletion was retracted** on
@@ -1291,7 +1291,7 @@ $\rho = 1$, the conservative bound. Full derivation in
 **How to read the interval.** The reported 95 % interval, 4,064 to 5,531 kt,
 is **parametric uncertainty conditional on one model**. The interval is not a
 confidence interval on "the" Danish health footprint. Our own change of
-EXIOBASE vintage moved the result by more than this interval spans, and
+EXIOBASE release moved the result by more than this interval spans, and
 Tukker et al. warn that national error statistics do not transfer to sector
 studies. Report the interval and this sentence together, or not at all.
 
@@ -1370,7 +1370,7 @@ covered there in full.
 **What it changes about the conclusion.** Nowcast years carry the errors
 documented in section 7.2 above, and Lenzen et al. (2010) observe that
 uncertainty grows with distance from the benchmark year, although they did
-not prove it. This growth in uncertainty is why the vintage tests were run at
+not prove it. This growth in uncertainty is why the release tests were run at
 all, and why v3.10.2 was rejected: its nowcast years fail against the Danish
 national accounts. **Sectoral detail for 2022 should be read as less firm
 than the same detail for a benchmark year would be.**
@@ -1434,7 +1434,7 @@ the field, not only in this study.
    answer more than the parameters do. This study's own structural scenario
    on the pharmaceutical mapping lands entirely outside its parametric 95 per
    cent interval, which is the clearest possible demonstration.
-4. **Do not compare across EXIOBASE vintages** without checking the defects
+4. **Do not compare across EXIOBASE releases** without checking the defects
    in section 7.2.
 5. **Do not read the non-carbon categories with the carbon interval.**
    Section 7.12 explains why, and the bounding run is reported for that

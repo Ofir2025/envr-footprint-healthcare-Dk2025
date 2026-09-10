@@ -20,12 +20,12 @@ those have 163 and 200 sectors and their results are not interchangeable. And th
 2022 tables are themselves a nowcast, compiled in September 2021, which the
 limitations must say. The full argument, the measured size of the projection
 error, and draft wording for the limitations paragraph are in
-[`docs/methods/exiobase_version_vintage_and_classification.md`](methods/exiobase_version_vintage_and_classification.md).
+[`docs/methods/exiobase_release_and_classification.md`](methods/exiobase_release_and_classification.md).
 
 | You want | Go to |
 |:---|:---|
 | The point-by-point reviewer response | `docs/revision/response_to_reviewers.md` |
-| How to cite the background, and its limitations | `docs/methods/exiobase_version_vintage_and_classification.md` |
+| How to cite the background, and its limitations | `docs/methods/exiobase_release_and_classification.md` |
 | What changed since submission, and why | `docs/revision/results_2022.md` |
 | Method and equations, per analysis layer | `docs/methods/replications.md` |
 | What each results folder contains | a `readme.md` (and generated `data_dictionary.md`) in every `data/gold/results/**/` that holds a table |
@@ -43,7 +43,7 @@ error, and draft wording for the limitations paragraph are in
    See [`docs/methods/replications.md`, section 10](methods/replications.md#r10)
    and [`docs/revision/results_2022.md`, "The withdrawn transport finding"](revision/results_2022.md#the-withdrawn-transport-finding).
 
-2. **The background model changed, and the v3.10.2 defects are datable.** Every vintage on
+2. **The background model changed, and the v3.10.2 defects are datable.** Every release on
    disk was tested against Statistics Denmark's own table, year by year. Two distinct
    defects, with different onsets:
 
@@ -60,7 +60,7 @@ error, and draft wording for the limitations paragraph are in
    v3.10.2 from 2015 onward inherits D1 with no warning.
    See [`docs/methods/replications.md`, section 09](methods/replications.md#r09).
 
-3. **Climate is on IPCC AR6**, not the workbook's AR4 factors, with a four-vintage
+3. **Climate is on IPCC AR6**, not the workbook's AR4 factors, with a four-revision
    sensitivity and the non-restatable share (HFC/PFC, pre-aggregated by EXIOBASE) reported.
    See [`docs/methods/replications.md`, section 15](methods/replications.md#r15).
 
