@@ -1,11 +1,23 @@
-# Danish shipping in EXIOBASE: the problem, our correction, and the alternatives
+# Danish shipping in EXIOBASE: the withdrawn transport finding, our correction, and the alternatives
+
+**This is one of the three headline changes in this revision.** The submitted
+manuscript's most quotable finding — that transport is the largest contributor
+to the Danish health-care footprint, at 38-46 % depending on the run — is
+**withdrawn**. It was a faithful computation on a Danish EXIOBASE block that
+Statistics Denmark itself documents as broken. Section 7 below audits that
+withdrawal in full: it confirms the submitted number is reproducible from the
+uncorrected data (so this is not a fix for an analytical error), traces exactly
+how the correction moves the share from 46 % to 15.5 %, and states what the
+paper should say now that pharmaceuticals, not transport, is the largest
+contributor.
 
 **Why this document exists.** Denmark operates one of the world's largest
 merchant fleets. Every consumption-based account of Denmark has to decide what
 to do about it, and the available methods disagree with each other by more than
 the entire health-care footprint we are trying to measure. This note states the
 problem plainly, sets out exactly what we do, compares it with every other
-approach we could find, and says what we do *not* claim.
+approach we could find, audits that the correction is sound and reproduces what
+it should, and says what we do *not* claim.
 
 Reproduce with `PYTHONPATH=src .venv/bin/python -m analysis.dk_shipping_correction`
 → `data/gold/results/10_sea_transport_reallocation/`.
@@ -325,7 +337,117 @@ mode. That would replace the monetary-service treatment altogether. Its own
 documentation warns the methods apply *"only partly to EXIOBASE v4"*, so it is a
 direction of travel rather than an available alternative.
 
-## 6. Limitations
+## 7. Auditing the withdrawal: reproducibility, decomposition, and what the paper should now say
+
+The submitted manuscript reports transport as the largest contributor to the
+Danish health-care climate footprint, at **46 %** of sector contributions. That
+finding leads the abstract, the *Research in context* panel, and the cover
+letter. This section is the audit of it.
+
+The headline conclusion is favourable to the authors: **the 46 % is
+reproducible.** It is not an analytical error. It is a faithful report of what
+an uncorrected EXIOBASE Danish block says. The number has to be withdrawn
+because the underlying data are wrong, not because the analysis was.
+
+### 7.1 Is the transport group correctly defined?
+
+**Yes, with one classification question worth stating.**
+
+The group contains six transport *service* industries and no manufacturing:
+
+| Code | Industry |
+|:---|:---|
+| `TRAI` | Transport via railways |
+| `TLND` | Other land transport |
+| `TPIP` | Transport via pipelines |
+| `TWAS` | Sea and coastal water transport |
+| `TWAI` | Inland water transport |
+| `TAIR` | Air transport (62) |
+
+`MOTO` and `OTRE` (motor vehicle and other transport-equipment *manufacturing*) sit in a
+separate *Transport Equipment* group, correctly.
+
+**The open question.** `TAUX`, *Supporting and auxiliary transport activities; activities of
+travel agencies (63)*, sits in the **Services** group, not Transport. The manuscript states
+that "transport is represented as a service sector (NACE H), capturing freight, logistics,
+and service-related transport". NACE H does include warehousing and support activities for
+transportation, so on the manuscript's own definition `TAUX` arguably belongs in the
+transport group.
+
+It is worth **1.07 percentage points**: transport is 15.45 % without it and 16.52 % with it.
+We keep the inherited classification so the figures stay comparable with the submitted
+ones, and state the alternative rather than switching silently.
+
+### 7.2 Was the substring bug material?
+
+**It was real but immaterial, and an earlier draft of this audit overstated it.**
+
+The submitted figure code matched transport by substring, which also caught *Transport
+Equipment*. That is a genuine defect (it is wrong by construction), but on this footprint
+vehicle manufacturing barely appears:
+
+| | Transport only | + Transport Equipment | Difference |
+|:---|:---|:---|:---|
+| 2019, uncorrected | 47.28 % | 47.33 % | **+0.05 pp** |
+| 2022, corrected | 15.45 % | 15.52 % | **+0.07 pp** |
+
+The figure code is fixed in `analysis.manuscript_figure_tables` by matching exactly. It
+changes no conclusion.
+
+### 7.3 Does our pipeline reproduce the 46 %?
+
+**Yes, to 1.3 percentage points.** Running our corrected pipeline on the manuscript's own
+background (EXIOBASE v3.7, 2016, no shipping correction) and its own reference year:
+
+| | Transport share of the MRIO supply chain |
+|:---|:---|
+| Manuscript, as reported | 46 % |
+| **Ours, same background and year** | **47.28 %** |
+
+The residual 1.3 pp is the demand-vector difference (F1 in the manuscript assessment), not
+a modelling disagreement. This agreement is the strongest possible evidence that the
+finding was correctly computed from the data available.
+
+### 7.4 Where does 46 % go?
+
+A four-step decomposition, each step measured rather than inferred:
+
+| Step | Transport share | Change |
+|:---|:---|:---|
+| 2019, v3.7/2016 background, uncorrected | **47.3 %** | n/a |
+| 2022 demand and v3.8.2 background, still uncorrected | 37.5 % | −9.8 pp |
+| **Danish sea-transport reallocation applied** | 18.5 % | **−19.0 pp** |
+| Bottom-up items included in the denominator | **15.5 %** | −3.0 pp |
+
+**The reallocation is the whole story.** Year, vintage, and demand vector together move the
+share by less than half of what the data correction does.
+
+### 7.5 What survives, and what should the paper now say?
+
+Transport is **still the third largest** contributor at 15.5 % of the total climate
+footprint, and **sea and coastal water transport alone is 10.1 %**, the single largest
+transport component even after correction, reflecting genuine international shipping in
+Danish health supply chains.
+
+What changes is the ranking. **Pharmaceuticals and chemical products is the largest
+contributor at 36.9 %**, not transport. The paper's central claim has to move accordingly,
+in the abstract, the *Research in context* panel, and the cover letter.
+
+### 7.6 What a reviewer will ask, and the answer
+
+*Why should we believe the correction rather than the published database?*
+Because the correction reconstructs a figure that Danish national accounts publish, that
+EXIOBASE's own hybrid construct produces natively without any correction, and that the
+Danish Energy Agency already applies in statutory reporting (section 5b above). We are not
+proposing a new method; we are reconciling one construct to three independent sources.
+
+*Is the rest of the Danish block trustworthy?*
+Only one row has a published benchmark and a first-order effect, and only that row is
+corrected. Danish sectoral detail should be read as indicative; the aggregate is
+benchmarked. Full national-accounts coupling (SNAC) would remove the remainder and is
+scoped in [`dk_snac_feasibility.md`](dk_snac_feasibility.md).
+
+## 8. Limitations
 
 - **One row, not a model.** The other Danish industries retain EXIOBASE's
   structure, including its documented 30-40 % understatement of Danish imports.
@@ -339,6 +461,9 @@ direction of travel rather than an available alternative.
 - **The released output is distributed across foreign final demand in proportion
   to existing demand.** That is a neutral assumption, not a measured trade
   pattern.
+- **The `TAUX` classification question (section 7.1)** is inherited from the
+  submitted manuscript rather than re-derived; switching it would move the
+  transport share by a further 1.07 percentage points.
 
 ## References
 

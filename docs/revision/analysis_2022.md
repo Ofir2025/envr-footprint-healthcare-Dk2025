@@ -5,9 +5,9 @@
 > withdrawn: its 2022 nowcast misallocates the Danish block (health output 2.8×
 > too low, education 4.8× too high, financial intermediation and machinery
 > near-zero), and it empties industry 33 across Europe in every year. See
-> [`exiobase_vintage_defects.md`](exiobase_vintage_defects.md). Every headline
-> number below has been regenerated; the numbers in §3 supersede all earlier
-> versions.
+> [`../methods/exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md).
+> Every headline number below has been regenerated; the numbers in §3 supersede
+> all earlier versions.
 
 **Model:** EXIOBASE v3.8.2 `IOT_2022_ixi` (Zenodo 5589597) with the Danish
 sea-transport reallocation of Rørmose Jensen & Iliev (2022)

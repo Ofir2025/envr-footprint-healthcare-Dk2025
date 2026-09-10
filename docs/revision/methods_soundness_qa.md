@@ -1,7 +1,13 @@
-# Response to the eight requests, in priority order
+# Methods and data soundness: response to the eight review requests, in priority order
 
-Status of the branch: `2019-update`, 22 commits. Everything below is
-implemented, run, and committed unless explicitly marked as remaining work.
+**A dated snapshot, kept for the record.** This is the response to the eight
+requests raised on 7 September 2026, quoting the branch state on the day it was
+written (`2019-update`, 22 commits). Everything below is implemented, run, and
+committed unless explicitly marked as remaining work. Numbers here are **not**
+updated when later work supersedes them; where a later document disagrees, the
+later document carries the current position. `docs/revision/request_checklist.md`
+is the up-to-date status ledger; this document is the technical narrative behind
+one specific round of it.
 
 ---
 
@@ -273,7 +279,7 @@ hospital N₂O is netted out before the bottom-up item is added.
    intermediate purchases of medical instruments to the capital boundary. That
    was wrong. The zero is a defect in EXIOBASE v3.10.2, which carries ~zero
    output for industry 33 across all European regions in both 2016 and 2022
-   (`exiobase_vintage_defects.md`).
+   (`../methods/exiobase_version_vintage_and_classification.md`).
 4. Patient/visitor travel still has no Danish source (verified absent), the
    only remaining component with no national anchor.
 5. **Closed since:** the eldercare share α is no longer carried from 2019. It is

@@ -106,7 +106,7 @@ for anything about how EXIOBASE is built.**
 
 ### 3c. `uncertainty/` - the uncertainty literature of record
 
-Every claim in `uncertainty_methods_for_manuscript.md` traces to this folder.
+Every claim in `monte_carlo_explained.md` traces to this folder.
 
 | File | Use |
 |---|---|

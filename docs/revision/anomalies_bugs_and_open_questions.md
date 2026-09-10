@@ -53,7 +53,8 @@ near zero), while Germany, France, Italy, the Netherlands, and the United States
 remain plausible.
 
 **Action:** background moved to EXIOBASE v3.8.2 `IOT_2022_ixi`, which passes the
-same test on every checkable group. See `exiobase_vintage_defects.md`.
+same test on every checkable group. See
+`../methods/exiobase_version_vintage_and_classification.md`.
 
 **Still in doubt:** whether a later v3.10.x release fixes this. We did not test
 it: only the vintages on disk were examined. Re-testing before the next
@@ -80,7 +81,7 @@ screening was treating a symptom and is withdrawn for the headline model.
 intermediate purchases of medical instruments to the **capital boundary**
 (equipment sitting in GFCF rather than in Z). That explanation was wrong and has
 been withdrawn in `double_counting_audit.py` and
-`response_to_requests_2026_09_07.md`.
+`methods_soundness_qa.md`.
 
 ### A3: Danish sea transport is grossly misallocated `HIGH` `FIXED`
 
@@ -467,7 +468,7 @@ These change results and are the author's call, not the analyst's.
 | D3 | **Scope boundary** | health only / + eldercare / + childcare | health + eldercare | ±10 % spread. Steenmeijer's Dutch boundary includes childcare, so the third row is the like-for-like comparison with the template |
 | D4 | **Eldercare share α** | 2019 detailed SUT (0.4914) vs analysis-year IO table (0.3092) | analysis-year IO | Changes direct emissions and waste. Ofir's original used the 2019 value carried forward |
 | D5 | **Visitor travel** | drop it / import the NHS ratio | NHS ratio 0.236, labelled | No Danish source exists for visitor travel. This ratio is the only remaining fully imported parameter |
-| D8 | **Nowcast year versus frozen emission year** | 2022 table (ours) / freeze at EXIOBASE 2019 and deflate demand, as Statistics Denmark do | 2022 | Our Danish *economic* block is validated for 2022 and passes; the *emission* accounts end in 2019 (CO₂) and 2017 (other GHGs). Rørmose Jensen & Iliev freeze at 2019 for exactly this reason. See `snac_and_mrio_remedies.md` |
+| D8 | **Nowcast year versus frozen emission year** | 2022 table (ours) / freeze at EXIOBASE 2019 and deflate demand, as Statistics Denmark do | 2022 | Our Danish *economic* block is validated for 2022 and passes; the *emission* accounts end in 2019 (CO₂) and 2017 (other GHGs). Rørmose Jensen & Iliev freeze at 2019 for exactly this reason. See `dk_snac_feasibility.md` |
 | D7 | **GWP vintage** | AR6 (current) / AR5 (UNFCCC-mandated) | **AR6** | Only ±2 % on climate. Note UNFCCC mandates **AR5** (decision 7/CP.27), so an AR6 footprint is not directly comparable with Denmark's national inventory; an AR5 sensitivity is available and EXIOBASE ships an AR5 row |
 | D6 | **Vintage** | v3.8.2 now / wait for a corrected v3.10.x | v3.8.2 | See A1, A6 |
 

@@ -6,11 +6,15 @@ qualification has to be stated by us rather than found by a referee. Second, any
 later project of ours that uses EXIOBASE, because most of what follows is not
 specific to Denmark or to health care.
 
-**Status.** Standing reference. The decision it supports is
+**Status.** Standing reference. This is the full methods statement on version,
+vintage, and classification, decisive for the 2022 headline. The decision it
+supports is
 [`decision_d8_nowcast_vs_frozen_year.md`](../revision/decision_d8_nowcast_vs_frozen_year.md);
 the defect register behind it is
 [`anomalies_bugs_and_open_questions.md`](../revision/anomalies_bugs_and_open_questions.md),
-section A.
+section A. For the manuscript-facing limitations statement built on this
+decision, see
+[`../revision/exiobase_limitations_and_interpretation.md`](../revision/exiobase_limitations_and_interpretation.md).
 
 ---
 
@@ -41,33 +45,170 @@ different labels. Results are not interchangeable between them.
 
 ## 2. Why the version is not a detail
 
-The two vintages on disk were tested against Statistics Denmark's own published
-117-industry table for the same year (`analysis.vintage_defect_audit`):
+Reproduce this section's diagnostics with:
 
-| Danish industry, 2022 | National accounts | v3.10.2 | ratio |
-|---|---|---|---|
-| Health and social work | 45,321 M.EUR | 16,326 | **0.36** |
-| Education | 22,935 | 109,673 | **4.78** |
-| Financial intermediation | 18,980 | 76 | **0.004** |
-| Machinery n.e.c. | 21,150 | 28 | **0.001** |
-| Medical and optical instruments | 9,130 | 0 | **0.00** |
+```
+PYTHONPATH=src .venv/bin/python -m analysis.vintage_defect_audit
+```
 
-Danish total output is right to 3 % and the accounting identity holds to
-7e-11, so output was redistributed between industries rather than lost. The
-signature is year-specific (v3.10.2's own 2016 and 2019 Danish blocks pass) and
-country-specific: Denmark, Bulgaria, Malta and Switzerland show it, while
-Germany, France, Italy, the Netherlands and the United States look plausible.
+which writes `data/gold/results/09_vintage_diagnostics/`.
 
-An internal check settles it without leaving our own data. Danish health and
-eldercare final expenditure in 2022 is 40,597 M.EUR. An industry whose *total
-output* is 16,326 M.EUR cannot deliver it.
+### 2.1 Why this test was run at all
+
+Rørmose Jensen & Iliev (2022, Statistics Denmark) show that EXIOBASE's Danish
+block misallocates output between industries; their headline case is Danish
+water transport, 74 % of whose output EXIOBASE sends to Danish intermediate use
+against 9 % in the national accounts. Palm et al. (2019) build the same argument
+into the SNAC method: for a small, open, highly specialised economy, the
+nationally estimated block should replace the MRIO's own. Both papers imply a
+test that is cheap and that this project had not run: **compare the EXIOBASE
+Danish block, industry by industry, against Statistics Denmark's own published
+input-output table for the same year.** Denmark publishes a 117-industry IO
+table annually, so the test is direct.
+
+The prompt to run it was an anomaly, not a hunch: the medical-appliance
+component of the footprint (1,094 M.EUR of expenditure, 921 kt CO₂e, 22 % of the
+climate total) was landing on Greece, China, and the RoW aggregates, with a
+Danish contribution of exactly zero.
+
+### 2.2 What the test found: two distinct defects
+
+The test found two **distinct** defects, with different scope and different
+consequences.
+
+#### Defect D1: industry 33 is empty across Europe (v3.10.2, all years)
+
+`Manufacture of medical, precision and optical instruments, watches and clocks
+(33)` carries essentially zero output in every European region of v3.10.2, in
+**both** the 2016 and the 2022 tables:
+
+| Region | v3.8.2 2016 | v3.10.2 2016 | v3.10.2 2022 | v3.8.2 2022 |
+|:---|:---|:---|:---|:---|
+| DK | 4,919 | 0 | 0 | **6,276** |
+| DE | 68,118 | 4.6 | 0 | **76,025** |
+| FR | 30,720 | 0 | 0 | **35,274** |
+| NL | 12,455 | 0 | 0 | n/a |
+| US | 239,045 | 298 | 2,195 | n/a |
+
+*M.EUR total industry output.* The whole-world v3.10.2 2022 total for this
+industry is 186,074 M.EUR, against a global medical-devices industry an order of
+magnitude larger. The emptiness is not confined to the two years tested here:
+across the full v3.10.2 time series the industry never recovers from 2015
+onward (see the onset table in
+[`../revision/exiobase_limitations_and_interpretation.md`](../revision/exiobase_limitations_and_interpretation.md)
+section 2, which frames the same defect by onset year for the manuscript).
+
+This emptiness is a version defect, not a modelling result. Its consequence for
+this study is direct and large: with domestic and all European supply set to
+zero, the Danish medical-appliance demand can only be met by whichever regions
+retain a non-zero i33. The resulting geography (Greece, Russia, RoW) is an
+artefact of the empty rows, not a finding about Danish procurement.
+
+It also explains, retrospectively, the **multiplier-outlier screening** that this
+project introduced for the v3.10.2 build. That screening was motivated by GB
+medical instruments carrying an intensity of 2×10⁸ kt CO₂e per M.EUR. An
+emission account divided by an output of zero is exactly what D1 produces. The
+screening was treating a symptom.
+
+#### Defect D2: the Danish block is misallocated (v3.10.2, 2022 only)
+
+Against Statistics Denmark's published 2022 IO table (`Total Output` row,
+117 industries, converted at 7.4396 DKK/EUR):
+
+| DK industry, 2022 | Nat. accounts | v3.8.2 | ratio | v3.10.2 | ratio |
+|:---|:---|:---|:---|:---|:---|
+| Health and social work | 45,321 | 43,955 | **0.97** | 16,326 | **0.36** |
+| Education | 22,935 | 20,241 | **0.88** | 109,673 | **4.78** |
+| Financial intermediation | 18,980 | 21,004 | **1.11** | 76 | **0.004** |
+| Machinery n.e.c. | 21,150 | 18,700 | **0.88** | 28 | **0.001** |
+| Medical/optical instruments | 9,130 | 6,276 | 0.69 | 0 | **0.00** |
+| Real estate | 46,965 | 45,673 | **0.97** | 9,915 | **0.21** |
+| *Total, all industries* | *706,281* | n/a | n/a | *681,918* | *0.97* |
+
+*M.EUR.* The **total** is right to 3 %, so output has been redistributed between
+industries rather than lost. The table is also internally consistent
+(`x = Z·1 + Y·1` holds to 7×10⁻¹¹, and no orphan rows appear), so the
+discrepancy is a classification/allocation failure upstream of the balancing, not
+corruption.
+
+D2 is **year-specific**: v3.10.2's own 2016 Danish block is sound (health
+36,756; education 20,369; machinery 33,165 M.EUR). It appears with the nowcast
+years. It is also **country-specific**: Germany (health 4.05 % of national
+output), France (4.70 %), Italy (4.68 %), the Netherlands (4.22 %), and the
+United States (3.43 %) are all plausible in v3.10.2 2022. The affected group is
+**Denmark, Bulgaria, Malta, and Switzerland**, which share one signature:
+education inflated, health deflated, financial intermediation collapsed to
+near-zero.
+
+An independent internal check confirms D2 without leaving the study's own data:
+Danish health and eldercare **final** expenditure in 2022 is 40,597 M.EUR. A
+health-and-social-work industry whose **total output** is 16,326 M.EUR cannot
+deliver it. The v3.10.2 2022 Danish health column is arithmetically impossible.
+
+### 2.3 Consequence and decision
+
+v3.10.2 `IOT_2022_ixi` cannot support this study. The defects fall precisely on
+the model elements the method depends on: the health industry column, which is
+the source of the services recipe through the Steenmeijer Z-column construction;
+the medical-instruments industry, which carries the appliance component; and the
+financial and machinery industries, which are part of the services supply chain.
+
+**Decision: the background model is EXIOBASE v3.8.2 `IOT_2022_ixi`.** This
+vintage is the best available combination on all three criteria that matter:
+
+1. *Correct analysis year.* 2022 is the study's agreed year and v3.8.2 publishes
+   a 2022 table (Zenodo 5589597).
+2. *Sound Danish block.* Every checkable industry group falls within ±12 % of
+   Danish national accounts, and the two the study most depends on (health and
+   social work, and real estate) within 3 %.
+3. *Continuity with the submitted manuscript.* v3.8.2 is the vintage the
+   original submission was built on, established earlier by fingerprinting. The
+   revision therefore changes the year and the corrected method, not the model
+   family, and reviewers can attribute differences to the corrections rather
+   than to a vintage change.
+
+The v3.10.2 artefacts are retained as `mrio2022_v3_10_2.pkl` and
+`leontief2022_v3_10_2.pkl` so that every number in this section can be
+regenerated, and so that a v3.10.2 sensitivity remains available.
+
+**What this changes downstream:**
+
+- **Outlier screening is withdrawn for the headline model.** It was introduced to
+  contain D1 and is unnecessary once industry 33 has real output. It is retained
+  as a diagnostic and reported as a sensitivity.
+- **The medical-appliance component must be re-estimated.** Its previous value
+  (921 kt, 22 % of the climate footprint, sourced from Greece/China/RoW) was
+  built on empty European rows.
+- **The transport finding must be re-examined on the corrected model.** The
+  earlier conclusion that "transport ≈ 40 %" is vintage-dependent was itself
+  derived partly from the v3.10.2 comparison and has to be re-derived. See
+  section 4 below.
+- **The case for the Danish SNAC phase is strengthened, not weakened.** v3.8.2's
+  Danish block agrees with national accounts on *totals*; that is a necessary but
+  not sufficient condition. Rørmose Jensen & Iliev's finding concerns the
+  *allocation of intermediate use*, which the recipe-validation diagnostic
+  measures separately and which remains the motivation for the SNAC tier (see
+  [`../revision/dk_snac_feasibility.md`](../revision/dk_snac_feasibility.md)).
 
 **The general lesson for other projects.** Never accept an MRIO release for a
 country without testing that country's block against its own national accounts,
 industry by industry, in the year you intend to use. The test is cheap, it needs
 only a published national input-output table, and it catches the failure mode
 that a balance check cannot: internally consistent tables with the output in the
-wrong industries.
+wrong industries. Section 6 turns this into a checklist.
+
+### 2.4 Honest limits of this test
+
+The concordance in `analysis.vintage_defect_audit` covers twelve industry groups
+whose mapping between the Danish DB07/NACE classification and the EXIOBASE 163
+list is unambiguous. It is a plausibility screen, not a full concordance: a group
+passing at ±12 % is evidence that the block is not grossly misallocated, not
+proof that its input structure is correct. The input-structure question is what
+`recipe_validation_2022.csv` addresses, and there v3.8.2 also has known biases
+(see
+[`../revision/exiobase_limitations_and_interpretation.md`](../revision/exiobase_limitations_and_interpretation.md)
+section 1). Neither test was run against a vintage other than those on disk, so
+this section makes no claim about v3.9, v3.10.0 or v3.10.1.
 
 ---
 
@@ -95,7 +236,7 @@ full 163-to-117 concordance rather than on the twelve unambiguous groups the
 vintage audit uses:
 
 | Year | Model over national accounts |
-|---|---|
+|:---|:---|
 | 2016, a year EXIOBASE observed | **1.01** |
 | 2022, the projection | **0.80** |
 
@@ -103,7 +244,7 @@ A fifth of the Danish economy is missing from the 2022 projection. Where it is
 missing is the part that matters:
 
 | Group | Model | National accounts | Ratio | Handled where |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | Sea and coastal water transport | 19,714 | 78,950 | 0.25 | corrected, section 4 |
 | Chemicals and pharmaceuticals | 5,915 | 35,742 | 0.17 | reported as the study's largest limitation |
 | Wholesale trade | 28,962 | 53,501 | 0.54 | 2022 prices a 2021 projection cannot see |
@@ -149,8 +290,8 @@ This comes up first in every discussion of the Danish block, so the pointers, in
 increasing order of technicality:
 
 | Document | What it gives |
-|---|---|
-| [`docs/revision/shipping_reallocation_method.md`](../revision/shipping_reallocation_method.md) | the narrative version, written for a non-specialist and for the manuscript methods section |
+|:---|:---|
+| [`docs/revision/shipping_reallocation_method.md`](../revision/shipping_reallocation_method.md) | the narrative version, written for a non-specialist and for the manuscript methods section, including the withdrawal of the submitted "transport ≈ 40 %" finding |
 | [`docs/methods/replications/10_sea_transport_reallocation.md`](replications/10_sea_transport_reallocation.md) | the equations, the calibration target, the effect table, and the validation against EXIOBASE's own hybrid build |
 | `src/analysis/dk_shipping_correction.py` | the implementation |
 | `data/gold/results/10_sea_transport_reallocation/` | the outputs |
@@ -182,7 +323,7 @@ office rather than by us.
 ### The labels, verified from the distribution
 
 | Table | Label | Code |
-|---|---|---|
+|:---|:---|:---|
 | `ixi`, industry | **Health and social work (85)** | `A_HEAL`, `i85`, index 137 of the developers' own 0 to 162 numbering |
 | `pxp` and the supply-use tables, product | **Health and social work services (85)** | same 85 grouping |
 
@@ -197,7 +338,7 @@ NACE Revision 2 divisions, and Statistics Denmark's 117-industry grouping
 resolves them into five industries:
 
 | NACE rev.2 | DST industry | |
-|---|---|---|
+|:---|:---|:---|
 | 75 | 750000 | Veterinary activities |
 | 86 | 860010 | Hospital activities |
 | 86 | 860020 | Medical and dental practice activities |
@@ -214,7 +355,7 @@ Under the classification EXIOBASE uses, yes, because ISIC Rev.3 put them in one
 division. Under every classification currently in force, no:
 
 | System | Human health | Residential care | Social work | Veterinary |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | **ISIC Rev.3** (what EXIOBASE uses) | 85 | 85 | 85 | 85 |
 | **ISIC Rev.4** | 86 | 87 | 88 | 75 |
 | **NACE Rev.2** | 86 | 87 | 88 | 75 |
@@ -242,7 +383,7 @@ instead. The study defines its boundary on the expenditure side, using the Syste
 of Health Accounts, and runs three scopes:
 
 | Scope | Boundary | Where |
-|---|---|---|
+|:---|:---|:---|
 | health only | SHA health, eldercare excluded | `scenarios/health_only` |
 | **health and eldercare** | the headline | the configured run |
 | health, eldercare and childcare | the expansive Dutch boundary of Steenmeijer et al. | `scenarios/zorg_en_welzijn` |
@@ -303,3 +444,25 @@ here.
 8. **Ask what the sector labels are hiding.** Section 5 is one instance of a
    general problem: an ISIC Rev.3 sector list cannot express a boundary that
    post-2008 statistics take for granted.
+
+---
+
+## References
+
+Full entries with DOIs are in [`docs/references.md`](../references.md).
+
+- Palm, V., Wood, R., Berglund, M., Dawkins, E., Finnveden, G., Schmidt, S., &
+  Steinbach, N. (2019). Environmental pressures from Swedish consumption - a
+  hybrid multi-regional input-output approach. *Journal of Cleaner Production,
+  228*, 634-644. https://doi.org/10.1016/j.jclepro.2019.04.181
+- Rørmose Jensen, P., & Iliev, V. (2022). Consumption-based greenhouse gas
+  account for Denmark using coupled models. *Statistics Denmark, Eurostat grant
+  101022790, work package 4*. https://www.dst.dk
+- Stadler, K., Wood, R., Bulavskaya, T., Södersten, C.-J., Simas, M., Schmidt,
+  S., Usubiaga, A., Acosta-Fernández, J., Kuenen, J., Bruckner, M., Giljum, S.,
+  Lutter, S., Merciai, S., Schmidt, J. H., Theurl, M. C., Plutzar, C., Kastner,
+  T., Eisenmenger, N., Erb, K.-H., de Koning, A., & Tukker, A. (2018).
+  EXIOBASE 3: developing a time series of detailed environmentally extended
+  multi-regional input-output tables. *Journal of Industrial Ecology, 22*(3),
+  502-515. https://doi.org/10.1111/jiec.12715
+- Statistics Denmark, published input-output tables, `input_output_en_2022.xlsx`.
