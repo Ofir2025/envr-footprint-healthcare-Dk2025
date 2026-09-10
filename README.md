@@ -32,7 +32,7 @@ euro** (EXIOBASE's native unit); Danish source data are in 1000 DKK.
 data/bronze/     raw inputs, never modified
                  EXIOBASE (external store), Danish IO tables and SUT,
                  Eurostat FIGARO extracts, bottom-up source workbooks
-        |        pipelines.prep_background_2022.build_background_2022
+        |        pipelines.prep_background_2025 (EXIOBASE v3.8.2)
 data/silver/     prepared model objects (git-ignored, regenerable)
                  mrio2022.pkl, leontief2022.pkl, waste.pkl
                  + derived Danish inputs with provenance breakdowns
@@ -59,11 +59,14 @@ python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 
 # Build the background once. This uses EXIOBASE v3.8.2, the version this study
 # actually uses - see docs/revision/exiobase_vintage_defects.md for why v3.10.2
-# is rejected. Do NOT run `pipelines.prep_background_2022.build_background_2022`:
-# it builds from the rejected v3.10.2 and writes to the SAME unsuffixed
-# filenames (mrio2022.pkl, leontief2022.pkl) that the correct build below
-# writes, so running it silently corrupts the background every later stage,
-# including dk_shipping_correction and main_2025, then reads.
+# is rejected.
+#
+# `pipelines.prep_background_2022.build_background_2022` builds the REJECTED
+# v3.10.2 and exists only to supply layer 09, which has to hold both vintages
+# side by side to demonstrate the defects. It writes version-tagged filenames
+# (mrio2022_v3_10_2.pkl, leontief2022_v3_10_2.pkl), so it cannot overwrite what
+# the commands below produce. It used to write the unsuffixed names and did
+# overwrite them; if you are reading an older clone, check before running it.
 HC_BACKGROUND_YEAR=2022 PYTHONPATH=src python -m pipelines.prep_background_2025.load
 HC_BACKGROUND_YEAR=2022 PYTHONPATH=src python -m pipelines.prep_background_2025.leontief
 HC_BACKGROUND_YEAR=2022 PYTHONPATH=src python -m pipelines.prep_background_2025.process
