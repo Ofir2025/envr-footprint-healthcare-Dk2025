@@ -49,7 +49,7 @@ DK_POPULATION = {"2019": 5_814_422, "2022": 5_873_420}
 # The background is EXIOBASE v3.8.2, not v3.10.2: v3.10.2's 2022 nowcast
 # misallocates the Danish block (health output 2.8x too low, education 4.8x too
 # high, machinery and medical instruments near-zero) and empties industry 33
-# across Europe in every year. See docs/revision/exiobase_vintage_defects.md.
+# across Europe in every year. See docs/methods/exiobase_version_vintage_and_classification.md.
 # ---------------------------------------------------------------------------
 
 import os as _os

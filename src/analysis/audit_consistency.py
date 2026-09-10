@@ -541,7 +541,7 @@ HISTORICAL_DOCS: frozenset[str] = frozenset({
     "docs/revision/anomalies_bugs_and_open_questions.md",
     # a dated reply, quoting the branch state on the day it was written;
     # rewriting its numbers would falsify a record rather than correct it
-    "docs/revision/response_to_requests_2026_09_07.md",
+    "docs/revision/methods_soundness_qa.md",
 })
 
 #: Trees whose markdown states current claims.

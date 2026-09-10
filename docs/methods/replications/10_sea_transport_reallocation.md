@@ -88,7 +88,7 @@ applies is a far easier argument at review than proposing a new one.
 - Statistics Denmark rebuild the whole Danish block (SNAC). We correct **one row**. This
   one-row correction is a narrower intervention that fixes the defect with the largest
   effect on our result while leaving the rest of the block as EXIOBASE published it. The
-  trade-off is set out in `docs/revision/snac_and_mrio_remedies.md`.
+  trade-off is set out in `docs/revision/dk_snac_feasibility.md`.
 - $\phi$ is set to the benchmark exactly rather than fitted; the correction carries no
   free parameter.
 

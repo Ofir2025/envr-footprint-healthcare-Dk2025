@@ -6,8 +6,8 @@
 *Uncertainty of consumption-based carbon accounts*, Environ Sci Technol 52:7577-7586;
 Wood et al. (2019); the IEooc reference implementation
 
-Full narrative version, written for the manuscript:
-`docs/revision/uncertainty_methods_for_manuscript.md`.
+Full narrative version, derivation, and the manuscript/SI text ready to paste:
+`docs/revision/monte_carlo_explained.md`.
 
 ## Question this layer answers
 
@@ -104,7 +104,7 @@ warn that national error statistics do not transfer to sector studies; Schulte e
 table 2) report median footprint CVs of 3 % at country level against 18 % at sector
 level, and 4 % against 94 % for the emission accounts behind them. Our own change of EXIOBASE vintage moved the
 result by more than this interval spans. A limitations paragraph making exactly this point
-is drafted in `uncertainty_methods_for_manuscript.md` and should be carried into the
+is drafted in `monte_carlo_explained.md` (section 10.4) and should be carried into the
 manuscript; reporting the interval without it would over-claim.
 
 ## Verification
@@ -114,4 +114,4 @@ manuscript; reporting the interval without it would over-claim.
 - Variance shares sum to 100.0 % once the covariance of the correlated travel
   pair is carried as its own row; without it the own-terms reach only 90.7 %.
 - A step-by-step derivation of every equation, for a reader who does not want
-  to read the code, is in `docs/revision/monte_carlo_explained.md`.
+  to read the code, is in `docs/revision/monte_carlo_explained.md`, sections 1-9.

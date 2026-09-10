@@ -2,8 +2,10 @@
 
 - `notebooks/`: exploratory notebooks and rendered notebook assets.
 
-Python implementation and pipeline entry points live under `src/` and are run
-as modules with `PYTHONPATH=src python3 -m ...`. For example:
+Source code is under `src/`, while `scripts/` is reserved for notebooks and
+lightweight operational helpers. Python implementation and pipeline entry
+points live under `src/` and are run as modules with
+`PYTHONPATH=src python3 -m ...`. For example:
 
 ```bash
 PYTHONPATH=src python3 -m analysis.main_2025

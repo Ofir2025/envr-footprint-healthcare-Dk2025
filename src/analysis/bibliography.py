@@ -45,7 +45,6 @@ MD_PATH = REPO / "docs" / "references.md"
 CHECKED_DOCS = (
     "docs/revision/shipping_reallocation_method.md",
     "docs/revision/monte_carlo_explained.md",
-    "docs/revision/uncertainty_methods_for_manuscript.md",
     "docs/revision/exiobase_limitations_and_interpretation.md",
     "docs/revision/scenarios_answer.md",
     "docs/revision/uncertainty_sources.md",
