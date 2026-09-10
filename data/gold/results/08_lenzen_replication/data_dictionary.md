@@ -31,7 +31,7 @@ Africa, Denmark).
 
 ## The two perspectives (and why they reconcile)
 
-Every impact cell is `E[i,j] = s_k(i) . L(i,j) . y_H(j)`: pressure arising
+Every impact cell is $E_{ij} = s_i\,L_{ij}\,y_{H,j}$: pressure arising
 in node *i* caused by Danish healthcare final demand for node *j*. Summing
 over *i* gives the **consumption / contribution** perspective (by
 purchased product); summing over *j* gives the **production / hotspot**
@@ -39,7 +39,7 @@ perspective (by producing node). Both are marginals of the same array, so
 they sum to the identical total - verified to machine precision by
 `analysis.validate_io_identities` (tests T5/T6). Allocating production
 emissions to final demand is additive and does not double count (Wood et
-al. 2018); embodied-flow tables (E_Z) would.
+al. 2018); embodied-flow tables ($\mathbf{E}_Z$) would.
 
 ## Units
 

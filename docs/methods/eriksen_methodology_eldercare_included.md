@@ -21,7 +21,7 @@ The consumption‑based environmental footprint of the Danish healthcare system 
 
 ## Analytical framework
 
-Environmentally extended multi‑regional input-output (EE‑MRIO) modelling was based on EXIOBASE v3.7 (49 regions, 163 industries) with environmental extensions and characterization factors. After loading EXIOBASE data and classifications, the Leontief inverse $`L = (I - A)^{- 1}`$ was computed, interindustry transactions $`Z = A \cdot diag(x)`$ was reconstructed.
+Environmentally extended multi‑regional input-output (EE‑MRIO) modelling was based on EXIOBASE v3.7 (49 regions, 163 industries) with environmental extensions and characterization factors. After loading EXIOBASE data and classifications, the Leontief inverse $\mathbf{L} = (\mathbf{I} - \mathbf{A})^{-1}$ was computed, interindustry transactions $\mathbf{Z} = \mathbf{A} \cdot \mathrm{diag}(x)$ was reconstructed.
 
 ## Definition of healthcare consumption
 

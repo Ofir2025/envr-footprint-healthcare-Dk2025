@@ -34,18 +34,30 @@ the *Deviations* section rather than left for the reader to discover.
 
 ## Notation used throughout
 
+**Convention, stated once and held everywhere below and in every other methods
+document that carries this study's own maths.** Matrices are set bold upright
+upper case ($\mathbf{A}$, $\mathbf{L}$); vectors and scalars, whatever their
+case, are set plain italic ($x$, $y_H$, $f$); a hat marks a vector
+diagonalised into a matrix ($\hat{x}$), and a hat or bar is never bolded, even
+on an upper-case symbol ($\bar{K}$ in
+[11](11_capital_gfcf.md)). A symbol quoted verbatim from another paper's own
+table (for example Cabernard's $v_T$, $v_O$ in
+[03](03_cabernard_target_scope3.md)) keeps that paper's letter but still takes
+this convention's case and weight.
+
 | Symbol | Meaning | Shape |
 |:---|:---|:---|
-| $Z$ | inter-industry transactions, M€ basic prices | 7,987 × 7,987 |
+| $\mathbf{Z}$ | inter-industry transactions, M€ basic prices | 7,987 × 7,987 |
 | $x$ | industry gross output, M€ | 7,987 |
-| $A = Z\hat{x}^{-1}$ | direct requirements | 7,987 × 7,987 |
-| $L = (I-A)^{-1}$ | Leontief inverse (total requirements) | 7,987 × 7,987 |
-| $F$ | stressor extension, physical units | 1,113 × 7,987 |
-| $S = F\hat{x}^{-1}$ | direct stressor intensities | 1,113 × 7,987 |
-| $C$ | characterisation matrix | $k$ × 1,113 |
+| $\mathbf{A} = \mathbf{Z}\hat{x}^{-1}$ | direct requirements | 7,987 × 7,987 |
+| $\mathbf{L} = (\mathbf{I}-\mathbf{A})^{-1}$ | Leontief inverse (total requirements) | 7,987 × 7,987 |
+| $\mathbf{F}$ | stressor extension, physical units | 1,113 × 7,987 |
+| $\mathbf{S} = \mathbf{F}\hat{x}^{-1}$ | direct stressor intensities | 1,113 × 7,987 |
+| $\mathbf{C}$ | characterisation matrix | $k$ × 1,113 |
 | $y_H$ | Danish health-care final demand, M€ | 7,987 |
-| $s = CS$ | characterised direct intensity, one indicator | 7,987 |
-| $f = s L y_H$ | footprint, one indicator | scalar |
+| $s = \mathbf{C}\mathbf{S}$ | characterised direct intensity, one indicator | 7,987 |
+| $f = s\,\mathbf{L}\,y_H$ | footprint, one indicator | scalar |
+| $\mathbf{E}$, $E_{ij} = s_i\,L_{ij}\,y_{H,j}$ | bilateral pressure table, and one of its elements | 7,987 × 7,987 |
 
 A *node* is one (region, industry) pair: 49 regions × 163 industries = 7,987.
 Denmark is region index 5 (`DNK`), so the Danish block is rows/columns

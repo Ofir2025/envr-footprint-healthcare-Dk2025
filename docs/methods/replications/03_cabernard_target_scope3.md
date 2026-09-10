@@ -12,7 +12,7 @@ This layer answers a different question from the headline, and the distinction i
 point of the folder.
 
 **(a) Final-demand footprint**, what the headline answers:
-$$f = s\,L\,y_H$$
+$$f = s\,\mathbf{L}\,y_H$$
 Each emission is allocated once, to Danish health-care final demand. This allocation
 is additive over any number of target nodes and does not double count (Wood & Hertwich
 2018 p. 5).
@@ -22,21 +22,23 @@ the health sector-regions themselves?* Here the naive form does double count.
 
 ## Method
 
-The notation is Cabernard's, transcribed from her Table 1 and §2.2 (2019, p. 167).
-Matrices are capitals, vectors lower case; $v_T$ and $v_O$ are index vectors
+The notation is Cabernard's, transcribed from her Table 1 and §2.2 (2019, p. 167),
+set in this repository's own convention (bold upper case for matrices, plain
+italic for vectors and scalars, stated once in
+[replications/readme.md](readme.md)). $v_T$ and $v_O$ are index vectors
 partitioning the 7,987 sector-regions into the **target set** $T$ and the
 **non-target set** $O$, with $T \cup O = \text{all}$ and $T \cap O = \emptyset$.
 
-$$A_{T-O} = A(v_T, v_O) \quad (1) \qquad A_{O-O} = A(v_O, v_O) \quad (2)$$
-$$Y_{T-\text{all}} = Y(v_T, :) \quad (3) \qquad Y_{O-\text{all}} = Y(v_O, :) \quad (4)$$
-$$x^T = x^{\text{tot}}(v_T) \quad (5) \qquad L_{\text{all}-T} = L(:, v_T) \quad (6)$$
-$$L'_{O-O} = (I_{O-O} - A_{O-O})^{-1} \quad (7)$$
+$$\mathbf{A}_{T-O} = \mathbf{A}(v_T, v_O) \quad (1) \qquad \mathbf{A}_{O-O} = \mathbf{A}(v_O, v_O) \quad (2)$$
+$$\mathbf{Y}_{T-\text{all}} = \mathbf{Y}(v_T, :) \quad (3) \qquad \mathbf{Y}_{O-\text{all}} = \mathbf{Y}(v_O, :) \quad (4)$$
+$$x^T = x^{\text{tot}}(v_T) \quad (5) \qquad \mathbf{L}_{\text{all}-T} = \mathbf{L}(:, v_T) \quad (6)$$
+$$\mathbf{L}'_{O-O} = (\mathbf{I}_{O-O} - \mathbf{A}_{O-O})^{-1} \quad (7)$$
 
 $d_{\text{all},i}$ is the 1 × 7,987 row vector of direct impact per unit output.
 
 ### Eq. (8): target scope 3 **with** double counting
 
-$$e_{T,i} = d_{\text{all},i} \; L_{\text{all}-T} \; \mathrm{diag}(x^T) \qquad (8)$$
+$$e_{T,i} = d_{\text{all},i} \; \mathbf{L}_{\text{all}-T} \; \mathrm{diag}(x^T) \qquad (8)$$
 
 This equation is the form Cabernard attributes to previous studies, including Hertwich
 & Wood (2018). Every delivery from one target node to another is counted twice: once as
@@ -48,16 +50,16 @@ chain.
 The correction **replaces the gross output vector**; it does not subtract impacts. The
 overbar is a row sum across final-demand columns:
 
-$$e^{\text{wdc}}_{T,i} = d_{\text{all},i} \; L_{\text{all}-T} \;
-\mathrm{diag}\!\left( \overline{Y_{T-\text{all}} + A_{T-O} \, L'_{O-O} \, Y_{O-\text{all}}} \right) \qquad (9)$$
+$$e^{\text{wdc}}_{T,i} = d_{\text{all},i} \; \mathbf{L}_{\text{all}-T} \;
+\mathrm{diag}\!\left( \overline{\mathbf{Y}_{T-\text{all}} + \mathbf{A}_{T-O} \, \mathbf{L}'_{O-O} \, \mathbf{Y}_{O-\text{all}}} \right) \qquad (9)$$
 
 Gross output $x^T$ is replaced by (i) final demand met directly by target outputs, plus
 (ii) final demand for target products embodied in **non-target** outputs, deliberately
-omitting target-into-target inputs. Because $A_{T-O}$ selects only the $T \to O$ block and
-$L'_{O-O}$ propagates through non-target sectors only, this substitution removes
+omitting target-into-target inputs. Because $\mathbf{A}_{T-O}$ selects only the $T \to O$ block and
+$\mathbf{L}'_{O-O}$ propagates through non-target sectors only, this substitution removes
 **both** direct $T \to T$ deliveries **and** indirect $T \to \dots \to T$ loops.
 
-$L_{\text{all}-T}$ is untouched: the complete upstream chain, including inputs from other
+$\mathbf{L}_{\text{all}-T}$ is untouched: the complete upstream chain, including inputs from other
 target sectors, is still fully counted for whichever target's corrected output it attaches
 to.
 
@@ -102,7 +104,7 @@ so the comparable figure here is **54.7 %**, which is of that order.
 
 ## Data requirements
 
-This layer needs $A$, $L$, $x$, and the characterised intensity $s$ from
+This layer needs $\mathbf{A}$, $\mathbf{L}$, $x$, and the characterised intensity $s$ from
 [00](00_core_footprint.md). No additional data is required.
 
 ## Does our headline inherit the Hertwich & Wood double counting?
@@ -110,12 +112,12 @@ This layer needs $A$, $L$, $x$, and the characterised intensity $s$ from
 **No, and the reason is structural rather than a correction we apply.**
 
 Cabernard's objection is to Eq. (8) applied to a *set* of target sectors. The double
-counting arises from summing $E_Z$-type flows over targets that sit in each other's supply
+counting arises from summing $\mathbf{E}_Z$-type flows over targets that sit in each other's supply
 chains. Three of our numbers could in principle be exposed to it; each is checked:
 
 | Our quantity | Form | Exposed? |
 |:---|:---|:---|
-| Headline footprint | $f = s L y_H$, a **final-demand** footprint | **No.** Hertwich & Wood state it themselves: $E_y$ sums to the total while $E_Z$ does not. Each emission is allocated once, to Danish health final demand. |
+| Headline footprint | $f = s\,\mathbf{L}\,y_H$, a **final-demand** footprint | **No.** Hertwich & Wood state it themselves: $\mathbf{E}_y$ sums to the total while $\mathbf{E}_Z$ does not. Each emission is allocated once, to Danish health final demand. |
 | Scope 2 ([02](02_scopes_wood_hertwich.md)) | energy **rows** of $E_Z$ for the single health **column** | **No.** One row-slice of one purchasing column is not a sum over overlapping targets. No second target exists to double count against. |
 | Scope 1 + 2 + 3 | $S_3$ is the footprint **residual** after $S_1$ and $S_2$ | **No.** The partition is constructed to sum to $f$ exactly, so it cannot exceed it. Audit check C1 asserts this identity. |
 | Target-sector scope 3 (this folder) | Eq. (8) | **Yes**, which is precisely why Eq. (9) is implemented here. |

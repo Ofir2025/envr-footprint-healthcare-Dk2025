@@ -436,7 +436,7 @@ National material-footprint denominator and validation benchmark.
 
 ### Limitation
 
-A ready-made public `health final demand × raw material` multiplier table comparable to EMM1MU2N was not identified. Healthcare-specific material footprints therefore still require custom IO/MRIO calculation.
+A ready-made public *health final demand × raw material* multiplier table comparable to EMM1MU2N was not identified. Healthcare-specific material footprints therefore still require custom IO/MRIO calculation.
 
 ### Source
 

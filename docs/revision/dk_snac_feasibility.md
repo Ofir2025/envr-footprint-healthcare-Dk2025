@@ -50,9 +50,9 @@ own model, independently of Statistics Denmark's, are documented in full in
 
 They adopt **simplified SNAC**: the Danish domestic block comes entirely from
 the national accounts, and EXIOBASE is never used for it:
-`A_d = Z x̂⁻¹`, `L_d = (I − A_d)⁻¹`, `e_d = ŝ_d L_d y_d + e_h`. EXIOBASE enters
-only for imports, through `Q = Ŝ L` and `e_m = Q K m`, with `m = A_m L_d y_d +
-y_m` and `K` a 7,987 × 117 concordance.
+$\mathbf{A}_d = \mathbf{Z}\,\hat{x}^{-1}$, $\mathbf{L}_d = (\mathbf{I} - \mathbf{A}_d)^{-1}$, $e_d = \hat{s}_d\,\mathbf{L}_d\,y_d + e_h$. EXIOBASE enters
+only for imports, through $\mathbf{Q} = \hat{S}\,\mathbf{L}$ and $e_m = \mathbf{Q}\,\mathbf{K}\,m$, with $m = \mathbf{A}_m\,\mathbf{L}_d\,y_d +
+y_m$ and $\mathbf{K}$ a 7,987 × 117 concordance.
 
 **Their model carries no shipping correction, because the wrong block is
 discarded rather than repaired.**
@@ -144,12 +144,13 @@ Domestic part from the national SRIO with national SEEA extensions; imports from
 multipliers, bridged by three concordances; feedback loops (exports that return as imports)
 neglected, following Moran et al. (2018) on their insignificance:
 
-  f^(d+m) = S^d L^d y^d  +  Q^t A^m L^d y^d  +  Q^t y^m  +  f^h
+$$f^{(d+m)} = \mathbf{S}^d\,\mathbf{L}^d\,y^d + \mathbf{Q}^t\,\mathbf{A}^m\,\mathbf{L}^d\,y^d + \mathbf{Q}^t\,y^m + f^h$$
 
-with Q^t built from EXIOBASE as Q^g = S L ŷ G^p (y G^p)^-1 (product concordance G^p,
-weighted by EXIOBASE final demand), then mapped to the national bilateral-trade country
-dimension via a binary country concordance G^c and the trade-share matrix B, plus a
-currency conversion c (their §2.2, pp. 636-637). These are the same maths our pipeline
+with $\mathbf{Q}^t$ built from EXIOBASE as
+$$\mathbf{Q}^g = \mathbf{S}\,\mathbf{L}\,\hat{y}\,\mathbf{G}^p\,(y\,\mathbf{G}^p)^{-1}$$
+(product concordance $\mathbf{G}^p$, weighted by EXIOBASE final demand), then mapped to the national bilateral-trade country
+dimension via a binary country concordance $\mathbf{G}^c$ and the trade-share matrix $\mathbf{B}$, plus a
+currency conversion $c$ (their §2.2, pp. 636-637). These are the same maths our pipeline
 already uses; the innovation is entirely in the data plumbing.
 
 ## 7. Why Denmark is a good candidate: the ingredients are on the shelf
@@ -217,7 +218,7 @@ Danish side do not depend on which EXIOBASE vintage supplies the import side.
    corresponding monetary flow before adding the inventory (tiered-hybrid rule,
    Nakamura 2023 §5.1.5/5.2).
 5. **Refinement shortcut (low-cost first iteration):** before the full SNAC, apply the
-   **Piñero et al. (2018) correction-matrix bridge** (C = P p̂_A⁻¹; W = Cα̂; R* = W∘M) to
+   **Piñero et al. (2018) correction-matrix bridge** ($\mathbf{C} = \mathbf{P}\,\hat{p}_A^{-1}$; $\mathbf{W} = \mathbf{C}\,\hat{\alpha}$; $\mathbf{R}^* = \mathbf{W} \circ \mathbf{M}$) to
    inject EXIOBASE country-of-origin detail into the Danish import matrix without
    rebuilding anything. This bridge alone addresses weakness 3 and much of 2.
 6. **Waste:** with the national core in place, the waste extension becomes a **WIO-style

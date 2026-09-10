@@ -30,32 +30,32 @@ We read Wood & Hertwich (2018) and Cabernard et al. (2019 + SI, 2022 + SI) and
 implemented their formalism rather than paraphrasing it.
 
 **Theory, applied to our case.** With a *single* target (Danish healthcare final
-demand), `f = d·L·y_H` already allocates each emission exactly once (Wood &
+demand), $f = d\cdot\mathbf{L}\cdot y_H$ already allocates each emission exactly once (Wood &
 Hertwich p. 5): allocating production emissions to final demand sums to the
-total, unlike the embodied-flow table `E_Z`. Cabernard's correction (their
-eq. 9, the `q_T = rowsum(Y_T,all + A_TO L'_OO Y_O,all)` construction) bites when
+total, unlike the embodied-flow table $\mathbf{E}_Z$. Cabernard's correction (their
+eq. 9, the $q_T = \text{rowsum}(\mathbf{Y}_{T,\text{all}} + \mathbf{A}_{TO}\,\mathbf{L}'_{OO}\,\mathbf{Y}_{O,\text{all}})$ construction) bites when
 scope-3 vectors of several *intertwined* targets are aggregated, the source of
 their 20-30 % (2019) and ~80 % (2022) overestimates. For us it collapses to the
 intra-sector self-supply term, which we quantified and handled.
 
 **What we changed:**
-- **Scope 2 now uses the energy-block inverse** `L_EE = (I_EE − A_EE)⁻¹` over
+- **Scope 2 now uses the energy-block inverse** $\mathbf{L}_{EE} = (\mathbf{I}_{EE} - \mathbf{A}_{EE})^{-1}$ over
   electricity/steam/heat nodes, so generation is reached through transmission
   and distribution *without leaving the energy block*; fuel extraction,
   refining, and grid hardware correctly stay in Scope 3 (GHG Protocol
-  category 3). The previous full-`L` version is kept as a reported sensitivity
+  category 3). The previous full-$\mathbf{L}$ version is kept as a reported sensitivity
   (401.5 vs 404.2 kt).
-- **Self-supply loop:** because the services component is `y = A[:,h]·E_H`, the
-  footprint contained `s_h(L_hh−1)E_H` = **3.2 kt CO₂e** of the health sector's
+- **Self-supply loop:** because the services component is $y = \mathbf{A}(:,h)\,E_H$, the
+  footprint contained $s_h(L_{hh}-1)E_H$ = **3.2 kt CO₂e** of the health sector's
   own direct emissions, overlapping the national-accounts Scope 1. This term was
   removed. I first tried zeroing the demand element and **rejected that**: it
   also deletes the legitimate upstream chain of internally traded health services
   (a 27 kt over-correction). Only the direct term is removed.
-- **Verified identity** `F_services = (m_h − s_h)·E_H` to 7.5×10⁻¹²: the
+- **Verified identity** $F_{\text{services}} = (m_h - s_h)\,E_H$ to $7.5\times10^{-12}$: the
   Z-column construction yields a *pure upstream* quantity, making it the exact
   complement to a national-accounts Scope 1. (Using the true final-demand column
   instead would have double counted Scope 1 outright.)
-- **Exact partition asserted in code:** `S1 + S2 + S3 + outside == total`, and
+- **Exact partition asserted in code:** $S_1 + S_2 + S_3 + \text{outside} = \text{total}$, and
   the producing-node detail must reconcile.
 
 **Denmark 2022: S1 142.2 | S2 401.5 | S3 4,085.7 | outside protocol 242.5 kt CO₂e.**
@@ -129,8 +129,8 @@ So I implemented eqs. 8/9/12 and measured it for three nested target sets
 | health and social work, all 49 regions | 49 | 1,129 Mt | 1,100 Mt | 2.6 % |
 | + chemicals and medical instruments, all regions | 147 | 3,093 Mt | 2,511 Mt | **18.8 %** |
 
-The complement identity `d L Y·1 == e_T,wdc + d_O L'_OO Y_O·1` holds to
-2×10⁻¹⁶, confirming the implementation. **The practical lesson:** for one Danish
+The complement identity $d\,\mathbf{L}\,\mathbf{Y}\,\mathbf{1} = e_{T,\text{wdc}} + d_O\,\mathbf{L}'_{OO}\,\mathbf{Y}_O\,\mathbf{1}$ holds to
+$2\times10^{-16}$, confirming the implementation. **The practical lesson:** for one Danish
 health node the correction is 1.3 %, but the moment pharmaceuticals and device
 manufacturing enter the target set (which is exactly what the planned
 sub-sector disaggregation does), it is nearly a fifth. That correction is now
@@ -155,7 +155,7 @@ references. The detailed tables are all long-format with explicit units:
 |:---|:---|
 | `footprint_by_producing_node.csv` | indicator × demand component × **producing** country ISO3 × sector (complete, unthresholded) |
 | `footprint_by_purchased_product.csv` | same for the **purchased** product and its supplying region |
-| `footprint_bilateral_producer_x_purchase.csv.gz` | the full 4-D array `E[i,j] = s_i L_ij y_j`: largest cells covering ≥99.5 % **plus an explicit remainder row so totals reconcile exactly** |
+| `footprint_bilateral_producer_x_purchase.csv.gz` | the full 4-D array $E_{ij} = s_i\,L_{ij}\,y_j$: largest cells covering ≥99.5 % **plus an explicit remainder row so totals reconcile exactly** |
 | `scopes_by_producing_node.csv` | scope × indicator × producing country × sector |
 | `extended_indicators_by_producing_node.csv` | the ten additional pressures, same schema |
 | `expenditure_vector_detail.csv` / `expenditure_summary.csv` | y_H and its relation to basic-price expenditure |
