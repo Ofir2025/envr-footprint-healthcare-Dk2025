@@ -17,7 +17,7 @@ Two things are corrected relative to the submitted figures:
 
 * the two analyses are read from the right side of the model - ``Contribution``
   from the purchased-product table and ``Hotspot`` from the producing-node
-  table. See ``docs/methods/replications/01_eriksen_replication.md``; the file
+  table. See ``docs/methods/replications.md``, section 01; the file
   stems are named the opposite way round from how they read.
 * the world-region aggregation singles out Denmark rather than the Netherlands.
 

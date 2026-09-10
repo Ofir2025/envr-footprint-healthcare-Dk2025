@@ -44,7 +44,11 @@ import pandas as pd
 from paths import OUTPUT_DIR
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-METHODS = os.path.join(REPO, "docs", "methods", "replications")
+#: The eighteen per-layer write-ups now live as sections of one file rather
+#: than one file per folder; each section is anchored ``<a id="rNN"></a>``
+#: immediately before its ``## NN — Title (`data/gold/results/...`)`` heading,
+#: where ``NN`` is the folder's own leading two-digit component.
+METHODS = os.path.join(REPO, "docs", "methods", "replications.md")
 
 #: Columns that identify a dimension rather than carry a measure.
 DIMENSION_HINTS = (
@@ -211,6 +215,31 @@ def _read_head(path: str, n: int = 400) -> tuple[pd.DataFrame, int]:
     return head, max(total, 0)
 
 
+def _methods_section(folder: str) -> str | None:
+    """The body of one layer's section in ``replications.md``, or ``None``.
+
+    Parameters
+    ----------
+    folder : str
+        Gold folder name, e.g. ``"07_malik_replication"`` or a nested table
+        folder such as ``"01_eriksen_replication/2019"`` - the section is
+        looked up by the top-level component's leading two-digit number,
+        since a year or scenario subfolder shares its approach's section.
+    """
+    top = folder.split(os.sep)[0]
+    num = top[:2]
+    if not os.path.exists(METHODS):
+        return None
+    text = open(METHODS, encoding="utf-8").read()
+    anchor = re.search(rf'<a id="r{re.escape(num)}"></a>\s*\n\s*## ', text)
+    if not anchor:
+        return None
+    start = anchor.end() - len("## ")
+    rest = re.search(r'\n<a id="r\d+"></a>', text[start + 1:])
+    end = start + 1 + rest.start() if rest else len(text)
+    return text[start:end]
+
+
 def _methods_summary(folder: str) -> tuple[str, str]:
     """Pull the title and the 'question this layer answers' from the methods doc.
 
@@ -218,23 +247,21 @@ def _methods_summary(folder: str) -> tuple[str, str]:
     ----------
     folder : str
         Gold folder name, e.g. ``"07_malik_replication"`` or a nested table
-        folder such as ``"01_eriksen_replication/2019"`` - the methods
-        document is looked up by the top-level component, since a year or
-        scenario subfolder shares its approach's document.
+        folder such as ``"01_eriksen_replication/2019"`` - the section is
+        looked up by the top-level component, since a year or scenario
+        subfolder shares its approach's section.
 
     Returns
     -------
     tuple of str
-        ``(title, question)``; empty strings when no methods document exists.
+        ``(title, question)``; empty strings when no matching section exists.
     """
-    top = folder.split(os.sep)[0]
-    path = os.path.join(METHODS, f"{top}.md")
-    if not os.path.exists(path):
+    section = _methods_section(folder)
+    if section is None:
         return "", ""
-    text = open(path, encoding="utf-8").read()
-    title = re.search(r"^# (.+)$", text, re.MULTILINE)
-    block = re.search(r"## Question this layer answers\s+(.+?)(?=\n## )",
-                      text, re.DOTALL)
+    title = re.search(r"^## \d+ — (.+?)(?:\s*\(`[^`]+`\))?\s*$", section, re.MULTILINE)
+    block = re.search(r"### Question this layer answers\s+(.+?)(?=\n### )",
+                      section, re.DOTALL)
     question = ""
     if block:
         para = [p.strip() for p in block.group(1).strip().split("\n\n") if p.strip()]
@@ -358,11 +385,11 @@ def write_folder_readme(folder: str) -> str | None:
         lines += [f"**{title}**", ""]
     if question:
         lines += [question, ""]
-    methods_doc = os.path.join(METHODS, f"{top}.md")
-    if os.path.exists(methods_doc):
+    if _methods_section(folder) is not None:
+        anchor = f"r{top[:2]}"
         lines += [f"Method, equations, and verification: "
-                  f"[`docs/methods/replications/{top}.md`]"
-                  f"({_relative_link(methods_doc, fdir)}).", ""]
+                  f"[`docs/methods/replications.md`, section {top[:2]}]"
+                  f"({_relative_link(METHODS, fdir)}#{anchor}).", ""]
     schema_doc = SCHEMA_DOCS.get(top)
     if schema_doc and os.path.exists(schema_doc):
         schema_name = os.path.basename(schema_doc)

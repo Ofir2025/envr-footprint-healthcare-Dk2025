@@ -1,8 +1,8 @@
 # 18_mitigation_scenarios
 
-**18 · Counterfactual scenarios**
+**Counterfactual scenarios**
 
-Method, equations, and verification: [`docs/methods/replications/18_mitigation_scenarios.md`](../../../../docs/methods/replications/18_mitigation_scenarios.md).
+Method, equations, and verification: [`docs/methods/replications.md`, section 18](../../../../docs/methods/replications.md#r18).
 
 ## Conventions
 

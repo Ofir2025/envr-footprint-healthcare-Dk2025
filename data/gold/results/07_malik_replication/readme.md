@@ -1,10 +1,10 @@
 # 07_malik_replication
 
-**07 - Malik replication**
+**Malik replication**
 
 How does Denmark compare with the Australian health system, on Australia's own methodological choices rather than ours; and how far upstream does the pressure occur?
 
-Method, equations, and verification: [`docs/methods/replications/07_malik_replication.md`](../../../../docs/methods/replications/07_malik_replication.md).
+Method, equations, and verification: [`docs/methods/replications.md`, section 07](../../../../docs/methods/replications.md#r07).
 
 ## Conventions
 

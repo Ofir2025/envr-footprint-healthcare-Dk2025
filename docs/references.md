@@ -26,6 +26,8 @@ without its source.
   <br>*Used for:* Context for the pharmaceutical hotspot
 - Bulle, C., Margni, M., Patouillard, L., Boulay, A.-M., Bourgault, G., De Bruille, V., Cao, V., Hauschild, M., Henderson, A., Humbert, S., Kashef-Haghighi, S., Kounina, A., Laurent, A., Levasseur, A., Liard, G., Rosenbaum, R. K., Roy, P.-O., Shaked, S., Fantke, P., & Jolliet, O. (2019). IMPACT World+: A globally regionalized life cycle impact assessment method. *The International Journal of Life Cycle Assessment, 24(9), 1653-1674*. https://doi.org/10.1007/s11367-019-01583-0
   <br>*Used for:* Characterisation method computed alongside the DESIRE workbook in layer 16
+- Cabernard, L., & Pfister, S. (2022). A highly resolved MRIO database for analyzing environmental footprints and Green Economy Progress. *Science of the Total Environment, 855, 158676*. https://doi.org/10.1016/j.scitotenv.2022.158676
+  <br>*Used for:* Extension of the 2019 target-sector scope-3 method; cited for the extension only, not reproduced
 - Cabernard, L., Pfister, S., & Hellweg, S. (2019). A new method for analyzing sustainability performance of global supply chains and its application to material resources. *Science of the Total Environment, 684, 164-177*. https://doi.org/10.1016/j.scitotenv.2019.04.434
   <br>*Used for:* Target-sector perspective and the double-counting correction reproduced in layer 03
 - Danish Energy Agency [Energistyrelsen] (2022). Klimastatus og -fremskrivning 2022 (KF22). *Danish Energy Agency*. https://ens.dk

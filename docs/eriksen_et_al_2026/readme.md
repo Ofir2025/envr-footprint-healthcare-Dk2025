@@ -7,7 +7,7 @@ these are the actual submission artefacts.
 
 For this repository's own assessment of the manuscript against the 2022
 re-analysis, see
-[`../revision/manuscript_assessment_eriksen_et_al_2026.md`](../revision/manuscript_assessment_eriksen_et_al_2026.md).
+[`../revision/results_2022.md`, "Assessment of the Eriksen et al. (2026) manuscript"](../revision/results_2022.md#assessment-of-the-eriksen-et-al-2026-manuscript).
 
 | File | Purpose |
 |:---|:---|

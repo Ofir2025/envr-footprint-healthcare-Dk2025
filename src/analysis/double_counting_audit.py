@@ -78,7 +78,7 @@ def main():
                      "DE 68,118, US 239,045 M.EUR). See docs/methods/exiobase_version_vintage_and_classification.md"),
         dict(item="Anaesthetic gases (bottom-up)", risk="already in the MRIO extensions",
              test="medical N2O netted out of the DRIVHUS Scope 1 figure", value=np.nan, unit="-",
-             verdict="OK - netted; see bug_and_method_fixes.md"),
+             verdict="OK - netted; see docs/revision/defects_and_fixes.md"),
         dict(item="pMDI propellants (bottom-up)", risk="already in the MRIO",
              test="released at patients' homes, booked to household direct emissions",
              value=np.nan, unit="-", verdict="OK - outside the sector's footprint"),

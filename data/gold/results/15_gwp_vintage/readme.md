@@ -1,10 +1,10 @@
 # 15_gwp_vintage
 
-**15 - Climate characterisation vintage**
+**Climate characterisation vintage**
 
 This study reports climate change on **IPCC AR6**. The characterisation workbook shipped with the background instead carries **AR4** factors (CH₄ = 25, N₂O = 298) under a sheet labelled "CML 1999". What does the restatement change, and what can it not reach?
 
-Method, equations, and verification: [`docs/methods/replications/15_gwp_vintage.md`](../../../../docs/methods/replications/15_gwp_vintage.md).
+Method, equations, and verification: [`docs/methods/replications.md`, section 15](../../../../docs/methods/replications.md#r15).
 
 ## Conventions
 

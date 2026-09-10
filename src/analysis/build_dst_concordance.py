@@ -4,8 +4,9 @@
 Motivation
 ----------
 The simplified-SNAC coupling of Palm et al. (2019), specified in
-``docs/methods/02_snac_exiobase_and_footprint_accounting.md`` and scoped for
-Denmark in ``docs/revision/dk_snac_feasibility.md``, keeps the Danish national
+``docs/methods/methods.md`` (section "Simplified SNAC, EXIOBASE coupling and
+Danish healthcare footprint accounting") and scoped for Denmark in the same
+file's "Danish SNAC" section, keeps the Danish national
 input-output table as the authoritative domestic core and uses EXIOBASE only
 for imports, evaluated as ``e_m = Q K m``. ``K`` needs a sector bridge between
 the Danish DB07/NACE rev.2 classification the import vector ``m`` is written in
