@@ -28,8 +28,8 @@ the *Deviations* section rather than left for the reader to discover.
 | [13](13_steenmeijer_replication.md) | Steenmeijer replication | Steenmeijer et al. (2022) | `steenmeijer_replication` |
 | [14](14_eckelman_replication.md) | Eckelman replication | Eckelman & Sherman (2016) | `eckelman_replication` |
 | [15](15_gwp_vintage.md) | GWP vintage sensitivity | IPCC AR4-AR6 | `gwp_vintage` |
-| [16](16_impact_world_plus.md) | IMPACT World+ profile | Bulle et al. (2019); IW+ v2.2.1 | `impact_world_plus` |
-| [17](17_health_subsectors.md) | Footprint by SHA function | Malik et al. (2018); OECD SHA 2011 | `health_subsector_footprints` |
+| 16 *(write-up not yet written)* | IMPACT World+ profile | Bulle et al. (2019); IW+ v2.2.1 | `impact_world_plus` |
+| 17 *(write-up not yet written)* | Footprint by SHA function | Malik et al. (2018); OECD SHA 2011 | `health_subsector_footprints` |
 | [18](18_mitigation_scenarios.md) | Counterfactual scenarios | Aguilar-Hernandez et al. (2018); Donati et al. (2020); Danish Klimastatus og -fremskrivning | `mitigation_scenarios` |
 
 ## Notation used throughout
