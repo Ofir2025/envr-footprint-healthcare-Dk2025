@@ -58,8 +58,8 @@ they are - so all aggregates are derivable and no lineage is lost.
 python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 
 # Build the background once. This uses EXIOBASE v3.8.2, the version this study
-# actually uses - see docs/revision/exiobase_vintage_defects.md for why v3.10.2
-# is rejected.
+# actually uses - see docs/methods/exiobase_version_vintage_and_classification.md
+# for why v3.10.2 is rejected.
 #
 # `pipelines.prep_background_2022.build_background_2022` builds the REJECTED
 # v3.10.2 and exists only to supply layer 09, which has to hold both vintages
@@ -90,13 +90,14 @@ Accounting checks: `PYTHONPATH=src python -m analysis.validate_io_identities`.
 
 | document | content |
 |---|---|
+| `docs/revision_guide.md` | branch notes for the revision: how to cite the background, the three things that change the paper, and where everything else lives |
 | `docs/methods_approaches.md` | every methodological layer, its equations and references |
 | `docs/revision/request_checklist.md` | status of all outstanding work |
 | `docs/revision/bug_and_method_fixes.md` | defects found and fixed, with effects |
 | `docs/revision/analysis_2022.md` | the 2022 analysis: inputs, method, results |
 | `docs/revision/data_sources_and_models.md` | which external models are used, and why not the others |
-| `docs/revision/dk_snac_feasibility.md` | the planned Danish-SNAC hybrid |
-| `docs/methods/` | the research blueprint and data-access assessments |
+| `docs/revision/dk_snac_feasibility.md` | what Statistics Denmark does about EXIOBASE, our patch, and the planned Danish-SNAC hybrid |
+| `docs/methods/` | the EXIOBASE coupling method, the star schema, and data-access assessments |
 
 ## Provenance and reproducibility
 

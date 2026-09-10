@@ -59,6 +59,11 @@ single most valuable methodological upgrade available to this study.
 
 ## 2. Vintage defects are real, version-specific, and invisible to a balance check
 
+The full defect tables, the decision this study drew from them, and a checklist for
+reproducing the test on a future EXIOBASE release are in
+[`../methods/exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md).
+This section gives only what a reader needs to interpret the results.
+
 We tested every vintage on disk against Statistics Denmark's own table, year by year. Two
 defects appeared, with different onsets:
 

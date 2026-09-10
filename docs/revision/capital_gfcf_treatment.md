@@ -49,8 +49,8 @@ intermediate purchases of medical instruments by Danish providers to the capital
 boundary (equipment sitting in GFCF rather than in `Z`). That was incorrect. The
 zero is a data defect: EXIOBASE v3.10.2 carries ~zero output for industry 33 in
 every European region in every year tested. See
-[`exiobase_vintage_defects.md`](exiobase_vintage_defects.md). Both places are
-corrected.
+[`../methods/exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md).
+Both places are corrected.
 
 ## 4. What we compute
 
