@@ -7,7 +7,7 @@ what it does **not** do.
 ## Start here
 
 | If you want to… | Read |
-|---|---|
+|:---|:---|
 | Understand the headline results and how they were produced | [`revision/analysis_2022.md`](revision/analysis_2022.md) |
 | Know what is broken, uncertain or still undecided | [`revision/anomalies_bugs_and_open_questions.md`](revision/anomalies_bugs_and_open_questions.md) |
 | Understand why the background model is v3.8.2 and not v3.10.2 | [`revision/exiobase_vintage_defects.md`](revision/exiobase_vintage_defects.md) |

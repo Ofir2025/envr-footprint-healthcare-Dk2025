@@ -35,7 +35,7 @@ The studies this project replicates or benchmarks against, and the method papers
 its equations come from.
 
 | Cluster | Key items |
-|---|---|
+|:---|:---|
 | **Replication targets** | Steenmeijer et al. 2022 (the template, + the Lancet appendix and the fuller RIVM report 2022-0159); Eckelman & Sherman 2016 (+ S1-S5 tables); Malik et al. 2018 (+SI) and 2021 (+SI); Lenzen et al. 2020 (+SI directory) |
 | **Danish EXIOBASE remedies** | **Rørmose Jensen & Iliev 2022** - the coupled model; Palm et al. 2019 (+SI) - simplified SNAC; Tukker et al. 2018 - the method taxonomy |
 | **Scope and double counting** | Wood & Hertwich 2018; Cabernard et al. 2019 (+SI, at the AFRIMAT path below) |
