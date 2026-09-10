@@ -88,7 +88,7 @@ Accounting checks: `PYTHONPATH=src python -m analysis.validate_io_identities`.
 | document | content |
 |---|---|
 | `docs/methods_approaches.md` | every methodological layer, its equations and references |
-| `docs/revision/REQUEST_CHECKLIST.md` | status of all outstanding work |
+| `docs/revision/request_checklist.md` | status of all outstanding work |
 | `docs/revision/bug_and_method_fixes.md` | defects found and fixed, with effects |
 | `docs/revision/analysis_2022.md` | the 2022 analysis: inputs, method, results |
 | `docs/revision/data_sources_and_models.md` | which external models are used, and why not the others |

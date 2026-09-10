@@ -4,7 +4,7 @@
 Orchestrates the whole calculation - expenditure vector, background EE-MRIO,
 Leontief solution, bottom-up additions, scope split, and the output tables and
 figures. Parameterised by ``HC_ANALYSIS_YEAR``, ``HC_BACKGROUND_TAG`` and
-``HC_SCOPE`` (see ``docs/README.md``).
+``HC_SCOPE`` (see ``docs/readme.md``).
 
 Run::
 

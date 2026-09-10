@@ -342,7 +342,7 @@ direction of travel rather than an available alternative.
 
 ## References
 
-Full entries, with DOIs, are in [`docs/REFERENCES.md`](../REFERENCES.md), which
+Full entries, with DOIs, are in [`docs/references.md`](../references.md), which
 is generated from `docs/references.csv`. Cited here:
 
 - Ghosh, B., Jensen, J. V., & Munch-Petersen, N. (2014). *Measuring Denmark's
