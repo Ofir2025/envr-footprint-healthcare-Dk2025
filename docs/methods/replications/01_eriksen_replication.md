@@ -26,9 +26,9 @@ manuscript did not fully separate.
 > the opposite way round from how most readers will guess, and the names cannot be
 > changed without breaking continuity with the submitted manuscript. In this study:
 >
-> * `hotspot` $= B\,\mathrm{diag}(L y)$, indexed by the **producing node**, i.e.
+> * `hotspot` $= \mathbf{B}\,\mathrm{diag}(\mathbf{L}\, y)$, indexed by the **producing node**, i.e.
 >   *where the pressure physically occurs*.
-> * `contribution` $= B\,L\,\mathrm{diag}(y)$, indexed by the **purchased
+> * `contribution` $= \mathbf{B}\,\mathbf{L}\,\mathrm{diag}(y)$, indexed by the **purchased
 >   product**, i.e. *which purchase drives it*.
 >
 > Reading them the intuitive way inverts the domestic/imported split: 26.3 % of the
@@ -41,7 +41,7 @@ manuscript did not fully separate.
 
 Pressure allocated to the node where it arises, driven by health final demand:
 
-$$c_i = s_i \,[L\,y_H]_i$$
+$$c_i = s_i \,[\mathbf{L}\,y_H]_i$$
 
 This allocation is what "where does the impact occur" means. It sums to $f$ across
 all nodes.
@@ -49,9 +49,9 @@ all nodes.
 ### Hotspot
 
 The same quantity aggregated to the **purchased product**, i.e. the second marginal of
-$E$ from [00](00_core_footprint.md):
+$\mathbf{E}$ from [00](00_core_footprint.md):
 
-$$h_j = y_{H,j}\,[s\,L]_j$$
+$$h_j = y_{H,j}\,[s\,\mathbf{L}]_j$$
 
 This marginal is what "which purchase drives it" means. It also sums to $f$.
 Contribution and hotspot are marginals of the same table and must not be added
@@ -62,7 +62,7 @@ separately for exactly this reason.
 
 Pressure per unit of expenditure on a product, independent of how much is bought:
 
-$$m_j = [s\,L]_j \quad \text{(kt CO}_2\text{e per M€)}$$
+$$m_j = [s\,\mathbf{L}]_j \quad \text{(kt CO}_2\text{e per M€)}$$
 
 Intensity ranks products by how damaging a euro spent on them is; hotspot ranks them by
 how much damage our actual spending causes. A product can be top of one and unremarkable

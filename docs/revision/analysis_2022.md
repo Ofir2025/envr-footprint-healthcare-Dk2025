@@ -46,25 +46,66 @@ HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship python -m analysis.main_2025
   pMDI **11.6 kt** (Danish EPA F-gas inventory 2022 actual, GWP100); commuting factor
   0.6343 (NABB69 2022 employment 556,999; TU 2022 distance 9.3 km/p/d); visitor 0.6762.
 
-## 2. Background build (v3.10.2 restructure)
+## 2. Background build: EXIOBASE v3.8.2, with the Danish shipping correction
 
-v3.10.2 ships Z/x/Y at the archive root and satellites in eight domain folders
-(733 stressors stacked; empty cells → 0). A = Z x̂⁻¹; L inverted directly. The
-characterisation bridge is rebuilt: GWP (22 rows), blue water (103), and VA map 1:1 by
-stressor name from the Steenmeijer/DESIRE selection; abiotic material extraction (29
-rows: Metal Ores + Non-Metallic Minerals), land (all 26 land-account rows), and
-employment are rebuilt from the restructured v3.10.2 names with the same concept
-definitions. **Multiplier-outlier screening** (Rørmose Jensen & Iliev 2022 failure
-mode: emission accounts on near-zero-output industries, observed here as GB medical
-instruments at 2×10⁸ kt CO₂e/M€ injecting 2,025 kt into the appliances footprint):
-air-emission entries with intensity >100× the cross-region sector median, or sitting
-on outputs <1 M€, are replaced by the median intensity × actual output (96,833
-entries). Screening is restricted to air emissions: extraction/land/water accounts
-are legitimately concentrated, and a median test would crush real mines (concentrated-
-stressor caution, Jakobs 2023). Validation: the screened model's Danish national CBA
-GWP is **64.7 Mt vs DST's official AFTRYK 62.9 Mt (+2.9%)**; unscreened: 69.3 Mt.
-Waste extension: 2011 hybrid accounts over 2022 output (Steenmeijer precedent),
-direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste protocol.
+The background for every number in this document is **EXIOBASE v3.8.2**
+`IOT_2022_ixi` (49 regions × 163 industries, industry-by-industry, basic
+prices), built by `pipelines.prep_background_2025` (`load`, `leontief`,
+`process`) and corrected for Danish sea transport by
+`analysis.dk_shipping_correction`. (The withdrawn v3.10.2 build this section
+used to describe — a different archive layout, an outlier screen it needed
+and v3.8.2 does not, and the validation numbers that came out of it — is kept,
+in the past tense and as the evidence for the rejection, in
+[`exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md)
+§2.4.)
+
+**Load** (`pipelines.prep_background_2025.load`). Reads the archive as
+EXIOBASE ships it: $\mathbf{A}$ (`A.txt`) and $\mathbf{Y}$ (`Y.txt`) at the
+archive root, the satellite extension $\mathbf{F}$ (`satellite/F.txt`, 1,113
+stressor rows), and the final-demand extension $\mathbf{F}_{hh}$
+(`satellite/F_Y.txt`, or `F_hh.txt` for v3.7-era archives). Builds a 6-row
+characterisation matrix from the DESIRE workbook
+(`characterisation_desire_version3_4_adapted.xlsx`): GWP100, abiotic material
+extraction, water use, land use, value added, and employment. The GWP100 row
+is then restated stressor by stressor from the workbook's shipped IPCC AR4
+factors to **AR6** (`analysis.constants.ar6_gwp_factor`); HFC and PFC, which
+EXIOBASE already reports pre-aggregated in CO₂-equivalent, keep their existing
+factor because their vintage cannot be recovered. No outlier screening runs
+on this vintage: v3.8.2 has no near-zero-output row in the industries this
+study depends on, so there is nothing for a screen to catch (the vintage that
+did need one is §2.4 of the vintage document, cross-referenced above).
+
+**Leontief inverse** (`pipelines.prep_background_2025.leontief`). $\mathbf{A}$
+is used exactly as EXIOBASE ships it, and $\mathbf{L} = (\mathbf{I} -
+\mathbf{A})^{-1}$ is computed directly; this vintage's technology matrix needs
+no reconstruction.
+
+**Process** (`pipelines.prep_background_2025.process`). Total output is
+recovered as $x = \mathbf{L}\,y$, summing $\mathbf{Y}$ across every
+final-demand column, and the transaction matrix is rebuilt as $\mathbf{Z} =
+\mathbf{A}\,\hat{x}$. The result is written as `mrio2022.pkl` and
+`leontief2022.pkl`.
+
+**Danish sea-transport reallocation** (`analysis.dk_shipping_correction`).
+Applied after the three stages above, on the model actually in use: reproduces
+Rørmose Jensen & Iliev's diagnosis (this model sends 73.6 % of Danish
+sea-and-coastal-water-transport output to Danish intermediate use, against
+their published 9 %) and reallocates the row's destination to that 9 % target.
+The row's total output is unchanged; only its destination moves, with the
+released amount credited to exports (spread over foreign final demand in
+proportion to each region's existing total) and column balance restored by
+crediting Danish industries' value added rather than rescaling their output.
+$\mathbf{A}$ and $\mathbf{L}$ are rebuilt on the corrected $\mathbf{Z}$ and
+written as `mrio2022_snacship.pkl` and `leontief2022_snacship.pkl`, the
+background this document's run commands select with
+`HC_BACKGROUND_TAG=_snacship`.
+
+**Waste extension.** This build still runs on the 2011 hybrid-EXIOBASE
+waste-supply account divided by 2022 monetary output (the Steenmeijer
+precedent), with the direct entry replaced by Denmark's own AFFALD01 account
+and a correspondingly wide Monte Carlo band; a 2022-compatible rebuild is
+planned per the waste protocol
+([05](../methods/replications/05_waste_dst_accounts.md)).
 
 ## 3. Headline results, Denmark 2022
 
@@ -94,8 +135,8 @@ catering 12.9 %, chemicals 9.4 %, electricity 9.0 %, steam and hot water 6.4 %,
 waste management 4.7 %, services 3.3 %.
 
 These figures are producing-node shares, taken from `hotspot_by_sector_group.csv`
-(`B diag(L y)`). The purchased-product view of the same footprint is a different
-table (`contribution_by_purchased_product.csv`, `B L diag(y)`) and gives a
+($\mathbf{B}\,\mathrm{diag}(\mathbf{L}\,y)$). The purchased-product view of the same footprint is a different
+table (`contribution_by_purchased_product.csv`, $\mathbf{B}\,\mathbf{L}\,\mathrm{diag}(y)$) and gives a
 different ranking; the two must not be quoted interchangeably.
 
 **Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median

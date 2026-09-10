@@ -32,7 +32,7 @@ for the same year (`analysis.vintage_defect_audit`):
 | Medical/optical instruments | 9,130 | 0 | **0.00** |
 | Real estate | 46,965 | 9,915 | **0.21** |
 
-Total Danish output is right to 3 %, and `x = Z·1 + Y·1` holds to 7×10⁻¹¹, so
+Total Danish output is right to 3 %, and $x = \mathbf{Z}\,\mathbf{1} + \mathbf{Y}\,\mathbf{1}$ holds to 7×10⁻¹¹, so
 output was redistributed between industries rather than lost, and the table is
 internally consistent. This redistribution is an allocation failure upstream of
 the balancing, not corruption.
@@ -143,12 +143,12 @@ nothing about whether the **input structure** is right. That is what
 
 ### A7: EXIOBASE's spectral radius is set by a pathological column `LOW` `ACCEPTED`
 
-`ρ(A) = 0.97289`, and the dominant eigenvector is concentrated (|v| = 0.997) on
+$\rho(\mathbf{A}) = 0.97289$, and the dominant eigenvector is concentrated (|v| = 0.997) on
 *Cultivation of paddy rice*, an industry with a column sum of 1.14. 72 columns
 have sums above 1. This concentration is why capital endogenisation moves ρ only
 in the eighth decimal; ρ is **not** an informative diagnostic here, and a
 "column sums < 1" test is simply the wrong test. The meaningful checks are the
-inverse verification and non-negativity of L.
+inverse verification and non-negativity of $\mathbf{L}$.
 
 ### A7b: Four defective rows in the DESIRE characterisation workbook `HIGH` `FIXED`
 
@@ -306,7 +306,7 @@ Tabel 15, purpose code 33 "Social/sundhed", at 0.9 km/person/day (2019), 0.8
 
 ### B3: Production-layer decomposition had a tier offset `HIGH` `FIXED`
 
-The services demand vector is constructed as `A[:,h]·E_H`, which is **already
+The services demand vector is constructed as $\mathbf{A}(:,h)\,E_H$, which is **already
 the first supplier tier**, whereas pharmaceuticals and appliances are true final
 demands. Treating all three alike put layer 0 at 33 % instead of 19 %. The fix
 offsets the services layers by one.
@@ -503,11 +503,11 @@ These are recorded so that a reader knows what *was* checked, not only what
 failed.
 
 - **The Steenmeijer Z-column construction is implemented exactly.** Their
-  formula is `f_services = Z[:,h] × (E_H / x_h)` where `x_h` is the health
+  formula is $f_{\text{services}} = \mathbf{Z}(:,h) \times (E_H / x_h)$ where $x_h$ is the health
   industry's **total input**, intermediate use *plus* value added. On our model
-  `sum(Z[:,h]) + sum(V[:,h]) = x_h` holds exactly (11,730.9 + 32,224.5 =
-  43,955.5 M€), and `A[:,h] = Z[:,h]/x_h` by construction, so our
-  `A[:,h]·E_H` is their formula.
+  $\sum_i Z_{i,h} + \sum_i V_{i,h} = x_h$ holds exactly (11,730.9 + 32,224.5 =
+  43,955.5 M€), and $\mathbf{A}(:,h) = \mathbf{Z}(:,h)/x_h$ by construction, so our
+  $\mathbf{A}(:,h)\,E_H$ is their formula.
 - **The demand vector entering the MRIO is correspondingly smaller than health
   expenditure**, as it must be: 13,067 M€ against 40,597 M€ of Danish health and
   eldercare expenditure (32.2 %). Steenmeijer's equivalent is 26,283 against
@@ -536,9 +536,9 @@ confusion by giving *both* the `producing_*` column prefix:
 
 | Analysis | Formula | Indexed by | Was labelled | Now labelled |
 |:---|:---|:---|:---|:---|
-| `hotspot` | $B\,\mathrm{diag}(Ly)$ | producing node | `producing_*` ✓ | `producing_*` |
-| `contribution` | $B\,L\,\mathrm{diag}(y)$ | purchased product | `producing_*` ✗ | `purchased_*` |
-| `intensity` | $[BL]_j$ | purchased product | `producing_*` ✗ | `purchased_*` |
+| `hotspot` | $\mathbf{B}\,\mathrm{diag}(\mathbf{L}y)$ | producing node | `producing_*` ✓ | `producing_*` |
+| `contribution` | $\mathbf{B}\,\mathbf{L}\,\mathrm{diag}(y)$ | purchased product | `producing_*` ✗ | `purchased_*` |
+| `intensity` | $[\mathbf{B}\mathbf{L}]_j$ | purchased product | `producing_*` ✗ | `purchased_*` |
 
 Consequence if read naively: the domestic share of the climate footprint is
 **26.3 %** on the producing-node basis and **61.7 %** on the purchased-product

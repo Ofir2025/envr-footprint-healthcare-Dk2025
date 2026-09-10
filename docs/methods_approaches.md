@@ -24,14 +24,14 @@ data/gold/results/
 ## 00 - Core EE-MRIO final-demand footprint
 
 **Reference:** Steenmeijer et al. (2022); Miller & Blair (2009).
-**Equations:** `f = C S L y_H`, decomposed cell-wise as `E[i,j] = s_i L_ij y_j`
+**Equations:** $f = \mathbf{C}\,\mathbf{S}\,\mathbf{L}\,y_H$, decomposed cell-wise as $E_{ij} = s_i\,L_{ij}\,y_j$
 - pressure arising in node *i* caused by Danish healthcare demand for node *j*.
 Summing over *i* gives the consumption perspective, over *j* the production
 perspective; both are marginals of one array, verified equal to machine
 precision (`analysis.validate_io_identities`, tests T5/T6).
 
 **Why it does not double count:** allocating production emissions to final
-demand is additive and sums to the total; the embodied-flow table `E_Z` is the
+demand is additive and sums to the total; the embodied-flow table $\mathbf{E}_Z$ is the
 construct that double counts, and we never sum it (Wood & Hertwich 2018, p. 5).
 
 ## 01 - Eriksen/Steenmeijer replication (corrected)
@@ -46,16 +46,16 @@ effect on the result.
 
 **Reference:** Wood & Hertwich (2018), table 1 and eqs. 1-2; GHG Protocol.
 - **Scope 1** from national accounts. The services demand vector is
-  `y = A[:,h]·E_H`, and we verified the identity `F = (m_h − s_h)·E_H`, i.e.
+  $y = \mathbf{A}(:,h)\,E_H$, and we verified the identity $F_{\text{services}} = (m_h - s_h)\,E_H$, i.e.
   the construction yields a *pure upstream* quantity - the exact complement to
   a national-accounts Scope 1. (Using the true final-demand column instead
   would double count Scope 1 outright.)
-- **Scope 2** = `d_E · L_EE · y_E` with `L_EE = (I_EE − A_EE)^-1` over the
+- **Scope 2** = $d_E \cdot \mathbf{L}_{EE} \cdot y_E$ with $\mathbf{L}_{EE} = (\mathbf{I}_{EE} - \mathbf{A}_{EE})^{-1}$ over the
   energy block, so generation is reached through transmission and distribution
   without leaving that block; fuel extraction and refining stay in Scope 3.
 - **Scope 3** = the footprint residual after Scope 2, plus the bottom-up items
   the MRIO structurally cannot contain.
-- **Asserted:** `S1 + S2 + S3 + outside == total`, and the producing-node
+- **Asserted:** $S_1 + S_2 + S_3 + \text{outside} = \text{total}$, and the producing-node
   detail reconciles.
 
 The **double-counting ledger** (`double_counting_ledger.csv`) tests each overlap
@@ -74,11 +74,9 @@ delivery from one target node to another is counted for the supplier and again
 for the recipient. Corrected output replaces gross output with output net of
 target-to-target deliveries:
 
-```
-q_T     = rowsum( Y[T,:] + A[T,O] L'_OO Y[O,:] )
-e_T,wdc = d L[:,T] diag(q_T)
-f_T     = (e_T − e_T,wdc) / e_T
-```
+$$q_T = \text{rowsum}\big(\mathbf{Y}_{T,\text{all}} + \mathbf{A}_{T-O}\,\mathbf{L}'_{O-O}\,\mathbf{Y}_{O,\text{all}}\big)$$
+$$e_{T,\text{wdc}} = d\,\mathbf{L}(:,T)\,\mathrm{diag}(q_T)$$
+$$f_T = (e_T - e_{T,\text{wdc}}) / e_T$$
 
 **Measured for three nested target sets (Denmark 2022, climate):**
 
@@ -88,7 +86,7 @@ f_T     = (e_T − e_T,wdc) / e_T
 | T2 health and social work, all regions | 49 | 1,129 Mt | 1,100 Mt | **2.6 %** |
 | T3 T2 + chemicals + medical instruments | 147 | 3,093 Mt | 2,511 Mt | **18.8 %** (23 % overestimate) |
 
-The complement identity `d L Y·1 == e_T,wdc + d_O L'_OO Y_O·1` holds to 2×10⁻¹⁶,
+The complement identity $d\,\mathbf{L}\,\mathbf{Y}\,\mathbf{1} = e_{T,\text{wdc}} + d_O\,\mathbf{L}'_{O-O}\,\mathbf{Y}_O\,\mathbf{1}$ holds to $2\times10^{-16}$,
 confirming the implementation. **Read this correctly:** the study's headline is a
 final-demand footprint (00) and is *unaffected*. But any target-perspective or
 sub-sector reporting - which is exactly what the planned health-subsector

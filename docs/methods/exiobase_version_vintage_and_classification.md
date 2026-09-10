@@ -127,7 +127,7 @@ Against Statistics Denmark's published 2022 IO table (`Total Output` row,
 
 *M.EUR.* The **total** is right to 3 %, so output has been redistributed between
 industries rather than lost. The table is also internally consistent
-(`x = Z·1 + Y·1` holds to 7×10⁻¹¹, and no orphan rows appear), so the
+($x = \mathbf{Z}\,\mathbf{1} + \mathbf{Y}\,\mathbf{1}$ holds to 7×10⁻¹¹, and no orphan rows appear), so the
 discrepancy is a classification/allocation failure upstream of the balancing, not
 corruption.
 
@@ -197,7 +197,47 @@ only a published national input-output table, and it catches the failure mode
 that a balance check cannot: internally consistent tables with the output in the
 wrong industries. Section 6 turns this into a checklist.
 
-### 2.4 Honest limits of this test
+### 2.4 What the withdrawn v3.10.2 build actually did
+
+Kept for the record, in the past tense: this is the build this study ran
+before D1 and D2 above forced the change to v3.8.2, and it is the origin of
+the multiplier-outlier screening referred to throughout this section. None of
+it describes the study's method today; the current build is
+[`../revision/analysis_2022.md`](../revision/analysis_2022.md) §2.
+
+v3.10.2's archive layout differs from v3.8.2's: it shipped $\mathbf{Z}$, $x$
+and $\mathbf{Y}$ at the archive root, with satellite extensions stacked across
+eight domain folders (733 stressor rows; empty cells set to zero) rather than
+the single `satellite/F.txt` v3.8.2 uses. The withdrawn pipeline built
+$\mathbf{A} = \mathbf{Z}\,\hat{x}^{-1}$ from that layout and inverted
+$\mathbf{L}$ directly. The characterisation bridge had to be rebuilt for the
+new stressor names: GWP100 (22 rows), blue water (103 rows), and value added
+mapped 1:1 by stressor name from the Steenmeijer/DESIRE selection; abiotic
+material extraction (29 rows: metal ores plus non-metallic minerals), land use
+(all 26 land-account rows), and employment were rebuilt from the restructured
+names under the same concept definitions used for v3.8.2.
+
+**The multiplier-outlier screen existed only for this build, and only because
+of D1.** With industry 33 emptied across Europe, an emission account divided
+by a near-zero output produced pathological intensities (the GB medical-
+instruments case already noted above). The withdrawn pipeline screened for
+it: air-emission entries at more than 100× the cross-region sector median, or
+sitting on outputs under 1 M.EUR, were replaced by the median intensity times
+actual output (96,833 entries). Screening was restricted to air emissions
+because extraction, land, and water accounts are legitimately concentrated and
+a median test would have crushed real mines (the concentrated-stressor
+caution in Jakobs 2023). On the screened v3.10.2 build, the Danish national
+consumption-based climate footprint came to **64.7 Mt against DST's official
+AFTRYK 62.9 Mt (+2.9 %)**; unscreened, it was **69.3 Mt**. Both numbers
+describe the withdrawn build, not the adopted model, whose own Danish
+national footprint is **77.5 Mt** on the corrected v3.8.2 background (see
+section 4 below and `../revision/analysis_2022.md` §3).
+
+Outlier screening is retained on v3.8.2 only as a diagnostic and reported as a
+sensitivity (section 2.3 above); the headline model needs none of it, because
+v3.8.2 has no near-zero-output row in the industries this study depends on.
+
+### 2.5 Honest limits of this test
 
 The concordance in `analysis.vintage_defect_audit` covers twelve industry groups
 whose mapping between the Danish DB07/NACE classification and the EXIOBASE 163
@@ -437,9 +477,9 @@ here.
    empties ISIC 33, medical and optical instruments, across Europe in every year,
    which sent Danish medical-appliance demand to Greece and China and produced
    22 % of a headline out of nothing.
-7. **Do not use the spectral radius as a quality test.** Here rho(A) = 0.97289 is
+7. **Do not use the spectral radius as a quality test.** Here $\rho(\mathbf{A}) = 0.97289$ is
    set almost entirely by one pathological column, paddy rice, whose column sum is
-   1.14; 72 columns exceed 1. Verify the inverse and check L for negatives
+   1.14; 72 columns exceed 1. Verify the inverse and check $\mathbf{L}$ for negatives
    instead.
 8. **Ask what the sector labels are hiding.** Section 5 is one instance of a
    general problem: an ISIC Rev.3 sector list cannot express a boundary that
