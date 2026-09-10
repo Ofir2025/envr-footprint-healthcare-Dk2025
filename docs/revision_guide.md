@@ -1,7 +1,7 @@
 # Branch notes - revision materials for NXSUST-D-26-01589
 
 Everything needed to answer both reviewers. Start with
-[`docs/revision/response_to_reviewers.md`](docs/revision/response_to_reviewers.md).
+[`docs/revision/response_to_reviewers.md`](revision/response_to_reviewers.md).
 
 ## Cite the background like this
 
@@ -20,7 +20,7 @@ those have 163 and 200 sectors and their results are not interchangeable. And th
 2022 tables are themselves a nowcast, compiled in September 2021, which the
 limitations must say. The full argument, the measured size of the projection
 error, and draft wording for the limitations paragraph are in
-[`docs/methods/exiobase_version_vintage_and_classification.md`](docs/methods/exiobase_version_vintage_and_classification.md).
+[`docs/methods/exiobase_version_vintage_and_classification.md`](methods/exiobase_version_vintage_and_classification.md).
 
 | You want | Go to |
 |---|---|
@@ -101,7 +101,8 @@ Rscript R/plot_scope_emissions.R
   Danish Medstat ATC files, StatBank extracts), obtained under each provider's own terms
   and not ours to redistribute from a public repository. Every source, its licence and its
   access route is in `docs/revision/data_sources_and_models.md`.
-* **`docs/references/`, `reports/source/`** - PDFs of published articles.
+* **`docs/references/`** - PDFs of published articles. See
+  `docs/source_material_locations.md` for what lives there.
 * **Referee comments.** The response document reproduces our replies in full but withholds
   the referee text: reports for a manuscript under review are confidential. The headings
   state each point addressed; the full text is in the submission system.
