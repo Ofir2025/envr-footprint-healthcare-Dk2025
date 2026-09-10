@@ -480,16 +480,16 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
 #: Headline numbers that the revision documents quote, and where each is
 #: computed from. ``doc`` is the markdown that must contain ``text`` verbatim.
 DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
-    dict(text="4,712", doc="docs/revision/analysis_2022.md",
+    dict(text="4,712", doc="docs/revision/results_2022.md",
          source=(f"{eriksen_folder()}/hotspot_by_producing_node.csv",
                  "climate_change"),
          expect=4712.4, tol=0.2, what="health-care climate footprint, kt"),
-    dict(text="3,943", doc="docs/revision/shipping_reallocation_method.md",
+    dict(text="3,943", doc="docs/revision/results_2022.md",
          source=("17_health_subsectors/footprint_by_health_function.csv",
                  "climate_change"),
          expect=3943.4, tol=1.0,
          what="MRIO supply-chain component (SHA functions), kt"),
-    dict(text="77.5 Mt", doc="docs/revision/analysis_2022.md",
+    dict(text="77.5 Mt", doc="docs/revision/results_2022.md",
          source=("00_core_footprint/national_totals_summary.csv",
                  "climate_change"),
          expect=77477.5, tol=50.0, what="Danish national footprint, kt",
@@ -535,17 +535,18 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
 HISTORICAL_DOCS: frozenset[str] = frozenset({
     # the register of what was asked for and what each answer used to say
     "docs/revision/request_checklist.md",
-    # a before-and-after table of every fix, so the "before" is the point
-    "docs/revision/bug_and_method_fixes.md",
-    # carries its own corrections table, listing the value each figure replaced
-    "docs/revision/anomalies_bugs_and_open_questions.md",
-    # a dated reply, quoting the branch state on the day it was written;
-    # rewriting its numbers would falsify a record rather than correct it
-    "docs/revision/methods_soundness_qa.md",
+    # merges the 2019-baseline fix ledger (a before-and-after table of every
+    # fix, so the "before" is the point), the current anomalies register
+    # (which carries its own corrections table listing the value each figure
+    # replaced), and a dated reply quoting the branch state on the day it was
+    # written (rewriting its numbers would falsify a record rather than
+    # correct it) - see docs/revision/defects_and_fixes.md's own preamble
+    "docs/revision/defects_and_fixes.md",
 })
 
-#: Trees whose markdown states current claims.
-CLAIM_TREES: tuple[str, ...] = ("docs/revision", "docs/methods/replications",
+#: Trees whose markdown states current claims. A tree ending in ``.md`` is
+#: matched as a single file rather than expanded as a directory glob.
+CLAIM_TREES: tuple[str, ...] = ("docs/revision", "docs/methods/replications.md",
                                 "figures/manuscript")
 
 
@@ -562,8 +563,9 @@ def c6b_superseded(results: list[dict[str, Any]]) -> None:
     hits: list[str] = []
     scanned = 0
     for tree in CLAIM_TREES:
-        for path in sorted(glob.glob(os.path.join(repo, tree, "**", "*.md"),
-                                     recursive=True)):
+        pattern = (os.path.join(repo, tree) if tree.endswith(".md")
+                   else os.path.join(repo, tree, "**", "*.md"))
+        for path in sorted(glob.glob(pattern, recursive=True)):
             rel = os.path.relpath(path, repo)
             if rel in HISTORICAL_DOCS:
                 continue

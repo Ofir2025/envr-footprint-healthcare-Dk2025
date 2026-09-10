@@ -1,10 +1,10 @@
 # 14_eckelman_replication
 
-**14 - Eckelman & Sherman replication**
+**Eckelman & Sherman replication**
 
 This layer places Denmark on the nine-category frame of the most-cited health-sector footprint study, including its health-damage estimate in DALYs.
 
-Method, equations, and verification: [`docs/methods/replications/14_eckelman_replication.md`](../../../../docs/methods/replications/14_eckelman_replication.md).
+Method, equations, and verification: [`docs/methods/replications.md`, section 14](../../../../docs/methods/replications.md#r14).
 
 ## Conventions
 

@@ -745,7 +745,7 @@ cols_df = df_contrib[0].columns  # same for all
 # The previous revision computed this row as B x (L·Ystim) over the DK health
 # rows, i.e. the MRIO-induced intra-health emissions (~1.4 kt CO2e): that value
 # is not the sector's direct emissions and is already contained in the MRIO
-# contribution totals; see docs/revision/bug_and_method_fixes.md.)
+# contribution totals; see docs/revision/defects_and_fixes.md, anomaly B5.)
 hc_dir_row = pd.Series(['DNK', 'B_HEAL',
                         bg['Hstim'][:, 0][0],   # Global warming (ktCO2eq), DRIVHUS-based
                         bg['Hstim'][:, 0][1],   # Material extraction (kt)

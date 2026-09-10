@@ -1,10 +1,10 @@
 # 01_eriksen_replication/2019
 
-**01 - Eriksen replication (the manuscript layer)**
+**Eriksen replication, the manuscript layer**
 
 This layer reproduces everything the manuscript reports, in the manuscript's own table and figure structure, once per reference year and its matching background model: 2019 expenditure on the 2016 background (as submitted) in `2019/`, and 2022 expenditure on the 2022 background (the resubmission) in `2022/`.
 
-Method, equations, and verification: [`docs/methods/replications/01_eriksen_replication.md`](../../../../../docs/methods/replications/01_eriksen_replication.md).
+Method, equations, and verification: [`docs/methods/replications.md`, section 01](../../../../../docs/methods/replications.md#r01).
 
 ## Conventions
 

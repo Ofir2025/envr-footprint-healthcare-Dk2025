@@ -9,12 +9,12 @@ specific to Denmark or to health care.
 **Status.** Standing reference. This is the full methods statement on version,
 vintage, and classification, decisive for the 2022 headline. The decision it
 supports is
-[`decision_d8_nowcast_vs_frozen_year.md`](../revision/decision_d8_nowcast_vs_frozen_year.md);
+[`../revision/results_2022.md`, "Decision D8"](../revision/results_2022.md#decision-d8-2022-nowcast-or-the-last-observed-year);
 the defect register behind it is
-[`anomalies_bugs_and_open_questions.md`](../revision/anomalies_bugs_and_open_questions.md),
+[`../revision/defects_and_fixes.md`, section A](../revision/defects_and_fixes.md#a-defects-in-the-background-data-exiobase),
 section A. For the manuscript-facing limitations statement built on this
 decision, see
-[`../revision/exiobase_limitations_and_interpretation.md`](../revision/exiobase_limitations_and_interpretation.md).
+[`../revision/uncertainty.md`, section 7](../revision/uncertainty.md#7-how-to-read-the-results-given-every-exiobase-limitation).
 
 ---
 
@@ -95,7 +95,7 @@ industry is 186,074 M.EUR, against a global medical-devices industry an order of
 magnitude larger. The emptiness is not confined to the two years tested here:
 across the full v3.10.2 time series the industry never recovers from 2015
 onward (see the onset table in
-[`../revision/exiobase_limitations_and_interpretation.md`](../revision/exiobase_limitations_and_interpretation.md)
+[`../revision/uncertainty.md`, section 7](../revision/uncertainty.md#7-how-to-read-the-results-given-every-exiobase-limitation)
 section 2, which frames the same defect by onset year for the manuscript).
 
 This emptiness is a version defect, not a modelling result. Its consequence for
@@ -188,7 +188,7 @@ regenerated, and so that a v3.10.2 sensitivity remains available.
   not sufficient condition. Rørmose Jensen & Iliev's finding concerns the
   *allocation of intermediate use*, which the recipe-validation diagnostic
   measures separately and which remains the motivation for the SNAC tier (see
-  [`../revision/dk_snac_feasibility.md`](../revision/dk_snac_feasibility.md)).
+  [`methods.md`, "Danish SNAC"](methods.md#danish-snac-what-statistics-denmark-does-what-we-patch-and-the-feasibility-of-a-full-build)).
 
 **The general lesson for other projects.** Never accept an MRIO release for a
 country without testing that country's block against its own national accounts,
@@ -203,7 +203,7 @@ Kept for the record, in the past tense: this is the build this study ran
 before D1 and D2 above forced the change to v3.8.2, and it is the origin of
 the multiplier-outlier screening referred to throughout this section. None of
 it describes the study's method today; the current build is
-[`../revision/analysis_2022.md`](../revision/analysis_2022.md) §2.
+[`../revision/results_2022.md`](../revision/results_2022.md) §2.
 
 v3.10.2's archive layout differs from v3.8.2's: it shipped $\mathbf{Z}$, $x$
 and $\mathbf{Y}$ at the archive root, with satellite extensions stacked across
@@ -231,7 +231,7 @@ consumption-based climate footprint came to **64.7 Mt against DST's official
 AFTRYK 62.9 Mt (+2.9 %)**; unscreened, it was **69.3 Mt**. Both numbers
 describe the withdrawn build, not the adopted model, whose own Danish
 national footprint is **77.5 Mt** on the corrected v3.8.2 background (see
-section 4 below and `../revision/analysis_2022.md` §3).
+section 4 below and `../revision/results_2022.md` §3).
 
 Outlier screening is retained on v3.8.2 only as a diagnostic and reported as a
 sensitivity (section 2.3 above); the headline model needs none of it, because
@@ -246,7 +246,7 @@ passing at ±12 % is evidence that the block is not grossly misallocated, not
 proof that its input structure is correct. The input-structure question is what
 `recipe_validation_2022.csv` addresses, and there v3.8.2 also has known biases
 (see
-[`../revision/exiobase_limitations_and_interpretation.md`](../revision/exiobase_limitations_and_interpretation.md)
+[`../revision/uncertainty.md`, section 7](../revision/uncertainty.md#7-how-to-read-the-results-given-every-exiobase-limitation)
 section 1). Neither test was run against a vintage other than those on disk, so
 this section makes no claim about v3.9, v3.10.0 or v3.10.1.
 
@@ -331,11 +331,11 @@ increasing order of technicality:
 
 | Document | What it gives |
 |:---|:---|
-| [`docs/revision/shipping_reallocation_method.md`](../revision/shipping_reallocation_method.md) | the narrative version, written for a non-specialist and for the manuscript methods section, including the withdrawal of the submitted "transport ≈ 40 %" finding |
-| [`docs/methods/replications/10_sea_transport_reallocation.md`](replications/10_sea_transport_reallocation.md) | the equations, the calibration target, the effect table, and the validation against EXIOBASE's own hybrid build |
+| [`docs/revision/results_2022.md`, "The withdrawn transport finding"](../revision/results_2022.md#the-withdrawn-transport-finding) | the narrative version, written for a non-specialist and for the manuscript methods section, including the withdrawal of the submitted "transport ≈ 40 %" finding |
+| [`docs/methods/replications.md`, section 10](replications.md#r10) | the equations, the calibration target, the effect table, and the validation against EXIOBASE's own hybrid build |
 | `src/analysis/dk_shipping_correction.py` | the implementation |
 | `data/gold/results/10_sea_transport_reallocation/` | the outputs |
-| `docs/revision/anomalies_bugs_and_open_questions.md`, A3 | the defect as registered, with the consequence for the submitted manuscript |
+| [`docs/revision/defects_and_fixes.md`, anomaly A3](../revision/defects_and_fixes.md#a3-danish-sea-transport-is-grossly-misallocated-high-fixed) | the defect as registered, with the consequence for the submitted manuscript |
 
 The short version. Statistics Denmark report that EXIOBASE sends **74 %** of
 Danish water-transport output to Danish *intermediate* use against **9 %** in the
