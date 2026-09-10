@@ -2,9 +2,10 @@
 
 Every literature source this project draws on, with its location, so that a
 claim can be checked and so the same libraries can be reused by later work.
-**These are the source of truth. Consult them before searching online**, and
-when an online source is used instead, say so and say why the local library was
-insufficient.
+This file is the project's single record of where each source lives; other
+documents cite it rather than restating bibliographic detail, and where a
+document draws on an online source instead of the local library, it states why
+the local library was insufficient.
 
 Paths are absolute because the libraries live outside this repository.
 

@@ -1,4 +1,4 @@
-# Updated cross-MRIO strategy including GLORIA
+# Cross-MRIO replication strategy
 
 ## 1. Purpose
 
@@ -394,3 +394,118 @@ Only populate cells where the underlying extension is scientifically comparable.
 | OECD ICIO | trade/value-chain sensitivity |
 
 This is a more defensible design than choosing one MRIO and treating it as ground truth.
+
+---
+
+# 16. Quantitative MRIO comparison
+
+Carried forward from the earlier assessment this document supersedes, because the
+narrative sections above do not otherwise put the five candidate databases side by
+side with their concrete resolution and access figures.
+
+| Database | Main current/relevant structure | Health-sector detail | Environmental strength | Access | Main use here |
+|---|---|---|---|---|---|
+| EXIOBASE 3.10.2 | 49 regions, 163 industries, 200 products; core economic update through 2022 | broad health/social-work service plus separate goods sectors | very strong GHG, energy, water, land, materials | academic/non-commercial release on Zenodo | preferred environmental MRIO sensitivity |
+| GLORIA | release-dependent; current UNEP interface describes 164 regions and 97 industry/commodity sectors; widely used v59 has 120 sectors | broad human health/social work; separate pharmaceutical manufacturing in the 97-sector technical classification | especially strong materials/resources, plus emissions, water, land and social indicators | IELab registration/download; commercial licensing separately | high-country-resolution resource/material sensitivity |
+| Eora | full Eora has country-specific sector detail; Eora26 is harmonised 26-sector model | Denmark in Lenzen-era Eora had pharmaceuticals, hospital activities, medical/dental/veterinary activities; detail varies by country | broad global satellite accounts | academic registration/licensing | methodological replication of Lenzen et al. |
+| OECD ICIO 2025 | 80 economies + RoW; 50 unique industries; 1995-2022 | one `Q Human health and social work activities` industry | primarily economic/value-chain framework; environmental extensions need external pairing | open downloadable CSV | trade/economic structural sensitivity |
+| FIGARO 2026 | 64 industries × 64 products; 2010-2024 | broad NACE/CPA health categories | strong official EU economic/trade consistency; environmental footprint products available separately | open Eurostat CSV/Excel | official EU sensitivity and bridge |
+
+---
+
+# 17. Harmonisation protocol
+
+Also carried forward, because it is the explicit step sequence that sections 9-10
+assume rather than spell out.
+
+## Step 1: freeze healthcare scope
+
+Create one common taxonomy, for example:
+
+```text
+HC_SERVICES
+HC_PHARMACEUTICALS
+HC_MEDICAL_DEVICES
+HC_ADMIN_RESEARCH
+HC_CAPITAL
+```
+
+Then construct a database-specific concordance for each MRIO.
+
+## Step 2: harmonise valuation
+
+Record:
+
+- basic prices;
+- purchasers' prices;
+- trade margins;
+- transport margins;
+- taxes/subsidies.
+
+Do not compare spend multipliers with mismatched valuations.
+
+## Step 3: harmonise currency and price year
+
+For intensity comparisons:
+
+\[
+I_{k,m}=\frac{F_{k,m}}{E_{H,m}}
+\]
+
+all models must use comparable price-year assumptions.
+
+## Step 4: harmonise GWP
+
+Store:
+
+```text
+gwp_assessment_report
+gwp_time_horizon
+gas_species
+```
+
+Do not compare AR4-based CO2e directly with AR6-based CO2e without recalculation or clear labelling.
+
+## Step 5: separate boundary effects from database effects
+
+Run two comparisons:
+
+### Native-model result
+
+Uses each MRIO's native health structure.
+
+### Harmonised-demand result
+
+Uses the same externally constructed healthcare demand concept as far as mappings allow.
+
+The second is the proper **MRIO sensitivity test**.
+
+---
+
+# 18. Cross-MRIO result table schema
+
+The formal schema behind the results table in section 14, also carried forward.
+
+Create:
+
+`fact_mrio_comparison`
+
+Recommended schema:
+
+| Field | Meaning |
+|---|---|
+| `time_key` | reference year |
+| `mrio_key` | database + release |
+| `impact_key` | GHG, water, materials, etc. |
+| `health_scope_key` | common health boundary |
+| `price_basis_key` | price/valuation |
+| `footprint_value` | absolute footprint |
+| `per_capita_value` | population-normalised |
+| `intensity_per_currency` | environmental intensity |
+| `domestic_share_pct` | Denmark-produced share |
+| `foreign_share_pct` | foreign-produced share |
+| `top10_supplier_share_pct` | concentration |
+| `mapping_coverage_pct` | share of healthcare expenditure mapped |
+| `mapping_uncertainty_grade` | quality of concordance |
+| `economic_data_status` | observed/estimated/projected |
+| `notes` | caveats |

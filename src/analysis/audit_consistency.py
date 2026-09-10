@@ -534,7 +534,7 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
 #: replication and figure trees states current claims.
 HISTORICAL_DOCS: frozenset[str] = frozenset({
     # the register of what was asked for and what each answer used to say
-    "docs/revision/REQUEST_CHECKLIST.md",
+    "docs/revision/request_checklist.md",
     # a before-and-after table of every fix, so the "before" is the point
     "docs/revision/bug_and_method_fixes.md",
     # carries its own corrections table, listing the value each figure replaced

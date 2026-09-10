@@ -79,6 +79,8 @@ Title:
 
 **Environmental footprint of the Danish healthcare system: a Denmark-specific hybrid EEIO/MRIO assessment**
 
+The drafted brief is `08_sut_request_brief.md`.
+
 Include:
 
 - institution: SDU;
@@ -298,3 +300,27 @@ In parallel:
 - develop the star schema.
 
 The detailed SUT should drop into an architecture that already works.
+
+---
+
+# 13. Ready answers if Peter asks what the data are for
+
+Carried forward from the earlier assessment this document supersedes: prepared
+wording for the questions a subject-matter contact is likely to ask before
+confirming a route.
+
+## Research purpose
+
+> The purpose is to construct a Denmark-specific environmentally extended input-output model of healthcare. Health expenditure from the System of Health Accounts will be mapped to detailed Danish products and industries, combined with Statistics Denmark environmental accounts, and linked to global MRIO databases for imported supply chains.
+
+## Why the 117-industry IOT is insufficient
+
+> The 117-industry IOT is sufficient for model development but aggregates product detail needed to distinguish pharmaceuticals, medical devices, clinical supplies and service inputs. The working-level SUT would allow the healthcare final-demand mapping to be based on Danish product structure rather than broad MRIO sector proxies.
+
+## Why 2019 and 2022
+
+> 2022 is the preferred main reference year because current Danish environmental accounts and recent MRIO systems can be aligned to it. 2019 is requested as a pre-pandemic common benchmark for cross-MRIO sensitivity analysis.
+
+## Why domestic/import split
+
+> The study will use Danish environmental extensions for domestic production and external MRIO extensions for foreign production. A domestic/import split is therefore required to avoid applying Danish production intensities to imported products.

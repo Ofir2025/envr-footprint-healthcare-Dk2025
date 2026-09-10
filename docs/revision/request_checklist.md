@@ -1,0 +1,438 @@
+# Request checklist - status of everything asked for
+
+| # | Request | Status | Where |
+|:---|:---|:---|:---|
+| 1 | **National totals** for all 163 sectors, so healthcare's share of total impacts of all goods and services is computable | **Done** | `00_core_footprint/national_footprint_by_purchased_product.csv` (26,390 rows), `..._by_producing_node.csv` (16,401), `national_vs_healthcare_by_product_group.csv` (163 sectors × 5 indicators), `national_totals_summary.csv` |
+| 2 | **Capital / GFCF** - do we need it, how do others handle it, endogenising | **In progress** - literature review running against your assembled PDFs (Wood endogenises, Steenmeijer excludes, Malik includes, Eckelman includes) | will land in `docs/revision/capital_gfcf_treatment.md` + a sensitivity |
+| 3 | **Malik replication folder** for all of Denmark | **Done** - domestic-only variant, the only like-for-like basis: 839.5 kt, **3.98 %** of the domestic national total and 6.00 % of the full one, against their 7.2 % AUS and 6.6 % NSW; component intensities; published-reference table; and the production-layer decomposition, where the first three layers carry **63.0 %** of the Danish climate footprint against Malik's **67 %** for NSW. *(Corrected 2026-09-08: this row previously read 872.8 kt, 5.71 % and 67.9 %, none of which reproduce; `production_layers_vs_malik.csv` and `malik_domestic_vs_full.csv` are the source.)* | `07_malik_replication/` |
+| 4 | **Lenzen replication folder**, his equations and full KPI set for Denmark | **Done** - totals, direct/supplier/higher-order split, truncation errors, per capita, share of national, intensity, import share, for 5 core + PM10/NOx/SO2/reactive-N; his Danish 2015 values carried alongside; malaria and scarce water documented as not reproducible | `08_lenzen_replication/` |
+| 5 | **FIGARO - did we make enough of it?** | **Done** - independent denominator (57.40 Mt), NACE-Q cross-check, and a **three-way recipe validation** in which FIGARO and Statistics Denmark agree with each other while EXIOBASE overstates transport and understates chemicals/pharma 2-3× | `06_benchmarks_validation/recipe_validation_three_way.csv` |
+| 6 | **Is the eldercare α change defensible?** | **Done - and it needed the challenge.** Ran both constructions for both years: IO method 0.3060 (2019) / 0.3092 (2022), SUT method 0.4914 (2019). The gap is a *method* artefact, not a year effect; the IO method is the correct object (the industry's own deliveries). Lever size 0.2 % of the footprint | `06_benchmarks_validation/eldercare_alpha_method_test.csv` |
+| 7a | **Patient/visitor travel** - research options, pick most feasible yet robust | **In progress** - mining Tennison appendix 1, the RIVM report and Danish TU/patient-transport sources | will land in `docs/revision/bottom_up_travel.md` |
+| 7b | **Volatile anaesthetics** - same | **In progress** - testing whether medstat ATC N01AB is retrievable in mass units | `docs/revision/bottom_up_anaesthetics.md` (updated) |
+| 8 | **Imported waste** - where needed; FIGARO/Eurostat, or the newest hybrid EXIOBASE on Zenodo | **In progress** - hunting the newest attributional hybrid release with waste accounts | `05_waste_dst_accounts/` |
+| 9 | **Repository hygiene: no assistant traces, no stray development notes** | **Corrected, then done** - this row previously certified the hygiene pass complete because the project brief had been *renamed* to `project_brief_*.md`; it was never removed, and the renamed file was still the verbatim prompt given to an assistant (role instruction, guardrail list, absolute personal paths). It has now been deleted (`git rm docs/methods/project_brief_denmark_healthcare_2022.md`); its scientific content already existed in `docs/methods_approaches.md`, `docs/methods/01_danish_sut_and_health_disaggregation.md` and the double-counting ledger, so nothing was lost. A repo-wide sweep found two further instances of the same character and rewrote both as plain documentation: `docs/source_material_locations.md`'s "consult before searching online" instruction, and this table's own row 12. All 26 commit trailers were separately stripped by history rewrite, the backup ref deleted, and no emoji or development chatter were found in console output | verified by a sweep of every tracked `.md`/`.py`/`.r`/`.sh`/`.sql`/`.txt` file that ships. The restructure's own working notes under `docs/plans/` and `docs/specs/` are excluded from the sweep and from the published branch alike |
+| 10 | **Repo organised; ELT/ETL obvious; commit what matters** | **Done** for the gold layer (approach folders + `manifest_lineage.csv`); pipeline documented in `docs/methods_approaches.md` | see below |
+| 11 | **Enumerate and check off every request** | This file | - |
+| 12 | **Use the assembled literature as source of truth before online sources** | **Done** - the local reference library (`docs/source_material_locations.md`) is checked first; online sources are used only for genuine gaps, and each such use states why the local library was insufficient | - |
+
+## The pipeline, end to end
+
+```
+bronze (raw, never modified)
+  EXIOBASE v3.10.2 IOT_2022_ixi ....... external store (Zenodo, MD5-verified)
+  DST IO tables 2006-2022 ............. data/bronze/dst_input_output/
+  DST detailed SUT 2019 ............... data/bronze/dk_umat_2019.xlsx
+  DRIVHUS / AFFALD / SHA / NABB69 ..... StatBank API (queried in code)
+  FIGARO + Eurostat footprints ........ data/bronze/eurostat_figaro/
+        |
+        v  pipelines.prep_background_2022.build_background_2022
+silver (prepared model objects)
+  mrio2022.pkl, leontief2022.pkl, waste.pkl ....... data/silver/background/
+  dk_data_2022.csv, dk_expenditure_breakdown_2022.csv  data/silver/dst_supply_use/
+  dk_bottomup_data_2022.txt ....... data/silver/netherlands_reference/
+        |
+        v  analysis.main_2025  (+ the approach modules)
+gold (published results, one folder per approach, all indexed by manifest_lineage.csv)
+  00_core_footprint  01_eriksen_replication  02_scopes_wood_hertwich
+  03_cabernard_target_scope3  04_uncertainty_lenzen_ieooc
+  05_waste_dst_accounts  06_benchmarks_validation  scenarios
+  07_malik_replication  08_lenzen_replication              (in progress)
+```
+
+Run order:
+
+```bash
+PYTHONPATH=src python -m pipelines.prep_background_2022.build_background_2022
+HC_ANALYSIS_YEAR=2022 PYTHONPATH=src python -m analysis.main_2025
+for m in export_tables extended_indicators national_totals scopes_detail \
+         double_counting_audit cabernard_target_scope3 waste_validation \
+         waste_domestic_dst demand_vector_consistency uncertainty_2025 \
+         uncertainty_figures build_manifest; do
+  HC_ANALYSIS_YEAR=2022 PYTHONPATH=src python -m analysis.$m
+done
+```
+
+Scope variants: `HC_SCOPE=health_only|health_eldercare|zorg_en_welzijn`.
+Validation: `python -m analysis.validate_io_identities` (Leontief identities).
+
+## Round of 2026-09-07 (continued)
+
+| # | Request | Status | Evidence |
+|:---|:---|:---|:---|
+| 10 | **Capital / GFCF: do we need it, how do others handle it, endogenisation** | **Done** | `docs/revision/capital_gfcf_treatment.md`; `analysis.capital_gfcf` → `11_capital_gfcf/`. Cross-study table; three treatments; +13.2 % (exogenous capital service flow, DST NABK69) and +19.4 % (endogenised on the published Södersten et al. 2018 matrices). *(Corrected 2026-09-08: this row previously gave +21.0 % for the endogenised case, which is the simplified construction the published method later replaced; `capital_endogenised_sodersten.csv` is the source.)* Corrected the earlier wrong claim that zero medical-instrument purchases were a capital artefact |
+| 11 | **Volatile anaesthetics - how far can the proxy go** | **Done** | Replaced by Danish primary data: medstat.dk ATC N01AB sales, both years verified against the register. 11.6 kt for 2022, and the item now shows the desflurane phase-out |
+| 12 | **Patient / visitor travel - find a Danish source** | **Done** | A Danish source exists after all: TU (DTU) Tabel 15, purpose code 33, verified in the primary PDFs (0.9 km/person/day 2019, 0.8 in 2022). Also fixed a unit error - a whole-population quantity was being scaled by employment × working hours |
+| 13 | **Imported waste - hybrid EXIOBASE waste data** | **Done** | v3.3.18 confirmed as the newest hybrid with waste accounts (nothing newer exists; the 2024 "October" release is consequential and has none). Fixed a real bug: all 19 fractions were being summed, including manure, sewage, mining and unused waste, none of which are in the Eurostat/DST boundary. World industry waste 13.17 → 2.01 Gt; healthcare waste 829 → 257 kt |
+| 14 | **Figure formatting compliant with house rules** | **Done** | Variance-share figure had three legend keys for series never drawn; sub-visible parameters are now pooled into one labelled residual. Aspect ratios 1.50-1.75, legends at the bottom, no baked-in titles |
+| 15 | **EXIOBASE release integrity (not requested - found)** | **Done** | Every release published since v3.8.2 was tested against Statistics Denmark's published Danish health output for 2016-2022: v3.9.4, v3.9.5, v3.9.6, v3.10.1 and v3.10.2. Each release carries a two-year window in which the Danish health industry is roughly half the national accounts, and the window moves with the release - v3.8.2's is 2018-2019, v3.9's and v3.10's is 2021-2022. For 2022, v3.8.2 returns 0.970 of the accounts against v3.9's 0.700 and v3.10's 0.360, so nothing published since improves on it for the primary year. The 2019 analysis runs on the 2016 table because v3.8.2's own 2019 table returns 0.477. Published as `09_exiobase_release_diagnostics/dk_health_output_by_release.csv`; the case is written up in `docs/methods/exiobase_release_and_classification.md`, section 1b |
+| 16 | **Journal compliance, Next Sustainability** | **Partly done** | Checked against the guide for authors. Now compliant: abstract unstructured and 250 words against the 250 limit (it was 479 and structured); keywords added, 6 against the 1-7 allowed; decimal points throughout, 101 middle dots converted in the manuscript and 13 in appendix A; headings renamed to `Declaration of competing interests`, `Declaration of generative AI use` and `Data availability`. Already compliant: 5,153 words of main text against 3,000-6,000, and 41 references against 30-50. **Two decisions left to the authors**: the citation style is still superscript numerals and the guide requires square brackets `[1]` numbered in order of appearance with the complete author list and no `et al.`, which is a reference-manager operation; and the Lancet-style `Research in context` box has no counterpart at this journal, though the guide invites an optional `What's Next` section after the conclusion which it could become |
+| 16 | **"Transport ≈ 40 %" (not requested - found)** | **Done** | Reproduced Statistics Denmark's published 74 % shipping misallocation at 73.6 % on our own model; correcting it moves transport from 37.5 % to **18.5 %** of the 3,943 kt supply-chain component, which is 15.5 % of the 4,712 kt total. *(Corrected 2026-09-08 from 18.9 %, and the basis is now stated, which is the rule this study adopted after three unreproducible shares were found in earlier drafts.)* `analysis.dk_shipping_correction` → `10_sea_transport_reallocation/` |
+
+## Round of 2026-09-08
+
+Every item below was asked for across the three most recent rounds of comments.
+The evidence column names the file or the check that shows the work is done, so
+each row can be verified without taking this table's word for it.
+
+### Scenario analysis
+
+*[Withheld: the mitigation scenarios are held back for a follow-up paper and are not on the published branch.]*
+
+### Uncertainty
+
+| # | Request | Status | Evidence |
+|:---|:---|:---|:---|
+| 25 | Re-audit the Monte Carlo end to end; make it justifiable and statistically sound | **Done, and it found a substantive error** | The correlation sensitivity had been holding the spread fixed while varying the correlation, which abandoned the calibration and let the supply-chain coefficient of variation collapse to 4.27 % against the 8.35 % asserted. `analysis.uncertainty_2025.sigma_for_rho` now re-solves the spread at every correlation. `analysis.uncertainty_audit` runs nineteen numerical checks, all passing |
+| 26 | Identify all sources of uncertainty; quantify those that can be quantified | **Done** | `docs/revision/uncertainty_sources.md`: a four-branch taxonomy after Huijbregts (1998) as adapted by Schulte et al., a flowchart, eight tagged equations, and a closing ledger that names every source left unquantified and the direction of the bias each leaves |
+| 27 | New literature: Schulte et al. (2026) on correlation and disaggregation | **Done** | Read and integrated. Its central result, that allocation of an inventory category across industries can move a sector standard deviation by anywhere from −34 % to +130 %, is the largest single unquantified source in the ledger |
+| 28 | Report both IPCC tiers | **Done** | Tier 1 error propagation 7.84 % against Tier 2 simulation 7.87 %, as IPCC (2000) 6.3.1 requires; convergence measured against the 6.4 step 5 criterion at 0.21 % |
+
+### Documentation, figures and presentation
+
+| # | Request | Status | Evidence |
+|:---|:---|:---|:---|
+| 29 | A comprehensive foundation of documentation for the co-author to build on | **Done** | Twenty-three revision documents and nineteen replication notes, each stating its question, its method, its equations, its data requirements and its limitations |
+| 30 | Correct Markdown equation syntax | **Done** | Display equations in `$$ ... $$` with `\tag{}` numbering, symbols defined in prose or in a symbol table at first use |
+| 31 | Flowcharts where they aid understanding, in Mermaid or draw.io, embedded in the Markdown | **Done** | Four diagrams, all Mermaid so they render in place on GitHub: the uncertainty taxonomy; the two marginals of the bilateral table and the trap of quoting a share without its basis; the counterfactual scenario workflow; the sea-transport reallocation |
+| 32 | Formal academic tone throughout, per the publishing guidelines | **Done** | A full pass against the house copy-editing guideline: no em or en dash anywhere, connector dashes replaced by the punctuation the rule names, serial commas, no bare demonstratives, no filler, three significant figures in prose |
+| 33 | Document every limitation of using EXIOBASE | **Done** | `docs/revision/exiobase_limitations_and_interpretation.md`, twelve sections, each in the required three parts: name the limitation, say what it changes about the conclusion, say what design would reduce it |
+| 34 | The citation lesson: never assert a number from an abstract, and never withdraw one without reading the table | **Done** | Recorded as a dated self-correction in `monte_carlo_explained.md`. It earned its keep this round: it caught a second conflation, where a *Scientific Data* reference had been given the authors and title of a different Wood et al. (2019) paper |
+| 35 | Figure-type choice reasoned and argued, formatting compliant | **Done** | Each plotting script carries a header stating the question the figure answers, the form chosen, and the forms rejected with reasons; `figures/manuscript/readme.md` records the shared conventions |
+| 36 | Keep the presentation up to date | **Done** | Twenty-six slides, checked by `scripts/release/check_deck_layout.py` for geometry and by a LibreOffice render for what the geometry check cannot see |
+| 37 | A Word document of every table circulated so far, verified, with notes | **Done** | `docs/revision/tables_of_record.docx`: fifteen tables regenerated from the gold facts in `data/gold/results/19_tables_of_record/`, each with a note, a source line, and where an earlier figure is in circulation, the value it supersedes |
+| 38 | Put the relevant tables into the slide deck | **Done** | The 2019-against-2022 comparison and its climate decomposition are now slide 20, which is the slide that answers whether the two runs form a series |
+| 39 | Differentiate the private results folder from the branch published to the co-author | **Done** | `analysis.gold_scope` classifies all twenty-two gold folders with a reason each; the publish script reads that classification rather than a hand-maintained list, and audit check C9 fails on any unclassified folder |
+| 40 | Replace the corrupt reference PDF | **Done** | The Schulte et al. (2024) file had no trailer dictionary. Replaced from an intact copy, verified to open and extract, and the damaged original kept alongside it |
+
+### What this round's audits found
+
+Nothing in the list above was accepted on assertion. Five substantive errors were
+found and corrected while checking it, and they are worth stating plainly because
+four of them had reached documents intended for the editor.
+
+| Finding | Where it had reached | Correction |
+|:---|:---|:---|
+| The correlation sensitivity table carried the superseded, pre-calibration values, and the argument built on them no longer held | `monte_carlo_explained.md` (then `uncertainty_methods_for_manuscript.md`, since folded into it), which carries the manuscript text, and `response_to_reviewers.md` | Both replaced with the re-solved values, and the argument restated: the correlation assumption governs how variance is distributed, not how much of it there is |
+| The 95 % interval existed in four different forms across five documents | five revision documents | One form everywhere, 4,064 to 5,531 kt, taken from `uncertainty_totals.csv` |
+| The first-order variance share of the input-output model was quoted as 86.8 % | `response_to_reviewers.md`, `analysis_2022.md` | 78.8 %, with the covariance between commuting and visitor travel named separately at 9.3 % rather than folded in |
+| Schulte et al.'s sector-level coefficient of variation of 94 % was quoted where the argument concerns a footprint | four documents | The paper's table 2 gives 94 % for emission *accounts* and 18 % for the *footprints* derived from them. The footprint pair is the one that applies, and using the accounts figure would have overstated the caveat roughly fivefold |
+| A *Scientific Data* reference carried the authors and title of a different Wood et al. (2019) paper | two documents | Corrected to Wood, Moran, Rodrigues and Stadler (2019), which is the paper the 8.8 % Danish figure actually comes from |
+| The Cabernard note printed its overestimation column under the label of equation (12) | `03_cabernard_target_scope3.md` | They are different statistics. Equation (12) divides by the naive total and gives 35.4 % for the broadest target set; the overestimate divides by the corrected total and gives 54.7 %. Both are now shown and named, and the comparison with Cabernard's own G20 figures is on the second, which is the one she reports |
+| The capital table attributed this study's own construction to Södersten et al. | `response_to_reviewers.md`, `analysis_2022.md`, `capital_gfcf_treatment.md` | The published matrices give 4,849 kt and +19.4 %; our simplified construction gave 4,914 kt and +21.0 %. Both are shown, correctly attributed, with the agreement between them stated as the evidence it is |
+| The capital table's waste row was still on the pre-correction waste accounts | `capital_gfcf_treatment.md` | 259.4 kt baseline, not 377 |
+| The greenhouse-gas revision table named AR4 as the revision in use and carried superseded AR5 and AR6 rows | `anomalies_bugs_and_open_questions.md` | Rebuilt from `gwp_revision_sensitivity.csv`, with AR6 marked as the study default and the 155.3 kt of pre-aggregated HFC and PFC reported as not restatable |
+| One bottom-up item still characterises N₂O at AR4's 298 while the model runs on AR6's 273 | `main_2025.py`, and now stated in the anomalies note | Left as it stands and reported. The mismatch is 0.95 kt, 0.02 % of the headline, against an interval spanning 1,467 kt; restating it would move every gold file for a difference two orders of magnitude below the interval. It is now a stated decision rather than an unexamined inheritance |
+
+Two stale figures in the earlier rounds of this checklist were corrected at the
+same time, and are marked in place: the Malik production-layer share, which had
+been recorded as agreeing with Malik when it is four points below, and the
+post-correction transport share, which is 18.5 % of the supply-chain component
+and 15.5 % of the total.
+
+## Round of 2026-09-12: the submission files themselves
+
+The three files the journal will receive were brought onto the 2022 results and
+copy-edited, as tracked changes authored in Albert's name so that Ofir can accept
+or reject each one. Nothing in the documents was changed silently; the only
+untracked edits are the digits inside the Word equation objects, which carry no
+revision markup in OOXML and are marked with a yellow highlight instead, and one
+note added to a worksheet.
+
+### Citations
+
+| Asked | Done |
+|:---|:---|
+| Square-bracket numbers, the style the guide for authors requires | All 52 in-text citations converted from superscript to `[n]`. Each converted citation is highlighted yellow so the change is visible without opening the revision pane |
+| Show where the citations changed | The highlight is the marker. Rejecting the tracked change restores the superscript form exactly |
+
+The EndNote field codes are intact, so the citations remain live. Two consequences
+follow and both are Ofir's to settle before submission. Pressing *Update Citations
+and Bibliography* in EndNote would redraw the field results in the current output
+style and undo the bracket form, so the durable fix is to select a numeric
+bracketed Elsevier style in EndNote and update once; and Elsevier itself asks that
+field codes be removed before submission, which is the last step rather than this
+one. Reference 22 still names the *DK Umat 2019 supply-use table*, and references
+40 and 41 are in the bibliography with no citation in the manuscript body; both
+need a pass in the EndNote library rather than in the document.
+
+### Numbers
+
+The body of the manuscript was still the submitted 2019 analysis on EXIOBASE
+v3.7, while the abstract had already been rewritten on 2022 and v3.8.2. Every
+statement of a result now comes from the same run.
+
+| Where | Was | Is |
+|:---|:---|:---|
+| Table 1, all 36 value cells | 2019 on v3.7 | 2022 on v3.8.2, from `01_eriksen_replication/2022c/table_01.csv` |
+| Results, headline paragraph | 4,815 kt, 5.6 %, 0.83 t per person | 4,652 kt with its 95 % interval, 6.0 %, 0.79 t |
+| Results, share range across the five categories | 3.6 % to 5.6 % | 2.4 % to 7.9 % |
+| Results, contribution analysis | pharmaceuticals led three of five categories | pharmaceuticals lead all five |
+| Results, sector of origin | pharmaceutical and chemical industry named the largest | fossil fuel industry 15.9 %, transport 14.9 %, agriculture 13.1 %, pharmaceutical and chemical 9.6 % |
+| Results, geography | 45 % domestic climate, 59 % domestic material | 25.9 % and 45.7 %, with the rest of Europe given separately |
+| Results, scopes | "not interpreted due to methodological limitations" | the partition is reported: Scope 3 90.0 %, Scope 1 2.8 %, Scope 2 1.6 %, household travel outside the protocol 5.7 % |
+| Methods, uncertainty | "not propagated quantitatively" | the Monte Carlo, its correlation assumption and its Sobol decomposition |
+| Methods, nitrous oxide | scaled from one region's purchases by birth rate | the National Inventory Document line, AR6 GWP100 |
+| Discussion, transport | "approximately half of total greenhouse gas emissions" | a quarter, 25.2 %, with the uncorrected 32.3 % and the reason for the difference |
+| Limitations, capital | 4,652 to 6,472 kt, "about 39 %" | 4,025 to 4,809 kt, 19 %. The 6,472 figure is variant d, which endogenises capital **and** adds child and elder care, so it never bounded capital alone |
+| Limitations, variance split | 21.5 % bottom-up against 78.4 % input-output | 20.6 % against 79.4 % |
+| Appendix A, equations A.11, A.13, A.15 | 524,000 employees, 8.5 km, 0.545, 0.429, 0.541 | 556,999, 8.7 km, 0.5935, 0.4563, 0.5740 |
+| Appendix A, Table A5 | transport read as the more intensive sector and the dominant source | the two intensities are 1.47 and 1.45 kt CO₂e per M€; the difference is purchase volume, three to one |
+| Appendix B, working sheet | 2019 employment and distance | 2022, with a note on the one cell deliberately left on 2019 |
+
+The 2019 figures were not merely restated. Where the earlier text drew a
+conclusion from them, the conclusion was restated too: transport is no longer
+described as a dominant driver, and Table A5's framing, which existed to support
+that reading, now supports the finding that replaced it.
+
+### Journal compliance and copy-editing
+
+| Asked | Done |
+|:---|:---|
+| Equations numbered as the guide asks | (A1) to (A15) renumbered (A.1) to (A.15); each already sits in its own paragraph |
+| Variables properly denoted | Equation A.10's distance symbols now say *motorised daily distance* on both sides, which is what the ratio is; a spelling slip in A.15's label was corrected |
+| Appendices identified as A, B | Every cross-reference capitalised, and the page numbers, which do not survive typesetting, replaced by section names |
+| Consistent terminology | 36 instances of *healthcare* in Appendix A changed to *health care*, the manuscript's own form; three of *health-care* in the manuscript changed the same way |
+| No em-dashes or en-dashes | One connector dash in the limitations and one en-dash in a figure caption removed; the manuscript body now carries none |
+| Vague quantifiers replaced by figures | *a significant share*, *a substantial share* and *substantially lower* replaced with the numbers they stand for, in eleven places |
+| Forbidden words | *robust* and *leverage* removed |
+| Ranges written one way | *4,012 to 5,460* throughout, not a mixture of spans and hyphens |
+| Title | *The environmental footprint of the Danish health care system: supply-chain origins and geographical displacement*, which drops the repetition of *impacts* and matches the appendix |
+
+### Still open, and why
+
+| Item | Why it is not done here |
+|:---|:---|
+| Figures 1 to 3 in the manuscript are still the 2019 images | The post-submission figure set does not map onto three separate figures. `figures/manuscript/2022c/fig1_ofir_panels_2022.tiff` carries activity contribution, sector contribution and geographical origin as three panels of one figure, and `figS1_geographical_origin_2022.tiff` carries the third on its own. Whether the revision keeps three figures or one panelled figure is an authorial decision, and `r/plot_steenmeijer_variant_a.r` is deliberately scoped to variant a so that the submitted record stays what it was |
+| Figure A2 in Appendix A is still the 2019 scope image | Same decision; `2022c/fig3_scopes_stacked_2022.tiff` is the current version |
+| The citation `[19,37]` in the discussion | It replaces a placeholder that read `(18, 35)`, numbers from an earlier reference list that point at EXIOBASE and ReCiPe rather than at anything about pharmaceutical intensity. Hagenaars and Steenmeijer are the sources the claim actually rests on, but the pair should be confirmed by the authors |
+| The visitor-travel uplift of 1.2581 | Its commuting leg is the 2019 Danish distance in every reference year. Recomputing it per year gives 1.2666 for 2022, which moves the patient and visitor term by 1.8 kt, 0.04 % of the headline, and would require republishing all thirteen variants. Stated in Appendix B rather than changed |
+
+## Round of 2026-09-12, second pass: the audit, the Introduction, and the figure plan
+
+### What the line-by-line audit found
+
+Every quantitative sentence in the manuscript and in Appendix A was checked against
+the gold tables, and every equation was recomputed. Five things were wrong.
+
+| Found | Where | Corrected to |
+|:---|:---|:---|
+| "EXIOBASE allocates 74% of Danish sea-transport output to Danish intermediate use **against 9% in the national accounts**" | abstract and discussion | 9% is the **2019** reading and Rørmose Jensen and Iliev's published figure. Statistics Denmark's 2022 table gives **6.5%**, which is the value the correction actually targets |
+| Appendix A stated that the pMDI term was obtained by scaling the Dutch figure | "Direct emissions", introductory paragraph | Only private travel is still scaled. pMDIs come from the Danish EPA F-gas inventory and nitrous oxide from the National Inventory Document |
+| The 2016 pMDI figure was attributed to "the 5.5 tonnes of HFC-134a that inventory reports" | pMDI note | The 10.88 kt is 5.5 t of HFC-134a **plus 0.61 t of HFC-227ea imputed at 2019's 90:10 split**: 5.5 x 1,549 + 0.61 x 3,860 |
+| "The system boundary includes some, but not all, direct emissions" | Appendix A, scope definition | No longer true once direct emissions come from DRIVHUS; the qualifier is removed |
+| A paragraph arguing against a time series on the grounds that "the same anchor would be used for all the datasets, namely the 2016 EXIOBASE dataset", with a digression on central-bank money printing | Appendix A | Replaced by the actual reference-year treatment. The 2022 run does not use the 2016 anchor, and the reason 2019 does is EXIOBASE's defective Danish health block for 2018 and 2019 |
+
+Two further statements were imprecise rather than wrong and are now stated: the
+commuting leg of the visitor-travel uplift is deliberately held at the 2019 Danish
+distance, and the gold provenance note for the input-output spread still named the
+superseded 4.675 Mt headline (the uncertainty layer was re-run; every number is
+byte-identical, only the note changed).
+
+Everything else reproduces. The headline, all thirty-six Table 1 cells, the five
+national shares, the activity and sector shares, the seven geographical shares, the
+scope partition, the capital bound, the variance decomposition, the ranking
+probability, the anaesthetic and inhaler arithmetic, and the commuting and visitor
+scaling factors were each recomputed from the gold tables or from first principles
+and each matched.
+
+### The Introduction
+
+Rewritten in full on the external review, as seven paragraphs whose opening
+sentences carry the argument on their own. The changes the review asked for are all
+made: the gap is stated once and with a consequence rather than twice as an
+absence; "simplified system models" is gone and the three method families are
+described as complementary with their own limitations; "hybrid" is replaced by
+EE-MRIO supplemented with bottom-up estimates; capital is named as a boundary
+choice rather than hidden behind "comprehensive"; geographical displacement is
+presented as the evidence a distributional question needs rather than as a measure
+of injustice; and the contribution is called diagnostic, not a demonstration of
+mitigation effectiveness. The Danish health-spending figure the reviewer flagged is
+removed, as recommended.
+
+The review's own draft was written against the submitted 2019 results and says
+transport leads the climate footprint. That has been carried over onto the 2022
+results, where pharmaceutical and chemical supply chains lead every category.
+
+Five references are added for the claims the rewrite makes: Doucet et al. (2025),
+Kouwenberg et al. (2024), Södersten et al. (2018), Malik et al. (2021) and Hagenaars
+et al. (2025), numbered 42 to 46 and highlighted yellow like the converted
+citations. Södersten was previously cited in the text with no entry at all. They are
+appended as static paragraphs, so the EndNote library needs them adding before the
+bibliography is next updated.
+
+### Figures
+
+The submitted Figures 1, 2 and 3 are replaced by one panelled figure, which is how
+`fig1_ofir_panels` was drawn, and the two freed slots carry cuts the submission did
+not have: the twenty largest producing region by industry pairs, and the GHG
+Protocol scope partition. Appendix A now carries nineteen figures. The mapping is in
+`figures/manuscript/readme.md`.
+
+A figure cannot carry a revision mark in Word, so the three images in the manuscript
+were swapped in place; the tracked captions beside them are what signal the change.
+
+### Scopes, trends and word budget
+
+Scope results are now reported in the Results, discussed in the Discussion, and set
+out in full in Appendix A with their own figures. The reference-year comparison is
+reported as a comparison and not as a trend, with the two-step decomposition in
+Appendix A: 2016 to 2019 is demand alone on one background and moves every category
+by about 6%; 2019 to 2022 changes the background as well, and 953 kt of the 561 kt
+net climate increase is a larger chemicals block in the 2022 table.
+
+The body ran to 6,240 words after the additions, against the guide's typical 3,000
+to 6,000. It is now 5,955. The Lancet-style "Research in context" box, which is not
+a Next Sustainability device, became the "What's Next" section the guide invites,
+and roughly 290 words of methods detail and duplicated discussion moved to Appendix
+A or were cut. The abstract is 246 words against a 250-word cap.
+
+## Round of 2026-09-12, third pass: the submission blockers
+
+### A confidentiality failure, found and closed
+
+`eriksen_et_al_2026_reviewer_responses.docx` reproduces both referee reports in
+full, and it had been on the public branch since 2026-09-09. The leak scan missed
+it because it greps a list of text extensions and a `.docx` is a zip: the referee
+wording was there in plain sight and unreachable to `grep`. Three changes close it.
+The scan now unzips `.docx`, `.xlsx` and `.pptx` and reads their XML parts, and
+re-run against the leaked file it raises all five phrases. The letter is excluded
+from publication outright. And the branch was rebuilt, so the file is absent from
+the published history and not only from its tip: 1,042 files against 1,043.
+
+Two residual exposures are not ours to close. Anyone who cloned the public branch
+between 9 and 12 September holds a copy, and GitHub keeps unreachable objects
+addressable by their SHA until it garbage-collects. If that matters, GitHub support
+can be asked to purge them.
+
+### The three blockers
+
+| Was | Is |
+|:---|:---|
+| The response letter was the pre-revision one: 2,212 words, dated 8 September, no mention of 2022, 4,652 kt, v3.8.2 or the Monte Carlo | Rebuilt from `response_to_reviewers.md`: 8,759 words, 13 tables, the point-by-point answers, the data-integrity section and the corrected transport share. The summary table now opens with the headline result, which it never stated |
+| The cover letter was addressed to *Cell Reports Sustainability*, four times, and carried the submitted title | Rewritten for *Next Sustainability* as a revision letter, 612 words, naming the corrected finding in the second paragraph rather than burying it. The file no longer carries the wrong journal in its name |
+| No CRediT statement, which the guide for authors asks for | Added before the competing-interests declaration. **The role assignment is a first draft and all five authors must confirm it; Styrmir Gislason, Morten Birkved and Ciprian Cimpan have still to state their roles**: the repository evidences who wrote the code and who wrote the original draft, but not supervision, funding or project administration |
+
+### Two further corrections
+
+The data availability statement still cited EXIOBASE v3.7 and "the Danish
+supply-use tables". It now names version 3.8.2, the input-output, emission and
+waste accounts actually used, and the per-file lineage record.
+
+"EXIOBASE version 3.8.2's Danish health block is not usable for 2018 and 2019" was
+a label rather than a reason, and Albert challenged it. It now carries the
+measurement. The Danish health and social work industry runs at 37,163 M.EUR in
+2016 and 38,298 in 2017, falls to 17,590 in 2018 and 18,646 in 2019, and returns to
+42,834 in 2020 and 43,955 in 2022. Where a Danish national-accounts figure exists
+to compare against, the table agrees within 3 % in 2016 and 2022 and reaches 48 %
+of it in 2019. The consequence for this study is the part that was missing: because
+health-care demand is scaled onto that industry's own intermediate structure, a
+2019 run on the 2019 table would scale a demand vector roughly twice the size of
+the industry it is supposed to come from. Appendix A adds that the defect follows
+the release rather than the year: 3.9.x and 3.10.x report 2019 within 15 % of the
+national accounts and put 2022 at 70 % and 36 % of it, which is why 3.8.2 is the
+release used here.
+
+### Still open
+
+The EndNote endgame, in order: add references 42 to 46 to the library, correct
+entry 22 from the 2019 supply-use table to the 2022 input-output table, switch the
+output style to a bracketed numeric Elsevier style, update once so the numbering
+regenerates in order of appearance, then remove the field codes. Acknowledgements
+and ORCIDs are absent. Figures need exporting as separate files at submission; the
+300 dpi TIFFs are in `figures/manuscript/2022c/` and `figures/manuscript/comparison/`.
+Appendix A's own reference list does not carry the sources the new supplementary
+sections name in prose.
+
+## Round of 2026-09-13: the external review of the Introduction, Methods and Appendix A
+
+An external review of the revised Introduction, Methods and Appendix A arrived on
+13 September 2026 with five blocking items (P0), nine major items (P1), an equation
+audit and its own rewrites of the three texts. It audited the files as they stood
+before this revision's Methods rewrite, so several items were already answered; each
+was nonetheless re-checked against the current code and data rather than against the
+text, and two of them found defects that moved every headline number
+([defects_and_fixes.md, "Findings of 13 September 2026"](defects_and_fixes.md#findings-of-13-september-2026)).
+The item codes below are the review's own.
+
+| Item | Asked for | Disposition | Where |
+|:---|:---|:---|:---|
+| P0-TIME-01 | deflate 2019 expenditure to the 2016 table | **Already dissolved**: the headline is 2022 expenditure on the 2022 table. The 2016 and 2019 comparison runs are stated as current prices of each year, so their difference includes price change; the omitted 2019 → 2016 deflation is quantified at 3.0 % | manuscript Methods; Appendix A, Reference years; response letter R2-4 |
+| P0-PRICE-02 | demonstrate the valuation basis | **Done, and it found a defect.** The Danish table is at basic prices, so no tax conversion is needed, but its goods columns carry the distribution margins as trade-industry rows, which had been mapped to the goods. Margins now enter at the Danish trade industries; every variant was rebuilt. Valuation reconciliation table (expenditure, margins, $y_H$) published | `00_core_footprint/expenditure_summary.csv`; Appendix A, Valuation and distribution margins; defects ledger |
+| P0-CODE-03 | one travel factor in SI and code | **Done.** The factor no longer exists: patient and visitor travel is built from the TU survey (0.8 km per person per day, 263.6 kt), the same way in the code, Appendix A (eq. A.13) and Appendix B. The four non-climate cells were still on the old factor and are now scaled by the same activity ratio | `analysis.main_2025`; Appendix B, sheet "Patient and visitor travel" |
+| P0-LINEAGE-04 | reconcile the 1,699 kt direct entry | **Answered.** 1,699 kt is the Dutch sector's direct emission in the inherited RIVM input file, which the Danish run overwrites with DRIVHUS: 118.55 kt, hospital nitrous oxide netted out. The lineage record names the file and step | Appendix A, Double counting; `manifest_lineage.csv` |
+| P0-GEO-05 | remove the duplicated residual region | **Already fixed**, re-verified: regions are exclusive and sum to the total in every indicator (audit C1); the empty "(not used)" row was deleted from Table A3 and the travel row relabelled "Travel supply chains, no region" | Appendix A, Table A3; `r/plot_manuscript_figures.r` |
+| P1-SCOPE-01 | relabel the scopes | **Kept, with the definitions made exact**: Scope 1 from national accounts, Scope 2 as $d_E \mathbf{L}_{EE} y_E$, Scope 3 as the residual, patient and visitor travel outside the protocol as in NHS England, and the OECD and Hertwich-Wood conventions reported beside it (72.1 to 75.0 kt) | Appendix A, eq. A.16; `02_scopes_wood_hertwich/2022c/` |
+| P1-BU-02 | bottom-up ratios should not scale every category | **Split**: the gas terms now carry climate only; the travel terms carry all five, because the Dutch inventory quantifies each category per kilometre and the Danish term is an activity scaling of that inventory, not a GHG ratio | manuscript Methods; Appendix A, Bottom-up terms |
+| P1-GWP-03 | one GWP basis | **Done**: all gases on IPCC AR6 GWP100; the inhaler inventory restated from AR4, the volatile anaesthetics moved from Sulbaek Andersen et al. to AR6 table 7.SM.7; the characterisation described as it is (restated DESIRE CML workbook, not ReCiPe) with the 126 kt that cannot be restated | Appendix A, Impact assessment and GWP revision |
+| P1-CAP-04 | quantify capital | **Already done**: +21.2 % endogenised on the Södersten matrices, +15.1 % exogenous | `11_capital_gfcf/`; manuscript Limitations |
+| P1-UNC-05, P1-PHARMA-06 | sensitivity and uncertainty | **Already done**: 100,000-draw Monte Carlo with closed-form Sobol shares; pharmaceutical mapping, target share, capital, GWP revision, margins and boundary reported as scenarios | Appendix A, Uncertainty and Sensitivity; `04_uncertainty_lenzen_ieooc/` |
+| P1-DOUBLE-07 | overlap controls for every bottom-up flow | **Done**: a Double counting section in Appendix A, one paragraph per flow, backed by the numerical ledger | Appendix A; `double_counting_ledger.csv` |
+| P1-QA-08 | automated QA tests | **Done**: six input-output identities and 21 consistency checks run at the end of every pipeline run; a Quality assurance section in Appendix A | `analysis.validate_io_identities`, `analysis.audit_consistency` |
+| P1-REPO-09 | a clean release matching the paper | **Partly wrong, partly open.** Release v1.0.1 exists (DOI 10.5281/zenodo.21493995, concept DOI 10.5281/zenodo.20542389); the review found only v1.0.0. Paths are configurable and `scripts/run_pipeline.py` is the single command. **Open**: a new Zenodo version must be minted from the published branch before the revision is submitted | Appendix A, Data, code and software |
+| Equation audit | define the estimator and the services construction | **Done**: Methods eqs. 1 to 3 and Appendix A eqs. A.1 to A.8, with $y = \mathbf{A}_{\cdot h} E^{\text{s}}$ derived and the pure-upstream identity verified to $3\times10^{-12}$ kt | manuscript Methods; Appendix A |
+| Introduction | narrow novelty claim, OECD 2025 Danish estimate, no results, 9.4 % of GDP | Novelty narrowed and Doucet et al. (2025, OECD Health Working Paper No. 184) cited; the GDP figure was already corrected. **Not adopted**: removing the result preview, which the guide for authors does not require and Reviewer 1 asked for | manuscript Introduction |
+| Rewritten texts | the review's own Methods and Appendix A | Used as a checklist, not pasted: every claim in them was checked against the code, and several (a purchasers'-price conversion, a GHG-only travel term) do not describe this model | — |
+
+**Result changes.** The 2022 climate footprint is 4,162 kt CO₂e (95 % interval 3,587 to
+4,893), 5.4 % of the national footprint, against 4,652 kt before; the five categories
+span 2.1 % to 6.5 % of national. Pharmaceuticals and chemical products lead four of the
+five categories at 27.7 % of climate; food leads land use. The boundary-matched ladder
+now sits 4.8 % below Schmidt & Merciai rather than within 2 %.
+
+**Deliverables regenerated.** The manuscript and Appendix A as tracked changes by
+Albert, with equations in native Word maths and figures 1 to 3 and A2 to A19 replaced;
+Appendix B's travel sheet; the response letter; this folder's documents; the readmes;
+every gold table and figure.
+
+**Still open from this round.** Mint the new Zenodo version. Confirm the unverified
+inputs flagged in the defects ledger (Vestbo & Press-Kristensen's 7.2 t for 2019, the
+5 % sevoflurane metabolism, the Laster specific gravities, and the Dutch commuting
+hours and distance not printed in Steenmeijer et al.). Update the EndNote library for
+references added this round (Appendix A refs 9 to 33, manuscript refs 47 to 52).
+
+### 14 September 2026: the data-integrity correction
+
+A data-integrity round, following an external audit, traced each Danish bottom-up input
+to its source and checked every reference against the work it cites
+([defects_and_fixes.md, "Findings of 14 September 2026"](defects_and_fixes.md#findings-of-14-september-2026)).
+Employee commuting is now estimated directly, as $G_c = \delta_w \times 365 \times
+P_{6+} \times s_h \times \eta_c$ from the Danish National Travel Survey's workplace
+distance, residents aged 6 and over, health care's share of hours worked (NABB117) and
+the Dutch inventory's life-cycle intensity per person-km, because the Dutch base the old
+ratio scaled counts one trip per working day and its hours were all-industry averages.
+The eldercare share is read from each year's input-output table and applied alike to the
+direct emissions, waste and commuting; medical nitrous oxide is netted on the accounts'
+AR5 basis (38 t × 265 = 10.07 kt); the 2019 inhaler term uses the Danish EPA inventory
+(10.17 kt); the Monte Carlo median check now allows 1 %; and the reference lists of the
+manuscript (52) and Appendix A (31) were verified entry by entry and the unsupported
+claims corrected.
+
+**Result changes.** Commuting rises from 340 to 444 kt, and the 2022 climate footprint
+from 4,162 to 4,267 kt CO₂e (95 % interval 3,675 to 5,029), 5.5 % of the national
+footprint and 0.73 t per person. Pharmaceuticals and chemical products are 27.1 % of
+climate (24.2 to 29.0 %) and lead in 96.6 % of draws; the input-output share of the
+variance is 69.6 %. The boundary-matched ladder is 0.7 % above Schmidt & Merciai on the
+total and 2.3 % below per person. All interventions with the grid pathway reach 20.3 % of
+the regional target, against 19.3 % before.
+
+**Deliverables regenerated.** The manuscript and Appendix A as tracked changes by Albert
+Kwame Osei-Owusu dated 14 September 2026, with EndNote field codes removed and verified
+static reference lists; Appendix B, renamed
+`eriksen_et_al_2026_supplementary_appendix_b_travel_calculations.xlsx`; every gold table
+and figure; the current-claim documents.
+
+**Closed from 13 September.** Vestbo and Press-Kristensen's 7.2 t for 2019 (replaced by
+the inventory), the source of the 5 % sevoflurane metabolism (Kharasch et al. 1995), and
+the Dutch commuting hours and distance, which the direct estimate no longer uses. The
+EndNote item no longer applies. **Still open.** Mint the new Zenodo version.
+
+### Standing audits, and their current state
+
+| Audit | Scope | State |
+|:---|:---|:---|
+| `analysis.audit_consistency` | partition totals, detail reconciliation, file currency, model labels, lineage coverage, documented numbers, star-schema keys and grain, citations, gold-folder classification | **12 of 12 pass** |
+| `analysis.uncertainty_audit` | median-1 construction, realised geometric standard deviations, correlations, closed-form moments, variance shares, convergence, seed independence, calibration held across correlations, both IPCC tiers | **19 of 19 pass** |
+| `analysis.bibliography` | in-text citations resolve, DOIs verified against Crossref | 62 sources, 47 DOIs, 8 documents |
+| `scripts/release/check_deck_layout.py` | slide geometry, text overflow against font metrics | 3 known decorative bleeds, no text faults |
+| `scripts/release/publish_ofir_branch.sh` | withheld paths, referee wording, attribution trailers | run before every publish |

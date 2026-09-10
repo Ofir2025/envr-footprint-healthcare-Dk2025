@@ -553,7 +553,7 @@ HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analy
 
 ## References
 
-Full entries with DOIs are in [`docs/REFERENCES.md`](../REFERENCES.md).
+Full entries with DOIs are in [`docs/references.md`](../references.md).
 
 - GHG Protocol. (n.d.). *Guidance on uncertainty assessment in GHG inventories
   and calculating statistical parameter uncertainty*. World Resources Institute
