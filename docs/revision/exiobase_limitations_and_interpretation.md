@@ -294,7 +294,7 @@ only in this study.
 
 ## References
 
-Full entries with DOIs are in [`docs/REFERENCES.md`](../REFERENCES.md).
+Full entries with DOIs are in [`docs/references.md`](../references.md).
 
 - Lenzen, M., Wood, R., & Wiedmann, T. (2010). Uncertainty analysis for
   multi-region input-output models. *Economic Systems Research, 22*(1), 43-63.

@@ -7,7 +7,7 @@ could not be traced to any source at all. A reference that cannot be resolved is
 worse than no reference, because it looks like evidence.
 
 This module makes ``docs/references.csv`` the single source of truth. It renders
-``docs/REFERENCES.md`` in APA 7 with DOIs as resolvable links, and it verifies
+``docs/references.md`` in APA 7 with DOIs as resolvable links, and it verifies
 that every author-year citation appearing in the documentation resolves to an
 entry. The check runs in the consistency audit, so a citation cannot be added
 without the source behind it.
@@ -36,7 +36,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 CSV_PATH = REPO / "docs" / "references.csv"
-MD_PATH = REPO / "docs" / "REFERENCES.md"
+MD_PATH = REPO / "docs" / "references.md"
 
 #: Documents whose in-text citations must resolve. Kept explicit rather than
 #: globbing every markdown file: the reading notes under docs/methods cite far
@@ -129,7 +129,7 @@ def apa(row: dict[str, str]) -> str:
 
 
 def render() -> str:
-    """Render ``docs/REFERENCES.md`` and return its text."""
+    """Render ``docs/references.md`` and return its text."""
     rows = sorted(load(), key=lambda r: (r["authors"].lower(), r["year"]))
     out = [
         "# References",

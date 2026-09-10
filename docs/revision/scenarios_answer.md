@@ -198,7 +198,7 @@ HC_ANALYSIS_YEAR=2022 Rscript R/plot_scenarios.R
 
 ## References
 
-Full entries with DOIs in [`docs/REFERENCES.md`](../REFERENCES.md).
+Full entries with DOIs in [`docs/references.md`](../references.md).
 
 - Aguilar-Hernandez, G. A., Sigüenza-Sanchez, C. P., Donati, F., Rodrigues,
   J. F. D., & Tukker, A. (2018). Assessing circularity interventions: A review

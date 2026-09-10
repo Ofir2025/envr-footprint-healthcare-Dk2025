@@ -12,7 +12,7 @@ what it does **not** do.
 | Know what is broken, uncertain or still undecided | [`revision/anomalies_bugs_and_open_questions.md`](revision/anomalies_bugs_and_open_questions.md) |
 | Understand why the background model is v3.8.2 and not v3.10.2 | [`revision/exiobase_vintage_defects.md`](revision/exiobase_vintage_defects.md) |
 | Trace any published number back to its data and method | `data/gold/results/manifest_lineage.csv` |
-| See which of the author's requests are answered | [`revision/REQUEST_CHECKLIST.md`](revision/REQUEST_CHECKLIST.md) |
+| See which of the author's requests are answered | [`revision/request_checklist.md`](revision/request_checklist.md) |
 | Understand the modelling approaches implemented | [`methods_approaches.md`](methods_approaches.md) |
 | Understand the data layout | [`data_architecture.md`](data_architecture.md) |
 

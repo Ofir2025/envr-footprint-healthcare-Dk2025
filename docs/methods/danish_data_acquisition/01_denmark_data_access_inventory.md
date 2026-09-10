@@ -639,7 +639,7 @@ Potential sources:
 
 # 12. External MRIO sources
 
-Detailed comparison is provided in `02_cross_mrio_replication_strategy.md`.
+Detailed comparison is provided in `04_cross_mrio_replication_strategy.md`.
 
 Recommended MRIO set:
 
