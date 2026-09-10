@@ -38,7 +38,7 @@ by default and is available via `include_childcare=True` for a scope sensitivity
 ## 2. E2: Direct (Scope-1) operational emissions (critical)
 
 **Defect:** the "operational impacts" (B_HEAL) GWP entry was computed as
-`B·(L·Ystim)` over the DK health rows = **1.39 kt CO₂e**, the MRIO-induced intra-health
+$\mathbf{B}\,(\mathbf{L}\,y_{\text{stim}})$ over the DK health rows = **1.39 kt CO₂e**, the MRIO-induced intra-health
 emissions, which (a) are already inside the contribution totals (a double count) and
 (b) are not the sector's direct emissions. An unsourced `DirectEm = 1,699 kt` sat unused
 in `dk_data_2025.csv`.

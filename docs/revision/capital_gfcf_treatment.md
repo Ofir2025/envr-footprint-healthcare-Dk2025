@@ -8,9 +8,9 @@ Reproduce with `PYTHONPATH=src .venv/bin/python -m analysis.capital_gfcf`
 
 ## 1. Why capital is normally missing
 
-An input-output model's intermediate matrix `Z` records **current** inputs only.
+An input-output model's intermediate matrix $\mathbf{Z}$ records **current** inputs only.
 Gross fixed capital formation sits in final demand, so in the standard Leontief
-construction `f = C S L y` a hospital's building, its MRI scanner, and its
+construction $f = \mathbf{C}\,\mathbf{S}\,\mathbf{L}\,y$ a hospital's building, its MRI scanner, and its
 patient-record system are never in the health sector's supply chain; they are
 somebody else's final demand. For manufacturing this matters little; for
 services, whose capital stock is large relative to annual purchases, it is the
@@ -59,30 +59,26 @@ comparable. Danish health capital is 36.6 % buildings, 44.7 % ICT/machinery/
 equipment, 16.4 % intellectual property products, 1.7 % transport equipment
 (NABK69 by asset; `capital_asset_mix.csv`).
 
-**Baseline: capital excluded.** `f = C S L y_H`. It is the Steenmeijer-comparable
+**Baseline: capital excluded.** $f = \mathbf{C}\,\mathbf{S}\,\mathbf{L}\,y_H$. It is the Steenmeijer-comparable
 number, and the study's headline.
 
 **Scenario A: exogenous capital service flow.**
 
-```
-f_A = f + C S L y_cap ,   sum(y_cap) = CFC_health = 2,274 M€
-```
+$$f_A = f + \mathbf{C}\,\mathbf{S}\,\mathbf{L}\,y_{\text{cap}}, \qquad \sum y_{\text{cap}} = \text{CFC}_{\text{health}} = 2{,}274\text{ M€}$$
 
 CFC, not GFCF, is the correct flow for an annual account: it is the capital
 actually consumed during the year, so no asset is charged more than once over
 its life. Using GFCF (3,200 M€) instead would overstate by 41 % in a year of
-above-trend hospital investment. `y_cap` is spread over EXIOBASE products by the
+above-trend hospital investment. $y_{\text{cap}}$ is spread over EXIOBASE products by the
 Danish asset mix, and within each asset class by Denmark's own GFCF column, so
 the import geography comes from the model rather than from an assumption.
 
 **Scenario D: full endogenisation** (Södersten, Wood & Hertwich 2018;
 Lenzen-Treloar augmentation):
 
-```
-K[:, j] = g_r(j) · cfc_j / x_j ,   A' = A + K ,   L' = (I − A')⁻¹
-```
+$$K(:,j) = g_r(j) \cdot \frac{\text{cfc}_j}{x_j}, \qquad \mathbf{A}' = \mathbf{A} + K, \qquad \mathbf{L}' = (\mathbf{I} - \mathbf{A}')^{-1}$$
 
-for every industry in every region, `g_r` being region *r*'s normalised GFCF
+for every industry in every region, $g_r$ being region *r*'s normalised GFCF
 commodity vector. This construction propagates capital through **every** tier of
 the chain, not just the first, and is an upper bound.
 
@@ -175,15 +171,13 @@ The paper is now held locally (`docs/references/sodersten_et_al_2018_endogenizin
 and its SI), obtained from the author's NTNU doctoral thesis, which reprints it
 under an ACS AuthorChoice licence permitting non-commercial redistribution.
 
-**Their method.** `A = Z x̂⁻¹`, `K = K̄ x̂⁻¹`, and capital enters the *same*
+**Their method.** $\mathbf{A} = \mathbf{Z}\,\hat{x}^{-1}$, $K = \bar{K}\,\hat{x}^{-1}$, and capital enters the *same*
 inverse rather than being bordered on:
 
-```
-L^K = (I − (A + K))⁻¹
-```
+$$\mathbf{L}^K = (\mathbf{I} - (\mathbf{A} + K))^{-1}$$
 
 The double-counting fix is that **gross fixed capital formation is removed from
-final demand**. A residual `y_r^K = GFCF − CFC` is added back only to keep
+final demand**. A residual $y_r^K = \text{GFCF} - \text{CFC}$ is added back only to keep
 same-year global totals comparable, and they describe it themselves as *"only a
 workaround"*; it can go negative.
 
@@ -203,9 +197,9 @@ care is a service sector, which is why our +21 % endogenised figure is at the
 lower end rather than an outlier. The paper reports no Danish or Nordic values
 and does not mention health care.
 
-**How our implementation differs, precisely.** We construct `K[:, j] = g_r(j) ·
-cfc_j / x_j`, using each region's own normalised GFCF vector as the commodity
-mix. Södersten build `K̄` from a KLEMS 8-asset × 32-industry base with
+**How our implementation differs, precisely.** We construct $K(:,j) = g_r(j) \cdot
+\text{cfc}_j / x_j$, using each region's own normalised GFCF vector as the commodity
+mix. Södersten build $\bar{K}$ from a KLEMS 8-asset × 32-industry base with
 proxy-weighted concordances, a generic NACE-average matrix for uncovered
 countries, and regionalisation by GFCF import origin. Ours is a coarser
 commodity mix applied to the same CFC level; it captures the magnitude but not
@@ -225,15 +219,13 @@ transaction matrix using *"the industry technology construct … to conform with
 the way the A matrix is constructed"*. Applying that construct to the rows
 rather than the columns gives the industry-by-industry form directly:
 
-```
-q_p     = Σ_i V[p, i]            total output of product p
-D       = Vᵀ q̂⁻¹                 industry × product market shares
-K̄_ixi   = D K̄_pxi                9,800 product rows → 7,987 industry rows
-K       = K̄_ixi x̂⁻¹
-L^K     = (I − (A + K))⁻¹        their eq. 13
-```
+$$q_p = \sum_i V_{p,i} \qquad \text{total output of product } p$$
+$$D = V^{\mathsf{T}}\,\hat{q}^{-1} \qquad \text{industry × product market shares}$$
+$$\bar{K}_{\text{ixi}} = D\,\bar{K}_{\text{pxi}} \qquad \text{9,800 product rows} \rightarrow \text{7,987 industry rows}$$
+$$K = \bar{K}_{\text{ixi}}\,\hat{x}^{-1}$$
+$$\mathbf{L}^K = (\mathbf{I} - (\mathbf{A} + K))^{-1} \qquad \text{their eq. 13}$$
 
-`D` is block diagonal by region by construction, and each of its columns sums to
+$D$ is block diagonal by region by construction, and each of its columns sums to
 one, so total capital use by industry is conserved by the mapping, asserted in
 code at 1.2×10⁻¹⁴. The augmented inverse verifies at 1.6×10⁻¹⁴.
 
@@ -304,7 +296,7 @@ comparison should be read.
 
 ## 7. Verification and honest limits
 
-- `(I − A')L' = I` verified to 2×10⁻¹⁴ on sampled columns; `L' ≥ 0`.
+- $(\mathbf{I} - \mathbf{A}')\mathbf{L}' = \mathbf{I}$ verified to $2\times10^{-14}$ on sampled columns; $\mathbf{L}' \ge 0$.
 - The spectral radius moves only from 0.97289056 to 0.97289057. This stability is
   **not** evidence that capital is negligible: EXIOBASE's dominant eigenvector is
   concentrated (|v| = 0.997) on *Cultivation of paddy rice*, a near-unit-column
