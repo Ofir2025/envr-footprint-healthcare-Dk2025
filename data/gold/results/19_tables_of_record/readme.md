@@ -59,7 +59,7 @@
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `Vintage`
+- **Dimensions:** `Revision`
 - **Measures:** `Health care (kt CO₂-eq)`
 
 ### `table_08.csv`

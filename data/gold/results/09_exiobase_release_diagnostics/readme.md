@@ -1,8 +1,8 @@
-# 09_vintage_diagnostics
+# 09_exiobase_release_diagnostics
 
-**EXIOBASE vintage defects**
+**EXIOBASE release defects**
 
-Which EXIOBASE vintage can carry this study? Rørmose Jensen & Iliev argue EXIOBASE's Danish block misallocates output between industries. This module turns that argument into a reproducible test rather than accepting or dismissing it.
+Which EXIOBASE release can carry this study? Rørmose Jensen & Iliev argue EXIOBASE's Danish block misallocates output between industries. This module turns that argument into a reproducible test rather than accepting or dismissing it.
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 09](../../../../docs/methods/replications.md#r09).
 
@@ -24,7 +24,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 09
 - **Rows:** 65
 - **Format:** csv
 - **Units:** M.EUR
-- **Dimensions:** `mrio_vintage`, `country_producing`, `sector_producing`, `exiobase_industry_index`, `dst_nace_prefixes`, `unit`, `source_national_accounts`
+- **Dimensions:** `mrio_release`, `country_producing`, `sector_producing`, `exiobase_industry_index`, `dst_nace_prefixes`, `unit`, `source_national_accounts`
 - **Measures:** `mrio_year`, `exiobase_output_meur`, `national_accounts_output_meur`, `ratio_exiobase_over_dst`
 
 ### `industry33_output_by_region.csv`
@@ -32,12 +32,12 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 09
 - **Rows:** 245
 - **Format:** csv
 - **Units:** M.EUR
-- **Dimensions:** `mrio_vintage`, `country_producing`, `sector_producing`, `unit`, `variable`
+- **Dimensions:** `mrio_release`, `country_producing`, `sector_producing`, `unit`, `variable`
 - **Measures:** `mrio_year`, `exiobase_industry_index`, `value`
 
-### `vintage_defect_verdicts.csv`
+### `release_defect_verdicts.csv`
 
 - **Rows:** 10
 - **Format:** csv
-- **Dimensions:** `defect`, `mrio_vintage`, `metric`, `verdict`
+- **Dimensions:** `defect`, `mrio_release`, `metric`, `verdict`
 - **Measures:** `mrio_year`, `value`, `of`, `world_total_meur`

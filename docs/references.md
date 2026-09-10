@@ -33,7 +33,7 @@ without its source.
 - Danish Energy Agency [Energistyrelsen] (2022). Klimastatus og -fremskrivning 2022 (KF22). *Danish Energy Agency*. https://ens.dk
   <br>*Used for:* Grid and district-heat emission-factor projection used in scenario B1
 - Danish Energy Agency [Energistyrelsen] (2025). Klimastatus og -fremskrivning 2025 (KF25). *Danish Energy Agency*. https://ens.dk
-  <br>*Used for:* Second official projection vintage; reported alongside KF22 as a real uncertainty band
+  <br>*Used for:* Second official projection release; reported alongside KF22 as a real uncertainty band
 - Danske Regioner (2024). Klimahandling i regionerne [Climate action in the regions]. *Danske Regioner*. https://www.regioner.dk
   <br>*Used for:* Target: halve hospitals' consumption-based CO2 by 2035 against 2022; the 2020 target of -75 % on energy and transport by 2030 against 2018
 - Donati, F., Aguilar-Hernandez, G. A., Sigüenza-Sánchez, C. P., de Koning, A., Rodrigues, J. F. D., & Tukker, A. (2020). Modeling the circular economy in environmentally extended input-output tables: Methods software and case study. *Resources, Conservation and Recycling, 152, 104508*. https://doi.org/10.1016/j.resconrec.2019.104508
@@ -61,7 +61,7 @@ without its source.
 - Intergovernmental Panel on Climate Change (2000). Quantifying uncertainties in practice (Chapter 6). In Good practice guidance and uncertainty management in national greenhouse gas inventories. *IPCC National Greenhouse Gas Inventories Programme*. https://www.ipcc-nggip.iges.or.jp/public/gp/english/
   <br>*Used for:* Tier 1 versus Tier 2, the rules for combining uncertainties, the correlation guidance, and the convergence criterion this study reports against
 - Jakobs, A., Schulte, S., & Pauliuk, S. (2021). Price variance in hybrid-LCA leads to significant uncertainty in carbon footprints. *Frontiers in Sustainability, 2, 666209*. https://doi.org/10.3389/frsus.2021.666209
-  <br>*Used for:* Price-vintage uncertainty in a hybrid footprint, and the double-counting correction choice worth a factor of almost two
+  <br>*Used for:* Price-base-year uncertainty in a hybrid footprint, and the double-counting correction choice worth a factor of almost two
 - Jeswani, H. K., & Azapagic, A. (2019). Life cycle environmental impacts of inhalers. *Journal of Cleaner Production, 237, 117733*. https://doi.org/10.1016/j.jclepro.2019.117733
   <br>*Used for:* Propellant and device-class scenarios P6 and P7; source of the dry-powder burden shift
 - Kagawa, S., Nansai, K., & Kudoh, Y. (2009). Does product lifetime extension increase our income at the expense of energy consumption?. *Energy Economics, 31(4), 597-606*. https://doi.org/10.1016/j.eneco.2008.08.011

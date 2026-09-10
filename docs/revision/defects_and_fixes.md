@@ -26,12 +26,12 @@ stood on the day it was written.
 Next Sustainability NXSUST-D-26-01589) following the forensic audit of 2026-09-06 and the
 first-round reviews. Every entry lists the defect, the evidence, the change, and the effect
 on results. Baseline year 2019 expenditure on the EXIOBASE 2016 industry-by-industry table.
-**These are 2019-vintage figures.** The 2022 re-analysis carries its own, current versions
+**These are 2019 figures.** The 2022 re-analysis carries its own, current versions
 of most of these fixes; see the [anomalies register](#anomalies-bugs-and-open-questions-current-register)
 below and [docs/revision/results_2022.md](results_2022.md) for the figures that
 supersede this section where the two differ.
 
-### Data-vintage identification (reportable erratum)
+### Release identification (reportable erratum)
 
 The manuscript and repo README cite EXIOBASE **v3.7** (Zenodo 3583071). Rebuilding the
 pipeline from that record does **not** reproduce the submitted results (healthcare-services
@@ -176,7 +176,7 @@ the module that regenerates it is named.
 #### A1: v3.10.2's 2022 Danish block misallocates output `HIGH` `FIXED`
 
 Tested against Statistics Denmark's published 117-industry input-output table
-for the same year (`analysis.vintage_defect_audit`):
+for the same year (`analysis.release_defect_audit`):
 
 | DK industry, 2022 | National accounts | v3.10.2 | ratio |
 |:---|:---|:---|:---|
@@ -209,10 +209,10 @@ remain plausible.
 
 **Action:** background moved to EXIOBASE v3.8.2 `IOT_2022_ixi`, which passes the
 same test on every checkable group. See
-[`../methods/exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md).
+[`../methods/exiobase_release_and_classification.md`](../methods/exiobase_release_and_classification.md).
 
 **Still in doubt:** whether a later v3.10.x release fixes this. We did not test
-it: only the vintages on disk were examined. Re-testing before the next
+it: only the releases on disk were examined. Re-testing before the next
 submission is worthwhile.
 
 #### A2: v3.10.2 empties industry 33 across Europe, in every year `HIGH` `FIXED`
@@ -268,7 +268,7 @@ gold outputs.
 
 **Consequence for the manuscript:** the submitted finding that transport is
 38-43 % of the Danish health-care footprint must be **withdrawn**. It is not a
-vintage artefact; it is a documented misallocation in EXIOBASE's Danish block,
+release artefact; it is a documented misallocation in EXIOBASE's Danish block,
 diagnosed by Denmark's own statistical office.
 
 #### A4: Residual gap against the official Danish footprint `MEDIUM` `ACCEPTED`
@@ -294,8 +294,8 @@ conservative for Denmark. Full detail in
 
 #### A6: v3.8.2 is better, not perfect `MEDIUM` `ACCEPTED`
 
-The chosen vintage still disagrees with Danish national accounts on some groups
-(`09_vintage_diagnostics/dk_block_vs_national_accounts.csv`): electrical
+The chosen release still disagrees with Danish national accounts on some groups
+(`09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv`): electrical
 machinery 3.35×, post and telecommunications 2.88×, sea transport 0.63× (2016).
 The concordance test is a plausibility screen on **output levels**; it says
 nothing about whether the **input structure** is right. That is what
@@ -313,7 +313,7 @@ inverse verification and non-negativity of $\mathbf{L}$.
 #### A7b: Four defective rows in the DESIRE characterisation workbook `HIGH` `FIXED`
 
 The workbook shipped with the background (`characterisation_desire_version3_4_
-adapted.xlsx`, a 2014-vintage FP7 file) has four rows that cannot be used. All
+adapted.xlsx`, a 2014 FP7 file) has four rows that cannot be used. All
 four are now detected in `analysis.impact_categories_full` and flagged in the
 gold table rather than left for a reader to discover.
 
@@ -371,7 +371,7 @@ those EXIOBASE stressors are already reported in CO₂-equivalent.
 Quantified rather than assumed (`analysis.impact_categories_full` writes the
 uncharacterised stressor totals that support this):
 
-| GWP100 vintage | Healthcare (kt) | vs AR4 | National (kt) |
+| GWP100 revision | Healthcare (kt) | vs AR4 | National (kt) |
 |:---|:---|:---|:---|
 | IPCC SAR (1995) | 3,740 | −3.0 % | 64,767 |
 | IPCC TAR (2001) | 3,791 | −1.7 % | 65,563 |
@@ -381,21 +381,21 @@ uncharacterised stressor totals that support this):
 
 The study restates to AR6; the row marked as EXIOBASE's own is what the database
 ships, and is shown because a reader comparing against a study that did not
-restate is entitled to know the gap. The effect is small, so the vintage is a
+restate is entitled to know the gap. The effect is small, so the revision is a
 reporting obligation rather than a problem. The restatement covers 96.1 % of the
 characterised total: the remaining 155.3 kt is HFC and PFC, which EXIOBASE
 supplies already aggregated to CO₂-equivalent and which therefore keep whatever
-vintage EXIOBASE used. That residue is reported rather than silently restated
-(`gwp_vintage_sensitivity.csv`, columns `not_restatable_*`).
+revision EXIOBASE used. That residue is reported rather than silently restated
+(`gwp_revision_sensitivity.csv`, columns `not_restatable_*`).
 
 **Related mixing, since resolved.** The bottom-up items do not all share the
-MRIO row's vintage. Volatile anaesthetics use the Sulbaek Andersen et al. (2023)
+MRIO row's GWP revision. Volatile anaesthetics use the Sulbaek Andersen et al. (2023)
 recommended GWP₁₀₀ set and pMDI takes the Danish EPA F-gas inventory figure as
 published, both of which are deliberate: they are the published values for those
 specific gases. The nitrous oxide term was the one genuine mismatch. It carried
 **AR4's 298**, chosen when the MRIO climate row still ran on EXIOBASE's own
 DESIRE factors, which are AR4, so the two agreed; rebuilding the MRIO row on AR6
-left it stranded at a different vintage from the model around it.
+left it stranded at a different revision from the model around it.
 
 An earlier draft of this register argued for leaving it, on the grounds that
 38 t × (298 − 273) = 0.95 kt CO₂e is 0.02 % of the headline against a 95 %
@@ -407,7 +407,7 @@ again, and the headline moved 4,713.368 to **4,712.418 kt**.
 
 Steenmeijer et al. have the same problem and it is not resolved there: their
 climate factors are AR4/DESIRE while their pMDI propellants use genuine ReCiPe
-GWPs (1,549 and 3,860), so their climate total mixes two vintages.
+GWPs (1,549 and 3,860), so their climate total mixes two revisions.
 
 #### A9: Documented errors in the template study itself `MEDIUM` `ACCEPTED`
 
@@ -494,18 +494,18 @@ subtraction of the 3.2 kt that actually overlaps the national-accounts Scope 1.
 `coderagg` listed `['NL','WE','WA','WL','WM','WF']`, silently dropping the
 domestic region from aggregated geography reporting.
 
-#### B7: Wrong EXIOBASE vintage assumed `MEDIUM` `FIXED`
+#### B7: Wrong EXIOBASE release assumed `MEDIUM` `FIXED`
 
 The submitted results could not be reproduced on v3.7. Fingerprinting the
 satellite file naming (`F_Y.txt` vs `F_hh.txt`) identified **v3.8.2** as the
-vintage actually used. The loader now accepts both layouts.
+release actually used. The loader now accepts both layouts.
 
 #### B8: Duplicated constants and stale paths `MEDIUM` `FIXED`
 
 Model indices were duplicated across eight modules under two naming conventions;
 `BACKGROUND_YEAR` was redefined independently in five modules; the model
 provenance string `"EXIOBASE v3.10.2 ... (screened)"` was hardcoded in seven
-places and survived the vintage change, so tables would have carried a false
+places and survived the release change, so tables would have carried a false
 label. All now come from `analysis.constants`. A stale duplicate source tree
 (`src/envr_footprint_healthcare/`) was removed, and root-level output paths left
 behind by the gold reorganisation were fixed.
@@ -528,7 +528,7 @@ These are recorded for honesty, because they were mine, not Ofir's:
 - The capital asset bridge used a **truncated asset name**, silently dropping
   45 % of the consumption of fixed capital. The bridge is fixed; unmapped CFC is
   now 0 and is asserted in the diagnostics table.
-- The vintage audit **discovered 2022 twice** (txt and .mat of the same release),
+- The release audit **discovered 2022 twice** (txt and .mat of the same release),
   double-counting it in the verdict table.
 - The variance-share figure gave **legend keys to three series never drawn**.
 
@@ -569,7 +569,7 @@ waste comparison is published.
 
 Healthcare accounts for 2.05 % of the national waste footprint, against 5-8 %
 for the other indicators and 8 % in Malik et al. The anomaly is related to C3
-and to the 2011 vintage of the waste extension.
+and to the 2011 reference year of the waste extension.
 
 #### C5: The imported waste tier cannot be grounded `MEDIUM` `ACCEPTED`
 
@@ -627,8 +627,8 @@ These change results and are the author's call, not the analyst's.
 | D4 | **Eldercare share α** | 2019 detailed SUT (0.4914) vs analysis-year IO table (0.3092) | analysis-year IO | Changes direct emissions and waste. Ofir's original used the 2019 value carried forward |
 | D5 | **Visitor travel** | drop it / import the NHS ratio | NHS ratio 0.236, labelled | No Danish source exists for visitor travel. This ratio is the only remaining fully imported parameter |
 | D8 | **Nowcast year versus frozen emission year** | 2022 table (ours) / freeze at EXIOBASE 2019 and deflate demand, as Statistics Denmark do | 2022 | Our Danish *economic* block is validated for 2022 and passes; the *emission* accounts end in 2019 (CO₂) and 2017 (other GHGs). Rørmose Jensen & Iliev freeze at 2019 for exactly this reason. Full treatment in [Decision D8](results_2022.md#decision-d8-2022-nowcast-or-the-last-observed-year) |
-| D7 | **GWP vintage** | AR6 (current) / AR5 (UNFCCC-mandated) | **AR6** | Only ±2 % on climate. Note UNFCCC mandates **AR5** (decision 7/CP.27), so an AR6 footprint is not directly comparable with Denmark's national inventory; an AR5 sensitivity is available and EXIOBASE ships an AR5 row |
-| D6 | **Vintage** | v3.8.2 now / wait for a corrected v3.10.x | v3.8.2 | See A1, A6 |
+| D7 | **GWP revision** | AR6 (current) / AR5 (UNFCCC-mandated) | **AR6** | Only ±2 % on climate. Note UNFCCC mandates **AR5** (decision 7/CP.27), so an AR6 footprint is not directly comparable with Denmark's national inventory; an AR5 sensitivity is available and EXIOBASE ships an AR5 row |
+| D6 | **Release** | v3.8.2 now / wait for a corrected v3.10.x | v3.8.2 | See A1, A6 |
 
 ### E. What Ofir should know in one page
 
@@ -826,8 +826,8 @@ and the published literature, then rebuilt it. Findings and fixes:
 | defect | fix |
 |:---|:---|
 | MRIO parameter uncertainty absent → intervals ~2× too narrow | added as one shared multiplicative factor calibrated to **Lenzen et al. 2020 SI Tab. SI 7.1** (Danish health-care GHG 2.84 ± 0.24 Mt = **8.35 % relative SD**), the only published MC of this exact quantity |
-| price-vintage correction (0.97) hidden inside a distribution, so the point estimate sat off-centre in its own interval | all multipliers now median 1 (MC median reproduces the deterministic model); vintage/waste/pharma are **discrete scenarios** |
-| waste GSD 1.5 alone drove −53/+120 % and implied the vintage error was unbiased and log-symmetric | moved to a 0.5/1.0/2.0 **scenario band** |
+| price-base-year correction (0.97) hidden inside a distribution, so the point estimate sat off-centre in its own interval | all multipliers now median 1 (MC median reproduces the deterministic model); price/waste/pharma are **discrete scenarios** |
+| waste GSD 1.5 alone drove −53/+120 % and implied the reference-year error was unbiased and log-symmetric | moved to a 0.5/1.0/2.0 **scenario band** |
 | commuting and visitor travel treated as independent though both are transplants of the same Dutch study | shared method factor, ρ = 0.8 (ρ ∈ {0, 0.5, 0.8} reported) |
 | ranking probabilities invalid: six of nine groups had zero variance; pharma scored P(rank 1)=1.0000 | rebuilt: group totals evaluated at the **same draw**, every group carries uncertainty, the shared MRIO factor correctly cancels |
 | pharma ratio clipped at 1.0, creating a point mass | truncated lognormal |
@@ -941,7 +941,7 @@ We tested every option with real data rather than reasoning in the abstract.
    structure (Pearson r = −0.19, p = 0.56). It puts 74.8 % of Danish waste on
    agriculture where DST has 1.3 %, and 0.5 % on construction where DST has 43 %.
 
-The reason is conceptual, not vintage: the hybrid account is a **total-residuals**
+The reason is conceptual, not a matter of reference year: the hybrid account is a **total-residuals**
 account. Livestock manure is 74 % of the Danish total, and **69 % of our
 "waste" footprint is mining overburden plus manure**. It is not waste as any
 statistical office defines it.
@@ -1042,7 +1042,7 @@ hospital N₂O is netted out before the bottom-up item is added.
    intermediate purchases of medical instruments to the capital boundary. That
    was wrong. The zero is a defect in EXIOBASE v3.10.2, which carries ~zero
    output for industry 33 across all European regions in both 2016 and 2022
-   ([`../methods/exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md)).
+   ([`../methods/exiobase_release_and_classification.md`](../methods/exiobase_release_and_classification.md)).
 4. Patient/visitor travel still has no Danish source (verified absent), the
    only remaining component with no national anchor.
 5. **Closed since:** the eldercare share α is no longer carried from 2019. It is

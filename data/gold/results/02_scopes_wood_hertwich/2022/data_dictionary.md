@@ -12,7 +12,7 @@ are described below, per table.
 | Column | Meaning |
 |:---|:---|
 | `analysis_year` | year of the Danish expenditure data and of the MRIO background |
-| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_version_vintage_and_classification.md`) |
+| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_release_and_classification.md`) |
 | `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |
 | `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |
 | `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |
@@ -59,7 +59,7 @@ units and are labelled as such wherever they are quoted.
 | `item` | dimension | str |  | MRIO footprint decomposition by producin |
 | `risk` | dimension | str |  | none |
 | `test` | dimension | str |  | partition of one scalar (sum of cells == |
-| `value` | measure | float64 | varies by row | 5230.948923832077 |
+| `value` | measure | float64 | varies by row | 5318.307734796392 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `verdict` | dimension | str |  | OK - additive by construction (Wood & He |
 

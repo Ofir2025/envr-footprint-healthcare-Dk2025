@@ -30,13 +30,13 @@ response to the reviewers.
 | `06_benchmarks_validation` | the boundary-matched comparison with Schmidt & Merciai; figure 7 |
 | `07_malik_replication` | capital-boundary comparator; Malik et al. include capital where the other comparators exclude it |
 | `08_lenzen_replication` | the comparator behind the uncertainty calibration and the national-total family comparison |
-| `09_vintage_diagnostics` | the **only** evidence for rejecting EXIOBASE v3.10.2, which the response states as fact |
+| `09_exiobase_release_diagnostics` | the **only** evidence for rejecting EXIOBASE v3.10.2, which the response states as fact |
 | `10_sea_transport_reallocation` | the sea-transport reallocation, on which the withdrawn transport finding depends |
 | `11_capital_gfcf` | the capital treatment; the second step of figure 7 |
 | `12_impact_categories_full` | the full characterisation behind the five reported categories |
 | `13_steenmeijer_replication` | the Dutch study this replicates |
 | `14_eckelman_replication` | comparator in the same boundary table as 07 and 08 |
-| `15_gwp_vintage` | the AR6-versus-AR4 restatement the response leads on |
+| `15_gwp_revision` | the AR6-versus-AR4 restatement the response leads on |
 | `18_mitigation_scenarios` | the counterfactual scenarios; figures 8 and 9 |
 | `19_tables_of_record` | the verified tables of record, regenerated from the gold facts, that supersede the values circulated during drafting |
 | `20_production_layers` | how far upstream the pressure occurs; the production-layer decomposition reported for the revision |

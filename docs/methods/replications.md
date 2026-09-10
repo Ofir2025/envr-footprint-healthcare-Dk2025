@@ -28,13 +28,13 @@ reader to discover.
 | [06](#r06) | Benchmarks and consistency audit | Schmidt & Merciai (2023); Eurostat FIGARO | `danish_healthcare_benchmark`, `figaro_benchmarks` |
 | [07](#r07) | Malik replication | Malik et al. (2018, 2021) | `malik_replication`, `production_layers` |
 | [08](#r08) | Lenzen KPI set | Lenzen et al. (2020) | `lenzen_replication` |
-| [09](#r09) | EXIOBASE vintage defects | Rørmose Jensen & Iliev (2022) | `vintage_defect_audit` |
+| [09](#r09) | EXIOBASE release defects | Rørmose Jensen & Iliev (2022) | `release_defect_audit` |
 | [10](#r10) | Shipping reallocation | Rørmose Jensen & Iliev (2022) | `dk_shipping_correction` |
 | [11](#r11) | Capital endogenisation | Södersten et al. (2018) | `capital_endogenised_sodersten`, `capital_gfcf` |
 | [12](#r12) | Full impact-category profile | DESIRE FP7 characterisation | `impact_categories_full` |
 | [13](#r13) | Steenmeijer replication | Steenmeijer et al. (2022) | `steenmeijer_replication` |
 | [14](#r14) | Eckelman replication | Eckelman & Sherman (2016) | `eckelman_replication` |
-| [15](#r15) | GWP vintage sensitivity | IPCC AR4-AR6 | `gwp_vintage` |
+| [15](#r15) | GWP revision sensitivity | IPCC AR4-AR6 | `gwp_revision` |
 | 16 *(write-up not yet written)* | IMPACT World+ profile | Bulle et al. (2019); IW+ v2.2.1 | `impact_world_plus` |
 | 17 *(write-up not yet written)* | Footprint by SHA function | Malik et al. (2018); OECD SHA 2011 | `health_subsector_footprints` |
 | [18](#r18) | Counterfactual scenarios | Aguilar-Hernandez et al. (2018); Donati et al. (2020); Danish Klimastatus og -fremskrivning | `mitigation_scenarios` |
@@ -754,7 +754,7 @@ quantity*. Wood et al. (2019) independently give 8.8 % for Denmark.
 
 #### Structural choices are scenarios, not distributions
 
-The pharmaceuticals mapping, the price vintage, and the waste vintage are **modelling
+The pharmaceuticals mapping, the price base year, and the waste reference year are **modelling
 decisions**, not measurement errors. Burying a decision inside a lognormal would
 misrepresent it. They are run as a factorial of scenarios
 (`uncertainty_structural_scenarios.csv`) and reported separately.
@@ -795,7 +795,7 @@ rather than by inspection of intervals.
 This interval is parametric uncertainty **conditional on one model**. Tukker et al.
 warn that national error statistics do not transfer to sector studies; Schulte et al. (2024,
 table 2) report median footprint CVs of 3 % at country level against 18 % at sector
-level, and 4 % against 94 % for the emission accounts behind them. Our own change of EXIOBASE vintage moved the
+level, and 4 % against 94 % for the emission accounts behind them. Our own change of EXIOBASE release moved the
 result by more than this interval spans. A limitations paragraph making exactly this point
 is drafted in [docs/revision/uncertainty.md](../revision/uncertainty.md#6-manuscript-and-si-text-ready-to-paste) and should be carried into the
 manuscript; reporting the interval without it would over-claim.
@@ -1186,21 +1186,21 @@ is reported rather than assumed negligible.
 
 <a id="r09"></a>
 
-## 09 — EXIOBASE vintage defects (`data/gold/results/09_vintage_diagnostics/`)
+## 09 — EXIOBASE release defects (`data/gold/results/09_exiobase_release_diagnostics/`)
 
-**Module** `analysis.vintage_defect_audit`
+**Module** `analysis.release_defect_audit`
 **Source** Rørmose Jensen & Iliev (2022), Statistics Denmark; Statistics Denmark's
 published 117-industry input-output table
 
 ### Question this layer answers
 
-Which EXIOBASE vintage can carry this study? Rørmose Jensen & Iliev argue EXIOBASE's
+Which EXIOBASE release can carry this study? Rørmose Jensen & Iliev argue EXIOBASE's
 Danish block misallocates output between industries. This module turns that argument into
 a reproducible test rather than accepting or dismissing it.
 
 ### Method
 
-Every EXIOBASE vintage on disk is compared, industry group by industry group, against
+Every EXIOBASE release on disk is compared, industry group by industry group, against
 Statistics Denmark's own IO table for the same year:
 
 $$r_i = \frac{x_i^{\text{EXIOBASE}}}{x_i^{\text{national accounts}}}$$
@@ -1266,9 +1266,9 @@ reviewer will reasonably ask why it was not used.
 
 ### Outputs
 
-This layer writes `dk_block_vs_national_accounts.csv` (per industry, per vintage, with
+This layer writes `dk_block_vs_national_accounts.csv` (per industry, per release, with
 ratios), `industry33_output_by_region.csv` (D1 across all regions), and
-`vintage_defect_verdicts.csv` (one verdict row per defect per vintage).
+`release_defect_verdicts.csv` (one verdict row per defect per release).
 
 ---
 
@@ -1552,7 +1552,7 @@ workbook; and the EXIOBASE stressor list, whose order the workbook columns must 
 - The climate row is **not** taken from the workbook, which carries AR4 factors
   (CH₄ = 25, N₂O = 298) under a sheet labelled "CML 1999". It is rebuilt on IPCC AR6 from
   the stressor names; see [section 15](#r15).
-- DESIRE is a 2014-vintage file with no water-scarcity, land-biodiversity, or
+- DESIRE is a 2014 file with no water-scarcity, land-biodiversity, or
   mineral-resource categories. That gap is the reason for layer 16
   (IMPACT World+), which is current and openly licensed. Its own replication
   write-up has not been written yet; see the [Contents](#contents) table above.
@@ -1648,7 +1648,7 @@ the Dutch published values, transcribed with provenance.
 ### Deviations from the source, stated
 
 - Their background is EXIOBASE v3.3 and ours v3.8.2; we do not rebuild on v3.3, so
-  absolute levels carry a vintage component.
+  absolute levels carry a release component.
 - Our climate figures are AR6, theirs are the workbook's AR4. Absolute climate values are
   therefore not directly comparable; shares are.
 
@@ -1728,9 +1728,9 @@ comparison when it is not.
 
 <a id="r15"></a>
 
-## 15 — Climate characterisation vintage (`data/gold/results/15_gwp_vintage/`)
+## 15 — Climate characterisation revision (`data/gold/results/15_gwp_revision/`)
 
-**Module** `analysis.gwp_vintage`
+**Module** `analysis.gwp_revision`
 **Source** IPCC AR6 WG1 Table 7.15 and WG3 Annex II; AR4, AR5 for the sensitivity
 
 ### Question this layer answers
@@ -1758,15 +1758,15 @@ refining. **Combustion methane is deliberately excluded** from that list: AR6 WG
 assigns 27.0 to fossil-*combustion* methane, so treating it as fossil-extraction methane
 would over-characterise it.
 
-$$f_{\text{climate}} = \sum_g \mathrm{GWP}_g^{(v)} \cdot m_g \quad \text{for vintage } v$$
+$$f_{\text{climate}} = \sum_g \mathrm{GWP}_g^{(v)} \cdot m_g \quad \text{for revision } v$$
 
-The footprint is restated under four assessment vintages, and the results reported side by
+The footprint is restated under four assessment revisions, and the results reported side by
 side.
 
 #### The limit of the restatement, reported not hidden
 
 EXIOBASE reports **HFC and PFC already aggregated in kg CO₂-equivalent**, not as individual
-species. Whatever GWP vintage was used to aggregate them is fixed inside the data and
+species. Whatever GWP revision was used to aggregate them is fixed inside the data and
 cannot be recovered from the satellite account. Those two stressors are therefore excluded
 from the restatement, and the share of the footprint that **cannot** be restated is
 reported (`not_restatable` column).
@@ -1782,7 +1782,7 @@ $y_H$; and the four IPCC assessment factor sets.
 
 - The DESIRE workbook's climate row is **not used**. This substitution is a deliberate
   departure from the inherited pipeline and is the reason the study's climate figures
-  differ from the submitted manuscript's beyond the vintage and shipping changes.
+  differ from the submitted manuscript's beyond the revision and shipping changes.
 - The fossil/non-fossil methane split relies on EXIOBASE's industry naming, which is a
   proxy for the physical distinction. The marker list is explicit in `constants.py` so the
   assignment can be audited and changed.
@@ -1791,7 +1791,7 @@ $y_H$; and the four IPCC assessment factor sets.
 
 | File | Content |
 |:---|:---|
-| `gwp_vintage_sensitivity.csv` | health-care and national footprints under four vintages, with the non-restatable share |
+| `gwp_revision_sensitivity.csv` | health-care and national footprints under four revisions, with the non-restatable share |
 | `gwp_by_species.csv` | mass, AR6 factor, and CO₂e contribution per species |
 
 ### Verification
@@ -2132,7 +2132,7 @@ can be said.
 | Counterfactual solve against the stored inverse | agrees to 1 × 10⁻¹¹ |
 | Levers summed vs solved simultaneously | 0.2 kt apart on climate; reported, not assumed |
 | Accounting imbalance from editing **A** | 0 for B- and y-only scenarios; 0.7 % of output at the largest A edit; reported per scenario, never rebalanced away |
-| Two official grid-projection vintages | KF22 and KF25 differ by 1.0 pp on the same lever; both reported rather than the more flattering one |
+| Two official grid-projection releases | KF22 and KF25 differ by 1.0 pp on the same lever; both reported rather than the more flattering one |
 | Market penetration | P2 reported at 25 / 50 / 100 % of Danish production, because the share achieving Lundbeck's result is unknown |
 | Rebound on/off | C1 vs C2; 22 % of the saving |
 | Substitution keeps balance | P9 with $\alpha = 1$ has zero imbalance, as it must |

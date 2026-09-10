@@ -643,7 +643,7 @@ scale_bottomup_all_to_dk(
 #
 # It used to carry AR4's 298, chosen when the MRIO row still ran on EXIOBASE's
 # own DESIRE factors, which are AR4. The MRIO row moved to AR6 and this term did
-# not, which left the study mixing two vintages in one total: 38 t x (298 - 273)
+# not, which left the study mixing two revisions in one total: 38 t x (298 - 273)
 # = 0.95 kt CO2e. Reading the factor from AR6_GWP100 rather than restating it
 # means the two cannot drift apart again.
 #

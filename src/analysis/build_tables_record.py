@@ -222,7 +222,7 @@ def t_year_comparison() -> Table:
            "change is not a trend",
         pd.DataFrame(rows),
         "06_benchmarks_validation/year_comparison_2019_2022.csv",
-        "The runs differ in reference year, in background vintage "
+        "The runs differ in reference year, in background year "
         "(EXIOBASE IOT_2016 against IOT_2022) and in whether the Danish "
         "sea-transport reallocation is applied, which it is only for 2022. "
         "The corrected demand vector is used in both, so it is not part of the "
@@ -343,25 +343,25 @@ def t_boundary_matched() -> Table:
         "boundaries; it remains, and the agreement should be read with it.")
 
 
-def t_gwp_vintage() -> Table:
-    """The climate footprint on five global-warming-potential vintages."""
-    d = _read("15_gwp_vintage", "gwp_vintage_sensitivity.csv")
+def t_gwp_revision() -> Table:
+    """The climate footprint on five global-warming-potential revisions."""
+    d = _read("15_gwp_revision", "gwp_revision_sensitivity.csv")
     cols = {c.lower(): c for c in d.columns}
     val = cols.get("healthcare_kt") or cols.get("value") or d.columns[1]
     rows = [{
-        "Vintage": r[d.columns[0]],
+        "Revision": r[d.columns[0]],
         "Health care (kt CO\u2082-eq)": _fmt(r[val], 1),
     } for _, r in d.iterrows()]
     return Table(
-        7, "The choice of global-warming-potential vintage moves the climate "
+        7, "The choice of global-warming-potential revision moves the climate "
            "footprint by 5 %",
         pd.DataFrame(rows),
-        "15_gwp_vintage/gwp_vintage_sensitivity.csv",
+        "15_gwp_revision/gwp_revision_sensitivity.csv",
         "The study reports AR6 throughout. The spread across four IPCC "
-        "assessment vintages is a reminder that a climate footprint is not a "
+        "assessment revisions is a reminder that a climate footprint is not a "
         "measurement but a measurement combined with a convention, and that "
         "the convention must be stated with the number. The environment "
-        "variable HC_GWP_VINTAGE reproduces any row.")
+        "variable HC_GWP_REVISION reproduces any row.")
 
 
 def t_capital() -> Table:
@@ -555,24 +555,24 @@ def t_burden_shift() -> Table:
         "plotting a zero there would read as a clean bill.")
 
 
-def t_vintage_defect() -> Table:
+def t_release_defect() -> Table:
     """Why EXIOBASE v3.10.2 was rejected."""
-    d = _read("09_vintage_diagnostics", "dk_block_vs_national_accounts.csv")
+    d = _read("09_exiobase_release_diagnostics", "dk_block_vs_national_accounts.csv")
     # The file carries three model years; the comparison that matters is the
-    # study's own reference year, where the two vintages disagree.
+    # study's own reference year, where the two releases disagree.
     d = d[d["mrio_year"] == int(ANALYSIS_YEAR)]
-    out = d.pivot_table(index="sector_producing", columns="mrio_vintage",
+    out = d.pivot_table(index="sector_producing", columns="mrio_release",
                         values="exiobase_output_meur", aggfunc="first")
-    rat = d.pivot_table(index="sector_producing", columns="mrio_vintage",
+    rat = d.pivot_table(index="sector_producing", columns="mrio_release",
                         values="ratio_exiobase_over_dst", aggfunc="first")
     nat = d.groupby("sector_producing")["national_accounts_output_meur"].first()
-    vints = sorted(out.columns, reverse=True)
+    rels = sorted(out.columns, reverse=True)
     order = nat.sort_values(ascending=False).index
     rows = []
     for sec in order:
         row = {"Danish industry": sec,
                "National accounts (M.EUR)": _fmt(nat[sec], 0)}
-        for v in vints:
+        for v in rels:
             val, ratio = out.loc[sec, v], rat.loc[sec, v]
             row[f"EXIOBASE {v}"] = (f"{_fmt(val, 0)}  ({ratio:.2f}x)"
                                     if val == val and ratio == ratio else "")
@@ -581,7 +581,7 @@ def t_vintage_defect() -> Table:
         14, "EXIOBASE v3.10.2 fails against the Danish national accounts from "
             "2015 onward, and v3.8.2 does not",
         pd.DataFrame(rows),
-        "09_vintage_diagnostics/dk_block_vs_national_accounts.csv",
+        "09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv",
         "This is the whole evidence for the model replacement, and the test "
         "needed no external source: Danish health final expenditure is "
         "40,597 M.EUR, and a health industry with 16,326 M.EUR of total output "
@@ -626,8 +626,8 @@ def t_parameters() -> Table:
 
 BUILDERS: tuple[Callable[[], Table | None], ...] = (
     t_headline, t_year_comparison, t_climate_bridge, t_scopes, t_benchmarks,
-    t_boundary_matched, t_gwp_vintage, t_capital, t_health_functions,
-    t_uncertainty, t_variance, t_scenarios, t_burden_shift, t_vintage_defect,
+    t_boundary_matched, t_gwp_revision, t_capital, t_health_functions,
+    t_uncertainty, t_variance, t_scenarios, t_burden_shift, t_release_defect,
     t_parameters,
 )
 

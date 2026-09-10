@@ -115,7 +115,7 @@ from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 FOLDER = "18_mitigation_scenarios"
 
 #: Danish grid emission factor, g CO2e per kWh, from the Danish Energy Agency's
-#: published projections. Two official vintages give a real uncertainty band
+#: published projections. Two official releases give a real uncertainty band
 #: rather than an invented one.
 DK_GRID_FACTOR: dict[str, dict[int, float]] = {
     "KF22": {2022: 122.7, 2030: 16.9, 2035: 15.6},
@@ -238,12 +238,12 @@ def build_scenarios(bg: dict[str, Any], sec: pd.DataFrame, n_regions: int,
     # evidence-matched Denmark-only case and B1G is the global upper bound, and
     # the difference between them is reported rather than buried in a note.
     base_factor = DK_GRID_FACTOR["KF22"][2022]
-    for vintage, factors in DK_GRID_FACTOR.items():
+    for release, factors in DK_GRID_FACTOR.items():
         for year in (2030, 2035):
             if year not in factors:
                 continue
             k_t = 1.0 - factors[year] / base_factor
-            src = (f"Danish Energy Agency {vintage}: {base_factor} -> "
+            src = (f"Danish Energy Agency {release}: {base_factor} -> "
                    f"{factors[year]} g CO2e/kWh")
             for sid, cols, scope, basis in (
                     ("B1", dk_energy, "Danish",
@@ -254,7 +254,7 @@ def build_scenarios(bg: dict[str, Any], sec: pd.DataFrame, n_regions: int,
                 scenarios.append(Scenario(
                     sid=sid, name=f"grid and district heat, {scope}, {year}",
                     kind="background pathway",
-                    ambition=f"{vintage} to {year}",
+                    ambition=f"{release} to {year}",
                     edits=(Edit(target="B", cols=np.flatnonzero(cols),
                                 k_t=k_t, k_p=1.0, source=src,
                                 penetration_basis=basis),),

@@ -179,7 +179,7 @@ data for individual countries changes."*
 
 | Source | Why not |
 |:---|:---|
-| ReCiPe 2016 v1.1 characterisation factors (RIVM) | Freely downloadable but **not openly licensed**; no AR6 update exists; its perspective is a fourth GWP vintage. IMPACT World+ was chosen instead |
+| ReCiPe 2016 v1.1 characterisation factors (RIVM) | Freely downloadable but **not openly licensed**; no AR6 update exists; its perspective is a fourth GWP revision. IMPACT World+ was chosen instead |
 | Dawkins et al. 2018 (*JCLP* 209:1578-1592) | The citation for the SNAC-versus-raw effect size; absent from all local folders |
 | AR6 WG3 Annex II | Referenced for the inventory methane split; the WG1 chapter carries what we need |
 

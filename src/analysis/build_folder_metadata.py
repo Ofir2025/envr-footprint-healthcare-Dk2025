@@ -56,7 +56,8 @@ DIMENSION_HINTS = (
     "scope", "scenario", "method", "year", "component", "function", "layer",
     "origin", "target", "model", "analysis", "quantity", "parameter", "species",
     "asset", "stressor", "damage", "source", "basis", "check", "defect",
-    "vintage", "metric", "item", "risk", "test", "verdict", "group", "note",
+    "release", "revision", "metric", "item", "risk", "test", "verdict",
+    "group", "note",
 )
 
 ROW_REGIONS = ("RoW Asia and Pacific", "RoW America", "RoW Europe",
@@ -90,7 +91,7 @@ COMMON_COLUMNS: tuple[str, ...] = (
     "| Column | Meaning |",
     "|:---|:---|",
     "| `analysis_year` | year of the Danish expenditure data and of the MRIO background |",
-    "| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_version_vintage_and_classification.md`) |",
+    "| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_release_and_classification.md`) |",
     "| `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |",
     "| `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |",
     "| `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |",

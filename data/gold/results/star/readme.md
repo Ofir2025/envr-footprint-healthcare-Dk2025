@@ -36,11 +36,11 @@ Schema definition (DDL) these tables satisfy: [`docs/methods/star_schema.sql`](.
 - **Dimensions:** `draw_group_id`, `draw_group_name`
 - **Measures:** none
 
-### `dim_gwp_vintage.csv`
+### `dim_gwp_revision.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `gwp_vintage_id`, `vintage_code`, `is_study_default`
+- **Dimensions:** `gwp_revision_id`, `revision_code`, `is_study_default`
 - **Measures:** none
 
 ### `dim_impact_category.csv`
@@ -77,7 +77,7 @@ Schema definition (DDL) these tables satisfy: [`docs/methods/star_schema.sql`](.
 
 - **Rows:** 4
 - **Format:** csv
-- **Dimensions:** `model_id`, `model_label`, `background_year`, `mrio`, `danish_block_correction`, `gwp_vintage`, `scope_boundary`, `capital`, `is_headline`, `source_folder`, `note`
+- **Dimensions:** `model_id`, `model_label`, `background_year`, `mrio`, `danish_block_correction`, `gwp_revision`, `scope_boundary`, `capital`, `is_headline`, `source_folder`, `note`
 - **Measures:** `analysis_year`
 
 ### `dim_production_layer.csv`
@@ -119,7 +119,7 @@ Schema definition (DDL) these tables satisfy: [`docs/methods/star_schema.sql`](.
 
 - **Rows:** 6
 - **Format:** csv
-- **Dimensions:** `substance_id`, `substance_code`, `base_unit`, `gwp_vintage`, `is_restatable`
+- **Dimensions:** `substance_id`, `substance_code`, `base_unit`, `gwp_revision`, `is_restatable`
 - **Measures:** `gwp100`
 
 ### `fact_capital_node.csv`
@@ -164,11 +164,11 @@ Schema definition (DDL) these tables satisfy: [`docs/methods/star_schema.sql`](.
 - **Dimensions:** `model_id`, `substance_id`
 - **Measures:** `mass_kg`, `gwp100`, `co2eq_kt`
 
-### `fact_gwp_vintage.csv`
+### `fact_gwp_revision.csv`
 
 - **Rows:** 5
 - **Format:** csv
-- **Dimensions:** `model_id`, `gwp_vintage_id`, `indicator_id`
+- **Dimensions:** `model_id`, `gwp_revision_id`, `indicator_id`
 - **Measures:** `healthcare_kt_co2eq`, `national_kt_co2eq`, `healthcare_share_pct`, `healthcare_t_per_capita`, `not_restatable_kt_co2eq`
 
 ### `fact_health_expenditure.csv`

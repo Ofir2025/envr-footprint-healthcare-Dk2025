@@ -1,4 +1,4 @@
-price_vintage,waste_vintage,indicator,median
+price_base_year,reference_year,indicator,median
 none,central,Global warming (ktCO2eq),4736.9016013661985
 none,central,Material extraction (kt),4260.422823120768
 none,central,Blue water consumption (Mm3),95.49982787020204

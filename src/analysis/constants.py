@@ -42,14 +42,14 @@ DK_POPULATION = {"2019": 5_814_422, "2022": 5_873_420}
 # ---------------------------------------------------------------------------
 # Background model selection and provenance.
 #
-# Defined once so that no module can silently pair one vintage's data with
+# Defined once so that no module can silently pair one release's data with
 # another's provenance label, and so that a model variant selected by
 # HC_BACKGROUND_TAG propagates to every downstream table.
 #
 # The background is EXIOBASE v3.8.2, not v3.10.2: v3.10.2's 2022 nowcast
 # misallocates the Danish block (health output 2.8x too low, education 4.8x too
 # high, machinery and medical instruments near-zero) and empties industry 33
-# across Europe in every year. See docs/methods/exiobase_version_vintage_and_classification.md.
+# across Europe in every year. See docs/methods/exiobase_release_and_classification.md.
 # ---------------------------------------------------------------------------
 
 import os as _os
@@ -99,10 +99,10 @@ MODEL_LABEL = model_label()
 # cites, not the adaptation.
 #
 # WHAT CANNOT BE RESTATED: EXIOBASE reports HFC and PFC already aggregated in
-# kg CO2-equivalent rather than as individual species, so their GWP vintage is
+# kg CO2-equivalent rather than as individual species, so their GWP revision is
 # fixed by EXIOBASE and is not knowable from the satellite account. Those two
 # stressors keep a factor of 1 and are excluded from the restatement; the share
-# of the footprint they represent is reported by analysis.gwp_vintage.
+# of the footprint they represent is reported by analysis.gwp_revision.
 # ---------------------------------------------------------------------------
 
 #: IPCC AR6 GWP100 factors, kg CO2-equivalent per kg of gas.
@@ -154,7 +154,7 @@ def ar6_gwp_factor(stressor: str) -> float | None:
     float or None
         The AR6 GWP100 factor, or ``None`` if the stressor is not one this
         restatement covers (which includes the pre-aggregated HFC and PFC
-        stressors, whose vintage cannot be recovered).
+        stressors, whose GWP revision cannot be recovered).
 
     Examples
     --------

@@ -1,4 +1,4 @@
-# 15_gwp_vintage - data dictionary
+# 15_gwp_revision - data dictionary
 
 One row per column of every table in this folder. Units are the
 table's own; `varies by row` means the table carries a `unit`
@@ -12,7 +12,7 @@ are described below, per table.
 | Column | Meaning |
 |:---|:---|
 | `analysis_year` | year of the Danish expenditure data and of the MRIO background |
-| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_version_vintage_and_classification.md`) |
+| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_release_and_classification.md`) |
 | `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |
 | `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |
 | `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |
@@ -63,13 +63,13 @@ units and are labelled as such wherever they are quoted.
 | `ar6_gwp100` | measure | float64 | varies by row | 1.0 |
 | `contribution_kt_co2eq` | measure | float64 | varies by row | 2670.662773160375 |
 
-### `gwp_vintage_sensitivity.csv`
+### `gwp_revision_sensitivity.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
 | `analysis_year` | measure | int64 |  | 2022 |
-| `gwp_vintage` | dimension | str |  | IPCC SAR (1995) |
+| `gwp_revision` | dimension | str |  | IPCC SAR (1995) |
 | `is_study_default` | dimension | bool |  | False |
 | `healthcare_kt_co2eq` | measure | float64 |  | 3740.212749906714 |
 | `national_kt_co2eq` | measure | float64 |  | 64766.870324631665 |

@@ -12,7 +12,7 @@ are described below, per table.
 | Column | Meaning |
 |:---|:---|
 | `analysis_year` | year of the Danish expenditure data and of the MRIO background |
-| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_version_vintage_and_classification.md`) |
+| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_release_and_classification.md`) |
 | `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |
 | `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |
 | `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |
@@ -75,12 +75,12 @@ units and are labelled as such wherever they are quoted.
 | `draw_group_id` | dimension | int64 |  | 1 |
 | `draw_group_name` | dimension | str |  | Food and food services |
 
-### `dim_gwp_vintage.csv`
+### `dim_gwp_revision.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `gwp_vintage_id` | dimension | int64 |  | 1 |
-| `vintage_code` | dimension | str |  | IPCC SAR (1995) |
+| `gwp_revision_id` | dimension | int64 |  | 1 |
+| `revision_code` | dimension | str |  | IPCC SAR (1995) |
 | `is_study_default` | dimension | bool |  | False |
 
 ### `dim_impact_category.csv`
@@ -131,7 +131,7 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `mrio` | dimension | str |  | EXIOBASE v3.8.2 IOT ixi |
 | `danish_block_correction` | dimension | str |  | sea-transport reallocation (Rormose Jens |
-| `gwp_vintage` | dimension | str |  | IPCC AR6 |
+| `gwp_revision` | dimension | str |  | IPCC AR6 |
 | `scope_boundary` | dimension | str |  | health and eldercare |
 | `capital` | dimension | str |  | excluded from the headline |
 | `is_headline` | dimension | bool |  | True |
@@ -206,7 +206,7 @@ units and are labelled as such wherever they are quoted.
 | `substance_code` | dimension | str |  | CH4_biogenic |
 | `base_unit` | dimension | str |  | kg |
 | `gwp100` | measure | float64 |  | 27.0 |
-| `gwp_vintage` | dimension | str |  | IPCC AR6 (2021) |
+| `gwp_revision` | dimension | str |  | IPCC AR6 (2021) |
 | `is_restatable` | dimension | bool |  | True |
 
 ### `fact_capital_node.csv`
@@ -277,12 +277,12 @@ units and are labelled as such wherever they are quoted.
 | `gwp100` | measure | float64 |  | 1.0 |
 | `co2eq_kt` | measure | float64 |  | 2670.662773160375 |
 
-### `fact_gwp_vintage.csv`
+### `fact_gwp_revision.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `model_id` | dimension | int64 |  | 1 |
-| `gwp_vintage_id` | dimension | int64 |  | 1 |
+| `gwp_revision_id` | dimension | int64 |  | 1 |
 | `indicator_id` | dimension | int64 |  | 2 |
 | `healthcare_kt_co2eq` | measure | float64 |  | 3740.212749906714 |
 | `national_kt_co2eq` | measure | float64 |  | 64766.870324631665 |

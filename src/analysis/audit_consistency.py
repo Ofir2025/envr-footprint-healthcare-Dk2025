@@ -5,7 +5,7 @@ Two defects in this project were found only because two independently written
 modules were made to agree by hand: the capital sensitivity was reading a
 superseded direct-waste value from the background (160.0 kt where the Danish
 account gives 42.8), and the boundary-scenario folder was serving results from a
-withdrawn model vintage. Both had been sitting in the published outputs.
+withdrawn model release. Both had been sitting in the published outputs.
 
 Neither should be found by hand. This module runs the checks that would have
 caught them, and is intended to run after any rebuild.
@@ -22,7 +22,7 @@ node-detail file and its aggregate, they must sum to the same value.
 derived from; a stale file is a wrong file.
 
 **C4 Provenance.** Every file carrying a ``model`` column must name the current
-model, so a table cannot silently retain a withdrawn vintage's label.
+model, so a table cannot silently retain a withdrawn release's label.
 
 **C5 Manifest coverage.** Every gold file must have a lineage row.
 
@@ -186,7 +186,7 @@ def c2_detail_vs_aggregate(results: list[dict[str, Any]]) -> None:
 #: and Danish national-accounts tables directly, and are therefore unaffected by
 #: a background rebuild.
 BACKGROUND_INDEPENDENT: frozenset[str] = frozenset({
-    "09_vintage_diagnostics",          # compares raw EXIOBASE vintages to DST
+    "09_exiobase_release_diagnostics", # compares raw EXIOBASE releases to DST
     "10_sea_transport_reallocation",     # PRODUCES the corrected background, so
                                        # its outputs necessarily predate it
     "scenarios",                       # alternative boundaries, which
@@ -373,7 +373,7 @@ LAYER_SKIPPERS = {
     "build_dst_concordance", "capital_endogenised_sodersten", "capital_gfcf",
     "export_tables", "figaro_recipe_validation", "impact_categories_full",
     "main", "main_2025", "manuscript_figure_tables", "recipe_validation_2022",
-    "vintage_defect_audit",
+    "release_defect_audit",
 }
 
 
@@ -680,8 +680,8 @@ STAR_KEYS: tuple[tuple[str, str, str, str], ...] = (
     ("fact_capital_scenario", "capital_treatment_id", "dim_capital_treatment", "capital_treatment_id"),
     ("fact_capital_scenario", "indicator_id", "dim_indicator", "indicator_id"),
     ("fact_ghg_species", "substance_id", "dim_substance", "substance_id"),
-    ("fact_gwp_vintage", "gwp_vintage_id", "dim_gwp_vintage", "gwp_vintage_id"),
-    ("fact_gwp_vintage", "indicator_id", "dim_indicator", "indicator_id"),
+    ("fact_gwp_revision", "gwp_revision_id", "dim_gwp_revision", "gwp_revision_id"),
+    ("fact_gwp_revision", "indicator_id", "dim_indicator", "indicator_id"),
     ("fact_uncertainty_draw", "indicator_id", "dim_indicator", "indicator_id"),
     ("fact_uncertainty_draw", "draw_group_id", "dim_draw_group", "draw_group_id"),
 )
@@ -718,7 +718,7 @@ STAR_GRAIN: dict[str, list[str]] = {
     "fact_capital_scenario": ["model_id", "capital_treatment_id",
                               "indicator_id"],
     "fact_ghg_species": ["model_id", "substance_id"],
-    "fact_gwp_vintage": ["model_id", "gwp_vintage_id", "indicator_id"],
+    "fact_gwp_revision": ["model_id", "gwp_revision_id", "indicator_id"],
     "fact_uncertainty_draw": ["model_id", "indicator_id", "draw_id",
                               "draw_group_id"],
 }

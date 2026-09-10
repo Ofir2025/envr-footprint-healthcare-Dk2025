@@ -449,7 +449,7 @@ A four-step decomposition, each step measured rather than inferred:
 | **Danish sea-transport reallocation applied** | 18.5 % | **−19.0 pp** |
 | Bottom-up items included in the denominator | **15.5 %** | −3.0 pp |
 
-**The reallocation is the whole story.** Year, vintage, and demand vector together move the
+**The reallocation is the whole story.** Year, release, and demand vector together move the
 share by less than half of what the data correction does.
 
 #### What survives, and what should the paper now say?
@@ -537,7 +537,7 @@ is generated from `docs/references.csv`. Cited here:
 nowcast misallocates the Danish block (health output 2.8× too low, education
 4.8× too high, financial intermediation and machinery near-zero), and it
 empties industry 33 across Europe in every year. See
-[`../methods/exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md).
+[`../methods/exiobase_release_and_classification.md`](../methods/exiobase_release_and_classification.md).
 Every headline number below has been regenerated; the numbers in "Headline
 results" below supersede all earlier versions.
 
@@ -589,7 +589,7 @@ prices), built by `pipelines.prep_background_2025` (`load`, `leontief`,
 used to describe — a different archive layout, an outlier screen it needed
 and v3.8.2 does not, and the validation numbers that came out of it — is kept,
 in the past tense and as the evidence for the rejection, in
-[`exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md)
+[`exiobase_release_and_classification.md`](../methods/exiobase_release_and_classification.md)
 §2.4.)
 
 **Load** (`pipelines.prep_background_2025.load`). Reads the archive as
@@ -603,14 +603,14 @@ extraction, water use, land use, value added, and employment. The GWP100 row
 is then restated stressor by stressor from the workbook's shipped IPCC AR4
 factors to **AR6** (`analysis.constants.ar6_gwp_factor`); HFC and PFC, which
 EXIOBASE already reports pre-aggregated in CO₂-equivalent, keep their existing
-factor because their vintage cannot be recovered. No outlier screening runs
-on this vintage: v3.8.2 has no near-zero-output row in the industries this
-study depends on, so there is nothing for a screen to catch (the vintage that
-did need one is §2.4 of the vintage document, cross-referenced above).
+factor because their revision cannot be recovered. No outlier screening runs
+on this release: v3.8.2 has no near-zero-output row in the industries this
+study depends on, so there is nothing for a screen to catch (the release that
+did need one is §2.4 of the release document, cross-referenced above).
 
 **Leontief inverse** (`pipelines.prep_background_2025.leontief`). $\mathbf{A}$
 is used exactly as EXIOBASE ships it, and $\mathbf{L} = (\mathbf{I} -
-\mathbf{A})^{-1}$ is computed directly; this vintage's technology matrix needs
+\mathbf{A})^{-1}$ is computed directly; this release's technology matrix needs
 no reconstruction.
 
 **Process** (`pipelines.prep_background_2025.process`). Total output is
@@ -691,10 +691,10 @@ here; the gap is flagged as an open item, not claimed as a finding.
 background carries AR4 factors (CH₄ = 25, N₂O = 298) under a "CML 1999" label.
 The climate row is rebuilt on AR6 (`analysis.constants.ar6_gwp_factor`), which
 also distinguishes fossil from non-fossil methane (29.8 against 27.0) as AR4 did
-not. Vintage sensitivity, healthcare supply chain: SAR 3,740 · TAR 3,791 ·
+not. Revision sensitivity, healthcare supply chain: SAR 3,740 · TAR 3,791 ·
 AR4 3,855 · AR5 3,956 · **AR6 3,945 kt**. **3.9 % (155 kt) cannot be restated at
 all**: EXIOBASE supplies HFC and PFC already aggregated in CO₂-equivalent, so
-their vintage is fixed inside the data. See
+their revision is fixed inside the data. See
 [docs/methods/replications.md, section 15](../methods/replications.md#r15).
 
 #### Bottom-up items now on Danish primary data
@@ -764,7 +764,7 @@ not in Eurostat, FIGARO, OECD, GLORIA, or UNEP.
 
 Volatile anaesthetics proxy (see ["Bottom-up anaesthetic gases"](#bottom-up-anaesthetic-gases));
 no Danish patient/visitor-travel source (verified: TU microdata named as route);
-waste extension vintage (rebuild per
+waste extension reference year (rebuild per
 [docs/methods/danish_data_acquisition.md, section 5](../methods/danish_data_acquisition.md#5-waste-benchmarking-protocol));
 α eldercare share from 2019 SUT; capital excluded (Steenmeijer-consistent);
 pharma mapping as Scenario B; EXIOBASE recipe biases quantified in
@@ -809,7 +809,7 @@ discussion in [methods.md](../methods/methods.md)); Scope 3 = 5,879.7
 Scenario A (pharma as Chemicals nec) GWP median 6,122 (95% interval 5,842-6,452, −4.6/+5.4%);
 Scenario B (pharma-specific intensity) 5,648 (5,335-6,056). Materials drop 31% under
 Scenario B (3,025→2,093), the upper-bound character of the pharma mapping, as Reviewer 1
-suspected. Waste carries −42/+94% (extension vintage), and its rankings are reported as
+suspected. Waste carries −42/+94% (extension reference year), and its rankings are reported as
 low-confidence. Transport remains the largest MRIO contribution group with P(rank 1)
 reported in `uncertainty_ranking_probabilities.csv`.
 
@@ -871,7 +871,7 @@ intermediate purchases of medical instruments by Danish providers to the capital
 boundary (equipment sitting in GFCF rather than in `Z`). That was incorrect. The
 zero is a data defect: EXIOBASE v3.10.2 carries ~zero output for industry 33 in
 every European region in every year tested. See
-[`../methods/exiobase_version_vintage_and_classification.md`](../methods/exiobase_version_vintage_and_classification.md).
+[`../methods/exiobase_release_and_classification.md`](../methods/exiobase_release_and_classification.md).
 Both places are corrected.
 
 ### What we compute
@@ -1066,7 +1066,7 @@ This result **validates the simplified construction** reported above, which gave
 1.6 percentage points, so the simplified version was adequate for the magnitude
 while the published matrices give the asset composition.
 
-One vintage assumption is recorded in the output: the published matrices stop at
+One reference-year assumption is recorded in the output: the published matrices stop at
 2020 and the study year is 2022, so the 2020 capital *structure* is applied to
 2022 *levels*. Capital composition moves slowly; the level comes from the model's
 own consumption of fixed capital.
@@ -1281,7 +1281,7 @@ nowhere else.
 
 **Background pathway** (happens regardless of what the health system does):
 grid and district-heat decarbonisation from 122.7 to 16.9 g CO₂e/kWh on the
-Danish Energy Agency's KF22 projection, and to 32.4 on KF25. Both vintages are
+Danish Energy Agency's KF22 projection, and to 32.4 on KF25. Both releases are
 reported rather than the more flattering one; they differ by a percentage point
 on the same lever.
 
@@ -1469,7 +1469,7 @@ the code supports both.
 ### The case for A (current)
 
 Reviewer 2 objected specifically to *"2019 expenditure applied to a 2016
-structure without deflation"* and asked us to explain the vintage mismatch.
+structure without deflation"* and asked us to explain the year mismatch.
 Option A dissolves that objection: no mismatch and no deflation step remain.
 The Danish **economic** block of EXIOBASE v3.8.2 2022 was tested against
 Statistics Denmark's published 117-industry table and passes on every checkable
@@ -1485,7 +1485,7 @@ background it kept has a 2022 nowcast too, with a different and milder failure
 profile rather than none.
 
 Measured on the full 163-to-117 concordance rather than on the twelve
-unambiguous groups the vintage audit uses, Danish total output in the model is
+unambiguous groups the release audit uses, Danish total output in the model is
 **1.01 times the national-accounts total in 2016 and 0.80 in 2022**. Twenty per
 cent of the Danish economy is missing from the 2022 projection, and where it is
 missing is the useful part:
@@ -1504,7 +1504,7 @@ and the reallocation is calibrated to the national accounts rather than to the
 model. The pharmaceutical gap is the proxy problem the paper already reports as
 its largest single limitation. Wholesale and electricity are a 2021 projection
 failing to see 2022 prices, and neither carries much of the health-care supply
-chain. **The industry the study models is at 0.96**, which is why the vintage
+chain. **The industry the study models is at 0.96**, which is why the release
 audit passes on the groups it tests.
 
 The qualification stands even so, and belongs in the limitations: the choice is
@@ -1667,7 +1667,7 @@ crop-equivalent area; both are weighted. Quantities reported in physical m³ and
 *inventory* aggregations of the satellite account. Calling them ReCiPe 2016 (H) midpoints
 misdescribes them.
 
-**Recommendation.** State plainly: climate on GWP100 with the vintage named; material
+**Recommendation.** State plainly: climate on GWP100 with the revision named; material
 extraction, blue water, and land use as physical inventory aggregations of the EXIOBASE
 satellite accounts; waste from the DESIRE extension.
 

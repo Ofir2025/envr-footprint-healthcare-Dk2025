@@ -1,4 +1,4 @@
-defect,mrio_vintage,mrio_year,metric,value,of,world_total_meur,verdict
+defect,mrio_release,mrio_year,metric,value,of,world_total_meur,verdict
 D1 industry 33 emptied in Europe,v3.10.2,2016,European regions with i33 output < 1 M.EUR,26,30,160110.8,DEFECT
 D1 industry 33 emptied in Europe,v3.10.2,2019,European regions with i33 output < 1 M.EUR,28,30,188909.6,DEFECT
 D1 industry 33 emptied in Europe,v3.10.2,2022,European regions with i33 output < 1 M.EUR,28,30,186073.6,DEFECT
