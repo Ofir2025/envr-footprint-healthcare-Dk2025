@@ -69,7 +69,7 @@ direct entry replaced by AFFALD; wide MC band; rebuild planned per the waste pro
 ## 3. Headline results, Denmark 2022
 
 | Indicator | Health-care footprint | Danish national footprint | Share, full footprint | Share, supply-chain component |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | Climate change | **4,712.4 kt CO₂e** (802 kg per person) | 77,477.5 kt | 6.1 % | 5.1 % |
 | Material extraction | 4,259.4 kt | 53,939.3 kt | 7.9 % | 7.8 % |
 | Blue water | 95.5 Mm³ | 1,276.4 Mm³ | 7.5 % | 7.5 % |
@@ -130,7 +130,7 @@ their vintage is fixed inside the data. See `15_gwp_vintage/`.
 ### Bottom-up items now on Danish primary data
 
 | Item | Value | Source |
-|---|---|---|
+|:---|:---|:---|
 | Anaesthetic gases | **11.6 kt** (N₂O 11.3 + volatiles 1.2) | medstat.dk ATC N01AB sales (sevoflurane 2,400 L, desflurane 181 L, isoflurane 15 L), densities from Laster et al. 1994, GWP₁₀₀ from Sulbaek Andersen et al. 2023; N₂O from NID 2.G.3.a |
 | Patient + visitor travel | **263.6 kt** (patient 213.2 + visitor 50.3) | TU (DTU) Tabel 15, purpose 33 "Social/sundhed", 0.8 km/person/day; visitor uplift 0.236 from NHS England |
 | pMDI propellants | 11.6 kt | Danish EPA F-gas inventory 2022 |
@@ -163,7 +163,7 @@ balances preserved to 10⁻¹¹, output unchanged, released value credited to va
 added) gives:
 
 | | uncorrected | corrected |
-|---|---|---|
+|:---|:---|:---|
 | Transport share of the supply-chain footprint | 37.5 % | **18.5 %** |
 | DK sea transport as a producing node | 852 kt | **74 kt** |
 | Healthcare climate footprint (MRIO supply chain) | 5,231 kt | **3,943 kt** |
@@ -188,7 +188,7 @@ and it is reported as a limitation rather than adjusted away.
 ## 4b. Scope-boundary sensitivity (all five indicators)
 
 | boundary | expenditure (M€) | GWP (kt) | share | t/capita | materials | water | land | waste |
-|---|---|---|---|---|---|---|---|---|
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|
 | health only (no eldercare) | 31,079 | 4,405 | 6.81 % | 0.750 | 5,123 | 38.9 | 3,414 | 1,354 |
 | **health + eldercare (default)** | **40,597** | **4,875** | **7.53 %** | **0.830** | **5,595** | **43.0** | **3,833** | **1,482** |
 | + childcare ("zorg en welzijn", Steenmeijer-comparable) | 49,709 | 5,325 | 8.23 % | 0.907 | 6,047 | 47.0 | 4,234 | 1,604 |

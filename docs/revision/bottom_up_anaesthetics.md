@@ -5,7 +5,7 @@
 Our anaesthetic-gas item (11.6 kt CO₂e) has two parts:
 
 | part | value | basis | strength |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | **N₂O** | 10.4 kt | Denmark's National Inventory Document 2024 (DCE report 622), category 2.G.3.a: 38 t N₂O/yr × 298 | **strong**: official national inventory, though the 2013-2022 series is a constant extrapolated from 2005-2012 sales, and it includes non-hospital uses (dental, veterinary) |
 | **volatile agents** (sevoflurane, desflurane, isoflurane) | 1.2 kt | medstat.dk register, ATC N01AB, actual Danish sales for the year: sevoflurane 2,400 L, desflurane 181 L, isoflurane 15 L; densities from Laster et al. (1994); GWP₁₀₀ from Sulbaek Andersen et al. (2023) | **strong**: a Danish measurement, not a transfer |
 

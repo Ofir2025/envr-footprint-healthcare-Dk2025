@@ -51,7 +51,7 @@ Assembled for the municipal footprint project; most of its method material
 applies directly here.
 
 | Subtree | Items | Why it matters here |
-|---|---|---|
+|:---|:---|:---|
 | `methods/emission_inventories/` | 104 | Danish National Inventory Document (Nielsen et al. 2026); Gravgaard et al. 2009 on GHG emissions of the Danish economy; **`danish_energy_agency_global_report_pointer.md`** |
 | `methods/mrio_exiobase_io_theory/` | 78 | IO theory; `input_output_theory/` holds Melo 2019 on bottom-up versus top-down environmental extensions, and the Statistics Denmark ADAM model |
 | `methods/denmark_data_statistics/` | 68 | **Statistics Denmark 2019 environmental-economic accounting**; regional accounts; household budget survey; municipal energy and GHG; `energy_economy_reports/` |
@@ -71,7 +71,7 @@ items; the true size is **712**, and the three folders below are the ones this
 project depends on most.
 
 | Subfolder | Items | Status |
-|---|---|---|
+|:---|:---|:---|
 | `applications/` | 374 | **largely unsurveyed** - includes `footprints/carbon/scope_3/` (Hertwich & Wood 2018, Kanemoto 2011, Davis 2025) and `subnational_regionalisation/` |
 | `methods/` | 209 | surveyed |
 | `databases/` | 77 | **pinned below** |
@@ -84,7 +84,7 @@ The primary methodology sources for the model this study runs on. **Cite these
 for anything about how EXIOBASE is built.**
 
 | File | Why it matters |
-|---|---|
+|:---|:---|
 | `stadler_et_al_2018_exiobase3_detailed_ee_mrio_tables.pdf` (+ 2 SIs) | The EXIOBASE 3 paper of record, with the detailed-tables SI and the material-accounts SI |
 | `merciai_&_schmidt_2017_exiobase_v3_mr_hsut_methodology.pdf` | The hybrid supply-use construction underlying the hybrid releases and the waste extension |
 | `wood_et_al_2015_exiobase_global_sustainability_mrio_footprint.pdf` | The footprint application paper |
@@ -95,7 +95,7 @@ for anything about how EXIOBASE is built.**
 ### 3b. `methods/hybrid_io_lca/` - hybrid LCA and the EXIOBASE-hybrid model
 
 | Item | Why it matters |
-|---|---|
+|:---|:---|
 | `merciai_2022_exiobase_hybrid_v4/` (7 parts) | **The EXIOBASE-hybrid v4 documentation** - the model behind Schmidt & Merciai's Danish footprint, and the source for their capital endogenisation |
 | `agez_et_al_2020_lifting_veil_double_counting_hybrid_lca.pdf`, `agez_et_al_2022_correcting_truncations_hybrid_lca.pdf` | Double counting in hybrid LCA - directly relevant to R1-2 |
 | `lee_&_ma_2013_improving_integrated_hybrid_lca_upstream_scope3_emissions.pdf` | An explicit process/IO truncation criterion |
@@ -109,7 +109,7 @@ for anything about how EXIOBASE is built.**
 Every claim in `monte_carlo_explained.md` traces to this folder.
 
 | File | Use |
-|---|---|
+|:---|:---|
 | `_reading_list_mrio_uncertainty.md` | A curated, DOI'd tier list - start here |
 | `lenzen_et_al_2010_uncertainty_analysis_mrio_uk_carbon.pdf` | The method template; the lognormality argument |
 | `rodrigues_et_al_2018_uncertainty_consumption_based_carbon.pdf` | Correlation between country accounts; independence understates by half |
@@ -134,7 +134,7 @@ the Global Report's background memoranda, reachable via
 `methods/emission_inventories/danish_energy_agency_global_report_pointer.md`.
 
 | Sub-collection | Why it matters |
-|---|---|
+|:---|:---|
 | `danish_energy_agency_2024_climate_footprint_consumption/` | **`..._method_assumptions.pdf` §3.1.1 names the model.** |
 | `danish_energy_agency_2024_denmarks_global_climate_impact/` | The headline Global Report |
 | `danish_energy_agency_2024_international_transport/` | Shipping and aviation treatment - directly relevant to our reallocation |
@@ -161,13 +161,13 @@ data for individual countries changes."*
 ## 4. Cross-project single sources
 
 | Source | Path |
-|---|---|
+|:---|:---|
 | Cabernard et al. 2019 (+SI) - target-sector scope 3 | `~/Library/CloudStorage/OneDrive-Personal/_Projects/2026_project/AFRIMAT/docs/references/articles/methods/footprint_methodologies/` |
 
 ## 5. Data stores (not literature, but pinned for the same reason)
 
 | Store | Path |
-|---|---|
+|:---|:---|
 | EXIOBASE releases (v3.6, v3.7, v3.8.2, v3.10.2, hybrid v3.3.18) | `~/Library/CloudStorage/OneDrive-Personal/Data/lca/input_output/mrio/exiobase/versions/` |
 | Characterisation factors (IMPACT World+ v2.2.1, IPCC AR6 chapter 7 + SM) | `data/bronze/characterisation/` - provenance and licence in `SOURCES.txt` |
 | Danish registers cached in-repo | `data/bronze/medstat/` (medicine sales), `data/bronze/tu_travel/` (national travel survey), `data/bronze/dst_capital/` (NABK69), `data/bronze/input_output/` (117-industry IO tables) |
@@ -177,7 +177,7 @@ data for individual countries changes."*
 ## Sources located but deliberately not mirrored
 
 | Source | Why not |
-|---|---|
+|:---|:---|
 | ReCiPe 2016 v1.1 characterisation factors (RIVM) | Freely downloadable but **not openly licensed**; no AR6 update exists; its perspective is a fourth GWP vintage. IMPACT World+ was chosen instead |
 | Dawkins et al. 2018 (*JCLP* 209:1578-1592) | The citation for the SNAC-versus-raw effect size; absent from all local folders |
 | AR6 WG3 Annex II | Referenced for the inventory methane split; the WG1 chapter carries what we need |
@@ -197,7 +197,7 @@ Pinned for this study and for future figure and schema work. Paths are on Albert
 OneDrive; nothing from them is redistributed in this repository.
 
 | Folder | What it is for | Status |
-|---|---|---|
+|:---|:---|:---|
 | `Career/data_engineer/library/data_visualization/` | Figure design authority: Wickham *ggplot2: Elegant Graphics for Data Analysis*; **The Economist (2017) visual style guide**; Lupton *Sankey view* documentation; **Katsnelson (2021) fixing figures for colour blindness** | pinned; consult before designing any new figure |
 | `Career/data_engineer/library/r_programming/` | R and presentation craft: Duarte *HBR Guide to Persuasive Presentations*; Kampakis *Decision-Maker's Handbook to Data Science*; AWS data-potential report | pinned |
 | `Data/lca/input_output/mrio/classifications/concordances/` | MRIO classifications and concordances (see the note below) | pinned; source of record for aggregations |
@@ -245,7 +245,7 @@ Inspected 8 September 2026.
 Both are exported as editable concordances rather than left implicit in a workbook:
 
 | File | Rows | Content |
-|---|---|---|
+|:---|:---|:---|
 | `data/bronze/concordances/exiobase_industry_to_group.csv` | 163 | EXIOBASE industry code and name → one of 19 industry groups |
 | `data/bronze/concordances/exiobase_region_to_world_region.csv` | 49 | region code and name → one of 6 world regions |
 

@@ -15,7 +15,7 @@ It should be maintained alongside the data warehouse.
 # 2. Statistics Denmark SUT evidence
 
 | Claim | Status | Official source |
-|---|---|---|
+|:---|:---|:---|
 | Final SUT works with approx. 2,350 products | Verified | https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/national-accounts--input-output-and-supply-use/statistical-presentation |
 | Final SUT uses 117 industries | Verified | same |
 | product count varies by year | Verified | same |
@@ -31,7 +31,7 @@ It should be maintained alongside the data warehouse.
 # 3. Eurostat SUT evidence
 
 | Claim | Status | Source |
-|---|---|---|
+|:---|:---|:---|
 | mandatory annual national SUT uses 64 activities/products | Verified | https://ec.europa.eu/eurostat/web/esa-supply-use-input-tables/information-data |
 | countries may voluntarily send A88 | Verified | same |
 | Eurostat first published detailed A88 SUT/IOT in 2025 | Verified | https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/wdn-20250627-1 |
@@ -43,7 +43,7 @@ It should be maintained alongside the data warehouse.
 # 4. FIGARO evidence
 
 | Claim | Status | Source |
-|---|---|---|
+|:---|:---|:---|
 | 2026 FIGARO covers 2010-2024 | Verified | https://ec.europa.eu/eurostat/web/esa-supply-use-input-tables/database |
 | 64 industries and 64 products | Verified | same |
 | supply/use/I-I/P-P/direct purchases abroad available | Verified | same |
@@ -57,7 +57,7 @@ It should be maintained alongside the data warehouse.
 # 5. GLORIA evidence
 
 | Claim | Status | Source |
-|---|---|---|
+|:---|:---|:---|
 | built for UNEP IRP resource analysis | Verified | https://footprint.unep.org/gloria-mrio |
 | current interface covers 1990-2024 | Verified | same |
 | 164 regions | Verified | same |
@@ -70,7 +70,7 @@ It should be maintained alongside the data warehouse.
 # 6. Regional healthcare evidence
 
 | Claim | Status | Source |
-|---|---|---|
+|:---|:---|:---|
 | Danish regional hospitals/institutions baseline about 3.3 Mt CO2e in 2022 | Verified | https://www.regioner.dk/regional-udvikling/groenne-hospitaler/regionernes-klimamaal/ |
 | regions purchase >150,000 products | Verified | same |
 | common climate-management model exists | Verified | same |
@@ -85,7 +85,7 @@ It should be maintained alongside the data warehouse.
 # 7. Waste evidence
 
 | Claim | Status | Source |
-|---|---|---|
+|:---|:---|:---|
 | ADS contains Danish raw waste-flow data | Verified | https://mst.dk/erhverv/groen-produktion-og-affald/affald-og-genanvendelse/affaldshaandtering/affaldsdata-og-affaldsdatasystemet/find-affaldsdata |
 | 2022 EPA waste statistics include raw-data download | Verified | https://mst.dk/erhverv/groen-produktion-og-affald/affald-og-genanvendelse/affaldshaandtering/affaldsdata-og-affaldsdatasystemet/find-affaldsstatistikker-og-kortlaegning |
 | DST Waste Accounts use EPA ADS as source | Verified | https://www.dst.dk/en/Statistik/dokumentation/documentationofstatistics/waste-accounts/statistical-processing |

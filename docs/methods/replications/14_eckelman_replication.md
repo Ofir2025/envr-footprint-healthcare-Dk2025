@@ -52,7 +52,7 @@ category values and national shares, transcribed with their `eckelman_code`.
 ## Outputs
 
 | File | Content |
-|---|---|
+|:---|:---|
 | `nine_categories_dk_vs_us.csv` | their nine categories, US and Danish values, national shares, method named per side |
 | `damage_daly_dk_vs_us.csv` | DALYs and DALYs per 1,000 population, with each side's method |
 

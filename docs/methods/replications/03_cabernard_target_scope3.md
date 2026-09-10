@@ -80,7 +80,7 @@ f_T   = (e_T - e_wdc) / e_T                                      # eq. 12
 ### What it shows
 
 | Target set | Nodes | Eq. (8) naive (Mt) | Eq. (9) corrected (Mt) | $f_T$, eq. (12) | Overestimate against the corrected value |
-|---|---|---|---|---|---|
+|:---|:---|:---|:---|:---|:---|
 | T1 Danish health and social work | 1 | 4.39 | 4.33 | 1.5 % | 1.5 % |
 | T2 health and social work, all regions | 49 | 2,592.1 | 2,554.5 | 1.4 % | 1.5 % |
 | T3 T2 + chemicals + medical instruments | 147 | 9,280.5 | 5,999.5 | **35.4 %** | **54.7 %** |
@@ -114,7 +114,7 @@ counting arises from summing $E_Z$-type flows over targets that sit in each othe
 chains. Three of our numbers could in principle be exposed to it; each is checked:
 
 | Our quantity | Form | Exposed? |
-|---|---|---|
+|:---|:---|:---|
 | Headline footprint | $f = s L y_H$, a **final-demand** footprint | **No.** Hertwich & Wood state it themselves: $E_y$ sums to the total while $E_Z$ does not. Each emission is allocated once, to Danish health final demand. |
 | Scope 2 ([02](02_scopes_wood_hertwich.md)) | energy **rows** of $E_Z$ for the single health **column** | **No.** One row-slice of one purchasing column is not a sum over overlapping targets. No second target exists to double count against. |
 | Scope 1 + 2 + 3 | $S_3$ is the footprint **residual** after $S_1$ and $S_2$ | **No.** The partition is constructed to sum to $f$ exactly, so it cannot exceed it. Audit check C1 asserts this identity. |
@@ -146,7 +146,7 @@ manuscript's reported numbers are all final-demand footprints and are unaffected
 ## Outputs
 
 | File | Content |
-|---|---|
+|:---|:---|
 | `cabernard_target_scope3.csv` | the three target sets, naive vs corrected, with the identity check |
 | `cabernard_target_scope3_by_producing_node.csv.gz` | corrected result at full node detail |
 | `cabernard_domestic_vs_imported.csv` | domestic/imported split of the corrected result |

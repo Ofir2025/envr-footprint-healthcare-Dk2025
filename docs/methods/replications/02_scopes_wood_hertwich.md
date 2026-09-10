@@ -56,7 +56,7 @@ Scope 2 is not one number in the EE-MRIO literature. Three conventions differ by
 of the purchased-energy chain they count, and the study computes all three:
 
 | Convention | Formula | Value (kt) | What it counts |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | OECD (Doucet et al. 2025 §3.2) | $F A Y$, energy sectors | 72.08 | direct emissions of the *first-tier* energy supplier only |
 | GHG Protocol strict | $d_E L_{EE} y_E$ | **73.34** | traces through T&D to **generation**, stops inside the energy block |
 | **Hertwich & Wood (2018)** | $E_Z = \hat{m}Z$, $m = s(I-A)^{-1}$, energy rows | **74.98** | cradle-to-gate: generation **plus** the upstream fuel supply behind it |
@@ -96,7 +96,7 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 ## Data requirements
 
 | Input | Source |
-|---|---|
+|:---|:---|
 | Direct provider emissions | DST DRIVHUS, industry Q |
 | Medical anaesthetic gases | Danish pharmacy sales, bottom-up; see `docs/revision/bottom_up_anaesthetics.md` |
 | Energy purchases $y_E$ | health column of the Danish use table |
@@ -117,7 +117,7 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 ## Outputs
 
 | File | Rows | Content |
-|---|---|---|
+|:---|:---|:---|
 | `scopes_summary_detailed.csv` | n/a | every scope and variant, with its `basis` stated |
 | `scopes_by_producing_node.csv` | 23,727 | each scope resolved to producing node |
 | `double_counting_ledger.csv` | n/a | every overlap risk, its test, and its verdict |
@@ -137,7 +137,7 @@ part of scope 3 already carry producing nodes; scope 1 and the bottom-up items d
 are placed at their true Danish origin rather than dropped:
 
 | Component | Origin | Industry label |
-|---|---|---|
+|:---|:---|:---|
 | Scope 1 (DRIVHUS) + anaesthetic gases | DNK | Health and social work |
 | pMDI propellants | DNK | Health and social work |
 | Employee commuting | DNK | Bottom-up: employee commuting |
@@ -147,7 +147,7 @@ All are Danish by construction (emissions of Danish providers, staff, or patient
 so labelling them as such is what lets the bars be added back to the headline.
 
 | Table | Grain |
-|---|---|
+|:---|:---|
 | `scope_by_origin_and_industry.csv` | scope × producing country × producing industry (7,346 rows) |
 | `scope_by_origin_industry_top25.csv` | the 25 largest (country, industry) pairs, remainder pooled and labelled |
 | `scope_by_industry_group.csv` | scope × industry group |

@@ -69,7 +69,7 @@ then any analysis module, then `python -m analysis.build_manifest`.
 ## Environment switches
 
 | Variable | Default | Effect |
-|---|---|---|
+|:---|:---|:---|
 | `HC_ANALYSIS_YEAR` | `2022` | Which year's Danish expenditure and bottom-up data to use |
 | `HC_BACKGROUND_YEAR` | `2016` | Which EXIOBASE year to build a background from |
 | `HC_BACKGROUND_TAG` | *(empty)* | Model variant; `_snacship` selects the Danish sea-transport reallocation |
@@ -84,7 +84,7 @@ label.
 ## Gold folders
 
 | Folder | What it holds | Implements |
-|---|---|---|
+|:---|:---|:---|
 | `00_core_footprint` | Footprint by producing node, by purchased product, bilateral, national totals | Steenmeijer et al. 2022; Miller & Blair |
 | `01_eriksen_replication` | The Steenmeijer-style replication outputs, corrected | Steenmeijer et al. 2022 |
 | `02_scopes_wood_hertwich` | GHG-Protocol scope partition and the double-counting ledger | Wood & Hertwich 2018 |

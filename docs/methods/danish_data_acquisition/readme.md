@@ -18,7 +18,7 @@ source document is recorded in the commit that created this folder.
 ## What each document answers
 
 | # | Document | Question it answers |
-|---|---|---|
+|:---|:---|:---|
 | 01 | `01_denmark_data_access_inventory.md` | For every dataset a Danish replication of Malik, Eckelman or Lenzen needs (economic core, health expenditure, GHG, air pollution, water, waste, materials, pharmaceuticals, travel, clinical procurement), where is it, and is it open, controlled or request-only? |
 | 02 | `02_danish_product_classification_and_health_filter.md` | The exact ~2,350-product Danish national-accounts classification is not public - so what can be built from public CN/HS/CPA classifications in the meantime, and how should "a healthcare product" be defined without conflating it with "a healthcare industry"? |
 | 03 | `03_data_gap_resolution_matrix.md` | Of the items flagged as data gaps in the inventory, which are genuine absences and which are really access, harmonisation or independence problems - and what evidence quality does each source clear? |

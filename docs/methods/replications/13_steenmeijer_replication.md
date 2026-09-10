@@ -49,7 +49,7 @@ Three differences make a naive side-by-side misleading. Each is a column in the 
 tables, not a footnote:
 
 | Difference | Netherlands | Denmark |
-|---|---|---|
+|:---|:---|:---|
 | **Boundary** | *zorg en welzijn*, includes childcare | health + eldercare, excludes childcare |
 | **Year** | 2016 | 2022 |
 | **Background** | EXIOBASE v3.3 | v3.8.2 with sea-transport reallocation |

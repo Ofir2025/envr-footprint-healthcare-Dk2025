@@ -15,7 +15,7 @@ the Danish health industry. See
 ## Headline result, Denmark 2022
 
 | Indicator | Health care footprint | Share of the national consumption footprint |
-|---|---|---|
+|:---|:---|:---|
 | Climate change | 4,864 kt CO₂e (~0.83 t/capita) | 7.5 % own model · 7.7 % vs DST AFTRYK · 8.5 % vs Eurostat FIGARO |
 | Material extraction | 5,568 kt | 6.8 % |
 | Blue water | 42.8 Mm³ | 4.9 % |
@@ -42,10 +42,12 @@ data/gold/       published results, one folder per METHOD, indexed by
                  reference, inputs, checksum)
 ```
 
-Gold folders: `00_core_footprint`, `01_eriksen_replication`,
-`02_scopes_wood_hertwich`, `03_cabernard_target_scope3`,
-`04_uncertainty_lenzen_ieooc`, `05_waste_dst_accounts`,
-`06_benchmarks_validation`, `scenarios`.
+One folder per method, each with a `readme.md` and a `data_dictionary.md`
+describing every column. The list is not repeated here: it is generated from
+`analysis.gold_scope` into
+[`data/gold/results/readme.md`](data/gold/results/readme.md), which says what
+each folder holds and why it ships. A hand-typed list is exactly what drifts —
+this one had named eight folders while twenty-one existed.
 
 Every table is exported at the most detailed level available - producing
 country × producing sector × purchased product × demand component, ISO3 codes
@@ -89,7 +91,7 @@ Accounting checks: `PYTHONPATH=src python -m analysis.validate_io_identities`.
 ## Documentation
 
 | document | content |
-|---|---|
+|:---|:---|
 | `docs/revision_guide.md` | branch notes for the revision: how to cite the background, the three things that change the paper, and where everything else lives |
 | `docs/methods_approaches.md` | every methodological layer, its equations and references |
 | `docs/revision/request_checklist.md` | status of all outstanding work |

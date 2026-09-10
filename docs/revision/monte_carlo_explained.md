@@ -73,7 +73,7 @@ $$F = \sum_{g} M_g + \sum_{c} B_c$$
 For 2022, climate:
 
 | Part | Amount (kt CO₂e) |
-|---|---|
+|:---|:---|
 | $\sum_g M_g$, MRIO supply chain | 3,943.397 |
 | $B_{\text{HEAL}}$, direct operations | 118.554 |
 | $B_{\text{COMM}}$, employee commuting | 363.727 |
@@ -142,7 +142,7 @@ times what I have used"*, a −35 %/+55 % range. **This range is exactly the
 guess imposed on the analysis; it is what these GSDs imply.
 
 | Parameter | GSD | $\sigma=\ln(\mathrm{GSD})$ | 95 % factor range | Which is |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | MRIO model | 1.087 | 0.0834 | 0.85 - 1.18 | −15 % / +18 % |
 | Direct operations | 1.10 | 0.0953 | 0.83 - 1.21 | −17 % / +21 % |
 | Inhaler propellants | 1.15 | 0.1398 | 0.76 - 1.32 | −24 % / +32 % |
@@ -252,7 +252,7 @@ accounts and show that assuming independence understates uncertainty by about
 half. All three cases are reported:
 
 | $\rho_M$ | $\sigma$ required | Total CV | Median group CV |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | 1.00, the study default | 0.083 | 7.85 % | 8.4 % |
 | 0.76, Rodrigues et al.'s measured median | 0.092 | 7.83 % | 9.2 % |
 | 0.00, independence | 0.161 | 7.72 % | 16.2 % |
@@ -285,7 +285,7 @@ Three things are modelling **choices**, not noisy measurements, and are run as
 discrete scenarios instead:
 
 | Structural choice | Why it is a scenario, not a distribution |
-|---|---|
+|:---|:---|
 | Mapping pharmaceuticals to *Chemicals nec* | No "true value with measurement error" exists here. Either you accept the proxy or you apply Hagenaars' correction. Both are run; the answer differs by a third. |
 | Price vintage | A convention about which year's prices to use. |
 | Waste-account vintage | The 2011 hybrid extension against Denmark's own SEEA account: a change of *concept*, 4.6× at the health sector. |
@@ -342,7 +342,7 @@ either would alone.
 ### 6.1 The interval
 
 | Quantity | Symbol | 2022 climate |
-|---|---|---|
+|:---|:---|:---|
 | Deterministic estimate | $F$ | 4,712.4 kt |
 | Simulation median | $\tilde{F}$ | 4,734.7 kt |
 | Simulation mean | $\bar{F}$ | 4,750.9 kt |
@@ -370,7 +370,7 @@ Because this decomposition is closed-form, it is computed exactly rather than
 estimated from the draws, and the shares sum to 100 % by construction:
 
 | Contributor | Share of variance |
-|---|---|
+|:---|:---|
 | **MRIO model** | **78.8 %** |
 | Patient and visitor travel | 6.7 % |
 | Employee commuting | 5.1 % |
@@ -461,7 +461,7 @@ Report the interval and this paragraph together, or not at all.
 ## 9. Where each equation lives in the code
 
 | Equation | Function in `analysis/uncertainty_2025.py` |
-|---|---|
+|:---|:---|
 | $h = e^{\sigma z}$, GSD form | `_ln` |
 | $\sigma = \sqrt{\ln(1+\mathrm{CV}^2)}$ | `_ln_cv`, and inline in `run_mc` |
 | Correlated pair (§4.4) | `run_mc`, the `f["B_COMM"] / f["B_VISI"]` block |

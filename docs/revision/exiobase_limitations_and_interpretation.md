@@ -68,7 +68,7 @@ We tested every vintage on disk against Statistics Denmark's own table, year by 
 defects appeared, with different onsets:
 
 | Defect | What breaks | Onset in v3.10.2 | v3.8.2 / v3.6 |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | **D1** | medical, precision and optical instruments carry ~zero output across Europe (28 of 30 regions) | **2015**, and never recovers | clean (0 of 30) |
 | **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2× | **2021-2022**, the nowcast years | clean (2 of 12) |
 
@@ -155,7 +155,7 @@ sector studies. Report the interval and this sentence together, or not at all.
 ## 7. Boundary conventions that are choices, not facts
 
 | Convention | This study | Effect if changed |
-|---|---|---|
+|:---|:---|:---|
 | Capital | excluded from the headline | +19.4 % (Södersten endogenisation) |
 | Sector boundary | health + eldercare | +12 % on NACE Q incl. childcare |
 | Scope 2 | Hertwich & Wood full-multiplier | −2.2 % on the GHG-Protocol strict form |

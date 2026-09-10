@@ -24,7 +24,7 @@ Comparing headline to headline would mislead, so three boundary differences are 
 one at a time and each step is reported:
 
 | Basis | Mt | t/capita | % national | ratio |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | Schmidt & Merciai 2023 (published) | 6.10 | 1.070 | 8.3 | 1.000 |
 | This study, headline | 4.71 | 0.802 | 6.1 | 0.750 |
 | + their sector boundary (NACE Q incl. childcare) | 5.28 | 0.899 | 6.8 | 0.841 |
@@ -42,7 +42,7 @@ ours is attributional. This difference is stated, not corrected.
 Published Danish consumption-based footprints separate by **model family**, not by year:
 
 | Source | Year | Family | t/capita |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Eurostat FIGARO | 2022 | national accounts | 9.77 |
 | Statistics Denmark AFTRYK | 2022 | NA coupled to EXIOBASE | 10.71 |
 | Rørmose Jensen & Iliev | 2020 | NA coupled to EXIOBASE | 11.00 |
@@ -66,7 +66,7 @@ total, is tested (`recipe_validation_three_way.csv`).
 more than one table, and exits non-zero on failure:
 
 | Check | What it enforces |
-|---|---|
+|:---|:---|
 | C1 | the climate total agrees across independently written modules |
 | C2 | every node-detail file sums to its own aggregate |
 | C3 | no gold file is older than the background it claims |
