@@ -1,4 +1,4 @@
-mrio_vintage,mrio_year,country_producing,sector_producing,exiobase_industry_index,dst_nace_prefixes,exiobase_output_meur,national_accounts_output_meur,ratio_exiobase_over_dst,unit,source_national_accounts
+mrio_release,mrio_year,country_producing,sector_producing,exiobase_industry_index,dst_nace_prefixes,exiobase_output_meur,national_accounts_output_meur,ratio_exiobase_over_dst,unit,source_national_accounts
 v3.10.2,2022,DNK,Health and social work,137,86;87;88,16326.113359,45320.98661218329,0.3602329644476711,M.EUR,"Statistics Denmark, published 117-industry IO table 2022, 'Total Output' row"
 v3.10.2,2022,DNK,Education,136,85,109672.504286,22935.119898919296,4.781858772456985,M.EUR,"Statistics Denmark, published 117-industry IO table 2022, 'Total Output' row"
 v3.10.2,2022,DNK,Financial intermediation,127,64,75.908981104,18979.936683105752,0.003999432789023338,M.EUR,"Statistics Denmark, published 117-industry IO table 2022, 'Total Output' row"

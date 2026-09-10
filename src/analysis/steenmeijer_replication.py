@@ -27,7 +27,7 @@ which excludes manure, sewage, mining and unused mining material. The two waste
 numbers are therefore **not on the same boundary**, and the unfiltered Danish
 figure is reported alongside for a like-for-like reading.
 
-**Year and vintage.** Denmark 2022 on EXIOBASE v3.8.2 against the Netherlands
+**Year and release.** Denmark 2022 on EXIOBASE v3.8.2 against the Netherlands
 2016 on EXIOBASE v3. Absolute totals are not comparable across two different
 economies; per-capita values are the meaningful comparison and are computed.
 

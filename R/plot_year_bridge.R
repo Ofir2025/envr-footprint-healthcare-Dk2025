@@ -72,7 +72,7 @@ p <- ggplot(d) +
        caption = paste0(
          "Open marker 2019, solid marker 2022; the number is the change.\n",
          "The two runs differ in three ways at once: reference year, ",
-         "background vintage (IOT_2016 against IOT_2022), and whether the\n",
+         "background year (IOT_2016 against IOT_2022), and whether the\n",
          "Danish sea-transport reallocation is applied (2022 only). ",
          "The difference is a bridge between two model versions, not a time series.")) +
   theme_dkhc() +

@@ -13,10 +13,10 @@
 -- ============================================================ DIMENSIONS
 
 -- One row per model RUN the study reports: a distinct solve, whose reference
--- year, background vintage or sector boundary differs from the others and whose
+-- year, background year or sector boundary differs from the others and whose
 -- outputs live in their own folder (source_folder). The configured run is
 -- model_id 1. Variations computed WITHIN a run -- the capital treatment, the GWP
--- vintage, the characterisation method, the mitigation lever -- are their own
+-- revision, the characterisation method, the mitigation lever -- are their own
 -- dimensions rather than model rows: folding them in here would need a row per
 -- crossing, most of which no run ever produced, and would let a fact point at a
 -- configuration that was never solved.
@@ -27,7 +27,7 @@ CREATE TABLE dim_model (
     analysis_year            INTEGER      NOT NULL,
     mrio                     VARCHAR(100) NOT NULL,
     danish_block_correction  VARCHAR(200),
-    gwp_vintage              VARCHAR(30)  NOT NULL,
+    gwp_revision             VARCHAR(30)  NOT NULL,
     scope_boundary           VARCHAR(60)  NOT NULL,
     capital                  VARCHAR(60)  NOT NULL,
     is_headline              BOOLEAN      NOT NULL,   -- the configured run
@@ -162,16 +162,16 @@ CREATE TABLE dim_substance (
     substance_code VARCHAR(60) NOT NULL UNIQUE,
     base_unit      VARCHAR(20) NOT NULL,
     gwp100         DOUBLE PRECISION,           -- NULL where not restatable
-    gwp_vintage    VARCHAR(30) NOT NULL,
+    gwp_revision   VARCHAR(30) NOT NULL,
     -- EXIOBASE supplies HFC and PFC already aggregated in CO2-equivalent, so
-    -- their vintage is unknowable from the satellite account and they carry no
+    -- their revision is unknowable from the satellite account and they carry no
     -- factor. The flag says so instead of leaving a bare NULL to be guessed at.
     is_restatable  BOOLEAN     NOT NULL
 );
 
-CREATE TABLE dim_gwp_vintage (
-    gwp_vintage_id   INTEGER     PRIMARY KEY,
-    vintage_code     VARCHAR(30) NOT NULL UNIQUE,  -- 'IPCC AR6 (2021)'
+CREATE TABLE dim_gwp_revision (
+    gwp_revision_id  INTEGER     PRIMARY KEY,
+    revision_code    VARCHAR(30) NOT NULL UNIQUE,  -- 'IPCC AR6 (2021)'
     is_study_default BOOLEAN     NOT NULL
 );
 
@@ -371,18 +371,18 @@ CREATE TABLE fact_ghg_species (
     PRIMARY KEY (model_id, substance_id)
 );
 
--- Grain: model x GWP vintage x indicator. The climate characterisation
+-- Grain: model x GWP revision x indicator. The climate characterisation
 -- sensitivity, SAR to AR6, at the aggregate grain the sensitivity produces.
-CREATE TABLE fact_gwp_vintage (
+CREATE TABLE fact_gwp_revision (
     model_id                 INTEGER NOT NULL REFERENCES dim_model (model_id),
-    gwp_vintage_id           INTEGER NOT NULL REFERENCES dim_gwp_vintage (gwp_vintage_id),
+    gwp_revision_id          INTEGER NOT NULL REFERENCES dim_gwp_revision (gwp_revision_id),
     indicator_id             INTEGER NOT NULL REFERENCES dim_indicator (indicator_id),
     healthcare_kt_co2eq      DOUBLE PRECISION NOT NULL,
     national_kt_co2eq        DOUBLE PRECISION,
     healthcare_share_pct     DOUBLE PRECISION,
     healthcare_t_per_capita  DOUBLE PRECISION,
     not_restatable_kt_co2eq  DOUBLE PRECISION,
-    PRIMARY KEY (model_id, gwp_vintage_id, indicator_id)
+    PRIMARY KEY (model_id, gwp_revision_id, indicator_id)
 );
 
 -- Grain: model x indicator x scope component. The GHG-Protocol ladder for every

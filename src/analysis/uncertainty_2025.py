@@ -20,7 +20,7 @@ implementation. Design decisions, each defensible in the SI:
    which is the statistically correct behaviour.
 3. **Central estimate and interval are consistent.** All multipliers have
    median 1, so the MC median reproduces the deterministic model. Structural
-   corrections (price vintage, waste-extension vintage, pharma mapping) are
+   corrections (price base year, waste-extension reference year, pharma mapping) are
    discrete SCENARIOS, never hidden inside a distribution. E[X] = exp(sigma^2/2)
    > 1 for a median-1 lognormal, so mean and median are both reported.
 4. **Correlation.** Commuting and visitor travel are transplants of the same
@@ -93,8 +93,8 @@ PARAMS = {
 }
 
 # Discrete scenarios (structural choices, NOT random variables)
-PRICE_VINTAGE = {"none": 1.00, "nowcast_adjusted": 0.97}
-WASTE_VINTAGE = {"central": 1.0, "low": 0.5, "high": 2.0}
+PRICE_BASE_YEAR = {"none": 1.00, "nowcast_adjusted": 0.97}
+REFERENCE_YEAR = {"central": 1.0, "low": 0.5, "high": 2.0}
 PHARMA_RATIO = {
     "Global warming (ktCO2eq)": dict(median=1 / 3, gsd=1.5),
     "Material extraction (kt)": dict(median=1 / 7, gsd=1.5),
@@ -150,8 +150,8 @@ def load_groups():
     return mrio, parts, total
 
 
-def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
-           waste_vintage="central", rho=RHO_TRAVEL, rho_mrio=RHO_MRIO,
+def run_mc(mrio, parts, pharma_scenario="A", price_base_year="none",
+           reference_year="central", rho=RHO_TRAVEL, rho_mrio=RHO_MRIO,
            n=N_DRAWS, seed=SEED, cv_target=None):
     """Return (group_draws dict of arrays [n x groups], totals [n x indicators])."""
     rng = np.random.default_rng(seed)
@@ -216,8 +216,8 @@ def run_mc(mrio, parts, pharma_scenario="A", price_vintage="none",
                                                       random_state=rng))
         else:
             ratio = np.ones(n)
-        pv = PRICE_VINTAGE[price_vintage]
-        wv = WASTE_VINTAGE[waste_vintage] if ind == "Waste generation (kt)" else 1.0
+        pv = PRICE_BASE_YEAR[price_base_year]
+        wv = REFERENCE_YEAR[reference_year] if ind == "Waste generation (kt)" else 1.0
         for gi, g in enumerate(groups):
             v = mrio.loc[g, ind] * mrio_factor[g] * pv * wv
             if g == PHARMA_GROUP:
@@ -493,12 +493,12 @@ def main():
         r.insert(0, "pharma_scenario", scen)
         ranks.append(r)
     # structural scenarios on the deterministic model
-    for pv in PRICE_VINTAGE:
-        for wv in WASTE_VINTAGE:
-            _, _, tot, _ = run_mc(mrio, parts, "A", price_vintage=pv, waste_vintage=wv,
+    for pv in PRICE_BASE_YEAR:
+        for wv in REFERENCE_YEAR:
+            _, _, tot, _ = run_mc(mrio, parts, "A", price_base_year=pv, reference_year=wv,
                                   n=20_000)
             for ind, arr in tot.items():
-                scen_rows.append(dict(price_vintage=pv, waste_vintage=wv, indicator=ind,
+                scen_rows.append(dict(price_base_year=pv, reference_year=wv, indicator=ind,
                                       median=float(np.median(arr))))
     # travel-correlation sensitivity
     rho_rows = []

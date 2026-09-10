@@ -72,7 +72,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 
 - **Rows:** 30
 - **Format:** csv
-- **Dimensions:** `price_vintage`, `waste_vintage`, `indicator`
+- **Dimensions:** `price_base_year`, `reference_year`, `indicator`
 - **Measures:** `median`
 
 ### `uncertainty_tier1_error_propagation.csv`

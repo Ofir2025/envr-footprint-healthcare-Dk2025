@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Climate characterisation vintage: what AR6 changes, and what it cannot.
+"""Climate characterisation revision: what AR6 changes, and what it cannot.
 
 This study reports climate change on **IPCC AR6** GWP100. The characterisation
 workbook shipped with the background instead carries AR4 factors (CH4 = 25,
@@ -7,13 +7,13 @@ N2O = 298) under a sheet labelled "CML 1999", so the climate row is rebuilt
 from the stressor names in :func:`analysis.constants.ar6_gwp_factor`.
 
 This module documents the consequence. It restates the Danish health-care and
-national footprints under four IPCC assessment vintages and reports the share
+national footprints under four IPCC assessment revisions and reports the share
 of the footprint that **cannot** be restated at all.
 
 The limit of the restatement
 ----------------------------
 EXIOBASE reports HFC and PFC already aggregated in kg CO2-equivalent rather
-than as individual species. Whatever GWP vintage was used to aggregate them is
+than as individual species. Whatever GWP revision was used to aggregate them is
 fixed inside the data and cannot be recovered from the satellite account, so
 those two stressors are excluded from the restatement and their share is
 reported. Everything else - CO2, CH4, N2O, SF6 - is an individual gas in kg and
@@ -25,7 +25,7 @@ extra CO2 produced when it oxidises.
 
 Run
 ---
-``PYTHONPATH=src .venv/bin/python -m analysis.gwp_vintage``
+``PYTHONPATH=src .venv/bin/python -m analysis.gwp_revision``
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, DK_POPULATION,
                                 ar6_gwp_factor)
 from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR
 
-FOLDER = "15_gwp_vintage"
+FOLDER = "15_gwp_revision"
 
 #: GWP100 by IPCC assessment report. Methane is split fossil/non-fossil only
 #: from AR6; earlier assessments published a single value, applied to both.
@@ -50,7 +50,7 @@ FOLDER = "15_gwp_vintage"
 #: Sources: SAR (1995) table 2.9; TAR (2001) table 6.7; AR4 (2007) table 2.14;
 #: AR5 (2013) table 8.7 (without climate-carbon feedback for non-CO2);
 #: AR6 (2021) WG1 chapter 7 table 7.15.
-VINTAGES: dict[str, dict[str, float]] = {
+REVISIONS: dict[str, dict[str, float]] = {
     "IPCC SAR (1995)": dict(CO2=1.0, CH4_fossil=21.0, CH4_biogenic=21.0,
                             N2O=310.0, SF6=23_900.0),
     "IPCC TAR (2001)": dict(CO2=1.0, CH4_fossil=23.0, CH4_biogenic=23.0,
@@ -89,7 +89,7 @@ def _species(stressor: str) -> str | None:
 
 
 def main() -> None:
-    """Compute the vintage sensitivity and write it to the gold folder."""
+    """Compute the revision sensitivity and write it to the gold folder."""
     out_dir = os.path.join(str(OUTPUT_DIR), FOLDER)
     os.makedirs(out_dir, exist_ok=True)
 
@@ -132,14 +132,14 @@ def main() -> None:
 
     rows: list[dict[str, Any]] = []
     population = DK_POPULATION[ANALYSIS_YEAR]
-    for name, factors in VINTAGES.items():
+    for name, factors in REVISIONS.items():
         h = sum(mass_health.get(k, 0.0) * f for k, f in factors.items()) \
             + fixed_health
         n = sum(mass_nation.get(k, 0.0) * f for k, f in factors.items()) \
             + fixed_nation
         rows.append(dict(
             country_consuming="DNK", analysis_year=ANALYSIS_YEAR,
-            gwp_vintage=name, is_study_default=name.startswith("IPCC AR6"),
+            gwp_revision=name, is_study_default=name.startswith("IPCC AR6"),
             healthcare_kt_co2eq=h / 1e6, national_kt_co2eq=n / 1e6,
             healthcare_share_pct=100.0 * h / n if n else np.nan,
             healthcare_t_per_capita=h / 1e3 / population,
@@ -147,17 +147,17 @@ def main() -> None:
             not_restatable_share_pct=100.0 * fixed_health / h if h else np.nan,
             model=MODEL_LABEL,
             note="HFC and PFC are supplied by EXIOBASE already in CO2eq and "
-                 "keep whatever vintage EXIOBASE used; they are excluded from "
+                 "keep whatever GWP revision EXIOBASE used; they are excluded from "
                  "the restatement and reported in not_restatable_*"))
     table = pd.DataFrame(rows)
-    table.to_csv(os.path.join(out_dir, "gwp_vintage_sensitivity.csv"),
+    table.to_csv(os.path.join(out_dir, "gwp_revision_sensitivity.csv"),
                  index=False)
 
     species = pd.DataFrame([
         dict(country_consuming="DNK", sector_consuming="health_and_eldercare",
              species=k, mass_kg=v, unit="kg",
-             ar6_gwp100=VINTAGES["IPCC AR6 (2021)"][k],
-             contribution_kt_co2eq=v * VINTAGES["IPCC AR6 (2021)"][k] / 1e6)
+             ar6_gwp100=REVISIONS["IPCC AR6 (2021)"][k],
+             contribution_kt_co2eq=v * REVISIONS["IPCC AR6 (2021)"][k] / 1e6)
         for k, v in sorted(mass_health.items(), key=lambda kv: -kv[1])])
     species.loc[len(species)] = dict(
         country_consuming="DNK", sector_consuming="health_and_eldercare",
@@ -167,12 +167,12 @@ def main() -> None:
     species.to_csv(os.path.join(out_dir, "gwp_by_species.csv"), index=False)
 
     pd.set_option("display.width", 200)
-    print(table[["gwp_vintage", "healthcare_kt_co2eq", "national_kt_co2eq",
+    print(table[["gwp_revision", "healthcare_kt_co2eq", "national_kt_co2eq",
                  "healthcare_t_per_capita", "is_study_default"]]
           .to_string(index=False))
     print(f"\nNot restatable (HFC + PFC, already CO2eq in EXIOBASE): "
           f"{fixed_health / 1e6:,.1f} kt = "
-          f"{100 * fixed_health / (sum(mass_health.get(k, 0.0) * f for k, f in VINTAGES['IPCC AR6 (2021)'].items()) + fixed_health):.1f} %"
+          f"{100 * fixed_health / (sum(mass_health.get(k, 0.0) * f for k, f in REVISIONS['IPCC AR6 (2021)'].items()) + fixed_health):.1f} %"
           " of the AR6 health-care footprint")
     print(f"\nwritten -> {out_dir}")
 

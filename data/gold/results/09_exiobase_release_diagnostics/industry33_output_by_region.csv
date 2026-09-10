@@ -1,4 +1,4 @@
-mrio_vintage,mrio_year,country_producing,sector_producing,exiobase_industry_index,value,unit,variable
+mrio_release,mrio_year,country_producing,sector_producing,exiobase_industry_index,value,unit,variable
 v3.10.2,2022,AUT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
 v3.10.2,2022,BEL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
 v3.10.2,2022,BGR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output

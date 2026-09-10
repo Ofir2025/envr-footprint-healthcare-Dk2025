@@ -1103,7 +1103,7 @@ Eurostat air-emissions extension and calculate $q = \mathbf{Q}\,\hat{x}^{-1}$,
 then $F = q\,\mathbf{L}\,\mathbf{Y}$. Reproduce at least one published
 country/final-demand GHG result. Acceptance rule: $\left|(F^{\text{ours}} -
 F^{\text{Eurostat}})/F^{\text{Eurostat}}\right| < \epsilon$, where $\epsilon$
-is set after accounting for rounding, vintage and extension-treatment
+is set after accounting for rounding, reference-year and extension-treatment
 differences. Do **not** proceed to healthcare interpretation until this test
 is passed or the residual is explained.
 
@@ -1197,7 +1197,7 @@ capture enough of the healthcare boundary for meaningful sensitivity; (4)
 geographic results are interpretable; (5) the healthcare result adds
 information beyond AFTRYK1. Suggested thresholds: mapping coverage $=
 100\,\text{MappedHealthExpenditure}/\text{TotalHealthExpenditure} \ge 95\%$;
-unexplained reconciliation residual below 1% where units/vintages permit.
+unexplained reconciliation residual below 1% where units/reference years permit.
 
 ### 6.14 Recommended FIGARO result package
 

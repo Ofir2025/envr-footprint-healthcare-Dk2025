@@ -46,7 +46,7 @@ Fact                            One row per
                                 producing region x producing industry
 ``fact_capital_scenario``       model x capital treatment x indicator
 ``fact_ghg_species``            model x substance
-``fact_gwp_vintage``            model x GWP vintage x indicator
+``fact_gwp_revision``           model x GWP revision x indicator
 ==============================  ===========================================
 
 ``fact_footprint_node`` and ``fact_footprint_product`` are the two marginals of
@@ -63,18 +63,18 @@ attribute dimensions, or rows in ``dim_model``.
 
 This build uses **rows in ``dim_model``, one per model run that was actually
 executed**, and gives the variations that happen *inside* a run their own
-dimensions (``dim_capital_treatment``, ``dim_gwp_vintage``,
+dimensions (``dim_capital_treatment``, ``dim_gwp_revision``,
 ``dim_impact_category``, ``dim_scenario``). The reason is foreign-key honesty. A
 model row must describe the run that produced the fact row pointing at it. The
-reference year, the background vintage and the sector boundary are properties of
+reference year, the background year and the sector boundary are properties of
 a run: changing any of them means re-solving the model, and the outputs land in
-their own folder. The capital treatment, the GWP vintage, the characterisation
+their own folder. The capital treatment, the GWP revision, the characterisation
 method and the mitigation lever are variations computed *within* one run and
 reported side by side, so folding them into ``dim_model`` would require a model
 row per crossing, most of which no run ever produced, and would let a fact point
 at a configuration that was never solved. A separate ``dim_time`` was rejected
 for the opposite reason: the reference year never varies independently of the
-background vintage and the demand vector in this study, so a year key would
+background year and the demand vector in this study, so a year key would
 promise a degree of freedom the model does not have.
 
 The configured run is always ``model_id`` 1, so a fact built by this process
@@ -357,7 +357,7 @@ YEAR_MODELS: dict[str, dict[str, str]] = {
         danish_block_correction="none (no corrected 2016 background exists)",
         source_folder="01_eriksen_replication/2019",
         note="pre-COVID validation baseline; not comparable with 2022 as a "
-             "trend, because the reference year, the background vintage and "
+             "trend, because the reference year, the background year and "
              "the sea-transport reallocation all differ"),
     "2022": dict(
         background_year="2022_snacship",
@@ -389,7 +389,7 @@ def build_dim_model() -> pd.DataFrame:
 
     The configured run is ``model_id`` 1 so that a fact this process builds can
     carry a constant key; the other reported runs follow in a fixed order. See
-    the module docstring for why the capital treatment, the GWP vintage, the
+    the module docstring for why the capital treatment, the GWP revision, the
     characterisation method and the mitigation lever are **not** model rows.
 
     Returns
@@ -405,7 +405,7 @@ def build_dim_model() -> pd.DataFrame:
         "mrio": "EXIOBASE v3.8.2 IOT ixi",
         "danish_block_correction": "sea-transport reallocation "
                                    "(Rormose Jensen & Iliev 2022)",
-        "gwp_vintage": "IPCC AR6",
+        "gwp_revision": "IPCC AR6",
         "scope_boundary": "health and eldercare",
         "capital": "excluded from the headline",
         "is_headline": True,
@@ -417,7 +417,7 @@ def build_dim_model() -> pd.DataFrame:
     def add(**kwargs: object) -> None:
         rows.append({
             "model_id": len(rows) + 1, "mrio": "EXIOBASE v3.8.2 IOT ixi",
-            "gwp_vintage": "IPCC AR6", "capital": "excluded from the headline",
+            "gwp_revision": "IPCC AR6", "capital": "excluded from the headline",
             "is_headline": False, **kwargs})
 
     for year, spec in sorted(YEAR_MODELS.items()):
@@ -433,7 +433,7 @@ def build_dim_model() -> pd.DataFrame:
                 **spec)
     return pd.DataFrame(rows)[[
         "model_id", "model_label", "background_year", "analysis_year", "mrio",
-        "danish_block_correction", "gwp_vintage", "scope_boundary", "capital",
+        "danish_block_correction", "gwp_revision", "scope_boundary", "capital",
         "is_headline", "source_folder", "note"]]
 
 
@@ -554,22 +554,22 @@ def build_dim_substance(species: pd.DataFrame) -> pd.DataFrame:
     Parameters
     ----------
     species : pandas.DataFrame
-        ``15_gwp_vintage/gwp_by_species.csv``.
+        ``15_gwp_revision/gwp_by_species.csv``.
 
     Returns
     -------
     pandas.DataFrame
         ``substance_id`` (PK), ``substance_code`` (natural key), ``base_unit``,
-        ``gwp100``, ``gwp_vintage``, ``is_restatable``.
+        ``gwp100``, ``gwp_revision``, ``is_restatable``.
     """
     dim = (species[["species", "unit", "ar6_gwp100"]]
            .drop_duplicates("species").sort_values("species")
            .reset_index(drop=True)
            .rename(columns={"species": "substance_code", "unit": "base_unit",
                             "ar6_gwp100": "gwp100"}))
-    dim["gwp_vintage"] = "IPCC AR6 (2021)"
+    dim["gwp_revision"] = "IPCC AR6 (2021)"
     # EXIOBASE supplies HFC and PFC already aggregated in CO2-equivalent, so
-    # their vintage is not knowable from the satellite account and they carry no
+    # their revision is not knowable from the satellite account and they carry no
     # factor. The flag says so rather than leaving a bare null to be guessed at.
     dim["is_restatable"] = dim["gwp100"].notna()
     dim.insert(0, "substance_id", range(1, len(dim) + 1))
@@ -612,24 +612,24 @@ def build_dim_capital_treatment() -> pd.DataFrame:
     return dim
 
 
-def build_dim_gwp_vintage(sensitivity: pd.DataFrame) -> pd.DataFrame:
-    """Climate-characterisation vintage dimension, SAR to AR6.
+def build_dim_gwp_revision(sensitivity: pd.DataFrame) -> pd.DataFrame:
+    """Climate-characterisation revision dimension, SAR to AR6.
 
     Parameters
     ----------
     sensitivity : pandas.DataFrame
-        ``15_gwp_vintage/gwp_vintage_sensitivity.csv``.
+        ``15_gwp_revision/gwp_revision_sensitivity.csv``.
 
     Returns
     -------
     pandas.DataFrame
-        ``gwp_vintage_id`` (PK), ``vintage_code`` (natural key),
+        ``gwp_revision_id`` (PK), ``revision_code`` (natural key),
         ``is_study_default``.
     """
-    dim = (sensitivity[["gwp_vintage", "is_study_default"]]
-           .drop_duplicates("gwp_vintage").reset_index(drop=True)
-           .rename(columns={"gwp_vintage": "vintage_code"}))
-    dim.insert(0, "gwp_vintage_id", range(1, len(dim) + 1))
+    dim = (sensitivity[["gwp_revision", "is_study_default"]]
+           .drop_duplicates("gwp_revision").reset_index(drop=True)
+           .rename(columns={"gwp_revision": "revision_code"}))
+    dim.insert(0, "gwp_revision_id", range(1, len(dim) + 1))
     return dim
 
 
@@ -865,7 +865,7 @@ KEY_ONLY_GRAIN: dict[str, list[str]] = {
     "fact_capital_scenario": ["model_id", "capital_treatment_id",
                               "indicator_id"],
     "fact_ghg_species": ["model_id", "substance_id"],
-    "fact_gwp_vintage": ["model_id", "gwp_vintage_id", "indicator_id"],
+    "fact_gwp_revision": ["model_id", "gwp_revision_id", "indicator_id"],
 }
 
 
@@ -1255,8 +1255,8 @@ def main() -> None:
         ["model_id", "capital_treatment_id", "indicator_id", "value",
          "delta_vs_baseline", "pct_vs_baseline", "per_capita"]]
 
-    # ---- climate characterisation: species and vintages -------------------
-    species = _read("15_gwp_vintage/gwp_by_species.csv")
+    # ---- climate characterisation: species and revisions -------------------
+    species = _read("15_gwp_revision/gwp_by_species.csv")
     dim_substance = build_dim_substance(species)
     dims["dim_substance"] = dim_substance
     gs = species[["species", "mass_kg", "ar6_gwp100", "contribution_kt_co2eq"]] \
@@ -1267,20 +1267,20 @@ def main() -> None:
     facts["fact_ghg_species"] = gs[
         ["model_id", "substance_id", "mass_kg", "gwp100", "co2eq_kt"]]
 
-    vintage = _read("15_gwp_vintage/gwp_vintage_sensitivity.csv")
-    dim_gwp_vintage = build_dim_gwp_vintage(vintage)
-    dims["dim_gwp_vintage"] = dim_gwp_vintage
-    gv = vintage[["gwp_vintage", "healthcare_kt_co2eq", "national_kt_co2eq",
+    revision = _read("15_gwp_revision/gwp_revision_sensitivity.csv")
+    dim_gwp_revision = build_dim_gwp_revision(revision)
+    dims["dim_gwp_revision"] = dim_gwp_revision
+    gv = revision[["gwp_revision", "healthcare_kt_co2eq", "national_kt_co2eq",
                   "healthcare_share_pct", "healthcare_t_per_capita",
                   "not_restatable_kt_co2eq"]].copy()
     # The sensitivity restates one indicator, so it names it by convention
     # rather than in a column; the star model requires the key to be explicit.
     gv["indicator"] = "climate_change"
-    gv = _key(gv, dim_gwp_vintage, "gwp_vintage", "vintage_code", "gwp_vintage_id", "gwp_vintage.vintage")
-    gv = _key(gv, dim_indicator, "indicator", "indicator_code", "indicator_id", "gwp_vintage.indicator")
+    gv = _key(gv, dim_gwp_revision, "gwp_revision", "revision_code", "gwp_revision_id", "gwp_revision.revision")
+    gv = _key(gv, dim_indicator, "indicator", "indicator_code", "indicator_id", "gwp_revision.indicator")
     gv.insert(0, "model_id", 1)
-    facts["fact_gwp_vintage"] = gv[
-        ["model_id", "gwp_vintage_id", "indicator_id", "healthcare_kt_co2eq",
+    facts["fact_gwp_revision"] = gv[
+        ["model_id", "gwp_revision_id", "indicator_id", "healthcare_kt_co2eq",
          "national_kt_co2eq", "healthcare_share_pct",
          "healthcare_t_per_capita", "not_restatable_kt_co2eq"]]
 

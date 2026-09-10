@@ -9,7 +9,7 @@ change*, Lancet Planetary Health 6: e949-57.
 monetary tables, `IOT_2022_ixi`, 49 regions x 163 industries). This study
 rejects v3.10.2: it disagrees with v3.8.2 by a factor of three on the size of
 the Danish health industry. See
-[`docs/methods/exiobase_version_vintage_and_classification.md`](docs/methods/exiobase_version_vintage_and_classification.md).
+[`docs/methods/exiobase_release_and_classification.md`](docs/methods/exiobase_release_and_classification.md).
 2019 is retained as a pre-COVID validation baseline.
 
 ## Headline result, Denmark 2022
@@ -60,11 +60,11 @@ they are - so all aggregates are derivable and no lineage is lost.
 python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 
 # Build the background once. This uses EXIOBASE v3.8.2, the version this study
-# actually uses - see docs/methods/exiobase_version_vintage_and_classification.md
+# actually uses - see docs/methods/exiobase_release_and_classification.md
 # for why v3.10.2 is rejected.
 #
 # `pipelines.prep_background_2022.build_background_2022` builds the REJECTED
-# v3.10.2 and exists only to supply layer 09, which has to hold both vintages
+# v3.10.2 and exists only to supply layer 09, which has to hold both releases
 # side by side to demonstrate the defects. It writes version-tagged filenames
 # (mrio2022_v3_10_2.pkl, leontief2022_v3_10_2.pkl), so it cannot overwrite what
 # the commands below produce. It used to write the unsuffixed names and did

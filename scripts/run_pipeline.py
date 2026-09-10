@@ -20,7 +20,7 @@ Run
 ---
 ``python scripts/run_pipeline.py``                 run every stage
 ``python scripts/run_pipeline.py --check``         list coverage only, run nothing
-``python scripts/run_pipeline.py --from gwp_vintage``  resume from a stage
+``python scripts/run_pipeline.py --from gwp_revision``  resume from a stage
 ``python scripts/run_pipeline.py --only uncertainty_2025 uncertainty_figures``
 """
 
@@ -120,14 +120,14 @@ STAGES: tuple[tuple[str, str], ...] = (
     ("eckelman_replication", "the US comparator"),
 
     # --- diagnostics and sensitivities ------------------------------------
-    ("vintage_defect_audit", "why v3.10.2 was rejected"),
+    ("release_defect_audit", "why v3.10.2 was rejected"),
     ("capital_gfcf", "the capital scenarios"),
     ("capital_endogenised_sodersten",
      "capital on the published matrices; reads capital_gfcf's baseline"),
     ("impact_categories_full", "all 97 characterised categories"),
     ("impact_world_plus", "IMPACT World+ characterisation"),
-    ("gwp_vintage",
-     "the climate vintage restatement; reads the raw stressor masses, so it "
+    ("gwp_revision",
+     "the climate revision restatement; reads the raw stressor masses, so it "
      "must follow the modules that write them"),
     ("health_subsector_footprints", "the SHA function decomposition"),
     ("health_function_recipes",

@@ -18,11 +18,11 @@ import pandas as pd
 from paths import OUTPUT_DIR
 
 APPROACHES = {
-    "09_vintage_diagnostics": dict(
-        approach="EXIOBASE vintage audit against Danish national accounts",
+    "09_exiobase_release_diagnostics": dict(
+        approach="EXIOBASE release audit against Danish national accounts",
         reference="Rørmose Jensen & Iliev 2022 (Statistics Denmark); Palm et al. 2019; "
                   "Stadler et al. 2018 (J Ind Ecol 22:502)",
-        script="analysis.vintage_defect_audit",
+        script="analysis.release_defect_audit",
         equations="ratio = x_EXIOBASE(group) / x_nationalaccounts(group)",
         inputs="EXIOBASE v3.7/v3.8.2/v3.10.2 x vectors; DST 117-industry IO tables"),
     "10_sea_transport_reallocation": dict(
@@ -60,11 +60,11 @@ APPROACHES = {
         script="analysis.eckelman_replication",
         equations="share = f_health / f_national per category; DALY from ILCD endpoints",
         inputs="12_impact_categories_full; published US values transcribed with provenance"),
-    "15_gwp_vintage": dict(
-        approach="Climate characterisation vintage sensitivity, SAR to AR6",
+    "15_gwp_revision": dict(
+        approach="Climate characterisation revision sensitivity, SAR to AR6",
         reference="IPCC AR6 WG1 ch.7 table 7.15; AR5 table 8.7; AR4 table 2.14",
-        script="analysis.gwp_vintage",
-        equations="f = sum_g m_g GWP100_g(vintage) + fixed CO2eq stressors",
+        script="analysis.gwp_revision",
+        equations="f = sum_g m_g GWP100_g(revision) + fixed CO2eq stressors",
         inputs="raw stressor masses by species; IPCC GWP100 by assessment report"),
     "16_impact_world_plus": dict(
         approach="IMPACT World+ v2.2.1, 38 live categories with DALY endpoints",
@@ -195,8 +195,8 @@ APPROACHES = {
                "and scenarios/ (the scope ladder per model run); "
                "20_production_layers; 11_capital_gfcf "
                "(capital treatments); 12_impact_categories_full and, where "
-               "present, 16_impact_world_plus (characterisation); 15_gwp_vintage "
-               "(species and vintages); 18_mitigation_scenarios; "
+               "present, 16_impact_world_plus (characterisation); 15_gwp_revision "
+               "(species and revisions); 18_mitigation_scenarios; "
                "04_uncertainty_lenzen_ieooc (the Monte Carlo draw array, whose "
                "sum over groups is asserted to reproduce the published median, "
                "interval and coefficient of variation); "

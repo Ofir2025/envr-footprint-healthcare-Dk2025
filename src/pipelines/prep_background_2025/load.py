@@ -27,7 +27,7 @@ tstart = time.time()
 year = os.environ.get('HC_BACKGROUND_YEAR', '2016')  # IOT_<year>_ixi must exist
 # under data/bronze/exiobase_v3_7/. v3.8.2 is used for every year: its 2022 table
 # reproduces Danish national accounts, whereas v3.10.2's 2022 nowcast does not
-# (see docs/methods/exiobase_version_vintage_and_classification.md).
+# (see docs/methods/exiobase_release_and_classification.md).
 
 ##############################################
 ##############################################
@@ -248,14 +248,14 @@ Q_unit.append(Q_factorinputs.index[pos_emp][1])
 # what this study reports, so row 0 of Q is rebuilt from the stressor names.
 #
 # HFC and PFC are reported by EXIOBASE already aggregated in kg CO2-equivalent
-# rather than as individual species. Their vintage is fixed by EXIOBASE and
+# rather than as individual species. Their revision is fixed by EXIOBASE and
 # cannot be recovered, so they keep their existing factor of 1 and are left
-# untouched here. Set HC_GWP_VINTAGE=AR4 to reproduce the previous behaviour.
+# untouched here. Set HC_GWP_REVISION=AR4 to reproduce the previous behaviour.
 # ---------------------------------------------------------------------------
 from analysis.constants import ar6_gwp_factor  # noqa: E402
 
-_gwp_vintage = os.environ.get('HC_GWP_VINTAGE', 'AR6').upper()
-if _gwp_vintage == 'AR6':
+_gwp_revision = os.environ.get('HC_GWP_REVISION', 'AR6').upper()
+if _gwp_revision == 'AR6':
     _restated, _kept = 0, 0
     for _i in range(n_ext):
         _factor = ar6_gwp_factor(label_ext['Name'].iloc[_i])
@@ -269,7 +269,7 @@ if _gwp_vintage == 'AR6':
     print(f"GWP restated to IPCC AR6: {_restated} stressors; "
           f"{_kept} kept as supplied (HFC/PFC already in CO2-equivalent)")
 else:
-    print(f"GWP vintage left as supplied in the workbook ({_gwp_vintage})")
+    print(f"GWP revision left as supplied in the workbook ({_gwp_revision})")
 
 #Build a label dataframe for the characterization factors
 

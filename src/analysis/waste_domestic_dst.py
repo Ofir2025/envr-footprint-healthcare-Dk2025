@@ -19,7 +19,8 @@ Denmark, uniquely, publishes IO-based waste multipliers on the same
 2011-2023): direct waste intensity and the direct+indirect multiplier in
 tonnes per million DKK. This module applies them to the healthcare final
 demand to produce a DOMESTIC waste footprint that is WSR/SEEA-consistent,
-2022-vintage and comparable with Eurostat and with hospital green accounts.
+with a 2022 reference year, and comparable with Eurostat and with hospital
+green accounts.
 
 Boundary
 --------

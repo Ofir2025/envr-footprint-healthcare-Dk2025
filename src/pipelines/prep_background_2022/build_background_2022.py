@@ -25,8 +25,8 @@ Design decisions (documented for the methods section):
   any GWP-carrying name is lost.
 * The waste extension row is the 2011 hybrid-EXIOBASE waste account prepared
   by the canonical waste stage (waste.pkl); region/industry layout is identical
-  (asserted), so it is reused as-is - the same Steenmeijer-precedent vintage
-  carry-forward as in the 2016 model, treated in the uncertainty analysis.
+  (asserted), so it is reused as-is - the same Steenmeijer-precedent reference-
+  year carry-forward as in the 2016 model, treated in the uncertainty analysis.
 
 Run:  PYTHONPATH=src .venv/bin/python -m pipelines.prep_background_2022.build_background_2022
 """
@@ -225,12 +225,12 @@ def main():
     # running this module overwrote the headline background in place - and
     # nothing downstream could notice, because `constants.model_label()` stamps
     # "EXIOBASE v3.8.2" from a constant rather than from the pickle. Audit check
-    # C4 would have passed on tables built from the rejected vintage.
+    # C4 would have passed on tables built from the rejected release.
     #
     # The hand-made `mrio2022_v3_10_2.pkl` on disk is the evidence that this
     # already happened once and was repaired by hand. Writing the tag natively
     # makes the collision impossible rather than merely unlikely, and lets the
-    # two vintages coexist - which layer 09 needs, since its whole purpose is to
+    # two releases coexist - which layer 09 needs, since its whole purpose is to
     # compare them.
     with open(mrio_dir + f"mrio{YEAR}{VERSION_TAG}.pkl", "wb") as fh:
         pickle.dump(mrio, fh)

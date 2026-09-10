@@ -6,7 +6,7 @@ FIGARO inter-country supply, use and input-output tables. Unlike EXIOBASE,
 FIGARO's national blocks *are* the official national accounts, so its Danish
 block is correct by construction. That makes it the natural independent check on
 a study whose background model has just been shown to have a defective Danish
-block in one vintage (see ``docs/methods/exiobase_version_vintage_and_classification.md``).
+block in one release (see ``docs/methods/exiobase_release_and_classification.md``).
 
 What Eurostat provides, and what it does not
 --------------------------------------------

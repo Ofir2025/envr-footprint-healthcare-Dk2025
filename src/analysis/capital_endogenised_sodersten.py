@@ -44,8 +44,8 @@ input-output tables.
 Because each column of ``D`` sums to one, total capital use by industry is
 conserved by the mapping. That is asserted, not assumed.
 
-Data vintages
--------------
+Reference years
+---------------
 The published capital matrices stop at 2020 and the study year is 2022. Capital
 *structure* - which products form the capital stock of which industry - moves
 slowly, whereas capital *level* is taken from the model's own consumption of

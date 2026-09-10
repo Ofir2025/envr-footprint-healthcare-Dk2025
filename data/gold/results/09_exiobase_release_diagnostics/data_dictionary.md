@@ -1,4 +1,4 @@
-# 09_vintage_diagnostics - data dictionary
+# 09_exiobase_release_diagnostics - data dictionary
 
 One row per column of every table in this folder. Units are the
 table's own; `varies by row` means the table carries a `unit`
@@ -12,7 +12,7 @@ are described below, per table.
 | Column | Meaning |
 |:---|:---|
 | `analysis_year` | year of the Danish expenditure data and of the MRIO background |
-| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_version_vintage_and_classification.md`) |
+| `model` | MRIO release actually used (e.g. `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)`) - **not** v3.10.2, which this study rejects (see `docs/methods/exiobase_release_and_classification.md`) |
 | `scenario` | model scenario (`baseline`, scope variants, pharma-mapping variants) |
 | `consuming_country_iso3` | always `DNK` - Denmark is the final consumer in this study |
 | `demand_component` | `healthcare_services`, `pharmaceuticals`, `medical_appliances` |
@@ -55,7 +55,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `mrio_vintage` | dimension | str |  | v3.10.2 |
+| `mrio_release` | dimension | str |  | v3.10.2 |
 | `mrio_year` | measure | int64 |  | 2022 |
 | `country_producing` | dimension | str |  | DNK |
 | `sector_producing` | dimension | str |  | Health and social work |
@@ -71,7 +71,7 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `mrio_vintage` | dimension | str |  | v3.10.2 |
+| `mrio_release` | dimension | str |  | v3.10.2 |
 | `mrio_year` | measure | int64 |  | 2022 |
 | `country_producing` | dimension | str |  | AUT |
 | `sector_producing` | dimension | str |  | Manufacture of medical, precision and op |
@@ -80,12 +80,12 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | M.EUR |
 | `variable` | dimension | str |  | total_industry_output |
 
-### `vintage_defect_verdicts.csv`
+### `release_defect_verdicts.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `defect` | dimension | str |  | D1 industry 33 emptied in Europe |
-| `mrio_vintage` | dimension | str |  | v3.10.2 |
+| `mrio_release` | dimension | str |  | v3.10.2 |
 | `mrio_year` | measure | int64 |  | 2016 |
 | `metric` | dimension | str |  | European regions with i33 output < 1 M.E |
 | `value` | measure | int64 |  | 26 |

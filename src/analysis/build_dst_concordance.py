@@ -37,7 +37,7 @@ Three sources, in order of authority:
    ISIC 33 into NACE 26/32, ISIC 72 into NACE 58/62/63, ISIC 74 into NACE
    69-82 and ISIC 85 into NACE 75/86/87/88.
 
-``vintage_defect_audit.CONCORDANCE`` - twelve hand-built groups whose mapping
+``release_defect_audit.CONCORDANCE`` - twelve hand-built groups whose mapping
 its author judged unambiguous - is the correctness anchor. The validation
 asserts that every prefix of every seed group survives in this concordance;
 where this concordance adds a division the seed omitted (post to NACE 53
@@ -113,7 +113,7 @@ What the validation cannot do, and the two controls it uses instead
 -------------------------------------------------------------------
 An output comparison tests a mapping only up to the difference between the two
 databases. EXIOBASE's Danish block is known to misallocate output between
-industries (Rørmose Jensen & Iliev 2022; ``vintage_defect_audit``), so a
+industries (Rørmose Jensen & Iliev 2022; ``release_defect_audit``), so a
 flagged group is evidence of either a mapping error or a database defect and a
 ratio on its own cannot separate them. Two controls are built in.
 
@@ -146,7 +146,7 @@ import numpy as np
 import pandas as pd
 
 from analysis.constants import ANALYSIS_YEAR, K_DK, N_SECTORS
-from analysis.vintage_defect_audit import CONCORDANCE as SEED_CONCORDANCE
+from analysis.release_defect_audit import CONCORDANCE as SEED_CONCORDANCE
 from paths import BRONZE_DIR, EXIOBASE_DIR, OUTPUT_DIR
 
 FOLDER = "06_benchmarks_validation"
@@ -546,7 +546,7 @@ def load_dst_industries(year: str) -> pd.DataFrame:
         Columns ``dst_industry_code``, ``dst_industry_name`` and
         ``dst_output_meur``, in workbook order. The output row is the table's
         ``Total Output`` row, converted from 1000 DKK to M.EUR at the annual
-        average rate, exactly as ``vintage_defect_audit._dst_output`` does.
+        average rate, exactly as ``release_defect_audit._dst_output`` does.
     """
     sheet = pd.read_excel(str(DST_IO).format(year=year), sheet_name="IO",
                           header=None)
@@ -665,14 +665,14 @@ def load_exiobase_dk_output(year: str) -> np.ndarray:
     ----------
     year : str
         EXIOBASE reference year; the directory is resolved under
-        ``paths.EXIOBASE_DIR``, which points at the background vintage this
+        ``paths.EXIOBASE_DIR``, which points at the background release this
         study uses (v3.8.2).
 
     Returns
     -------
     numpy.ndarray
         163 total outputs, read from the distribution's ``x.txt`` in the same
-        way as ``vintage_defect_audit._exiobase_x``.
+        way as ``release_defect_audit._exiobase_x``.
     """
     path = str(EXIOBASE_X).format(year=year)
     frame = pd.read_csv(path, sep="\t", index_col=[0, 1])
@@ -900,7 +900,7 @@ def validate(concordance: pd.DataFrame, dst: pd.DataFrame,
     """Test the concordance and return the validation report.
 
     Four things are tested. Completeness and agreement with
-    ``vintage_defect_audit.CONCORDANCE`` are assertions, because a failure
+    ``release_defect_audit.CONCORDANCE`` are assertions, because a failure
     means the concordance is wrong. The output comparison and the confidence
     coverage are measurements, because a failure there can mean either a
     mapping error or a difference between the two databases.
