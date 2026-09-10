@@ -11,7 +11,7 @@ code; where the code departs from the published form, the departure is stated in
 the *Deviations* section rather than left for the reader to discover.
 
 | # | Layer | Source | Module |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | [00](00_core_footprint.md) | Core footprint | Leontief (1970); Miller & Blair (2009) | `main_2025`, `extended_indicators`, `national_totals` |
 | [01](01_eriksen_replication.md) | Eriksen replication (the manuscript) | Eriksen et al., NXSUST-D-26-01589 | `main_2025`, `eriksen_tables` |
 | [02](02_scopes_wood_hertwich.md) | GHG-Protocol scopes | Hertwich & Wood (2018); OECD (2025) | `scopes_detail` |
