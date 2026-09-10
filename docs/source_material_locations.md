@@ -1,4 +1,20 @@
-# Reference library - pinned locations
+# Source material locations
+
+This is a hand-written map of where the project's source material - literature
+PDFs and the data stores read alongside them - actually lives on disk. It is
+not the bibliography: for the APA-formatted, generated citation list, see
+[`references.md`](references.md) (and edit
+[`references.csv`](references.csv), never that file, to change it). This file
+holds the opposite kind of information - not what to cite, but which directory
+to open to find the source behind a citation - and it is maintained by hand
+because that mapping cannot be generated from the CSV.
+
+**`docs/references/`, the directory this file leads with below, is withheld
+from the co-author's published branch by
+`scripts/release/publish_ofir_branch.sh`.** A reader working from that branch
+will not have those PDFs; the citations they support are still in
+`references.md`, but the source files themselves are only in the full working
+copy.
 
 Every literature source this project draws on, with its location, so that a
 claim can be checked and so the same libraries can be reused by later work.
@@ -20,7 +36,7 @@ its equations come from.
 
 | Cluster | Key items |
 |---|---|
-| **Replication targets** | Steenmeijer et al. 2022 (the template, + the Lancet appendix and the fuller RIVM report 2022-0159 in `reports/source/`); Eckelman & Sherman 2016 (+ S1-S5 tables); Malik et al. 2018 (+SI) and 2021 (+SI); Lenzen et al. 2020 (+SI directory) |
+| **Replication targets** | Steenmeijer et al. 2022 (the template, + the Lancet appendix and the fuller RIVM report 2022-0159); Eckelman & Sherman 2016 (+ S1-S5 tables); Malik et al. 2018 (+SI) and 2021 (+SI); Lenzen et al. 2020 (+SI directory) |
 | **Danish EXIOBASE remedies** | **Rørmose Jensen & Iliev 2022** - the coupled model; Palm et al. 2019 (+SI) - simplified SNAC; Tukker et al. 2018 - the method taxonomy |
 | **Scope and double counting** | Wood & Hertwich 2018; Cabernard et al. 2019 (+SI, at the AFRIMAT path below) |
 | **Danish context** | Arup 2025 Denmark health fact sheet; Healthcare Denmark 2024; Fagerberg et al. 2017 |

@@ -1,8 +1,13 @@
 # References
 
+> Generated from `docs/references.csv` by `analysis.bibliography`.
+> Edit the CSV, never this file - a hand edit here is overwritten the
+> next time the module runs.
+
 Every source cited anywhere in this repository's documentation, in APA
-7. Generated from `docs/references.csv` by `analysis.bibliography` -
-edit the CSV, never this file.
+7. For where the underlying PDFs are actually stored, see
+[`source_material_locations.md`](source_material_locations.md); that
+file links back here for the citation itself.
 
 Each DOI was resolved against Crossref rather than transcribed. Entries
 without a DOI are official statistics, national inventories or
