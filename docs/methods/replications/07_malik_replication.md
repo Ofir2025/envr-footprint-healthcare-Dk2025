@@ -77,7 +77,8 @@ boundary recorded per row.
 
 - Malik's Australian model (IELab) has native health sub-sector detail that EXIOBASE's
   `ixi` layout does not; sub-sector comparison is therefore made through the concordance
-  route of [17](17_health_subsectors.md), with its limits stated there.
+  route of layer 17 (health sub-sectors). Its own replication write-up has not
+  been written yet; see `docs/methods/replications/readme.md`.
 - Their capital inclusion is not matched in the headline; it is quantified in
   [11](11_capital_gfcf.md).
 

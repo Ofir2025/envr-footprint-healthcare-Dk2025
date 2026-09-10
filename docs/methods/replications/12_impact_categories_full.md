@@ -56,8 +56,9 @@ workbook; and the EXIOBASE stressor list, whose order the workbook columns must 
   (CH₄ = 25, N₂O = 298) under a sheet labelled "CML 1999". It is rebuilt on IPCC AR6 from
   the stressor names; see [15](15_gwp_vintage.md).
 - DESIRE is a 2014-vintage file with no water-scarcity, land-biodiversity, or
-  mineral-resource categories. That gap is the reason for
-  [16](16_impact_world_plus.md), which is current and openly licensed.
+  mineral-resource categories. That gap is the reason for layer 16
+  (IMPACT World+), which is current and openly licensed. Its own replication
+  write-up has not been written yet; see `docs/methods/replications/readme.md`.
 
 ## Outputs
 

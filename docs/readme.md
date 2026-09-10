@@ -14,7 +14,24 @@ what it does **not** do.
 | Trace any published number back to its data and method | `data/gold/results/manifest_lineage.csv` |
 | See which of the author's requests are answered | [`revision/request_checklist.md`](revision/request_checklist.md) |
 | Understand the modelling approaches implemented | [`methods_approaches.md`](methods_approaches.md) |
-| Understand the data layout | [`data_architecture.md`](data_architecture.md) |
+| Understand the data layout | [`../README.md`](../README.md) (Repository layout) and [`../data/readme.md`](../data/readme.md) |
+| See the audit behind a transport finding that was withdrawn | [`revision/transport_audit.md`](revision/transport_audit.md) |
+| Read the uncertainty response to Reviewer 1 | [`revision/uncertainty_response_to_reviewer.md`](revision/uncertainty_response_to_reviewer.md) |
+
+## Folders
+
+| Folder | Holds | See |
+|:---|:---|:---|
+| `methods/` | This study's own method, the published star schema, and Ofir Eriksen's methodology write-ups | [`methods/readme.md`](methods/readme.md) |
+| `revision/` | The manuscript revision's working record: analysis, open questions, reviewer correspondence | [`revision/readme.md`](revision/readme.md) |
+| `eriksen_et_al_2026/` | The manuscript submission package (Word documents) | [`eriksen_et_al_2026/readme.md`](eriksen_et_al_2026/readme.md) |
+
+## Bibliography and source material
+
+| File | What it is |
+|:---|:---|
+| [`references.md`](references.md) | The APA bibliography, generated from [`references.csv`](references.csv) by `analysis.bibliography` - never hand-edited. |
+| [`source_material_locations.md`](source_material_locations.md) | Hand-written map of where the source PDFs behind those citations actually live on disk, including which are withheld from the co-author's published branch. |
 
 ## The pipeline
 
