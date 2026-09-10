@@ -2,7 +2,9 @@
 
 Denmark health-care environmental footprint, 2022. This page is the entry point:
 it says where everything lives, what each piece does, and - as importantly -
-what it does **not** do.
+what it does **not** do. For the revision branch notes - how to cite the
+background, the three things that change the paper, and where everything else
+lives - see [`revision_guide.md`](revision_guide.md).
 
 ## Start here
 
