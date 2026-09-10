@@ -77,7 +77,7 @@ We audited our first version against the IEooc `Methods5_Exercise4b` notebook
 and the published literature, then rebuilt it. Findings and fixes:
 
 | defect | fix |
-|---|---|
+|:---|:---|
 | MRIO parameter uncertainty absent → intervals ~2× too narrow | added as one shared multiplicative factor calibrated to **Lenzen et al. 2020 SI Tab. SI 7.1** (Danish health-care GHG 2.84 ± 0.24 Mt = **8.35 % relative SD**), the only published MC of this exact quantity |
 | price-vintage correction (0.97) hidden inside a distribution, so the point estimate sat off-centre in its own interval | all multipliers now median 1 (MC median reproduces the deterministic model); vintage/waste/pharma are **discrete scenarios** |
 | waste GSD 1.5 alone drove −53/+120 % and implied the vintage error was unbiased and log-symmetric | moved to a 0.5/1.0/2.0 **scenario band** |
@@ -124,7 +124,7 @@ So I implemented eqs. 8/9/12 and measured it for three nested target sets
 (`03_cabernard_target_scope3/`):
 
 | target set | nodes | naive | corrected | double counting |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | Danish health and social work | 1 | 0.9 Mt | 0.9 Mt | 1.3 % |
 | health and social work, all 49 regions | 49 | 1,129 Mt | 1,100 Mt | 2.6 % |
 | + chemicals and medical instruments, all regions | 147 | 3,093 Mt | 2,511 Mt | **18.8 %** |
@@ -152,7 +152,7 @@ its approach, script, equations, published reference, inputs, and content hash:
 references. The detailed tables are all long-format with explicit units:
 
 | file | grain |
-|---|---|
+|:---|:---|
 | `footprint_by_producing_node.csv` | indicator × demand component × **producing** country ISO3 × sector (complete, unthresholded) |
 | `footprint_by_purchased_product.csv` | same for the **purchased** product and its supplying region |
 | `footprint_bilateral_producer_x_purchase.csv.gz` | the full 4-D array `E[i,j] = s_i L_ij y_j`: largest cells covering ≥99.5 % **plus an explicit remainder row so totals reconcile exactly** |
@@ -210,7 +210,7 @@ is Eurostat-consistent rather than an alternative to it.
 We implemented it as a switch (`HC_SCOPE`) and ran it for all five indicators:
 
 | boundary | expenditure | GWP | share | t/cap |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | health only | €31,079 M | 4,405 kt | 6.81 % | 0.750 |
 | **health + eldercare (default)** | **€40,597 M** | **4,875 kt** | **7.53 %** | **0.830** |
 | + childcare ("zorg en welzijn") | €49,709 M | 5,325 kt | 8.23 % | 0.907 |

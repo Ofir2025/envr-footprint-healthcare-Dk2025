@@ -223,7 +223,7 @@ wherever possible. Ambition levels that are **not** sourced are labelled
 *illustrative* in the `ambition_basis` column of the output and nowhere else.
 
 | ID | Lever | Object edited | $k_t$ and its evidence |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | **B1** | Grid and district-heat decarbonisation | $\mathbf{B}$, energy nodes | 122.7 → 16.9 g CO₂e/kWh (KF22) and → 32.4 (KF25) by 2030 (Danish Energy Agency, 2022, 2025) |
 | **P1** | Hospital energy and transport | $\mathbf{y}$, Danish energy nodes | −75 % by 2030 against 2018, all public hospitals (Danske Regioner, 2024, as reported in Healthcare Denmark, 2024) |
 | **P2** | Pharmaceutical raw-material efficiency | $\mathbf{A}$, Danish chemicals column | −15 % raw-material use 2020→2022 while production rose 18 % (Lundbeck, in Healthcare Denmark, 2024) |
@@ -264,7 +264,7 @@ input column, not to final demand.
 ### 4.1 Climate
 
 | | kt CO₂e | of the 2022 baseline |
-|---|---|---|
+|:---|:---|:---|
 | 2022 baseline | 4,712 | n/a |
 | Reduction the regional target requires | −2,357 | −50 % |
 | All interventions, solved simultaneously (**C1**) | **−361** | −7.7 % |
@@ -333,7 +333,7 @@ can be said.
 ## 5. Stress tests
 
 | Test | Result |
-|---|---|
+|:---|:---|
 | Baseline reproduces the study headline | asserted in code; scenario baseline within 1 % of 4,712.418 kt, and equal to it |
 | Counterfactual solve against the stored inverse | agrees to 1 × 10⁻¹¹ |
 | Levers summed vs solved simultaneously | 0.2 kt apart on climate; reported, not assumed |

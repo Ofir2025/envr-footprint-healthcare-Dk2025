@@ -15,7 +15,7 @@ Three of the four proxies the reviewer names have been **eliminated, not bounded
 Danish measurement exists, a transplanted proxy has been replaced by it:
 
 | Proxy the reviewer questioned | Submitted | Now |
-|---|---|---|
+|:---|:---|:---|
 | Nitrous oxide scaled from one region by births | 9.52 kt, from Region of Southern Denmark × birth ratio | **11.32 kt** from Denmark's National Inventory Document 2024 (DCE 622), category 2.G.3.a, a national measurement |
 | pMDI scaled from Dutch defined daily doses | 34.6 kt | **11.6 kt** from the Danish EPA F-gas inventory's reported MDI emission |
 | Patient and visitor travel scaled from Dutch totals | Dutch value × 0.54 | **Danish National Travel Survey**, Table 15, purpose 33 *Social/sundhed*, the category that actually measures travel to doctors and hospitals |
@@ -35,7 +35,7 @@ the Netherlands. Each parameter's range is therefore derived from its own eviden
 That approach produces the following 95 % intervals on the multiplier:
 
 | Parameter | Distribution | 95 % range | Contains ±20-50 %? |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Anaesthetic gases | lognormal, GSD 1.30 | −40 % to +67 % | **yes** |
 | pMDI propellants | lognormal, GSD 1.15 | −24 % to +32 % | **yes** |
 | Employee commuting | lognormal, GSD 1.25 | −35 % to +55 % | **yes** |
@@ -61,7 +61,7 @@ The run used 100,000 draws, with every uncertain quantity a median-1 lognormal m
 so the simulation median reproduces the deterministic result:
 
 | | Climate change |
-|---|---|
+|:---|:---|
 | Deterministic | 4,712 kt CO₂e |
 | Median | 4,734 kt |
 | 95 % interval | **4,064 to 5,531 kt** |
@@ -75,7 +75,7 @@ external validation.
 Sobol shares:
 
 | Source | Share of variance |
-|---|---|
+|:---|:---|
 | MRIO parameters | **78.8 %** |
 | Covariance of the two travel items (shared method) | 9.3 % |
 | Patient and visitor travel | 6.7 % |
@@ -102,7 +102,7 @@ scenario rows in `18_mitigation_scenarios`, built on the Danish Energy Agency's 
 projections rather than assumed rates:
 
 | Scenario | Ambition | Change |
-|---|---|---|
+|:---|:---|:---|
 | Energy decarbonisation to 2030 | KF22 projection | −6.7 % |
 | Energy decarbonisation to 2035 | KF22 projection | −6.8 % |
 | Energy decarbonisation to 2030 | KF25 projection | −5.7 % |

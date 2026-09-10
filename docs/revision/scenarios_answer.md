@@ -20,7 +20,7 @@ pathway inside the total without saying so. Both are now fixed, and the
 comparable numbers are:
 
 | | kt CO₂e | share of the target |
-|---|---|---|
+|:---|:---|:---|
 | All interventions, solved simultaneously (C1) | −361 | **15 %** |
 | Interventions **plus** the Danish grid pathway (C3) | −461 | **20 %** |
 
@@ -60,7 +60,7 @@ on the same lever.
 **Interventions** (the health system acts):
 
 | | Lever | Evidence |
-|---|---|---|
+|:---|:---|:---|
 | P1 | Hospital energy and transport | Danske Regioner's own target: −75 % by 2030 against 2018 |
 | P2 | Pharmaceutical raw-material efficiency | Lundbeck: −15 % raw material 2020→2022 while production rose 18 % |
 | P3 | Medical-device packaging carbon | Demant: −12 % to −23.5 % cradle-to-gate |
@@ -79,7 +79,7 @@ business-as-usual trajectory.
 ## 3. The result to lead on
 
 | | kt CO₂e |
-|---|---|
+|:---|:---|
 | 2022 baseline | 4,712 |
 | Reduction the regional target requires | −2,357 |
 | Every intervention at maximum ambition, solved together | −361 |
@@ -182,7 +182,7 @@ What we still do not claim, and should say plainly:
 ## 6. Where it is
 
 | | |
-|---|---|
+|:---|:---|
 | Engine | `analysis.scenario_engine` |
 | Scenarios | `analysis.mitigation_scenarios` |
 | Tables | `18_mitigation_scenarios/mitigation_scenarios.csv`, `target_consistency.csv`, `burden_shifting.csv` |

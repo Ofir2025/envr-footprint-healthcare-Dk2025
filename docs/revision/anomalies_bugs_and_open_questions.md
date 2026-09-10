@@ -24,7 +24,7 @@ Tested against Statistics Denmark's published 117-industry input-output table
 for the same year (`analysis.vintage_defect_audit`):
 
 | DK industry, 2022 | National accounts | v3.10.2 | ratio |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Health and social work (NACE 75, 86, 87, 88) | 45,854 M€ | 16,326 | **0.36** |
 | Education | 22,935 | 109,673 | **4.78** |
 | Financial intermediation | 18,980 | 76 | **0.004** |
@@ -97,7 +97,7 @@ purchasing 394 M€ of sea transport, which is not credible.
 Effect of correcting to their 9 % target:
 
 | | uncorrected | corrected |
-|---|---|---|
+|:---|:---|:---|
 | Transport share of the supply-chain climate footprint | 37.5 % | **18.5 %** |
 | DK sea transport as a producing node | 852 kt | **74 kt** |
 | Healthcare climate footprint (MRIO part) | 5,231 kt | **3,943 kt** |
@@ -209,7 +209,7 @@ Quantified rather than assumed (`analysis.impact_categories_full` writes the
 uncharacterised stressor totals that support this):
 
 | GWP100 vintage | Healthcare (kt) | vs AR4 | National (kt) |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | IPCC SAR (1995) | 3,740 | −3.0 % | 64,767 |
 | IPCC TAR (2001) | 3,791 | −1.7 % | 65,563 |
 | IPCC AR4 (2007), as EXIOBASE ships | 3,855 | n/a | 66,675 |
@@ -462,7 +462,7 @@ veterinary and includes eldercare. Capital is never mentioned in their paper or 
 These change results and are the author's call, not the analyst's.
 
 | # | Decision | Options | Current choice | Why it matters |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | D1 | **Pharmaceutical mapping** | EXIOBASE `Chemicals nec` vs a pharma-specific intensity | Chemicals nec (Scenario A) | Decides the **identity of the top contributor**: under A pharmaceuticals hold rank 1 in every Monte Carlo draw; under B medical and electrical equipment takes rank 1 with P = 0.85. This reversal is a mapping choice, not a finding |
 | D2 | **Capital boundary** | excluded / exogenous CFC / endogenised | excluded in headline | +13.2 % to +21.0 % on climate. Excluded keeps comparability with Steenmeijer, Eckelman, Lenzen, Pichler; Malik 2018 includes it, which partly explains their higher 7.2 % |
 | D3 | **Scope boundary** | health only / + eldercare / + childcare | health + eldercare | ±10 % spread. Steenmeijer's Dutch boundary includes childcare, so the third row is the like-for-like comparison with the template |
@@ -535,7 +535,7 @@ from how a reader will guess, and the long-format outputs compounded the
 confusion by giving *both* the `producing_*` column prefix:
 
 | Analysis | Formula | Indexed by | Was labelled | Now labelled |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | `hotspot` | $B\,\mathrm{diag}(Ly)$ | producing node | `producing_*` ✓ | `producing_*` |
 | `contribution` | $B\,L\,\mathrm{diag}(y)$ | purchased product | `producing_*` ✗ | `purchased_*` |
 | `intensity` | $[BL]_j$ | purchased product | `producing_*` ✗ | `purchased_*` |
@@ -560,7 +560,7 @@ with the submitted manuscript, but the schema now disambiguates them.
 been written before the AR6 restatement and the waste correction:
 
 | Quantity | Quoted | Actual |
-|---|---|---|
+|:---|:---|:---|
 | Transport share after correction | 18.9 % | 18.5 % |
 | DK sea transport node, before | 822 kt | 852 kt |
 | DK sea transport node, after | 71 kt | 74 kt |

@@ -367,7 +367,7 @@ The preferred outcome is:
 # 14. Suggested results table
 
 | Indicator | DK hybrid | EXIOBASE | GLORIA | FIGARO | Eora | OECD | spread | interpretation |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
+|:---|---:|---:|---:|---:|---:|---:|---:|:---|
 | GHG | | | | | | | | |
 | Water | | | | n/a/limited | | | | |
 | Scarce water | | | | n/a | | | | |
@@ -384,7 +384,7 @@ Only populate cells where the underlying extension is scientifically comparable.
 # 15. Final role allocation
 
 | System | Primary use |
-|---|---|
+|:---|:---|
 | DK detailed SUT | high-resolution Danish economic core |
 | DK environmental accounts | domestic physical extensions |
 | EXIOBASE | broad global environmental sensitivity |
@@ -404,7 +404,7 @@ narrative sections above do not otherwise put the five candidate databases side 
 side with their concrete resolution and access figures.
 
 | Database | Main current/relevant structure | Health-sector detail | Environmental strength | Access | Main use here |
-|---|---|---|---|---|---|
+|:---|:---|:---|:---|:---|:---|
 | EXIOBASE 3.10.2 | 49 regions, 163 industries, 200 products; core economic update through 2022 | broad health/social-work service plus separate goods sectors | very strong GHG, energy, water, land, materials | academic/non-commercial release on Zenodo | preferred environmental MRIO sensitivity |
 | GLORIA | release-dependent; current UNEP interface describes 164 regions and 97 industry/commodity sectors; widely used v59 has 120 sectors | broad human health/social work; separate pharmaceutical manufacturing in the 97-sector technical classification | especially strong materials/resources, plus emissions, water, land and social indicators | IELab registration/download; commercial licensing separately | high-country-resolution resource/material sensitivity |
 | Eora | full Eora has country-specific sector detail; Eora26 is harmonised 26-sector model | Denmark in Lenzen-era Eora had pharmaceuticals, hospital activities, medical/dental/veterinary activities; detail varies by country | broad global satellite accounts | academic registration/licensing | methodological replication of Lenzen et al. |
@@ -493,7 +493,7 @@ Create:
 Recommended schema:
 
 | Field | Meaning |
-|---|---|
+|:---|:---|
 | `time_key` | reference year |
 | `mrio_key` | database + release |
 | `impact_key` | GHG, water, materials, etc. |

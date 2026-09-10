@@ -19,7 +19,7 @@ single largest boundary omission (Wood & Hertwich 2018; Södersten et al. 2018).
 ## 2. What the comparable studies do
 
 | Study | Capital | Effect reported |
-|---|---|---|
+|:---|:---|:---|
 | **Steenmeijer et al. 2022** (NL, the template) | **Excluded** | not quantified |
 | **Eckelman & Sherman 2016; Eckelman et al. 2020** (US) | **Excluded** (US EEIO, no capital closure) | not quantified |
 | **Tennison et al. 2021 / NHS England** | **Included** for the built estate via a separate capital-spend line, outside the EEIO | capital ≈ 4 % of the NHS footprint |
@@ -89,7 +89,7 @@ the chain, not just the first, and is an upper bound.
 ## 5. Results (Denmark 2022, shipping-corrected model)
 
 | Indicator | Baseline (excluded) | A (exogenous CFC) | D (endogenised, simplified construction) |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Climate change (kt CO₂e) | **4,062** | 4,598 (**+13.2 %**) | 4,914 (**+21.0 %**) |
 | Material extraction (kt) | **4,234** | 5,028 (**+18.8 %**) | 5,547 (**+31.0 %**) |
 | Blue water (Mm³) | **95.3** | 102.4 (**+7.4 %**) | 105.4 (**+10.6 %**) |
@@ -114,7 +114,7 @@ reproduced in `06_benchmarks_validation/figaro_dk_footprint_by_final_demand.csv`
 splits the national consumption-based total by final-demand category:
 
 | Final demand category | kt CO₂e | share |
-|---|---|---|
+|:---|:---|:---|
 | Household final consumption | 30,172 | 52.6 % |
 | **Gross fixed capital formation** | **17,676** | **30.8 %** |
 | General government final consumption | 6,374 | 11.1 % |
@@ -240,7 +240,7 @@ code at 1.2×10⁻¹⁴. The augmented inverse verifies at 1.6×10⁻¹⁴.
 **Result on the published matrices** (`analysis.capital_endogenised_sodersten`):
 
 | Indicator | Baseline | Endogenised | Change |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Climate change (kt CO₂e) | 4,062 | **4,849** | **+19.4 %** |
 | Material extraction (kt) | 4,234 | 5,639 | +33.2 % |
 | Blue water (Mm³) | 95.3 | 105.1 | +10.2 % |

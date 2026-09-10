@@ -376,7 +376,7 @@ Compare against AFTRYK1 and EXIOBASE.
 # 14. FIGARO versus the Danish detailed SUT
 
 | Capability | Detailed Danish SUT | FIGARO |
-|---|---:|---:|
+|:---|---:|---:|
 | Denmark product detail | ~2,350 products | 64 |
 | Industries | 117 | 64 |
 | Human health separated from social care | yes | yes at Q86 vs Q87-Q88 |

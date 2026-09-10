@@ -22,7 +22,7 @@ mangled: "Södersten" came out as "S..dersten" with no warning.
 ## The two years are not like for like
 
 | | 2019 | 2022 |
-|---|---|---|
+|:---|:---|:---|
 | Background | EXIOBASE v3.8.2 IOT_2016 | EXIOBASE v3.8.2 IOT_2022 |
 | Danish sea-transport reallocation | **not applied** | applied |
 | Climate footprint | 6,361 kt CO₂e | 4,712 kt CO₂e |
@@ -39,7 +39,7 @@ present the two sets side by side as a time series.** A corrected 2019 run would
 ## The set
 
 | File | What it shows |
-|---|---|
+|:---|:---|
 | `fig1_ofir_panels` | The submitted figures 1-3 as one panelled figure: activity contribution, sector contribution, geographical origin. Absolute values, bars labelled with their share. |
 | `fig1b_activity_absolute` | Activity contribution, absolute, category total in the strip. |
 | `fig1c_activity_per_capita` | The same per person, with the per-capita total in each strip. |

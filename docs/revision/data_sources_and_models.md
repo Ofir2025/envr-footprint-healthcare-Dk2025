@@ -8,7 +8,7 @@ this study.** The models actually used are below.
 ## In use
 
 | dataset | role | why this one |
-|---|---|---|
+|:---|:---|:---|
 | **EXIOBASE v3.10.2 IOT_2022_ixi** (Zenodo 20051562) | the model itself | 163 industries × 49 regions, the finest sectoral resolution of the harmonised global MRIOs, full GHG coverage, and the widest satellite set; the same family as the Dutch template. Native unit **M.EUR** |
 | **Statistics Denmark IO tables** (117 industries, basic prices) | expenditure vector; recipe validation | public, national-accounts consistent, 2006-2022 |
 | **Statistics Denmark DRIVHUS / AFFALD / AFTRYK / SHA1 / NABB69** | direct emissions, waste, national denominator, expenditure cross-check, employment | official, same DB07 classification as the IO tables, open API |

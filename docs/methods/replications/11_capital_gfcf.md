@@ -50,7 +50,7 @@ output.
 ### Three treatments, reported side by side
 
 | Treatment | Definition |
-|---|---|
+|:---|:---|
 | **Baseline** | capital excluded, $f = C S L y_H$, what Steenmeijer, Eckelman, and the NHS report, and the comparable number |
 | **A: exogenous service flow** | CFC of the Danish health and residential-care industries (DST NABK69, P.51c) footprinted as an additional final demand, with the commodity composition of the observed Danish health capital asset mix |
 | **B: endogenised (Södersten)** | $L^K$ as above |
@@ -58,7 +58,7 @@ output.
 ### Effect of endogenisation
 
 | Indicator | Change |
-|---|---|
+|:---|:---|
 | Climate change | 4,062 → 4,849 kt, **+19.4 %** |
 | Material extraction | +33.2 % |
 | Blue water | +10.2 % |
@@ -71,7 +71,7 @@ to within 1.6 percentage points.
 ## Data requirements
 
 | Input | Source |
-|---|---|
+|:---|:---|
 | $\bar{K}^{\text{pxi}}$ | `Kbar_exio_v3_8_2_2020_cfc_pxi.mat`, Zenodo 7073276 |
 | Supply table $V$ | `MRSUT_2020/supply.csv`, Zenodo 5589597 (223 MB) |
 | CFC by asset | DST NABK69, P.51c |

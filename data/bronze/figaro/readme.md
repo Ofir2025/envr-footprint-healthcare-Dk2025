@@ -5,7 +5,7 @@ independent national denominator, the NACE-Q cross-check and the three-way
 validation of the Danish health input recipe.
 
 | file | dataset | content |
-|---|---|---|
+|:---|:---|:---|
 | `env_ac_ghgfp_DKdest_2021-2023.csv` | `env_ac_ghgfp` | FIGARO-based GHG footprint, Denmark as destination, by origin country and NACE |
 | `env_ac_co2fp_DKdest_2021-2023.csv` | `env_ac_co2fp` | as above, CO2 only |
 | `env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv` | `env_ac_ghgfp` | world destination, by origin |

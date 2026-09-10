@@ -100,7 +100,7 @@ both retained.
 ## Data requirements
 
 | Input | Source | Note |
-|---|---|---|
+|:---|:---|:---|
 | $Z$, $x$, $y$ | EXIOBASE v3.8.2 `IOT_2022_ixi` | Zenodo 5589597; industry-by-industry |
 | $F$ | EXIOBASE satellite `F.txt`, `F_hh.txt` | 1,113 stressor rows |
 | $C$ | `characterisation_desire_version3_4_adapted.xlsx` | climate row rebuilt on AR6, see [15](15_gwp_vintage.md) |

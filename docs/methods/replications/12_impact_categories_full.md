@@ -33,7 +33,7 @@ Three workbook rows were tested and found unusable, and are flagged rather than 
 silently:
 
 | Row | Defect |
-|---|---|
+|:---|:---|
 | an ILCD endpoint | numerically identical to its own midpoint |
 | photochemical ozone endpoint | two orders of magnitude from its published damage factor |
 | SF₆ factor | matches no IPCC assessment |

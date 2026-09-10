@@ -1,7 +1,7 @@
 # Request checklist - status of everything asked for
 
 | # | Request | Status | Where |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | 1 | **National totals** for all 163 sectors, so healthcare's share of total impacts of all goods and services is computable | **Done** | `00_core_footprint/national_footprint_by_purchased_product.csv` (26,390 rows), `..._by_producing_node.csv` (16,401), `national_vs_healthcare_by_product_group.csv` (163 sectors × 5 indicators), `national_totals_summary.csv` |
 | 2 | **Capital / GFCF** - do we need it, how do others handle it, endogenising | **In progress** - literature review running against your assembled PDFs (Wood endogenises, Steenmeijer excludes, Malik includes, Eckelman includes) | will land in `docs/revision/capital_gfcf_treatment.md` + a sensitivity |
 | 3 | **Malik replication folder** for all of Denmark | **Done** - domestic-only variant, the only like-for-like basis: 839.5 kt, **3.98 %** of the domestic national total and 6.00 % of the full one, against their 7.2 % AUS and 6.6 % NSW; component intensities; published-reference table; and the production-layer decomposition, where the first three layers carry **63.0 %** of the Danish climate footprint against Malik's **67 %** for NSW. *(Corrected 2026-09-08: this row previously read 872.8 kt, 5.71 % and 67.9 %, none of which reproduce; `production_layers_vs_malik.csv` and `malik_domestic_vs_full.csv` are the source.)* | `07_malik_replication/` |
@@ -59,7 +59,7 @@ Validation: `python -m analysis.validate_io_identities` (Leontief identities).
 ## Round of 2026-09-07 (continued)
 
 | # | Request | Status | Evidence |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | 10 | **Capital / GFCF: do we need it, how do others handle it, endogenisation** | **Done** | `docs/revision/capital_gfcf_treatment.md`; `analysis.capital_gfcf` → `11_capital_gfcf/`. Cross-study table; three treatments; +13.2 % (exogenous capital service flow, DST NABK69) and +19.4 % (endogenised on the published Södersten et al. 2018 matrices). *(Corrected 2026-09-08: this row previously gave +21.0 % for the endogenised case, which is the simplified construction the published method later replaced; `capital_endogenised_sodersten.csv` is the source.)* Corrected the earlier wrong claim that zero medical-instrument purchases were a capital artefact |
 | 11 | **Volatile anaesthetics - how far can the proxy go** | **Done** | Replaced by Danish primary data: medstat.dk ATC N01AB sales, both years verified against the register. 11.6 kt for 2022, and the item now shows the desflurane phase-out |
 | 12 | **Patient / visitor travel - find a Danish source** | **Done** | A Danish source exists after all: TU (DTU) Tabel 15, purpose code 33, verified in the primary PDFs (0.9 km/person/day 2019, 0.8 in 2022). Also fixed a unit error - a whole-population quantity was being scaled by employment × working hours |
@@ -77,7 +77,7 @@ each row can be verified without taking this table's word for it.
 ### Scenario analysis
 
 | # | Request | Status | Evidence |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | 17 | The sea-transport correction must be explained explicitly somewhere | **Done** | `docs/revision/shipping_reallocation_method.md`, six sections plus every alternative considered, the official Statistics Denmark method in full, and an independent validation against the hybrid EXIOBASE; replication note `10_sea_transport_reallocation.md`; a flowchart of what moves and what is preserved |
 | 18 | Scenarios in the paper explicitly and properly | **Done** | `docs/methods/replications/18_mitigation_scenarios.md`. The formalism is Aguilar-Hernandez et al. (2018) equations 1 to 4 and Donati et al. (2020) equations 1, 5 and 6, with Takase et al.'s (2005) rebound; the counterfactual is solved, not approximated from the stored inverse |
 | 19 | Why is there no figure for the scenario results | **Done** | `fig8_mitigation_waterfall_2022` and `fig9_burden_shifting_2022`. The choice of a waterfall is argued in the header of `R/plot_scenarios.R` against the four alternatives that were rejected |
@@ -90,7 +90,7 @@ each row can be verified without taking this table's word for it.
 ### Uncertainty
 
 | # | Request | Status | Evidence |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | 25 | Re-audit the Monte Carlo end to end; make it justifiable and statistically sound | **Done, and it found a substantive error** | The correlation sensitivity had been holding the spread fixed while varying the correlation, which abandoned the calibration and let the supply-chain coefficient of variation collapse to 4.27 % against the 8.35 % asserted. `analysis.uncertainty_2025.sigma_for_rho` now re-solves the spread at every correlation. `analysis.uncertainty_audit` runs nineteen numerical checks, all passing |
 | 26 | Identify all sources of uncertainty; quantify those that can be quantified | **Done** | `docs/revision/uncertainty_sources.md`: a four-branch taxonomy after Huijbregts (1998) as adapted by Schulte et al., a flowchart, eight tagged equations, and a closing ledger that names every source left unquantified and the direction of the bias each leaves |
 | 27 | New literature: Schulte et al. (2026) on correlation and disaggregation | **Done** | Read and integrated. Its central result, that allocation of an inventory category across industries can move a sector standard deviation by anywhere from −34 % to +130 %, is the largest single unquantified source in the ledger |
@@ -99,7 +99,7 @@ each row can be verified without taking this table's word for it.
 ### Documentation, figures and presentation
 
 | # | Request | Status | Evidence |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | 29 | A comprehensive foundation of documentation for the co-author to build on | **Done** | Twenty-three revision documents and nineteen replication notes, each stating its question, its method, its equations, its data requirements and its limitations |
 | 30 | Correct Markdown equation syntax | **Done** | Display equations in `$$ ... $$` with `\tag{}` numbering, symbols defined in prose or in a symbol table at first use |
 | 31 | Flowcharts where they aid understanding, in Mermaid or draw.io, embedded in the Markdown | **Done** | Four diagrams, all Mermaid so they render in place on GitHub: the uncertainty taxonomy; the two marginals of the bilateral table and the trap of quoting a share without its basis; the counterfactual scenario workflow; the sea-transport reallocation |
@@ -120,7 +120,7 @@ found and corrected while checking it, and they are worth stating plainly becaus
 four of them had reached documents intended for the editor.
 
 | Finding | Where it had reached | Correction |
-|---|---|---|
+|:---|:---|:---|
 | The correlation sensitivity table carried the superseded, pre-calibration values, and the argument built on them no longer held | `monte_carlo_explained.md` (then `uncertainty_methods_for_manuscript.md`, since folded into it), which carries the manuscript text, and `response_to_reviewers.md` | Both replaced with the re-solved values, and the argument restated: the correlation assumption governs how variance is distributed, not how much of it there is |
 | The 95 % interval existed in four different forms across five documents | five revision documents | One form everywhere, 4,064 to 5,531 kt, taken from `uncertainty_totals.csv` |
 | The first-order variance share of the input-output model was quoted as 86.8 % | `response_to_reviewers.md`, `analysis_2022.md` | 78.8 %, with the covariance between commuting and visitor travel named separately at 9.3 % rather than folded in |
@@ -141,7 +141,7 @@ and 15.5 % of the total.
 ### Standing audits, and their current state
 
 | Audit | Scope | State |
-|---|---|---|
+|:---|:---|:---|
 | `analysis.audit_consistency` | partition totals, detail reconciliation, file currency, model labels, lineage coverage, documented numbers, star-schema keys and grain, citations, gold-folder classification | **12 of 12 pass** |
 | `analysis.uncertainty_audit` | median-1 construction, realised geometric standard deviations, correlations, closed-form moments, variance shares, convergence, seed independence, calibration held across correlations, both IPCC tiers | **19 of 19 pass** |
 | `analysis.bibliography` | in-text citations resolve, DOIs verified against Crossref | 62 sources, 47 DOIs, 8 documents |

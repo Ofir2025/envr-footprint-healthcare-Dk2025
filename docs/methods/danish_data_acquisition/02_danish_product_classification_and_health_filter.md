@@ -36,7 +36,7 @@ Statistics Denmark's annual national-accounts accessibility documentation also s
 This means there are **at least three distinct access routes**:
 
 | Object | Likely route |
-|---|---|
+|:---|:---|
 | Public aggregate SUT/IOT | StatBank / Eurostat / DST download |
 | Selected detailed product balances or compositions | Custom paid extract from National Accounts |
 | Full working-level SUT | Research Services, subject to approval/confidentiality |
@@ -223,7 +223,7 @@ Examples:
 Representative HS families for **candidate screening only** include:
 
 | HS heading/family | Candidate health use |
-|---|---|
+|:---|:---|
 | 3001-3006 | medicinal and pharmaceutical goods |
 | 3822 | diagnostic/laboratory reagents |
 | 9018 | medical, surgical, dental and veterinary instruments |
@@ -295,7 +295,7 @@ Create:
 with:
 
 | Field | Meaning |
-|---|---|
+|:---|:---|
 | `product_key` | warehouse key |
 | `reference_year` | SUT year |
 | `dst_na_product_code` | exact DST code once obtained |

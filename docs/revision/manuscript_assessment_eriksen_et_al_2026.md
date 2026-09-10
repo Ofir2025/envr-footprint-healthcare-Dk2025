@@ -18,7 +18,7 @@ Running the same extraction over the 2019 table, our components reproduce the ma
 almost exactly for two of three categories, which is what makes the third one decisive:
 
 | Component | Manuscript 2019 | Our extraction, 2019 | Agreement |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Pharmaceuticals | 1,735 M€ | 1,771 M€ | **2 %** |
 | Medical appliances | 901 M€ | 911 M€ | **1 %** |
 | **Health care services** | **23,221 M€** | **32,617 M€** | **−29 %** |
@@ -56,7 +56,7 @@ Vestbo & Press-Kristensen (2023), from Danish pharmacy dispensing data, measure 
 The implied intensities make the problem plain:
 
 | | HFC per DDD |
-|---|---|
+|:---|:---|
 | Netherlands, implied by Steenmeijer | 0.801 g |
 | Denmark, measured | 0.257 g |
 
@@ -226,7 +226,7 @@ once: the reference year (2019 → 2022), the background model (v3.7/2016 → v3
 the Danish sea-transport correction), and the demand vector (F1). The last is the largest.
 
 | | Manuscript 2019 | This study 2022 |
-|---|---|---|
+|:---|:---|:---|
 | Expenditure | 25,857 M€ | 40,597 M€ |
 | Climate change | 4,815 kt (5.6 %) | 4,712 kt (6.1 %) |
 | Material extraction | 2,601 kt (5.5 %) | 4,261 kt (7.9 %) |

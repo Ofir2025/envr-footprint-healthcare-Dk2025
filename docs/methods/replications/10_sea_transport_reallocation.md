@@ -50,7 +50,7 @@ holds.
 ### Effect
 
 | Quantity | Before | After |
-|---|---|---|
+|:---|:---|:---|
 | Share to DK intermediate use | 73.6 % | 9.0 % |
 | Transport share of the supply-chain footprint | 37.5 % | **18.5 %** |
 | DK sea transport as a producing node | 852 kt | **74 kt** |
@@ -78,7 +78,7 @@ applies is a far easier argument at review than proposing a new one.
 ## Data requirements
 
 | Input | Source |
-|---|---|
+|:---|:---|
 | $Z$, $x$, $Y$ | EXIOBASE v3.8.2 `IOT_2022_ixi` |
 | $\phi = 0.09$ | Statistics Denmark national accounts, water transport |
 | Cross-check 7.8 % | EXIOBASE hybrid v3.3.18 |

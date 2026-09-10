@@ -29,7 +29,7 @@ $$
 where
 
 | symbol | meaning | unit |
-|---|---|---|
+|:---|:---|:---|
 | $F$ | the reported footprint for one impact category | kt CO₂-eq, kt, Mm³, or km² |
 | $\mathbf{c}$ | impact intensity of each producing node | impact per M.EUR of output |
 | $\mathbf{A}$ | technical coefficients: input required per unit of output | dimensionless |
@@ -333,7 +333,7 @@ a sensitivity on how variance is **distributed**, which is what a reader wants
 it to be, rather than on how much of it there is.
 
 | $\rho_{M}$ | $\sigma$ required | Total CV | Median group CV | Supply-chain CV if not re-solved |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | 1.00 (default) | 0.083 | 7.85 % | 8.4 % | 8.38 % |
 | 0.76 | 0.092 | 7.83 % | 9.2 % | 7.60 % |
 | 0.00 | 0.161 | 7.72 % | 16.2 % | 4.27 % |
@@ -367,7 +367,7 @@ while giving the log-factors correlation $\rho$; $\rho = 0.8$ is used, and 0,
 ### 3.5 The parameters
 
 | Parameter | GSD | 95 % factor range | Basis |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Input-output model | 1.087 | 0.85 to 1.18 | Lenzen et al. (2020), the only published Monte Carlo of this quantity |
 | Direct operations | 1.10 | 0.83 to 1.21 | Statistics Denmark national accounts |
 | Inhaler propellants | 1.15 | 0.76 to 1.32 | Danish EPA F-gas inventory |
@@ -389,7 +389,7 @@ require a Tier 1 result to be reported alongside a Tier 2 one, noting that it
 costs hardly any additional effort. Both are now reported.
 
 | | Climate change |
-|---|---|
+|:---|:---|
 | Deterministic estimate | 4,712 kt CO₂-eq |
 | Simulation median | 4,734 kt CO₂-eq |
 | Simulation mean | 4,751 kt CO₂-eq |
@@ -416,7 +416,7 @@ $$
 $$
 
 | Contributor | Share of variance |
-|---|---|
+|:---|:---|
 | Input-output model | 78.8 % |
 | Covariance of the travel pair | 9.3 % |
 | Patient and visitor travel | 6.7 % |
@@ -533,7 +533,7 @@ or not at all.
 ## 7. Where the numbers come from
 
 | Output | File |
-|---|---|
+|:---|:---|
 | Totals, median, mean, interval | `04_uncertainty_lenzen_ieooc/uncertainty_totals.csv` |
 | Variance decomposition | `uncertainty_variance_shares.csv` |
 | Tier 1 error propagation | `uncertainty_tier1_error_propagation.csv` |

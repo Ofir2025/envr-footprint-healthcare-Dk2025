@@ -18,7 +18,7 @@ Malik et al.'s boundary choices differ from ours in ways that make a naive compa
 wrong. Each is matched or declared:
 
 | Choice | Malik 2018 | Malik 2021 | This study | What we do |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | imports | in the value-added block | excluded | full MRIO | compute a domestic-only variant |
 | capital | included (2,776 kt, 8 % of their total) | excluded | excluded | report the capital sensitivity separately |
 
@@ -57,7 +57,7 @@ unaccounted.
 ### What the layers show
 
 | Layer | Imported share |
-|---|---|
+|:---|:---|
 | 0 | 49.7 % |
 | 1 | 70.8 % |
 | 2 | 78.0 % |

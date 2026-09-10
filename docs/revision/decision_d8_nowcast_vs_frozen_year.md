@@ -6,7 +6,7 @@ the code supports both.
 ## The choice
 
 | | Option A (as implemented) | Option B (Statistics Denmark's practice) |
-|---|---|---|
+|:---|:---|:---|
 | Model year | EXIOBASE 2022 | EXIOBASE **2019**, the last year backed by real emission data |
 | Demand vector | Danish 2022 expenditure | Danish 2022 expenditure **deflated to 2019 prices** |
 | Economic block | validated against Danish 2022 national accounts, passes | validated against 2019 |
@@ -38,7 +38,7 @@ cent of the Danish economy is missing from the 2022 projection, and where it is
 missing is the useful part:
 
 | group | model | national accounts | ratio |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | Sea and coastal water transport | 19,714 | 78,950 | 0.25 |
 | Chemicals and pharmaceuticals | 5,915 | 35,742 | 0.17 |
 | Wholesale trade | 28,962 | 53,501 | 0.54 |

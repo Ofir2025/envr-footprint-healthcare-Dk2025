@@ -83,7 +83,7 @@ f_T     = (e_T − e_T,wdc) / e_T
 **Measured for three nested target sets (Denmark 2022, climate):**
 
 | target set | nodes | naive | corrected | double-counting factor |
-|---|---|---|---|---|
+|:---|:---|:---|:---|:---|
 | T1 Danish health and social work | 1 | 0.9 Mt | 0.9 Mt | **1.3 %** |
 | T2 health and social work, all regions | 49 | 1,129 Mt | 1,100 Mt | **2.6 %** |
 | T3 T2 + chemicals + medical instruments | 147 | 3,093 Mt | 2,511 Mt | **18.8 %** (23 % overestimate) |
