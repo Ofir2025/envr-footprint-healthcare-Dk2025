@@ -8,23 +8,23 @@ what it does **not** do.
 
 | If you want to… | Read |
 |:---|:---|
-| Understand the headline results and how they were produced | [`revision/analysis_2022.md`](revision/analysis_2022.md) |
-| Know what is broken, uncertain or still undecided | [`revision/anomalies_bugs_and_open_questions.md`](revision/anomalies_bugs_and_open_questions.md) |
+| Understand the headline results and how they were produced | [`revision/results_2022.md`](revision/results_2022.md) |
+| Know what is broken, uncertain or still undecided | [`revision/defects_and_fixes.md`](revision/defects_and_fixes.md) |
 | Understand why the background model is v3.8.2 and not v3.10.2 | [`methods/exiobase_version_vintage_and_classification.md`](methods/exiobase_version_vintage_and_classification.md) |
 | Trace any published number back to its data and method | `data/gold/results/manifest_lineage.csv` |
 | See which of the author's requests are answered | [`revision/request_checklist.md`](revision/request_checklist.md) |
-| Understand the modelling approaches implemented | [`methods_approaches.md`](methods_approaches.md) |
+| Understand the modelling approaches implemented | [`methods/methods.md`](methods/methods.md) |
 | Understand the data layout | [`../README.md`](../README.md) (Repository layout) and [`../data/readme.md`](../data/readme.md) |
-| See the audit behind a transport finding that was withdrawn | [`revision/shipping_reallocation_method.md`](revision/shipping_reallocation_method.md), section 7 |
-| Read the uncertainty response to Reviewer 1 | [`revision/uncertainty_response_to_reviewer.md`](revision/uncertainty_response_to_reviewer.md) |
+| See the audit behind a transport finding that was withdrawn | [`revision/results_2022.md`, "Auditing the withdrawal"](revision/results_2022.md#auditing-the-withdrawal-reproducibility-decomposition-and-what-the-paper-should-now-say) |
+| Read the uncertainty response to Reviewer 1 | [`revision/uncertainty.md`, section 5](revision/uncertainty.md#5-the-response-to-reviewer-1-proxies-eliminated-not-bounded) |
 
 ## Folders
 
-| Folder | Holds | See |
-|:---|:---|:---|
-| `methods/` | This study's own method, the published star schema, and Ofir Eriksen's methodology write-ups | [`methods/readme.md`](methods/readme.md) |
-| `revision/` | The manuscript revision's working record: analysis, open questions, reviewer correspondence | [`revision/readme.md`](revision/readme.md) |
-| `eriksen_et_al_2026/` | The manuscript submission package (Word documents) | [`eriksen_et_al_2026/readme.md`](eriksen_et_al_2026/readme.md) |
+| Folder | Holds |
+|:---|:---|
+| `methods/` | This study's own method ([`methods/methods.md`](methods/methods.md)), every replication layer ([`methods/replications.md`](methods/replications.md)), the Danish data-acquisition record ([`methods/danish_data_acquisition.md`](methods/danish_data_acquisition.md)), the EXIOBASE version/vintage argument ([`methods/exiobase_version_vintage_and_classification.md`](methods/exiobase_version_vintage_and_classification.md)), Ofir Eriksen's own methodology write-ups ([`methods/eriksen_methodology.md`](methods/eriksen_methodology.md)), and the published star schema (`methods/star_schema.sql`) |
+| `revision/` | The manuscript revision's working record: the 2022 results and the withdrawn transport finding ([`revision/results_2022.md`](revision/results_2022.md)), the full uncertainty account ([`revision/uncertainty.md`](revision/uncertainty.md)), every defect and open decision ([`revision/defects_and_fixes.md`](revision/defects_and_fixes.md)), the formal reviewer correspondence ([`revision/response_to_reviewers.md`](revision/response_to_reviewers.md)), and the request status ledger ([`revision/request_checklist.md`](revision/request_checklist.md)) |
+| `eriksen_et_al_2026/` | The manuscript submission package (Word documents); see [`eriksen_et_al_2026/readme.md`](eriksen_et_al_2026/readme.md) |
 
 ## Bibliography and source material
 

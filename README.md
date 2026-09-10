@@ -93,12 +93,11 @@ Accounting checks: `PYTHONPATH=src python -m analysis.validate_io_identities`.
 | document | content |
 |:---|:---|
 | `docs/revision_guide.md` | branch notes for the revision: how to cite the background, the three things that change the paper, and where everything else lives |
-| `docs/methods_approaches.md` | every methodological layer, its equations and references |
+| `docs/methods/methods.md` | every methodological layer, its equations and references, and which external models are used and why not the others |
 | `docs/revision/request_checklist.md` | status of all outstanding work |
-| `docs/revision/bug_and_method_fixes.md` | defects found and fixed, with effects |
-| `docs/revision/analysis_2022.md` | the 2022 analysis: inputs, method, results |
-| `docs/revision/data_sources_and_models.md` | which external models are used, and why not the others |
-| `docs/revision/dk_snac_feasibility.md` | what Statistics Denmark does about EXIOBASE, our patch, and the planned Danish-SNAC hybrid |
+| `docs/revision/defects_and_fixes.md` | defects found and fixed, with effects |
+| `docs/revision/results_2022.md` | the 2022 analysis: inputs, method, results, and the withdrawn transport finding |
+| `docs/methods/methods.md#danish-snac-what-statistics-denmark-does-what-we-patch-and-the-feasibility-of-a-full-build` | what Statistics Denmark does about EXIOBASE, our patch, and the planned Danish-SNAC hybrid |
 | `docs/methods/` | the EXIOBASE coupling method, the star schema, and data-access assessments |
 
 ## Provenance and reproducibility

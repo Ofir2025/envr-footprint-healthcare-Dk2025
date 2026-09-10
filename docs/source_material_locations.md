@@ -106,7 +106,8 @@ for anything about how EXIOBASE is built.**
 
 ### 3c. `uncertainty/` - the uncertainty literature of record
 
-Every claim in `monte_carlo_explained.md` traces to this folder.
+Every claim in [`docs/revision/uncertainty.md`](revision/uncertainty.md), section
+2 ("The Monte Carlo, explained from first principles"), traces to this folder.
 
 | File | Use |
 |:---|:---|
@@ -235,8 +236,9 @@ Inspected 8 September 2026.
 * **`CountryMappingEXIOBASE.xlsx`**, **`concordance_exio_eora_icio.xlsx`**,
   **`concordances_literature.xlsx`** - country and cross-MRIO correspondences.
 * **`DK-IOT_health_subsectors.xls`** - Danish health sub-sector IO detail. Directly relevant
-  to the sub-sector limitation in `exiobase_limitations_and_interpretation.md` §3; the
-  route to genuine per-function recipes runs through this file.
+  to the sub-sector limitation in
+  [`docs/revision/uncertainty.md`, section 7.3](revision/uncertainty.md#73-one-health-industry-so-no-genuine-sub-sector-detail);
+  the route to genuine per-function recipes runs through this file.
 * **Giljum et al. (2019)** on data deviations between EXIOBASE, Eora and ICIO - supports the
   model-family argument in `06_benchmarks_validation`.
 

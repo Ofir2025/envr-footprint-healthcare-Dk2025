@@ -1,10 +1,10 @@
 # 13_steenmeijer_replication
 
-**13 - Steenmeijer replication**
+**Steenmeijer replication**
 
 This layer places Denmark beside every number the Dutch study published, in their own table structure, for every impact category, not only climate. That completeness is what FAIR replication means here.
 
-Method, equations, and verification: [`docs/methods/replications/13_steenmeijer_replication.md`](../../../../docs/methods/replications/13_steenmeijer_replication.md).
+Method, equations, and verification: [`docs/methods/replications.md`, section 13](../../../../docs/methods/replications.md#r13).
 
 ## Conventions
 

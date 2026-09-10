@@ -49,10 +49,9 @@ OUT = REPO / "figures" / "diagrams"
 #: One entry per fenced ``mermaid`` block. A document with more blocks than
 #: names, or fewer, is an error rather than a silent partial render.
 DIAGRAMS: dict[str, tuple[str, ...]] = {
-    "docs/revision/uncertainty_sources.md": ("uncertainty_taxonomy",),
-    "docs/methods/replications/00_core_footprint.md": ("footprint_marginals",),
-    "docs/methods/replications/18_mitigation_scenarios.md": ("scenario_workflow",),
-    "docs/revision/shipping_reallocation_method.md": ("shipping_reallocation",),
+    "docs/revision/uncertainty.md": ("uncertainty_taxonomy",),
+    "docs/methods/replications.md": ("footprint_marginals", "scenario_workflow"),
+    "docs/revision/results_2022.md": ("shipping_reallocation",),
 }
 
 BLOCK = re.compile(r"^```mermaid\n(.*?)^```", re.MULTILINE | re.DOTALL)

@@ -1,10 +1,10 @@
 # 10_sea_transport_reallocation
 
-**10. Danish sea-transport reallocation**
+**Sea transport reallocation**
 
 The submitted manuscript's most quotable finding was that transport accounts for roughly 40 % of the Danish health-care footprint. Is that a finding or an artefact?
 
-Method, equations, and verification: [`docs/methods/replications/10_sea_transport_reallocation.md`](../../../../docs/methods/replications/10_sea_transport_reallocation.md).
+Method, equations, and verification: [`docs/methods/replications.md`, section 10](../../../../docs/methods/replications.md#r10).
 
 ## Conventions
 

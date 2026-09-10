@@ -26,7 +26,7 @@ Bug fixed 2026-09 (pre-revision code): the previous version enumerated
 (transaction, purpose) pairs by hand and omitted the non-market government
 column for 12401 (DKK 68.4 bn - ~90 % of eldercare spending) and the NPISH
 column for 06300 (DKK 2.3 bn), while the manuscript claimed eldercare was
-included. See docs/revision/bug_and_method_fixes.md.
+included. See docs/revision/defects_and_fixes.md, the 2019 baseline audit's E1.
 
 ``include_childcare=True`` additionally counts purpose 12402 (kindergartens,
 creches etc.), matching the full Dutch "zorg en welzijn" boundary which also
