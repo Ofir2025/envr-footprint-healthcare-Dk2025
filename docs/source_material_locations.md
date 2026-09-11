@@ -29,10 +29,14 @@ Paths are absolute because the libraries live outside this repository.
 
 ## 1. Project library - health-sector footprints
 
-`envrfootprint_healthcare/docs/references/` - **42 items**
+`envhealth_footprint/docs/references/` - **44 items**
 
 The studies this project replicates or benchmarks against, and the method papers
-its equations come from.
+its equations come from. They are kept in the private working repository
+(`envhealth_footprint`, the full copy that feeds this one) and deliberately not
+in this repository or the co-author's branch: they are published articles held
+under their publishers' terms, cited here by author and year through
+[`references.md`](references.md).
 
 | Cluster | Key items |
 |:---|:---|
