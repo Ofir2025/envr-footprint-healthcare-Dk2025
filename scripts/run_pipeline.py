@@ -178,6 +178,11 @@ NOT_STAGES: frozenset[str] = frozenset({
     # a bronze-to-silver conformance step: it gives the medstat register named
     # columns and is run when the register is refreshed, not on every build
     "build_atc_sales",
+    # the other bronze-to-silver conformance step: it labels the FIGARO code
+    # columns from Eurostat's own codelists. Its product is tracked, so every
+    # clone has it before figaro_benchmarks imports it; it is re-run when a
+    # FIGARO extract is added or the codelists are refreshed, not on every build
+    "build_figaro_dimensions",
     "__init__", "constants", "functions", "functions_2025", "extra_functions",
     "main",                    # the RIVM original, kept for provenance
     "scenario_engine",         # library behind mitigation_scenarios

@@ -91,9 +91,9 @@ ERIKSEN_INTERIM_DIR = SILVER_HANDOFF_DIR / "eriksen_tables"
 # A product derived from more than one bronze folder sits under the one that
 # dominates it, and its folder readme names the others. Only folders that hold
 # something exist: there is no silver mirror of ``dk_travel_survey/``,
-# ``dst_capital_stock/``, ``dst_emission_accounts/``, ``eurostat_figaro/``,
-# ``exiobase_capital/`` or ``exiobase_characterisation/``, because nothing is
-# derived from them into this layer.
+# ``dst_capital_stock/``, ``dst_emission_accounts/``, ``exiobase_capital/`` or
+# ``exiobase_characterisation/``, because nothing is derived from them into this
+# layer.
 # ---------------------------------------------------------------------------
 
 #: Conformed concordances. Mirrors ``data/bronze/classification_concordances/``.
@@ -112,6 +112,10 @@ SILVER_DST_INPUT_OUTPUT_DIR = SILVER_DIR / "dst_input_output"
 #: ``data/bronze/dst_supply_use/``.
 SILVER_DST_SUPPLY_USE_DIR = SILVER_DIR / "dst_supply_use"
 
+#: The dimension tables the Eurostat FIGARO fact tables ship without. Mirrors
+#: ``data/bronze/eurostat_figaro/``.
+SILVER_EUROSTAT_FIGARO_DIR = SILVER_DIR / "eurostat_figaro"
+
 #: Products read off the EXIOBASE auxiliary workbooks. Mirrors
 #: ``data/bronze/exiobase/``.
 SILVER_EXIOBASE_DIR = SILVER_DIR / "exiobase"
@@ -128,6 +132,7 @@ SILVER_MIRROR_DIRS: tuple[Path, ...] = (
     SILVER_DK_MEDICINES_REGISTER_DIR,
     SILVER_DST_INPUT_OUTPUT_DIR,
     SILVER_DST_SUPPLY_USE_DIR,
+    SILVER_EUROSTAT_FIGARO_DIR,
     SILVER_EXIOBASE_DIR,
     SILVER_NETHERLANDS_REFERENCE_DIR,
 )
