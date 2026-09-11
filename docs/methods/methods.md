@@ -196,16 +196,23 @@ That decision, and the evidence for it, is in
 
 ### FIGARO: what it can and cannot do for us
 
-Downloaded to `data/bronze/eurostat_figaro/`: the 2022 and 2024 use tables with Denmark
-as destination, the DK supply table 2022-2024, and the official GHG/CO₂
-footprint datasets 2021-2023.
+Downloaded to `data/bronze/eurostat_figaro/` by `analysis.fetch_figaro`: the 2016,
+2019, 2022 and 2024 use tables with Denmark as destination, the DK supply table
+2014-2024 in its three dataset blocks, and the official GHG/CO₂ footprint
+datasets for an unbroken 2016-2023. Consolidated to two series with a `year`
+column in `data/silver/eurostat_figaro/`, with Eurostat's own codelists joined
+on so a code reads as a classification entry rather than as a string.
 
 **What it gives us now.** An independent national denominator: Denmark's
-consumption-based GHG footprint 2022 = **57.40 Mt CO₂e**, against DST AFTRYK's
-62.93 Mt and our model's 64.72 Mt, so the healthcare share is honestly
-**7.5-8.5 %** depending on the denominator. It also puts emissions arising in
-NACE Q due to Danish final demand at 176 kt (Q86 alone 97 kt), corroborating
-our 142 kt Scope 1 plus the intra-health chain.
+consumption-based GHG footprint 2022 = **57.40 Mt CO₂e**, against Statistics
+Denmark AFTRYK's 62.90 Mt and this model's 77.24 Mt. The healthcare footprint of
+4,675.5 kt is therefore **6.1 % to 8.2 %** of the national total depending on
+which denominator is used — 8.15 % of FIGARO, 7.43 % of AFTRYK, 6.05 % of our
+own — and the manuscript quotes the share against our own national total, the
+only one built on the same boundary as the numerator. It also puts emissions
+arising in NACE Q due to Danish final demand at 176 kt (Q86 alone 97 kt,
+Q87-Q88 80 kt), which sits above our 130 kt Scope 1 by about the margin the
+intra-health supply chain accounts for.
 
 **What it can do for gap-filling.** At A64 it separates **Q86 human health**
 from **Q87-Q88 residential/social work**, and carries **C21 pharmaceuticals**

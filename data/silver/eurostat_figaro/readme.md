@@ -1,11 +1,17 @@
-# Silver: Eurostat FIGARO dimension tables
+# Silver: Eurostat FIGARO dimensions and series
 
-Mirrors `data/bronze/eurostat_figaro/`. One table, decoding every code in every
-code column of the FIGARO fact tables held in bronze. The dissemination API
-serves those tables as keys and a `value` and nothing else, so a reader holding
-`figaro2026_use_DKdest_2022.csv` sees `CPA_C21,Q86` and cannot tell without
-leaving the repository that the row is pharmaceutical products bought by human
-health activities. That is what this table is for.
+Mirrors `data/bronze/eurostat_figaro/`. Three tables: one that decodes every code
+in every code column of the FIGARO extracts, and two that turn those extracts
+into series with a `year` column.
+
+The dissemination API serves the extracts as keys and a `value` and nothing else,
+so a reader holding `figaro2026_use_DKdest_2022.csv` sees `CPA_C21,Q86` and
+cannot tell without leaving the repository that the row is pharmaceutical
+products bought by human health activities. And bronze holds one file per API
+query, because that is what bronze is — while a query can only ask for the years
+inside one of Eurostat's four-year dataset blocks, so 2016, 2019 and 2022 arrive
+as three files from three datasets. Reading a series out of that means globbing a
+folder and trusting filenames. These three tables are the alternative.
 
 | item | value |
 |:---|:---|
@@ -13,18 +19,20 @@ health activities. That is what this table is for.
 | Provider | Eurostat, SDMX 2.1 codelist endpoint `https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/codelist/ESTAT/{codelist}?format=TSV` |
 | Licence | Eurostat open data; free reuse with attribution |
 | Retrieved | 2026-09-11 |
-| Produced by | `analysis.build_figaro_dimensions` |
+| Produced by | `analysis.build_figaro_dimensions` (the dimension table), `analysis.build_figaro_series` (the two series) |
 | Read by | `analysis.figaro_benchmarks` |
-| Rebuild | `PYTHONPATH=src .venv/bin/python -m analysis.build_figaro_dimensions` (offline from the cached codelists; `--refresh` re-fetches them) |
-| In version control | **yes** — 58 kB, and it is the only thing in the repository that says what a FIGARO code means. The codelists it is built from are 920 kB of mostly unused register and stay in bronze, untracked like the rest of the layer. |
+| Rebuild | `PYTHONPATH=src .venv/bin/python -m analysis.build_figaro_dimensions` then `… -m analysis.build_figaro_series`. Both are offline from bronze; `build_figaro_dimensions --refresh` re-fetches the codelists, and `analysis.fetch_figaro --years … ` re-fetches the extracts |
+| In version control | **yes**, all three — 1.2 MB together. The dimension table is the only thing in the repository that says what a FIGARO code means; the two series are the whole benchmark a reviewer would ask to see, and rebuilding them takes eight API queries and the 31 MB of extracts those return. |
 
 ## Files
 
 | file | derives from | transformation | rows × cols | size |
 |:---|:---|:---|:---|:---|
-| `figaro_dimensions.csv` | the nine cached codelists and the seven bronze fact tables | one row per code actually used, labelled from the codelist paired with its own column | 351 × 7 | 58 kB |
+| `figaro_dimensions.csv` | the nine cached codelists and the ten bronze extracts | one row per code actually used, labelled from the codelist paired with its own column | 351 × 7 | 30 kB |
+| `figaro_dk_health_inputs.csv` | `figaro2026_use_DKdest_{2016,2019,2022,2024}.csv` | the `Q86` and `Q87_88` columns, product rows only, concatenated with a `year` column | 25,600 × 6 | 902 kB |
+| `figaro_dk_footprint_series.csv` | `env_ac_ghgfp_DKdest_2016-2023.csv`, `env_ac_co2fp_DKdest_2016-2023.csv` | the `nace_r2 = TOTAL` slice of both indicators, concatenated with a `year` column | 4,704 × 7 | 234 kB |
 
-## Columns
+## Columns of `figaro_dimensions.csv`
 
 | column | meaning |
 |:---|:---|
@@ -34,7 +42,69 @@ health activities. That is what this table is for.
 | `entry_type` | `industry`, `product`, `final_demand`, `value_added`, `adjustment`, `country`, `country_aggregate`, `country_residual`, `no_origin`, `household`, `total` or `unit`. Only `country_aggregate` and `total` have to come out of a sum; `country_residual` has to stay in |
 | `nace_level` | for `nace_r2` only: `section`, `division`, `cross_section`, `household`, `all_activities`, `all_activities_and_households`; empty in every other column |
 | `codelist` | the Eurostat codelist the label was read from |
-| `bronze_files` | the bronze fact tables the code appears in, `;`-separated |
+| `fact_tables` | which FIGARO tables use the code: `use`, `supply`, `footprint`, `;`-separated. Recorded as the family rather than the file name because the family is stable — adding 2016 to the series adds a bronze file, and a column keyed on file names would churn on every fetch while saying nothing new |
+
+## Columns of the two series
+
+Both carry codes and no labels, and join to `figaro_dimensions.csv` on
+`fact_column` and `code`. Denormalising Eurostat's wording onto 25,600 fact rows
+would put it in two places and let them drift.
+
+### `figaro_dk_health_inputs.csv`
+
+| column | unit | meaning |
+|:---|:---|:---|
+| `year` | year | reference year: 2016, 2019, 2022, 2024 |
+| `using_industry` | — | `Q86` human health activities, or `Q87_88` residential care and social work without accommodation. Join on `fact_column = ind_use` |
+| `product` | — | CPA product bought. Join on `fact_column = prd_ava` |
+| `origin` | — | country the product comes from. Join on `fact_column = c_orig` |
+| `unit` | — | `MIO_EUR` |
+| `value` | million euro | intermediate use at basic prices |
+
+**Intermediate inputs only.** The use table's rows are products *and* the
+primary inputs — `D1` compensation of employees, `B2A3G` gross operating surplus,
+`D21X31` and `D29X39` net taxes — plus the two residents adjustments. An input
+recipe that included value added would not be an input recipe, so only rows typed
+`product` in the dimension table are kept. That is also why `DOM` never appears
+in `origin` here: it is the origin code the primary-input rows carry, and those
+rows are gone.
+
+| `year` | `Q86` | `Q87_88` |
+|:---|---:|---:|
+| 2016 | 5,415.0 | 3,978.6 |
+| 2019 | 5,662.9 | 4,233.3 |
+| 2022 | 6,933.2 | 5,189.8 |
+| 2024 | 7,001.4 | 5,693.2 |
+
+### `figaro_dk_footprint_series.csv`
+
+| column | unit | meaning |
+|:---|:---|:---|
+| `year` | year | reference year, 2016 to 2023 with no gaps |
+| `indicator` | — | `greenhouse_gas` (`env_ac_ghgfp`) or `carbon_dioxide` (`env_ac_co2fp`) |
+| `origin` | — | country or aggregate where the emission occurs. Join on `fact_column = c_orig` |
+| `origin_is_aggregate` | — | `True` for `WORLD`, `EU27_2020` and `EXT_EU27_2020` only; exclude these before summing over origins. `WRL_REST` is `False` and belongs in the sum |
+| `final_demand` | — | final-demand category, `TOTAL` for the whole footprint. Join on `fact_column = na_item` |
+| `unit` | — | `THS_T`, thousand tonnes |
+| `value` | kt | the footprint |
+
+Taken at `nace_r2 = TOTAL`, so the emitting industry is not resolved and the
+level mixing described below does not arise. Denmark's whole consumption-based
+footprint, at `origin = WORLD` and `final_demand = TOTAL`:
+
+| `year` | greenhouse gas, kt CO₂-eq | carbon dioxide, kt CO₂ |
+|:---|---:|---:|
+| 2016 | 58,288.5 | 46,886.0 |
+| 2017 | 58,163.6 | 46,344.9 |
+| 2018 | 60,427.6 | 47,089.0 |
+| 2019 | 54,576.4 | 43,283.7 |
+| 2020 | 53,458.2 | 40,270.5 |
+| 2021 | 57,274.6 | 43,670.0 |
+| 2022 | 57,401.7 | 44,037.4 |
+| 2023 | 50,245.3 | 38,430.1 |
+
+The study's three benchmark years are 2016, 2019 and 2022, and this is the
+independent national denominator for each.
 
 ## Each code column is resolved against the codelist of its own name
 
