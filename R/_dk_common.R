@@ -21,14 +21,33 @@ suppressPackageStartupMessages({
 gold_root <- Sys.getenv("DKHC_GOLD_ROOT", "data/gold/results")
 fig_dir   <- Sys.getenv("DKHC_FIG_DIR",   "figures")
 
-# Results are held per analysis year, so the same basename exists under
-# .../01_eriksen_replication/2019/ and .../2022/. Resolve to the configured year
-# first and only fall back to a unique match, so a figure can never silently
-# take the wrong year's data.
-analysis_year <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
+# Results are held per analysis year, so the same basename can exist under
+# more than one folder. Some layers (e.g. .../02_scopes_wood_hertwich/2019/
+# and .../2022/) vary only by year; the Eriksen replication varies by year AND
+# by whether the Danish sea-transport correction was applied
+# (.../01_eriksen_replication/2019_uncorrected/, .../2019_shipping_corrected/,
+# .../2022_uncorrected/, .../2022_shipping_corrected/), since the 2019-to-2022
+# swing this study reports is never valid to read as a single change unless
+# the correction state is held fixed. Resolve to the full variant folder
+# first (year AND background tag), fall back to a bare year match for layers
+# that do not vary by correction state, and only then to a unique match - so a
+# figure can never silently take the wrong year's, or the wrong correction
+# state's, data.
+analysis_year  <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
+background_tag <- Sys.getenv("HC_BACKGROUND_TAG", "")
+
+#: Self-describing "<year>_<state>" folder name for one (year, tag) pair.
+#: Mirrors ``analysis.constants.eriksen_variant`` so the two languages resolve
+#: the same folder from the same environment.
+eriksen_variant <- function(year = analysis_year, tag = background_tag) {
+  suffix <- if (tag == "") "uncorrected"
+            else if (tag == "_snacship") "shipping_corrected"
+            else sub("^_", "", tag)
+  paste0(year, "_", suffix)
+}
 
 .gold_index <- NULL
-gold_path <- function(name, year = analysis_year) {
+gold_path <- function(name, year = analysis_year, tag = background_tag) {
   if (is.null(.gold_index)) {
     .gold_index <<- list.files(gold_root, pattern = "\\.csv(\\.gz)?$",
                                recursive = TRUE, full.names = TRUE)
@@ -37,11 +56,15 @@ gold_path <- function(name, year = analysis_year) {
   if (length(hit) < 1)
     stop(sprintf("gold fact '%s' not found under %s/", name, gold_root))
   if (length(hit) > 1) {
+    variant <- eriksen_variant(year, tag)
+    invariant <- hit[grepl(sprintf("/%s/", variant), hit, fixed = TRUE)]
+    if (length(invariant) == 1) return(invariant[[1]])
     inyear <- hit[grepl(sprintf("/%s/", year), hit, fixed = TRUE)]
     if (length(inyear) == 1) return(inyear[[1]])
-    stop(sprintf(paste0("gold fact '%s' is ambiguous for year %s (%d matches). ",
-                        "Set HC_ANALYSIS_YEAR or pass year=."),
-                 name, year, length(hit)))
+    stop(sprintf(paste0("gold fact '%s' is ambiguous for year %s, variant %s ",
+                        "(%d matches). Set HC_ANALYSIS_YEAR/HC_BACKGROUND_TAG ",
+                        "or pass year=/tag=."),
+                 name, year, variant, length(hit)))
   }
   hit[[1]]
 }
@@ -75,6 +98,57 @@ REGION_COLS  <- c(Denmark = "#0072B2", Europe = "#009E73",
 
 REMAINDER_LAB <- "Remaining regions and sector pairs"
 REMAINDER_COL <- "grey78"
+
+# Steenmeijer et al. (2022) figures 1-3 -- their own pastel palette, so the
+# Danish panels can be set beside the Dutch ones without a colour shift.
+#
+# WHERE EACH HEX COMES FROM. The published figures are vector graphics, so the
+# legend swatches are filled rectangles carrying an exact RGB fill. Each hex
+# below was read out of the article PDF's drawing operators (never sampled from
+# a raster, never guessed) and matched to its label by the swatch's own y
+# position against the legend text baseline:
+#
+#   figure 1 and 2, p e954 (PDF page 6); figure 3, p e955 (PDF page 7)
+#   swatch x = 463.4 (fig 1), 468.3 (fig 2), 416.8 (fig 3); each 6.9 x 4.3 pt
+#
+# Colour meaning is NOT shared between the three figures: #C8DFB3 is "Food and
+# food services" in figure 1 and "Mining of minerals and metals" in figure 2.
+# That is the article's own reuse, kept rather than harmonised, because the
+# point of these panels is to sit beside the originals.
+#
+# The vector order IS the legend order the article prints, top to bottom, which
+# is also the stacking order from the top of the bar down.
+STEENMEIJER_COLS <- list(
+  # p e954, swatch y = 187.1, 194.9, 210.9, 218.6, 226.4, 241.7, 249.5, 257.2
+  fig1 = c(
+    `Other (scope 3)`                                          = "#E1A5A0",
+    `Individual travel (scope 3 and out-of-scope)`             = "#9EADD5",
+    `Food and food services (scope 3)`                         = "#C8DFB3",
+    `Services (scope 3)`                                       = "#9AD5E6",
+    `Medical and electrical equipment and machinery (scope 3)` = "#FFEC96",
+    `Operational impacts (scope 1)`                            = "#B2BBC1",
+    `Heat and electricity (scope 2)`                           = "#FAB79C",
+    `Pharmaceuticals and chemical products (scope 3)`          = "#D0C3E0"),
+  # p e954, swatch y = 425.1, 432.9, 440.7, 448.5, 456.3, 464.1, 479.6
+  fig2 = c(
+    `Other`                                = "#9EADD5",
+    `Mining of minerals and metals`        = "#C8DFB3",
+    `Operational (direct) impacts`         = "#65449B",
+    `Agricultural sector`                  = "#FFEC96",
+    `Fossil fuel industry`                 = "#B2BBC1",
+    `Pharmaceutical and chemical industry` = "#FAB79C",
+    `Electricity sector`                   = "#D0C3E0"),
+  # p e955, swatch y = 217.1, 224.9, 232.8, 240.6, 256.4, 264.3. The last two
+  # entries are the study's home country and "Europe excluding it", so the
+  # Danish panels keep these two colours and relabel them.
+  fig3 = c(
+    Africa                               = "#C8DFB3",
+    Americas                             = "#9AD5E6",
+    `Middle East`                        = "#FFEC96",
+    `Europe (excluding the Netherlands)` = "#B2BBC1",
+    `Asia-Pacific`                       = "#FAB79C",
+    Netherlands                          = "#D0C3E0")
+)
 
 # One hue per impact category, so a faceted sheet is not five identical blue
 # panels. Semantically ordered (warming red, materials brown, water blue, land
