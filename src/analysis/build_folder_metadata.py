@@ -556,9 +556,17 @@ def _is_percentage_name(col: str) -> bool:
 #: catches the rest - a numeric `industry_code`, or a count column such as
 #: `n_stressor_rows` or `n_nonzero_factors`, which sit beside a `unit` column
 #: in their own tables and would otherwise inherit it (e.g. "kt").
-_NO_UNIT_SUFFIXES = ("_id", "_year", "_code", "_count", "_rank", "_flag")
+#:
+#: Ratios belong here for the same reason. A dimensionless quantity that sits in
+#: a table whose `unit` column varies by row was being labelled "varies by row",
+#: which reads as "some physical unit, look it up" when the correct answer is
+#: "none". `phi_applied` and its cross-check, the sea-transport target share,
+#: are the live case: both are a share of one Danish quantity by another, in the
+#: same currency, so the currency cancels.
+_NO_UNIT_SUFFIXES = ("_id", "_year", "_code", "_count", "_rank", "_flag",
+                     "_ratio", "_cross_check")
 _NO_UNIT_NAMES = {"id", "year", "code", "count", "rank", "flag", "rows",
-                   "columns", "draws", "index"}
+                   "columns", "draws", "index", "phi", "phi_applied", "ratio"}
 _NO_UNIT_PREFIXES = ("n_",)
 
 
