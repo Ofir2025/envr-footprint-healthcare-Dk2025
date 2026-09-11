@@ -218,12 +218,12 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
-| `per_capita_2019` | measure | float64 | varies by row | 9.885627152008569 |
+| `per_capita_2019` | measure | float64 | varies by row | 9.885799138149236 |
 | `per_capita_2022` | measure | float64 | varies by row | 16.25098416111419 |
-| `value_2019` | measure | float64 | varies by row | 57.47920799643595 |
+| `value_2019` | measure | float64 | varies by row | 57.48020799643596 |
 | `value_2022` | measure | float64 | varies by row | 95.4488553915713 |
-| `ratio_2022_over_2019` | measure | float64 | varies by row | 1.6605805597998096 |
-| `change_pct` | measure | float64 | % | 66.05805597998096 |
+| `ratio_2022_over_2019` | measure | float64 | varies by row | 1.6605516701938443 |
+| `change_pct` | measure | float64 | % | 66.05516701938443 |
 | `per_capita_unit` | dimension | str |  | m3 per person |
 | `comparable_as_a_trend` | dimension | bool |  | False |
 | `why_not` | dimension | str |  | the background model and the sea-transpo |
@@ -234,11 +234,11 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
 | `value_2019` | measure | float64 |  | 2617.155232125088 |
-| `share_pct_2019` | measure | float64 | % | 40.77290611856394 |
+| `share_pct_2019` | measure | float64 | % | 40.74960741918606 |
 | `value_2022` | measure | float64 |  | 566.5316460762235 |
 | `share_pct_2022` | measure | float64 | % | 12.11711444780666 |
 | `delta_kt` | measure | float64 |  | -2050.623586048864 |
-| `share_of_total_change_pct` | measure | float64 | % | 117.62263086893824 |
+| `share_of_total_change_pct` | measure | float64 | % | 117.37554459212907 |
 | `driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `year_comparison_run_differences.csv`
@@ -256,11 +256,16 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
-| `value_2019_uncorrected` | measure | float64 |  | 2617.155232125088 |
+| `value_2016_uncorrected` | measure | float64 |  | 2484.667258357969 |
+| `value_2016c` | measure | float64 |  | 757.3804832911318 |
 | `value_2019c` | measure | float64 |  | 797.7656919199594 |
 | `value_2022c` | measure | float64 |  | 566.5316460762235 |
-| `delta_correction_kt` | measure | float64 |  | -1819.3895402051285 |
+| `delta_correction_kt` | measure | float64 |  | -1727.286775066837 |
+| `delta_2016_2019_kt` | measure | float64 |  | 40.38520862882763 |
+| `delta_2019_2022_kt` | measure | float64 |  | -231.23404584373588 |
 | `delta_year_kt` | measure | float64 |  | -231.23404584373588 |
-| `share_of_correction_change_pct` | measure | float64 | % | 78.77521660190361 |
-| `share_of_year_change_pct` | measure | float64 | % | -40.83932881990388 |
+| `share_of_correction_change_pct` | measure | float64 | % | 78.83571249235234 |
+| `share_of_2016_2019_change_pct` | measure | float64 | % | 19.07514871441924 |
+| `share_of_2019_2022_change_pct` | measure | float64 | % | -41.105766493591986 |
+| `share_of_year_change_pct` | measure | float64 | % | -41.105766493591986 |
 | `driver` | dimension | str |  | correction step: sea-transport reallocat |

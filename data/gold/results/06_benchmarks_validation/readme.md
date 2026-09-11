@@ -146,4 +146,4 @@ would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint.
 - **Rows:** 9
 - **Format:** csv
 - **Dimensions:** `contribution_group`, `driver`
-- **Measures:** `value_2019_uncorrected`, `value_2019c`, `value_2022c`, `delta_correction_kt`, `delta_year_kt`, `share_of_correction_change_pct`, `share_of_year_change_pct`
+- **Measures:** `value_2016_uncorrected`, `value_2016c`, `value_2019c`, `value_2022c`, `delta_correction_kt`, `delta_2016_2019_kt`, `delta_2019_2022_kt`, `delta_year_kt`, `share_of_correction_change_pct`, `share_of_2016_2019_change_pct`, `share_of_2019_2022_change_pct`, `share_of_year_change_pct`
