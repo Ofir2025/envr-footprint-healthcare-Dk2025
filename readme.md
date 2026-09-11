@@ -7,8 +7,10 @@ change*, Lancet Planetary Health 6: e949-57.
 
 **Primary analysis year: 2022** (EXIOBASE version 3.8.2, industry-by-industry
 monetary tables, `IOT_2022_ixi`, 49 regions x 163 industries). This study
-rejects v3.10.2: it disagrees with v3.8.2 by a factor of three on the size of
-the Danish health industry. See
+rejects v3.10.2: it puts the Danish health industry at 16,326 M.EUR of output
+against v3.8.2's 43,955 M.EUR, a factor of 2.7
+(`data/gold/results/09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv`,
+Health and social work, 2022; the national accounts give 45,321 M.EUR). See
 [`docs/methods/exiobase_release_and_classification.md`](docs/methods/exiobase_release_and_classification.md).
 2019 is retained as a pre-COVID validation baseline.
 
