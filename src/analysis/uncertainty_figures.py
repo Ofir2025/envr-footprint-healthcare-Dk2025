@@ -32,7 +32,9 @@ OKABE_ITO = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "
 # full names, never the internal row codes
 PARAM_LABEL = {"mrio": "MRIO parameters", "B_HEAL": "Direct operational",
                "B_ANAE": "Anaesthetic gases", "B_PMDI": "pMDI propellants",
-               "B_COMM": "Employee commuting", "B_VISI": "Patient and visitor travel"}
+               "B_COMM": "Employee commuting", "B_VISI": "Patient and visitor travel",
+               "covariance_commute_visitor":
+                   "Commuting x travel covariance"}
 # font ranking: panel titles > legend > ticks/labels
 plt.rcParams.update({"axes.titlesize": 13, "legend.fontsize": 10,
                      "axes.labelsize": 11, "xtick.labelsize": 10,
@@ -63,15 +65,31 @@ def main():
     ax.set_xticklabels([SHORT[i] for i in INDICATORS], rotation=20, ha="right")
     ax.set_ylabel("Footprint relative to the deterministic estimate")
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.22), ncol=2)
-    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_distributions.png"), dpi=300)
+    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_distributions.png"), dpi=300, bbox_inches="tight")
     plt.close(fig)
 
     # 2. variance shares
     sob = sobol_first_order(mrio, parts)
     piv = sob.pivot(index="indicator", columns="parameter", values="variance_share_pct")
     piv = piv.loc[INDICATORS]
-    order = ["mrio", "B_COMM", "B_VISI", "B_HEAL", "B_ANAE", "B_PMDI"]
+    # The covariance term BELONGS on this chart. Commuting and patient-and-
+    # visitor travel are drawn correlated at rho = 0.8, so the variance of their
+    # sum carries a 2 rho sigma_1 sigma_2 term that is neither parameter's alone.
+    # Omitting it left the climate bar summing to 90.6 % on a chart whose axis
+    # is "share of output variance" and whose limit is 100 %: a reader could see
+    # a tenth of the variance was unaccounted for and had nothing to attribute
+    # it to. First-order Sobol indices sum to one only for INDEPENDENT inputs
+    # (Saltelli et al. 2008); under correlation the covariance is a component of
+    # the decomposition, not a rounding error.
+    order = ["mrio", "B_COMM", "B_VISI", "covariance_commute_visitor",
+             "B_HEAL", "B_ANAE", "B_PMDI"]
     piv = piv[[c for c in order if c in piv.columns]]
+    # Guard rather than trust: a bar that does not sum to 100 % is the defect
+    # this block exists to prevent, and it should fail here rather than be
+    # noticed on the rendered figure.
+    sums = piv.sum(axis=1)
+    assert np.allclose(sums, 100.0, atol=0.05), (
+        f"variance shares do not sum to 100 %: {sums.to_dict()}")
 
     # A legend entry for a series that is never visible is a false key: the
     # reader is given a colour to look for that does not appear anywhere on the
@@ -86,13 +104,13 @@ def main():
         if pooled.max() > 0:
             piv[f"_other"] = pooled
         PARAM_LABEL["_other"] = (f"Other bottom-up items (each < {VISIBLE_PCT:g} %)")
-    fig, ax = plt.subplots(figsize=(8.4, 5.4))
+    fig, ax = plt.subplots(figsize=(9.6, 4.6))
     labels = [SHORT[i] for i in piv.index]
     bottom = np.zeros(len(piv))
     for k, col in enumerate(piv.columns):
         vals = piv[col].values
         ax.barh(labels, vals, left=bottom, label=PARAM_LABEL[col],
-                color=OKABE_ITO[k % len(OKABE_ITO)], height=0.62)
+                color=OKABE_ITO[k % len(OKABE_ITO)], height=0.78)
         for yi, (v, b) in enumerate(zip(vals, bottom)):
             if v >= 4:                      # skip tiny segments
                 ax.text(b + v / 2, yi, f"{v:.0f}", ha="center", va="center",
@@ -103,7 +121,7 @@ def main():
     ax.set_xticks([0, 20, 40, 60, 80, 100])
     ax.invert_yaxis()
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.13), ncol=3)
-    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_variance_shares.png"), dpi=300)
+    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_variance_shares.png"), dpi=300, bbox_inches="tight")
     plt.close(fig)
 
     # 3. tornado for climate change
@@ -147,7 +165,7 @@ def main():
             transform=ax.transAxes, ha="right", va="center", fontsize=9, color="0.35",
             rotation=90)
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.12), ncol=2)
-    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_tornado_climate.png"), dpi=300)
+    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_tornado_climate.png"), dpi=300, bbox_inches="tight")
     plt.close(fig)
 
     # 4. ranking probabilities (climate), both pharma scenarios
@@ -166,7 +184,7 @@ def main():
                 if rp.values[r, c] > 0.01:
                     ax.text(c, r, f"{rp.values[r, c]:.2f}", ha="center", va="center",
                             fontsize=9, color="k" if rp.values[r, c] < 0.55 else "w")
-    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_ranking_probabilities.png"), dpi=300)
+    fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_ranking_probabilities.png"), dpi=300, bbox_inches="tight")
     plt.close(fig)
     print("figures written to", fig_dir)
     for f in sorted(os.listdir(fig_dir)):
