@@ -18,8 +18,14 @@ compute it independently, within the documented conventions.
 **C2 Detail reconciles to aggregate.** Wherever a folder holds both a
 node-detail file and its aggregate, they must sum to the same value.
 
-**C3 Freshness.** No gold file may be older than the background it claims to be
-derived from; a stale file is a wrong file.
+**C3 Retired.** It compared gold mtimes against the background's mtime, and was
+wrong in both directions. It passed throughout the period this repository held
+2019 on IPCC AR4 and 2022 on AR6 - real staleness carrying fresh timestamps -
+and then failed on twenty-four byte-correct files whose mtimes a fast-forward
+had left untouched. A timestamp is not evidence about content. C21 recomputes
+each variant's headline from its own background, which is the question C3 was
+trying to ask; C1, C2 and C19 catch a stale layer by reconciliation.
+
 
 **C4 Provenance.** Every file carrying a ``model`` column must name the current
 model, so a table cannot silently retain a withdrawn release's label.
@@ -233,60 +239,6 @@ BACKGROUND_INDEPENDENT_FILES: frozenset[str] = frozenset({
     "recipe_validation_2022.csv",      # EXIOBASE vs the Danish IOT recipe
 })
 
-
-def c3_freshness(results: list[dict[str, Any]]) -> None:
-    """No background-derived gold file may predate the background."""
-    background = os.path.join(
-        str(BACKGROUND_DIR),
-        f"gddz_background_information_{BACKGROUND_YEAR}.pkl")
-    if not os.path.exists(background):
-        # The silver background is ten gigabytes and is not in version control,
-        # so it is absent from every clone. Absence is not staleness: the check
-        # has no input, which is a different thing from the gold tree being out
-        # of date, and failing on it would make the audit unusable anywhere the
-        # pipeline has not been run.
-        _check(results, "C3 no gold file older than the background", True,
-               "skipped: the background is not in this checkout, so freshness "
-               "cannot be tested here; run the pipeline to test it")
-        return
-    built = os.path.getmtime(background)
-    stale = []
-    for path in glob.glob(os.path.join(str(OUTPUT_DIR), "**", "*.csv*"),
-                          recursive=True):
-        rel = os.path.relpath(path, str(OUTPUT_DIR))
-        if "manifest_lineage" in path:
-            continue
-        if rel.split(os.sep)[0] in BACKGROUND_INDEPENDENT:
-            continue
-        if os.path.basename(rel) in BACKGROUND_INDEPENDENT_FILES:
-            continue
-        # Variant folders belong to their own background. A 2019 table is not
-        # stale because the 2022 background was rebuilt after it; it is derived
-        # from IOT_2016 and is checked when the audit runs for 2019.
-        #
-        # A folder may carry a bare year (``02_scopes_wood_hertwich/2019``), a
-        # lettered variant (``01_eriksen_replication/2019a``) or a
-        # self-describing unlettered one (``2019_uncorrected``). All three are
-        # recognised: the year is the leading four digits, and what follows is
-        # either nothing, a variant letter, or an underscore. Recognising the
-        # letter form matters - while only the bare and underscore forms were
-        # accepted, every `<year><letter>` folder fell through to being compared
-        # against whichever year the audit happened to be running for, which is
-        # the exact blindness this filter exists to prevent.
-        parts = rel.split(os.sep)
-        other_year = {p[:4] for p in parts
-                      if len(p) >= 4 and p[:4].isdigit()
-                      and p.startswith(("19", "20"))
-                      and (len(p) == 4 or p[4] == "_" or p[4:] in VARIANTS)}
-        if other_year and ANALYSIS_YEAR not in other_year:
-            continue
-        if os.path.getmtime(path) < built - 60:
-            stale.append(rel)
-    _check(results, "C3 no gold file older than the background",
-           not stale,
-           "all current" if not stale
-           else f"{len(stale)} stale: {', '.join(sorted(stale)[:6])}"
-                + (" ..." if len(stale) > 6 else ""))
 
 
 def c9_gold_scope(results: list[dict[str, Any]]) -> None:
@@ -1646,7 +1598,7 @@ def c10_repo_profile(results: list[dict[str, Any]]) -> None:
 def main() -> None:
     """Run every check and write the report; exit non-zero on failure."""
     results: list[dict[str, Any]] = []
-    for check in (c1_headline, c2_detail_vs_aggregate, c3_freshness,
+    for check in (c1_headline, c2_detail_vs_aggregate,
                   c4_provenance, c5_manifest, c6_documentation, c6b_superseded,
                   c7_star_integrity,
                   c8_citations, c9_gold_scope,
