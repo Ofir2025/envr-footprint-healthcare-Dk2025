@@ -12,22 +12,47 @@ the correction they imply. On EXIOBASE v3.8.2 IOT_2022_ixi the Danish
 sea-and-coastal-water-transport row delivers 73.6 % of its output to Danish
 intermediate use - Statistics Denmark's 74 %, to the decimal.
 
+The benchmark is published for one year only. Rørmose Jensen & Iliev report the
+9 % national-accounts share for 2019 and give no time series; it is applied here
+to 2022 (and to 2016 if run on that background) on the evidence that the
+EXIOBASE side of the discrepancy is year-invariant - 73.51 % in 2016, 73.65 % in
+2022, against their 74 % for 2019.
+
 Correction
 ----------
-The row's total output is left unchanged (it is not in dispute; it matches the
-national accounts). Only its *allocation* is corrected:
+The row's total output is left unchanged. That is a scope decision, not a claim
+that the level is right: EXIOBASE's Danish sea-transport output is 0.23x the
+national-accounts figure in 2022 and 0.63x in 2016
+(`09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv`), and
+Rørmose Jensen & Iliev report the same defect for 2019 (p. 12). Only the
+*allocation* is corrected, because the allocation is what decides whether the
+emissions land in Danish consumption; the level is left to a full
+national-accounts coupling.
 
     target_dk_intermediate = SHARE_TARGET * x_row
     Z[row, DK] *= target_dk_intermediate / Z[row, DK].sum()
     the released amount is added to exports, distributed over foreign final
     demand in proportion to each region's existing final demand
 
-Column balance is restored by crediting the released amount to the value added
-of the Danish industries that stop buying the shipping, so that
-`sum(Z[:, j]) + VA_j = x_j` continues to hold. This is the correct treatment:
-those industries' outputs come from the national accounts and are not in
-dispute, so an input they were never really buying must be offset in value
-added rather than by rescaling their output.
+The distribution key is this repository's own choice, not either source's:
+neither Rørmose Jensen & Iliev (2022) nor Schmidt & Merciai (2023) builds a
+corrected EXIOBASE, so neither proposes one. Weighting by each foreign
+final-demand column's total size is a neutral numeraire, not a measured trade
+pattern. Booking the release to Y rather than to foreign intermediate use makes
+it terminal - it cannot re-enter a supply chain and return to Denmark through
+imports - which is conservative for the quantity measured but is a departure
+from the national-accounts structure, where exported freight is largely an
+intermediate input abroad.
+
+Column balance is restored by crediting the released amount to the residual net
+operating surplus (the last primary-input row) of the Danish industries that
+stop buying the shipping, so that `sum(Z[:, j]) + VA_j = x_j` continues to hold.
+Their outputs are the part of the Danish block not in dispute, and rescaling
+them would change every Danish emission intensity e_i/x_i, so the offset belongs
+in the accounting item that exists to absorb the gap between output and measured
+costs. Note that this does not repair the shipping industry's own value added,
+which Rørmose Jensen & Iliev report as negative (p. 12) and which measures
+-493 M.EUR in 2016 and +271 M.EUR in 2022 on v3.8.2.
 
 The uncorrected model is retained; both are reported.
 
