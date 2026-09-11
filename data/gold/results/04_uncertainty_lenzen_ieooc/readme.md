@@ -6,6 +6,33 @@ Reviewer 1's central request: how precise is the estimate, what drives its impre
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 04](../../../../docs/methods/replications.md#r04).
 
+## Ranges on the reported estimates, not only on the total
+
+`uncertainty_by_group.csv` carries the mean, standard deviation,
+coefficient of variation and 95 % interval of every contribution group
+in every indicator - 90 rows - beside the interval on that group's
+SHARE of the footprint. The two answer different questions and the
+second cannot be derived from the first.
+
+Reviewer 1 asked for "the resulting ranges for the main impact
+estimates". A range on the total alone does not answer that: the
+groups do not vary independently, so a reader cannot infer a group's
+range from the total's. They share the MRIO multiplier, which is why
+seven of the nine climate groups carry a coefficient of variation of
+8.4 % - the MRIO block's own - and why their shares are far tighter
+than their levels: the shared factor cancels in the ratio.
+
+Two groups are not like the others, and that is the finding. Individual
+travel carries a CV of **26.3 %** against the 8.4 % of the MRIO-driven
+groups, because commuting and patient and visitor travel are bottom-up
+terms with uncertainties of their own rather than a share of the MRIO
+block; operational impacts carries 9.1 % for the same reason, smaller
+because the direct-emissions account is tighter. In share terms
+pharmaceuticals run 33.9 % to 39.4 % while individual travel runs
+8.4 % to 20.9 %, so the statement that pharmaceuticals lead is robust
+and the position of travel in the ranking is not - which is what
+`uncertainty_ranking_probabilities.csv` quantifies.
+
 ## Conventions
 
 | Item | Convention |
@@ -25,6 +52,14 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 - **Format:** csv
 - **Dimensions:** `check`, `status`, `detail`, `tolerance`
 - **Measures:** none
+
+### `uncertainty_by_group.csv`
+
+- **Rows:** 90
+- **Format:** csv
+- **Units:** Mm3, km2, kt, ktCO2eq
+- **Dimensions:** `pharma_scenario`, `indicator`, `unit`, `group`
+- **Measures:** `deterministic`, `median`, `mean`, `sd`, `cv_pct`, `p2_5`, `p16`, `p84`, `p97_5`, `share_pct`, `share_p2_5`, `share_p97_5`, `draws`, `seed`
 
 ### `uncertainty_convergence.csv`
 

@@ -387,6 +387,67 @@ def summarize(totals: dict[str, np.ndarray],
     return pd.DataFrame(rows)
 
 
+def summarize_groups(groups: list[str], group_draws: dict[str, np.ndarray],
+                     deterministic_groups: dict[str, pd.Series]
+                     ) -> pd.DataFrame:
+    """Moments, percentiles and a share interval for every reported group.
+
+    The headline totals have carried a full distribution since the Monte Carlo
+    was built. The numbers the manuscript actually *reports* mostly are not the
+    headline: they are the contribution groups of figure 1 and table 1, and none
+    of them carried an interval. Reviewer 1 asked for "the resulting ranges for
+    the main impact estimates", and a range on the total alone does not answer
+    that, because a reader cannot infer a group's range from it -- the groups do
+    not vary independently. They share the MRIO multiplier, so their ranges are
+    strongly correlated and much narrower *relative to each other* than the
+    total's range would suggest.
+
+    That correlation is why the share interval is reported alongside the level
+    interval. Under the study's default of perfect MRIO correlation, a group that
+    is entirely MRIO-driven keeps an almost fixed share while its level moves by
+    +/- 16 %: the shared factor cancels in the ratio. The two intervals answer
+    two different questions, and reporting only the first would overstate the
+    uncertainty on every statement of the form "pharmaceuticals are 37 % of the
+    footprint".
+
+    Parameters
+    ----------
+    groups : list of str
+        Contribution-group names, in the column order of ``group_draws``.
+    group_draws : dict of str to numpy.ndarray
+        Per indicator, an ``(n, len(groups))`` array of group totals, from
+        :func:`run_mc`.
+    deterministic_groups : dict of str to pandas.Series
+        Per indicator, the deterministic group totals, indexed by group.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per indicator and group: ``deterministic``, ``median``,
+        ``mean``, ``sd``, ``cv_pct``, the 2.5/16/84/97.5 percentiles of the
+        level, and ``share_pct`` with its own 2.5/97.5 percentiles.
+    """
+    rows = []
+    for ind, matrix in group_draws.items():
+        totals = matrix.sum(axis=1)
+        det = deterministic_groups[ind]
+        for j, group in enumerate(groups):
+            arr = matrix[:, j]
+            q = np.percentile(arr, [2.5, 16, 50, 84, 97.5])
+            with np.errstate(invalid="ignore", divide="ignore"):
+                shares = 100.0 * arr / totals
+            sq = np.percentile(shares[np.isfinite(shares)], [2.5, 50, 97.5])
+            mean = float(arr.mean())
+            rows.append(dict(
+                indicator=ind, unit=ind[ind.find("(") + 1:-1], group=group,
+                deterministic=float(det.get(group, np.nan)),
+                median=q[2], mean=mean, sd=float(arr.std(ddof=1)),
+                cv_pct=(100 * float(arr.std(ddof=1)) / mean if mean else np.nan),
+                p2_5=q[0], p16=q[1], p84=q[3], p97_5=q[4],
+                share_pct=sq[1], share_p2_5=sq[0], share_p97_5=sq[2]))
+    return pd.DataFrame(rows)
+
+
 #: Which PARAMS entry drives each bottom-up component.
 _PARAM_OF = {"B_HEAL": "direct", "B_ANAE": "anaesthetic", "B_PMDI": "pmdi",
              "B_COMM": "commute", "B_VISI": "visitor"}
@@ -706,13 +767,24 @@ def main() -> None:
         assert abs(arr.mean() - mu) < 5 * mcse, f"{ind}: MC mean off analytic value"
     print(f"PASS: MC means match closed-form moments within 5 MCSE (n={N_DRAWS:,})")
 
-    summaries, ranks, scen_rows = [], [], []
+    # The deterministic group totals the draws perturb: the MRIO amount plus
+    # every bottom-up component mapped into that group. Built here rather than
+    # re-read, so the `deterministic` column of the group table is by
+    # construction the same decomposition the simulation starts from.
+    det_groups = {ind: (mrio[ind] + sum(part[ind] for part in parts.values()))
+                  for ind in mrio.columns}
+
+    summaries, ranks, scen_rows, group_summaries = [], [], [], []
     for scen in ("A", "B"):
         _, G, tot, _ = run_mc(mrio, parts, scen)
         s = summarize(tot, total)
         s.insert(0, "pharma_scenario", scen)
         s["draws"], s["seed"] = N_DRAWS, SEED
         summaries.append(s)
+        g = summarize_groups(groups, G, det_groups)
+        g.insert(0, "pharma_scenario", scen)
+        g["draws"], g["seed"] = N_DRAWS, SEED
+        group_summaries.append(g)
         r = ranking_probabilities(groups, G)
         r.insert(0, "pharma_scenario", scen)
         ranks.append(r)
@@ -883,6 +955,9 @@ def main() -> None:
     # named `group` rather than shipped as a blank header, so the .npy's column
     # order is readable from a file rather than inferred. The full
     # specification is in docs/methods/replications.md section 04.
+    pd.concat(group_summaries, ignore_index=True).to_csv(
+        os.path.join(out_dir, "uncertainty_by_group.csv"), index=False)
+
     cov = pd.DataFrame(np.cov(gwp, rowvar=False), index=groups, columns=groups)
     cov.to_csv(os.path.join(out_dir, "uncertainty_group_covariance_gwp.csv"),
                index_label="group")

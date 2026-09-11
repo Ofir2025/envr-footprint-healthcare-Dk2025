@@ -188,6 +188,34 @@ NOTES: dict[str, str] = {
 #: Rendered after the layer's question and its link into the methods document,
 #: and before the conventions table.
 README_NOTES: dict[str, str] = {
+    "04_uncertainty_lenzen_ieooc": (
+        "## Ranges on the reported estimates, not only on the total\n"
+        "\n"
+        "`uncertainty_by_group.csv` carries the mean, standard deviation,\n"
+        "coefficient of variation and 95 % interval of every contribution group\n"
+        "in every indicator - 90 rows - beside the interval on that group's\n"
+        "SHARE of the footprint. The two answer different questions and the\n"
+        "second cannot be derived from the first.\n"
+        "\n"
+        "Reviewer 1 asked for \"the resulting ranges for the main impact\n"
+        "estimates\". A range on the total alone does not answer that: the\n"
+        "groups do not vary independently, so a reader cannot infer a group's\n"
+        "range from the total's. They share the MRIO multiplier, which is why\n"
+        "seven of the nine climate groups carry a coefficient of variation of\n"
+        "8.4 % - the MRIO block's own - and why their shares are far tighter\n"
+        "than their levels: the shared factor cancels in the ratio.\n"
+        "\n"
+        "Two groups are not like the others, and that is the finding. Individual\n"
+        "travel carries a CV of **26.3 %** against the 8.4 % of the MRIO-driven\n"
+        "groups, because commuting and patient and visitor travel are bottom-up\n"
+        "terms with uncertainties of their own rather than a share of the MRIO\n"
+        "block; operational impacts carries 9.1 % for the same reason, smaller\n"
+        "because the direct-emissions account is tighter. In share terms\n"
+        "pharmaceuticals run 33.9 % to 39.4 % while individual travel runs\n"
+        "8.4 % to 20.9 %, so the statement that pharmaceuticals lead is robust\n"
+        "and the position of travel in the ranking is not - which is what\n"
+        "`uncertainty_ranking_probabilities.csv` quantifies."
+    ),
     "06_benchmarks_validation": (
         "## Reading `figaro_dk_footprint_by_origin.csv` without double counting\n"
         "\n"
