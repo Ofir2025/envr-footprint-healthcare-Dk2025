@@ -1007,16 +1007,18 @@ only published Danish health-sector footprint on an EXIOBASE-family model.
 Comparing headline to headline would mislead, so three boundary differences are removed
 one at a time and each step is reported:
 
+Every cell is a row of `danish_healthcare_benchmark_boundary_matched.csv`.
+
 | Basis | Mt | t/capita | % national | ratio |
 |:---|:---|:---|:---|:---|
 | Schmidt & Merciai 2023 (published) | 6.10 | 1.070 | 8.3 | 1.000 |
-| This study, headline | 4.71 | 0.802 | 6.1 | 0.750 |
-| + their sector boundary (NACE Q incl. childcare) | 5.28 | 0.899 | 6.8 | 0.841 |
-| **+ their capital treatment (endogenised)** | **6.39** | **1.088** | **8.2** | **1.017** |
+| This study, headline | 4.68 | 0.796 | 6.1 | 0.744 |
+| + their sector boundary (NACE Q incl. childcare) | 5.28 | 0.899 | 6.8 | 0.840 |
+| **+ their capital treatment (endogenised)** | **6.40** | **1.089** | **8.3** | **1.018** |
 
-Boundary-matched agreement is **1.7 % on per capita and 0.1 percentage points on the
-national share**. The apparent 25 % gap was entirely boundary, not model, data, or
-implementation.
+Boundary-matched agreement is **1.8 % on per capita**, and on the national share
+8.28 % against their 8.3 %. The apparent 26 % gap was entirely boundary, not
+model, data, or implementation.
 
 What remains and cannot be adjusted away: their model is **consequential (marginal)**,
 ours is attributional. This difference is stated, not corrected.
@@ -1031,10 +1033,10 @@ Published Danish consumption-based footprints separate by **model family**, not 
 | Statistics Denmark AFTRYK | 2022 | NA coupled to EXIOBASE | 10.71 |
 | Rørmose Jensen & Iliev | 2020 | NA coupled to EXIOBASE | 11.00 |
 | Schmidt & Merciai | 2016 | EXIOBASE v4 hybrid | 12.90 |
-| **This study** | 2022 | EXIOBASE v3.8.2 | **13.19** |
+| **This study** | 2022 | EXIOBASE v3.8.2 | **13.15** |
 
-The two EXIOBASE-family results agree to 2.3 %; the three national-accounts-family results
-cluster 20 % below. Our gap against Statistics Denmark is a property of the model family,
+The two EXIOBASE-family results agree to 1.9 %; the three national-accounts-family results
+sit 20 % to 35 % below. Our gap against Statistics Denmark is a property of the model family,
 with a named cause (the Danish domestic block, see [section 09](#r09)), not
 an implementation error.
 
@@ -1121,6 +1123,15 @@ $$f_{\text{dom}} = s_{\text{DK}} \, \mathbf{L}_{\text{dom}} \, y_{H,\text{DK}}$$
 
 This variant is reported in `malik_domestic_vs_full.csv` beside the full-MRIO result,
 so the reader can see both the comparable number and the complete one.
+
+The two national shares in that file are taken over **different denominators**, and
+each is published beside its own. `share_of_national_full_pct` is over
+`national_full_mrio`, which is `00_core_footprint`'s `national_supply_chain`
+(67,518.6 kt on climate). `share_of_national_domestic_pct` is over
+`national_domestic_only`: the pressure arising *inside Denmark* from all Danish final
+demand under $\mathbf{L}_{\text{dom}}$, 20,939.3 kt on climate. That second quantity
+is Malik's model form and appears in no other gold table, so quoting the share without
+it left a percentage a reader could not reproduce.
 
 #### Production-layer decomposition
 
