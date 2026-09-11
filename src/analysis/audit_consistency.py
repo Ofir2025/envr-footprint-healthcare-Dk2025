@@ -1108,10 +1108,10 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
     # being read from Statistics Denmark's domestic input-output table for
     # each background year. The before-and-after table is in
     # docs/revision/results_2022.md, "What reading phi per year moved".
-    dict(text="4,675", doc="docs/revision/results_2022.md",
+    dict(text="4,652", doc="docs/revision/results_2022.md",
          source=(f"{eriksen_folder()}/hotspot_by_producing_node.csv",
                  "climate_change"),
-         expect=4675.5, tol=0.2, what="health-care climate footprint, kt"),
+         expect=4652.1, tol=0.2, what="health-care climate footprint, kt"),
     dict(text="3,906", doc="docs/revision/results_2022.md",
          source=("17_health_subsectors/footprint_by_health_function.csv",
                  "climate_change"),
@@ -1169,6 +1169,14 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
     ("4,715 kt", "health-care climate footprint; it is 4,713 kt"),
     ("4,736 kt", "Monte Carlo median; it is 4,735 kt"),
     ("4,875 kt", "health-care climate footprint from a superseded run"),
+    # Superseded on 2026-09-12, when the commuting-distance ratio was put on the
+    # same modal basis as its Dutch denominator: motorised only, excluding the
+    # walking and cycling that the Danish published total carries and the Dutch
+    # figure does not.
+    ("4,675.5", "health-care climate footprint on the walk-inclusive commuting "
+                "distance; it is 4,652.1 kt"),
+    ("4,675.47", "the same, to two decimals; it is 4,652.07"),
+    ("4,673.63", "scope partition total on the same basis; it is 4,650.24"),
     ("4,713 kt", "health-care climate footprint before the bottom-up nitrous "
                  "oxide moved to AR6; it is 4,712 kt"),
     ("4,713.4", "the same, to one decimal"),

@@ -24229,10 +24229,10 @@ DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 1,DNK,Denmark,
 DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,waste_generation,kt,Scope 1,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,49.10282360999154,bottom-up item
 DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 1,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,12.88345871012,bottom-up item
 DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 3,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,10.88,bottom-up item
-DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,blue_water_consumption,Mm3,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,0.0953,bottom-up item
-DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,341.4776,bottom-up item
-DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,land_use,km2,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,0.9171,bottom-up item
-DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,material_extraction,kt,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,14.0657,bottom-up item
+DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,blue_water_consumption,Mm3,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,0.0884,bottom-up item
+DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,316.8201,bottom-up item
+DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,land_use,km2,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,0.8508,bottom-up item
+DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,material_extraction,kt,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,13.05,bottom-up item
 DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,blue_water_consumption,Mm3,Outside protocol,DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,0.0684,bottom-up item
 DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,climate_change,kt CO2eq,Outside protocol,DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,224.23761012569273,bottom-up item
 DNK,EXIOBASE v3.7 IOT_2016_ixi,2016,land_use,km2,Outside protocol,DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,0.6231,bottom-up item

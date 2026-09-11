@@ -399,7 +399,7 @@ $$\frac{\mathbb{E}[F]}{F} = \frac{\sum_j a_j e^{\sigma_j^{2}/2}}{\sum_j a_j}
 i.e. **+0.84 %**, of which the MRIO factor supplies +0.35 pp and patient and
 visitor travel, on a much smaller amount but a much wider spread, a further
 +0.32 pp. That is why the simulated mean (4,712.9 kt) sits +0.80 % above the
-deterministic value (4,675.5 kt); attributing the whole gap to $e^{\sigma_M^2/2}$
+deterministic value (4,652.1 kt); attributing the whole gap to $e^{\sigma_M^2/2}$
 would account for under half of it. It is arithmetic, not a modelling error, and
 both mean and median are reported
 (`uncertainty_mrio_correlation.csv`, `mean_over_deterministic_closed_form`).
@@ -679,7 +679,7 @@ either would alone.
 
 | Quantity | Symbol | 2022 climate |
 |:---|:---|:---|
-| Deterministic estimate | $F$ | 4,675.5 kt |
+| Deterministic estimate | $F$ | 4,652.1 kt |
 | Simulation median | $\tilde{F}$ | 4,696.5 kt |
 | Simulation mean | $\bar{F}$ | 4,712.9 kt |
 | Standard deviation | $s$ | 371.0 kt |

@@ -8,8 +8,8 @@ material_extraction,kt,Minerals and Metals,1068.4143241000252
 climate_change,kt CO2eq,Services,780.3137440146958
 climate_change,kt CO2eq,Transport,746.8373223936475
 land_use,km2,Services,677.7912594733522
-climate_change,kt CO2eq,Private travel,565.7152101256927
 material_extraction,kt,Services,554.7994435554341
+climate_change,kt CO2eq,Private travel,541.0577101256927
 climate_change,kt CO2eq,Food and catering,385.19205664923237
 climate_change,kt CO2eq,Waste management and disposal,315.2642548306984
 material_extraction,kt,"Electrical, electronic and measuring equipment",263.5491352266642
@@ -39,7 +39,7 @@ waste_generation,kt,Services,30.943768634861975
 climate_change,kt CO2eq,Construction,26.239162936148123
 material_extraction,kt,General and special Machinery,23.968553276267222
 climate_change,kt CO2eq,Minerals and Metals,23.78276280571012
-material_extraction,kt,Private travel,23.6533
+material_extraction,kt,Private travel,22.6376
 climate_change,kt CO2eq,Metal Products,20.18329718644028
 land_use,km2,Furniture and timber,20.04503971214212
 blue_water_consumption,Mm3,Food and catering,19.293127782457443
@@ -74,7 +74,7 @@ land_use,km2,Non-metallic mineral products,2.4927607662899143
 land_use,km2,Transport Equipment,2.3861742367563346
 blue_water_consumption,Mm3,"Electrical, electronic and measuring equipment",2.0559187049961527
 waste_generation,kt,Coal and Petroleum,1.7758210932978384
-land_use,km2,Private travel,1.5402
+land_use,km2,Private travel,1.4739
 land_use,km2,Natural gas and gaseous fuels,1.3417220849388154
 waste_generation,kt,Construction,1.3169499825621647
 waste_generation,kt,Electricity,1.2003224648834845
@@ -89,8 +89,8 @@ waste_generation,kt,Minerals and Metals,0.19072617079561743
 blue_water_consumption,Mm3,Construction,0.18771771771482598
 blue_water_consumption,Mm3,Minerals and Metals,0.18351680535937412
 waste_generation,kt,Transport Equipment,0.1753173428990898
-blue_water_consumption,Mm3,Private travel,0.1637
 blue_water_consumption,Mm3,Metal Products,0.16096995752768842
+blue_water_consumption,Mm3,Private travel,0.1568
 waste_generation,kt,Textile,0.15083252493051158
 blue_water_consumption,Mm3,General and special Machinery,0.1342917962621511
 blue_water_consumption,Mm3,Textile,0.11874104731123537

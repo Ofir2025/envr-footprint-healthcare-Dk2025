@@ -11,8 +11,8 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 The manuscript's headline run: reference year 2022 on EXIOBASE v3.8.2
 `IOT_2022_ixi`, with the Danish sea-transport reallocation applied.
 Its partition closes on `01_eriksen_replication/2022c` exactly: the
-climate `TOTAL` of 4,673.633405 kt CO2-eq plus the self-supply loop of
-1.833254 kt is the grand total of 4,675.466659 kt published there.
+climate `TOTAL` of 4,650.237505 kt CO2-eq plus the self-supply loop of
+1.833254 kt is the grand total of 4,652.070759 kt published there.
 
 The double-counting ledger's MRIO decomposition row, 3,906.446070 kt,
 is `00_core_footprint`'s `healthcare_footprint_mrio` to six decimals,

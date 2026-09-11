@@ -275,13 +275,13 @@ def main() -> None:
           f"{two:,.1f} kt in opposite directions, every other group together "
           f"{rest:,.1f} kt")
 
-    print("\nTwo-step bridge, kt CO2eq (correction step, then year step)")
-    print(tb[["contribution_group", "value_2019_uncorrected",
-              "value_2019c", "value_2022c",
-              "delta_correction_kt", "delta_year_kt"]]
+    print("\nThree-step bridge, kt CO2eq "
+          "(shipping correction on 2016, then 2016-2019, then 2019-2022)")
+    print(tb[["contribution_group", *[f"value_{n}" for n in BRIDGE_NODES],
+              *[name for name, _a, _b in BRIDGE_STEPS]]]
           .round(1).to_string(index=False))
-    print(f"\ncorrection step net {float(tb['delta_correction_kt'].sum()):,.1f} kt "
-          f"| year step net {float(tb['delta_year_kt'].sum()):,.1f} kt")
+    for name, a, b in BRIDGE_STEPS:
+        print(f"  {a} -> {b}: net {float(tb[name].sum()):+,.1f} kt")
     print(f"\nwritten -> {out_dir}")
 
 

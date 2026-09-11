@@ -4,52 +4,52 @@ DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 2,73.3415402
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 2 (OECD first-tier convention),72.07802824813717,Doucet et al. 2025: F A Y restricted to energy sectors; under-counts on EXIOBASE ixi because T&D sit between the buyer and generation. Not added to the total
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 2 (Hertwich & Wood 2018 convention),74.99129921993699,"cradle-to-gate embodied emissions of purchased energy (E_Z = mhat Z, m = s L). Broader than the corporate standard, which puts upstream fuel in Scope 3 cat. 3. THIS IS THE MANUSCRIPT'S REPORTED SCOPE 2. Not added to this folder's total"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,self-supply loop removed,1.833390045548118,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 3,5618.459404534122,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 3,5595.063504534122,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Outside protocol,263.56770753446403,patient and visitor travel
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,TOTAL,6085.494933909016,S1+S2+S3+outside
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,TOTAL,6062.099033909017,S1+S2+S3+outside
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 1 component: direct operations,118.5541696372094,national accounts (DRIVHUS / AFFALD01) or EXIOBASE direct row of the Danish health industry. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 1 component: anaesthetic gases,11.5721119865,Medstat N01AB volatiles + NID N2O. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 3 component: pMDI propellant,11.6,"Danish EPA F-gas inventory, MDI line. Component"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 3 component: employee commuting,363.7266,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Scope 3 component: employee commuting,340.3307,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,climate_change,kt CO2eq,Outside protocol component: patient and visitor travel,263.56770753446403,TU purpose 33 + NHS visitor ratio. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 1,0.0,EXIOBASE direct of the sector
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 2,0.26181213061950626,"GHG Protocol strict: generation of purchased electricity/steam/heat, traced through T&D with the energy-block inverse; basis of this folder's partition"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 2 (OECD first-tier convention),0.257350049252803,Doucet et al. 2025: F A Y restricted to energy sectors; under-counts on EXIOBASE ixi because T&D sit between the buyer and generation. Not added to the total
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 2 (Hertwich & Wood 2018 convention),0.29096217151815795,"cradle-to-gate embodied emissions of purchased energy (E_Z = mhat Z, m = s L). Broader than the corporate standard, which puts upstream fuel in Scope 3 cat. 3. THIS IS THE MANUSCRIPT'S REPORTED SCOPE 2. Not added to this folder's total"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,self-supply loop removed,0.0,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 3,4330.927072726388,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 3,4329.963372726388,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Outside protocol,10.6529,patient and visitor travel
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,TOTAL,4341.841784857008,S1+S2+S3+outside
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,TOTAL,4340.878084857008,S1+S2+S3+outside
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 1 component: direct operations,0.0,national accounts (DRIVHUS / AFFALD01) or EXIOBASE direct row of the Danish health industry. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 1 component: anaesthetic gases,0.0,Medstat N01AB volatiles + NID N2O. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 3 component: pMDI propellant,0.0,"Danish EPA F-gas inventory, MDI line. Component"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 3 component: employee commuting,14.9822,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Scope 3 component: employee commuting,14.0185,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,material_extraction,kt,Outside protocol component: patient and visitor travel,10.6529,TU purpose 33 + NHS visitor ratio. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 1,0.0,EXIOBASE direct of the sector
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 2,0.07090981361710773,"GHG Protocol strict: generation of purchased electricity/steam/heat, traced through T&D with the energy-block inverse; basis of this folder's partition"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 2 (OECD first-tier convention),0.03725187229319919,Doucet et al. 2025: F A Y restricted to energy sectors; under-counts on EXIOBASE ixi because T&D sit between the buyer and generation. Not added to the total
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 2 (Hertwich & Wood 2018 convention),0.0781450022782236,"cradle-to-gate embodied emissions of purchased energy (E_Z = mhat Z, m = s L). Broader than the corporate standard, which puts upstream fuel in Scope 3 cat. 3. THIS IS THE MANUSCRIPT'S REPORTED SCOPE 2. Not added to this folder's total"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,self-supply loop removed,0.0,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 3,97.44528645493692,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 3,97.43878645493692,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Outside protocol,0.0761,patient and visitor travel
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,TOTAL,97.59229626855402,S1+S2+S3+outside
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,TOTAL,97.58579626855402,S1+S2+S3+outside
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 1 component: direct operations,0.0,national accounts (DRIVHUS / AFFALD01) or EXIOBASE direct row of the Danish health industry. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 1 component: anaesthetic gases,0.0,Medstat N01AB volatiles + NID N2O. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 3 component: pMDI propellant,0.0,"Danish EPA F-gas inventory, MDI line. Component"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 3 component: employee commuting,0.1015,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Scope 3 component: employee commuting,0.095,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,blue_water_consumption,Mm3,Outside protocol component: patient and visitor travel,0.0761,TU purpose 33 + NHS visitor ratio. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 1,0.0,EXIOBASE direct of the sector
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 2,0.06764434325874752,"GHG Protocol strict: generation of purchased electricity/steam/heat, traced through T&D with the energy-block inverse; basis of this folder's partition"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 2 (OECD first-tier convention),0.06216971810687174,Doucet et al. 2025: F A Y restricted to energy sectors; under-counts on EXIOBASE ixi because T&D sit between the buyer and generation. Not added to the total
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 2 (Hertwich & Wood 2018 convention),0.07472347206069956,"cradle-to-gate embodied emissions of purchased energy (E_Z = mhat Z, m = s L). Broader than the corporate standard, which puts upstream fuel in Scope 3 cat. 3. THIS IS THE MANUSCRIPT'S REPORTED SCOPE 2. Not added to this folder's total"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,self-supply loop removed,0.0,"s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 3,4989.950497171488,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 3,4989.887697171487,"footprint residual after Scope 2, plus pMDI (climate) and commuting"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Outside protocol,0.6924,patient and visitor travel
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,TOTAL,4990.710541514746,S1+S2+S3+outside
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,TOTAL,4990.647741514746,S1+S2+S3+outside
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 1 component: direct operations,0.0,national accounts (DRIVHUS / AFFALD01) or EXIOBASE direct row of the Danish health industry. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 1 component: anaesthetic gases,0.0,Medstat N01AB volatiles + NID N2O. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 3 component: pMDI propellant,0.0,"Danish EPA F-gas inventory, MDI line. Component"
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 3 component: employee commuting,0.9768,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Scope 3 component: employee commuting,0.914,"bottom-up commuting, GHG Protocol Scope 3 cat. 7. Component"
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,land_use,km2,Outside protocol component: patient and visitor travel,0.6924,TU purpose 33 + NHS visitor ratio. Component
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,waste_generation,kt,Scope 1,42.75704592555413,national accounts (DRIVHUS/AFFALD) + medical gases
 DNK,EXIOBASE v3.8.2 IOT_2022_ixi,2022,waste_generation,kt,Scope 2,0.46884740060441255,"GHG Protocol strict: generation of purchased electricity/steam/heat, traced through T&D with the energy-block inverse; basis of this folder's partition"

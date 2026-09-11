@@ -1,34 +1,34 @@
 country_producing,sector_producing,background_year,analysis_year,quantity,value,unit,source,phi_applied,phi_source,rormose_2019_cross_check
-DNK,Sea and coastal water transport,2016,2019,DK sea transport total output,15432.100020195892,M.EUR,EXIOBASE v3.8.2 IOT_2016_ixi,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,"to DK intermediate use, before",11344.763182278472,M.EUR,EXIOBASE v3.8.2 IOT_2016_ixi,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,"share to DK intermediate use, before",73.51405944383235,%,reproduces Rørmose Jensen & Iliev 2022 (74 % for 2019),0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,"share to DK intermediate use, after",7.735475790478259,%,target read from DST DIO 2016,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,phi applied (target DK intermediate share),0.0773547579047825,share (dimensionless),DST DIO 2016,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,DST DIO 2019 domestic intermediate share (cross-check),0.0931189507920632,share (dimensionless),"Statistics Denmark, input_output_en_2019.xlsx, sheet DIO",0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,Rørmose Jensen & Iliev 2022 published share (2019),0.09,share (dimensionless),"Rørmose Jensen & Iliev 2022, Statistics Denmark, 'Coupled models', pp. 11-12",0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,"cross-check gap, DST minus published",0.0031189507920632,share (dimensionless),passes while within 0.005,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,output reallocated to exports,10151.01682125383,M.EUR,this correction,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,row balance residual after correction,0.0,M.EUR,verification,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2016,2019,"max column balance residual, DK block",2.7415679824116523e-05,M.EUR,verification,0.0773547579047825,DST DIO 2016,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,DK sea transport total output,17804.525134205862,M.EUR,EXIOBASE v3.8.2 IOT_2022_ixi,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,"to DK intermediate use, before",13112.182508687809,M.EUR,EXIOBASE v3.8.2 IOT_2022_ixi,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,"share to DK intermediate use, before",73.6452245137211,%,reproduces Rørmose Jensen & Iliev 2022 (74 % for 2019),0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,"share to DK intermediate use, after",6.505289441927638,%,target read from DST DIO 2022,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,phi applied (target DK intermediate share),0.0650528944192763,share (dimensionless),DST DIO 2022,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,DST DIO 2019 domestic intermediate share (cross-check),0.0931189507920632,share (dimensionless),"Statistics Denmark, input_output_en_2019.xlsx, sheet DIO",0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,Rørmose Jensen & Iliev 2022 published share (2019),0.09,share (dimensionless),"Rørmose Jensen & Iliev 2022, Statistics Denmark, 'Coupled models', pp. 11-12",0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,"cross-check gap, DST minus published",0.0031189507920632,share (dimensionless),passes while within 0.005,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,output reallocated to exports,11953.946614946964,M.EUR,this correction,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,row balance residual after correction,7.275957614183426e-12,M.EUR,verification,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2022,2022,"max column balance residual, DK block",2.445576693332896e-05,M.EUR,verification,0.0650528944192763,DST DIO 2022,0.0931189507920632
-DNK,Sea and coastal water transport,2016_v3_7,2019,DK sea transport total output,11232.3024926512,M.EUR,EXIOBASE v3.7 IOT_2016_ixi,0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,"to DK intermediate use, before",9037.549972609468,M.EUR,EXIOBASE v3.7 IOT_2016_ixi,0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,"share to DK intermediate use, before",80.46035065848999,%,reproduces Rørmose Jensen & Iliev 2022 (74 % for 2019),0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,"share to DK intermediate use, after",7.735475790478259,%,target read from DST DIO 2016,0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,phi applied (target DK intermediate share),0.07735475790478258,share (dimensionless),DST DIO 2016,0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,DST DIO 2019 domestic intermediate share (cross-check),0.09311895079206328,share (dimensionless),"Statistics Denmark, input_output_en_2019.xlsx, sheet DIO",0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,Rørmose Jensen & Iliev 2022 published share (2019),0.09,share (dimensionless),"Rørmose Jensen & Iliev 2022, Statistics Denmark, 'Coupled models', pp. 11-12",0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,"cross-check gap, DST minus published",0.0031189507920632853,share (dimensionless),passes while within 0.005,0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,output reallocated to exports,8168.677932577148,M.EUR,this correction,0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,row balance residual after correction,5.4569682106375694e-12,M.EUR,verification,0.07735475790478258,DST DIO 2016,0.09311895079206328
-DNK,Sea and coastal water transport,2016_v3_7,2019,"max column balance residual, DK block",1.3357611123865354e-05,M.EUR,verification,0.07735475790478258,DST DIO 2016,0.09311895079206328
+DNK,Sea and coastal water transport,2016_v3_7,2019,DK sea transport total output,11232.3024926512,M.EUR,EXIOBASE v3.7 IOT_2016_ixi,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,"to DK intermediate use, before",9037.549972609468,M.EUR,EXIOBASE v3.7 IOT_2016_ixi,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,"share to DK intermediate use, before",80.46035065848999,%,reproduces Rørmose Jensen & Iliev 2022 (74 % for 2019),0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,"share to DK intermediate use, after",7.735475790478259,%,target read from DST DIO 2016,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,phi applied (target DK intermediate share),0.0773547579047825,share (dimensionless),DST DIO 2016,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,DST DIO 2019 domestic intermediate share (cross-check),0.0931189507920632,share (dimensionless),"Statistics Denmark, input_output_en_2019.xlsx, sheet DIO",0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,Rørmose Jensen & Iliev 2022 published share (2019),0.09,share (dimensionless),"Rørmose Jensen & Iliev 2022, Statistics Denmark, 'Coupled models', pp. 11-12",0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,"cross-check gap, DST minus published",0.0031189507920632,share (dimensionless),passes while within 0.005,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,output reallocated to exports,8168.677932577148,M.EUR,this correction,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,row balance residual after correction,5.4569682106375694e-12,M.EUR,verification,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016_v3_7,2019,"max column balance residual, DK block",1.3357611123865354e-05,M.EUR,verification,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,DK sea transport total output,15432.100020195892,M.EUR,EXIOBASE v3.8.2 IOT_2016_ixi,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,"to DK intermediate use, before",11344.763182278472,M.EUR,EXIOBASE v3.8.2 IOT_2016_ixi,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,"share to DK intermediate use, before",73.51405944383235,%,reproduces Rørmose Jensen & Iliev 2022 (74 % for 2019),0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,"share to DK intermediate use, after",7.735475790478259,%,target read from DST DIO 2016,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,phi applied (target DK intermediate share),0.0773547579047825,share (dimensionless),DST DIO 2016,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,DST DIO 2019 domestic intermediate share (cross-check),0.0931189507920632,share (dimensionless),"Statistics Denmark, input_output_en_2019.xlsx, sheet DIO",0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,Rørmose Jensen & Iliev 2022 published share (2019),0.09,share (dimensionless),"Rørmose Jensen & Iliev 2022, Statistics Denmark, 'Coupled models', pp. 11-12",0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,"cross-check gap, DST minus published",0.0031189507920632,share (dimensionless),passes while within 0.005,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,output reallocated to exports,10151.01682125383,M.EUR,this correction,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,row balance residual after correction,0.0,M.EUR,verification,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2016,2016,"max column balance residual, DK block",2.7415679824116523e-05,M.EUR,verification,0.0773547579047825,DST DIO 2016,0.0931189507920632
+DNK,Sea and coastal water transport,2022,2022,DK sea transport total output,17804.525134205862,M.EUR,EXIOBASE v3.8.2 IOT_2022_ixi,0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,"to DK intermediate use, before",13112.182508687809,M.EUR,EXIOBASE v3.8.2 IOT_2022_ixi,0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,"share to DK intermediate use, before",73.6452245137211,%,reproduces Rørmose Jensen & Iliev 2022 (74 % for 2019),0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,"share to DK intermediate use, after",6.505289441927638,%,target read from DST DIO 2022,0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,phi applied (target DK intermediate share),0.06505289441927638,share (dimensionless),DST DIO 2022,0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,DST DIO 2019 domestic intermediate share (cross-check),0.09311895079206328,share (dimensionless),"Statistics Denmark, input_output_en_2019.xlsx, sheet DIO",0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,Rørmose Jensen & Iliev 2022 published share (2019),0.09,share (dimensionless),"Rørmose Jensen & Iliev 2022, Statistics Denmark, 'Coupled models', pp. 11-12",0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,"cross-check gap, DST minus published",0.0031189507920632853,share (dimensionless),passes while within 0.005,0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,output reallocated to exports,11953.946614946963,M.EUR,this correction,0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,row balance residual after correction,7.275957614183426e-12,M.EUR,verification,0.06505289441927638,DST DIO 2022,0.09311895079206328
+DNK,Sea and coastal water transport,2022,2022,"max column balance residual, DK block",2.445576693332896e-05,M.EUR,verification,0.06505289441927638,DST DIO 2022,0.09311895079206328

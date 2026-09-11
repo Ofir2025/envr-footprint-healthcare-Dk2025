@@ -1,31 +1,31 @@
 price_base_year,reference_year,indicator,median,draws,seed
-none,central,Global warming (ktCO2eq),4699.686320401569,20000,42
-none,central,Material extraction (kt),4258.206159232785,20000,42
-none,central,Blue water consumption (Mm3),95.44374256073448,20000,42
-none,central,Land use (km2),4851.087924954356,20000,42
+none,central,Global warming (ktCO2eq),4675.8063798268395,20000,42
+none,central,Material extraction (kt),4257.228093343954,20000,42
+none,central,Blue water consumption (Mm3),95.43613666826646,20000,42
+none,central,Land use (km2),4851.034844660735,20000,42
 none,central,Waste generation (kt),259.5195057624535,20000,42
-none,low,Global warming (ktCO2eq),4699.686320401569,20000,42
-none,low,Material extraction (kt),4258.206159232785,20000,42
-none,low,Blue water consumption (Mm3),95.44374256073448,20000,42
-none,low,Land use (km2),4851.087924954356,20000,42
+none,low,Global warming (ktCO2eq),4675.8063798268395,20000,42
+none,low,Material extraction (kt),4257.228093343954,20000,42
+none,low,Blue water consumption (Mm3),95.43613666826646,20000,42
+none,low,Land use (km2),4851.034844660735,20000,42
 none,low,Waste generation (kt),151.28488475247696,20000,42
-none,high,Global warming (ktCO2eq),4699.686320401569,20000,42
-none,high,Material extraction (kt),4258.206159232785,20000,42
-none,high,Blue water consumption (Mm3),95.44374256073448,20000,42
-none,high,Land use (km2),4851.087924954356,20000,42
+none,high,Global warming (ktCO2eq),4675.8063798268395,20000,42
+none,high,Material extraction (kt),4257.228093343954,20000,42
+none,high,Blue water consumption (Mm3),95.43613666826646,20000,42
+none,high,Land use (km2),4851.034844660735,20000,42
 none,high,Waste generation (kt),475.9743848699559,20000,42
-nowcast_adjusted,central,Global warming (ktCO2eq),4581.6799342482045,20000,42
-nowcast_adjusted,central,Material extraction (kt),4131.344269569908,20000,42
-nowcast_adjusted,central,Blue water consumption (Mm3),92.58656651318822,20000,42
-nowcast_adjusted,central,Land use (km2),4705.600513278567,20000,42
+nowcast_adjusted,central,Global warming (ktCO2eq),4558.424204292755,20000,42
+nowcast_adjusted,central,Material extraction (kt),4130.29274925519,20000,42
+nowcast_adjusted,central,Blue water consumption (Mm3),92.5790780466883,20000,42
+nowcast_adjusted,central,Land use (km2),4705.545771381776,20000,42
 nowcast_adjusted,central,Waste generation (kt),253.0139191882692,20000,42
-nowcast_adjusted,low,Global warming (ktCO2eq),4581.6799342482045,20000,42
-nowcast_adjusted,low,Material extraction (kt),4131.344269569908,20000,42
-nowcast_adjusted,low,Blue water consumption (Mm3),92.58656651318822,20000,42
-nowcast_adjusted,low,Land use (km2),4705.600513278567,20000,42
+nowcast_adjusted,low,Global warming (ktCO2eq),4558.424204292755,20000,42
+nowcast_adjusted,low,Material extraction (kt),4130.29274925519,20000,42
+nowcast_adjusted,low,Blue water consumption (Mm3),92.5790780466883,20000,42
+nowcast_adjusted,low,Land use (km2),4705.545771381776,20000,42
 nowcast_adjusted,low,Waste generation (kt),148.02704609818272,20000,42
-nowcast_adjusted,high,Global warming (ktCO2eq),4581.6799342482045,20000,42
-nowcast_adjusted,high,Material extraction (kt),4131.344269569908,20000,42
-nowcast_adjusted,high,Blue water consumption (Mm3),92.58656651318822,20000,42
-nowcast_adjusted,high,Land use (km2),4705.600513278567,20000,42
+nowcast_adjusted,high,Global warming (ktCO2eq),4558.424204292755,20000,42
+nowcast_adjusted,high,Material extraction (kt),4130.29274925519,20000,42
+nowcast_adjusted,high,Blue water consumption (Mm3),92.5790780466883,20000,42
+nowcast_adjusted,high,Land use (km2),4705.545771381776,20000,42
 nowcast_adjusted,high,Waste generation (kt),462.96748588902733,20000,42
