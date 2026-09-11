@@ -15,71 +15,167 @@ all four of those axes and is named `<year><letter>`
 | c | v3.8.2 | yes | health care | excluded |
 | d | v3.8.2 | yes | health care + child and elder care | endogenised |
 
-Every variant carries the same figure set, drawn by the same code from the same
-tables, so a difference between them is a difference in the data and never in
-the plotting - with one stated exception, figures 3 to 6 of `2019_uncorrected`,
-below. There is no `2022a` or `2022b`: EXIOBASE v3.7's series ends at 2016, so
-it has no 2022 table and the release axis collapses for that year.
+Variants b, c and d carry the study's own newer figure set, drawn by the same
+code from the same tables, so a difference between them is a difference in the
+data and never in the plotting - with the exceptions stated per figure below.
+**Variant a carries a different set, and only that set.** There is no `2022a` or
+`2022b`: EXIOBASE v3.7's series ends at 2016, so it has no 2022 table and the
+release axis collapses for that year.
 
-Every command below carries `LANG=en_US.UTF-8` so it can be copied and pasted
-as it stands. `r/_dk_common.r` stops with that instruction if the locale is not
+## Which figure set each variant carries
+
+| Variant | Figure set | Drawn by |
+|:---|:---|:---|
+| `2019a` | Steenmeijer et al. (2022) figures 1-3 applied to the Danish results, and nothing else | `r/plot_steenmeijer_variant_a.r` |
+| `2019b`, `2019c`, `2019d`, `2022c`, `2022d` | the study's newer set, `fig1_ofir_panels` to `figS1` | `r/plot_manuscript_figures.r`, `r/plot_absolute_and_percapita.r`, `r/plot_scenarios.r` |
+| `2019_uncorrected`, `2022_uncorrected` | the newer set, as before | the same three scripts |
+
+**Why variant a differs.** Variant a is the configuration the co-author
+submitted on - EXIOBASE v3.7, no Danish sea-transport correction, health-care
+boundary, capital excluded - and the three figures above are the three his
+submitted manuscript carried: Steenmeijer et al.'s contribution analysis, sector
+hotspot analysis and geography hotspot analysis, over all five impact
+categories, each stacked to 100 %. The newer set belongs to the work done after
+submission. Publishing it under variant a would put figures beside a submitted
+estimate that the submission never made, so variant a keeps the submitted record
+exactly what it was, and the newer set is drawn for every variant that came
+after.
+
+Variant a's three figures match the originals in their groups, in their group
+ORDER, in their legend wording including the scope annotations, in their
+category labels with units, and in the y-axis title "Contribution (%)". Those
+facts are held once, as `STEEN_*` in `r/_dk_common.r`, and read by both the
+variant-a script and `r/plot_steenmeijer_replication.r`, so the two cannot drift
+apart. Two things are deliberately NOT the original's:
+
+- **The palette.** Paul Tol's `muted` qualitative scheme (SRON/EPS/TN/09-002),
+  nine hues plus a pale grey, in place of the article's pastels. It is
+  colourblind-safe by construction - built and tested under deuteranopia,
+  protanopia and tritanopia - where two of the article's pastels converge under
+  deuteranopia and are adjacent in its figure 2 stack. Its near-constant chroma
+  makes it read as one designed family, it reserves its pale grey for data that
+  is not a category of its own, which is exactly what the "Other" bucket is, and
+  it is distinct from this repository's house Okabe-Ito set, so a variant-a panel
+  cannot be mistaken for one of the newer figures. A group appearing in more than
+  one of the three figures keeps one colour across them, which the article itself
+  does not do.
+- **Share labels.** Every stacked segment carries its own percentage at the
+  segment's midpoint, in whichever of near-black and white has the higher WCAG
+  contrast against that fill. **Segments below 3 % are drawn but not labelled**:
+  at this canvas a 3 % segment is about 15 pt tall against a 12.5 pt label, so
+  anything smaller overprints its neighbours. The x-axis title says so on the
+  figure.
+
+## Which figures exist for which variant
+
+| Figure | 2019a | 2019b | 2019c | 2019d | 2019_uncorrected | 2022c | 2022d | 2022_uncorrected |
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+| `fig1_contribution_product_group` | yes | - | - | - | - | - | - | - |
+| `fig2_hotspot_sector` | yes | - | - | - | - | - | - | - |
+| `fig3_hotspot_geography` | yes | - | - | - | - | - | - | - |
+| `fig1_ofir_panels` | - | yes | yes | yes | yes | yes | yes | yes |
+| `fig1b_activity_absolute` | - | yes | yes | yes | yes | yes | yes | yes |
+| `fig1c_activity_per_capita` | - | yes | yes | yes | yes | yes | yes | yes |
+| `fig2_top_origin_industry_pairs` | - | yes | yes | yes | yes | yes | yes | yes |
+| `fig3_scopes_stacked` | - | yes | yes | yes | **no** | yes | yes | yes |
+| `fig4_scope2_sources` | - | yes | yes | yes | **no** | yes | yes | yes |
+| `fig5_scope3_sources` | - | yes | yes | yes | **no** | yes | yes | yes |
+| `fig6_scope_pairs_stacked` | - | yes | yes | yes | **no** | yes | yes | yes |
+| `fig7_boundary_matched` | - | **no** | **no** | **no** | **no** | yes | yes | **no** |
+| `fig8_mitigation_waterfall` | - | **no** | **no** | **no** | **no** | yes | **no** | **no** |
+| `fig9_burden_shifting` | - | **no** | **no** | **no** | **no** | yes | **no** | **no** |
+| `figS1_geographical_origin` | - | yes | yes | yes | yes | yes | yes | yes |
+
+A `-` is a figure that is not part of that variant's set at all; a **no** is a
+figure of that variant's set that the data cannot support, and every one of them
+is a withheld figure rather than a missing one:
+
+- **Figures 3 to 6 of `2019_uncorrected`.** `02_scopes_wood_hertwich` publishes
+  no tables for that run, so `plot_manuscript_figures.r` says so and skips those
+  four rather than aborting. The reason is in "Which variants can draw figures 3
+  to 6" below.
+- **Figure 7, `2019*` and the uncorrected runs.** The benchmark table it draws
+  is built on the 2022 shipping-corrected background, and the script is guarded
+  to that year and correction state so a 2019 run cannot republish a 2022 result
+  under a 2019 filename. Note that figure 7 is a boundary LADDER whose first bar
+  is variant c and whose last bar is variant d, so it is not a per-variant
+  result: the file in `2022c/` and the file in `2022d/` are byte-identical by
+  construction, and the bars name their own boundary and capital treatment.
+- **Figures 8 and 9, everything but `2022c`.** `18_mitigation_scenarios`
+  publishes ONE scenario layer, whose baseline climate footprint is 4,675.47 kt
+  - variant 2022c exactly. `plot_scenarios.r` stops unless the run is 2022, and
+  running it under `2022d` would put variant c's baseline and levers in variant
+  d's folder. It is therefore run for `2022c` and for nothing else.
+
+## Rendering
+
+Every command below carries `LANG=en_US.UTF-8` so it can be copied and pasted as
+it stands. `r/_dk_common.r` stops with that instruction if the locale is not
 UTF-8, because a C locale drops CO₂, Mm³ and km² to `..` in every figure, and
 prose above a code block is not a prefix.
 
+All five model-selecting variables are set on every line, even where the value is
+the default, so a line is self-contained and an exported `HC_*` left over from an
+earlier run cannot silently change which variant is drawn.
+
 ```bash
-# 2022c - EXIOBASE v3.8.2 IOT_2022 with the Danish sea-transport reallocation
-# applied. The manuscript's headline.
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_absolute_and_percapita.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_scenarios.r
+# ---- variant a: Steenmeijer figures 1-3, and only those --------------------
+# EXIOBASE v3.7 IOT_2016, uncorrected: the release and correction state the
+# manuscript was submitted on. HC_EXIOBASE_RELEASE is what selects it; without
+# it the run is v3.8.2 and is NOT variant a.
+#
+# DKHC_FIG_DIR is the PARENT here, not the variant folder: this script appends
+# the folder that variant_name() resolved, the same resolver that chose the gold
+# tables, so one variant's numbers cannot be written into another's folder.
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG= HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript Rscript r/plot_steenmeijer_variant_a.r
 
-# 2022d - the same year and correction, child care inside the boundary and
-# consumption of fixed capital inside the Leontief inverse
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2022d Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2022d Rscript r/plot_absolute_and_percapita.r
+# ---- variant b: v3.7, shipping-corrected ------------------------------------
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_absolute_and_percapita.r
 
-# 2022_uncorrected - same background, correction NOT applied. Not a lettered
-# variant: it is v3.8.2 without the correction.
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_absolute_and_percapita.r
+# ---- 2019c: v3.8.2 IOT_2016, corrected, so it is comparable with 2022c on
+# release, correction, boundary and capital alike ----------------------------
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019c Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019c Rscript r/plot_absolute_and_percapita.r
 
-# 2019a - EXIOBASE v3.7 IOT_2016, uncorrected: the release and correction state
-# the manuscript was submitted on. HC_EXIOBASE_RELEASE is what selects it, and
-# without it the run is v3.8.2 and is NOT variant a.
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 DKHC_FIG_DIR=figures/manuscript/2019a Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 DKHC_FIG_DIR=figures/manuscript/2019a Rscript r/plot_absolute_and_percapita.r
+# ---- 2019d: the widest boundary on the 2016 table ---------------------------
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2019d Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2019d Rscript r/plot_absolute_and_percapita.r
 
-# 2019b - the same release, shipping-corrected
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_absolute_and_percapita.r
+# ---- 2022c: the manuscript's headline. The only variant that draws figures
+# 8 and 9, because the scenario layer's baseline IS this variant -------------
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_absolute_and_percapita.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_scenarios.r
 
-# 2019c - v3.8.2 IOT_2016 with the same correction applied, so it is comparable
-# with 2022c on release, correction, boundary and capital alike
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019c Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019c Rscript r/plot_absolute_and_percapita.r
+# ---- 2022d: the same year and correction, child care inside the boundary and
+# consumption of fixed capital inside the Leontief inverse. plot_scenarios.r is
+# deliberately NOT run here - see "Figures 8 and 9" above -------------------
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2022d Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2022d Rscript r/plot_absolute_and_percapita.r
 
-# 2019d - the widest boundary on the 2016 table
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2019d Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2019d Rscript r/plot_absolute_and_percapita.r
+# ---- 2019_uncorrected: v3.8.2 IOT_2016 with no correction. NOT variant a: the
+# submitted estimate was computed on v3.7, which 2019a runs -----------------
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG= HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG= HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_absolute_and_percapita.r
 
-# 2019_uncorrected - v3.8.2 IOT_2016 with no correction. NOT variant a: the
-# submitted estimate was computed on v3.7, which 2019a runs.
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_absolute_and_percapita.r
+# ---- 2022_uncorrected: same background as 2022c, correction NOT applied -----
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG= HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG= HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_absolute_and_percapita.r
 
-# fig10, the cross-year bridge - not tied to any one variant folder, so it
-# writes straight into comparison/ rather than one of the variant folders above
+# ---- fig10, the cross-year bridge - not tied to any one variant folder, so it
+# writes straight into comparison/ rather than one of the variant folders -----
 LANG=en_US.UTF-8 DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_bridge.r
 
-# the four scope-emission TIFFs, which live in figures/scopes/ rather than here
-# and name their variant in the filename; the tag is not optional, because
-# without it the layer resolves to the uncorrected run
+# ---- the four scope-emission TIFFs, which live in figures/scopes/ rather than
+# here and name their variant in the filename; the tag is not optional, because
+# without it the layer resolves to the uncorrected run ------------------------
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship Rscript r/plot_scope_emissions.r
 ```
 
-The locale matters twice over. R also parses source files in the process
-locale, and under `C` the non-ASCII characters in the labels are mangled:
-"Södersten" came out as "S..dersten" with no warning.
+The locale matters twice over. R also parses source files in the process locale,
+and under `C` the non-ASCII characters in the labels are mangled: "Södersten"
+came out as "S..dersten" with no warning.
 
 ## What the scope figures' fourth series is
 
@@ -104,7 +200,6 @@ which is the difference the variant scheme exists to show.
 
 | Variant | Figures 1, 2, S1 | Figures 3-6 |
 |:---|:---|:---|
-| `2019a` | yes | yes |
 | `2019b` | yes | yes |
 | `2019c` | yes | yes |
 | `2019d` | yes | yes |
@@ -112,6 +207,11 @@ which is the difference the variant scheme exists to show.
 | `2022d` | yes | yes |
 | `2022_uncorrected` | yes | yes |
 | `2019_uncorrected` | yes | **not drawn** - layer 02 does not publish this run |
+
+`2019a` is not in this table: it carries the Steenmeijer set instead, which has
+no scope partition in it. Its scope tables exist in
+`02_scopes_wood_hertwich/2019a/` all the same, and the scope figures could be
+drawn from them if the set for that variant ever changed.
 
 `2019_uncorrected` is the one gap, and it is a withheld figure rather than a
 wrong one. The uncorrected and shipping-corrected 2016 model objects on disk
@@ -154,6 +254,19 @@ the release as well.
 
 ## The set
 
+**Variant a's set** (`r/plot_steenmeijer_variant_a.r`). The filenames carry the
+variant letter, which the newer set's do not: these three are the only figures
+that will be laid beside the submitted manuscript, and a TIFF pulled out of its
+folder must still say which model run it came from.
+
+| File | What it shows |
+|:---|:---|
+| `fig1_contribution_product_group_2019a` | Contribution analysis: what health care BUYS, by product group, all five categories, stacked to 100 %. Steenmeijer figure 1. |
+| `fig2_hotspot_sector_2019a` | Sector hotspot analysis: where the impact PHYSICALLY OCCURS, by industry group. Steenmeijer figure 2. |
+| `fig3_hotspot_geography_2019a` | Geography hotspot analysis: in which world region it occurs. Steenmeijer figure 3. |
+
+**The newer set** (variants b, c, d and the two uncorrected runs).
+
 | File | What it shows |
 |:---|:---|
 | `fig1_ofir_panels` | The submitted figures 1-3 as one panelled figure: activity contribution, sector contribution, geographical origin. Absolute values, bars labelled with their share. |
@@ -164,16 +277,17 @@ the release as well.
 | `fig4_scope2_sources` | Where Scope 2 arises, by region × industry pair. |
 | `fig5_scope3_sources` | The same for Scope 3. |
 | `fig6_scope_pairs_stacked` | The largest pairs, stacked by scope. |
-| `fig7_boundary_matched` | 2022 only. The two boundary steps from this study's headline to Schmidt & Merciai's published value. |
-| `fig8_mitigation_waterfall` | 2022 only. Every quantified mitigation lever against the regional target and against demand growth. |
-| `fig9_burden_shifting` | 2022 only. Every lever at its most ambitious level against every impact category, as relative change, with a cell outlined where climate improves and another pressure worsens. |
+| `fig7_boundary_matched` | 2022 corrected runs only. The two boundary steps from this study's headline to Schmidt & Merciai's published value. |
+| `fig8_mitigation_waterfall` | `2022c` only. Every quantified mitigation lever against the regional target and against demand growth. |
+| `fig9_burden_shifting` | `2022c` only. Every lever at its most ambitious level against every impact category, as relative change, with a cell outlined where climate improves and another pressure worsens. |
 | `figS1_geographical_origin` | Geographical origin on its own, for the SI. |
 
 `fig7`, `fig8` and `fig9` are each guarded to the year their source table was
 built for, so a 2019 run cannot republish a 2022 result under a 2019 filename.
-`fig8` and `fig9` come from `r/plot_scenarios.r`; the bar version that once
-lived in `plot_manuscript_figures.R` was removed, so only one script writes a
-figure eight.
+`fig8` and `fig9` come from `r/plot_scenarios.r`, which is run for `2022c`
+alone because the scenario layer's baseline is that variant; the bar version
+that once lived in `plot_manuscript_figures.R` was removed, so only one script
+writes a figure eight.
 
 ## Conventions
 
@@ -187,6 +301,15 @@ Set in `r/_dk_common.r` and applied to every figure:
 - Type sizes ranked: facet title > legend > axis title > tick label, floor 8 pt.
 - Tick labels in `#1A1A1A`; `grey15` read as faint at page scale.
 - Okabe-Ito palette, one hue per indicator, remainder in grey.
+
+Variant a's three figures set two of these aside on purpose, and only these
+two: the legend is on the RIGHT, because eight legend entries of up to 56
+characters do not read at the foot of a 100 % bar chart and the right-hand
+legend runs top-to-bottom in the same order as the stack, which is how the
+original is meant to be read; and the palette is Paul Tol's `muted` rather than
+Okabe-Ito, for the reasons given under "Which figure set each variant carries".
+No title and no caption on the image is the rule that is NOT set aside
+anywhere.
 
 **Remainder bars.** Every top-N ranking shows what it leaves out. Because the
 tail of a 200 × 200 MRIO is routinely several times the largest ranked bar, the
