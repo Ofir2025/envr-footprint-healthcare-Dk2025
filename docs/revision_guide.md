@@ -39,7 +39,7 @@ error, and draft wording for the limitations paragraph are in
    Statistics Denmark published this defect (Rørmose Jensen & Iliev 2022) and EXIOBASE's
    own hybrid build gives 7.8 % natively, so the correction reconstructs an allocation
    official Danish practice already applies rather than proposing a new method.
-   Transport falls from 37.5 % to **18.5 %** of the supply-chain footprint.
+   Transport falls from 37.5 % to **17.8 %** of the supply-chain footprint.
    See [`docs/methods/replications.md`, section 10](methods/replications.md#r10)
    and [`docs/revision/results_2022.md`, "The withdrawn transport finding"](revision/results_2022.md#the-withdrawn-transport-finding).
 

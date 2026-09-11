@@ -230,8 +230,11 @@ caution in Jakobs 2023). On the screened v3.10.2 build, the Danish national
 consumption-based climate footprint came to **64.7 Mt against DST's official
 AFTRYK 62.9 Mt (+2.9 %)**; unscreened, it was **69.3 Mt**. Both numbers
 describe the withdrawn build, not the adopted model, whose own Danish
-national footprint is **77.5 Mt** on the corrected v3.8.2 background (see
-section 4 below and `../revision/results_2022.md` §3).
+national footprint is **77.2 Mt** on the corrected v3.8.2 background, with
+the sea-transport target read from Statistics Denmark's own table for the
+background year (see section 4 below and `../revision/results_2022.md` §3;
+`data/gold/results/00_core_footprint/national_totals_summary.csv`,
+77,240.6 kt).
 
 Outlier screening is retained on v3.8.2 only as a diagnostic and reported as a
 sensitivity (section 2.3 above); the headline model needs none of it, because
@@ -345,10 +348,17 @@ measure **73.6 %** on v3.8.2 `IOT_2022_ixi`, which is their figure to the
 decimal. EXIOBASE's own hybrid build gives 7.8 % natively with no correction,
 which is independent confirmation that the monetary build is the thing at fault.
 
-We reallocate to the 9 % target. Total output of the row is left alone, because
+We reallocate to a target read from Statistics Denmark's own domestic
+input-output table for the background year — **6.5 %** for 2022, not the 9 %
+figure Rørmose Jensen & Iliev (2022) publish for 2019 alone; reading their
+2019 table the same way returns 9.3 %, reproducing their published figure to
+0.3 percentage points, which is the check that licenses reading the other
+years off the same table (see
+[`docs/methods/replications.md`, "Where $\phi$ comes from"](replications.md#r10-phi)
+for the per-year values). Total output of the row is left alone, because
 it is not in dispute; only the destination of the flows changes, and the released
-11,509.8 M.EUR goes to exports. **Transport falls from 37.5 % to 18.5 % of the
-supply-chain footprint**, which is 15.5 % of the 4,712 kt total.
+11,953.9 M.EUR goes to exports. **Transport falls from 37.5 % to 17.8 % of the
+supply-chain footprint**, which is 14.9 % of the 4,675 kt total.
 
 **This must be in the manuscript and the SI**, because the submitted paper's most
 quotable finding, that transport is 38 to 43 % of the Danish health-care
