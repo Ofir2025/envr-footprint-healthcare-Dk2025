@@ -34,13 +34,16 @@ def health_services_expenditure() -> float:
     """Danish health-care services expenditure of THIS variant, M.EUR.
 
     Read from this variant's own ``table_01.csv``, not from
-    ``dk_data_2025.csv``. That file is one file for every reference year and
-    every care boundary: :mod:`analysis.main_2025` overwrites it on each run,
-    so it holds whichever configuration ran last, and the identity test below -
-    which compares the variant's own background against this expenditure -
-    silently measured two different runs against each other whenever the two
-    disagreed. The gold table is variant-scoped and carries the same float, so
-    the test now compares a variant with itself.
+    ``dk_data_<year>.csv``. That file used to be one file for every reference
+    year *and* every care boundary: :mod:`analysis.main_2025` overwrote it on
+    each run, so it held whichever configuration ran last, and the identity
+    test below - which compares the variant's own background against this
+    expenditure - silently measured two different runs against each other
+    whenever the two disagreed. The year half of that is now fixed, since the
+    file carries the year it holds; the boundary half is not, because a
+    ``zorg_en_welzijn`` run writes no silver frame at all rather than writing
+    its own. The gold table is variant-scoped on all four axes and carries the
+    same float, so the test compares a variant with itself either way.
 
     Returns
     -------

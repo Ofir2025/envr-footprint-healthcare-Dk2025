@@ -97,7 +97,7 @@ import numpy as np
 import pandas as pd
 
 from paths import (BACKGROUND_DIR, ERIKSEN_INTERIM_DIR, OUTPUT_DIR,
-                   SILVER_DK_BOTTOMUP_TXT)
+                   silver_dk_bottomup_txt)
 from analysis.export_tables import _labels, _node_frame
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
@@ -163,7 +163,8 @@ def main() -> None:
     # Bottom-up items, all five categories. `main_2025` rewrites this file in
     # place with the Danish primary values for the year it was run for, so this
     # module must run straight after it for the same year.
-    bu = pd.read_csv(SILVER_DK_BOTTOMUP_TXT, sep="\t").set_index("Source")
+    bu = pd.read_csv(silver_dk_bottomup_txt(ANALYSIS_YEAR),
+                     sep="\t").set_index("Source")
     for _row in ("Anaesthetic", "pMDI", "Commute (total)",
                  "Visitor travel (total)"):
         missing = [c for c in DIRECT_COL.values() if c not in bu.columns]

@@ -24,7 +24,7 @@ folder named for the bronze folder it derives from, so a path says where a
 number came from. The mirror folders are named constants here -- there is no
 ``SILVER_INPUT_DIR`` any more, and no module builds a silver path by joining
 strings at the call site, because that is how three modules came to read
-``dk_data_2025.csv`` through ``BACKGROUND_DIR / ".." / "inputs"``.
+the Danish expenditure frame through ``BACKGROUND_DIR / ".." / "inputs"``.
 """
 
 import os
@@ -141,21 +141,59 @@ SILVER_MIRROR_DIRS: tuple[Path, ...] = (
 # name could go stale. Three of them spelled it as
 # ``BACKGROUND_DIR / ".." / "inputs"``, which survived the move of the file it
 # pointed at only because the move had not happened yet.
+#
+# All three are YEAR-SCOPED, and they are functions rather than constants for
+# that reason. Two of them used to be one tracked file each for every analysis
+# year, overwritten on every run, under the names ``dk_data_2025.csv`` and
+# ``dk_bottomup_data_2025.txt`` - where ``2025`` was an edition marker and not a
+# year of data. A 2019 run left 2019 values in the file a 2022 run then read,
+# and every reader of them read whichever year happened to have run last. A
+# path that cannot be built without naming a year cannot be read for the wrong
+# one.
 # ---------------------------------------------------------------------------
 
-#: The Danish expenditure, price-conversion and direct-emission frame
-#: ``functions_2025.createBackground`` consumes. Written by
-#: :mod:`analysis.main_2025`; read by :mod:`analysis.export_tables`,
-#: :mod:`analysis.lenzen_replication`, :mod:`analysis.malik_replication` and
-#: :mod:`analysis.waste_validation`.
-SILVER_DK_DATA_CSV = SILVER_DST_SUPPLY_USE_DIR / "dk_data_2025.csv"
 
-#: The Danish bottom-up inventory: the four non-MRIO items, scaled from the
-#: Dutch baseline and then overwritten with Danish primary values. Written by
-#: :mod:`analysis.main_2025`; read by :mod:`analysis.scopes_detail` and
-#: :mod:`analysis.mitigation_scenarios`.
-SILVER_DK_BOTTOMUP_TXT = (SILVER_NETHERLANDS_REFERENCE_DIR
-                          / "dk_bottomup_data_2025.txt")
+def silver_dk_data_csv(year: str) -> Path:
+    """Path of the expenditure and direct-emission frame for one year.
+
+    Parameters
+    ----------
+    year : str
+        Four-digit analysis year, e.g. ``"2022"``.
+
+    Returns
+    -------
+    Path
+        ``data/silver/dst_supply_use/dk_data_<year>.csv``, the three-row frame
+        ``functions_2025.createBackground`` consumes. Written by
+        :mod:`analysis.main_2025`; read by :mod:`analysis.export_tables`,
+        :mod:`analysis.lenzen_replication`, :mod:`analysis.malik_replication`
+        and :mod:`analysis.waste_validation`.
+    """
+    return SILVER_DST_SUPPLY_USE_DIR / f"dk_data_{year}.csv"
+
+
+def silver_dk_bottomup_txt(year: str) -> Path:
+    """Path of the Danish bottom-up inventory for one year.
+
+    Parameters
+    ----------
+    year : str
+        Four-digit analysis year, e.g. ``"2022"``.
+
+    Returns
+    -------
+    Path
+        ``data/silver/netherlands_reference/dk_bottomup_data_<year>.txt``: the
+        four non-MRIO items, scaled from the Dutch baseline and then overwritten
+        with Danish primary values. Written by :mod:`analysis.main_2025`; read
+        by :mod:`analysis.scopes_detail` and
+        :mod:`analysis.mitigation_scenarios`. Every value in it is analysis-year
+        specific - both scaling factors and both medical-gas values differ
+        between 2019 and 2022 - which is why it is the file the missing year
+        scope mattered most in.
+    """
+    return SILVER_NETHERLANDS_REFERENCE_DIR / f"dk_bottomup_data_{year}.txt"
 
 
 def silver_dk_expenditure_breakdown_csv(year: str) -> Path:

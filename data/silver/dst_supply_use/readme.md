@@ -21,14 +21,15 @@ publications.
 
 | file | derives from | transformation | rows × cols | rebuild |
 |:---|:---|:---|:---|:---|
-| `dk_data_2025.csv` | `dk_umat_2019.xlsx` (2019) or `input_output_en_2022.xlsx` (2022), plus `dk_direct_emissions_drivhus.csv` | healthcare totals summed over the boundary's purpose × transaction cells, converted 1000 DKK → M.EUR at the year's Nationalbank average, `Conversion` set to 1.0, `DirectEm` built from DRIVHUS less hospital N2O | 3 × 6 | `HC_ANALYSIS_YEAR=<year> HC_BACKGROUND_TAG=_snacship PYTHONPATH=src .venv/bin/python -m analysis.main_2025` |
+| `dk_data_2019.csv` | `dk_umat_2019.xlsx`, sheet `Ubas`, plus `dk_direct_emissions_drivhus.csv` | healthcare totals summed over the boundary's purpose × transaction cells, converted 1000 DKK → M.EUR at the year's Nationalbank average, `Conversion` set to 1.0, `DirectEm` built from DRIVHUS less hospital N2O | 3 × 6 | `HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src .venv/bin/python -m analysis.main_2025` |
+| `dk_data_2022.csv` | `input_output_en_2022.xlsx`, sheets `CP` and `IO`, plus `dk_direct_emissions_drivhus.csv` | the same | 3 × 6 | the same, with `HC_ANALYSIS_YEAR=2022` |
 | `dk_expenditure_breakdown_2019.csv` | `dk_umat_2019.xlsx`, sheet `Ubas` | every (purpose × transaction) cell that entered the 2019 totals, kept unaggregated as a provenance record | 14 × 5 | the same, with `HC_ANALYSIS_YEAR=2019` |
 | `dk_expenditure_breakdown_2022.csv` | `input_output_en_2022.xlsx`, sheets `CP` and `IO` | the same for 2022, with the sheet each cell came from | 15 × 6 | the same, with `HC_ANALYSIS_YEAR=2022` |
-| `dk_health_expenditure_frame.csv` | all three bronze sources above, both years | the `dk_data_2025.csv` frame rebuilt for **both** analysis years in one pass, so a consumer can select a year instead of inheriting whichever ran last | 6 × 6 | `PYTHONPATH=src .venv/bin/python -m analysis.build_shipping_inputs` |
+| `dk_health_expenditure_frame.csv` | all three bronze sources above, both years | the `dk_data_<year>.csv` frame rebuilt for **both** analysis years in one pass, so a consumer can select a year from one file instead of choosing which file to open | 6 × 6 | `PYTHONPATH=src .venv/bin/python -m analysis.build_shipping_inputs` |
 
 ## Columns
 
-### `dk_data_2025.csv`
+### `dk_data_2019.csv`, `dk_data_2022.csv`
 
 The shape `functions_2025.createBackground` consumes, read positionally, so the
 row order matters: `Expenditure`, `Conversion`, `DirectEm`.
@@ -76,7 +77,7 @@ difference inside one aggregate.
 
 ### `dk_health_expenditure_frame.csv`
 
-The same three-row frame as `dk_data_2025.csv`, once per analysis year.
+The same three-row frame as `dk_data_<year>.csv`, both years in one file.
 
 | column | unit | meaning |
 |:---|:---|:---|
@@ -90,12 +91,26 @@ The same three-row frame as `dk_data_2025.csv`, once per analysis year.
 Read it with `float_precision="round_trip"`: these values enter a Leontief
 inversion, so the last bit of the float is a published number.
 
-## Known defect
+## Fixed defect: the year scope
 
-`dk_data_2025.csv` is **one file for every analysis year**, overwritten on every
-run, and the `2025` in its name is an edition marker rather than a year of data.
-A 2019 run leaves 2019 values in the file a 2022 run then reads. The two
-breakdowns beside it are year-scoped and `dk_health_expenditure_frame.csv` carries
-both years, so no value is lost — what is missing is the file itself saying which
-year it holds. `analysis.dk_shipping_correction` already reads the frame table
-rather than this file for exactly that reason.
+There used to be one `dk_data_2025.csv` for every analysis year, overwritten on
+every run, with `2025` an edition marker rather than a year of data: a 2019 run
+left 2019 values in the file a 2022 run then read. The file is now year-scoped,
+and `paths.silver_dk_data_csv` is a function of the year rather than a constant,
+so a reader cannot resolve the path without saying which year it wants.
+
+The 2019 file was seeded from the 2019 block of
+`dk_health_expenditure_frame.csv`, which had carried both years all along, and a
+2019 run then reproduced it byte for byte — so the split recovered the values
+rather than inventing them.
+
+## Remaining defect: the boundary scope
+
+`analysis.main_2025` persists `dk_data_<year>.csv` and
+`dk_expenditure_breakdown_<year>.csv` **only** for the manuscript boundary
+(`HC_SCOPE=health_eldercare`), and skips the write for any other boundary rather
+than writing that boundary's own file. So these files are scoped on one of the
+four axes the gold folders are named on, and a `zorg_en_welzijn` run has no
+silver frame at all. The skip is deliberate and is the safe half of the problem —
+it is what stops a scenario run leaving the wrong boundary's totals in a tracked
+file — but the boundary is not in the name the way the year now is.

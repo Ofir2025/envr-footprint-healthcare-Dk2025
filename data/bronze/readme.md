@@ -50,8 +50,8 @@ recorded with the evidence that established it as dead.
 |:---|:---|
 | `bottomup_data.txt` | pre-`ISO2` copy of `netherlands_reference/nl_bottomup_data.txt`; identical to it in every value, differing only by the absent `ISO2` column, and read by nothing (`analysis.main` and `analysis.main_2025` both read the `nl_` file) |
 | `cbs_data_2016.csv` | pre-`ISO2` copy of `netherlands_reference/nl_cbs_data_2016.csv`, same evidence: identical values, no `ISO2` column, no reader |
-| `bottomup_data_2025.txt` | a pipeline product, not a source. Its values are `nl_bottomup_data.txt` multiplied by a superseded scaling set (Commute 0.544, Visitor 0.636); `analysis.main_2025` now writes the live file to `data/silver/netherlands_reference/dk_bottomup_data_2025.txt` on the 2026-09 factors, and every reader points there |
-| `dk_data_2025.csv` | a pipeline product. `analysis.main_2025` writes the live copy to `data/silver/dst_supply_use/dk_data_2025.csv`, which has five readers; the bronze copy had none |
+| `bottomup_data_2025.txt` | a pipeline product, not a source. Its values are `nl_bottomup_data.txt` multiplied by a superseded scaling set (Commute 0.544, Visitor 0.636); `analysis.main_2025` now writes the live file to `data/silver/netherlands_reference/dk_bottomup_data_<year>.txt` on the 2026-09 factors, and every reader points there |
+| `dk_data_2025.csv` | a pipeline product. `analysis.main_2025` writes the live copy to `data/silver/dst_supply_use/dk_data_<year>.csv`, which has five readers; the bronze copy had none |
 | `dk_data_2025_raw.csv` | referenced by no module, no script, no document; an intermediate of the expenditure conversion that predates the silver layer |
 | `commuting_private_travel_calculations_2025.xlsx` | superseded by `dk_travel_survey/commuting_private_travel_calculations_2026.xlsx`, which is the workbook `analysis.main_2025` cites for the 2026-09 commute and visitor factors. The 2025 workbook has a single undocumented sheet and no reader |
 

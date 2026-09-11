@@ -34,7 +34,7 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from paths import BRONZE_DIR, BACKGROUND_DIR, OUTPUT_DIR, SILVER_DK_DATA_CSV
+from paths import BRONZE_DIR, BACKGROUND_DIR, OUTPUT_DIR, silver_dk_data_csv
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
 from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL, model_label  # noqa: E402
@@ -157,7 +157,7 @@ def main() -> None:
     exp.to_csv(os.path.join(out_dir, "expenditure_vector_detail.csv"), index=False)
     print(f"expenditure_vector_detail.csv: {len(exp):,} rows, "
           f"y_H total {exp['value'].sum():,.1f} M.EUR")
-    dk = pd.read_csv(SILVER_DK_DATA_CSV)
+    dk = pd.read_csv(silver_dk_data_csv(ANALYSIS_YEAR))
     bp = dk[dk["Index"] == "Expenditure"].iloc[0]
     conv = dk[dk["Index"] == "Conversion"].iloc[0]
     esum = pd.DataFrame([

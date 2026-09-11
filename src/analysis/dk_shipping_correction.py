@@ -425,8 +425,10 @@ def _cbs_expenditure_frame(analysis_year: str) -> pd.DataFrame:
     same :mod:`analysis.extra_functions` routines :mod:`analysis.main_2025`
     calls. Reading it here rather than rebuilding it from bronze is what keeps
     this module on one side of the layer boundary; carrying it per analysis
-    year is what keeps it from picking up whichever year ran last, which is why
-    it is not the ``dk_data_2025.csv`` frame beside it in silver.
+    year is what keeps it from picking up whichever year ran last. It predates
+    ``dk_data_<year>.csv`` being year-scoped at all, and both now carry the year
+    they hold; this module reads the two-year table because selecting a year
+    from one file is cheaper than deciding which of two files to open.
 
     Parameters
     ----------

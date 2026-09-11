@@ -111,32 +111,49 @@ export HC_SILVER_DIR=/path/to/data/silver
 
 ## What is and is not in version control
 
-Silver is regenerable, so almost none of it is tracked. Four files are, and the
+Silver is regenerable, so almost none of it is tracked. Six files are, and the
 repository `.gitignore` un-ignores them one pattern at a time, because the
 author's global excludes file drops every `*.csv` and that is exactly how a
 required input once came to sit on one machine's disk and in no clone:
 
 | tracked | why |
 |:---|:---|
-| `dst_supply_use/dk_data_2025.csv` | the expenditure and direct-emission frame every replication module reads; three numbers the manuscript's headline rests on |
+| `dst_supply_use/dk_data_2019.csv` | the 2019 expenditure and direct-emission frame every replication module reads |
+| `dst_supply_use/dk_data_2022.csv` | the same for 2022; three numbers the manuscript's headline rests on |
 | `dst_supply_use/dk_expenditure_breakdown_2019.csv` | provenance record of the 2019 expenditure boundary, column by column |
 | `dst_supply_use/dk_expenditure_breakdown_2022.csv` | the same for 2022 |
-| `netherlands_reference/dk_bottomup_data_2025.txt` | the four bottom-up items, which are Danish primary data and are not reproducible from bronze alone |
+| `netherlands_reference/dk_bottomup_data_2019.txt` | the four bottom-up items for 2019, Danish primary data not reproducible from bronze alone |
+| `netherlands_reference/dk_bottomup_data_2022.txt` | the same for 2022 |
 
 Untracked and rebuilt on demand: the 78 MB-per-year named register, the three
 shipping-stage tables, the concordance, the background store and the handoff
 workbooks. Every one of them is named in its folder's readme with the command
 that produces it.
 
-## Known defect
+## Fixed defect: the year scope
 
-`dst_supply_use/dk_data_2025.csv` and
-`netherlands_reference/dk_bottomup_data_2025.txt` are **one file each for every
-analysis year**, overwritten on every run. A 2019 run leaves 2019 values in the
-file a 2022 run then reads, and the `2025` in their names is an edition marker,
-not a year of data. Their two-year neighbours — `dk_expenditure_breakdown_2019`
-and `_2022`, `dk_atc_sales_2019` and `_2022`, and
-`dk_health_expenditure_frame.csv`'s one block per analysis year — show what the
-fix looks like. The frame file already carries both years, so the values are not
-lost; the defect is that the two single-year files do not say which year they
-hold.
+`dk_data_2025.csv` and `dk_bottomup_data_2025.txt` used to be **one file each for
+every analysis year**, overwritten on every run, with `2025` an edition marker
+rather than a year of data. A 2019 run left 2019 values in the file a 2022 run
+then read, and every reader of them read whichever year had run last.
+
+They are now `dk_data_<year>.csv` and `dk_bottomup_data_<year>.txt`, which is the
+pattern their neighbours already used — `dk_expenditure_breakdown_<year>.csv`,
+`dk_atc_sales_<year>.csv` — and `paths.silver_dk_data_csv` and
+`paths.silver_dk_bottomup_txt` are functions of the year rather than constants,
+so a path cannot be built without naming a year and cannot be read for the wrong
+one. Verified by a 2022 → 2019 → 2022 round trip: the 2019 run left
+`dk_data_2022.csv` and `dk_bottomup_data_2022.txt` untouched, and the 2022 gold
+tables came back byte-identical.
+
+## Remaining defect: the boundary scope
+
+The year is scoped; the **care boundary** is not. `analysis.main_2025` persists
+`dk_data_<year>.csv` and `dk_expenditure_breakdown_<year>.csv` only for the
+manuscript boundary (`HC_SCOPE=health_eldercare`) and skips the write entirely
+for any other, keeping that run's totals in memory. That is safe — a scenario run
+cannot leave the wrong boundary's numbers in a tracked file — but it means these
+files describe one boundary of the four configuration axes the gold folders are
+named on, and a `zorg_en_welzijn` run has no silver frame of its own.
+`analysis.double_counting_audit` records the same asymmetry from the reader's
+side.

@@ -37,7 +37,7 @@ import numpy as np
 import pandas as pd
 
 from analysis.constants import BACKGROUND_YEAR, NODE_DK_HEALTH
-from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_DK_DATA_CSV
+from paths import BACKGROUND_DIR, OUTPUT_DIR, silver_dk_data_csv
 
 API = "https://api.statbank.dk/v1/data"
 ALPHA_ELDERCARE = 0.4914  # 12401 share of industry 880000's individually consumed output
@@ -96,7 +96,7 @@ def main() -> None:
     modelled_direct_kt = float(bg["Hstim"][6, 0])
     # The inherited hybrid value, recomputed from the intensity matrix, which
     # the replacement does not touch. See the module docstring.
-    expenditure = pd.read_csv(SILVER_DK_DATA_CSV)
+    expenditure = pd.read_csv(silver_dk_data_csv(str(year)))
     e_h = float(expenditure[expenditure["Index"] == "Expenditure"]
                 .iloc[0]["HC service"])
     hybrid_direct_kt = float(bg["B"][6, NODE_DK_HEALTH]) * e_h

@@ -21,7 +21,8 @@ factors and replacement values, not structure.
 
 | file | derives from | transformation | rows × cols | size |
 |:---|:---|:---|:---|:---|
-| `dk_bottomup_data_2025.txt` | `nl_bottomup_data.txt` | every impact column of the four sources multiplied by its Danish/Dutch factor; the `(total)` rows recomputed from their scaled `(direct)` and `(indirect)` rows rather than scaled directly; the two medical-gas climate values then **replaced** by Danish primary values; `ISO2` set to `DK` | 8 × 7 | 480 B |
+| `dk_bottomup_data_2019.txt` | `nl_bottomup_data.txt` | every impact column of the four sources multiplied by its 2019 Danish/Dutch factor; the `(total)` rows recomputed from their scaled `(direct)` and `(indirect)` rows rather than scaled directly; the two medical-gas climate values then **replaced** by Danish primary values; `ISO2` set to `DK` | 8 × 7 | 481 B |
+| `dk_bottomup_data_2022.txt` | the same | the same, on the 2022 factors and the 2022 Danish values | 8 × 7 | 480 B |
 
 Tab-separated, as the Dutch baseline is.
 
@@ -59,7 +60,7 @@ measurements that replace the scaled Dutch ones outright:
 
 The two anaesthetic terms sum to the 11.572 kt this file carries. The hospital
 N2O inside Statistics Denmark's direct-emissions figure is subtracted where that
-figure is built (`../dst_supply_use/dk_data_2025.csv`), so there is no double
+figure is built (`../dst_supply_use/dk_data_<year>.csv`), so there is no double
 counting.
 
 ## Caveats
@@ -68,9 +69,13 @@ counting.
 `(indirect)` rows. A consumer that sums the `Source` column triple-counts
 commuting and visitor travel.
 
-**Known defect: one file for every analysis year.** This table is overwritten on
-every run and the `2025` in its name is an edition marker, not a year of data, so
-a 2019 run leaves 2019 values in the file a 2022 run then reads. Every value in it
-is analysis-year specific — both scaling factors and both medical-gas values
-differ between 2019 and 2022 — which makes it the file in this layer where the
-defect matters most. It is recorded in `../readme.md` as well.
+**Fixed defect: one file for every analysis year.** There used to be a single
+`dk_bottomup_data_2025.txt`, overwritten on every run, with `2025` an edition
+marker and not a year of data — so a 2019 run left 2019 values in the file a 2022
+run then read. This was the file in the layer where that mattered most, because
+**every** value in it is analysis-year specific: both scaling factors and both
+medical-gas values differ between the two years, so there was no row a wrong-year
+read could be harmless in. The two years now sit in two files, resolved by
+`paths.silver_dk_bottomup_txt(year)`. Verified by a 2022 → 2019 → 2022 round
+trip, which left the 2022 file untouched by the 2019 run and the 2022 gold tables
+byte-identical.
