@@ -47,13 +47,19 @@ APPROACHES = {
         equations="e = R xhat^-1 L y ; impact = Q_full e",
         inputs="raw 1113-row stressor matrix; characterisation_desire_version3_4_adapted.xlsx"),
     "13_steenmeijer_replication": dict(
-        approach="Denmark against the Dutch template, table by table",
+        approach="Denmark against the Dutch template, table by table, plus the "
+                 "published Dutch results converted to long-format facts",
         reference="Steenmeijer et al. 2022 (Lancet Planet Health 6:e949) main table "
-                  "and table S7; RIVM report 2022-0159 tables 8 and 9",
+                  "and table S7; RIVM report 2022-0159 tables 8 and 9; the "
+                  "authors' archived model and outputs, "
+                  "https://github.com/rivm-syso/envr-footprint-healthcare",
         script="analysis.steenmeijer_replication",
-        equations="f_services = Z[:,h] (E_H / x_h); per-capita normalisation",
+        equations="f_services = Z[:,h] (E_H / x_h); per-capita normalisation; "
+                  "nl_* tables are a format conversion of the archived "
+                  "workbooks, column totals asserted, nothing recomputed",
         inputs="Danish footprint by demand component; scopes summary; "
-               "published Dutch values transcribed with provenance"),
+               "published Dutch values transcribed with provenance; "
+               "archive/rivm_steenmeijer_2022/output/*.xlsx"),
     "14_eckelman_replication": dict(
         approach="Denmark on Eckelman & Sherman's nine-category frame, plus DALYs",
         reference="Eckelman & Sherman 2016 (PLoS ONE 11:e0157014) table 2",

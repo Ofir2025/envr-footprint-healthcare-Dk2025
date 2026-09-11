@@ -9,7 +9,7 @@ grain, row count, columns, units, and dimension coverage; and a
 role and a sample value.
 
 Any folder under the gold root that holds at least one table gets both files,
-however deep it sits - a year subdirectory (``01_eriksen_replication/2019``) or
+however deep it sits - a year subdirectory (``01_eriksen_replication/2019_shipping_corrected``) or
 a scenario folder (``scenarios/health_only``) is described exactly like a
 top-level approach folder.
 
@@ -161,6 +161,105 @@ NOTES: dict[str, str] = {
     ),
 }
 
+#: The readme-side twin of :data:`NOTES`, keyed the same way and rendered into
+#: `readme.md` instead of `data_dictionary.md`.
+#:
+#: Both files are rewritten in full on every run, so anything a reader needs
+#: preserved has to live in this module. The two dictionaries are kept apart
+#: because the two files answer different questions: the dictionary says what a
+#: column means, the readme says what the folder is, where its figures are, and
+#: where its numbers came from. A note that belongs in one rarely belongs in
+#: the other.
+#:
+#: Rendered after the layer's question and its link into the methods document,
+#: and before the conventions table.
+README_NOTES: dict[str, str] = {
+    "13_steenmeijer_replication": (
+        "## Where the Dutch numbers come from\n"
+        "\n"
+        "Every `nl_*.csv` here is a conversion of the authors' own published\n"
+        "output, not a re-run of their model. The source of record is the RIVM\n"
+        "repository <https://github.com/rivm-syso/envr-footprint-healthcare>,\n"
+        "kept verbatim at `archive/rivm_steenmeijer_2022/`; each row carries\n"
+        "the workbook, the sheet and that URL in its own `source` column.\n"
+        "`analysis.steenmeijer_replication.convert_rivm_outputs` regenerates\n"
+        "them and asserts every column total back against the workbook it came\n"
+        "from.\n"
+        "\n"
+        "The archive does not reproduce the article's own tables exactly: their\n"
+        "script reads Statistics Netherlands at run time, so the direct\n"
+        "emissions and the expenditure move with the vintage of the query. The\n"
+        "differences, and two inconsistencies internal to the archive, are\n"
+        "tabulated in the methods section linked above.\n"
+        "\n"
+        "## Figures\n"
+        "\n"
+        "Figures live in `figures/`, never in the data layer. These six render\n"
+        "the article's figures 1, 2 and 3 for both countries in one style, so\n"
+        "the two can be set side by side:\n"
+        "\n"
+        "| Figure | Caption |\n"
+        "|:---|:---|\n"
+        "| [`steenmeijer_fig1_contribution_nl.tiff`]"
+        "(../../../../figures/steenmeijer_replication/"
+        "steenmeijer_fig1_contribution_nl.tiff) | Contribution analysis of the "
+        "Dutch health-care impact footprints by product group, 2016. Scopes "
+        "follow the Greenhouse Gas Protocol. Rendered from the archived RIVM "
+        "outputs in the groups, legend order and palette of Steenmeijer et al. "
+        "(2022) figure 1. |\n"
+        "| [`steenmeijer_fig1_contribution_dk.tiff`]"
+        "(../../../../figures/steenmeijer_replication/"
+        "steenmeijer_fig1_contribution_dk.tiff) | The same figure for Denmark, "
+        "2022, shipping-corrected. This study's own `Transport` and "
+        "`Unallocated` groups are folded into the Dutch *other* so the two "
+        "legends are identical. |\n"
+        "| [`steenmeijer_fig2_hotspot_sector_nl.tiff`]"
+        "(../../../../figures/steenmeijer_replication/"
+        "steenmeijer_fig2_hotspot_sector_nl.tiff) | Sector hotspot analysis of "
+        "the Dutch health-care impact footprints, 2016: where the pressure "
+        "physically arises. The indirect impact of private travel is "
+        "distributed proportionally among all groups, as in the original. |\n"
+        "| [`steenmeijer_fig2_hotspot_sector_dk.tiff`]"
+        "(../../../../figures/steenmeijer_replication/"
+        "steenmeijer_fig2_hotspot_sector_dk.tiff) | The same figure for "
+        "Denmark, 2022, shipping-corrected. |\n"
+        "| [`steenmeijer_fig3_hotspot_region_nl.tiff`]"
+        "(../../../../figures/steenmeijer_replication/"
+        "steenmeijer_fig3_hotspot_region_nl.tiff) | Geographical hotspot "
+        "analysis of the Dutch health-care impact footprints, 2016, in the six "
+        "world regions of the DESIRE concordance. The indirect impact of "
+        "private travel is distributed proportionally among all regions, as in "
+        "the original. |\n"
+        "| [`steenmeijer_fig3_hotspot_region_dk.tiff`]"
+        "(../../../../figures/steenmeijer_replication/"
+        "steenmeijer_fig3_hotspot_region_dk.tiff) | The same figure for "
+        "Denmark, 2022, shipping-corrected, with Denmark in the home-country "
+        "slot the Netherlands occupies above. |\n"
+        "\n"
+        "All six are produced by `R/plot_steenmeijer_replication.R` from the\n"
+        "tables in this folder and in `01_eriksen_replication/`. None carries a\n"
+        "title or a caption on the image: the captions are the table above."
+    ),
+}
+
+
+def _folder_readme_note(folder: str) -> str:
+    """Hand-written readme note for one folder, or ``""`` when it has none.
+
+    Parameters
+    ----------
+    folder : str
+        Gold folder name, relative to the gold root - looked up by its
+        top-level component, exactly like :func:`_folder_notes`.
+
+    Returns
+    -------
+    str
+        The note, or the empty string.
+    """
+    return README_NOTES.get(folder.split(os.sep)[0], "")
+
+
 #: Folders whose tables are defined by an explicit DDL rather than (or beside)
 #: a methods document, keyed the same way as :data:`NOTES` - by the folder's
 #: top-level component. `star`'s CSVs and Parquet facts are generated by
@@ -223,7 +322,7 @@ def _methods_section(folder: str) -> str | None:
     ----------
     folder : str
         Gold folder name, e.g. ``"07_malik_replication"`` or a nested table
-        folder such as ``"01_eriksen_replication/2019"`` - the section is
+        folder such as ``"01_eriksen_replication/2019_shipping_corrected"`` - the section is
         looked up by the top-level component's leading two-digit number,
         since a year or scenario subfolder shares its approach's section.
     """
@@ -248,7 +347,7 @@ def _methods_summary(folder: str) -> tuple[str, str]:
     ----------
     folder : str
         Gold folder name, e.g. ``"07_malik_replication"`` or a nested table
-        folder such as ``"01_eriksen_replication/2019"`` - the section is
+        folder such as ``"01_eriksen_replication/2019_shipping_corrected"`` - the section is
         looked up by the top-level component, since a year or scenario
         subfolder shares its approach's section.
 
@@ -367,7 +466,7 @@ def write_folder_readme(folder: str) -> str | None:
     folder : str
         Gold folder name, relative to the gold root. May contain path
         separators for a nested table folder, e.g.
-        ``"01_eriksen_replication/2019"`` or ``"scenarios/health_only"``.
+        ``"01_eriksen_replication/2019_shipping_corrected"`` or ``"scenarios/health_only"``.
 
     Returns
     -------
@@ -391,6 +490,9 @@ def write_folder_readme(folder: str) -> str | None:
         lines += [f"Method, equations, and verification: "
                   f"[`docs/methods/replications.md`, section {top[:2]}]"
                   f"({_relative_link(METHODS, fdir)}#{anchor}).", ""]
+    readme_note = _folder_readme_note(folder)
+    if readme_note:
+        lines += [readme_note, ""]
     schema_doc = SCHEMA_DOCS.get(top)
     if schema_doc and os.path.exists(schema_doc):
         schema_name = os.path.basename(schema_doc)
