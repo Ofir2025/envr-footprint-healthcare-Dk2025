@@ -37,81 +37,23 @@ source(file.path(here, "_dk_common.r"))
 
 SUB <- "steenmeijer_replication"
 
-# ---- the five impact categories, in the article's order --------------------
-# Axis wording and units are theirs, sub/superscripts included: the axis text
-# is a factor level rather than a plotmath expression, so the sub/superscripts
-# are carried as Unicode escapes in the string itself, not as plotmath's
-# CO[2] / km^2 syntax - expressions would also refuse to wrap onto multiple
-# lines, which these labels need. ragg's TIFF device (see dk_save()) renders
-# the glyphs cleanly.
-IND_ORDER <- c("climate_change", "material_extraction", "blue_water_consumption",
-               "land_use", "waste_generation")
-IND_LABEL <- c(
-  climate_change         = "Climate change\n(kilotonnes of\nCO\u2082 equivalent)",
-  material_extraction    = "Material extraction\n(kilotonnes)",
-  blue_water_consumption = "Blue water\nconsumption\n(Mm\u00b3)",
-  land_use               = "Land use\n(km\u00b2)",
-  waste_generation       = "Waste generation\n(kilotonnes)")
-
-# ---- the article's grouping rules ------------------------------------------
-# Read off the legends and checked segment by segment against the published
-# vector geometry. Anything not listed falls into the figure's "Other".
-FIG1_GROUP <- c(
-  "Chemical" = "Pharmaceuticals and chemical products (scope 3)",
-  "Electricity" = "Heat and electricity (scope 2)",
-  "Natural gas and gaseous fuels" = "Heat and electricity (scope 2)",
-  "Steam, hot water supply and water distribution" =
-    "Heat and electricity (scope 2)",
-  "Operational impact" = "Operational impacts (scope 1)",
-  "Electrical, electronic and measuring equipment" =
-    "Medical and electrical equipment and machinery (scope 3)",
-  "Services" = "Services (scope 3)",
-  "Food and catering" = "Food and food services (scope 3)",
-  "Private travel" = "Individual travel (scope 3 and out-of-scope)")
-FIG1_OTHER <- "Other (scope 3)"
-
-FIG2_GROUP <- c(
-  "Electricity" = "Electricity sector",
-  "Chemical" = "Pharmaceutical and chemical industry",
-  "Coal and Petroleum" = "Fossil fuel industry",
-  "Natural gas and gaseous fuels" = "Fossil fuel industry",
-  "Food and catering" = "Agricultural sector",
-  "Minerals and Metals" = "Mining of minerals and metals",
-  "Operational impact" = "Operational (direct) impacts")
-FIG2_OTHER <- "Other"
-
-# The world regions, keyed by the EXIOBASE aggregate the gold tables carry.
-# The home country and "Europe excluding it" are named per country, and keep
-# the article's two colours in both.
-#
-# `home` is always the bare country name ("Netherlands", "Denmark"): that is
-# how the article's own legend prints the standalone entry. English needs the
-# definite article only inside the "Europe (excluding ...)" phrase - "the
-# Netherlands" there, but "Denmark" unchanged - so that phrasing is applied
-# locally rather than folded into `home` itself.
-with_article <- function(home) if (home == "Netherlands") paste("the", home) else home
-fig3_group <- function(region, home) {
-  out <- unname(c("Asia and Pacific" = "Asia-Pacific",
-                  "Middle East" = "Middle East", "America" = "Americas",
-                  "Africa" = "Africa")[region])
-  out[region == "Europe"] <- sprintf("Europe (excluding %s)", with_article(home))
-  out[region %in% c("Netherlands", "Denmark")] <- home
-  if (any(is.na(out)))
-    stop(sprintf("no figure-3 region for: %s",
-                 paste(unique(region[is.na(out)]), collapse = ", ")))
-  out
-}
-fig3_levels <- function(home)
-  c("Africa", "Americas", "Middle East",
-    sprintf("Europe (excluding %s)", with_article(home)), "Asia-Pacific", home)
-fig3_cols <- function(home)
+# ---- the article's groups, order and wording -------------------------------
+# Held in r/_dk_common.r (STEEN_*), not here, because r/plot_steenmeijer_variant_a.r
+# draws the same three figures for variant a and the two must not be allowed to
+# drift apart: a replication whose group order is a second copy of the legend is
+# no longer a replication once someone edits one copy. Only the palette and the
+# per-figure decoration differ between the two scripts.
+IND_ORDER <- STEEN_IND_ORDER
+IND_LABEL <- STEEN_IND_LABEL
+FIG1_GROUP <- STEEN_FIG1_GROUP; FIG1_OTHER <- STEEN_FIG1_OTHER
+FIG2_GROUP <- STEEN_FIG2_GROUP; FIG2_OTHER <- STEEN_FIG2_OTHER
+fig3_group  <- steen_fig3_group
+fig3_levels <- steen_fig3_levels
+fig3_cols   <- function(home)
   setNames(unname(STEENMEIJER_COLS$fig3), fig3_levels(home))
-
-# The part of the private-travel life-cycle result that was never bridged to an
-# EXIOBASE node. The captions of figures 2 and 3 say this component was
-# distributed proportionally among all groups and all regions, which for a
-# 100 % stacked bar is the same as computing the shares without it.
-UNDISTRIBUTED_CODE <- "B_REST"
+UNDISTRIBUTED_CODE <- STEEN_UNDISTRIBUTED_CODE
+shares_of <- steen_shares_of
+to_group  <- steen_to_group
 
 # ---- reading the gold facts ------------------------------------------------
 # The Danish results live in a per-variant folder. This comparison wants the
@@ -137,21 +79,6 @@ dk_path <- function(name, year = "2022") {
   stop(sprintf("Danish fact '%s' is ambiguous for %s: %s", name, year,
                paste(hits, collapse = ", ")))
 }
-
-# Shares within each impact category, from a table already carrying
-# `figure_group`.
-shares_of <- function(d) {
-  d %>%
-    group_by(indicator, figure_group) %>%
-    summarise(value = sum(value), .groups = "drop_last") %>%
-    mutate(share_pct = 100 * value / sum(value)) %>%
-    ungroup()
-}
-
-# Map a grouping column onto a figure's legend entries, with everything
-# unlisted falling into that figure's own "Other".
-to_group <- function(x, map, other) unname(ifelse(x %in% names(map),
-                                                  map[x], other))
 
 # ---- the plot ---------------------------------------------------------------
 # One 100 % stacked bar per impact category. The shares are plotted as they
