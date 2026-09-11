@@ -55,18 +55,18 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `variant` | dimension | str |  | 2016c |
+| `variant` | dimension | str |  | 2016_uncorrected |
 | `analysis_year` | measure | int64 |  | 2016 |
 | `exiobase_release` | dimension | str |  | v3.8.2 |
 | `exiobase_table_year` | measure | int64 |  | 2016 |
-| `shipping_correction` | dimension | str |  | yes |
+| `shipping_correction` | dimension | str |  | no |
 | `care_boundary` | dimension | str |  | health care |
 | `capital_treatment` | dimension | str |  | excluded |
 | `role` | dimension | str |  | the only configuration reproducing the s |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2-eq |
-| `healthcare_footprint` | measure | float64 | varies by row | 3901.215984803835 |
-| `national_footprint` | measure | float64 | varies by row | 74432.54477363416 |
-| `healthcare_share_pct` | measure | float64 | % | 5.2412771814645005 |
-| `transport_share_pct` | measure | float64 | % | 21.12400025866217 |
+| `healthcare_footprint` | measure | float64 | varies by row | 6092.211309713715 |
+| `national_footprint` | measure | float64 | varies by row | 86614.13373867093 |
+| `healthcare_share_pct` | measure | float64 | % | 7.033738082626234 |
+| `transport_share_pct` | measure | float64 | % | 46.80895470272214 |
 | `expenditure_meur` | measure | float64 | varies by row | 33429.843657658625 |

@@ -1,0 +1,102 @@
+indicator,unit,purchased_sector_group,value
+climate_change,kt CO2eq,Transport,2484.667258357969
+land_use,km2,Food and catering,1270.110677512861
+material_extraction,kt,Chemical,1168.1539293434641
+climate_change,kt CO2eq,Services,875.5787738506006
+climate_change,kt CO2eq,Chemical,813.6804715954607
+land_use,km2,Chemical,773.6648988150869
+material_extraction,kt,Minerals and Metals,694.8164692798266
+land_use,km2,Services,566.673902851279
+climate_change,kt CO2eq,Private travel,565.7152101256927
+climate_change,kt CO2eq,Food and catering,388.78544870596056
+land_use,km2,Transport,342.4619344386009
+material_extraction,kt,Services,305.0380315356297
+climate_change,kt CO2eq,Waste management and disposal,240.73295582611064
+climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",224.74394331969728
+climate_change,kt CO2eq,Operational impact,195.72222862199442
+material_extraction,kt,Transport,181.9236976245867
+material_extraction,kt,"Electrical, electronic and measuring equipment",169.09189094959723
+land_use,km2,"Electrical, electronic and measuring equipment",134.72242333108449
+material_extraction,kt,Food and catering,106.94740422207727
+waste_generation,kt,Chemical,78.41229913347259
+material_extraction,kt,Non-metallic mineral products,73.97662089000055
+material_extraction,kt,Construction,71.4243577097083
+climate_change,kt CO2eq,Electricity,70.4916659338299
+land_use,km2,Paper Products,70.39150204143974
+waste_generation,kt,Operational impact,49.10282360999154
+material_extraction,kt,Metal Products,45.31042826825049
+land_use,km2,Construction,41.08765231599789
+climate_change,kt CO2eq,Construction,35.351198232430356
+climate_change,kt CO2eq,Coal and Petroleum,34.425673195488876
+land_use,km2,Electricity,31.928049916201964
+waste_generation,kt,Services,31.560097071501527
+climate_change,kt CO2eq,General and special Machinery,30.317604536012237
+waste_generation,kt,Food and catering,28.567320124230243
+waste_generation,kt,Waste management and disposal,28.120924770948527
+land_use,km2,Waste management and disposal,26.89247854218623
+climate_change,kt CO2eq,Metal Products,24.275595824433758
+material_extraction,kt,Private travel,23.6533
+material_extraction,kt,Paper Products,23.056658783479993
+material_extraction,kt,General and special Machinery,22.874358511774112
+material_extraction,kt,Waste management and disposal,22.22158607768694
+climate_change,kt CO2eq,Natural gas and gaseous fuels,21.59037050263522
+land_use,km2,Furniture and timber,19.52226966350592
+waste_generation,kt,Transport,19.405542817205383
+material_extraction,kt,Electricity,18.72038675870531
+climate_change,kt CO2eq,Paper Products,18.440222643969665
+climate_change,kt CO2eq,Furniture and timber,17.775306163584766
+blue_water_consumption,Mm3,Chemical,17.24422815617321
+blue_water_consumption,Mm3,Food and catering,16.644005670285647
+climate_change,kt CO2eq,"Steam, hot water supply and water distribution",16.16072850162285
+climate_change,kt CO2eq,Minerals and Metals,13.264746367698288
+waste_generation,kt,Electricity,11.94550482181139
+land_use,km2,General and special Machinery,11.855322462063494
+climate_change,kt CO2eq,Non-metallic mineral products,11.483856584454609
+material_extraction,kt,Furniture and timber,11.057267088127361
+land_use,km2,Metal Products,10.01024986061357
+blue_water_consumption,Mm3,Services,9.826266454692753
+waste_generation,kt,"Electrical, electronic and measuring equipment",9.100809310935203
+land_use,km2,Textile,7.691101004476267
+climate_change,kt CO2eq,Textile,6.573898264585295
+waste_generation,kt,Paper Products,5.614022188087475
+blue_water_consumption,Mm3,Transport,4.942045615042213
+material_extraction,kt,Coal and Petroleum,4.850610523222948
+land_use,km2,Coal and Petroleum,3.7550713539148735
+land_use,km2,Minerals and Metals,3.386217232545305
+land_use,km2,Non-metallic mineral products,3.1971114409743526
+material_extraction,kt,Transport Equipment,2.9767145346295103
+blue_water_consumption,Mm3,"Electrical, electronic and measuring equipment",2.581807156842835
+climate_change,kt CO2eq,Transport Equipment,2.434152559497052
+land_use,km2,Natural gas and gaseous fuels,2.349104244593784
+material_extraction,kt,Textile,2.3392712275237395
+material_extraction,kt,Natural gas and gaseous fuels,1.9424970307305376
+waste_generation,kt,Construction,1.5935869250452834
+land_use,km2,Private travel,1.5402
+land_use,km2,Transport Equipment,1.5058911973533253
+waste_generation,kt,Metal Products,1.0629112407694525
+waste_generation,kt,Coal and Petroleum,0.8870609256987563
+waste_generation,kt,General and special Machinery,0.87829532945047
+waste_generation,kt,Furniture and timber,0.7749184763467569
+blue_water_consumption,Mm3,Waste management and disposal,0.7561632791655779
+material_extraction,kt,"Steam, hot water supply and water distribution",0.7128328444228131
+land_use,km2,"Steam, hot water supply and water distribution",0.700650060121659
+waste_generation,kt,Natural gas and gaseous fuels,0.5525765878522316
+blue_water_consumption,Mm3,Electricity,0.3747555784678797
+blue_water_consumption,Mm3,Construction,0.3055074103129555
+blue_water_consumption,Mm3,Paper Products,0.30308226977440944
+waste_generation,kt,Non-metallic mineral products,0.27476764496868655
+waste_generation,kt,"Steam, hot water supply and water distribution",0.25584550196056766
+blue_water_consumption,Mm3,Metal Products,0.23385214882564542
+blue_water_consumption,Mm3,General and special Machinery,0.22416523288638784
+waste_generation,kt,Textile,0.22408336363321227
+blue_water_consumption,Mm3,Textile,0.22396785492538554
+blue_water_consumption,Mm3,Furniture and timber,0.1886071900717501
+blue_water_consumption,Mm3,Private travel,0.1637
+waste_generation,kt,Transport Equipment,0.12855999160772721
+waste_generation,kt,Minerals and Metals,0.1211108425989458
+blue_water_consumption,Mm3,Coal and Petroleum,0.08846610329263133
+blue_water_consumption,Mm3,Non-metallic mineral products,0.057392800243273666
+blue_water_consumption,Mm3,Natural gas and gaseous fuels,0.042236603125900746
+blue_water_consumption,Mm3,Minerals and Metals,0.03804096792058102
+blue_water_consumption,Mm3,Transport Equipment,0.02543065590089772
+blue_water_consumption,Mm3,"Steam, hot water supply and water distribution",0.013169459790823488

@@ -1,0 +1,107 @@
+producing_country_iso3,producing_country_name,producing_world_region,producing_sector_code,producing_sector_name,producing_sector_group,scope,indicator,unit,value,rank,is_remainder
+DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,Outside protocol,blue_water_consumption,Mm3,0.0684,3,False
+DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,Outside protocol,climate_change,kt CO2eq,224.23761012569273,3,False
+DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,Outside protocol,land_use,km2,0.6231,3,False
+DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,Outside protocol,material_extraction,kt,9.5876,3,False
+DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,Scope 1,climate_change,kt CO2eq,195.72222862199442,4,False
+DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,Scope 1,waste_generation,kt,49.10282360999154,4,False
+DNK,Denmark,Denmark,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,1082.272376526716,1,False
+DNK,Denmark,Denmark,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 2,waste_generation,kt,32.72324594658002,1,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 2,blue_water_consumption,Mm3,5.4115252119140835e-08,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,0.2158949254913827,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 2,land_use,km2,8.17513934419586e-06,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 2,material_extraction,kt,4.685733342179227e-07,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 2,waste_generation,kt,0.0014050599974292,22,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 2,blue_water_consumption,Mm3,0.0029195978409357,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 2,climate_change,kt CO2eq,3.0616412755314246,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 2,land_use,km2,0.0010084142682744,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 2,material_extraction,kt,0.0043718983276346,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 2,waste_generation,kt,2.283766744071735e-05,23,False
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 2,blue_water_consumption,Mm3,5.038317330760365,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 2,climate_change,kt CO2eq,34.26021458770391,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 2,land_use,km2,0.16057486437590315,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 2,material_extraction,kt,0.014132739461900272,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 2,waste_generation,kt,0.9346669984268028,26,True
+DNK,Denmark,Denmark,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,121.31989513810528,1,False
+DNK,Denmark,Denmark,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,3.66819005355952,1,False
+DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,Scope 3,blue_water_consumption,Mm3,0.0953,2,False
+DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,Scope 3,climate_change,kt CO2eq,341.4776,2,False
+DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,Scope 3,land_use,km2,0.9171,2,False
+DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,Scope 3,material_extraction,kt,14.0657,2,False
+DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,Scope 3,climate_change,kt CO2eq,10.88,4,False
+CHN,China,Asia and Pacific,POWC,Production of electricity by coal,Electricity,Scope 3,blue_water_consumption,Mm3,0.210200526767695,5,False
+CHN,China,Asia and Pacific,POWC,Production of electricity by coal,Electricity,Scope 3,climate_change,kt CO2eq,147.7345548267023,5,False
+CHN,China,Asia and Pacific,POWC,Production of electricity by coal,Electricity,Scope 3,waste_generation,kt,6.529900888405563,5,False
+CHN,China,Asia and Pacific,CHEM,Chemicals nec,Chemical,Scope 3,blue_water_consumption,Mm3,0.23909540526859,6,False
+CHN,China,Asia and Pacific,CHEM,Chemicals nec,Chemical,Scope 3,climate_change,kt CO2eq,142.62771376298628,6,False
+CHN,China,Asia and Pacific,CHEM,Chemicals nec,Chemical,Scope 3,waste_generation,kt,6.9420085186125355,6,False
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,Transport,Scope 3,blue_water_consumption,Mm3,2.6080068200747422e-08,7,False
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,Transport,Scope 3,climate_change,kt CO2eq,118.202402857002,7,False
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,Transport,Scope 3,material_extraction,kt,1.1045687677492472e-05,7,False
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,Transport,Scope 3,waste_generation,kt,0.1258863002501205,7,False
+DNK,Denmark,Denmark,TWAS,Sea and coastal water transport,Transport,Scope 3,blue_water_consumption,Mm3,5.523206189514932e-07,8,False
+DNK,Denmark,Denmark,TWAS,Sea and coastal water transport,Transport,Scope 3,climate_change,kt CO2eq,78.58320346748414,8,False
+DNK,Denmark,Denmark,TWAS,Sea and coastal water transport,Transport,Scope 3,waste_generation,kt,4.665538000880054e-05,8,False
+DNK,Denmark,Denmark,TAIR,Air transport (62),Transport,Scope 3,climate_change,kt CO2eq,77.09004684574731,9,False
+DNK,Denmark,Denmark,TAIR,Air transport (62),Transport,Scope 3,waste_generation,kt,0.0002212956268037,9,False
+DNK,Denmark,Denmark,INCT,Incineration of waste: Textiles,Waste management and disposal,Scope 3,climate_change,kt CO2eq,76.56411323172121,10,False
+DNK,Denmark,Denmark,INCT,Incineration of waste: Textiles,Waste management and disposal,Scope 3,waste_generation,kt,0.5902938116340871,10,False
+DEU,Germany,Europe,TWAS,Sea and coastal water transport,Transport,Scope 3,climate_change,kt CO2eq,74.64725574028618,11,False
+DEU,Germany,Europe,TWAS,Sea and coastal water transport,Transport,Scope 3,waste_generation,kt,4.354025481375185e-05,11,False
+DNK,Denmark,Denmark,INCL,Incineration of waste: Plastic,Waste management and disposal,Scope 3,climate_change,kt CO2eq,71.98090822625716,12,False
+DNK,Denmark,Denmark,INCL,Incineration of waste: Plastic,Waste management and disposal,Scope 3,waste_generation,kt,0.8350219587425463,12,False
+DNK,Denmark,Denmark,TDRT,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",Services,Scope 3,climate_change,kt CO2eq,66.82393869081939,13,False
+DNK,Denmark,Denmark,TDRT,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",Services,Scope 3,waste_generation,kt,2.0155223136049005e-06,13,False
+IDN,Indonesia,Asia and Pacific,COAL,Mining of coal and lignite; extraction of peat (10),Coal and Petroleum,Scope 3,climate_change,kt CO2eq,56.72737958074797,14,False
+IDN,Indonesia,Asia and Pacific,COAL,Mining of coal and lignite; extraction of peat (10),Coal and Petroleum,Scope 3,waste_generation,kt,0.0003653627530818,14,False
+CZE,Czech Republic,Europe,CHEM,Chemicals nec,Chemical,Scope 3,blue_water_consumption,Mm3,0.1910020962091065,15,False
+CZE,Czech Republic,Europe,CHEM,Chemicals nec,Chemical,Scope 3,climate_change,kt CO2eq,52.53773379670761,15,False
+CZE,Czech Republic,Europe,CHEM,Chemicals nec,Chemical,Scope 3,land_use,km2,0.0001805406280755,15,False
+CZE,Czech Republic,Europe,CHEM,Chemicals nec,Chemical,Scope 3,material_extraction,kt,0.0055913530700325,15,False
+CZE,Czech Republic,Europe,CHEM,Chemicals nec,Chemical,Scope 3,waste_generation,kt,3.809347420298129,15,False
+RoW Middle East,RoW Middle East,Middle East,TWAS,Sea and coastal water transport,Transport,Scope 3,blue_water_consumption,Mm3,1.0047506994152568e-05,16,False
+RoW Middle East,RoW Middle East,Middle East,TWAS,Sea and coastal water transport,Transport,Scope 3,climate_change,kt CO2eq,50.65881698168038,16,False
+RoW Middle East,RoW Middle East,Middle East,TWAS,Sea and coastal water transport,Transport,Scope 3,material_extraction,kt,1.635702874607412e-13,16,False
+RoW Middle East,RoW Middle East,Middle East,TWAS,Sea and coastal water transport,Transport,Scope 3,waste_generation,kt,0.0253518819140913,16,False
+RoW Middle East,RoW Middle East,Middle East,TAIR,Air transport (62),Transport,Scope 3,blue_water_consumption,Mm3,0.0025438330007753,17,False
+RoW Middle East,RoW Middle East,Middle East,TAIR,Air transport (62),Transport,Scope 3,climate_change,kt CO2eq,49.56907619610885,17,False
+RoW Middle East,RoW Middle East,Middle East,TAIR,Air transport (62),Transport,Scope 3,land_use,km2,0.0653799327679342,17,False
+RoW Middle East,RoW Middle East,Middle East,TAIR,Air transport (62),Transport,Scope 3,material_extraction,kt,5.4252107172322e-09,17,False
+RoW Middle East,RoW Middle East,Middle East,TAIR,Air transport (62),Transport,Scope 3,waste_generation,kt,0.007850332743021,17,False
+RUS,Russia,Europe,GASE,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.0001788091455391,18,False
+RUS,Russia,Europe,GASE,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,47.39943813008011,18,False
+RUS,Russia,Europe,GASE,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",Natural gas and gaseous fuels,Scope 3,land_use,km2,0.0001125266032362,18,False
+RUS,Russia,Europe,GASE,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.0002005524835947,18,False
+RUS,Russia,Europe,GASE,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.0052890663932978,18,False
+RoW Middle East,RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.0005221964306931,19,False
+RoW Middle East,RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,climate_change,kt CO2eq,46.04602185062977,19,False
+RoW Middle East,RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,land_use,km2,0.0002472144075343,19,False
+RoW Middle East,RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,material_extraction,kt,0.8764716913015362,19,False
+RoW Middle East,RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,waste_generation,kt,0.0113666465720056,19,False
+RoW Middle East,RoW Middle East,Middle East,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),Services,Scope 3,blue_water_consumption,Mm3,0.0020726774161869,20,False
+RoW Middle East,RoW Middle East,Middle East,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),Services,Scope 3,climate_change,kt CO2eq,45.1419400740085,20,False
+RoW Middle East,RoW Middle East,Middle East,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),Services,Scope 3,land_use,km2,0.0268368436229099,20,False
+RoW Middle East,RoW Middle East,Middle East,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),Services,Scope 3,material_extraction,kt,0.1171705149338004,20,False
+RoW Middle East,RoW Middle East,Middle East,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),Services,Scope 3,waste_generation,kt,0.0095395453812722,20,False
+CHN,China,Asia and Pacific,COAL,Mining of coal and lignite; extraction of peat (10),Coal and Petroleum,Scope 3,climate_change,kt CO2eq,44.13278051876608,21,False
+CHN,China,Asia and Pacific,COAL,Mining of coal and lignite; extraction of peat (10),Coal and Petroleum,Scope 3,waste_generation,kt,0.3171498773568815,21,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,1.0896626811131542e-05,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,43.47252098756365,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.0016461429832494,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,9.43517503231653e-05,22,False
+CZE,Czech Republic,Europe,HWAT,Steam and hot water supply,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.2829223525657424,22,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 3,blue_water_consumption,Mm3,0.0384092927872091,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 3,climate_change,kt CO2eq,40.2779706548901,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 3,land_use,km2,0.0132663746828017,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 3,material_extraction,kt,0.0575152921911354,23,False
+RoW Middle East,RoW Middle East,Middle East,POWG,Production of electricity by gas,Electricity,Scope 3,waste_generation,kt,0.0003004450280817,23,False
+DNK,Denmark,Denmark,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,3.218925768994365e-07,24,False
+DNK,Denmark,Denmark,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,climate_change,kt CO2eq,41.613106176544015,24,False
+DNK,Denmark,Denmark,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",Coal and Petroleum,Scope 3,waste_generation,kt,0.0036681710265669,24,False
+DNK,Denmark,Denmark,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),Services,Scope 3,climate_change,kt CO2eq,37.05243625558052,25,False
+DNK,Denmark,Denmark,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),Services,Scope 3,waste_generation,kt,0.0004488943840034,25,False
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 3,blue_water_consumption,Mm3,75.6860426890662,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 3,climate_change,kt CO2eq,2854.759247082719,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 3,land_use,km2,5114.930541955932,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 3,material_extraction,kt,7529.311888410847,26,True
+OTH,All other origins (beyond top 25),Other,OTHER,All other origin-industry pairs (beyond top 25),Other,Scope 3,waste_generation,kt,250.42967660029603,26,True
