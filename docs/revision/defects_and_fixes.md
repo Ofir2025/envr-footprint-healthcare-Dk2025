@@ -249,7 +249,8 @@ Measured on our own model (`analysis.dk_shipping_correction`): **73.6 %**,
 their figure to the decimal. EXIOBASE also has the Danish **health sector itself**
 purchasing 394 M€ of sea transport, which is not credible.
 
-Effect of correcting to their 9 % target:
+Effect of correcting to their 9 % target, **as first implemented, with the
+target held fixed at 9 % for every background year**:
 
 | | uncorrected | corrected |
 |:---|:---|:---|
@@ -266,6 +267,17 @@ Finding F2 below (["Numbers quoted in the revision docs had drifted"](#f2-number
 records the values this table carried before it was reconciled against the
 gold outputs.
 
+**Superseded again, since 11 September 2026.** The fixed 9 % target above was
+itself replaced by a target read from Statistics Denmark's own domestic
+input-output table for the background year (6.5 % for 2022, 7.7 % for 2016;
+9.3 % reading their 2019 table is the cross-check that reproduces their
+published 9 %). This table's "corrected" column is therefore a superseded
+intermediate state, kept for the record; the current numbers are 17.8 % of
+the supply-chain footprint (14.9 % of the 4,675 kt total), 53.0 kt for the
+Danish sea-transport node, and 77.2 Mt for the Danish national footprint. See
+["Correction target read from the DST table per year"](#correction-target-read-from-the-dst-table-per-year)
+below.
+
 **Consequence for the manuscript:** the submitted finding that transport is
 38-43 % of the Danish health-care footprint must be **withdrawn**. It is not a
 release artefact; it is a documented misallocation in EXIOBASE's Danish block,
@@ -274,7 +286,7 @@ diagnosed by Denmark's own statistical office.
 #### A4: Residual gap against the official Danish footprint `MEDIUM` `ACCEPTED`
 
 After the shipping correction the modelled Danish national consumption-based GHG
-footprint is **77.5 Mt** against DST's official AFTRYK **62.9 Mt** (+23 %).
+footprint is **77.2 Mt** against DST's official AFTRYK **62.9 Mt** (+23 %).
 Foreign shipping rows (RoW-Asia, Germany, RoW-Middle East) carry much of the
 remainder, and no Danish source can correct a foreign region's allocation.
 
@@ -373,16 +385,16 @@ uncharacterised stressor totals that support this):
 
 | GWP100 revision | Healthcare (kt) | vs AR4 | National (kt) |
 |:---|:---|:---|:---|
-| IPCC SAR (1995) | 3,740 | −3.0 % | 64,767 |
-| IPCC TAR (2001) | 3,791 | −1.7 % | 65,563 |
-| IPCC AR4 (2007), as EXIOBASE ships | 3,855 | n/a | 66,675 |
-| IPCC AR5 (2013) | 3,955 | +2.6 % | 68,010 |
-| **IPCC AR6 (2021), used** | **3,943** | **+2.3 %** | **67,756** |
+| IPCC SAR (1995) | 3,703 | −3.0 % | 64,531 |
+| IPCC TAR (2001) | 3,754 | −1.7 % | 65,327 |
+| IPCC AR4 (2007), as EXIOBASE ships | 3,818 | n/a | 66,439 |
+| IPCC AR5 (2013) | 3,918 | +2.6 % | 67,773 |
+| **IPCC AR6 (2021), used** | **3,906** | **+2.3 %** | **67,519** |
 
 The study restates to AR6; the row marked as EXIOBASE's own is what the database
 ships, and is shown because a reader comparing against a study that did not
 restate is entitled to know the gap. The effect is small, so the revision is a
-reporting obligation rather than a problem. The restatement covers 96.1 % of the
+reporting obligation rather than a problem. The restatement covers 96.0 % of the
 characterised total: the remaining 155.3 kt is HFC and PFC, which EXIOBASE
 supplies already aggregated to CO₂-equivalent and which therefore keep whatever
 revision EXIOBASE used. That residue is reported rather than silently restated
@@ -640,13 +652,17 @@ These change results and are the author's call, not the analyst's.
    preference; the health industry's output there is smaller than health final
    demand.
 3. **Headline numbers all moved.** Denmark 2022, full footprint: climate
-   4,712.4 kt, materials 4,259.4 kt, water 95.5 Mm³, land 4,855.5 km², waste
-   259.4 kt. The supply-chain component alone is 3,943.4 kt of climate; the
+   4,675.5 kt, materials 4,257.2 kt, water 95.4 Mm³, land 4,851.8 km², waste
+   259.3 kt. The supply-chain component alone is 3,906.4 kt of climate; the
    difference is the Danish bottom-up items, which are almost entirely climate.
+   (Since 11 September 2026 the sea-transport target share $\phi$ is read from
+   Statistics Denmark's own table for the background year rather than a fixed
+   0.09; see ["Correction target read from the DST table per year"](#correction-target-read-from-the-dst-table-per-year)
+   below.)
 4. Three bottom-up items are now **Danish primary data** rather than scaled Dutch
    proxies: anaesthetics (medstat register), patient travel (national travel
    survey), pMDI (Danish EPA). One of them was carrying a unit error.
-5. The **uncertainty is essentially all MRIO** (78.8 % of variance, current
+5. The **uncertainty is essentially all MRIO** (78.4 % of variance, current
    figure; see [docs/revision/uncertainty.md](uncertainty.md)). The bottom-up
    items the reviewers questioned contribute under 0.5 % each. That is a more
    useful answer to the review than the tornado alone.
@@ -671,9 +687,10 @@ failed.
 - **An independently rebuilt characterisation reproduces the pipeline.** Building
   the climate row from the workbook without reference to the production code
   reproduces the pipeline's Danish health-care supply-chain footprint, now
-  3,943.4 kt CO₂e on IPCC AR6 with the shipping correction applied.
-- **The national total reconciles**: supply chain 67,755.5 kt plus household
-  direct 9,722.0 kt equals the 77,477.5 kt reported by
+  3,906.4 kt CO₂e on IPCC AR6 with the shipping correction applied, $\phi$ read
+  per year.
+- **The national total reconciles**: supply chain 67,518.6 kt plus household
+  direct 9,722.0 kt equals the 77,240.6 kt reported by
   `analysis.national_totals`.
 - **All six IO accounting identities pass** at ≤10⁻¹⁰
   (`analysis.validate_io_identities`).
@@ -731,6 +748,71 @@ registry of headline numbers out of the markdown and fails if any of them stops
 matching the gold outputs. Prose can still drift; the numbers can no longer drift
 silently.
 
+### Findings of 11 September 2026
+
+#### Correction target read from the DST table per year
+
+**Severity: medium.** The sea-transport correction's target share $\phi$
+stopped being the hardcoded 0.09 - Rørmose Jensen & Iliev's (2022) single
+published figure for 2019 - and is now read from Statistics Denmark's own
+domestic input-output table for the background year the run uses: **0.0774**
+for 2016 and **0.0651** for 2022. Their 2019 table is kept as the cross-check
+that this reading reproduces their published figure: it returns **0.0931**,
+within 0.3 percentage points of 0.09. Every gold table under
+`data/gold/results/` was republished; this is the full before-and-after,
+old against new, of every headline number the change touched. The old column
+is the model with $\phi = 0.09$ applied to both background years; the new
+column is $\phi$ read per year as above. Both uncorrected variants were
+re-run and are byte-identical, as they must be.
+
+| Quantity | Old | New | Change | Change, % |
+|:---|---:|---:|---:|---:|
+| $\phi$, 2016 background | 0.0900 | 0.0774 | −0.0126 | −14.1 |
+| $\phi$, 2022 background | 0.0900 | 0.0651 | −0.0249 | −27.7 |
+| Output released, 2016 background, M€ | 9,955.9 | 10,151.0 | +195.1 | +2.0 |
+| Output released, 2022 background, M€ | 11,509.8 | 11,953.9 | +444.2 | +3.9 |
+| **2022 climate footprint, kt CO₂-eq** | **4,712.4** | **4,675.5** | **−37.0** | **−0.78** |
+| 2022 MRIO supply-chain component, kt | 3,943.4 | 3,906.4 | −37.0 | −0.94 |
+| 2022 transport, purchased product, kt | 595.8 | 566.5 | −29.3 | −4.9 |
+| 2022 transport, producing node, kt | 728.2 | 695.1 | −33.1 | −4.5 |
+| 2022 Danish sea transport as a producing node, kt | 74 | 53.0 | −21 | −28 |
+| 2022 Danish national footprint, kt | 77,477.5 | 77,240.6 | −236.9 | −0.31 |
+| 2022 health-care share of the national footprint, % | 5.09 | 5.06 | −0.03 | −0.63 |
+| Monte Carlo median, 2022, kt | 4,734 | 4,697 | −37 | −0.78 |
+| Monte Carlo 95 % interval, kt | 4,064–5,531 | 4,032–5,488 | −32 / −43 | −0.79 / −0.78 |
+| **2019 climate footprint, corrected, kt** | **4,085.4** | **4,054.8** | **−30.6** | **−0.75** |
+| 2019 transport, purchased product, kt | 813.0 | 788.9 | −24.1 | −3.0 |
+| Bridge: correction step, net kt | −2,275.0 | −2,305.6 | −30.6 | +1.3 |
+| Bridge: year step, net kt | +627.0 | +620.7 | −6.3 | −1.0 |
+| 2019 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
+| 2022 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
+
+Old values are from `phi-snapshot-before.json` (`.superpowers/sdd/gold_layer_organisation/`),
+taken before anything was rebuilt, except the two producing-node rows, which
+are the published figures the documents already carried; the Danish
+sea-transport node was reported to the unit, so its change is given to the
+unit too.
+
+The direction is the same everywhere and the magnitude is small: reading the
+share per year lowers the 2022 footprint by 0.8 % and the 2019 one by 0.7 %,
+and moves no ranking. What it removes is an assumption - that a share
+published for one year holds for every year - at the price of one extra
+bronze read. The full band of $\phi$ values, and what each is worth, is in
+[docs/methods/replications.md, section 10](../methods/replications.md#r10-sensitivity)
+and in `10_sea_transport_reallocation/phi_sensitivity_2016.csv` and
+`phi_sensitivity_2022.csv`: tripling $\phi$ from 0.05 to 0.15 moves the 2022
+total by 3.2 %.
+
+**Fixed and current.** `docs/revision/results_2022.md`, "The withdrawn
+transport finding", carries a one-line pointer to this table rather than a
+second copy of it, so a claim-tree document never quotes an old value: **C6**
+would fail on it and the ban on superseded strings (**C6b**, below) would
+have to be skipped for that document. `analysis.audit_consistency`'s
+`SUPERSEDED_TEXT` registry should gain the old-column values above as banned
+strings, with this document (and any "as submitted" or "as first implemented"
+historical sentence) as the allowed exception; see the phi-correction task's
+own report for the exact entries.
+
 ---
 
 ## Methods and data soundness: response to the eight review requests
@@ -750,7 +832,7 @@ one specific round of it.
 > is superseded by the current pipeline's **72.7-75.0 kt, 1.6 %** (see
 > [anomaly C1](#c1-scope-2-is-far-below-the-independent-benchmark-medium-open)
 > and [docs/revision/results_2022.md](results_2022.md)); and the MRIO variance
-> share in item 3 (88.7 %) is superseded by the current **78.8 %** (see
+> share in item 3 (88.7 %) is superseded by the current **78.4 %** (see
 > [docs/revision/uncertainty.md](uncertainty.md)). Both are dated snapshots from
 > an earlier pipeline state, exactly as this section's own preamble warns.
 
@@ -837,14 +919,14 @@ and the published literature, then rebuilt it. Findings and fixes:
 8.35 % for Denmark.** Scenario A median 4,897 [4,206-5,721]; Scenario B
 (pharma-specific intensity) 3,844 [3,206-4,741]. **These figures are superseded**
 by the current Monte Carlo run; see
-[docs/revision/uncertainty.md](uncertainty.md) for the current median (4,734 kt),
-interval (4,064-5,531 kt), and CV (7.87 %).
+[docs/revision/uncertainty.md](uncertainty.md) for the current median (4,697 kt),
+interval (4,032-5,488 kt), and CV (7.87 %).
 
 **Exact first-order variance shares (as of this snapshot)** (free for an additive independent model,
 better than a tornado): **MRIO 88.7 %**, visitor travel 5.9 %, commuting 5.3 %,
 direct 0.12 %, anaesthetics 0.01 %, pMDI 0.004 %. **Superseded**; the current
-shares (MRIO 78.8 %, the correlated travel pair 9.3 %, visitor travel 6.7 %,
-commuting 5.1 %) are in
+shares (MRIO 78.4 %, the correlated travel pair 9.4 %, visitor travel 6.8 %,
+commuting 5.2 %) are in
 [docs/revision/uncertainty.md](uncertainty.md#2-the-monte-carlo-explained-from-first-principles).
 The honest message for the reviewers was, and remains: the bottom-up items they questioned contribute
 **under 0.02-0.1 %** of the variance; the uncertainty is essentially all MRIO.

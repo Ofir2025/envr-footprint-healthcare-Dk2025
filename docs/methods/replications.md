@@ -137,7 +137,7 @@ flowchart LR
     P --> G1["<b>geographical displacement</b><br/>domestic 26.3 %, imported 73.7 %"]
     Q --> G2["<b>procurement levers</b><br/>domestic 61.7 %, imported 38.3 %"]
 
-    P --> F["<b>f = 4,712 kt CO<sub>2</sub>-eq</b><br/>both marginals sum to f exactly,<br/>asserted at write time"]
+    P --> F["<b>f = 3,906.4 kt CO<sub>2</sub>-eq</b><br/>both marginals sum to f exactly,<br/>asserted at write time"]
     Q --> F
 
     W["<b>The trap.</b> The two splits are of the same footprint and both are correct.<br/>A share is meaningless without the marginal it was taken on, so every share<br/>in this study is quoted with its basis."]
@@ -331,7 +331,7 @@ These deviations are the ones a reviewer will need to see declared.
 | 2019 expenditure on the 2016 model | 2022 on 2022 | reviewer R2-4; removes the deflation question entirely |
 | EXIOBASE v3.7 | v3.8.2 | v3.10.2 tested and rejected, see [section 09](#r09) |
 | AR4 climate factors (implicit in the DESIRE sheet) | IPCC AR6 | [section 15](#r15) |
-| transport 37.5 % of the supply-chain footprint | 18.5 %, or 15.5 % of the total | EXIOBASE artefact, see [section 10](#r10) |
+| transport 37.5 % of the supply-chain footprint | 17.8 %, or 14.9 % of the total | EXIOBASE artefact, see [section 10](#r10) |
 | aggregate results only | aggregate **and** full node detail | reviewer R1-11 |
 | no uncertainty | Monte Carlo, 10⁵ draws | reviewer R1-1, see [section 04](#r04) |
 
@@ -483,11 +483,11 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 - Hertwich & Wood define the scopes for *gross production* of whole sectors; the
   application to one sector's **final demand** is ours, and the self-supply subtraction is
   a consequence of that application which their paper does not need.
-- The manuscript layer ([section 01](#r01)) totals 4,712.42 kt using the
-  Hertwich & Wood Scope 2; this folder totals 4,710.58 kt using the strict-protocol
+- The manuscript layer ([section 01](#r01)) totals 4,675.47 kt using the
+  Hertwich & Wood Scope 2; this folder totals 4,673.63 kt using the strict-protocol
   Scope 2 and removing the self-supply loop. Both are correct on their stated basis, and
-  audit check C1 reconciles them: 4,710.58 + 1.83 = 4,712.42. The two terms are
-  rounded independently, so adding the printed figures gives 4,712.41; the check
+  audit check C1 reconciles them: 4,673.63 + 1.83 = 4,675.47. The two terms are
+  rounded independently, so adding the printed figures gives 4,675.46; the check
   runs on the unrounded values and closes to 1e-9.
 
 ### Outputs
@@ -500,8 +500,8 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 
 ### Verification
 
-- `analysis.audit_consistency` C1: partition total 4,710.58 + self-supply loop 1.83
-  = 4,712.42, which equals the manuscript grand total. **PASS.**
+- `analysis.audit_consistency` C1: partition total 4,673.63 + self-supply loop 1.83
+  = 4,675.47, which equals the manuscript grand total. **PASS.**
 - The double-counting ledger tests each bottom-up item against the MRIO for overlap and
   records the numerical result, so "we checked for double counting" is a table, not a
   claim.
@@ -795,11 +795,11 @@ rather than by inspection of intervals.
 
 | Quantity | Value |
 |:---|:---|
-| Deterministic climate | 4,712 kt |
-| Median | 4,734 kt |
-| 95 % interval | 4,064 to 5,531 kt |
+| Deterministic climate | 4,675 kt |
+| Median | 4,697 kt |
+| 95 % interval | 4,032 to 5,488 kt |
 | CV | 7.87 % |
-| MRIO share of variance | 78.8 % |
+| MRIO share of variance | 78.4 % |
 
 ### Deviations from the source, stated
 
@@ -824,7 +824,7 @@ manuscript; reporting the interval without it would over-claim.
 - Simulation moments are checked against the closed-form mean and variance of a sum of
   lognormals.
 - Variance shares sum to 100.0 % once the covariance of the correlated travel
-  pair is carried as its own row; without it the own-terms reach only 90.7 %.
+  pair is carried as its own row; without it the own-terms reach only 90.6 %.
 - A step-by-step derivation of every equation, for a reader who does not want
   to read the code, is in [docs/revision/uncertainty.md](../revision/uncertainty.md), sections 1-9.
 
@@ -1414,6 +1414,19 @@ omitted. Both figures are on the **producing-node (hotspot)** perspective; the
 purchased-product (contribution) perspective gives a different number for the same
 footprint, and the two must not be mixed in one ranking — see
 [the note on perspective](#r10-perspective) below.
+
+**The 37.5 % "Before" figure predates the now-published `2022_uncorrected/` folder and
+does not reproduce exactly from it.** Measured directly from
+`01_eriksen_replication/2022_uncorrected/figure2_sector_contributions.csv`, transport
+(producing node) is 32.2 % of that variant's 6,087.3 kt total; on the 5,243.3 kt MRIO-only
+basis (`scopes_summary.csv`, Scope 3 MRIO supply chain excl. Scope 2) it is 37.4 %, not
+37.5 %. The two are close enough that the gap is almost certainly a small difference in
+exactly which rows the historical 37.5 % pooled (e.g. whether *Transport Equipment* or the
+Scope 1 "Operational impacts" row was included), not an error of any real size, but the
+exact predecessor calculation has not been reverse-engineered and the figure is kept
+rather than silently amended. See
+[docs/revision/results_2022.md, "Where does 46 % go?"](../revision/results_2022.md#where-does-46--go)
+for the fuller reconciliation and the current, gold-reproducing values (32.2 % / 36.8 %).
 
 <a id="r10-methods-paragraph"></a>
 
@@ -2748,16 +2761,16 @@ input column, not to final demand.
 
 | | kt CO₂e | of the 2022 baseline |
 |:---|:---|:---|
-| 2022 baseline | 4,712 | n/a |
-| Reduction the regional target requires | −2,357 | −50 % |
+| 2022 baseline | 4,675 | n/a |
+| Reduction the regional target requires | −2,338 | −50 % |
 | All interventions, solved simultaneously (**C1**) | **−361** | −7.7 % |
 | The same levers summed separately | −361 | n/a |
 | Interaction | −0.2 | n/a |
-| Interventions with the grid pathway (**C3**) | **−461** | −9.8 % |
+| Interventions with the grid pathway (**C3**) | **−460** | −9.8 % |
 | Interventions with expenditure held constant (**C2**) | −281 | −6.0 % |
-| Rebound, i.e. what respending removes | +80 | 22 % of the saving |
-| Demand growth to 2035, business as usual | +848 | +18 % |
-| **Net 2035 position, grid pathway included** | **+388** | **+8.2 %** |
+| Rebound, i.e. what respending removes | +79 | 22 % of the saving |
+| Demand growth to 2035, business as usual | +842 | +18 % |
+| **Net 2035 position, grid pathway included** | **+381** | **+8.2 %** |
 
 Three things are worth saying in the paper.
 
@@ -2767,7 +2780,7 @@ assumption: it had to be computed to be known, and it means the naive additive
 presentation common in this literature happens to be defensible here. It would
 not be if the levers overlapped more.
 
-**Respending removes a fifth of the saving.** C2 is 77 kt weaker than C1. A
+**Respending removes a fifth of the saving.** C2 is 79 kt weaker than C1. A
 scenario reported without rebound is reporting the case where the money is
 destroyed.
 
@@ -2815,7 +2828,7 @@ can be said.
 
 | Test | Result |
 |:---|:---|
-| Baseline reproduces the study headline | asserted in code; scenario baseline within 1 % of 4,712.418 kt, and equal to it |
+| Baseline reproduces the study headline | asserted in code; scenario baseline within 1 % of 4,675.467 kt, and equal to it |
 | Counterfactual solve against the stored inverse | agrees to 1 × 10⁻¹¹ |
 | Levers summed vs solved simultaneously | 0.2 kt apart on climate; reported, not assumed |
 | Accounting imbalance from editing **A** | 0 for B- and y-only scenarios; 0.7 % of output at the largest A edit; reported per scenario, never rebalanced away |

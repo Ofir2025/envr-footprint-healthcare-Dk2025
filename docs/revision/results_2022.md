@@ -178,50 +178,10 @@ viewer does not draw Mermaid; `scripts/render_diagrams.py` produces it. That PNG
 shows the previous fixed 0.09 target and has to be re-rendered — the renderer needs
 `@mermaid-js/mermaid-cli`, which is not installed in this environment.
 
-<a id="phi-before-after"></a>
-
-#### What reading $\phi$ per year moved
-
-Every headline number the change touched, old against new. The old column is the model
-with $\phi = 0.09$ applied to both background years; the new column is $\phi$ read from
-Statistics Denmark's table, 0.0774 for 2016 and 0.0651 for 2022. Both uncorrected variants
-were re-run and are byte-identical, as they must be.
-
-| Quantity | Old | New | Change | Change, % |
-|:---|---:|---:|---:|---:|
-| $\phi$, 2016 background | 0.0900 | 0.0774 | −0.0126 | −14.1 |
-| $\phi$, 2022 background | 0.0900 | 0.0651 | −0.0249 | −27.7 |
-| Output released, 2016 background, M€ | 9,955.9 | 10,151.0 | +195.1 | +2.0 |
-| Output released, 2022 background, M€ | 11,509.8 | 11,953.9 | +444.2 | +3.9 |
-| **2022 climate footprint, kt CO₂-eq** | **4,712.4** | **4,675.5** | **−37.0** | **−0.78** |
-| 2022 MRIO supply-chain component, kt | 3,943.4 | 3,906.4 | −37.0 | −0.94 |
-| 2022 transport, purchased product, kt | 595.8 | 566.5 | −29.3 | −4.9 |
-| 2022 transport, producing node, kt | 728.2 | 695.1 | −33.1 | −4.5 |
-| 2022 Danish sea transport as a producing node, kt | 74 | 53.0 | −21 | −28 |
-| 2022 Danish national footprint, kt | 77,477.5 | 77,240.6 | −236.9 | −0.31 |
-| 2022 health-care share of the national footprint, % | 5.09 | 5.06 | −0.03 | −0.63 |
-| Monte Carlo median, 2022, kt | 4,734 | 4,697 | −37 | −0.78 |
-| Monte Carlo 95 % interval, kt | 4,064–5,531 | 4,032–5,488 | −32 / −43 | −0.79 / −0.78 |
-| **2019 climate footprint, corrected, kt** | **4,085.4** | **4,054.8** | **−30.6** | **−0.75** |
-| 2019 transport, purchased product, kt | 813.0 | 788.9 | −24.1 | −3.0 |
-| Bridge: correction step, net kt | −2,275.0 | −2,305.6 | −30.6 | +1.3 |
-| Bridge: year step, net kt | +627.0 | +620.7 | −6.3 | −1.0 |
-| 2019 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
-| 2022 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
-
-Old values are from `phi-snapshot-before.json`, taken before anything was rebuilt, except
-the two producing-node rows, which are the published figures this document already
-carried; the Danish sea-transport node was reported to the unit, so its change is given to
-the unit too.
-
-The direction is the same everywhere and the magnitude is small: reading the share per
-year lowers the 2022 footprint by 0.8 % and the 2019 one by 0.7 %, and moves no ranking.
-What it removes is an assumption — that a share published for one year holds for every
-year — at the price of one extra bronze read. The full band of $\phi$ values, and what
-each is worth, is in
-[docs/methods/replications.md, section 10](../methods/replications.md#r10-sensitivity) and
-in `10_sea_transport_reallocation/phi_sensitivity_2016.csv` and
-`phi_sensitivity_2022.csv`.
+Every headline number this change touched, old against new — the full before-and-after
+table, with its sourcing note — now lives with the rest of this repository's supersession
+record, not in this claim tree: see
+[docs/revision/defects_and_fixes.md, "Correction target read from the DST table per year"](defects_and_fixes.md#correction-target-read-from-the-dst-table-per-year).
 
 ### How this compares with every alternative
 
