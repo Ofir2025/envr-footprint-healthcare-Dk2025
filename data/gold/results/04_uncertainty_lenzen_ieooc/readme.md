@@ -28,16 +28,16 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 
 ### `uncertainty_convergence.csv`
 
-- **Rows:** 1
+- **Rows:** 10
 - **Format:** csv
-- **Dimensions:** `criterion`, `passes`
-- **Measures:** `draws`, `max_relative_difference_between_halves_pct`
+- **Dimensions:** `criterion`, `indicator`, `pharma_scenario`, `passes`
+- **Measures:** `draws`, `seed`, `max_relative_difference_between_halves_pct`
 
 ### `uncertainty_group_covariance_gwp.csv`
 
 - **Rows:** 9
 - **Format:** csv
-- **Dimensions:** `Unnamed: 0`
+- **Dimensions:** `group`
 - **Measures:** `Food and food services`, `Heat and electricity`, `Individual travel`, `Medical, electrical equipment and machinery`, `Operational impacts`, `Other`, `Pharmaceuticals and chemical products`, `Services`, `Transport`
 
 ### `uncertainty_mrio_correlation.csv`
@@ -45,14 +45,14 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 - **Rows:** 3
 - **Format:** csv
 - **Dimensions:** `interpretation`
-- **Measures:** `rho_mrio`, `median`, `p2_5`, `p97_5`, `cv_pct`, `sigma_used`, `mrio_block_cv_if_not_recalibrated_pct`, `median_group_cv_pct`, `max_group_cv_pct`, `median_1_lognormal_mean_inflation`
+- **Measures:** `rho_mrio`, `median`, `p2_5`, `p97_5`, `cv_pct`, `sigma_used`, `mrio_block_cv_if_not_recalibrated_pct`, `median_group_cv_pct`, `max_group_cv_pct`, `draws`, `seed`, `mean_over_deterministic_closed_form`
 
 ### `uncertainty_noncarbon_bound.csv`
 
 - **Rows:** 9
 - **Format:** csv
 - **Dimensions:** `indicator`, `basis`
-- **Measures:** `mrio_spread_multiplier`, `median`, `p2_5`, `p97_5`, `cv_pct`
+- **Measures:** `mrio_spread_multiplier`, `median`, `p2_5`, `p97_5`, `cv_pct`, `draws`, `seed`
 
 ### `uncertainty_parameters.csv`
 
@@ -73,7 +73,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 - **Rows:** 30
 - **Format:** csv
 - **Dimensions:** `price_base_year`, `reference_year`, `indicator`
-- **Measures:** `median`
+- **Measures:** `median`, `draws`, `seed`
 
 ### `uncertainty_tier1_error_propagation.csv`
 
@@ -88,14 +88,14 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 - **Format:** csv
 - **Units:** Mm3, km2, kt, ktCO2eq
 - **Dimensions:** `pharma_scenario`, `indicator`, `unit`
-- **Measures:** `deterministic`, `median`, `mean`, `sd`, `cv_pct`, `p2_5`, `p16`, `p84`, `p97_5`, `rel_low_pct`, `rel_high_pct`, `mcse_median_pct`
+- **Measures:** `deterministic`, `median`, `mean`, `sd`, `cv_pct`, `p2_5`, `p16`, `p84`, `p97_5`, `rel_low_pct`, `rel_high_pct`, `mcse_median_pct`, `draws`, `seed`
 
 ### `uncertainty_travel_correlation.csv`
 
 - **Rows:** 3
 - **Format:** csv
 - **Dimensions:** none
-- **Measures:** `rho`, `median`, `p2_5`, `p97_5`, `cv_pct`
+- **Measures:** `rho`, `median`, `p2_5`, `p97_5`, `cv_pct`, `draws`, `seed`
 
 ### `uncertainty_variance_shares.csv`
 
@@ -109,4 +109,4 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 - **Rows:** 3
 - **Format:** csv
 - **Dimensions:** `note`
-- **Measures:** `rho_mrio`, `mrio_variance_share_pct`
+- **Measures:** `rho_mrio`, `mrio_variance_share_pct`, `draws`, `seed`
