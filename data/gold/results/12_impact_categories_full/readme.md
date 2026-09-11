@@ -2,7 +2,7 @@
 
 **Full impact-category profile**
 
-The study's headline uses six indicators. The studies it is benchmarked against use different and wider sets: Eckelman & Sherman report nine TRACI categories plus DALYs, Malik et al. several environmental impacts, Lenzen et al. a long KPI list. Comparing one stressor at a time is not a replication.
+The study's headline uses five indicators, the five rows of `00_core_footprint/national_totals_summary.csv`. The studies it is benchmarked against use different and wider sets: Eckelman & Sherman report nine TRACI categories plus DALYs, Malik et al. several environmental impacts, Lenzen et al. a long KPI list. Comparing one stressor at a time is not a replication.
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 12](../../../../docs/methods/replications.md#r12).
 

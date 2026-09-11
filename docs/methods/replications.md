@@ -38,6 +38,8 @@ reader to discover.
 | 16 *(write-up not yet written)* | IMPACT World+ profile | Bulle et al. (2019); IW+ v2.2.1 | `impact_world_plus` |
 | 17 *(write-up not yet written)* | Footprint by SHA function | Malik et al. (2018); OECD SHA 2011 | `health_subsector_footprints` |
 | [18](#r18) | Counterfactual scenarios | Aguilar-Hernandez et al. (2018); Donati et al. (2020); Danish Klimastatus og -fremskrivning | `mitigation_scenarios` |
+| [19](#r19) | Tables of record | this study | `build_tables_record` |
+| [star](#rstar) | Star schema over the reported facts | this study; contract in [`star_schema.sql`](star_schema.sql) | `build_star_schema` |
 
 <a id="notation"></a>
 
@@ -1059,7 +1061,7 @@ Published Danish consumption-based footprints separate by **model family**, not 
 | **This study** | 2022 | EXIOBASE v3.8.2 | **13.15** |
 
 The two EXIOBASE-family results agree to 1.9 %; the three national-accounts-family results
-sit 20 % to 35 % below. Our gap against Statistics Denmark is a property of the model family,
+sit 17 % to 35 % below. Our gap against Statistics Denmark is a property of the model family,
 with a named cause (the Danish domestic block, see [section 09](#r09)), not
 an implementation error.
 
@@ -2348,7 +2350,7 @@ advances from, and is written to be quotable as such.
 |:---|:---|:---|:---|
 | 1 | At-home consumption of health-care products by households falls outside the sectoral boundary, because EXIOBASE reports household stressors in one aggregated account. They added a single at-home item, the pMDI propellant, and call for research into the rest | e955 | **Carried, not closed.** The Danish boundary is theirs, and adds the same pMDI item plus anaesthetic gases. The rest of at-home consumption remains outside, and is stated as a limitation rather than claimed as covered |
 | 2 | Capital investment is excluded, because EXIOBASE pools every industry's gross fixed capital formation into one account. Future work should establish whether health care's investments, such as building care facilities, can be added | e955 | **Answered.** [Section 11](#r11) endogenises capital following Södersten et al. (2018) and reports the footprint with and without it; [section 07](#r07) is the capital-boundary comparator, because Malik et al. include capital where the other comparators exclude it |
-| 3 | No uncertainty propagation was attempted. Of the major public EE-MRIO databases only Eora reports ranges, and the one published Dutch estimate found uncertainty rising once a single sector was isolated | e952, e955-e956 | **Answered.** [Section 04](#r04) runs a Monte Carlo over the Danish footprint, calibrated on the only published estimate of this exact quantity, and reports the interval, a Sobol variance decomposition and ranking probabilities |
+| 3 | No uncertainty propagation was attempted. Of the major public EE-MRIO databases only Eora reports ranges, and the one published Dutch estimate found uncertainty rising once a single sector was isolated | e952, e955-e956 | **Answered.** [Section 04](#r04) runs a Monte Carlo over the Danish footprint, calibrated on the closest published estimate of this quantity for Denmark - Lenzen et al.'s Eora figure, transferred across a database, a construct and a footprint size, all three stated in [section 04](#r04) - and reports the interval, a Sobol variance decomposition and ranking probabilities |
 | 4 | EXIOBASE aggregates all health and welfare services into one industry, so the result describes the whole sector and nothing inside it. The industry should be disaggregated on the spend of different provider types | e955 | **Answered in part, and extended.** The Danish supply-use disaggregation is set out in [docs/methods/01_danish_sut_and_health_disaggregation.md](01_danish_sut_and_health_disaggregation.md), and the decomposition by System of Health Accounts function is layer 17, a follow-on paper rather than this one. What ships here is the boundary variant: health only, health with eldercare, and the Dutch *zorg en welzijn* definition, each run end to end |
 | 5 | Pharmaceuticals enter through EXIOBASE's Chemicals n.e.c., a heterogeneous category holding products as unlike as soap and medicines, so how representative the intensity is cannot be known. It should be split, with at least one category for pharmaceuticals | e955 | **Carried, and bounded.** The mapping is the same, because the release is the same. It is treated as a structural modelling decision rather than a measurement error and run as an explicit scenario in [section 04](#r04), so its effect on the result is reported instead of assumed away |
 | 6 | Waste generation rests on the 2011 hybrid supply-use extension against a 2016 baseline, and the mismatch compounds with classification mismatches, aggregation bias and EE-MRIO uncertainty | e951, e954 | **Answered.** [Section 05](#r05) replaces the hybrid extension with Statistics Denmark's own waste accounts for the analysis year, and publishes the hybrid-versus-measured comparison that justifies the replacement rather than asserting it |
@@ -3045,3 +3047,146 @@ Full entries with DOIs are in [`docs/references.md`](../references.md).
   exogenous scenarios in a global MRIO model for the estimation of future
   environmental footprints. *Journal of Economic Structures, 7*, 20.
   https://doi.org/10.1186/s40008-018-0118-y
+
+---
+
+<a id="r19"></a>
+
+## 19 — Tables of record (`data/gold/results/19_tables_of_record/`)
+
+**Module** `analysis.build_tables_record` · **Document**
+[`docs/revision/tables_of_record.docx`](../revision/tables_of_record.docx)
+
+### Question this layer answers
+
+When a number from this study is quoted in the manuscript, a slide or an email,
+which file did it come from and is it still the current value?
+
+### Method
+
+Every table is **built from the gold facts**, not transcribed. One builder per
+table reads the named gold file, selects the rows and columns the table
+publishes, formats them, and returns the table together with its title, its
+source path, a note saying how to read it, and, where an earlier version of the
+same table is known to circulate, what that version said and why it changed.
+The builders are a tuple, so the document's contents are a list of functions
+rather than a layout.
+
+The history this replaces was a set of screenshots. A screenshot preserves the
+arithmetic of the moment: the running record carried a Danish national total of
+76.5 Mt against a current 77.2, a climate footprint of 4,629 kt against a
+current 4,675.5, and a cumulative production-layer share computed on a model
+that was later withdrawn. Rebuilding from the facts means the record moves when
+the study does.
+
+Two failure modes are designed out rather than watched for:
+
+- **No positional column access.** A builder names the columns it reads, held in
+  a module constant, and a missing column raises rather than falling back to
+  whatever sits in that position. Table 7 published `country_consuming` and
+  `analysis_year` as the GWP revision and the footprint for exactly that
+  reason, and every row of it read `DNK / 2,022`.
+- **No figure typed beside a table.** A caption or a title that quotes the
+  table's own numbers reads them from it. Table 6's title stated the
+  boundary-matched agreement to one decimal, and the capital-uplift
+  regeneration moved that decimal; table 11's note stated the own-terms sum and
+  the correlation sweep's range, and both had drifted from the file by a tenth
+  of a point. Table 5's note quoted this study's per-capita figure and its gap
+  against the other EXIOBASE-family estimate, and both were a revision behind.
+  All of them are now computed from the frame the table publishes.
+
+### What the folder holds
+
+| File | Content |
+|:---|:---|
+| `table_01.csv` … `table_15.csv` | one CSV per published table, in the form the document prints it |
+| `tables_of_record_index.csv` | one row per table: number, title, the gold file or files it was read from, its shape, and whether a superseded version is recorded |
+
+The Word rendering of the same tables lives under `docs/revision/`, not here:
+gold publishes tabular data, and a typeset document is not data. Table 9 is
+absent by design — it belongs to `17_health_subsectors`, which is classified
+private and is not part of the paper's deliverables.
+
+### Verification
+
+`analysis.audit_consistency` **C18** reads every row of
+`tables_of_record_index.csv`, resolves the gold file or files its `source` field
+declares, matches each numeric column of the published table to the source
+column whose name it publishes, and requires every cell in that column to be a
+value the source column holds, formatted to the precision the cell was printed
+at. Matching is by normalised name — case, separators and the sub- and
+superscript digits are stripped, so `Health care (kt CO₂-eq)` and
+`healthcare_kt_co2eq` are the same string — and a column matches exactly, or by
+being contained in exactly one source column name.
+
+Derived columns (a per-person value, a share, a bridge step) match no source
+column and are not checked; annotation cells (`n.r.`, `CV 0.50 %`) are skipped,
+because they are not figures; text columns are out of scope, because a
+composite scenario label and a typeset unit are display rather than record.
+Twelve columns across the published tables trace. The check fails on the
+corrupt table 7 and passes on the rebuilt one, which is the demonstration that
+it tests what it claims to.
+
+---
+
+<a id="rstar"></a>
+
+## star — The semantic layer over the reported facts (`data/gold/results/star/`)
+
+**Module** `analysis.build_star_schema` · **Contract**
+[`docs/methods/star_schema.sql`](star_schema.sql)
+
+### Question this layer answers
+
+Every layer above publishes its own tables in its own shape. Which of those
+numbers are the *same* number, and how does a reader join one layer's result to
+another's without re-deriving the correspondence by hand?
+
+### Method
+
+A star schema: conformed dimensions carrying surrogate keys, and facts that
+carry measures plus the keys of the dimensions they are grained on. The grain of
+each fact is declared, not inferred.
+
+`dim_model` is the dimension that makes the rest work. One row per model **run**
+— a distinct solve whose reference year, background year or sector boundary
+differs from the others, and whose outputs live in their own folder. Variations
+computed *within* a run — the capital treatment, the GWP revision, the
+characterisation method, the mitigation lever — are dimensions of their own
+rather than model rows, because folding them into `dim_model` would need a row
+per crossing, most of which no run ever produced, and would let a fact point at
+a configuration that was never solved.
+
+Storage follows size rather than type: every dimension, and every fact of at
+most 50,000 rows, is a CSV of the same name; the larger facts are Parquet
+(pyarrow, snappy), one file per fact. The DDL is the contract either format
+satisfies, and it is PostgreSQL types, which adapt unchanged to DuckDB.
+
+### What the folder holds
+
+| Group | Content |
+|:---|:---|
+| `dim_*.csv` | the conformed dimensions: model, indicator, region, industry, industry group, demand component, scope, scope component, capital treatment, GWP revision, impact category, production layer, scenario, substance, draw group |
+| `fact_*.csv`, `fact_*.parquet` | the facts: the footprint by node, by product and bilaterally; national totals; the scope partition and its node detail; capital scenarios and their node detail; the GWP revision and its species; production layers; scenario node detail; impact node detail; health expenditure; and the uncertainty draws |
+
+Three tables the DDL declares have no published counterpart here —
+`dim_health_function`, `fact_health_function`, `fact_health_function_node` —
+because they belong to `17_health_subsectors`, which is classified private. The
+DDL is the contract for the study, and the working copy carries the subset its
+scope entitles it to; the absence is expected rather than a defect.
+
+### Verification
+
+`analysis.audit_consistency` **C7** is two checks. The first resolves every
+declared foreign key: for each fact, each of its dimension columns is joined
+against that dimension's primary key and any value with no match is an orphan.
+`model_id` is checked on every fact rather than listed once per fact, because a
+fact pointing at a model row that does not exist is the failure that would make
+every other join meaningless. The second asserts the **declared grain**: each
+fact's key tuple must be unique, so a fact cannot carry the same cell twice
+under two rows that a naive sum would then double count.
+
+A fact whose layer is not in this working copy is skipped and reported as
+skipped rather than passed, so a private layer's absence cannot read as a clean
+join. At the current build, 58 foreign keys resolve with no orphans, 15
+dimension keys are unique and complete, and 15 facts hold their grain.

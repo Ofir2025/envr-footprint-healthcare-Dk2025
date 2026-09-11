@@ -10,40 +10,62 @@ effect and the correction effect be read separately. All four variants carry
 the same figure set, drawn by the same code from the same tables, so a
 difference between them is a difference in the data and never in the plotting.
 
-Every command below needs a UTF-8 locale. If the shell is not already one,
-prefix each with `LANG=en_US.UTF-8`; `r/_dk_common.r` stops with that
-instruction otherwise, because a C locale drops CO₂, Mm³ and km² to `..` in
-every figure.
+Every command below carries `LANG=en_US.UTF-8` so it can be copied and pasted
+as it stands. `r/_dk_common.r` stops with that instruction if the locale is not
+UTF-8, because a C locale drops CO₂, Mm³ and km² to `..` in every figure, and
+prose above a code block is not a prefix.
 
 ```bash
 # 2022, shipping-corrected - EXIOBASE v3.8.2 IOT_2022 with the Danish
 # sea-transport reallocation applied. The manuscript's headline.
-HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_manuscript_figures.r
-HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_absolute_and_percapita.r
-HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_scenarios.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_absolute_and_percapita.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_scenarios.r
 
 # 2022, uncorrected - same background, correction NOT applied
-HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_manuscript_figures.r
-HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_absolute_and_percapita.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_absolute_and_percapita.r
 
 # 2019, shipping-corrected - EXIOBASE v3.8.2 IOT_2016 with the same correction
 # applied, so it is comparable with 2022_shipping_corrected on correction state
-HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_manuscript_figures.r
-HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_absolute_and_percapita.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_absolute_and_percapita.r
 
 # 2019, uncorrected - EXIOBASE v3.8.2 IOT_2016, the manuscript's own
 # background, exactly as submitted
-HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_manuscript_figures.r
-HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_absolute_and_percapita.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_absolute_and_percapita.r
 
 # fig10, the cross-year bridge - not tied to any one variant folder, so it
 # writes straight into comparison/ rather than one of the four above
-DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_bridge.r
+LANG=en_US.UTF-8 DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_bridge.r
 ```
 
-Run with a UTF-8 locale (`LANG=en_US.UTF-8`). R parses source files in the
-process locale, and under `C` the non-ASCII characters in the labels are
-mangled: "Södersten" came out as "S..dersten" with no warning.
+The locale matters twice over. R also parses source files in the process
+locale, and under `C` the non-ASCII characters in the labels are mangled:
+"Södersten" came out as "S..dersten" with no warning.
+
+## What the scope figures' fourth series is
+
+Figures 3 and 6 partition by GHG-Protocol scope, and the study's own fourth
+category is what the Protocol has no scope for: patient and visitor travel,
+caused by the health system but neither owned, controlled nor purchased by the
+providers. The gold tables call it `Outside protocol`; the legend calls it
+**Patient and visitor travel**, because a figure here carries no title and no
+on-image note, and the term appears in neither the manuscript nor the appendix.
+The mapping is `SCOPE_LABELS` in `r/_dk_common.r`, and the category is defined
+in [`docs/methods/replications.md`, section 02](../../docs/methods/replications.md#r02).
+
+## One caveat on the uncorrected variants
+
+`02_scopes_wood_hertwich` publishes **one folder per year**, not per year and
+correction state, so `gold_path` resolves the scope tables by year alone.
+Figures 3 to 6 in `2019_uncorrected` and `2022_uncorrected` therefore read the
+correction state that layer publishes for that year, which for both years is
+the **shipping-corrected** one. Every other figure in those folders reads
+`01_eriksen_replication`, which is variant-scoped, and is genuinely
+uncorrected. Until layer 02 carries the correction state in its folder name,
+read figures 3 to 6 of the uncorrected variants as corrected.
 
 ## The four variants are not interchangeable
 

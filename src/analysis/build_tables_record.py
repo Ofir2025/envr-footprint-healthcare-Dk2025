@@ -3,11 +3,13 @@
 
 Tables reported during the project were screenshotted into a running history,
 and several of those screenshots carry numbers that later work superseded: a
-Danish national total of 76.5 Mt that is now 77.5, a climate footprint of
-4,629 kt that the AR6 restatement moved to 4,713, a production-layer share of
-67.9 % computed on a model that was subsequently withdrawn. A record made from
-screenshots preserves the arithmetic of the moment rather than the state of the
-study.
+Danish national total of 76.5 Mt that is now 77.2, a climate footprint of
+4,629 kt that the AR6 restatement and the sea-transport correction moved to
+4,675.5, a production-layer share of 67.9 % computed on a model that was
+subsequently withdrawn. A record made from screenshots preserves the arithmetic
+of the moment rather than the state of the study, and this docstring is itself
+the demonstration: two of those three "current" figures had moved again by the
+time it was next read.
 
 This module rebuilds every table from the gold fact tables instead, so the
 document is generated rather than transcribed and can be regenerated whenever a
@@ -301,20 +303,32 @@ def t_benchmarks() -> Table:
         "t per person": _fmt(r["per_capita_t"], 2),
         "Capital": r["capital"],
     } for _, r in d.iterrows()]
+    # Every figure in the note is taken from the table it annotates. It read
+    # 13.19 and 2.3 % against a published 13.15 and 1.9 %, because the two were
+    # typed beside each other rather than one being read from the other.
+    # "national accounts coupled to EXIOBASE" is a national-accounts family
+    # result, so the test is the leading word, not a substring.
+    is_exio = d["model_family"].astype(str).str.startswith("EXIOBASE")
+    exio = d.loc[is_exio, "per_capita_t"]
+    na = d.loc[~is_exio, "per_capita_t"]
     return Table(
         5, "Published Danish national footprints separate by model family, "
            "not by year",
         pd.DataFrame(rows),
         "06_benchmarks_validation/published_danish_footprint_benchmarks.csv",
-        "The two EXIOBASE-family results sit at 12.90 and 13.19 t per person; "
-        "the three national-accounts-family results sit between 9.77 and 11.00. "
-        "This study is within 2.3 % of the only other published Danish "
-        "EXIOBASE study, and about 20 % above the national-accounts family, as "
-        "that family's own members are above one another. The gap against "
-        "Statistics Denmark is therefore a property of the model family rather "
-        "than an error in this implementation. The five estimates span a "
-        "coefficient of variation of 12.8 %, which is wider than this study's "
-        "parametric uncertainty interval.",
+        f"The two EXIOBASE-family results sit at {exio.min():.2f} and "
+        f"{exio.max():.2f} t per person; the three national-accounts-family "
+        f"results sit between {na.min():.2f} and {na.max():.2f}. This study is "
+        f"within {100 * (exio.max() - exio.min()) / exio.min():.1f} % of the "
+        "only other published Danish EXIOBASE study, and between "
+        f"{100 * (exio.min() / na.max() - 1):.0f} % and "
+        f"{100 * (exio.max() / na.min() - 1):.0f} % above the "
+        "national-accounts family, as that family's own members are above one "
+        "another. The gap against Statistics Denmark is therefore a property "
+        "of the model family rather than an error in this implementation. The "
+        f"five estimates span a coefficient of variation of "
+        f"{100 * d['per_capita_t'].std(ddof=1) / d['per_capita_t'].mean():.1f} %, "
+        "which is wider than this study's parametric uncertainty interval.",
         "An earlier version of this table gave this study as 76.5 Mt and "
         "13.02 t per person. Both moved with the AR6 restatement.")
 
@@ -330,9 +344,15 @@ def t_boundary_matched() -> Table:
         "Share of national (%)": _fmt(r["share_of_national_pct"], 1),
         "Comparable": "yes" if r["comparable_with_published"] else "no",
     } for _, r in d.iterrows()]
+    # The agreement in the title is the last row's own ratio, not a figure
+    # typed beside it: it moved from 1.7 % to 1.8 % when the capital uplift was
+    # regenerated, and a hand-typed title does not move with its table.
+    matched = float(d.loc[d["comparable_with_published"].astype(bool)
+                          & (d["basis"].astype(str).str.startswith("this study")),
+                          "ratio_to_published"].iloc[-1])
     return Table(
         6, "Matched to their boundary and capital treatment, this study and "
-           "Schmidt and Merciai agree to 1.7 %",
+           f"Schmidt and Merciai agree to {abs(matched - 1) * 100:.1f} %",
         pd.DataFrame(rows),
         "06_benchmarks_validation/danish_healthcare_benchmark_boundary_matched.csv",
         "Only the last row is comparable with the published value. Two "
@@ -517,6 +537,17 @@ def t_variance() -> Table:
         "Contributor": name.get(r["parameter"], r["parameter"]),
         "Share of variance (%)": _sigfig(r["variance_share_pct"]),
     } for _, r in d.iterrows()]
+    # Both figures in the caption are read out of the tables, not typed beside
+    # them: the first was 90.7 % against a computed 90.6, and the second 78.6 %
+    # to 78.9 % against a computed 78.4 to 78.6. A caption that quotes its own
+    # table has to come from it.
+    own_terms = float(d.loc[~d["parameter"].astype(str)
+                            .str.startswith("covariance"),
+                            "variance_share_pct"].sum())
+    sweep = _read("04_uncertainty_lenzen_ieooc",
+                  "uncertainty_variance_shares_by_correlation.csv")
+    lo = float(sweep["mrio_variance_share_pct"].min())
+    hi = float(sweep["mrio_variance_share_pct"].max())
     return Table(
         11, "The uncertainty is the input-output model, not the bottom-up "
             "proxies the reviewers questioned",
@@ -524,11 +555,12 @@ def t_variance() -> Table:
         "04_uncertainty_lenzen_ieooc/uncertainty_variance_shares.csv",
         "Computed in closed form rather than estimated from the draws, so the "
         "shares sum to 100 % exactly. The covariance row is what commuting and "
-        "patient travel add by sharing a derivation method; without it the "
-        "remaining shares would sum to 90.7 % and would not be a decomposition. "
-        "The input-output share is stable between 78.6 % and 78.9 % across "
-        "every correlation assumption tested, so it is a property of the "
-        "calibration rather than of the correlation choice.")
+        f"patient travel add by sharing a derivation method; without it the "
+        f"remaining shares would sum to {own_terms:.1f} % and would not be a "
+        f"decomposition. The input-output share is stable between {lo:.1f} % "
+        f"and {hi:.1f} % across every correlation assumption tested "
+        "(uncertainty_variance_shares_by_correlation.csv), so it is a property "
+        "of the calibration rather than of the correlation choice.")
 
 
 #: The two rows of ``target_consistency.csv`` the table 12 caption quotes.

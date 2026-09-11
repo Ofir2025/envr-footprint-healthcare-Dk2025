@@ -143,7 +143,7 @@ units and are labelled as such wherever they are quoted.
 | `2.5th percentile` | measure | float64 |  | 4031.6 |
 | `97.5th percentile` | measure | float64 |  | 5488.3 |
 | `CV, Tier 2 (%)` | measure | float64 |  | 7.87 |
-| `CV, Tier 1 (%)` | measure | float64 |  | 7.84 |
+| `CV, Tier 1 (%)` | measure | float64 |  | 7.9 |
 
 ### `table_11.csv`
 

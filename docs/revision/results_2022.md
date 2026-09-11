@@ -715,7 +715,7 @@ HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship python -m analysis.main_2025
   13302 vs childcare 13301: 15.54 vs 34.72 bn DKK), replacing the 0.4914 carried
   forward from the 2019 detailed SUT, a documented open item now closed.
 - **Direct waste:** AFFALD01 2022 (excl. soil), same boundary and same α = **42.8 kt**.
-- **Bottom-up:** anaesthetics 11.6 kt (N₂O 11.3 from NID 2.G.3.a, volatiles 1.2
+- **Bottom-up:** anaesthetics 11.6 kt (N₂O 10.4 from NID 2.G.3.a, volatiles 1.2
   from medstat.dk ATC N01AB sales, no longer a proxy; see
   ["Bottom-up anaesthetic gases"](#bottom-up-anaesthetic-gases) below);
   pMDI **11.6 kt** (Danish EPA F-gas inventory 2022 actual, GWP100); commuting factor
@@ -1299,7 +1299,7 @@ Our anaesthetic-gas item (11.6 kt CO₂e) has two parts:
 
 | part | value | basis | strength |
 |:---|:---|:---|:---|
-| **N₂O** | 10.4 kt | Denmark's National Inventory Document 2024 (DCE report 622), category 2.G.3.a: 38 t N₂O/yr × 298 | **strong**: official national inventory, though the 2013-2022 series is a constant extrapolated from 2005-2012 sales, and it includes non-hospital uses (dental, veterinary) |
+| **N₂O** | 10.4 kt | Denmark's National Inventory Document 2024 (DCE report 622), category 2.G.3.a: 38 t N₂O/yr × 273, the AR6 GWP₁₀₀ the model's climate row uses. The AR4 factor of 298 would give 11.3 kt and is not what the row carries | **strong**: official national inventory, though the 2013-2022 series is a constant extrapolated from 2005-2012 sales, and it includes non-hospital uses (dental, veterinary) |
 | **volatile agents** (sevoflurane, desflurane, isoflurane) | 1.2 kt | medstat.dk register, ATC N01AB, actual Danish sales for the year: sevoflurane 2,400 L, desflurane 181 L, isoflurane 15 L; densities from Laster et al. (1994); GWP₁₀₀ from Sulbaek Andersen et al. (2023) | **strong**: a Danish measurement, not a transfer |
 
 Volatile halogenated agents are **not** in UNFCCC inventories at all (they are

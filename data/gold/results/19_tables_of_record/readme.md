@@ -1,5 +1,11 @@
 # 19_tables_of_record
 
+**Tables of record**
+
+When a number from this study is quoted in the manuscript, a slide or an email, which file did it come from and is it still the current value?
+
+Method, equations, and verification: [`docs/methods/replications.md`, section 19](../../../../docs/methods/replications.md#r19).
+
 ## Conventions
 
 | Item | Convention |
