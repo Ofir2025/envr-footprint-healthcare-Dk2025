@@ -62,7 +62,7 @@ import re
 import numpy as np
 import pandas as pd
 
-from paths import BRONZE_DIR, EXIOBASE_DIR, SILVER_INPUT_DIR
+from paths import BRONZE_DIR, EXIOBASE_BASE_DIR, SILVER_INPUT_DIR
 
 #: Statistics Denmark's published input-output workbook, one per year.
 DST_IO = BRONZE_DIR / "dst_input_output" / "input_output_en_{year}.xlsx"
@@ -75,7 +75,7 @@ DRIVHUS = (BRONZE_DIR / "dst_emission_accounts"
 
 #: EXIOBASE's classification workbook, whose ``disagg_ind`` sheet carries the
 #: aggregate reporting group of every industry.
-CLASSIFICATIONS = EXIOBASE_DIR / "classifications.xlsx"
+CLASSIFICATIONS = EXIOBASE_BASE_DIR / "classifications.xlsx"
 
 #: Sheet of the DST workbook holding the DOMESTIC input-output table. The
 #: ``IO`` sheet is the total table, domestic plus imported; only the domestic

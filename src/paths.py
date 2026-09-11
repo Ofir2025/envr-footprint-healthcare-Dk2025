@@ -52,7 +52,83 @@ GOLD_DIR = DATA_DIR / "gold"
 BACKGROUND_DIR = SILVER_DIR / "background"
 MRIO_DIR = BACKGROUND_DIR / "pickled_mrio"
 OUTPUT_DIR = GOLD_DIR / "results"
-EXIOBASE_DIR = BRONZE_DIR / "exiobase"
+
+#: Shared, release-independent EXIOBASE inputs: the DESIRE characterisation
+#: workbook, ``classifications.xlsx``, the region files and the hybrid waste
+#: workbook. These are one copy for every release, so they are NOT under a
+#: release subfolder and must be read from here rather than from
+#: :data:`EXIOBASE_DIR`.
+EXIOBASE_BASE_DIR = BRONZE_DIR / "exiobase"
+
+#: EXIOBASE release the process is configured for, from ``HC_EXIOBASE_RELEASE``.
+#:
+#: Defined here rather than imported from :mod:`analysis.constants` because
+#: this module must not depend on the analysis package; the two agree by
+#: reading the same variable, and ``analysis.constants.EXIOBASE_RELEASE`` is
+#: the name the rest of the code base uses.
+EXIOBASE_RELEASE = os.environ.get("HC_EXIOBASE_RELEASE", "v3_8_2").strip() \
+    or "v3_8_2"
+
+
+def exiobase_release_dir(release: str | None = None) -> Path:
+    """Directory holding one release's ``IOT_<year>_ixi`` trees.
+
+    Parameters
+    ----------
+    release : str, optional
+        Release key, ``"v3_7"`` or ``"v3_8_2"``. Defaults to
+        :data:`EXIOBASE_RELEASE`.
+
+    Returns
+    -------
+    Path
+        ``data/bronze/exiobase/<release>`` when that directory exists, else
+        ``data/bronze/exiobase`` itself. The fallback keeps the pre-existing
+        top-level symlinks (``data/bronze/exiobase/IOT_2016_ixi``) working in a
+        working copy that has not yet grown the per-release trees.
+    """
+    per_release = EXIOBASE_BASE_DIR / (release or EXIOBASE_RELEASE)
+    return per_release if per_release.is_dir() else EXIOBASE_BASE_DIR
+
+
+def exiobase_iot_dir(year: str, release: str | None = None) -> Path:
+    """Path of one release-year EXIOBASE industry-by-industry table.
+
+    Parameters
+    ----------
+    year : str
+        Four-digit table year, e.g. ``"2016"``.
+    release : str, optional
+        Release key. Defaults to :data:`EXIOBASE_RELEASE`.
+
+    Returns
+    -------
+    Path
+        ``<release dir>/IOT_<year>_ixi``, falling back to the top-level
+        ``data/bronze/exiobase/IOT_<year>_ixi`` symlink when the release tree
+        does not carry that year.
+
+    Raises
+    ------
+    FileNotFoundError
+        If neither location exists, naming both so the caller can see which
+        symlink is missing.
+    """
+    candidates = [exiobase_release_dir(release) / f"IOT_{year}_ixi",
+                  EXIOBASE_BASE_DIR / f"IOT_{year}_ixi"]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    raise FileNotFoundError(
+        f"no EXIOBASE IOT_{year}_ixi for release "
+        f"{release or EXIOBASE_RELEASE!r}; looked in "
+        + ", ".join(str(c) for c in candidates))
+
+
+#: Release-resolved EXIOBASE directory: the tree holding the ``IOT_<year>_ixi``
+#: tables of the release this process is configured for. The release-independent
+#: auxiliary workbooks live in :data:`EXIOBASE_BASE_DIR`, one level up.
+EXIOBASE_DIR = exiobase_release_dir()
 
 
 def ensure_runtime_directories() -> None:

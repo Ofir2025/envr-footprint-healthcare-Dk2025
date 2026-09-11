@@ -28,7 +28,7 @@ Two defects are detected and separated:
 
 Run: PYTHONPATH=src .venv/bin/python -m analysis.release_defect_audit
 
-Releases are read from ``paths.EXIOBASE_DIR`` (``data/bronze/exiobase``,
+Releases are read from ``paths.EXIOBASE_BASE_DIR`` (``data/bronze/exiobase``,
 redirectable with ``HC_BRONZE_DIR``), in the two layouts ``discover_releases``
 documents. ``data/bronze/exiobase/readme.md`` says how to link one.
 """
@@ -44,7 +44,7 @@ import pandas as pd
 import scipy.io as sio
 
 from analysis.constants import K_DK, N_SECTORS
-from paths import BRONZE_DIR, EXIOBASE_DIR, OUTPUT_DIR
+from paths import BRONZE_DIR, EXIOBASE_BASE_DIR, OUTPUT_DIR
 
 FOLDER = "09_exiobase_release_diagnostics"
 DKK_PER_EUR_2022 = 7.4396
@@ -217,7 +217,7 @@ def _flat_release(path: str) -> str:
 def discover_releases() -> list[tuple[str, str, str]]:
     """Every (release, year, path) triple under this repository's bronze layer.
 
-    Two layouts are read, both under ``paths.EXIOBASE_DIR`` (``HC_BRONZE_DIR``
+    Two layouts are read, both under ``paths.EXIOBASE_BASE_DIR`` (``HC_BRONZE_DIR``
     honoured), because the bronze folder holds one release flat and any others
     beside it:
 
@@ -242,7 +242,7 @@ def discover_releases() -> list[tuple[str, str, str]]:
         found as both a ``.mat`` file and a txt distribution of the same
         release keeps only its first discovery.
     """
-    root = str(EXIOBASE_DIR)
+    root = str(EXIOBASE_BASE_DIR)
     found: list[tuple[str, str, str]] = []
     if not os.path.isdir(root):
         return found
@@ -324,7 +324,7 @@ def main() -> None:
     out_dir = os.path.join(OUTPUT_DIR, FOLDER)
     os.makedirs(out_dir, exist_ok=True)
     releases = discover_releases()
-    print(f"releases found under {EXIOBASE_DIR}: "
+    print(f"releases found under {EXIOBASE_BASE_DIR}: "
           f"{[(v, y) for v, y, _ in releases]}")
 
     dst_cache, rows, i33, read_pairs = {}, [], [], set()

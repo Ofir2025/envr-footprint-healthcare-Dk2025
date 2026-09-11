@@ -20,10 +20,15 @@ import time
 import pickle as pkl
 import sys
 from paths import MRIO_DIR
+from analysis.constants import EXIOBASE_RELEASE, RELEASE_TAG, table_year
 np.set_printoptions(precision=2)
 
 tstart = time.time()
-year = os.environ.get('HC_BACKGROUND_YEAR', '2016')
+# Release-tagged stem, so the v3.7 and v3.8.2 inverses of the same table year
+# coexist instead of overwriting each other.
+year = os.environ.get('HC_BACKGROUND_YEAR', '') or table_year()
+stem = year + RELEASE_TAG.get(EXIOBASE_RELEASE, f'_{EXIOBASE_RELEASE}')
+print(f"release {EXIOBASE_RELEASE} | background stem {stem}")
 ##############################################
 ##############################################
 #TASK 1: Load Exiobase v3.7 and calibrate MRIO
@@ -40,7 +45,7 @@ mrio_dir = str(MRIO_DIR) + os.sep
 
 tstart = time.time()
 
-mrio_str = 'exio' + year +'.pkl'  
+mrio_str = 'exio' + stem +'.pkl'  
 pkl_in = open(mrio_dir + mrio_str,"rb")
 mrio = pkl.load(pkl_in)
 pkl_in.close()
@@ -63,7 +68,7 @@ tstart = time.time()
 
 #############################################
 # save to pickle
-mrio_str = 'leontief'+ year +'.pkl'  
+mrio_str = 'leontief'+ stem +'.pkl'  
 pkl_out = open(mrio_dir + mrio_str,"wb")
 pkl.dump(L, pkl_out)
 pkl_out.close()

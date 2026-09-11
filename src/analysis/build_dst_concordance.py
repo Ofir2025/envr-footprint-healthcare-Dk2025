@@ -147,7 +147,8 @@ import pandas as pd
 
 from analysis.constants import ANALYSIS_YEAR, K_DK, N_SECTORS
 from analysis.release_defect_audit import CONCORDANCE as SEED_CONCORDANCE
-from paths import BRONZE_DIR, EXIOBASE_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
+from paths import (BRONZE_DIR, EXIOBASE_BASE_DIR, EXIOBASE_DIR, OUTPUT_DIR,
+                   SILVER_INPUT_DIR)
 
 FOLDER = "06_benchmarks_validation"
 #: This module's own output, not a bronze source: a conformed, regenerable
@@ -161,7 +162,7 @@ CONCORDANCE_CSV = SILVER_INPUT_DIR / "exiobase_industry_to_dst_db07.csv"
 VALIDATION_CSV = "dst_concordance_validation.csv"
 ISIC_CSV = (BRONZE_DIR / "classification_concordances"
             / "exiobase_industry_to_isic_rev3.csv")
-CLASSIFICATIONS = EXIOBASE_DIR / "classifications.xlsx"
+CLASSIFICATIONS = EXIOBASE_BASE_DIR / "classifications.xlsx"
 DST_IO = BRONZE_DIR / "dst_input_output" / "input_output_en_{year}.xlsx"
 EXIOBASE_X = EXIOBASE_DIR / "IOT_{year}_ixi" / "x.txt"
 SATELLITE_CSV = (BRONZE_DIR / "dst_emission_accounts"
@@ -672,7 +673,7 @@ def load_exiobase_dk_output(year: str) -> np.ndarray:
     ----------
     year : str
         EXIOBASE reference year; the directory is resolved under
-        ``paths.EXIOBASE_DIR``, which points at the background release this
+        ``paths.EXIOBASE_DIR``, which resolves the release this
         study uses (v3.8.2).
 
     Returns
