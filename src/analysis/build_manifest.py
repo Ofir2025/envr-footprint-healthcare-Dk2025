@@ -133,17 +133,29 @@ APPROACHES = {
         equations="f = C S L y_H ; E[i,j] = s_i L_ij y_j",
         inputs="EXIOBASE v3.8.2 IOT_2022_ixi; DK expenditure vector"),
     "01_eriksen_replication": dict(
-        approach="Eriksen/Steenmeijer replication outputs (corrected)",
+        approach="Eriksen/Steenmeijer replication outputs (corrected), one "
+                 "folder per model variant <year><letter>: a = v3.7 "
+                 "uncorrected (as submitted), b = v3.7 corrected, c = v3.8.2 "
+                 "corrected (headline), d = v3.8.2 corrected with child and "
+                 "elder care and capital endogenised; 2019_uncorrected and "
+                 "2022_uncorrected are v3.8.2 without the correction and are "
+                 "not lettered",
         reference="Steenmeijer et al. 2022; Eriksen et al. NXSUST-D-26-01589",
-        script="analysis.main_2025",
+        script="analysis.main_2025 / analysis.eriksen_tables / "
+               "analysis.manuscript_figure_tables, once per variant",
         equations="contribution B L diag(y); hotspot B diag(L y)",
-        inputs="background pickle; DRIVHUS; AFFALD01; Danish bottom-up items"),
+        inputs="the variant's own background pickle (release, sea-transport "
+               "correction, boundary and capital treatment all in its name); "
+               "DRIVHUS; AFFALD01; Danish bottom-up items"),
     "02_scopes_wood_hertwich": dict(
-        approach="GHG Protocol scopes and the double-counting ledger",
+        approach="GHG Protocol scopes and the double-counting ledger, in the "
+                 "same variant folders as 01_eriksen_replication",
         reference="Wood & Hertwich 2018 (ERL 13:104013) table 1, eqs. 1-2; GHG Protocol",
-        script="analysis.scopes_detail / analysis.double_counting_audit",
+        script="analysis.scopes_detail / analysis.double_counting_audit / "
+               "analysis.scope_figure_tables, once per variant",
         equations="S2 = d_E L_EE y_E ; S3 = f - S2 ; S1 from national accounts",
-        inputs="background pickle; DRIVHUS; AFFALD01; bottom-up file"),
+        inputs="the variant's own background pickle; DRIVHUS; AFFALD01; "
+               "bottom-up file"),
     "03_cabernard_target_scope3": dict(
         approach="Target-sector scope 3 without double counting",
         reference="Cabernard et al. 2019 (STOTEN 684:164-177) eqs. 8/9/12; 2022 SI",

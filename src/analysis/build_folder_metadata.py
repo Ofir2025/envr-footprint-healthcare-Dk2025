@@ -9,7 +9,7 @@ grain, row count, columns, units, and dimension coverage; and a
 role and a sample value.
 
 Any folder under the gold root that holds at least one table gets both files,
-however deep it sits - a year subdirectory (``01_eriksen_replication/2019_shipping_corrected``) or
+however deep it sits - a variant subdirectory (``01_eriksen_replication/2019c``) or
 a scenario folder (``scenarios/health_only``) is described exactly like a
 top-level approach folder.
 
@@ -42,6 +42,9 @@ from typing import Any
 
 import pandas as pd
 
+from analysis.constants import (ERIKSEN_ROOT, SCOPES_ROOT, UNLETTERED_VARIANTS,
+                                VARIANTS, variant_config,
+                                variant_description)
 from paths import OUTPUT_DIR
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -185,25 +188,44 @@ NOTES: dict[str, str] = {
 #: Rendered after the layer's question and its link into the methods document,
 #: and before the conventions table.
 README_NOTES: dict[str, str] = {
-    "02_scopes_wood_hertwich/2019_shipping_corrected": (
+    "02_scopes_wood_hertwich/2019a": (
         "## Which model run this folder is\n"
         "\n"
-        "The folder name carries both axes, as `01_eriksen_replication` does:\n"
-        "reference year 2019 on EXIOBASE v3.8.2 `IOT_2016_ixi`, with the Danish\n"
-        "sea-transport reallocation applied. Its partition closes on\n"
-        "`01_eriksen_replication/2019_shipping_corrected` exactly: the climate\n"
-        "`TOTAL` of 4,052.850438 kt CO2-eq plus the self-supply loop of\n"
+        "Variant a: the submitted configuration. Its partition closes on\n"
+        "`01_eriksen_replication/2019a`, and its transport share is the\n"
+        "measurement that matters here - 34.93 % of the climate footprint by\n"
+        "producing node, against the 46 % the submitted manuscript reports and\n"
+        "the 47.28 % that `2019_uncorrected` returns on v3.8.2. The submitted\n"
+        "number is reproduced by the v3.8.2 run, not by the v3.7 one, which is\n"
+        "the finding this variant exists to establish."
+    ),
+    "02_scopes_wood_hertwich/2019b": (
+        "## Which model run this folder is\n"
+        "\n"
+        "Variant b isolates the Danish sea-transport correction on the\n"
+        "submitted release: everything is variant a except the correction. The\n"
+        "transport share falls from 34.93 % to 16.56 % and the climate total\n"
+        "from 8,694.66 to 6,625.53 kt CO2-eq, so on v3.7 as on v3.8.2 the\n"
+        "correction is the larger of the two effects on the transport finding."
+    ),
+    "02_scopes_wood_hertwich/2019c": (
+        "## Which model run this folder is\n"
+        "\n"
+        "Variant c for 2019: reference year 2019 on EXIOBASE v3.8.2\n"
+        "`IOT_2016_ixi`, with the Danish sea-transport reallocation applied.\n"
+        "Its partition closes on `01_eriksen_replication/2019c` exactly: the\n"
+        "climate `TOTAL` of 4,052.850438 kt CO2-eq plus the self-supply loop of\n"
         "1.921622 kt is the grand total of 4,054.772061 kt that\n"
         "`scopes_summary.csv` publishes there.\n"
         "\n"
         "The bottom-up items are 2019's own: anaesthetic gases 12.470055 kt,\n"
         "commuting 327.944600 kt, patient and visitor travel 293.475319 kt.\n"
         "\n"
-        "## Why there is no 2019_uncorrected companion\n"
+        "## Why there is no 2019_uncorrected companion in this layer\n"
         "\n"
-        "The other three runs of the 2x2 are published; this year's uncorrected\n"
-        "one is not, and it is withheld rather than missing by accident. The\n"
-        "2016 background it needs cannot currently be paired with\n"
+        "`01_eriksen_replication` publishes it and this layer does not, and it\n"
+        "is withheld rather than missing by accident. The 2016 background it\n"
+        "needs cannot currently be paired with\n"
         "`01_eriksen_replication/2019_uncorrected`: the uncorrected and\n"
         "shipping-corrected 2016 model objects on disk descend from two\n"
         "different extractions of `IOT_2016_ixi`, whose climate intensity rows\n"
@@ -213,43 +235,73 @@ README_NOTES: dict[str, str] = {
         "layer's own reconciliation identity by 58.47 kt. See\n"
         "`docs/revision/defects_and_fixes.md`.\n"
         "\n"
-        "The shipping-corrected 2019 run is unaffected: it reproduces from the\n"
-        "objects on disk byte for byte, its background included."
+        "Variant c is unaffected: it reproduces from the objects on disk byte\n"
+        "for byte, its background included."
     ),
-    "02_scopes_wood_hertwich/2022_shipping_corrected": (
+    "02_scopes_wood_hertwich/2019d": (
+        "## Which model run this folder is\n"
+        "\n"
+        "Variant d for 2019: the widest boundary this study runs, on the 2016\n"
+        "table. Child care joins health and elder care in the demand vector\n"
+        "(`HC_SCOPE=zorg_en_welzijn`) and consumption of fixed capital is\n"
+        "inside the Leontief inverse, built by\n"
+        "`analysis.capital_endogenised_background` rather than applied as a\n"
+        "factor afterwards. Its partition closes on\n"
+        "`01_eriksen_replication/2019d`.\n"
+        "\n"
+        "Both boundary moves raise the footprint, from 4,054.77 kt at variant c\n"
+        "to 5,897.84 kt here, so the comparison a reader should draw from this\n"
+        "folder is with a comparator that also endogenises capital and also\n"
+        "carries child care - Schmidt & Merciai (2023), not the manuscript's\n"
+        "own headline."
+    ),
+    "02_scopes_wood_hertwich/2022c": (
         "## Which model run this folder is\n"
         "\n"
         "The manuscript's headline run: reference year 2022 on EXIOBASE v3.8.2\n"
         "`IOT_2022_ixi`, with the Danish sea-transport reallocation applied.\n"
-        "Its partition closes on\n"
-        "`01_eriksen_replication/2022_shipping_corrected` exactly: the climate\n"
-        "`TOTAL` of 4,673.633405 kt CO2-eq plus the self-supply loop of\n"
+        "Its partition closes on `01_eriksen_replication/2022c` exactly: the\n"
+        "climate `TOTAL` of 4,673.633405 kt CO2-eq plus the self-supply loop of\n"
         "1.833254 kt is the grand total of 4,675.466659 kt published there.\n"
         "\n"
         "The double-counting ledger's MRIO decomposition row, 3,906.446070 kt,\n"
         "is `00_core_footprint`'s `healthcare_footprint_mrio` to six decimals,\n"
         "which is what audit check C19 tests."
     ),
+    "02_scopes_wood_hertwich/2022d": (
+        "## Which model run this folder is\n"
+        "\n"
+        "Variant d on the headline year: child care added to the demand vector\n"
+        "and consumption of fixed capital endogenised inside the Leontief\n"
+        "inverse. Its partition closes on `01_eriksen_replication/2022d`.\n"
+        "\n"
+        "This is the variant built to be comparable with Schmidt & Merciai\n"
+        "(2023), whose 6,100 kt covers NACE Q including child care with capital\n"
+        "endogenised. At 6,495.66 kt it is 6.5 % above them, on a full pipeline\n"
+        "run rather than the 1.2111 post-hoc uplift that\n"
+        "`06_benchmarks_validation` applies to the headline; the residual\n"
+        "difference their model being consequential and ours attributional\n"
+        "cannot be removed by any boundary adjustment and remains."
+    ),
     "02_scopes_wood_hertwich/2022_uncorrected": (
         "## Which model run this folder is\n"
         "\n"
         "Reference year 2022 on EXIOBASE v3.8.2 `IOT_2022_ixi` with the Danish\n"
         "sea-transport reallocation **not** applied - the comparison run, not\n"
-        "the headline. Its partition closes on\n"
+        "the headline, and not a lettered variant. Its partition closes on\n"
         "`01_eriksen_replication/2022_uncorrected` exactly: the climate `TOTAL`\n"
         "of 6,085.494934 kt CO2-eq plus the self-supply loop of 1.833390 kt is\n"
         "the grand total of 6,087.328324 kt published there.\n"
         "\n"
-        "What the correction is worth, read across this folder and\n"
-        "`2022_shipping_corrected`: the climate footprint falls from 6,085.49\n"
-        "to 4,673.63 kt, and the transport industry group falls from 32.20 % of\n"
-        "it to 14.87 %. The ledger's MRIO decomposition row moves from\n"
-        "5,318.307735 to 3,906.446070 kt on the same comparison. Nothing in\n"
-        "this folder is on the headline basis, and no manuscript number is\n"
-        "taken from it.\n"
+        "What the correction is worth, read across this folder and `2022c`: the\n"
+        "climate footprint falls from 6,085.49 to 4,673.63 kt, and the\n"
+        "transport industry group falls from 32.19 % of it to 14.87 %. The\n"
+        "ledger's MRIO decomposition row moves from 5,318.307735 to\n"
+        "3,906.446070 kt on the same comparison. Nothing in this folder is on\n"
+        "the headline basis, and no manuscript number is taken from it.\n"
         "\n"
         "Its purpose is figures 3 to 6 of the `2022_uncorrected` figure\n"
-        "variant. Until this layer carried the correction state in its folder\n"
+        "variant. Until this layer carried the configuration in its folder\n"
         "name, those four figures were drawn from the shipping-corrected\n"
         "tables and were byte-identical to the corrected variant's."
     ),
@@ -430,7 +482,7 @@ def _methods_section(folder: str) -> str | None:
     ----------
     folder : str
         Gold folder name, e.g. ``"07_malik_replication"`` or a nested table
-        folder such as ``"01_eriksen_replication/2019_shipping_corrected"`` - the section is
+        folder such as ``"01_eriksen_replication/2019c"`` - the section is
         looked up by the top-level component's leading two-digit number,
         since a year or scenario subfolder shares its approach's section.
     """
@@ -455,7 +507,7 @@ def _methods_summary(folder: str) -> tuple[str, str]:
     ----------
     folder : str
         Gold folder name, e.g. ``"07_malik_replication"`` or a nested table
-        folder such as ``"01_eriksen_replication/2019_shipping_corrected"`` - the section is
+        folder such as ``"01_eriksen_replication/2019c"`` - the section is
         looked up by the top-level component, since a year or scenario
         subfolder shares its approach's section.
 
@@ -574,7 +626,7 @@ def write_folder_readme(folder: str) -> str | None:
     folder : str
         Gold folder name, relative to the gold root. May contain path
         separators for a nested table folder, e.g.
-        ``"01_eriksen_replication/2019_shipping_corrected"`` or ``"scenarios/health_only"``.
+        ``"01_eriksen_replication/2019c"`` or ``"scenarios/health_only"``.
 
     Returns
     -------
@@ -588,7 +640,15 @@ def write_folder_readme(folder: str) -> str | None:
 
     title, question = _methods_summary(folder)
     top = folder.split(os.sep)[0]
-    lines = [f"# {folder}", ""]
+    # A variant folder states its configuration in its FIRST line. The folder
+    # name says which variant it is; only the configuration says what that
+    # means, and a reader who opens one of eight sibling folders should not have
+    # to find the layer readme, the methods document or this module to learn
+    # which EXIOBASE release, correction, care boundary and capital treatment
+    # produced the numbers under it.
+    configuration = variant_description(folder)
+    heading = f"# {folder}" + (f" — {configuration}" if configuration else "")
+    lines = [heading, ""]
     if title:
         lines += [f"**{title}**", ""]
     if question:
@@ -833,6 +893,93 @@ def write_folder_dictionary(folder: str) -> str | None:
     return out
 
 
+def write_variant_index(layer: str) -> str | None:
+    """Write the variant index ``readme.md`` at the root of a variant layer.
+
+    The layer folder itself holds no tables, so
+    :func:`write_folder_readme` never reaches it, and a reader arriving at
+    ``01_eriksen_replication/`` used to find eight sibling subfolders and
+    nothing saying what distinguished them. This writes that one page: the
+    four-variant definition table, the configurations published outside it, and
+    one line per folder on disk.
+
+    Parameters
+    ----------
+    layer : str
+        Variant-scoped layer name, e.g. ``"01_eriksen_replication"``.
+
+    Returns
+    -------
+    str or None
+        Path written, or ``None`` when the layer is absent from this working
+        copy.
+    """
+    fdir = os.path.join(str(OUTPUT_DIR), layer)
+    if not os.path.isdir(fdir):
+        return None
+    present = sorted(d for d in os.listdir(fdir)
+                     if os.path.isdir(os.path.join(fdir, d)))
+    title, _ = _methods_summary(layer)
+    lines = [f"# {layer}", ""]
+    if title:
+        lines += [f"**{title}**", ""]
+    lines += [
+        "Results are held one folder per model VARIANT, named `<year><letter>`.",
+        "A variant fixes all four axes that change the numbers, so no two runs",
+        "can overwrite each other and no reader has to infer which release or",
+        "correction a folder carries:",
+        "",
+        "| Variant | EXIOBASE release | Danish shipping correction | Boundary | Capital |",
+        "|:---|:---|:---|:---|:---|",
+    ]
+    for letter in sorted(VARIANTS):
+        cfg = variant_config(letter)
+        lines.append(f"| {letter} | {cfg['release_label']} | {cfg['shipping']} "
+                     f"| {cfg['boundary']} | {cfg['capital']} |")
+    lines += [
+        "",
+        "Variant a is the configuration the manuscript was submitted on, and",
+        "variant d is the one built to be comparable with a comparator that",
+        "endogenises capital and carries child care. The letters are resolved by",
+        "`analysis.constants.variant_folder` in Python and `variant_name()` in",
+        "`r/_dk_common.r`; nothing re-derives a folder name of its own.",
+        "",
+        "EXIOBASE v3.7 publishes no 2022 table - its series ends at 2016 - so",
+        "the 2022 series has no a or b variant, and cannot be given one.",
+        "",
+        "## Folders in this working copy",
+        "",
+        "| folder | configuration |",
+        "|:---|:---|",
+    ]
+    for name in present:
+        lines.append(f"| [`{name}`]({name}/readme.md) | "
+                     f"{variant_description(name) or 'not a variant folder'} |")
+    unlettered = [n for n in present if n in UNLETTERED_VARIANTS]
+    if unlettered:
+        lines += [
+            "",
+            "## Folders outside the lettered scheme",
+            "",
+            "These keep a self-describing name rather than being given a letter",
+            "they were not assigned. Both are EXIOBASE v3.8.2 without the",
+            "Danish sea-transport correction, so **neither is variant a**, which",
+            "is on v3.7 - the release the submitted manuscript used.",
+            "",
+        ]
+        lines += [f"- `{n}`: {UNLETTERED_VARIANTS[n]['summary']}"
+                  for n in unlettered]
+        lines.append("")
+    if _methods_section(layer) is not None:
+        lines += [
+            f"Method, equations, and verification: "
+            f"[`docs/methods/replications.md`, section {layer[:2]}]"
+            f"({_relative_link(METHODS, fdir)}#r{layer[:2]}).", ""]
+    out = os.path.join(fdir, "readme.md")
+    open(out, "w", encoding="utf-8").write("\n".join(lines))
+    return out
+
+
 def _table_folders(root: str) -> list[str]:
     """Every folder holding at least one table, relative to the gold root.
 
@@ -859,7 +1006,11 @@ def _table_folders(root: str) -> list[str]:
 
 
 def main() -> None:
-    """Write a readme and data dictionary into every gold folder holding a table."""
+    """Write a readme and data dictionary into every gold folder holding a table.
+
+    Plus the variant index at the root of each variant-scoped layer, which has
+    no tables of its own to trigger the per-folder pass.
+    """
     root = str(OUTPUT_DIR)
     folders = _table_folders(root)
     written = []
@@ -867,6 +1018,13 @@ def main() -> None:
         for fn in (write_folder_readme(folder), write_folder_dictionary(folder)):
             if fn:
                 written.append(fn)
+    # The two variant-scoped layers hold no tables at their own root, so the
+    # loop above never reaches them; their index is what tells a reader what
+    # the eight sibling folders under each of them are.
+    for layer in (ERIKSEN_ROOT, SCOPES_ROOT):
+        fn = write_variant_index(layer)
+        if fn:
+            written.append(fn)
     for path in written:
         print(f"  {os.path.relpath(path, root)}")
     print(f"\n{len(written)} files written across {len(folders)} table folders")
