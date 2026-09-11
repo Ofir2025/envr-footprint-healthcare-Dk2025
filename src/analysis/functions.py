@@ -18,6 +18,8 @@ Tasks functions.py:
 @author: Joao F. D. Rodrigues & Michelle A. Steenmeijer
 """
 
+from __future__ import annotations
+
 import pandas as pd
 import numpy as np
 import numpy.matlib
@@ -35,7 +37,23 @@ import sys
 #   conversion supply > basic price from sheet
 ##############################################
 # snippet from https://www.cbs.nl/nl-nl/onze-diensten/open-data/open-data-v4/snelstartgids-odata-v4
-def get_odata(target_url):
+def get_odata(target_url: str) -> pd.DataFrame:
+    """Page through a CBS OData v4 endpoint and concatenate every page.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :mod:`analysis.functions_2025`; retained for reproducibility only.
+
+    Parameters
+    ----------
+    target_url : str
+        Initial OData v4 URL (typically a table's ``/Observations`` feed).
+
+    Returns
+    -------
+    pandas.DataFrame
+        Every page's ``value`` array, concatenated, following
+        ``@odata.nextLink`` until the feed is exhausted.
+    """
     data = pd.DataFrame()
     while target_url:
         r = requests.get(target_url).json()
@@ -46,7 +64,26 @@ def get_odata(target_url):
             target_url = None            
     return data
 
-def get_cbsdata(data_dir):
+def get_cbsdata(data_dir: str) -> pd.DataFrame:
+    """Fetch Dutch CBS direct emissions and health expenditure, and write them.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :mod:`analysis.functions_2025`; retained for reproducibility only.
+
+    Parameters
+    ----------
+    data_dir : str
+        Root data directory; the Dutch supply-use workbook is read from and
+        the output CSV written to its ``netherlands_reference`` subfolder.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Indexed by ``(Index, Unit)`` with rows ``Expenditure``,
+        ``Conversion`` and ``DirectEm`` and columns ``HC service``,
+        ``Pharm``, ``MedAppl`` and ``ISO2``, in M.EUR / kt CO2e as recorded.
+        Also written to ``nl_cbs_data_2016.csv`` under ``data_dir``.
+    """
     # Directe emissies Zorg en Welzijn
     #_________________________________
         # Source: https://opendata.cbs.nl/#/CBS/nl/dataset/83300NED/table
@@ -151,7 +188,37 @@ def get_cbsdata(data_dir):
 #   
 #
 ##############################################
-def createBackground(mrio_dir, cbs_data, bg_dir, year):
+def createBackground(
+    mrio_dir: str, cbs_data: pd.DataFrame, bg_dir: str, year: str
+) -> dict[str, object]:
+    """Build and pickle the Dutch healthcare background from a pickled MRIO.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :func:`analysis.functions_2025.createBackground`; retained for
+    reproducibility only.
+
+    Parameters
+    ----------
+    mrio_dir : str
+        Directory holding ``waste.pkl``, ``leontief<year>.pkl`` and
+        ``mrio<year>.pkl``.
+    cbs_data : pandas.DataFrame
+        Dutch CBS expenditure and direct-emissions table, as returned by
+        :func:`get_cbsdata`.
+    bg_dir : str
+        Directory the background pickle is written to.
+    year : str
+        Four-digit reference year, used to select the MRIO/Leontief pickles
+        and name the output file.
+
+    Returns
+    -------
+    dict of str to object
+        The background dict (``label``, ``ragg``, ``L``, ``A``, ``B``, ``H``,
+        ``Y``, ``Q``, ``Ystim``, ``Vstim``, ``Hstim``, plus export-sheet
+        metadata), also pickled to
+        ``gddz_background_information_<year>.pkl`` in ``bg_dir``.
+    """
     tstart = time.time()
 
     ##############################################
@@ -342,25 +409,95 @@ def createBackground(mrio_dir, cbs_data, bg_dir, year):
 ##############################################
 
 # Hotspot analysis / indirect footprint broken down from production perspective
-def calc_hotspot(B, L, Y):
+def calc_hotspot(B: np.ndarray, L: np.ndarray, Y: np.ndarray) -> list[np.ndarray]:
+    """Footprint by producing node, for each column of ``Y``.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :func:`analysis.functions_2025.calc_hotspot`; retained for
+    reproducibility only.
+
+    Parameters
+    ----------
+    B : numpy.ndarray
+        Characterised intensity matrix, shape ``(n_indicators, n_nodes)``.
+    L : numpy.ndarray
+        Leontief inverse, shape ``(n_nodes, n_nodes)``.
+    Y : numpy.ndarray
+        Final-demand matrix, shape ``(n_nodes, n_columns)``.
+
+    Returns
+    -------
+    list of numpy.ndarray
+        One ``(n_nodes, n_indicators)`` array per column of ``Y``: pressure
+        by producing node, transposed for that layout.
+    """
     R = []
     for k in range(Y.shape[1]):
         LxY = np.diag(np.dot(L,Y[:,k]))
-        R_ = np.dot(B, LxY) 
+        R_ = np.dot(B, LxY)
         R.append(R_.T)
     return R
 
 # Contribution analysis /indirect footprint broken down from consumption perspective
-def calc_contrib(B, L, Y):
+def calc_contrib(B: np.ndarray, L: np.ndarray, Y: np.ndarray) -> list[np.ndarray]:
+    """Footprint by purchased product, for each column of ``Y``.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :func:`analysis.functions_2025.calc_contrib`; retained for
+    reproducibility only.
+
+    Parameters
+    ----------
+    B : numpy.ndarray
+        Characterised intensity matrix, shape ``(n_indicators, n_nodes)``.
+    L : numpy.ndarray
+        Leontief inverse, shape ``(n_nodes, n_nodes)``.
+    Y : numpy.ndarray
+        Final-demand matrix, shape ``(n_nodes, n_columns)``.
+
+    Returns
+    -------
+    list of numpy.ndarray
+        One ``(n_nodes, n_indicators)`` array per column of ``Y``: pressure
+        by purchased (consuming) node, transposed for that layout.
+    """
     R = []
     for k in range(Y.shape[1]):
         BxL = np.dot(B, L)
         R_ = np.dot(BxL, np.diag(Y[:,k]))
-        R.append(R_.T)        
+        R.append(R_.T)
     return R
 
 # Make dataframe from the array results from calc_contrib() and calc_hotspot()
-def df_fromarray(arrs_hotspot, char_labels, multiindex, cols_impcat):
+def df_fromarray(
+    arrs_hotspot: list[np.ndarray],
+    char_labels: list[str],
+    multiindex: pd.MultiIndex,
+    cols_impcat: list[str],
+) -> list[pd.DataFrame]:
+    """Wrap each :func:`calc_hotspot`/:func:`calc_contrib` array as a frame.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :mod:`analysis.functions_2025`; retained for reproducibility only.
+
+    Parameters
+    ----------
+    arrs_hotspot : list of numpy.ndarray
+        Per-demand-component arrays, as returned by :func:`calc_hotspot` or
+        :func:`calc_contrib`.
+    char_labels : list of str
+        Column labels for the full indicator set.
+    multiindex : pandas.MultiIndex
+        ``(region, sector)`` row index matching each array's rows.
+    cols_impcat : list of str
+        Subset of ``char_labels`` to keep in the output.
+
+    Returns
+    -------
+    list of pandas.DataFrame
+        One frame per input array, columns ``["ISO3", "SecTxtCode"] +
+        cols_impcat``.
+    """
     l_df = []
     for i in range(len(arrs_hotspot)):
         df = pd.DataFrame(arrs_hotspot[i], columns = char_labels, index = multiindex)
@@ -376,7 +513,34 @@ def df_fromarray(arrs_hotspot, char_labels, multiindex, cols_impcat):
 ##############################################
 
 # new B
-def adapt_B(bg, multiindex, charlabels, *args):
+def adapt_B(
+    bg: dict[str, object],
+    multiindex: pd.MultiIndex,
+    charlabels: list[str],
+    *args: tuple,
+) -> np.ndarray:
+    """Apply scenario edits to the intensity matrix ``B`` and return a copy.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :mod:`analysis.scenario_engine`; retained for reproducibility only.
+
+    Parameters
+    ----------
+    bg : dict of str to object
+        Background dict carrying ``B``, shape ``(n_indicators, n_nodes)``.
+    multiindex : pandas.MultiIndex
+        ``(region, sector)`` column index for ``B``.
+    charlabels : list of str
+        Row (indicator) labels for ``B``.
+    *args : tuple
+        Each ``(indicator, region, sector, value)`` overwrites one cell of
+        ``B``.
+
+    Returns
+    -------
+    numpy.ndarray
+        The edited intensity matrix, same shape as ``bg['B']``.
+    """
     B = pd.DataFrame(bg['B'], columns = multiindex, index = charlabels)
     for x in args:
         B.loc[x[0], (x[1],x[2])] = x[3]
@@ -384,7 +548,30 @@ def adapt_B(bg, multiindex, charlabels, *args):
     return B
 
 # new Ystim
-def adapt_Ystim(bg, multiindex, *args):
+def adapt_Ystim(
+    bg: dict[str, object], multiindex: pd.MultiIndex, *args: tuple
+) -> np.ndarray:
+    """Apply scenario edits to the stimulus vector ``Ystim`` and recompute its total.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :mod:`analysis.scenario_engine`; retained for reproducibility only.
+
+    Parameters
+    ----------
+    bg : dict of str to object
+        Background dict carrying ``Ystim``, columns ``["Tot", "HC", "Pharm",
+        "Appl"]``.
+    multiindex : pandas.MultiIndex
+        ``(region, sector)`` row index for ``Ystim``.
+    *args : tuple
+        Each ``(region, sector, column, value)`` overwrites one cell before
+        ``"Tot"`` is recomputed as ``HC + Pharm + Appl``.
+
+    Returns
+    -------
+    numpy.ndarray
+        The edited stimulus matrix, same shape as ``bg['Ystim']``.
+    """
     Y = pd.DataFrame(bg['Ystim'], columns = ['Tot','HC','Pharm','Appl'], index = multiindex)
     for x in args:
         Y.loc[(x[0], x[1]),x[2]] = x[3]
@@ -393,7 +580,29 @@ def adapt_Ystim(bg, multiindex, *args):
     return Y
 
 # new A
-def adapt_A(bg, multiindex, *args):
+def adapt_A(
+    bg: dict[str, object], multiindex: pd.MultiIndex, *args: tuple
+) -> np.ndarray:
+    """Apply scenario edits to the technical coefficient matrix ``A``.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :mod:`analysis.scenario_engine`; retained for reproducibility only.
+
+    Parameters
+    ----------
+    bg : dict of str to object
+        Background dict carrying ``A``, shape ``(n_nodes, n_nodes)``.
+    multiindex : pandas.MultiIndex
+        ``(region, sector)`` row and column index for ``A``.
+    *args : tuple
+        Each ``(row_region, row_sector, col_region, col_sector, value)``
+        overwrites one cell of ``A``.
+
+    Returns
+    -------
+    numpy.ndarray
+        The edited technical coefficient matrix, same shape as ``bg['A']``.
+    """
     A = pd.DataFrame(bg['A'], columns = multiindex, index = multiindex)
     for x in args:
         A.loc[(x[0], x[1]), (x[2],x[3])] = x[4]
@@ -401,6 +610,24 @@ def adapt_A(bg, multiindex, *args):
     return A
 
 # new L
-def calcnew_L(bg):
-    L = np.linalg.inv(np.eye(163*49) - bg['A'])  
+def calcnew_L(bg: dict[str, object]) -> np.ndarray:
+    """Recompute the Leontief inverse from an edited ``A``.
+
+    Legacy Dutch (2016) analysis path, superseded by
+    :mod:`analysis.scenario_engine`; retained for reproducibility only. The
+    node count (163 sectors x 49 regions) is hard-coded to the Dutch-study
+    EXIOBASE layout, matching every other function in this module.
+
+    Parameters
+    ----------
+    bg : dict of str to object
+        Background dict carrying the (possibly edited) ``A``, shape
+        ``(163 * 49, 163 * 49)``.
+
+    Returns
+    -------
+    numpy.ndarray
+        ``(I - A)^-1``, shape ``(163 * 49, 163 * 49)``.
+    """
+    L = np.linalg.inv(np.eye(163*49) - bg['A'])
     return L

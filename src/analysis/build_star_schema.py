@@ -115,6 +115,7 @@ Run::
 from __future__ import annotations
 
 import os
+from typing import Iterable
 
 import numpy as np
 import pandas as pd
@@ -324,13 +325,14 @@ def build_dim_indicator(frames: dict[str, pd.DataFrame]) -> pd.DataFrame:
     return dim.rename(columns={"indicator": "indicator_code"})
 
 
-def _simple_dim(values, id_col: str, name_col: str) -> pd.DataFrame:
+def _simple_dim(values: Iterable[object], id_col: str, name_col: str) -> pd.DataFrame:
     """Build a one-attribute dimension from a set of labels.
 
     Parameters
     ----------
-    values : iterable of str
-        Distinct labels.
+    values : iterable of object
+        Labels (deduplicated and stringified here); ``NaN`` entries are
+        dropped.
     id_col, name_col : str
         Column names for the surrogate key and the label.
 
@@ -420,6 +422,16 @@ def build_dim_model() -> pd.DataFrame:
     }]
 
     def add(**kwargs: object) -> None:
+        """Append one non-headline model row, defaulted then overridden.
+
+        Parameters
+        ----------
+        **kwargs : object
+            Attribute overrides for this row (e.g. ``analysis_year``,
+            ``background_year``, ``model_label``); merged over the shared
+            non-headline defaults. ``model_id`` is assigned from the current
+            row count.
+        """
         rows.append({
             "model_id": len(rows) + 1, "mrio": "EXIOBASE v3.8.2 IOT ixi",
             "gwp_revision": "IPCC AR6", "capital": "excluded from the headline",
@@ -485,7 +497,9 @@ def build_dim_scenario(agg: pd.DataFrame,
     return dim
 
 
-def build_dim_production_layer(detail_layers, agg_layers) -> pd.DataFrame:
+def build_dim_production_layer(
+    detail_layers: Iterable[int], agg_layers: Iterable[str]
+) -> pd.DataFrame:
     """Production-layer dimension for the Malik / Lenzen decomposition.
 
     Parameters

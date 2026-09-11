@@ -34,6 +34,8 @@ covers childcare and youth care; it is OFF by default because the manuscript
 scopes the study to health plus eldercare.
 """
 
+from __future__ import annotations
+
 import os
 
 import pandas as pd
@@ -53,8 +55,22 @@ _PURPOSES_SERVICES = ("06200", "06300", "12401")
 _PURPOSE_CHILDCARE = ("12402",)
 
 
-def _load_use_table_basic_prices(file_path):
-    """Read the basic-price use sheet with its 3-level column header."""
+def _load_use_table_basic_prices(file_path: str) -> pd.DataFrame:
+    """Read the basic-price use sheet with its 3-level column header.
+
+    Parameters
+    ----------
+    file_path : str
+        Path to the Statistics Denmark detailed supply-use workbook
+        (``dk_umat_2019.xlsx``).
+
+    Returns
+    -------
+    pandas.DataFrame
+        The ``Ubas`` sheet, in 1000 DKK, with a 3-level column
+        ``MultiIndex`` (transaction, description, purpose/industry code),
+        each level stripped of whitespace.
+    """
     df = pd.read_excel(file_path, sheet_name="Ubas", header=[0, 1, 2], engine="openpyxl")
     df.columns = pd.MultiIndex.from_tuples(
         [tuple(str(level).strip() for level in col) for col in df.columns]
@@ -62,13 +78,30 @@ def _load_use_table_basic_prices(file_path):
     return df
 
 
-def _sum_purposes(df, purposes):
+def _sum_purposes(
+    df: pd.DataFrame, purposes: tuple[str, ...]
+) -> tuple[float, list[dict[str, object]]]:
     """Sum all individual-consumption columns whose purpose code matches.
 
     Matching is on the exact purpose code (column level 2) AND on the
     transaction block (column level 0) so that industry columns with
     similar-looking codes (e.g. industry 060000) can never be caught.
-    Returns (total, breakdown) where breakdown lists every column used.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Basic-price use table, as returned by
+        ``_load_use_table_basic_prices``.
+    purposes : tuple of str
+        Purpose codes to include, e.g. ``("06112",)``.
+
+    Returns
+    -------
+    total : float
+        Summed value across every matching column, in 1000 DKK.
+    breakdown : list of dict
+        One entry per matching column: ``purpose_code``, ``purpose``,
+        ``transaction`` and ``value_kdkk``.
     """
     total = 0.0
     breakdown = []
@@ -88,12 +121,37 @@ def _sum_purposes(df, purposes):
     return total, breakdown
 
 
-def calculate_healthcare_totals(file_path, include_childcare=False, include_eldercare=True):
+def calculate_healthcare_totals(
+    file_path: str, include_childcare: bool = False, include_eldercare: bool = True
+) -> tuple[float, float, float, pd.DataFrame]:
     """Return (hc51, hc52, healthcare_services, breakdown) in 1000 DKK, basic prices.
 
     ``breakdown`` is a DataFrame listing every (purpose x transaction) column
     that entered the totals - written out by the pipeline as a provenance
     record so the expenditure scope is auditable.
+
+    Parameters
+    ----------
+    file_path : str
+        Path to the Statistics Denmark detailed supply-use workbook
+        (``dk_umat_2019.xlsx``).
+    include_childcare : bool, default False
+        Add purpose 12402 (kindergartens, creches) to healthcare services.
+    include_eldercare : bool, default True
+        Include purpose 12401 (residential eldercare) in healthcare
+        services.
+
+    Returns
+    -------
+    hc51_total : float
+        HC.5.1 pharmaceuticals, 1000 DKK.
+    hc52_total : float
+        HC.5.2 therapeutic appliances, 1000 DKK.
+    services_total : float
+        Healthcare services, 1000 DKK.
+    breakdown : pandas.DataFrame
+        Columns ``category``, ``purpose_code``, ``purpose``, ``transaction``
+        and ``value_kdkk``, one row per column summed into the totals.
     """
     df = _load_use_table_basic_prices(file_path)
 
@@ -116,8 +174,10 @@ def calculate_healthcare_totals(file_path, include_childcare=False, include_elde
     return hc51_total, hc52_total, services_total, breakdown
 
 
-def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
-                                     include_eldercare=True):
+def calculate_healthcare_totals_2022(
+    io_workbook_path: str, include_childcare: bool = False,
+    include_eldercare: bool = True
+) -> tuple[float, float, float, pd.DataFrame]:
     """Health expenditure for 2022 from the PUBLIC Statistics Denmark IO workbook.
 
     The detailed purpose-coded use table (the 2019 route) is a custom extract;
@@ -138,6 +198,29 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
     Household consumption comes from the CP sheet (COICOP split of the single
     household column); NPISH and the two individual-government transactions
     from the IO sheet's purpose-labelled columns.
+
+    Parameters
+    ----------
+    io_workbook_path : str
+        Path to ``input_output_en_2022.xlsx``.
+    include_childcare : bool, default False
+        Add purpose 13301 (childcare) to healthcare services.
+    include_eldercare : bool, default True
+        Include purpose 13302 (residential eldercare) in healthcare
+        services.
+
+    Returns
+    -------
+    hc51_total : float
+        HC.5.1 pharmaceuticals, 1000 DKK.
+    hc52_total : float
+        HC.5.2 therapeutic/assistive appliances, 1000 DKK.
+    services_total : float
+        Healthcare services, 1000 DKK.
+    breakdown : pandas.DataFrame
+        Columns ``category``, ``purpose_code``, ``purpose``, ``transaction``,
+        ``source_sheet`` and ``value_kdkk``, one row per column summed into
+        the totals.
     """
     codes_pharma = {"06112"}
     codes_appl = {"06134", "06130"}
@@ -150,8 +233,31 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
         codes_services = codes_services | {"13301"}
     all_codes = codes_pharma | codes_appl | codes_services
 
-    def _columns_by_code(df, wanted, transactions_only=None):
-        """Map (block, description, code) columns whose code is wanted."""
+    def _columns_by_code(
+        df: pd.DataFrame, wanted: set[str],
+        transactions_only: tuple[str, ...] | None = None,
+    ) -> list[tuple[int, str, str, str]]:
+        """Map (block, description, code) columns whose code is wanted.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            Raw ``IO``-sheet frame (no header row parsing), transaction
+            block on row 0, description on row 1, purpose/industry code on
+            row 2.
+        wanted : set of str
+            Purpose codes to match.
+        transactions_only : tuple of str, optional
+            Restrict matches to columns whose block contains one of these
+            substrings (e.g. individual-government transaction codes).
+            Defaults to no restriction.
+
+        Returns
+        -------
+        list of (int, str, str, str)
+            ``(column_index, block, description, code)`` for every matching
+            column.
+        """
         out = []
         block = None
         for j in range(df.shape[1]):
@@ -169,7 +275,20 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
     cp = pd.read_excel(io_workbook_path, sheet_name="CP", header=None, engine="openpyxl")
 
     # basic-price purchase rows = rows whose first column is a numeric industry code
-    def _basic_rows(df):
+    def _basic_rows(df: pd.DataFrame) -> pd.Series:
+        """Boolean mask of rows whose first column is a 5-6 digit code.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            Raw sheet frame (``IO`` or ``CP``).
+
+        Returns
+        -------
+        pandas.Series
+            ``True`` for basic-price industry rows (117 domestic + 117
+            import), ``False`` for tax/VAT/value-added or label rows.
+        """
         col0 = df.iloc[:, 0].astype(str).str.strip()
         return col0.str.fullmatch(r"\d{5,6}")
 
@@ -179,7 +298,32 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
     individual_gov = ("3130", "3141", "3142")
     breakdown = []
 
-    def _sum(df, rows, cols, source):
+    def _sum(
+        df: pd.DataFrame, rows: pd.Series,
+        cols: list[tuple[int, str, str, str]], source: str,
+    ) -> float:
+        """Sum selected columns over basic-price rows, and log the columns.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            Raw sheet frame (``IO`` or ``CP``).
+        rows : pandas.Series
+            Boolean mask of basic-price rows, as returned by
+            ``_basic_rows``.
+        cols : list of (int, str, str, str)
+            ``(column_index, block, description, code)`` tuples to sum, as
+            returned by ``_columns_by_code`` or built from the ``CP`` sheet.
+        source : str
+            Sheet name recorded in the closed-over ``breakdown`` list
+            (``"IO"`` or ``"CP"``).
+
+        Returns
+        -------
+        float
+            Summed value across the given columns' basic-price rows, in
+            1000 DKK.
+        """
         total = 0.0
         for j, block, desc, code in cols:
             v = pd.to_numeric(df.loc[rows, j], errors="coerce").fillna(0).sum()
@@ -199,7 +343,20 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
                             str(cp.iat[1, j]).strip(), code))
     io_cols = _columns_by_code(raw, all_codes, transactions_only=individual_gov)
 
-    def _cat_total(codes):
+    def _cat_total(codes: set[str]) -> float:
+        """Sum a category's CP and IO contributions for the given codes.
+
+        Parameters
+        ----------
+        codes : set of str
+            Purpose codes belonging to the category (e.g. ``codes_pharma``).
+
+        Returns
+        -------
+        float
+            Combined household (CP) plus individual-government (IO) total,
+            1000 DKK.
+        """
         return (
             _sum(cp, rows_cp, [c for c in cp_cols if c[3] in codes], "CP")
             + _sum(raw, rows_io, [c for c in io_cols if c[3] in codes], "IO")
@@ -211,7 +368,20 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
 
     bd = pd.DataFrame(breakdown)
 
-    def _tag(code):
+    def _tag(code: str) -> str:
+        """Category label for one purpose code.
+
+        Parameters
+        ----------
+        code : str
+            Purpose code, e.g. ``"06112"``.
+
+        Returns
+        -------
+        str
+            ``"HC.5.1 Pharmaceuticals"``, ``"HC.5.2 Appliances"`` or
+            ``"Healthcare services"``.
+        """
         if code in codes_pharma:
             return "HC.5.1 Pharmaceuticals"
         if code in codes_appl:
@@ -222,7 +392,7 @@ def calculate_healthcare_totals_2022(io_workbook_path, include_childcare=False,
     return hc51_total, hc52_total, services_total, bd
 
 
-def eldercare_share_of_social_work(file_path):
+def eldercare_share_of_social_work(file_path: str) -> float:
     """Share of industry 880000's individually consumed output serving eldercare.
 
     Industry 880000 (Social work activities without accommodation) produces both
@@ -233,6 +403,22 @@ def eldercare_share_of_social_work(file_path):
     supply-use tables as the expenditure vector: products supplied by 880000
     (sheet ``Vbas``) are traced to the 12401 vs 12402 individual-consumption
     columns of the basic-price use table (sheet ``Ubas``).
+
+    Parameters
+    ----------
+    file_path : str
+        Path to the Statistics Denmark detailed supply-use workbook
+        (``dk_umat_2019.xlsx``).
+
+    Returns
+    -------
+    float
+        ``12401 / (12401 + 12402)``, a fraction in ``[0, 1]``.
+
+    Raises
+    ------
+    KeyError
+        If industry 880000 is not found in the ``Vbas`` sheet.
     """
     supply = pd.read_excel(file_path, sheet_name="Vbas", header=[0, 1, 2], engine="openpyxl")
     supply.columns = pd.MultiIndex.from_tuples(
@@ -255,7 +441,7 @@ def eldercare_share_of_social_work(file_path):
     return totals["12401"] / (totals["12401"] + totals["12402"])
 
 
-def eldercare_share_of_social_work_io(io_workbook_path):
+def eldercare_share_of_social_work_io(io_workbook_path: str) -> float:
     """Eldercare share of industry 880000's individually consumed output, from
     the published IO table of the analysis year itself.
 
@@ -264,6 +450,24 @@ def eldercare_share_of_social_work_io(io_workbook_path):
     eldercare (13302) and childcare (13301) directly, in the analysis year.
     Denmark 2022: 15.54 vs 34.72 bn DKK -> alpha = 0.3092 (the 2019 SUT-derived
     value was 0.4914, so carrying it forward would have overstated the share).
+
+    Parameters
+    ----------
+    io_workbook_path : str
+        Path to the published DST 117-industry IO workbook for the year in
+        question (e.g. ``input_output_en_2022.xlsx``).
+
+    Returns
+    -------
+    float
+        ``13302 / (13301 + 13302)``, a fraction in ``[0, 1]``.
+
+    Raises
+    ------
+    KeyError
+        If industry 880000 is not found in the ``IO`` sheet.
+    ValueError
+        If no eldercare/childcare deliveries are found for industry 880000.
     """
     import numpy as np
     io = pd.read_excel(io_workbook_path, sheet_name="IO", header=None, engine="openpyxl")
@@ -285,7 +489,9 @@ def eldercare_share_of_social_work_io(io_workbook_path):
     return val.get("13302", 0.0) / total
 
 
-def eldercare_share_diagnostics(io_workbook_2019, io_workbook_2022, sut_2019):
+def eldercare_share_diagnostics(
+    io_workbook_2019: str, io_workbook_2022: str, sut_2019: str
+) -> dict[str, float]:
     """Separate the method effect from the year effect in the eldercare share.
 
     Two constructions of alpha (the eldercare share of industry 880000's
@@ -306,6 +512,21 @@ def eldercare_share_diagnostics(io_workbook_2019, io_workbook_2022, sut_2019):
     intensity per unit output across the two service types), and it is a small
     lever: 0.31 vs 0.49 moves the Danish healthcare climate footprint by
     10.9 kt CO2e, about 0.2 %.
+
+    Parameters
+    ----------
+    io_workbook_2019 : str
+        Path to the 2019 published DST IO workbook.
+    io_workbook_2022 : str
+        Path to the 2022 published DST IO workbook.
+    sut_2019 : str
+        Path to the 2019 detailed supply-use workbook (``dk_umat_2019.xlsx``).
+
+    Returns
+    -------
+    dict of str to float
+        ``"io_method_2019"``, ``"io_method_2022"`` and ``"sut_method_2019"``,
+        each a fraction in ``[0, 1]``.
     """
     return {
         "io_method_2019": eldercare_share_of_social_work_io(io_workbook_2019),

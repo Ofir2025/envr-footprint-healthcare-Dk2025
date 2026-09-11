@@ -29,8 +29,21 @@ API = "https://api.statbank.dk/v1/data"
 ALPHA_ELDERCARE = 0.4914  # 12401 share of industry 880000's individually consumed output
 
 
-def _affald(year):
-    """Total waste (excl. soil) by health industry, tonnes, StatBank AFFALD01."""
+def _affald(year: int) -> dict[str, float]:
+    """Total waste (excl. soil) by health industry, tonnes, StatBank AFFALD01.
+
+    Parameters
+    ----------
+    year : int
+        Calendar year to query the AFFALD01 table for.
+
+    Returns
+    -------
+    dict of str to float
+        Tonnes of total waste excluding soil, keyed by the leading industry
+        code token of each returned row (e.g. ``"QA"``, ``"870000"``,
+        ``"880000"``, ``"Q"``).
+    """
     payload = {"table": "AFFALD01", "format": "CSV", "lang": "en",
                "variables": [{"code": "ERHVERV", "values": ["VQ", "VQA", "V870000", "V880000"]},
                              {"code": "AFFFRAK", "values": ["TOTAFFALDX"]},
@@ -41,7 +54,19 @@ def _affald(year):
     return {r[0].split()[0]: float(r[-1]) for r in rows}
 
 
-def main():
+def main() -> None:
+    """Compare the inherited hybrid waste extension against measured AFFALD01.
+
+    Reads the direct-waste row of the health sector from the pickled
+    background (kt, 2011 hybrid EXIOBASE MR-HSUT scaled to analysis-year
+    output) and Statistics Denmark's SEEA waste accounts (AFFALD01, tonnes
+    converted to kt) for the same year, and reports both alongside the
+    study-boundary measured total (``QA + 870000 + ALPHA_ELDERCARE *
+    880000``) and their ratio. Writes
+    ``data/gold/results/05_waste_dst_accounts/waste_extension_validation.csv``
+    and prints the comparison. Reads ``HC_ANALYSIS_YEAR`` from the
+    environment (default ``"2022"``).
+    """
     year = int(os.environ.get("HC_ANALYSIS_YEAR", "2022"))
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{'2022' if year == 2022 else '2016'}.pkl"),

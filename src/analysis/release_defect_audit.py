@@ -27,6 +27,8 @@ Two defects are detected and separated:
 Run: PYTHONPATH=src .venv/bin/python -m analysis.release_defect_audit
 """
 
+from __future__ import annotations
+
 import os
 import re
 
@@ -90,8 +92,21 @@ CONCORDANCE = [
 ]
 
 
-def _exiobase_x(path):
-    """Total output vector from either a .mat or a txt-distribution x.txt."""
+def _exiobase_x(path: str) -> np.ndarray:
+    """Total output vector from either a .mat or a txt-distribution x.txt.
+
+    Parameters
+    ----------
+    path : str
+        Path to a ``.mat`` release file, or to a txt-distribution directory
+        containing ``x.txt``.
+
+    Returns
+    -------
+    numpy.ndarray
+        Flattened total-output vector, ``len(REGIONS) * N_SECTORS`` long,
+        M.EUR.
+    """
     if path.endswith(".mat"):
         d = sio.loadmat(path, simplify_cells=True)
         return np.asarray(d["IO"]["x"]).ravel()
@@ -99,8 +114,19 @@ def _exiobase_x(path):
     return np.asarray(df).ravel()
 
 
-def _dst_output(year):
-    """Danish total output by 117-industry, M.EUR, from the published IO table."""
+def _dst_output(year: str) -> dict[str, float]:
+    """Danish total output by 117-industry, M.EUR, from the published IO table.
+
+    Parameters
+    ----------
+    year : str
+        Four-digit reference year of the DST input-output table.
+
+    Returns
+    -------
+    dict of str to float
+        Total output in M.EUR, keyed by 6-digit DST industry code.
+    """
     io = pd.read_excel(DST_IO.format(year=year), sheet_name=None, header=None)
     sheet = io["IO"]
     codes = [str(v) for v in sheet.iloc[2, 2:].tolist()]
@@ -116,12 +142,36 @@ def _dst_output(year):
     return out
 
 
-def _dst_group(dst, prefixes):
+def _dst_group(dst: dict[str, float], prefixes: list[str]) -> float:
+    """Sum DST industry output over codes matching any prefix.
+
+    Parameters
+    ----------
+    dst : dict of str to float
+        Total output in M.EUR, keyed by 6-digit DST industry code (as
+        returned by ``_dst_output``).
+    prefixes : list of str
+        NACE code prefixes to include, e.g. ``["86", "87", "88"]``.
+
+    Returns
+    -------
+    float
+        Summed M.EUR output over all matching codes.
+    """
     return sum(v for c, v in dst.items() if any(c.startswith(p) for p in prefixes))
 
 
-def discover_releases():
-    """Every (release, year, path) triple present on this machine."""
+def discover_releases() -> list[tuple[str, str, str]]:
+    """Every (release, year, path) triple present on this machine.
+
+    Returns
+    -------
+    list of (str, str, str)
+        ``(release_version, year, path)`` triples, e.g.
+        ``("v3.8.2", "2022", "/.../IOT_2022_ixi")``, deduplicated so a year
+        found in both a ``.mat`` file and a txt distribution of the same
+        release keeps only its first discovery.
+    """
     found = []
     txt = os.path.join(EXIO_ROOT, "v3_10_2", "txt")
     if os.path.exists(os.path.join(txt, "x.txt")):
@@ -152,7 +202,9 @@ def discover_releases():
     return unique
 
 
-def _normalise_country(frame, column="country_producing"):
+def _normalise_country(
+    frame: pd.DataFrame, column: str = "country_producing"
+) -> pd.DataFrame:
     """Apply the study's country-coding convention to one frame.
 
     ISO3 where an ISO3 code exists; the EXIOBASE region name where none does.
@@ -178,7 +230,20 @@ def _normalise_country(frame, column="country_producing"):
     return frame
 
 
-def main():
+def main() -> None:
+    """Audit every discovered EXIOBASE release against Danish national accounts.
+
+    For each ``(release, year)`` found by ``discover_releases``, compares the
+    EXIOBASE Danish block's output for every ``CONCORDANCE`` group (and the
+    all-industry total) against Statistics Denmark's published 117-industry
+    IO table, in M.EUR, and records industry 33's output in every European
+    region. Writes ``dk_block_vs_national_accounts.csv`` and
+    ``industry33_output_by_region.csv`` to
+    ``data/gold/results/09_exiobase_release_diagnostics/``, then flags D1
+    (industry 33 emptied across Europe, more than 80 % of regions below 1
+    M.EUR) and D2 (four or more concordance groups off by more than a factor
+    of 2 from the DST total) per release/year as ``"DEFECT"`` or ``"ok"``.
+    """
     out_dir = os.path.join(OUTPUT_DIR, FOLDER)
     os.makedirs(out_dir, exist_ok=True)
     releases = discover_releases()

@@ -35,6 +35,8 @@ upstream solid residuals rather than waste.
 Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 .venv/bin/python -m analysis.waste_domestic_dst
 """
 
+from __future__ import annotations
+
 import json
 import os
 import subprocess
@@ -62,7 +64,21 @@ INDUSTRY_NAME = {"V860010": "Hospital activities",
                  "V320010": "Manufacture of medical instruments, etc."}
 
 
-def _fetch(table, variables):
+def _fetch(table: str, variables: list[dict[str, object]]) -> list[list[str]]:
+    """Fetch one StatBank table as CSV rows, via a POST to the StatBank API.
+
+    Parameters
+    ----------
+    table : str
+        StatBank table id, e.g. ``"AFF1MU1N"``.
+    variables : list of dict
+        StatBank variable selection, each ``{"code": ..., "values": [...]}``.
+
+    Returns
+    -------
+    list of list of str
+        Semicolon-split data rows, header row excluded.
+    """
     body = {"table": table, "format": "CSV", "lang": "en", "variables": variables}
     out = subprocess.run(["curl", "-s", "-X", "POST", API, "-H", "Content-Type: application/json",
                           "-d", json.dumps(body)], capture_output=True, text=True).stdout
@@ -71,8 +87,25 @@ def _fetch(table, variables):
     return rows
 
 
-def multipliers(year, industries):
-    """(direct intensity, direct+indirect multiplier, hazardous multiplier), t per m DKK."""
+def multipliers(
+    year: str, industries: list[str]
+) -> dict[str, dict[str, float]]:
+    """(direct intensity, direct+indirect multiplier, hazardous multiplier), t per m DKK.
+
+    Parameters
+    ----------
+    year : str
+        Four-digit calendar year to query.
+    industries : list of str
+        DST ``BRANCHE`` industry codes (e.g. ``"V860010"``) to fetch.
+
+    Returns
+    -------
+    dict of str to dict
+        Keyed by industry code; each value has keys ``"direct"``,
+        ``"multiplier"`` and, where available, ``"hazardous"``, all in tonnes
+        per million DKK.
+    """
     res = {}
     tot = _fetch("AFF1MU1N", [{"code": "BRANCHE", "values": industries},
                               {"code": "AFFFRAK", "values": ["TOTAFFALDX"]},
@@ -93,7 +126,24 @@ def multipliers(year, industries):
     return res
 
 
-def main():
+def main() -> None:
+    """Build the domestic waste footprint from Danish IO-based multipliers.
+
+    Maps healthcare expenditure purpose codes to DST industries, fetches
+    each industry's direct and direct+indirect waste multiplier (and
+    hazardous-waste multiplier where available) from AFF1MU1N/AFF3MU1N, and
+    applies them to expenditure to get direct, total and hazardous domestic
+    waste in tonnes. Writes
+    ``data/gold/results/05_waste_dst_accounts/waste_footprint_domestic_dst.csv``
+    and prints the by-industry table and an implied-multiplier cross-check.
+    Reads ``HC_ANALYSIS_YEAR`` from the environment (default ``"2022"``).
+
+    Raises
+    ------
+    AssertionError
+        If any expenditure row's purpose code is not in
+        ``PURPOSE_TO_INDUSTRY``.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     exp = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR),
                                    f"dk_expenditure_breakdown_{year}.csv"))

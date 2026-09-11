@@ -20,6 +20,8 @@ Run after the 2022 background exists:
     PYTHONPATH=src .venv/bin/python -m analysis.recipe_validation_2022
 """
 
+from __future__ import annotations
+
 import pickle
 import re
 
@@ -56,7 +58,27 @@ GROUPS_DST = [
 ]
 
 
-def _group_shares(values, keys, groups):
+def _group_shares(
+    values: np.ndarray, keys: list[str], groups: list[tuple[str, str]]
+) -> dict[str, float]:
+    """Aggregate a value vector into named groups by regex-matched key.
+
+    Parameters
+    ----------
+    values : numpy.ndarray
+        Values to sum, aligned one-to-one with ``keys``.
+    keys : list of str
+        Industry names or codes tested against each group's pattern.
+    groups : list of (str, str)
+        ``(group_name, regex_pattern)`` pairs.
+
+    Returns
+    -------
+    dict of str to float
+        Each group's share of ``sum(values)`` as a percentage (0-100), plus
+        an ``"other"`` entry making the shares sum to 100. Zero when
+        ``sum(values)`` is zero.
+    """
     tot = float(np.sum(values))
     rows = {}
     for name, pat in groups:
@@ -67,7 +89,23 @@ def _group_shares(values, keys, groups):
     return rows
 
 
-def main():
+def main() -> None:
+    """Compare the EXIOBASE Danish health input recipe against the DST IOT.
+
+    Groups the EXIOBASE 2022 DK health-industry Z-column and the aggregate
+    input structure of the four DST health/care industries (860010, 860020,
+    870000, 880000) into the ten common groups of the module docstring, both
+    as percentage shares, and prints the comparison. Also reports the share
+    of the healthcare GWP footprint occurring in Danish and worldwide
+    transport industries (the hotspot side of the same discrepancy). Writes
+    ``data/gold/results/06_benchmarks_validation/recipe_validation_2022.csv``.
+
+    Raises
+    ------
+    AssertionError
+        If the DST workbook does not resolve to exactly four health-industry
+        columns.
+    """
     with open(str(MRIO_DIR) + "/mrio2022.pkl", "rb") as fh:
         m = pickle.load(fh)
     Z, x = m["Z"], m["x"][:, 0]
@@ -114,7 +152,23 @@ def main():
     e_by_node = B[0, :] * x_tot
     names_full = ind_names * nr
     dk_block = slice(k_dk * ns, (k_dk + 1) * ns)
-    def _share(pat, block=None):
+    def _share(pat: str, block: slice | None = None) -> float:
+        """Percentage of total healthcare GWP matching a node-name pattern.
+
+        Parameters
+        ----------
+        pat : str
+            Case-insensitive regex tested against each node's industry name.
+        block : slice, optional
+            Restrict matches to node indices within this slice (e.g. the
+            Danish region block). Defaults to all regions.
+
+        Returns
+        -------
+        float
+            Percentage (0-100) of ``e_by_node.sum()`` found at matching
+            nodes.
+        """
         rx = re.compile(pat, re.IGNORECASE)
         idx = [i for i, nm in enumerate(names_full) if rx.search(nm)]
         if block is not None:

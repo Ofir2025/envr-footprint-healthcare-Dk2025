@@ -65,8 +65,23 @@ _VARIANT = {
 }
 
 
-def model_label(year=None):
-    """Provenance string for the background actually loaded."""
+def model_label(year: str | None = None) -> str:
+    """Provenance string for the background actually loaded.
+
+    Parameters
+    ----------
+    year : str, optional
+        Four-digit background year, possibly carrying the
+        ``HC_BACKGROUND_TAG`` suffix (e.g. ``"2022_snacship"``). Defaults to
+        ``BACKGROUND_YEAR``. The tag is stripped before formatting, since it
+        is reported separately via ``_VARIANT``.
+
+    Returns
+    -------
+    str
+        E.g. ``"EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport
+        reallocation (Rørmose Jensen & Iliev 2022)"``.
+    """
     y = (year or BACKGROUND_YEAR).replace(BACKGROUND_TAG, "") if BACKGROUND_TAG \
         else (year or BACKGROUND_YEAR)
     return (f"EXIOBASE v3.8.2 IOT_{y}_ixi"
