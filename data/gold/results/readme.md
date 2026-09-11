@@ -68,7 +68,7 @@ release or correction a folder carries. A bare year could not say it:
 while layer 02 used one, the scope figures of one variant were drawn
 from another's tables.
 
-### Variant folders on disk (15)
+### Variant folders on disk (16)
 
 | folder | configuration |
 |:---|:---|
@@ -80,6 +80,7 @@ from another's tables.
 | `01_eriksen_replication/2022_uncorrected` | EXIOBASE v3.8.2 IOT_2022_ixi, no Danish shipping correction, health-care boundary, capital excluded |
 | `01_eriksen_replication/2022c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
 | `01_eriksen_replication/2022d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
+| `02_scopes_wood_hertwich/2019_uncorrected` | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - not variant a, which is on v3.7 |
 | `02_scopes_wood_hertwich/2019a` | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
 | `02_scopes_wood_hertwich/2019b` | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
 | `02_scopes_wood_hertwich/2019c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |

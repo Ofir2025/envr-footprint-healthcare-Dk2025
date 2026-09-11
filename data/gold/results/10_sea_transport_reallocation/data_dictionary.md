@@ -71,8 +71,8 @@ units and are labelled as such wherever they are quoted.
 | `phi` | measure | float64 |  | 0.05 |
 | `phi_source` | dimension | str |  | sensitivity grid |
 | `released_meur` | measure | float64 |  | 10573.158181268676 |
-| `footprint_climate_kt` | measure | float64 |  | 3989.812886834499 |
-| `transport_share_pct` | measure | float64 | % | 18.490275073503412 |
+| `footprint_climate_kt` | measure | float64 |  | 4044.190969121211 |
+| `transport_share_pct` | measure | float64 | % | 18.45871246687752 |
 | `background_year` | measure | int64 |  | 2016 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
 

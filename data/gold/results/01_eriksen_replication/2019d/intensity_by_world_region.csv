@@ -1,23 +1,23 @@
 indicator,unit,purchased_world_region,value
 material_extraction,kt per MEUR,Europe,62374.20141520121
-climate_change,kt CO2eq per MEUR,Europe,25193.04683913361
-climate_change,kt CO2eq per MEUR,America,11226.119649374514
+climate_change,kt CO2eq per MEUR,Europe,25572.856253342765
+climate_change,kt CO2eq per MEUR,America,11296.569604751809
 land_use,km2 per MEUR,Europe,9850.357111662619
 land_use,km2 per MEUR,America,4694.069532017905
-climate_change,kt CO2eq per MEUR,Middle East,3369.8404011986595
+climate_change,kt CO2eq per MEUR,Middle East,3407.517221122815
 land_use,km2 per MEUR,Asia and Pacific,3348.044738652826
 material_extraction,kt per MEUR,America,2944.5725252048383
 land_use,km2 per MEUR,Africa,2730.909869808659
 waste_generation,kt per MEUR,Europe,2654.459666743155
 material_extraction,kt per MEUR,Asia and Pacific,2591.386613330291
-climate_change,kt CO2eq per MEUR,Africa,2121.6040050283314
-climate_change,kt CO2eq per MEUR,Asia and Pacific,2017.7616231195234
+climate_change,kt CO2eq per MEUR,Africa,2166.461484902945
+climate_change,kt CO2eq per MEUR,Asia and Pacific,2059.9522273040698
 material_extraction,kt per MEUR,Middle East,961.9065388877676
 land_use,km2 per MEUR,Middle East,855.7180459442335
 material_extraction,kt per MEUR,Africa,716.1823262412727
 material_extraction,kt per MEUR,Denmark,386.95702272215345
 waste_generation,kt per MEUR,America,371.2024664424785
-climate_change,kt CO2eq per MEUR,Denmark,332.9346190808394
+climate_change,kt CO2eq per MEUR,Denmark,350.4839107108907
 blue_water_consumption,Mm3 per MEUR,Europe,220.47856592746737
 land_use,km2 per MEUR,Denmark,128.55567680739307
 waste_generation,kt per MEUR,Middle East,73.97859672417954

@@ -37,7 +37,8 @@ import pandas as pd
 from paths import BRONZE_DIR, BACKGROUND_DIR, OUTPUT_DIR, silver_dk_data_csv
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL, model_label  # noqa: E402
+from analysis.constants import (BACKGROUND_YEAR, MODEL_LABEL, model_label,  # noqa: E402
+                                require_manuscript_boundary)
 SCENARIO = os.environ.get("HC_SCENARIO", "baseline")
 MODEL_VERSION = MODEL_LABEL
 
@@ -157,7 +158,9 @@ def main() -> None:
     exp.to_csv(os.path.join(out_dir, "expenditure_vector_detail.csv"), index=False)
     print(f"expenditure_vector_detail.csv: {len(exp):,} rows, "
           f"y_H total {exp['value'].sum():,.1f} M.EUR")
-    dk = pd.read_csv(silver_dk_data_csv(ANALYSIS_YEAR))
+    _dk_path = silver_dk_data_csv(ANALYSIS_YEAR)
+    require_manuscript_boundary(_dk_path, "analysis.export_tables")
+    dk = pd.read_csv(_dk_path)
     bp = dk[dk["Index"] == "Expenditure"].iloc[0]
     conv = dk[dk["Index"] == "Conversion"].iloc[0]
     esum = pd.DataFrame([

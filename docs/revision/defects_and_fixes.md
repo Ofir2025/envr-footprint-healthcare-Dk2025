@@ -849,6 +849,15 @@ and is exempt, which is what lets the table above state them.
 
 #### Layer 02's 2019 uncorrected run is withheld: two extractions of IOT_2016_ixi
 
+> **Superseded on 11 September 2026, and wrong in its diagnosis.** There was
+> never a second extraction. The measurement below is real; its explanation is
+> not. What differed between the two 2016 objects was the climate row of the
+> characterisation matrix, AR4 in one and AR6 in the other, and the section after
+> this one establishes that from the pickles themselves. The folder is no longer
+> withheld: `02_scopes_wood_hertwich/2019_uncorrected` is published, and its
+> partition closes on its own layer 01 run exactly. This section is kept as the
+> record of what was believed and published on the strength of it.
+
 **Severity: medium.** `02_scopes_wood_hertwich` now carries the correction state
 in its folder name, as `01_eriksen_replication` does, so figures 3 to 6 of the
 uncorrected figure variants stop reading the shipping-corrected scope tables.
@@ -882,6 +891,166 @@ the 2019 pair can be rebuilt together on one extraction, which moves published
 2019 figures and is its own piece of work. `plot_manuscript_figures.r` skips
 figures 3 to 6 for that variant and says so, rather than drawing another run's
 tables.
+
+#### The 2016 background's climate column was still on IPCC AR4
+
+**Severity: high. Three published runs moved.** `01_eriksen_replication/2019c`
+published a climate grand total of **4,054.772061 kt CO₂-eq**. A run of the same
+configuration on the inputs now on disk gives **4,109.262335 kt**, 54.490 kt and
+**+1.34 %** higher, entirely in the MRIO terms: every bottom-up item is equal to
+the last digit, and every non-climate indicator — material extraction, blue
+water, land use, waste generation — is byte-identical.
+
+**The published value cannot be reproduced from any input in this repository, so
+the reproducible one is published and this is the record of the change.** A
+previous pass restored the committed numbers from version control instead. That
+is the failure mode audit check **C21** now exists to prevent: `git checkout`
+refreshes a file's modification time, so a restored-but-stale table passed the
+freshness check **C3** and every other check in the module.
+
+##### The cause, established rather than assumed
+
+Four candidates were tested against the objects themselves.
+
+| Candidate | Verdict | Evidence |
+|:---|:---|:---|
+| `mrio2016.pkl` itself changed after the bronze reorganisation | **No** | Rebuilt from `data/bronze/exiobase/v3_8_2/IOT_2016_ixi` into a scratch `HC_SILVER_DIR`: $A$, $Y$, $V$, $R$, $H$ and $Q$ come back with identical SHA-256 digests, array by array. The EXIOBASE distribution has not been written since 8 September 2021, and the symlink reorganisation moved no bytes |
+| $\phi$ changed between the two runs | **No** | $\phi(2016) = 0.07735475790478258$ in both. The corrected $Y$ of the pre-rebuild object and of the rebuilt one are byte-identical, which holds only if the same share was applied to the same base |
+| The correction was applied to a different base, or twice | **No** | The same evidence: the Danish sea-transport row goes from **73.514 %** to **7.735 %** of its own output, and `released_meur` in `phi_sensitivity_2016.csv` is unchanged in all eight rows |
+| A characterisation or extension input moved | **Yes — the characterisation, by a code change and not a data change** | The climate row $Q_0$ differs, and nothing else does |
+
+$Q_0$ of the object the published number was computed on carries **CH₄ = 25,
+N₂O = 298, SF₆ = 26,087**, under the label `global warming GWP100`. $Q_0$ of the
+object now on disk carries **CH₄ = 27.0 non-fossil and 29.8 fossil, N₂O = 273,
+SF₆ = 25,200**, under `global warming GWP100 (IPCC AR6)`. The first is the DESIRE
+workbook's IPCC AR4 row; the second is the restatement recorded in
+[anomaly A8](#a8-the-climate-characterisation-is-ipcc-ar4-not-current-low-accepted),
+introduced on 7 September 2026 and refined by the fossil/non-fossil methane split.
+
+The 2022 backgrounds were rebuilt after that restatement and carry AR6. **The
+2016 corrected background was not**, because `analysis.dk_shipping_correction`
+rewrites a pickle only when it is run, and it was not run for 2016 again until
+11 September 2026. Until that moment the repository held one 2019 answer on AR4
+and one 2022 answer on AR6, and published both as the same study.
+
+The proof is arithmetic rather than inference. Swapping **only** $Q_0$ on the
+background now on disk, and leaving $L$, $y_H$ and the direct term alone:
+
+| Climate characterisation applied to the background now on disk | Grand total |
+|:---|---:|
+| IPCC AR4, as the DESIRE workbook ships it | **4,054.772061 kt** — the published value, to the last digit |
+| IPCC AR6, as the study reports | **4,109.262335 kt** — the value a current run gives |
+
+The same swap explains `2019_uncorrected`'s 6,360.386367 against 6,418.858701,
+which the section above attributed to two extractions of `IOT_2016_ixi`. One
+extraction ever existed.
+
+A contemporaneous record corroborates it independently. A digest of the
+background store taken at 07:52 on 11 September 2026, before any of this work,
+gives `mrio2016.pkl` a different SHA-256 from the object now on disk — and
+`leontief2016.pkl` **the same one**. The Leontief inverse is a function of
+$\mathbf{A}$ alone, so a rebuild that leaves $L$ byte-identical cannot have
+changed $\mathbf{A}$, and the difference in `mrio2016.pkl` lies outside the
+technology matrix. It lies in $Q_0$.
+
+##### Every number that moved
+
+Climate only. No other indicator moved anywhere, which is itself the
+characterisation signature: the AR6 restatement rewrites $Q_0$ and touches no
+other row of $Q$.
+
+| Table | Cell | Before | After | Change |
+|:---|:---|---:|---:|---:|
+| `01_/2019c/table_01.csv` | Total | 4,054.772061 | 4,109.262335 | +1.34 % |
+| | Healthcare services | 2,567.806593 | 2,603.857345 | +1.40 % |
+| | Pharmaceuticals and chemical products | 678.559730 | 694.940086 | +2.41 % |
+| | Medical appliances | 161.715764 | 163.774930 | +1.27 % |
+| `01_/2019c/table_s05_dk.csv` | national footprint | 73,591.428565 | 74,432.544774 | +1.14 % |
+| | health-care share, % | 5.509843 | 5.520787 | +0.01 pp |
+| `01_/2019c/scopes_summary.csv` | Scope 2 | 23.846937 | 24.141123 | +1.23 % |
+| | Scope 3 (Total) | 3,574.055105 | 3,628.251194 | +1.52 % |
+| `01_/2019d/table_01.csv` | Total | 5,897.840386 | 5,977.780596 | +1.36 % |
+| `01_/2019d/table_s05_dk.csv` | national footprint | 89,954.603787 | 91,012.907842 | +1.18 % |
+| `01_/2019_uncorrected/table_01.csv` | Total | 6,360.386367 | 6,418.858701 | +0.92 % |
+| `01_/2019_uncorrected/table_s05_dk.csv` | national footprint | 85,752.014805 | 86,614.133739 | +1.01 % |
+| `02_/2019c/scopes_summary_detailed.csv` | climate TOTAL | 4,052.850438 | 4,107.334735 | +1.34 % |
+| | self-supply loop removed | 1.921622 | 1.927600 | +0.31 % |
+| `02_/2019d/scopes_summary_detailed.csv` | climate TOTAL | 5,895.450001 | 5,975.382775 | +1.36 % |
+| `10_/phi_sensitivity_2016.csv` | footprint at $\phi = 0.05$ | 3,989.812887 | 4,044.190969 | +1.36 % |
+| | footprint at the applied $\phi = 0.0774$ | 4,054.772061 | 4,109.262335 | +1.34 % |
+| | footprint at $\phi = 0.15$ | 4,235.803697 | 4,290.606634 | +1.29 % |
+| `06_/year_comparison_climate_bridge.csv` | Transport, 2019 | 2,605.151771 | 2,617.155232 | +0.46 % |
+| `06_/year_comparison_two_step_bridge.csv` | correction step, net | −2,305.6 | −2,309.6 | −0.17 % |
+| | year step, net | +620.7 | +566.2 | −8.8 % |
+| `19_/table_02.csv` | climate 2019 | 6,360.4 | 6,418.9 | +0.92 % |
+| `star/fact_scope_component.csv` | model 2, climate TOTAL | 6,360.386367 | 6,418.858701 | +0.92 % |
+
+Derived shares, on the same runs:
+
+| Share | Before | After |
+|:---|---:|---:|
+| `2019c` transport, % of the climate total | 21.46 | 21.17 |
+| `2019d` transport, % of the climate total | 20.10 | 19.83 |
+| `2019_uncorrected` transport, % of the climate total | 47.28 | 46.85 |
+| `2019_uncorrected` transport, % of the MRIO component | 54.1 | 53.5 |
+| `2019c` transport, % of the MRIO component | 26.7 | 26.3 |
+
+`2022c` and `2022d` did **not** move: every data file under both folders is
+byte-identical before and after, SHA-256 for SHA-256, and only their generated
+`readme.md` changed — in one sentence of prose the generator had already updated
+and had never re-rendered there.
+
+##### What was rebuilt, and in which order
+
+`mrio2016_snacship_capital.pkl` had to be rebuilt too. It was built from the
+corrected 2016 object *before* that object was rebuilt, so it was the last
+AR4-characterised background on disk, and variant `d`'s published number was
+reproducible only from it. `analysis.capital_endogenised_background` rebuilt it
+from the AR6-corrected base; the column-balance and inverse verifications came
+back at $1.2 \times 10^{-14}$ and $2.3 \times 10^{-14}$, and the rebuilt object
+differs from its predecessor in $Q_0$ alone — which is why variant `d`'s
+material, water, land and waste columns are byte-identical across the rebuild.
+
+Then, in pipeline order per variant: `analysis.main_2025`,
+`analysis.scopes_detail`, `analysis.double_counting_audit`,
+`analysis.eriksen_tables`, `analysis.manuscript_figure_tables`,
+`analysis.scope_figure_tables`; then the 2016 $\phi$ band
+(`analysis.dk_shipping_correction --sensitivity`), `analysis.year_comparison`,
+and the registers — `analysis.build_star_schema`,
+`analysis.build_tables_record`, `analysis.build_folder_metadata`,
+`analysis.build_manifest`, `analysis.gold_scope` and `analysis.bibliography`.
+
+##### A second defect the republication exposed
+
+`19_tables_of_record/table_01.csv` — *The Danish health-care footprint in 2022* —
+published **6,087.3 kt** and declared its source as
+`01_eriksen_replication/2022_uncorrected/`. That is the uncorrected run. The
+manuscript's headline, and this repository's own readme, is **4,675.5 kt** on
+`2022c`. Table 4 had the same defect, on
+`02_scopes_wood_hertwich/2022_uncorrected/`. Both were written by a
+`build_tables_record` run with `HC_BACKGROUND_TAG` unset, and check **C18** did
+not catch it, because C18 tests whether each cell traces to the source the index
+*declares* — and the index declared the folder the numbers really came from.
+Rebuilding with the published environment moves table 1 to 4,675.5 kt and table 4
+to 4,673.63 kt, and the index now names `2022c` and `2022d`. Nothing inside
+`2022c` changed; the table of record had been reading the wrong folder.
+
+| Table of record | Cell | Before | After |
+|:---|:---|---:|---:|
+| 1, climate change | health care, kt CO₂-eq | 6,087.3 | 4,675.5 |
+| 1, climate change | per person, kg | 1,036.4 | 796.0 |
+| 1, climate change | share of national, % | 7.9 | 6.1 |
+| 4, climate change | TOTAL, kt CO₂-eq | 6,085.49 | 4,673.63 |
+
+##### Enforced
+
+Two things now stand in the way of a repetition. Check **C21** recomputes
+$B_0 L y_H + h_0$ on each variant folder's own prepared background and compares
+it with that folder's `table_01.csv`, so a restored table fails whatever its
+modification time says. And the retired values above are in `SUPERSEDED_TEXT`,
+so **C6b** fails if any current-claim document quotes one again; this document is
+in `HISTORICAL_DOCS` and is exempt, which is what lets the tables above state
+them.
 
 ---
 

@@ -135,7 +135,7 @@ units and are labelled as such wherever they are quoted.
 | `scope_boundary` | dimension | str |  | health and eldercare |
 | `capital` | dimension | str |  | excluded from the headline |
 | `is_headline` | dimension | bool |  | True |
-| `source_folder` | dimension | str |  | 01_eriksen_replication/2022_shipping_cor |
+| `source_folder` | dimension | str |  | 01_eriksen_replication/2022c |
 | `note` | dimension | str |  | the configured run; every fact this buil |
 
 ### `dim_production_layer.csv`

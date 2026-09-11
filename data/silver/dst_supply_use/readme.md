@@ -104,13 +104,36 @@ The 2019 file was seeded from the 2019 block of
 2019 run then reproduced it byte for byte — so the split recovered the values
 rather than inventing them.
 
-## Remaining defect: the boundary scope
+## Why the year is in the name and the care boundary is not
 
-`analysis.main_2025` persists `dk_data_<year>.csv` and
-`dk_expenditure_breakdown_<year>.csv` **only** for the manuscript boundary
-(`HC_SCOPE=health_eldercare`), and skips the write for any other boundary rather
-than writing that boundary's own file. So these files are scoped on one of the
-four axes the gold folders are named on, and a `zorg_en_welzijn` run has no
-silver frame at all. The skip is deliberate and is the safe half of the problem —
-it is what stops a scenario run leaving the wrong boundary's totals in a tracked
-file — but the boundary is not in the name the way the year now is.
+The year is in the name because a file can hold either year's values: a 2019 run
+and a 2022 run both write, so a shared name is overwritten and read for the
+wrong year. That happened, and it is the fixed defect above.
+
+The care boundary is **not** in the name, and this is a decision rather than an
+omission. `analysis.main_2025` writes `dk_data_<year>.csv` and
+`dk_expenditure_breakdown_<year>.csv` **only** for `HC_SCOPE=health_eldercare`
+and skips the write on every other boundary, so these files have exactly one
+possible boundary. A suffix would distinguish nothing: there is no second file
+for it to be distinguished from, and a `_health_eldercare` on every name would
+state a constant.
+
+What a suffix could not have prevented either is the one thing that could go
+wrong here — a module running on another boundary opening the file anyway and
+publishing the manuscript boundary's expenditure as that boundary's own. A
+suffix does not stop a reader from typing it. So that is enforced at the read
+instead, by `analysis.constants.require_manuscript_boundary`, which every
+reader of these two files calls first: `analysis.export_tables`,
+`analysis.lenzen_replication`, `analysis.malik_replication`,
+`analysis.waste_validation` and `analysis.waste_domestic_dst`. On any boundary
+but the manuscript's they stop, and say which boundary they are on and which
+file they refused to read.
+
+`dk_bottomup_data_<year>.txt` is a third case and needs neither the suffix nor
+the guard: it is written on every boundary, and it is boundary-INVARIANT.
+Anaesthetic gases, pMDI propellants, commuting and patient travel are Danish
+primary totals scaled from the Dutch baseline, and none of the four scaling
+inputs is a function of the care boundary. Measured rather than assumed: a
+`zorg_en_welzijn` run on 11 September 2026 rewrote the file and left it
+byte-identical, and the three bottom-up rows of `table_01.csv` are equal to the
+last digit in `01_eriksen_replication/2019c` and `01_eriksen_replication/2019d`.

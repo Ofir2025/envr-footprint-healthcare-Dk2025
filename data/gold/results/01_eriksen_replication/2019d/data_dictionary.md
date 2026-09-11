@@ -65,7 +65,7 @@ units and are labelled as such wherever they are quoted.
 | `purchased_sector_name` | dimension | str |  | Cultivation of wheat |
 | `purchased_sector_group` | dimension | str |  | Food and catering |
 | `ghg_protocol_scope` | dimension | str |  | Scope 3 |
-| `value` | measure | float64 | kt CO2eq | 0.0008432424420632 |
+| `value` | measure | float64 | kt CO2eq | 0.0008147149760673 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `component_type` | dimension | str |  | MRIO supply-chain node |
@@ -150,7 +150,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Contribution` | dimension | str |  | Food and food services |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 569.3897391028376 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 577.7044898982972 |
 | `Material extraction (kt)` | measure | float64 |  | 297.2864905216028 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 22.871254689073748 |
 | `Land use (km2)` | measure | float64 |  | 1796.6764011795635 |
@@ -161,7 +161,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Contribution` | dimension | str |  | Food and food services |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 9.654207333381445 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 9.6641969472877 |
 | `Material extraction (kt)` | measure | float64 |  | 5.0461319291794515 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 29.75988789666367 |
 | `Land use (km2)` | measure | float64 |  | 33.03214564477289 |
@@ -172,7 +172,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Hotspot` | dimension | str |  | Agricultural sector |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 596.9488781076744 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 601.9474618342183 |
 | `Material extraction (kt)` | measure | float64 |  | 50.020971059279226 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 62.9548652256234 |
 | `Land use (km2)` | measure | float64 |  | 5332.868462327973 |
@@ -183,7 +183,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Hotspot` | dimension | str |  | Agricultural sector |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 10.121482423904489 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 10.06974833120989 |
 | `Material extraction (kt)` | measure | float64 |  | 0.8490544550070909 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 81.91635120740284 |
 | `Land use (km2)` | measure | float64 |  | 98.04552875319264 |
@@ -205,7 +205,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Region` | dimension | str |  | Unallocated |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 4.288051033952073 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 4.2307073938451545 |
 | `Material extraction (kt)` | measure | float64 |  | 0.3977629174515743 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 0.2113135400799437 |
 | `Land use (km2)` | measure | float64 |  | 0.0280520453163993 |
@@ -239,7 +239,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_name` | dimension | str |  | Cultivation of wheat |
 | `producing_sector_group` | dimension | str |  | Food and catering |
 | `ghg_protocol_scope` | dimension | str |  | Indirect |
-| `value` | measure | float64 | kt CO2eq | 0.0734773128698607 |
+| `value` | measure | float64 | kt CO2eq | 0.0703128837384887 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `component_type` | dimension | str |  | MRIO supply-chain node |
@@ -288,7 +288,7 @@ units and are labelled as such wherever they are quoted.
 | `purchased_sector_name` | dimension | str |  | Cultivation of wheat |
 | `purchased_sector_group` | dimension | str |  | Food and catering |
 | `Total (MEUR)` | measure | float64 | kt CO2eq per MEUR | 0.0003866444970194 |
-| `value` | measure | float64 | kt CO2eq per MEUR | 2.18092446307542 |
+| `value` | measure | float64 | kt CO2eq per MEUR | 2.107142303453834 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq per MEUR |
 | `component_type` | dimension | str |  | MRIO supply-chain node |
@@ -326,7 +326,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `Unnamed: 0` | dimension | str |  | Total |
 | `Category group` | dimension | str |  | Total |
-| `Climate change (kt CO2eq)` | dimension | str |  | 5,898 (100·0%) |
+| `Climate change (kt CO2eq)` | dimension | str |  | 5,978 (100·0%) |
 | `Material extraction (kt)` | dimension | str |  | 5,891 (100·0%) |
 | `Blue water consumption (Mm3)` | dimension | str |  | 77 (100·0%) |
 | `Land use (km2)` | dimension | str |  | 5,439 (100·0%) |
@@ -338,7 +338,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Unnamed: 0` | dimension | str |  | Total |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 5897.840386481576 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 5977.78059624945 |
 | `Material extraction (kt)` | measure | float64 |  | 5891.373723356981 |
 | `Blue water consumption (Mm3)` | measure | float64 |  | 76.85262380184501 |
 | `Land use (km2)` | measure | float64 |  | 5439.175585204172 |
@@ -350,6 +350,6 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Unnamed: 0` | dimension | str |  | Global warming (ktCO2eq) |
-| `Healthcare footprint` | measure | float64 |  | 5897.840386481576 |
-| `National consumption footprint` | measure | float64 |  | 89954.60378694635 |
-| `Healthcare share of national consumption footprint (%)` | measure | float64 | % | 6.556463080478194 |
+| `Healthcare footprint` | measure | float64 |  | 5977.78059624945 |
+| `National consumption footprint` | measure | float64 |  | 91012.90784220408 |
+| `Healthcare share of national consumption footprint (%)` | measure | float64 | % | 6.568058023828419 |

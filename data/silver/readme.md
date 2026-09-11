@@ -111,7 +111,7 @@ export HC_SILVER_DIR=/path/to/data/silver
 
 ## What is and is not in version control
 
-Silver is regenerable, so almost none of it is tracked. Six files are, and the
+Silver is regenerable, so almost none of it is tracked. Seven files are, and the
 repository `.gitignore` un-ignores them one pattern at a time, because the
 author's global excludes file drops every `*.csv` and that is exactly how a
 required input once came to sit on one machine's disk and in no clone:
@@ -124,11 +124,21 @@ required input once came to sit on one machine's disk and in no clone:
 | `dst_supply_use/dk_expenditure_breakdown_2022.csv` | the same for 2022 |
 | `netherlands_reference/dk_bottomup_data_2019.txt` | the four bottom-up items for 2019, Danish primary data not reproducible from bronze alone |
 | `netherlands_reference/dk_bottomup_data_2022.txt` | the same for 2022 |
+| `dst_input_output/dst_water_transport_domestic_share.csv` | $\phi$, the sea-transport reallocation's target share. Tracked on 11 September 2026, at 401 bytes: it is a published number the methods text quotes and every row of layer 10's diagnostics carries, and it multiplies a row block of $\mathbf{A}$ before a Leontief inversion, so it is read to the last bit |
 
-Untracked and rebuilt on demand: the 78 MB-per-year named register, the three
-shipping-stage tables, the concordance, the background store and the handoff
-workbooks. Every one of them is named in its folder's readme with the command
-that produces it.
+Untracked and rebuilt on demand, and each one tested against the same question -
+*does anything published quote a number from this file?*
+
+| untracked | why not, on that test |
+|:---|:---|
+| `dk_medicines_register/dk_atc_sales_<year>.csv` | 78 MB per year; the numbers it feeds are published as the anaesthetic-gas item, not as register rows |
+| `exiobase/exiobase_industry_sector_group.csv` | no document quotes a number from it. The group labels it assigns travel into gold in the published tables' own `sector_group` columns, and `data/bronze/exiobase/classifications.xlsx` is tracked, so one command rebuilds it in any clone |
+| `classification_concordances/exiobase_industry_to_dst_db07.csv` | the same: it is a mapping, not a quoted value, and its bronze concordances are tracked |
+| `dst_supply_use/dk_health_expenditure_frame.csv` | every value in it is already in the two tracked `dk_data_<year>.csv` files - it is the same frame reshaped to carry both years at once |
+| `background/`, `handoff/` | the model-object store and the interim workbooks; ten gigabytes and six workbooks, neither a source of record |
+
+Every one of them is named in its folder's readme with the command that produces
+it.
 
 ## Fixed defect: the year scope
 
@@ -146,14 +156,40 @@ one. Verified by a 2022 → 2019 → 2022 round trip: the 2019 run left
 `dk_data_2022.csv` and `dk_bottomup_data_2022.txt` untouched, and the 2022 gold
 tables came back byte-identical.
 
-## Remaining defect: the boundary scope
+## Why the year is in the name and the care boundary is not
 
-The year is scoped; the **care boundary** is not. `analysis.main_2025` persists
-`dk_data_<year>.csv` and `dk_expenditure_breakdown_<year>.csv` only for the
-manuscript boundary (`HC_SCOPE=health_eldercare`) and skips the write entirely
-for any other, keeping that run's totals in memory. That is safe — a scenario run
-cannot leave the wrong boundary's numbers in a tracked file — but it means these
-files describe one boundary of the four configuration axes the gold folders are
-named on, and a `zorg_en_welzijn` run has no silver frame of its own.
+The year is in the name because a file can hold either year's values: a 2019 run
+and a 2022 run both write, so a shared name is overwritten and read for the
+wrong year. That happened, and it is the fixed defect above.
+
+The care boundary is **not** in the name, and this is a decision rather than an
+omission. `analysis.main_2025` writes `dk_data_<year>.csv` and
+`dk_expenditure_breakdown_<year>.csv` **only** for `HC_SCOPE=health_eldercare`
+and skips the write on every other boundary, so these files have exactly one
+possible boundary. A suffix would distinguish nothing: there is no second file
+for it to be distinguished from, and a `_health_eldercare` on every name would
+state a constant.
+
+What a suffix could not have prevented either is the one thing that could go
+wrong here — a module running on another boundary opening the file anyway and
+publishing the manuscript boundary's expenditure as that boundary's own. A
+suffix does not stop a reader from typing it. So that is enforced at the read
+instead, by `analysis.constants.require_manuscript_boundary`, which every
+reader of these two files calls first: `analysis.export_tables`,
+`analysis.lenzen_replication`, `analysis.malik_replication`,
+`analysis.waste_validation` and `analysis.waste_domestic_dst`. On any boundary
+but the manuscript's they stop, and say which boundary they are on and which
+file they refused to read.
+
+`dk_bottomup_data_<year>.txt` is a third case and needs neither the suffix nor
+the guard: it is written on every boundary, and it is boundary-INVARIANT.
+Anaesthetic gases, pMDI propellants, commuting and patient travel are Danish
+primary totals scaled from the Dutch baseline, and none of the four scaling
+inputs is a function of the care boundary. Measured rather than assumed: a
+`zorg_en_welzijn` run on 11 September 2026 rewrote the file and left it
+byte-identical, and the three bottom-up rows of `table_01.csv` are equal to the
+last digit in `01_eriksen_replication/2019c` and `01_eriksen_replication/2019d`.
+
 `analysis.double_counting_audit` records the same asymmetry from the reader's
-side.
+side, and `data/silver/dst_supply_use/readme.md` repeats this section beside the
+files it is about.

@@ -446,7 +446,7 @@ vehicle manufacturing barely appears:
 
 | | Transport only | + Transport Equipment | Difference |
 |:---|:---|:---|:---|
-| 2019, uncorrected | 47.28 % | 47.33 % | **+0.05 pp** |
+| 2019, uncorrected | 46.85 % | 46.91 % | **+0.06 pp** |
 | 2022, corrected | 15.45 % | 15.52 % | **+0.07 pp** |
 
 The figure code is fixed in `analysis.manuscript_figure_tables` by matching exactly. It
@@ -454,7 +454,7 @@ changes no conclusion.
 
 #### Does our pipeline reproduce the 46 %?
 
-**Yes, to 1.3 percentage points — but on EXIOBASE v3.8.2's 2016 table, not on the
+**Yes, to 0.9 percentage points — but on EXIOBASE v3.8.2's 2016 table, not on the
 v3.7 the submission was computed with.** Until September 2026 this document
 attributed the reproduction to v3.7. It could not: the release was decided by a
 single bronze symlink pointing at v3.8.2 and stamped on every gold row by a
@@ -466,20 +466,20 @@ and the two disagree:
 | Run | Folder | Transport share of the MRIO supply chain |
 |:---|:---|:---|
 | Manuscript, as reported | — | 46 % |
-| Ours, v3.8.2 `IOT_2016`, uncorrected | `2019_uncorrected/` | **47.28 %** |
+| Ours, v3.8.2 `IOT_2016`, uncorrected | `2019_uncorrected/` | **46.85 %** |
 | Ours, v3.7 `IOT_2016`, uncorrected (variant a) | `2019a/` | **34.93 %** |
 
-On the purchased-product basis the same pair reads 41.00 % and 25.89 %, so the
+On the purchased-product basis the same pair reads 40.81 % and 25.89 %, so the
 gap is not an artefact of which marginal is quoted.
 
-The 1.3 pp residual against v3.8.2 is the demand-vector difference (finding F1 in
+The 0.9 pp residual against v3.8.2 is the demand-vector difference (finding F1 in
 the [Eriksen manuscript assessment](#assessment-of-the-eriksen-et-al-2026-manuscript)
 below), not a modelling disagreement, and the reproduction claim stands on that
 run. What does not stand is the claim that the release was v3.7's: on the same
 2016 table the two releases give Danish health-sector output of 47,011 M.EUR
 (v3.7) against 37,163 M.EUR (v3.8.2) and intermediate shares of 36.6 % against
 28.7 %, so v3.7 carries a much larger and differently composed supply chain per
-euro of Danish health expenditure — 8,694.66 kt against 6,360.39 kt in total,
+euro of Danish health expenditure — 8,694.66 kt against 6,418.86 kt in total,
 with transport almost unchanged in absolute terms (3,037.5 against 3,007.4 kt)
 and everything else far larger.
 
@@ -497,14 +497,14 @@ A four-step decomposition, each step measured rather than inferred:
 
 | Step | Transport share | Change |
 |:---|:---|:---|
-| 2019, 2016 background, uncorrected | **54.1 %** | n/a |
-| 2022 demand and v3.8.2 background, still uncorrected | 36.8 % | -17.2 pp |
+| 2019, 2016 background, uncorrected | **53.5 %** | n/a |
+| 2022 demand and v3.8.2 background, still uncorrected | 36.8 % | -16.7 pp |
 | **Danish sea-transport reallocation applied** | 17.8 % | **-19.0 pp** |
 | Bottom-up items included in the denominator | **14.9 %** | -2.9 pp |
 
 The first three rows share one denominator, the MRIO supply-chain component; the
 last row switches to the total. Taken in the other order — correction first on the
-2019 data, then the year — the steps are -27.4 pp and -8.9 pp
+2019 data, then the year — the steps are -27.2 pp and -8.5 pp
 (`06_benchmarks_validation/year_comparison_two_step_bridge.csv`). **In either order
 the reallocation is the larger step.** Year, release, and demand vector together move the
 share by less than half of what the data correction does.
@@ -576,19 +576,19 @@ study?
 
 **The decomposition now has a gold table for every step.** The gold layer holds
 all four (reference year x correction state) combinations at
-`01_eriksen_replication/`: `2019_uncorrected/`, `2019_shipping_corrected/`,
-`2022_uncorrected/` and `2022_shipping_corrected/` (see
+`01_eriksen_replication/`: `2019_uncorrected/`, `2019c/`, `2022_uncorrected/`
+and `2022c/` (see
 [section 01](../methods/replications.md#r01)). The 2022 uncorrected run behind
 the intermediate figure above is now published at `2022_uncorrected/` (36.8 %)
 rather than existing only as a documented, unpublished figure; measured from it
 directly, the climate footprint is 6,087.3 kt CO2eq and transport is 32.2 % of
-the total (36.8 % of the MRIO supply-chain component alone). The new
-`2019_shipping_corrected/` folder completes the other missing corner: applying
+the total (36.8 % of the MRIO supply-chain component alone). The `2019c/`
+folder completes the other missing corner: applying
 the correction alone, holding the 2019 expenditure and 2016 background fixed,
-moves transport from 47.3 % of the total to 21.5 % (26.7 % of the MRIO
+moves transport from 46.9 % of the total to 21.2 % (26.3 % of the MRIO
 component) — by itself a larger share of the full 2019-to-2022 movement than
 the reference-year change contributes on its own, which moves the corrected
-share from 21.5 % to 14.9 %. `analysis.year_comparison.two_step_bridge`
+share from 21.2 % to 14.9 %. `analysis.year_comparison.two_step_bridge`
 computes this two-step decomposition group by group. A reviewer asking for the
 decomposition can now be pointed at the gold layer directly, for every step.
 

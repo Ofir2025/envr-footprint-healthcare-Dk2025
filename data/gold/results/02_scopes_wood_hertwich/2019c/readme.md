@@ -11,29 +11,20 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 Variant c for 2019: reference year 2019 on EXIOBASE v3.8.2
 `IOT_2016_ixi`, with the Danish sea-transport reallocation applied.
 Its partition closes on `01_eriksen_replication/2019c` exactly: the
-climate `TOTAL` of 4,052.850438 kt CO2-eq plus the self-supply loop of
-1.921622 kt is the grand total of 4,054.772061 kt that
+climate `TOTAL` of 4,107.334735 kt CO2-eq plus the self-supply loop of
+1.927600 kt is the grand total of 4,109.262335 kt that
 `scopes_summary.csv` publishes there.
 
 The bottom-up items are 2019's own: anaesthetic gases 12.470055 kt,
 commuting 327.944600 kt, patient and visitor travel 293.475319 kt.
 
-## Why there is no 2019_uncorrected companion in this layer
+## The climate column of this folder moved on 11 September 2026
 
-`01_eriksen_replication` publishes it and this layer does not, and it
-is withheld rather than missing by accident. The 2016 background it
-needs cannot currently be paired with
-`01_eriksen_replication/2019_uncorrected`: the uncorrected and
-shipping-corrected 2016 model objects on disk descend from two
-different extractions of `IOT_2016_ixi`, whose climate intensity rows
-disagree on 6,779 of 7,987 nodes by up to 0.4 % each. Rebuilding the
-uncorrected background moves that run's grand total from 6,360.386367
-to 6,418.858701 kt, so a scope partition built on it would miss this
-layer's own reconciliation identity by 58.47 kt. See
-`docs/revision/defects_and_fixes.md`.
-
-Variant c is unaffected: it reproduces from the objects on disk byte
-for byte, its background included.
+The grand total was 4,054.772061 kt until the 2016 corrected
+background was rebuilt. That value was the IPCC AR4 characterisation
+of this same background: only the climate row of the characterisation
+matrix changed, and every other indicator in this folder is unmoved.
+See `docs/revision/defects_and_fixes.md`.
 
 ## Conventions
 
@@ -99,9 +90,9 @@ for byte, its background included.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 90
+- **Rows:** 95
 - **Format:** csv
-- **Resolution:** 11+ regions x 17+ industries (sampled)
+- **Resolution:** 10+ regions x 18+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

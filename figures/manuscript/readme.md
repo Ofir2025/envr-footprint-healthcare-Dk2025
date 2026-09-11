@@ -206,25 +206,24 @@ which is the difference the variant scheme exists to show.
 | `2022c` | yes | yes |
 | `2022d` | yes | yes |
 | `2022_uncorrected` | yes | yes |
-| `2019_uncorrected` | yes | **not drawn** - layer 02 does not publish this run |
+| `2019_uncorrected` | yes | yes |
 
 `2019a` is not in this table: it carries the Steenmeijer set instead, which has
 no scope partition in it. Its scope tables exist in
 `02_scopes_wood_hertwich/2019a/` all the same, and the scope figures could be
 drawn from them if the set for that variant ever changed.
 
-`2019_uncorrected` is the one gap, and it is a withheld figure rather than a
-wrong one. The uncorrected and shipping-corrected 2016 model objects on disk
-descend from two different extractions of `IOT_2016_ixi`, so a 2019 uncorrected
-scope partition would miss that run's own published grand total by 58.47 kt;
-publishing figures drawn from it would put a number in the paper that no
-reconciliation supports. `plot_manuscript_figures.r` says so and skips those
-four rather than aborting, so the rest of that variant's set still renders, and
-the measurement is recorded in
+`2019_uncorrected` used to be the one gap: figures 3 to 6 were withheld for it
+on the grounds that the uncorrected and shipping-corrected 2016 model objects
+descended from two different extractions of `IOT_2016_ixi`. That diagnosis was
+wrong - the two objects' $A$, $Y$, $R$, $H$ and $x$ are byte-identical, and what
+differed was the climate row of the characterisation matrix, IPCC AR4 in one and
+IPCC AR6 in the other. With both 2016 backgrounds on AR6 the partition closes on
+that run's own grand total to the last digit, `02_scopes_wood_hertwich/2019_uncorrected`
+is published, and all four figures draw. The measurement is recorded in
 [docs/revision/defects_and_fixes.md](../../docs/revision/defects_and_fixes.md).
 Its transport share is readable from `01_eriksen_replication/2019_uncorrected`
-(47.28 % of the climate footprint, against 21.46 % at variant c), which is
-variant-scoped and unaffected.
+(46.85 % of the climate footprint, against 21.17 % at variant c).
 
 ## The variants are not interchangeable
 
@@ -234,13 +233,13 @@ variant-scoped and unaffected.
 | Danish sea-transport reallocation | not applied | applied | applied | applied | not applied | applied | applied | not applied |
 | Boundary | health care | health care | health care | + child and elder care | health care | health care | + child and elder care | health care |
 | Capital | excluded | excluded | excluded | endogenised | excluded | excluded | endogenised | excluded |
-| Climate total, kt CO₂e | 8,694.66 | 6,625.53 | 4,054.77 | 5,897.84 | 6,360.39 | 4,675.47 | 6,495.66 | 6,087.33 |
-| Transport share | 34.93 % | 16.56 % | 21.46 % | 20.10 % | 47.28 % | 14.87 % | 14.50 % | 32.19 % |
+| Climate total, kt CO₂e | 8,694.66 | 6,625.53 | 4,109.26 | 5,977.78 | 6,418.86 | 4,675.47 | 6,495.66 | 6,087.33 |
+| Transport share | 34.93 % | 16.56 % | 21.17 % | 19.83 % | 46.85 % | 14.87 % | 14.50 % | 32.19 % |
 
 `2019a` runs the release and correction state the submitted manuscript used, and
 it does **not** reproduce the submitted 46 % transport share: it returns 34.93 %.
 `2019_uncorrected`, which is the same year and correction state on v3.8.2 rather
-than v3.7, returns 47.28 % and is the run that reproduces the submitted finding.
+than v3.7, returns 46.85 % and is the run that reproduces the submitted finding.
 `2022c` is the manuscript's headline. Comparing `2019_uncorrected` with `2022c`
 directly - the only pair the figure set drew before the variant scheme existed -
 mixes the year with the correction; see

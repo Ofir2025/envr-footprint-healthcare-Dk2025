@@ -84,6 +84,16 @@ only from the folder readmes, so the readmes are part of the layer. The flat
 ``inputs/`` folder this replaced had two tracked files its readme never
 mentioned.
 
+**C21 Every variant recomputes from its own background.** C3 tests a
+modification time, and a table restored from version control has a fresh one:
+``01_eriksen_replication/2019c`` published 4,054.77 kt - the IPCC AR4
+characterisation of a background since rebuilt on AR6 - and passed every check
+in this module, because nothing asked whether the number still followed from the
+inputs on disk. This re-evaluates :math:`B_0 L y_H + h_0` on each variant
+folder's own prepared background and compares it with that folder's
+``table_01.csv``. It is the only check here that recomputes a published result
+rather than cross-reading it.
+
 Exit status is non-zero if any check fails, so this can gate a release.
 
 Run
@@ -95,6 +105,7 @@ from __future__ import annotations
 
 import glob
 import os
+import pickle
 import re
 import subprocess
 import sys
@@ -106,8 +117,8 @@ import pandas as pd
 from analysis import gold_scope
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR,
                                 EXIOBASE_RELEASE, MODEL_LABEL, RELEASE_LABEL,
-                                VARIANTS, eriksen_folder, scopes_folder,
-                                variant_axes)
+                                VARIANTS, background_stem, eriksen_folder,
+                                scopes_folder, variant_axes)
 from paths import BACKGROUND_DIR, GOLD_DIR, OUTPUT_DIR, PROJECT_ROOT
 
 #: Tolerance for values that should be identical up to floating point.
@@ -884,6 +895,168 @@ def c20_silver_documented(results: list[dict[str, Any]]) -> None:
            f"{len(offenders)} undocumented: " + "; ".join(offenders[:6])
            + (" ..." if len(offenders) > 6 else ""))
 
+
+#: Rows of ``table_01.csv`` that are NOT in the input-output model, so the
+#: recomputation in :func:`c21_variant_recomputes` must not expect to reproduce
+#: them from the background. Each is Danish primary data added after the
+#: Leontief solve.
+NON_MRIO_ROWS: tuple[str, ...] = (
+    "Release of anaesthetic gases",
+    "Release of pMDI propellants",
+    "Private travel",
+)
+
+#: Rows of ``table_01.csv`` whose climate cells together are exactly
+#: :math:`B_0 L y + h_0` on the folder's own background: the three expenditure
+#: components of the demand vector, with the Danish direct-operations term
+#: carried by the first of them.
+MRIO_ROWS: tuple[str, ...] = (
+    "Healthcare services",
+    "Pharmaceuticals and chemical products",
+    "Medical appliances",
+)
+
+#: Relative tolerance for the recomputation. The check reproduces the published
+#: arithmetic rather than approximating it, so anything above floating-point
+#: noise in a 7,987-term inner product is a different model.
+RECOMPUTE_TOLERANCE = 1e-9
+
+
+def _variant_background_stem(folder: str) -> str | None:
+    """Background stem behind one ``01_eriksen_replication`` variant folder.
+
+    Parameters
+    ----------
+    folder : str
+        Variant folder name, e.g. ``"2019c"`` or ``"2022_uncorrected"``.
+
+    Returns
+    -------
+    str or None
+        The stem of the prepared background the folder's tables were built
+        from, e.g. ``"2016_snacship"``, or ``None`` when ``folder`` names no
+        variant this study defines.
+    """
+    axes = variant_axes(folder)
+    if axes is None or not folder[:4].isdigit():
+        return None
+    return background_stem(folder[:4], axes["release"], axes["tag"],
+                           axes["capital"], axes["scope"])
+
+
+def _recompute_variant_climate(path: str) -> float:
+    """Climate footprint of one prepared background, on its own demand vector.
+
+    Evaluates :math:`B_0 L y_H + h_0` - the MRIO supply-chain component plus
+    the Danish direct-operations term - exactly as
+    :mod:`analysis.main_2025` evaluates it, from the background pickle alone.
+    The Leontief inverse is dropped as soon as the matrix-vector product is
+    taken, so the peak footprint is one background rather than two.
+
+    Parameters
+    ----------
+    path : str
+        Path of a ``gddz_background_information_<stem>.pkl``.
+
+    Returns
+    -------
+    float
+        Kilotonnes of CO2-equivalent.
+    """
+    with open(path, "rb") as handle:
+        bg = pickle.load(handle)
+    b0 = np.asarray(bg["B"])[0].copy()
+    ystim = np.asarray(bg["Ystim"])[:, 0].copy()
+    direct = float(np.asarray(bg["Hstim"])[0, 0])
+    ly = np.asarray(bg["L"]) @ ystim
+    del bg
+    return float(b0 @ ly) + direct
+
+
+def c21_variant_recomputes(results: list[dict[str, Any]]) -> None:
+    """C21: every variant's published climate headline recomputes from silver.
+
+    Why C3 is not enough
+    --------------------
+    C3 asks whether a gold file is older than the background it claims to
+    derive from, and it asks it of the file's modification time. A table
+    restored from version control is rewritten, so its mtime becomes the moment
+    of the restore and it passes C3 while carrying numbers no input on disk
+    produces. That is exactly what happened to
+    ``01_eriksen_replication/2019c`` on 11 September 2026: its published
+    4,054.77 kt was the IPCC AR4 characterisation of the 2016 corrected
+    background, the background was rebuilt on IPCC AR6, and the table was put
+    back rather than republished. Every check in this module passed on it.
+
+    What this check does instead
+    ---------------------------
+    For each variant folder, it re-evaluates
+
+    .. math::
+
+       f = B_0 L y_H + h_0
+
+    on that folder's **own** prepared background - the one
+    :func:`_variant_background_stem` names from the folder's four axes - and
+    compares it with the sum of the three expenditure-component climate cells
+    of the folder's ``table_01.csv``. Those three cells are precisely the part
+    of the headline the background determines; the bottom-up rows in
+    :data:`NON_MRIO_ROWS` are Danish primary data added afterwards and are not
+    tested here, so nothing is compared with itself.
+
+    The cost is one pickle load and one matrix-vector product per variant, and
+    it is paid rather than avoided: a hash of the background would say that
+    *something* changed without saying whether the published number still
+    follows from it, and a table whose number does not follow from the inputs
+    on disk is the defect this exists to catch.
+
+    A working copy without the silver background skips, folder by folder, the
+    way C3 skips: absence of an input is not evidence of staleness.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdict to.
+    """
+    name = "C21 every variant's climate headline recomputes from its background"
+    root = os.path.join(str(OUTPUT_DIR), "01_eriksen_replication")
+    if not os.path.isdir(root):
+        _check(results, name, True,
+               "skipped: 01_eriksen_replication is not in this working copy")
+        return
+
+    checked: list[str] = []
+    skipped: list[str] = []
+    offenders: list[str] = []
+    for folder in sorted(os.listdir(root)):
+        table = os.path.join(root, folder, "table_01.csv")
+        stem = _variant_background_stem(folder)
+        if stem is None or not os.path.exists(table):
+            continue
+        background = os.path.join(
+            str(BACKGROUND_DIR), f"gddz_background_information_{stem}.pkl")
+        if not os.path.exists(background):
+            skipped.append(folder)
+            continue
+        published = pd.read_csv(table, index_col=0)
+        column = published.columns[0]
+        want = float(published.loc[list(MRIO_ROWS), column].sum())
+        got = _recompute_variant_climate(background)
+        rel = abs(got - want) / abs(want)
+        if rel > RECOMPUTE_TOLERANCE:
+            offenders.append(
+                f"{folder}: published {want:,.6f} kt, background "
+                f"{stem} gives {got:,.6f} kt ({100 * rel:.4f} % apart)")
+        else:
+            checked.append(folder)
+
+    detail = (f"{len(checked)} variant(s) reproduce from their own background"
+              + (f"; {len(skipped)} skipped, background absent: "
+                 + ", ".join(skipped) if skipped else ""))
+    _check(results, name, not offenders,
+           detail if not offenders else "; ".join(offenders))
+
+
 def c8_citations(results: list[dict[str, Any]]) -> None:
     """C8: every in-text citation resolves to the bibliography.
 
@@ -1011,17 +1184,19 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
     # Superseded on 2026-09-11, when the sea-transport correction's target share
     # moved from a fixed 0.09 to Statistics Denmark's domestic-IO value per year.
     # The phi-sensitivity table in replications.md section 10 legitimately quotes
-    # 4,712.42, 11,509.8, 9,955.9 and 4,085.38 as its phi = 0.09 row, so those
-    # are deliberately NOT banned; only values with no surviving use are.
+    # 4,712.42, 11,509.8 and 9,955.9 as its 2022 phi = 0.09 row, so those are
+    # deliberately NOT banned; only values with no surviving use are. The 2019
+    # phi = 0.09 row is NOT among them: 4,085.38 was characterised on IPCC AR4
+    # and is banned below with the rest of that column.
     ("77,477.5", "national footprint on phi = 0.09; it is 77,240.6 kt"),
     ("77.5 Mt", "national footprint on phi = 0.09; it is 77.2 Mt"),
     ("3,943.4", "MRIO supply-chain component on phi = 0.09; it is 3,906.5 kt"),
     ("595.85", "transport, purchased product, on phi = 0.09; it is 566.53 kt"),
     ("728.2 kt", "transport, producing node, on phi = 0.09; it is 695.12 kt"),
     ("852 kt to 74 kt", "DK sea transport before and after on phi = 0.09; it is 852 kt to 53.0 kt"),
-    ("813.01", "2019 corrected transport on phi = 0.09; it is 788.90 kt"),
-    ("2,275.0", "bridge correction step on phi = 0.09; it is 2,305.6 kt"),
-    ("+627.0 kt", "bridge year step on phi = 0.09; it is +620.7 kt"),
+    ("813.01", "2019 corrected transport on phi = 0.09; it is 797.77 kt"),
+    ("2,275.0", "bridge correction step on phi = 0.09; it is 2,309.6 kt"),
+    ("+627.0 kt", "bridge year step on phi = 0.09; it is +566.2 kt"),
     ("4,734 kt", "Monte Carlo median on phi = 0.09; it is 4,697 kt"),
     ("4,064 to 5,531", "Monte Carlo 95 % interval on phi = 0.09; it is 4,032 to 5,488"),
     ("4,064-5,531", "Monte Carlo 95 % interval on phi = 0.09; it is 4,032 to 5,488"),
@@ -1097,6 +1272,50 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
     ("$r = -0.19$", "withdrawn: at p = 0.56 this implies about twelve sector "
                     "groups, and no document records which; no module retrieves "
                     "the measured Danish 2011 structure by industry"),
+    # Superseded on 11 September 2026, when the three 2016-background runs were
+    # rebuilt on IPCC AR6. Every value below is the IPCC AR4 characterisation of
+    # a background that no longer exists in that form; the non-climate
+    # indicators of the same runs did not move and are therefore not listed.
+    # The evidence is in docs/revision/defects_and_fixes.md, "The 2016
+    # background's climate column was still on IPCC AR4".
+    ("4,054.77", "2019c's grand climate total on IPCC AR4; it is 4,109.26 kt"),
+    ("4,052.850438", "layer 02's 2019c climate TOTAL on AR4; it is "
+                     "4,107.334735 kt"),
+    ("1.921622", "2019c's self-supply loop on AR4; it is 1.927600 kt"),
+    ("5,897.84", "2019d's grand climate total on AR4; it is 5,977.78 kt"),
+    ("5,895.450001", "layer 02's 2019d climate TOTAL on AR4; it is "
+                     "5,975.382775 kt"),
+    ("6,360.39", "2019_uncorrected's grand climate total on AR4; it is "
+                 "6,418.86 kt"),
+    ("5,562.77", "2019_uncorrected's MRIO supply-chain component on AR4; it is "
+                 "5,621.24 kt"),
+    ("6,171.25", "2019_uncorrected deflated to 2016 prices on AR4; it is "
+                 "6,227.74 kt"),
+    ("189.13 kt", "what the omitted deflation overstated, on AR4; it is "
+                  "191.12 kt"),
+    ("21.46 %", "2019c's transport share of the climate total on AR4; it is "
+                "21.17 %"),
+    ("20.10 %", "2019d's transport share on AR4; it is 19.83 %"),
+    ("47.28 %", "2019_uncorrected's transport share on AR4; it is 46.85 %"),
+    ("47.33 %", "the same including Transport Equipment; it is 46.91 %"),
+    ("54.1 %", "2019_uncorrected's transport share of the MRIO component on "
+               "AR4; it is 53.5 %"),
+    ("26.7 % of the MRIO", "2019c's transport share of the MRIO component on "
+                           "AR4; it is 26.3 %"),
+    ("41.00 %", "2019_uncorrected's transport share on the purchased-product "
+                "basis on AR4; it is 40.81 %"),
+    ("58.47 kt", "the gap a 2019 uncorrected scope partition was said to carry "
+                 "against its own layer 01 run. It was a characterisation gap, "
+                 "not an extraction gap: with both 2016 backgrounds on AR6 the "
+                 "partition closes exactly and the folder is published"),
+    # The 2016 column of the phi-sensitivity band, likewise on AR4. The 2022
+    # column did not move and is not listed.
+    ("3,989.81", "the 2016 band at phi = 0.05 on AR4; it is 4,044.19 kt"),
+    ("4,025.22", "the 2016 band at phi = 0.065 on AR4; it is 4,079.66 kt"),
+    ("4,085.38", "the 2016 band at phi = 0.09 on AR4; it is 4,139.92 kt"),
+    ("4,109.84", "the 2016 band at phi = 0.10 on AR4; it is 4,164.43 kt"),
+    ("4,172.06", "the 2016 band at phi = 0.125 on AR4; it is 4,226.75 kt"),
+    ("4,235.80", "the 2016 band at phi = 0.15 on AR4; it is 4,290.61 kt"),
 )
 
 #: Documents that record what a number used to be, and therefore must be
@@ -1434,7 +1653,7 @@ def main() -> None:
                   c14_gold_format, c15_gold_lowercase, c16_gold_clean,
                   c17_layer_boundary, c18_tables_of_record,
                   c19_mrio_climate_component,
-                  c20_silver_documented,
+                  c20_silver_documented, c21_variant_recomputes,
                   c10_repo_profile):
         try:
             check(results)

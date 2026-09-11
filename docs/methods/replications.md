@@ -256,11 +256,11 @@ disk are
 |:---|:---|:---|:---|:---|
 | `2019a/` | a | `2016_v3_7` | 8,694.66 | 34.93 % |
 | `2019b/` | b | `2016_v3_7_snacship` | 6,625.53 | 16.56 % |
-| `2019c/` | c | `2016_snacship` | 4,054.77 | 21.46 % |
-| `2019d/` | d | `2016_snacship_capital_zorg_en_welzijn` | 5,897.84 | 20.10 % |
+| `2019c/` | c | `2016_snacship` | 4,109.26 | 21.17 % |
+| `2019d/` | d | `2016_snacship_capital_zorg_en_welzijn` | 5,977.78 | 19.83 % |
 | `2022c/` | c | `2022_snacship` | 4,675.47 | 14.87 % |
 | `2022d/` | d | `2022_snacship_capital_zorg_en_welzijn` | 6,495.66 | 14.50 % |
-| `2019_uncorrected/` | — | `2016` | 6,360.39 | 47.28 % |
+| `2019_uncorrected/` | — | `2016` | 6,418.86 | 46.85 % |
 | `2022_uncorrected/` | — | `2022` | 6,087.33 | 32.19 % |
 
 **There is no `2022a` or `2022b`, and there cannot be.** EXIOBASE v3.7 (2019)
@@ -271,7 +271,7 @@ collapses for the 2022 reference year, and the 2022 series runs `c` and `d` only
 without the correction, and it keeps a self-describing name rather than a letter it
 was not assigned. The distinction is not cosmetic: it is the only configuration
 that reproduces the submitted transport finding. The submitted manuscript reports
-transport at 46 % of sector contributions; `2019_uncorrected` returns 47.28 %,
+transport at 46 % of sector contributions; `2019_uncorrected` returns 46.85 %,
 while variant `a` — the release the submission actually ran on — returns 34.93 %.
 Whatever produced the submitted 46 % was closer to v3.8.2's 2016 block than to
 v3.7's, and the two v3.7 variants exist so that this can be stated from published
@@ -596,21 +596,23 @@ from one another.
 |:---|:---|:---|:---|:---|
 | `2019a` | v3.7 `IOT_2016_ixi` | not applied | 8,693.839001 | `01_/2019a`, 8,694.660295 |
 | `2019b` | v3.7 `IOT_2016_ixi` | applied | 6,624.712564 | `01_/2019b`, 6,625.533857 |
-| `2019c` | v3.8.2 `IOT_2016_ixi` | applied | 4,052.850438 | `01_/2019c`, 4,054.772061 |
-| `2019d` | v3.8.2 `IOT_2016_ixi` + capital | applied | 5,895.450001 | `01_/2019d`, 5,897.840386 |
+| `2019c` | v3.8.2 `IOT_2016_ixi` | applied | 4,107.334735 | `01_/2019c`, 4,109.262335 |
+| `2019d` | v3.8.2 `IOT_2016_ixi` + capital | applied | 5,975.382775 | `01_/2019d`, 5,977.780596 |
 | `2022c` | v3.8.2 `IOT_2022_ixi` | applied | 4,673.633405 | `01_/2022c`, 4,675.466659 |
 | `2022d` | v3.8.2 `IOT_2022_ixi` + capital | applied | 6,493.389134 | `01_/2022d`, 6,495.663580 |
+| `2019_uncorrected` | v3.8.2 `IOT_2016_ixi` | not applied | 6,416.930810 | `01_/2019_uncorrected`, 6,418.858701 |
 | `2022_uncorrected` | v3.8.2 `IOT_2022_ixi` | not applied | 6,085.494934 | `01_/2022_uncorrected`, 6,087.328324 |
 
 Each reconciliation is the folder's climate `TOTAL` plus its self-supply loop,
-and each closes exactly. `2019_uncorrected` is **not published here** while
-`01_eriksen_replication` publishes it: the uncorrected and shipping-corrected
-2016 v3.8.2 model objects on disk descend from two different extractions of
-`IOT_2016_ixi`, so a partition built on the uncorrected one would miss that
-run's published grand total by 58.47 kt. The reason and the measurement are
-recorded in [docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md).
-Variants a and b are unaffected: both were built from one extraction of the v3.7
-table in this wave, backgrounds included.
+and each closes exactly — `2019_uncorrected` included, as of 11 September 2026.
+It had been withheld from this layer on the grounds that the uncorrected and
+shipping-corrected 2016 v3.8.2 model objects descended from two different
+extractions of `IOT_2016_ixi`. That diagnosis was wrong: the two objects' $A$,
+$Y$, $R$, $H$ and $x$ are byte-identical, and what differed was the climate row
+of the characterisation matrix, IPCC AR4 in one and IPCC AR6 in the other. With
+both 2016 backgrounds rebuilt on AR6 the partition closes to the last digit, so
+the folder is published. The measurement is recorded in
+[docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md).
 
 ### Outputs
 
@@ -1809,21 +1811,25 @@ transport's share is on the purchased-product perspective):
 
 | $\phi$ | Released, M€ | Footprint, kt CO₂-eq | Transport, % of total |
 |---:|---:|---:|---:|
-| 0.050 | 10,573.2 | 3,989.81 | 18.49 |
-| 0.065 | 10,341.7 | 4,025.22 | 19.02 |
-| **0.0774** | **10,151.0** | **4,054.77** | 19.46 |
-| 0.090 | 9,955.9 | 4,085.38 | 19.90 |
-| 0.100 | 9,801.6 | 4,109.84 | 20.25 |
-| 0.125 | 9,415.8 | 4,172.06 | 21.12 |
-| 0.150 | 9,029.9 | 4,235.80 | 21.99 |
+| 0.050 | 10,573.2 | 4,044.19 | 18.46 |
+| 0.065 | 10,341.7 | 4,079.66 | 18.98 |
+| **0.0774** | **10,151.0** | **4,109.26** | 19.41 |
+| 0.090 | 9,955.9 | 4,139.92 | 19.85 |
+| 0.100 | 9,801.6 | 4,164.43 | 20.20 |
+| 0.125 | 9,415.8 | 4,226.75 | 21.06 |
+| 0.150 | 9,029.9 | 4,290.61 | 21.92 |
 
 Two things a reader should take from these. First, the footprint is **almost flat in
 $\phi$** over any defensible range: tripling the target share from 0.05 to 0.15 moves the
 2022 total by 151 kt, 3.2 %, and transport's share of it by 2.1 percentage points. The
 choice between the published 0.09 and the table-read 0.0651 is worth 37 kt, 0.8 %. Second,
-the row at $\phi = 0.09$ reproduces the totals this study published before the share was
-read per year — 4,712.42 kt for 2022 and 4,085.38 kt for 2019 — so the band also serves as
-the bridge between the two versions of these results.
+the row at $\phi = 0.09$ reproduces the 2022 total this study published before the share
+was read per year — 4,712.42 kt — so for 2022 the band also serves as the bridge between
+the two versions of these results. **It does not do that for 2019**, and the reason is a
+second change rather than a defect in the band: the 2019 figure published on $\phi = 0.09$
+was characterised on IPCC AR4, so the 2016 column above cannot bridge to it at any
+$\phi$. The AR4-to-AR6 step for 2019 is quantified in
+[docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md).
 
 ### Why this is not a novel method
 

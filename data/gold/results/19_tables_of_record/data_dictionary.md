@@ -77,9 +77,9 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Activity group` | dimension | str |  | Transport |
-| `2019 (kt CO₂-eq)` | measure | float64 |  | 2605.2 |
+| `2019 (kt CO₂-eq)` | measure | float64 |  | 2617.2 |
 | `2022 (kt CO₂-eq)` | measure | float64 |  | 566.5 |
-| `Change (kt)` | measure | float64 |  | -2038.6 |
+| `Change (kt)` | measure | float64 |  | -2050.6 |
 | `Driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `table_04.csv`
@@ -195,7 +195,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `number` | measure | int64 |  | 1 |
 | `title` | dimension | str |  | The Danish health-care footprint in 2022 |
-| `source` | dimension | str |  | 01_eriksen_replication/2022_shipping_cor |
+| `source` | dimension | str |  | 01_eriksen_replication/2022c/figure1_act |
 | `rows` | measure | int64 |  | 5 |
 | `columns` | measure | int64 |  | 6 |
 | `supersedes` | dimension | bool |  | True |
