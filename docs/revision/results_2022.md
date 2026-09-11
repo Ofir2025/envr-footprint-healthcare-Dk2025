@@ -510,7 +510,7 @@ study?
 > 46 %, a 1.3-point residual attributable to the demand vector rather than to any
 > modelling disagreement; the submitted number is therefore reproducible, and the
 > withdrawal is not a correction of an analytical error. Moving to 2022 expenditure and
-> the 2022 background, with no other change, brings the share to 37.5 %: Danish health
+> the 2022 background, with no other change, brings the share to 36.8 %: Danish health
 > expenditure grew faster than its transport content, and the health-care footprint as a
 > whole falls from 6,361 kt to 4,675 kt across the two configurations.
 >
@@ -552,7 +552,7 @@ all four (reference year x correction state) combinations at
 `01_eriksen_replication/`: `2019_uncorrected/`, `2019_shipping_corrected/`,
 `2022_uncorrected/` and `2022_shipping_corrected/` (see
 [section 01](../methods/replications.md#r01)). The 2022 uncorrected run behind
-the 37.5 % intermediate figure above is now published at `2022_uncorrected/`
+the intermediate figure above is now published at `2022_uncorrected/` (36.8 %)
 rather than existing only as a documented, unpublished figure; measured from it
 directly, the climate footprint is 6,087.3 kt CO2eq and transport is 32.2 % of
 the total (36.8 % of the MRIO supply-chain component alone). The new
@@ -1857,7 +1857,7 @@ cover letter all lead on transport (46 % of GHG in the sector view).
 EXIOBASE routes 73.6 % of Danish sea-transport output to Danish intermediate use against
 9 % in the national accounts, a defect Statistics Denmark published (Rørmose Jensen &
 Iliev 2022) and which EXIOBASE's own hybrid build does not reproduce (7.8 % natively).
-Correcting it takes transport from 37.5 % to 17.8 % of the supply-chain footprint. See
+Correcting it takes transport from 36.8 % to 17.8 % of the supply-chain footprint. See
 ["The withdrawn transport finding"](#the-withdrawn-transport-finding) above for the full
 audit.
 

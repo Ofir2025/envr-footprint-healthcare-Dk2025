@@ -331,7 +331,7 @@ These deviations are the ones a reviewer will need to see declared.
 | 2019 expenditure on the 2016 model | 2022 on 2022 | reviewer R2-4; removes the deflation question entirely |
 | EXIOBASE v3.7 | v3.8.2 | v3.10.2 tested and rejected, see [section 09](#r09) |
 | AR4 climate factors (implicit in the DESIRE sheet) | IPCC AR6 | [section 15](#r15) |
-| transport 37.5 % of the supply-chain footprint | 17.8 %, or 14.9 % of the total | EXIOBASE artefact, see [section 10](#r10) |
+| transport 36.8 % of the supply-chain footprint | 17.8 %, or 14.9 % of the total | EXIOBASE artefact, see [section 10](#r10) |
 | aggregate results only | aggregate **and** full node detail | reviewer R1-11 |
 | no uncertainty | Monte Carlo, 10⁵ draws | reviewer R1-1, see [section 04](#r04) |
 
@@ -1403,7 +1403,7 @@ choice is worth is in [the sensitivity band](#r10-sensitivity) below.
 | Quantity | Before | After |
 |:---|:---|:---|
 | Share to DK intermediate use | 73.6 % | 6.5 % |
-| Transport share of the supply-chain footprint | 37.5 % | **17.8 %** |
+| Transport share of the supply-chain footprint | 36.8 % | **17.8 %** |
 | DK sea transport as a producing node | 852 kt | **53 kt** |
 | Danish national footprint | 85.2 Mt | **77.2 Mt** |
 
@@ -1415,18 +1415,10 @@ purchased-product (contribution) perspective gives a different number for the sa
 footprint, and the two must not be mixed in one ranking — see
 [the note on perspective](#r10-perspective) below.
 
-**The 37.5 % "Before" figure predates the now-published `2022_uncorrected/` folder and
-does not reproduce exactly from it.** Measured directly from
-`01_eriksen_replication/2022_uncorrected/figure2_sector_contributions.csv`, transport
-(producing node) is 32.2 % of that variant's 6,087.3 kt total; on the 5,243.3 kt MRIO-only
-basis (`scopes_summary.csv`, Scope 3 MRIO supply chain excl. Scope 2) it is 37.4 %, not
-37.5 %. The two are close enough that the gap is almost certainly a small difference in
-exactly which rows the historical 37.5 % pooled (e.g. whether *Transport Equipment* or the
-Scope 1 "Operational impacts" row was included), not an error of any real size, but the
-exact predecessor calculation has not been reverse-engineered and the figure is kept
-rather than silently amended. See
-[docs/revision/results_2022.md, "Where does 46 % go?"](../revision/results_2022.md#where-does-46--go)
-for the fuller reconciliation and the current, gold-reproducing values (32.2 % / 36.8 %).
+**The "before" figure is the published `2022_uncorrected/` variant.** Measured from
+`hotspot_by_producing_node.csv` there, transport is 1,959.4 kt of a 5,318.3 kt MRIO
+component, 36.8 %. A pre-publication estimate of 37.5 % circulated during drafting;
+it was never backed by a published table and is superseded by this one.
 
 <a id="r10-methods-paragraph"></a>
 
