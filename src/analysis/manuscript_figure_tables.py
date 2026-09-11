@@ -64,8 +64,12 @@ def figure_group_lookup() -> pd.DataFrame:
     -------
     pandas.DataFrame
         ``sector_group`` (the EXIOBASE ``AggDescription``), ``contribution_group``
-        and ``hotspot_group``. ``Other`` is renamed ``Unallocated``, as in the
-        submitted figures.
+        and ``hotspot_group``. The remaining EXIOBASE sectors the classification
+        does not map to one of the nine named groups are labelled ``Other``,
+        following Steenmeijer et al.'s own usage ("the remaining sectors
+        combined in the group labelled other"). This is a different bucket
+        from figure 3's ``Unallocated`` (the bottom-up rows with no producing
+        region, ISO3 ``GLO``), which keeps that label.
     """
     path = BRONZE_DIR / "exiobase_v3_7" / "classifications.xlsx"
     fig = pd.read_excel(path, sheet_name="agg_ind_fig", skiprows=5)
@@ -77,7 +81,7 @@ def figure_group_lookup() -> pd.DataFrame:
            .rename(columns={"Contribution": "contribution_group",
                             "Hotspot": "hotspot_group"}))
     for col in ("contribution_group", "hotspot_group"):
-        out[col] = out[col].fillna("Unallocated").replace({"Other": "Unallocated"})
+        out[col] = out[col].fillna("Other")
     # Transport is its own group in both figures. The submitted code matched it
     # by substring, which also caught "Transport Equipment" (vehicle
     # manufacturing) and inflated the transport group - the group at the centre
@@ -89,14 +93,14 @@ def figure_group_lookup() -> pd.DataFrame:
     # classification workbook. The submitted figures nonetheless show them, and
     # asymmetrically: private travel is an activity a reader can act on, so it
     # is its own group in figure 1, but it has no PRODUCING sector in the model,
-    # so on the producing side of figure 2 it is unallocated. Operational
+    # so on the producing side of figure 2 it falls into "Other". Operational
     # impacts are direct emissions of the Danish providers and are named on
-    # both sides. Without these rows both groups fall into "Unallocated" and
+    # both sides. Without these rows both groups fall into "Other" and
     # figure 1 loses two of its nine legend entries.
     extra = pd.DataFrame([
         {"sector_group": "Private travel",
          "contribution_group": "Individual travel",
-         "hotspot_group": "Unallocated"},
+         "hotspot_group": "Other"},
         {"sector_group": "Operational impact",
          "contribution_group": "Operational impacts",
          "hotspot_group": "Operational impacts"},
@@ -142,7 +146,7 @@ def main() -> None:
     contrib = contrib[contrib["indicator"].isin(INDICATORS)]
     contrib = contrib.merge(lookup, left_on="purchased_sector_group",
                             right_on="sector_group", how="left")
-    contrib["contribution_group"] = contrib["contribution_group"].fillna("Unallocated")
+    contrib["contribution_group"] = contrib["contribution_group"].fillna("Other")
     fig1 = _shares(contrib, "contribution_group")
     fig1.to_csv(os.path.join(OUT, "figure1_activity_contributions.csv"), index=False)
 
@@ -151,7 +155,7 @@ def main() -> None:
     hotspot = hotspot[hotspot["indicator"].isin(INDICATORS)]
     hotspot = hotspot.merge(lookup, left_on="producing_sector_group",
                             right_on="sector_group", how="left")
-    hotspot["hotspot_group"] = hotspot["hotspot_group"].fillna("Unallocated")
+    hotspot["hotspot_group"] = hotspot["hotspot_group"].fillna("Other")
     fig2 = _shares(hotspot, "hotspot_group")
     fig2.to_csv(os.path.join(OUT, "figure2_sector_contributions.csv"), index=False)
 

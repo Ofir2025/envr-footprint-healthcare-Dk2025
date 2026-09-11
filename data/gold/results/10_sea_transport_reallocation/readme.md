@@ -21,16 +21,16 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 10
 
 ### `phantom_shipping_input_removed_by_industry.csv`
 
-- **Rows:** 137
+- **Rows:** 275
 - **Format:** csv
 - **Units:** M.EUR
 - **Dimensions:** `country_producing`, `sector_producing`, `country_consuming`, `sector_consuming`, `unit`
-- **Measures:** `value`
+- **Measures:** `background_year`, `analysis_year`, `value`
 
 ### `shipping_reallocation_diagnostics.csv`
 
-- **Rows:** 7
+- **Rows:** 14
 - **Format:** csv
 - **Units:** %, M.EUR
 - **Dimensions:** `country_producing`, `sector_producing`, `quantity`, `unit`, `source`
-- **Measures:** `value`
+- **Measures:** `background_year`, `analysis_year`, `value`

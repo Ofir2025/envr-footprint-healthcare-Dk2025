@@ -188,23 +188,73 @@ def ar6_gwp_factor(stressor: str) -> float | None:
 #: accident the scope routing already guards against.
 ERIKSEN_ROOT = "01_eriksen_replication"
 
+#: Self-describing suffix appended to the analysis year to name the Eriksen
+#: variant folder, keyed by ``HC_BACKGROUND_TAG``.
+#:
+#: The 2019-versus-2022 transport-share swing the manuscript reports (roughly
+#: 46 % to 15-18 %) is not one comparison but three confounded ones: reference
+#: year, background release, AND the Danish sea-transport reallocation, since
+#: the 2019 replication was never shipping-corrected while 2022 was. Folding
+#: "corrected or not" into the folder name (``2019_uncorrected`` versus
+#: ``2019_shipping_corrected``) rather than leaving it implicit in whether
+#: ``HC_BACKGROUND_TAG`` happened to be set is what lets a reader separate the
+#: two effects: a bare year number never told anyone which correction state it
+#: carried.
+ERIKSEN_VARIANT_SUFFIX: dict[str, str] = {
+    "": "uncorrected",
+    "_snacship": "shipping_corrected",
+}
 
-def eriksen_folder(year: str | None = None) -> str:
-    """Return the Eriksen output folder for one analysis year.
+
+def eriksen_variant(year: str | None = None, tag: str | None = None) -> str:
+    """Self-describing ``<year>_<state>`` name for one Eriksen run.
+
+    Parameters
+    ----------
+    year : str, optional
+        Four-digit analysis year. Defaults to ``HC_ANALYSIS_YEAR``.
+    tag : str, optional
+        Background variant tag, e.g. ``"_snacship"``. Defaults to
+        ``HC_BACKGROUND_TAG``.
+
+    Returns
+    -------
+    str
+        E.g. ``"2019_uncorrected"``, ``"2022_shipping_corrected"``.
+
+    Examples
+    --------
+    >>> eriksen_variant("2019", "")
+    '2019_uncorrected'
+    >>> eriksen_variant("2022", "_snacship")
+    '2022_shipping_corrected'
+    """
+    y = year or ANALYSIS_YEAR
+    t = BACKGROUND_TAG if tag is None else tag
+    suffix = ERIKSEN_VARIANT_SUFFIX.get(t, t.lstrip("_") or "uncorrected")
+    return f"{y}_{suffix}"
+
+
+def eriksen_folder(year: str | None = None, tag: str | None = None) -> str:
+    """Return the Eriksen output folder for one (analysis year, background tag).
 
     Parameters
     ----------
     year : str, optional
         Four-digit analysis year. Defaults to the year this process is
         configured for (``HC_ANALYSIS_YEAR``).
+    tag : str, optional
+        Background variant tag. Defaults to ``HC_BACKGROUND_TAG``, so every
+        existing call site (which never passes ``tag``) keeps resolving to
+        whatever variant the process's environment already selects.
 
     Returns
     -------
     str
         Path relative to the gold results root, e.g.
-        ``"01_eriksen_replication/2022"``.
+        ``"01_eriksen_replication/2022_shipping_corrected"``.
     """
-    return f"{ERIKSEN_ROOT}/{year or ANALYSIS_YEAR}"
+    return f"{ERIKSEN_ROOT}/{eriksen_variant(year, tag)}"
 
 
 #: Root of the GHG-Protocol scope decomposition, year-scoped for the same reason

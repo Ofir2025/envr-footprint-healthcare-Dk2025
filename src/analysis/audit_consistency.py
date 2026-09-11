@@ -229,9 +229,17 @@ def c3_freshness(results: list[dict[str, Any]]) -> None:
         # Year-scoped folders belong to their own background. A 2019 table is
         # not stale because the 2022 background was rebuilt after it; it is
         # derived from IOT_2016 and is checked when the audit runs for 2019.
+        # A folder may carry a bare year (``02_scopes_wood_hertwich/2019``) or
+        # a self-describing variant of it (``01_eriksen_replication/
+        # 2019_shipping_corrected``) - the leading 4-digit year is extracted
+        # either way, so renaming "2019" to "2019_shipping_corrected" does not
+        # blind this check into comparing every variant against whichever
+        # year the audit happens to be running for.
         parts = rel.split(os.sep)
-        other_year = {p for p in parts
-                      if len(p) == 4 and p.isdigit() and p.startswith(("19", "20"))}
+        other_year = {p[:4] for p in parts
+                      if len(p) >= 4 and p[:4].isdigit()
+                      and p.startswith(("19", "20"))
+                      and (len(p) == 4 or p[4] == "_")}
         if other_year and ANALYSIS_YEAR not in other_year:
             continue
         if os.path.getmtime(path) < built - 60:

@@ -9,19 +9,24 @@ change at once between the runs, and only one of them is the passage of time:
 1. **the reference year**, 2019 to 2022, worth +15 % on expenditure;
 2. **the background model**, EXIOBASE v3.8.2 IOT_2016 to IOT_2022;
 3. **the Danish sea-transport reallocation**, absent from the 2019 run because
-   no corrected 2016 background has been built, applied to the 2022 run.
+   no corrected 2016 background had been built, applied to the 2022 run.
 
 A reader who takes the difference as a trend attributes the third to the first.
-This module writes the bridge that prevents that: totals for both years, the
-per-activity decomposition of the climate difference, and an explicit statement
-of which comparisons are valid.
+Since ``analysis.dk_shipping_correction`` now also runs on the 2016 background,
+point 3 no longer has to be confounded with the other two: :func:`two_step_bridge`
+below isolates it as its own step, using the four-way ``2019_uncorrected`` /
+``2019_shipping_corrected`` / ``2022_uncorrected`` / ``2022_shipping_corrected``
+Eriksen folders. :func:`totals` and :func:`climate_bridge` are kept as they were
+for continuity with the submitted (2019, uncorrected) versus headline
+(2022, shipping-corrected) comparison the manuscript figures still draw on; they
+still confound all three points and remain explicitly labelled as not a trend.
 
-The decomposition is the argument. Two activity groups account for essentially
-the whole climate movement in opposite directions - transport falls by
-2,009 kt CO2e as the phantom Danish shipping input is removed, pharmaceuticals
-and chemical products rise by 887 kt as expenditure grows and the corrected
-demand vector reaches spending the submitted study did not - and everything else
-together moves by less than 240 kt.
+The two-step decomposition is the argument. Two activity groups account for
+essentially the whole climate movement in opposite directions - transport falls
+as the phantom Danish shipping input is removed (the correction step, present
+in both years once both are corrected), pharmaceuticals and chemical products
+rise as expenditure grows between 2019 and 2022 (the year step) - and every
+other group together moves by much less.
 
 Run
 ---
@@ -36,11 +41,17 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from analysis.constants import DK_POPULATION, ERIKSEN_ROOT
+from analysis.constants import DK_POPULATION, eriksen_folder
 from paths import OUTPUT_DIR
 
 FOLDER = "06_benchmarks_validation"
 YEARS = ("2019", "2022")
+#: Which background-correction variant :func:`totals` and :func:`climate_bridge`
+#: read for each year - preserved exactly as the historical (submitted vs.
+#: headline) comparison, i.e. 2019 uncorrected against 2022 shipping-corrected,
+#: so those two functions keep confounding what the manuscript figures already
+#: confound, rather than silently changing meaning under an unchanged docstring.
+_LEGACY_TAG: dict[str, str] = {"2019": "", "2022": "_snacship"}
 
 #: What differs between the two runs, and whether it is a change in the world
 #: or a change in the model.
@@ -71,8 +82,9 @@ RUN_DIFFERENCES: tuple[dict[str, str], ...] = (
 
 
 def _read(year: str, name: str) -> pd.DataFrame:
-    """Read one table from a year's Eriksen folder."""
-    return pd.read_csv(os.path.join(str(OUTPUT_DIR), ERIKSEN_ROOT, year, name))
+    """Read one table from a year's (legacy-tagged) Eriksen variant folder."""
+    folder = eriksen_folder(year, _LEGACY_TAG[year])
+    return pd.read_csv(os.path.join(str(OUTPUT_DIR), folder, name))
 
 
 def totals() -> pd.DataFrame:
@@ -138,6 +150,72 @@ def climate_bridge() -> pd.DataFrame:
     return b
 
 
+#: The three nodes of the honest, two-step bridge: the manuscript's own
+#: uncorrected 2019 run, the same 2019 expenditure corrected for the phantom
+#: Danish shipping input, and the 2022 headline (corrected the same way). The
+#: step 2019_uncorrected -> 2019_shipping_corrected isolates the correction
+#: alone (same year, same background release); the step
+#: 2019_shipping_corrected -> 2022_shipping_corrected isolates the year alone
+#: (same correction state on both ends).
+BRIDGE_NODES: tuple[str, str, str] = (
+    "2019_uncorrected", "2019_shipping_corrected", "2022_shipping_corrected")
+_BRIDGE_YEAR_TAG: dict[str, tuple[str, str]] = {
+    "2019_uncorrected": ("2019", ""),
+    "2019_shipping_corrected": ("2019", "_snacship"),
+    "2022_shipping_corrected": ("2022", "_snacship"),
+}
+
+
+def two_step_bridge() -> pd.DataFrame:
+    """Decompose the climate difference into a correction step and a year step.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per activity (``contribution_group``), with the climate-change
+        value at each of the three :data:`BRIDGE_NODES`, the two deltas
+        (``delta_correction_kt``, ``delta_year_kt``), each delta's share of its
+        own step's net movement, and which single step each group's movement is
+        attributed to.
+    """
+    frames: dict[str, pd.Series] = {}
+    for node in BRIDGE_NODES:
+        year, tag = _BRIDGE_YEAR_TAG[node]
+        d = pd.read_csv(os.path.join(
+            str(OUTPUT_DIR), eriksen_folder(year, tag),
+            "figure1_activity_contributions.csv"))
+        d = d[d.indicator == "climate_change"]
+        frames[node] = d.set_index("contribution_group")["value"]
+    wide = pd.DataFrame(frames).fillna(0.0)
+    wide.columns = [f"value_{c}" for c in wide.columns]
+    wide["delta_correction_kt"] = (
+        wide["value_2019_shipping_corrected"]
+        - wide["value_2019_uncorrected"])
+    wide["delta_year_kt"] = (
+        wide["value_2022_shipping_corrected"]
+        - wide["value_2019_shipping_corrected"])
+    wide = wide.reset_index()
+
+    total_correction = float(wide["delta_correction_kt"].sum())
+    total_year = float(wide["delta_year_kt"].sum())
+    wide["share_of_correction_change_pct"] = (
+        100 * wide["delta_correction_kt"] / total_correction)
+    wide["share_of_year_change_pct"] = (
+        100 * wide["delta_year_kt"] / total_year)
+    wide["driver"] = np.where(
+        wide["contribution_group"].eq("Transport"),
+        "correction step: sea-transport reallocation; "
+        "year step: expenditure and background growth, transport unaffected "
+        "once both ends are corrected",
+        np.where(wide["contribution_group"].eq(
+            "Pharmaceuticals and chemical products"),
+            "year step: expenditure growth and a larger chemicals block in "
+            "IOT_2022; little affected by the correction",
+            "background model and expenditure growth, no single dominant "
+            "cause in either step"))
+    return wide.sort_values("delta_year_kt").reset_index(drop=True)
+
+
 def main() -> None:
     """Write the year bridge and print it."""
     out_dir = os.path.join(str(OUTPUT_DIR), FOLDER)
@@ -152,6 +230,9 @@ def main() -> None:
     pd.DataFrame(RUN_DIFFERENCES).to_csv(
         os.path.join(out_dir, "year_comparison_run_differences.csv"),
         index=False)
+    tb = two_step_bridge()
+    tb.to_csv(os.path.join(out_dir, "year_comparison_two_step_bridge.csv"),
+             index=False)
 
     pd.set_option("display.width", 220)
     print("Totals")
@@ -170,6 +251,14 @@ def main() -> None:
     print(f"\nnet change {net:,.1f} kt; transport and pharmaceuticals move "
           f"{two:,.1f} kt in opposite directions, every other group together "
           f"{rest:,.1f} kt")
+
+    print("\nTwo-step bridge, kt CO2eq (correction step, then year step)")
+    print(tb[["contribution_group", "value_2019_uncorrected",
+              "value_2019_shipping_corrected", "value_2022_shipping_corrected",
+              "delta_correction_kt", "delta_year_kt"]]
+          .round(1).to_string(index=False))
+    print(f"\ncorrection step net {float(tb['delta_correction_kt'].sum()):,.1f} kt "
+          f"| year step net {float(tb['delta_year_kt'].sum()):,.1f} kt")
     print(f"\nwritten -> {out_dir}")
 
 
