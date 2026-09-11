@@ -74,7 +74,7 @@ from paths import BACKGROUND_DIR, BRONZE_DIR, OUTPUT_DIR
 
 FOLDER = "11_capital_gfcf"
 KBAR_YEAR = 2020
-KBAR_PATH = str(BRONZE_DIR / "capital"
+KBAR_PATH = str(BRONZE_DIR / "exiobase_capital"
                 / f"Kbar_exio_v3_8_2_{KBAR_YEAR}_cfc_pxi.mat")
 SUPPLY_PATH = ("/Users/kwametutu/Library/CloudStorage/OneDrive-Personal/Data/"
                f"lca/input_output/mrio/exiobase/versions/v3_8_2/"

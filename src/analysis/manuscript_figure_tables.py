@@ -71,7 +71,7 @@ def figure_group_lookup() -> pd.DataFrame:
         from figure 3's ``Unallocated`` (the bottom-up rows with no producing
         region, ISO3 ``GLO``), which keeps that label.
     """
-    path = BRONZE_DIR / "exiobase_v3_7" / "classifications.xlsx"
+    path = BRONZE_DIR / "exiobase" / "classifications.xlsx"
     fig = pd.read_excel(path, sheet_name="agg_ind_fig", skiprows=5)
     ind = pd.read_excel(path, sheet_name="disagg_ind", skiprows=5)
     ind = ind[ind["Code"].astype(str).str.startswith("A_")]

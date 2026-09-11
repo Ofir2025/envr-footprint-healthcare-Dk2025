@@ -7,7 +7,8 @@ The SNAC coupling needs the Danish satellite :math:`S^d` on the *same*
 classification as the Danish IO tables, so that a domestic direct-emission
 vector can be swapped in for the EXIOBASE Danish block industry by industry.
 The repository previously carried only a five-code health-sector extract
-(``data/bronze/dk_direct_emissions_drivhus.csv``: ``VQ``, ``VQA``, ``V860010``,
+(``data/bronze/dst_emission_accounts/dk_direct_emissions_drivhus.csv``:
+``VQ``, ``VQA``, ``V860010``,
 ``V870000``, ``V880000``), which is enough to set one Scope 1 number and
 nothing else. This module downloads the whole account.
 
@@ -65,6 +66,11 @@ TIMEOUT_S = 240
 #: Reference years of the study. Both are fetched; they are not a time series
 #: (see :mod:`analysis.year_comparison`).
 YEARS: tuple[str, ...] = ("2019", "2022")
+
+#: Both files live in the Statistics Denmark emission-accounts folder of
+#: bronze: this module is the retrieval step for that folder, not a modelling
+#: stage, so what it writes there is the source as obtained.
+ACCOUNTS_DIR = BRONZE_DIR / "dst_emission_accounts"
 
 OUTPUT_NAME = "dst_emission_accounts_by_industry.csv"
 
@@ -525,7 +531,7 @@ def check_against_extract(frame: pd.DataFrame,
         this download, the difference and how it was derived.
     """
 
-    path = path or (BRONZE_DIR / VALIDATION_SOURCE)
+    path = path or (ACCOUNTS_DIR / VALIDATION_SOURCE)
     extract = pd.read_csv(path, comment="#")
     ghg = frame[frame["account"] == "greenhouse_gas"]
     lookup = ghg.set_index(["industry_code", "substance", "year"])["value"]
@@ -600,7 +606,7 @@ def write_accounts(frame: pd.DataFrame, report: dict[str, Any],
         The path written, and whether the file changed.
     """
 
-    path = path or (BRONZE_DIR / OUTPUT_NAME)
+    path = path or (ACCOUNTS_DIR / OUTPUT_NAME)
     if path.exists():
         try:
             existing = pd.read_csv(path, comment="#")

@@ -85,7 +85,7 @@ MODEL_LABEL = model_label()
 #
 # Source: IPCC (2021) AR6 WG1 Chapter 7, Table 7.15, with SF6 from the full
 # version of that table, Supplementary Table 7.SM.7. Both are in
-# data/bronze/characterisation/. Carbon-cycle responses are included: the note
+# data/bronze/exiobase_characterisation/. Carbon-cycle responses are included: the note
 # to Table 7.15 states they are included in every metric it presents, so the
 # whole set is on one basis. AR6 distinguishes fossil from non-fossil methane,
 # which the AR4 row did not: fossil CH4 carries the extra CO2 produced by its

@@ -31,20 +31,20 @@ from .functions import *
 from paths import BRONZE_DIR, BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR, EXIOBASE_DIR, ensure_runtime_directories
 
 # Hard guard: this is the superseded Netherlands entry point. It is kept for
-# provenance (its history is referenced elsewhere) but is not runnable
-# end-to-end - its source workbook, nl_supply_tables_2015_2018.xlsx, is not in
-# this repository - and the unmodified script below does `os.chdir(output_dir)`
-# then writes bare filenames, recreating debris directly inside the published
-# gold layer that this data layer restructure removed. Fail fast instead of
-# silently doing that again.
+# provenance (its history is referenced elsewhere) but is not supported to run:
+# the unmodified script below does `os.chdir(output_dir)` then writes bare
+# filenames, recreating debris directly inside the published gold layer that
+# this data layer restructure removed. Fail fast instead of silently doing that
+# again. Its source workbook is present - the bronze reorganisation restored the
+# `nl_` prefix the reader expects, at
+# data/bronze/netherlands_reference/nl_supply_tables_2015_2018.xlsx - so the
+# guard rests on the gold-layer defect alone.
 if __name__ == "__main__":
     raise SystemExit(
         "analysis.main is the superseded Netherlands (Steenmeijer et al. "
         "2022) entry point. It is retained for provenance only and is not "
-        "supported to run: its source workbook "
-        "(nl_supply_tables_2015_2018.xlsx) is not in this repository, and "
-        "running it writes intermediates and results directly into the "
-        "published data/gold layer via os.chdir(output_dir). "
+        "supported to run: it writes intermediates and results directly into "
+        "the published data/gold layer via os.chdir(output_dir). "
         "analysis.main_2025 is the Danish study's entry point and replaces "
         "it - use that instead."
     )
@@ -167,7 +167,9 @@ cols_df = df_contrib[0].columns  # same for all
 hc_dir_row = pd.Series(['NLD','B_HEAL', bg['Hstim'][:,0][0], bg['Hstim'][:,0][1], bg['Hstim'][:,0][2] ,bg['Hstim'][:,0][3], bg['Hstim'][:,0][6]], index = cols_df)
 
 # Reading in an additional file filled with data concerning the additional impact sources
-BU_data = pd.read_csv(data_dir + 'nl_bottomup_data.txt', sep ='\t').set_index('Source')
+BU_data = pd.read_csv(os.path.join(data_dir, 'netherlands_reference',
+                                   'nl_bottomup_data.txt'),
+                      sep='\t').set_index('Source')
 
 # Adding the direct emissions from anaesthetic gases 
 # (Venema et al., 2022)

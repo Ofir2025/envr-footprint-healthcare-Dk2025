@@ -154,12 +154,12 @@ from .extra_functions import (
 )
 if ANALYSIS_YEAR == "2022":
     hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals_2022(
-        BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx",
+        BRONZE_DIR / "dst_input_output" / "input_output_en_2022.xlsx",
         include_childcare=INCLUDE_CHILDCARE, include_eldercare=INCLUDE_ELDERCARE,
     )
 else:
     hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals(
-        BRONZE_DIR / "dk_umat_2019.xlsx",
+        BRONZE_DIR / "dst_supply_use" / "dk_umat_2019.xlsx",
         include_childcare=INCLUDE_CHILDCARE, include_eldercare=INCLUDE_ELDERCARE,
     )
 # Provenance record: every (purpose x transaction) column that entered the totals.
@@ -181,7 +181,9 @@ print("Healthcare Services (incl. full eldercare, all individual-consumption tra
 
 # Load CBS data depending on mode
 if mode == "Dutch":
-    cbs_data = pd.read_csv(os.path.join(data_dir, 'nl_cbs_data_2016.csv'), index_col=['Index', 'Unit'])
+    cbs_data = pd.read_csv(
+        os.path.join(data_dir, 'netherlands_reference', 'nl_cbs_data_2016.csv'),
+        index_col=['Index', 'Unit'])
     if 'ISO2' not in cbs_data.columns or set(cbs_data['ISO2']) != {'NL'}:
         raise ValueError("Expected Netherlands data with ISO2=NL")
 else:
@@ -240,7 +242,8 @@ else:
 
     # === Direct (operational, Scope 1) emissions of the Danish healthcare scope ===
     # Statistics Denmark DRIVHUS greenhouse-gas accounts by industry (kt CO2e, excl. CO2
-    # from biomass; see data/bronze/dk_direct_emissions_drivhus.csv for provenance).
+    # from biomass; see data/bronze/dst_emission_accounts/
+    # dk_direct_emissions_drivhus.csv for provenance).
     # Scope construction mirrors the expenditure boundary (health + eldercare):
     #   QA Human health (86) + Residential care (870000)
     #   + eldercare share of Social work without accommodation (880000), where the share
@@ -250,7 +253,8 @@ else:
     #     here because anaesthetic gases enter separately as bottom-up item B_ANAE -
     #     the same medical-gas exclusion Steenmeijer et al. apply to the CBS figure).
     DRIVHUS_YEAR = int(ANALYSIS_YEAR)  # matches the expenditure year
-    _drivhus = pd.read_csv(BRONZE_DIR / "dk_direct_emissions_drivhus.csv", comment="#")
+    _drivhus = pd.read_csv(BRONZE_DIR / "dst_emission_accounts"
+                           / "dk_direct_emissions_drivhus.csv", comment="#")
     _dh = _drivhus[_drivhus["year"] == DRIVHUS_YEAR].set_index(["industry_code", "emtype"])[
         "value_kt_co2e"
     ]
@@ -259,9 +263,10 @@ else:
         # deliveries to eldercare vs childcare) rather than carrying the 2019
         # SUT-derived value forward
         alpha_eldercare = eldercare_share_of_social_work_io(
-            BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx")
+            BRONZE_DIR / "dst_input_output" / "input_output_en_2022.xlsx")
     else:
-        alpha_eldercare = eldercare_share_of_social_work(BRONZE_DIR / "dk_umat_2019.xlsx")
+        alpha_eldercare = eldercare_share_of_social_work(
+            BRONZE_DIR / "dst_supply_use" / "dk_umat_2019.xlsx")
     direct_em_kt = (
         _dh[("VQA", "GHGEXBIO")]
         + _dh[("V870000", "GHGEXBIO")]
@@ -574,7 +579,7 @@ def scale_bottomup_all_to_dk(
 #   (patient and visitor) do not. Until 2026-09 this module applied the hours
 #   ratio to visitor travel as well, overstating it by 17.8 %.
 #   (distance uplift as documented in
-#   data/bronze/commuting_private_travel_calculations_2026.xlsx)
+#   data/bronze/dk_travel_survey/commuting_private_travel_calculations_2026.xlsx)
 # Anaesthetic and pMDI factors are retained only for the (all-zero) non-GWP columns;
 # their GWP values are replaced below with Danish primary data.
 SCALING_DK_OVER_NL_BY_YEAR = {
@@ -588,7 +593,8 @@ SCALING_DK_OVER_NL_BY_YEAR = {
 }
 SCALING_DK_OVER_NL = SCALING_DK_OVER_NL_BY_YEAR[ANALYSIS_YEAR]
 
-BOTTOMUP_BASE = os.path.join(data_dir, "nl_bottomup_data.txt")
+BOTTOMUP_BASE = os.path.join(data_dir, "netherlands_reference",
+                             "nl_bottomup_data.txt")
 BOTTOMUP_2025 = str(SILVER_INPUT_DIR / "dk_bottomup_data_2025.txt")
 # ---------------------------------------------------------------------------
 
@@ -624,7 +630,7 @@ scale_bottomup_all_to_dk(
 # mandatory-reporting register covering all sales in Denmark. Field 11 of
 # <year>_atc_code_data.txt is "volume in 1.000 units"; for N01AB the unit is
 # millilitres of liquid agent (every marketed product is an inhalation liquid),
-# so the field is litres. Cached under data/bronze/medstat/.
+# so the field is litres. Cached under data/bronze/dk_medicines_register/.
 #
 # Litres of liquid agent sold (verified against the register):
 #   2022  sevoflurane 2,400  desflurane 181  isoflurane 15
@@ -684,7 +690,8 @@ _bu = pd.read_csv(BOTTOMUP_2025, sep="\t").set_index("Source")
 # turformaal", purpose code 33 "Social/sundhed" (visits to doctor, hospital,
 # jobcentre): 0.9 km/person/day in 2019 and 0.8 in 2022, against all-purpose
 # totals of 40.4 and 37.5 km/person/day. Read from the published reports cached
-# under data/bronze/tu_travel/. The TU universe is residents aged 6 and over.
+# under data/bronze/dk_travel_survey/. The TU universe is residents aged 6
+# and over.
 #
 # Visitor travel has no Danish source - TU folds hospital visits into
 # "Besoege familie/venner" - so it is carried as one clearly labelled imported

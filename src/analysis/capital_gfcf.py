@@ -69,7 +69,8 @@ from paths import BACKGROUND_DIR, BRONZE_DIR, MRIO_DIR, OUTPUT_DIR
 FOLDER = "11_capital_gfcf"
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
 DKK_PER_EUR = {"2019": 7.4661, "2022": 7.4396}[ANALYSIS_YEAR]
-NABK = str(BRONZE_DIR / "dst_capital" / "nabk69_health_assets_2022.csv")
+NABK = str(BRONZE_DIR / "dst_capital_stock"
+           / "nabk69_health_assets_2022.csv")
 
 IDX_CFC = 5          # V row: 'Operating surplus: Consumption of fixed capital'
 COL_GFCF = 3         # Y column within a region: gross fixed capital formation

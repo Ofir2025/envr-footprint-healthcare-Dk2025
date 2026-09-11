@@ -43,7 +43,7 @@ import pandas as pd
 
 from paths import BRONZE_DIR
 
-CLASSIFICATIONS = BRONZE_DIR / "exiobase_v3_7" / "classifications.xlsx"
+CLASSIFICATIONS = BRONZE_DIR / "exiobase" / "classifications.xlsx"
 
 _CACHE: dict[str, Any] = {}
 

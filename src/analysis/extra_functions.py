@@ -1,6 +1,6 @@
 """Danish healthcare expenditure extraction from the Statistics Denmark use table.
 
-Source file: ``data/bronze/dk_umat_2019.xlsx`` - Statistics Denmark detailed
+Source file: ``data/bronze/dst_supply_use/dk_umat_2019.xlsx`` - Statistics Denmark detailed
 supply-use tables 2019. Sheet ``Ubas`` holds the use table at BASIC PRICES in
 1000 DKK (margins and product taxes are carried on the separate ``Umargins``
 and ``Utaxes`` sheets), which is why no purchaser-to-basic price conversion is

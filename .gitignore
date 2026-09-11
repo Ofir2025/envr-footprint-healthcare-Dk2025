@@ -6,10 +6,10 @@ scripts/notebooks/.ipynb_checkpoints/
 *.DS_Store
 *.pyc
 .pylint.d
-data/bronze/exiobase_v3_7/IOT_2016_ixi
+data/bronze/exiobase/IOT_2016_ixi
 
 # Large external MRIO downloads: reproducible from the documented URLs
-data/bronze/figaro/estat_naio_10_fcp_ii4_*.tsv.gz
+data/bronze/eurostat_figaro/estat_naio_10_fcp_ii4_*.tsv.gz
 # No trailing slash: a working copy may hold this as a symlink to another
 # checkout's model pickles rather than a plain directory, and a slash-suffixed
 # pattern only matches a directory, not a symlink of that name.
@@ -39,14 +39,20 @@ data/silver/inputs/eriksen_interim/
 # deliverable, so un-ignore the figures tree (repo .gitignore takes precedence).
 !figures/**/*.tiff
 !figures/**/*.png
-!data/bronze/concordances/*.csv
 
 # The bibliography's single source of truth. analysis.bibliography reads it
 # and audit check C8 verifies every in-text citation against it, so a clone
 # without it cannot run the check that guards the reference list.
 !docs/references.csv
 
-# Danish register inputs. These are small, public, and the pipeline cannot
-# be reproduced without them, so they belong in version control even though
-# the global excludesFile drops every .csv.
+# Bronze register inputs. These are small, public, and the pipeline cannot be
+# reproduced without them, so they belong in version control even though the
+# global excludesFile drops every .csv.
+#
+# The pattern reaches EVERY subfolder, not just the bronze root. The previous
+# rule un-ignored `data/bronze/*.csv` only, so the moment a register landed in
+# a subfolder the global excludesFile swallowed it: that is how
+# `dst_capital_stock/nabk69_health_assets_2022.csv` sat on one machine's disk,
+# read by `analysis.capital_gfcf`, and absent from every clone.
+!data/bronze/**/*.csv
 !data/bronze/*.csv
