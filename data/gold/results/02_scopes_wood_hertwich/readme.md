@@ -27,6 +27,8 @@ the 2022 series has no a or b variant, and cannot be given one.
 
 | folder | configuration |
 |:---|:---|
+| [`2016c`](2016c/readme.md) | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
+| [`2016d`](2016d/readme.md) | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
 | [`2019_uncorrected`](2019_uncorrected/readme.md) | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - not variant a, which is on v3.7 |
 | [`2019a`](2019a/readme.md) | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
 | [`2019b`](2019b/readme.md) | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
