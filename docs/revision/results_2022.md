@@ -454,18 +454,42 @@ changes no conclusion.
 
 #### Does our pipeline reproduce the 46 %?
 
-**Yes, to 1.3 percentage points.** Running our corrected pipeline on the manuscript's own
-background (EXIOBASE v3.7, 2016, no shipping correction) and its own reference year:
+**Yes, to 1.3 percentage points — but on EXIOBASE v3.8.2's 2016 table, not on the
+v3.7 the submission was computed with.** Until September 2026 this document
+attributed the reproduction to v3.7. It could not: the release was decided by a
+single bronze symlink pointing at v3.8.2 and stamped on every gold row by a
+hardcoded string, so no run in this repository had ever read v3.7. Both releases
+are now built and published as model variants
+([`docs/methods/replications.md`, section 01](../methods/replications.md#r01)),
+and the two disagree:
 
-| | Transport share of the MRIO supply chain |
-|:---|:---|
-| Manuscript, as reported | 46 % |
-| **Ours, same background and year** | **47.28 %** |
+| Run | Folder | Transport share of the MRIO supply chain |
+|:---|:---|:---|
+| Manuscript, as reported | — | 46 % |
+| Ours, v3.8.2 `IOT_2016`, uncorrected | `2019_uncorrected/` | **47.28 %** |
+| Ours, v3.7 `IOT_2016`, uncorrected (variant a) | `2019a/` | **34.93 %** |
 
-The residual 1.3 pp is the demand-vector difference (finding F1 in the
-[Eriksen manuscript assessment](#assessment-of-the-eriksen-et-al-2026-manuscript)
-below), not a modelling disagreement. This agreement is the strongest possible
-evidence that the finding was correctly computed from the data available.
+On the purchased-product basis the same pair reads 41.00 % and 25.89 %, so the
+gap is not an artefact of which marginal is quoted.
+
+The 1.3 pp residual against v3.8.2 is the demand-vector difference (finding F1 in
+the [Eriksen manuscript assessment](#assessment-of-the-eriksen-et-al-2026-manuscript)
+below), not a modelling disagreement, and the reproduction claim stands on that
+run. What does not stand is the claim that the release was v3.7's: on the same
+2016 table the two releases give Danish health-sector output of 47,011 M.EUR
+(v3.7) against 37,163 M.EUR (v3.8.2) and intermediate shares of 36.6 % against
+28.7 %, so v3.7 carries a much larger and differently composed supply chain per
+euro of Danish health expenditure — 8,694.66 kt against 6,360.39 kt in total,
+with transport almost unchanged in absolute terms (3,037.5 against 3,007.4 kt)
+and everything else far larger.
+
+Two readings are available and this repository cannot distinguish them from its
+own outputs: either the submitted run used a v3.8.2-era background despite the
+manuscript's v3.7 citation, or it used v3.7 with a demand vector different enough
+to move the share by eleven points. Either way the finding is reproducible from
+*a* release of the data available, and neither reading makes it an analytical
+error. The measurement is in
+`.superpowers/sdd/gold_layer_organisation/variants-report.md`.
 
 #### Where does 46 % go?
 
@@ -506,10 +530,13 @@ study?
 > computed for 2019 Danish health expenditure on a 2016 EXIOBASE background; the present
 > analysis uses 2022 expenditure on the 2022 table of the same release family, so that
 > expenditure year and model year coincide and no deflation is required. Re-running the
-> present pipeline on the submitted configuration returns 47.3 % against the manuscript's
-> 46 %, a 1.3-point residual attributable to the demand vector rather than to any
-> modelling disagreement; the submitted number is therefore reproducible, and the
-> withdrawal is not a correction of an analytical error. Moving to 2022 expenditure and
+> present pipeline on the submitted reference year and correction state, on EXIOBASE
+> v3.8.2's 2016 table, returns 47.3 % against the manuscript's 46 %, a 1.3-point
+> residual attributable to the demand vector rather than to any modelling
+> disagreement; on the v3.7 release the manuscript cites, the same run returns
+> 34.9 %, so the submitted figure is reproducible on one release of the background
+> and not on the other. Either way the withdrawal is not a correction of an
+> analytical error. Moving to 2022 expenditure and
 > the 2022 background, with no other change, brings the share to 36.8 %: Danish health
 > expenditure grew faster than its transport content, and the health-care footprint as a
 > whole falls from 6,361 kt to 4,675 kt across the two configurations.
