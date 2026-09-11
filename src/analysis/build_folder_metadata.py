@@ -188,25 +188,39 @@ NOTES: dict[str, str] = {
 #: Rendered after the layer's question and its link into the methods document,
 #: and before the conventions table.
 README_NOTES: dict[str, str] = {
+    "06_benchmarks_validation": (
+        "## Reading `figaro_dk_footprint_by_origin.csv` without double counting\n"
+        "\n"
+        "`is_aggregate` marks only the three `c_orig` codes that overlap their\n"
+        "own members - `WORLD`, `EU27_2020` and `EXT_EU27_2020` - read from\n"
+        "`data/silver/eurostat_figaro/figaro_dimensions.csv`. `WRL_REST`, the\n"
+        "residual for the countries FIGARO does not resolve individually, is\n"
+        "**not** an aggregate and belongs in a sum over origins: the 49\n"
+        "countries plus `WRL_REST` reproduce the `WORLD` row to every published\n"
+        "digit in 2021, 2022 and 2023, and summing every row returns exactly\n"
+        "three times it. Dropping every code without an ISO alpha-2 spelling\n"
+        "would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint."
+    ),
     "02_scopes_wood_hertwich/2019a": (
         "## Which model run this folder is\n"
         "\n"
         "Variant a: the submitted configuration. Its partition closes on\n"
         "`01_eriksen_replication/2019a`, and its transport share is the\n"
-        "measurement that matters here - 34.93 % of the climate footprint by\n"
-        "producing node, against the 46 % the submitted manuscript reports and\n"
-        "the 47.28 % that `2019_uncorrected` returns on v3.8.2. The submitted\n"
-        "number is reproduced by the v3.8.2 run, not by the v3.7 one, which is\n"
-        "the finding this variant exists to establish."
+        "measurement that matters here - 34.94 % of this folder's climate\n"
+        "total by producing node, against the 46 % the submitted manuscript\n"
+        "reports and the 46.87 % that `2019_uncorrected` returns on v3.8.2.\n"
+        "The submitted number is reproduced by the v3.8.2 run, not by the\n"
+        "v3.7 one, which is the finding this variant exists to establish."
     ),
     "02_scopes_wood_hertwich/2019b": (
         "## Which model run this folder is\n"
         "\n"
         "Variant b isolates the Danish sea-transport correction on the\n"
         "submitted release: everything is variant a except the correction. The\n"
-        "transport share falls from 34.93 % to 16.56 % and the climate total\n"
-        "from 8,694.66 to 6,625.53 kt CO2-eq, so on v3.7 as on v3.8.2 the\n"
-        "correction is the larger of the two effects on the transport finding."
+        "transport share falls from 34.94 % to 16.56 % and this folder's\n"
+        "climate total from 8,693.84 to 6,624.71 kt CO2-eq, so on v3.7 as on\n"
+        "v3.8.2 the correction is the larger of the two effects on the\n"
+        "transport finding."
     ),
     "02_scopes_wood_hertwich/2019c": (
         "## Which model run this folder is\n"
