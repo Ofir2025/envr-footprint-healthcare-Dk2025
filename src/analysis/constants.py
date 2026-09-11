@@ -65,6 +65,7 @@ DK_POPULATION = {"2016": 5_707_251, "2019": 5_814_422, "2022": 5_873_420}
 
 import json as _json
 import os as _os
+import re as _re
 
 ANALYSIS_YEAR = _os.environ.get("HC_ANALYSIS_YEAR", "2022")
 BACKGROUND_TAG = _os.environ.get("HC_BACKGROUND_TAG", "")
@@ -230,6 +231,49 @@ def table_year(analysis_year: str | None = None) -> str:
     return "2022" if (analysis_year or ANALYSIS_YEAR) == "2022" else "2016"
 
 
+def analysis_year_tag(analysis_year: str | None = None) -> str:
+    """Suffix distinguishing a background by the analysis year that fills it.
+
+    A prepared background carries two different kinds of thing. ``A`` and ``L``
+    come from the EXIOBASE table and depend on the **table** year; ``Ystim``,
+    the Danish health final-demand vector, depends on the **analysis** year.
+    :func:`table_year` maps 2016 and 2019 onto the same table, so without this
+    tag both analysis years resolve to one file and one of the two demand
+    vectors is lost - whichever run wrote last owns it, and the other year's
+    published headline stops following from the background on disk. C21 found
+    exactly that: 2016c published 3,311.74 kt while the shared background
+    returned 3,462.57 kt.
+
+    The tag is empty whenever the analysis year IS the table year, so the plain
+    stem keeps its natural meaning and the 2022 and 2016 backgrounds are
+    unaffected. It is the same device :data:`SCOPE_TAG` already uses for the
+    sector boundary, which is an analysis-side axis for the same reason, and
+    :func:`mrio_stem` strips both to address the EXIOBASE pickles.
+
+    Parameters
+    ----------
+    analysis_year : str, optional
+        Four-digit analysis year. Defaults to ``HC_ANALYSIS_YEAR``.
+
+    Returns
+    -------
+    str
+        ``"_y<year>"`` when the analysis year differs from the table year,
+        otherwise ``""``.
+
+    Examples
+    --------
+    >>> analysis_year_tag("2019")
+    '_y2019'
+    >>> analysis_year_tag("2016")
+    ''
+    >>> analysis_year_tag("2022")
+    ''
+    """
+    year = analysis_year or ANALYSIS_YEAR
+    return "" if year == table_year(year) else f"_y{year}"
+
+
 def background_stem(analysis_year: str | None = None,
                     release: str | None = None,
                     tag: str | None = None,
@@ -262,13 +306,17 @@ def background_stem(analysis_year: str | None = None,
     Returns
     -------
     str
-        E.g. ``"2016"``, ``"2016_v3_7"``, ``"2022_snacship"``,
-        ``"2022_snacship_capital"``.
+        E.g. ``"2016"``, ``"2016_y2019_v3_7"``, ``"2022_snacship"``,
+        ``"2022_snacship_capital"``. The ``_y<year>`` element appears only when
+        the analysis year differs from the table year: see
+        :func:`analysis_year_tag`.
 
     Examples
     --------
     >>> background_stem("2019", "v3_7", "", "excluded")
-    '2016_v3_7'
+    '2016_y2019_v3_7'
+    >>> background_stem("2016", "v3_8_2", "_snacship", "excluded")
+    '2016_snacship'
     >>> background_stem("2022", "v3_8_2", "_snacship", "endogenised")
     '2022_snacship_capital'
     >>> background_stem("2022", "v3_8_2", "_snacship", "endogenised",
@@ -277,6 +325,7 @@ def background_stem(analysis_year: str | None = None,
     """
     t = BACKGROUND_TAG if tag is None else tag
     return (table_year(analysis_year)
+            + analysis_year_tag(analysis_year)
             + RELEASE_TAG.get(release or EXIOBASE_RELEASE,
                               f"_{release or EXIOBASE_RELEASE}")
             + t
@@ -306,14 +355,21 @@ def mrio_stem(stem: str | None = None) -> str:
     --------
     >>> mrio_stem("2022_snacship_capital_zorg_en_welzijn")
     '2022_snacship_capital'
+    >>> mrio_stem("2016_y2019_v3_7")
+    '2016_v3_7'
     >>> mrio_stem("2016_v3_7")
     '2016_v3_7'
     """
     s = stem or BACKGROUND_YEAR
     for suffix in SCOPE_TAG.values():
         if suffix and s.endswith(suffix):
-            return s[: -len(suffix)]
-    return s
+            s = s[: -len(suffix)]
+            break
+    # The analysis-year element is an analysis-side axis like the boundary: it
+    # selects a demand vector, not a table, so the EXIOBASE pickles are shared
+    # across the analysis years that read the same table and must not be
+    # duplicated per year. 2016 and 2019 both address mrio2016.pkl.
+    return _re.sub(r"(?<=^\d{4})_y\d{4}", "", s)
 
 
 def split_background_stem(stem: str) -> tuple[str, str, str, str]:
