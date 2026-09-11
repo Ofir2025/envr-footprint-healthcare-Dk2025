@@ -27,6 +27,7 @@ the 2022 series has no a or b variant, and cannot be given one.
 
 | folder | configuration |
 |:---|:---|
+| [`2019_uncorrected`](2019_uncorrected/readme.md) | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - not variant a, which is on v3.7 |
 | [`2019a`](2019a/readme.md) | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
 | [`2019b`](2019b/readme.md) | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
 | [`2019c`](2019c/readme.md) | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
@@ -42,6 +43,7 @@ they were not assigned. Both are EXIOBASE v3.8.2 without the
 Danish sea-transport correction, so **neither is variant a**, which
 is on v3.7 - the release the submitted manuscript used.
 
+- `2019_uncorrected`: EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - not variant a, which is on v3.7
 - `2022_uncorrected`: EXIOBASE v3.8.2 IOT_2022_ixi, no Danish shipping correction, health-care boundary, capital excluded
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 02](../../../../docs/methods/replications.md#r02).

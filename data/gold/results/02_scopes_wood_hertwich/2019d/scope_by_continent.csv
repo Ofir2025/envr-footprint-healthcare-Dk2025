@@ -14,18 +14,18 @@ America,Scope 3,blue_water_consumption,Mm3,5.49789319916643,7.164571074066184
 Africa,Scope 3,blue_water_consumption,Mm3,3.4736632442290953,4.526698918855679
 Denmark,Outside protocol,climate_change,kt CO2eq,293.4753186512448,100.0
 Denmark,Scope 1,climate_change,kt CO2eq,163.39469914555332,100.0
-Europe,Scope 2,climate_change,kt CO2eq,12.546594727950824,50.8450579275776
-Denmark,Scope 2,climate_change,kt CO2eq,6.130033304619998,24.841951559735225
-Asia and Pacific,Scope 2,climate_change,kt CO2eq,4.015518746079742,16.272884211271904
-Middle East,Scope 2,climate_change,kt CO2eq,1.3260743273279592,5.373914392807975
-America,Scope 2,climate_change,kt CO2eq,0.43960116618581807,1.7814831230624406
-Africa,Scope 2,climate_change,kt CO2eq,0.2183119271945689,0.8847087855448634
-Denmark,Scope 3,climate_change,kt CO2eq,1795.5856939232028,33.16619104971134
-Europe,Scope 3,climate_change,kt CO2eq,1580.3364071048195,29.19033014031942
-Asia and Pacific,Scope 3,climate_change,kt CO2eq,1243.2533996847274,22.96408348356465
-Middle East,Scope 3,climate_change,kt CO2eq,347.2371136576992,6.413802744194809
-America,Scope 3,climate_change,kt CO2eq,282.36420015192266,5.215537771063427
-Africa,Scope 3,climate_change,kt CO2eq,165.12703482794709,3.050054811146355
+Europe,Scope 2,climate_change,kt CO2eq,12.545617331775684,50.09435865290632
+Denmark,Scope 2,climate_change,kt CO2eq,6.496692523916687,25.94114237220038
+Asia and Pacific,Scope 2,climate_change,kt CO2eq,4.0168820580623095,16.039316771868815
+Middle East,Scope 2,climate_change,kt CO2eq,1.3263439621365716,5.296060638490884
+America,Scope 2,climate_change,kt CO2eq,0.4396108227534309,1.7553558059619727
+Africa,Scope 2,climate_change,kt CO2eq,0.21882565501239803,0.8737657585716178
+Denmark,Scope 3,climate_change,kt CO2eq,1804.7808756652946,32.85321071611436
+Europe,Scope 3,climate_change,kt CO2eq,1610.0294717084785,29.308066262445536
+Asia and Pacific,Scope 3,climate_change,kt CO2eq,1260.9726612715588,22.95403342676868
+Middle East,Scope 3,climate_change,kt CO2eq,355.84502949489064,6.477601737644775
+America,Scope 3,climate_change,kt CO2eq,287.8993582057758,5.240757151020782
+Africa,Scope 3,climate_change,kt CO2eq,173.94138897444859,3.166330706005863
 Denmark,Outside protocol,land_use,km2,0.6451,100.0
 Asia and Pacific,Scope 2,land_use,km2,0.07258566815210335,62.17264545682725
 Europe,Scope 2,land_use,km2,0.0232724402464579,19.93381356394247

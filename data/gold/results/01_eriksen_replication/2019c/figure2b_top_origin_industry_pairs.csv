@@ -20,27 +20,27 @@ IND,Asia and Pacific,OILS,Cultivation of oil seeds,blue_water_consumption,Mm3,0.
 CHN,Asia and Pacific,PARI,Cultivation of paddy rice,blue_water_consumption,Mm3,0.721501159886085,19,1.318172160236382,99.7041752733486
 RoW Asia and Pacific,Asia and Pacific,OCER,Cultivation of cereal grains nec,blue_water_consumption,Mm3,0.6260397537789136,20,1.1437655550864192,99.7041752733486
 OTH,Other,OTHER,All other pairs,blue_water_consumption,Mm3,20.377590972848385,21,37.229563313985466,99.7041752733486
-DNK,Denmark,HWAT,Steam and hot water supply,climate_change,kt CO2eq,143.3825509081902,1,4.402076148408147,80.32898999339002
-DNK,Denmark,CHEM,Chemicals nec,climate_change,kt CO2eq,120.3748490425385,2,3.6957024999345403,80.32898999339002
-DNK,Denmark,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,108.8688605010023,3,3.3424500476540255,80.32898999339002
-RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,107.2902918763457,4,3.2939854384863745,80.32898999339002
-DEU,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,81.79067843527471,5,2.5111060754707,80.32898999339002
-DNK,Denmark,LANF,Landfill of waste: Food,climate_change,kt CO2eq,60.27783687464809,6,1.8506270554039115,80.32898999339002
-DNK,Denmark,MILK,Raw milk,climate_change,kt CO2eq,54.30522083315012,7,1.667258085795377,80.32898999339002
-DNK,Denmark,INCT,Incineration of waste: Textiles,climate_change,kt CO2eq,51.29231500814701,8,1.574757005394466,80.32898999339002
-CHN,Asia and Pacific,POWC,Production of electricity by coal,climate_change,kt CO2eq,48.16158349240766,9,1.4786384857753634,80.32898999339002
-DNK,Denmark,INCL,Incineration of waste: Plastic,climate_change,kt CO2eq,47.08165643447182,10,1.445482978960563,80.32898999339002
-RUS,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,44.03704350946144,11,1.3520084393221572,80.32898999339002
-DNK,Denmark,TAIR,Air transport (62),climate_change,kt CO2eq,39.75222179528628,12,1.2204574845603786,80.32898999339002
-JPN,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,35.42620490942671,13,1.0876417714193347,80.32898999339002
-DNK,Denmark,TDRT,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",climate_change,kt CO2eq,34.5951487669764,14,1.0621270041098096,80.32898999339002
-RoW Middle East,Middle East,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,34.36948059502322,15,1.0551986263475388,80.32898999339002
-NOR,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,31.21517813970936,16,0.9583564407716004,80.32898999339002
-CHN,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,30.4191984263521,17,0.9339185765503788,80.32898999339002
-RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,26.41719055832518,18,0.8110504641476114,80.32898999339002
-DNK,Denmark,WASO,"Waste water treatment, other",climate_change,kt CO2eq,25.62872386128419,19,0.78684326167511,80.32898999339002
-DNK,Denmark,SDCL,Quarrying of sand and clay,climate_change,kt CO2eq,23.81469245786655,20,0.7311495644792679,80.32898999339002
-OTH,Other,OTHER,All other pairs,climate_change,kt CO2eq,2108.6565164329636,21,64.73916454533335,80.32898999339002
+DNK,Denmark,HWAT,Steam and hot water supply,climate_change,kt CO2eq,143.1932573758957,1,4.323927833188398,80.58983455430702
+DNK,Denmark,CHEM,Chemicals nec,climate_change,kt CO2eq,120.4335523690837,2,3.6366655712805422,80.58983455430702
+DNK,Denmark,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,108.8715362873941,3,3.2875337472020356,80.58983455430702
+RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,107.2920909039814,4,3.239840105898722,80.58983455430702
+DEU,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,81.79283207365306,5,2.4698530478300804,80.58983455430702
+DNK,Denmark,LANF,Landfill of waste: Food,climate_change,kt CO2eq,65.05858248337061,6,1.9645381405715763,80.58983455430702
+DNK,Denmark,MILK,Raw milk,climate_change,kt CO2eq,56.37626321706392,7,1.7023629333014407,80.58983455430702
+RUS,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,51.41517077894005,8,1.5525555605987418,80.58983455430702
+DNK,Denmark,INCT,Incineration of waste: Textiles,climate_change,kt CO2eq,51.26517563198256,9,1.5480262398565636,80.58983455430702
+CHN,Asia and Pacific,POWC,Production of electricity by coal,climate_change,kt CO2eq,48.11651491222168,10,1.4529478683400787,80.58983455430702
+DNK,Denmark,INCL,Incineration of waste: Plastic,climate_change,kt CO2eq,47.05741579203792,11,1.4209668362175507,80.58983455430702
+DNK,Denmark,TAIR,Air transport (62),climate_change,kt CO2eq,39.71221074327886,12,1.1991677296616332,80.58983455430702
+NOR,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,35.7896207208228,13,1.0807194417526527,80.58983455430702
+JPN,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,35.42225986955721,14,1.0696264486975309,80.58983455430702
+DNK,Denmark,TDRT,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",climate_change,kt CO2eq,34.58003004791236,15,1.0441940991966632,80.58983455430702
+RoW Middle East,Middle East,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,34.36441150743865,16,1.0376831850266035,80.58983455430702
+RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,30.69069330977413,17,0.9267499423776635,80.58983455430702
+CHN,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,30.42190115212164,18,0.9186333738107137,80.58983455430702
+DNK,Denmark,WASO,"Waste water treatment, other",climate_change,kt CO2eq,25.74776888449754,19,0.7774911791406874,80.58983455430702
+DNK,Denmark,SDCL,Quarrying of sand and clay,climate_change,kt CO2eq,23.60541796536618,20,0.7127997897732983,80.58983455430702
+OTH,Other,OTHER,All other pairs,climate_change,kt CO2eq,2140.4410110518816,21,64.63371692627683,80.58983455430702
 RoW Africa,Africa,CATL,Cattle farming,land_use,km2,213.0534846710003,1,6.393694954510286,99.95423198602852
 RoW Asia and Pacific,Asia and Pacific,CATL,Cattle farming,land_use,km2,150.4388554544613,2,4.514641722789971,99.95423198602852
 RoW Asia and Pacific,Asia and Pacific,MILK,Raw milk,land_use,km2,139.1152232513846,3,4.174821652748205,99.95423198602852

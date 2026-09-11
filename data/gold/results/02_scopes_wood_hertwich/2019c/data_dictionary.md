@@ -59,7 +59,7 @@ units and are labelled as such wherever they are quoted.
 | `item` | dimension | str |  | MRIO footprint decomposition by producin |
 | `risk` | dimension | str |  | none |
 | `test` | dimension | str |  | partition of one scalar (sum of cells == |
-| `value` | measure | float64 | varies by row | 3257.1574428588515 |
+| `value` | measure | float64 | varies by row | 3311.6477170782755 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `verdict` | dimension | str |  | OK - additive by construction (Wood & He |
 
@@ -126,7 +126,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_code` | dimension | str |  | POWC |
 | `producing_sector_name` | dimension | str |  | Production of electricity by coal |
 | `producing_sector_group` | dimension | str |  | Electricity |
-| `value` | measure | float64 | kt CO2eq | 0.0069994014960735 |
+| `value` | measure | float64 | kt CO2eq | 0.006996396762704 |
 | `component_type` | dimension | str |  | MRIO supply-chain node |
 
 ### `scope_by_origin_industry_top25.csv`
@@ -162,7 +162,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_code` | dimension | str |  | POWC |
 | `producing_sector_name` | dimension | str |  | Production of electricity by coal |
 | `producing_sector_group` | dimension | str |  | Electricity |
-| `value` | measure | float64 | kt CO2eq | 0.0069994014960735 |
+| `value` | measure | float64 | kt CO2eq | 0.006996396762704 |
 
 ### `scopes_summary_detailed.csv`
 

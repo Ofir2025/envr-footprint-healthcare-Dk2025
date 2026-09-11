@@ -96,101 +96,101 @@ MLT,Malta,Europe,Scope 3,blue_water_consumption,Mm3,0.001936250804216842,0.00353
 LUX,Luxembourg,Europe,Scope 3,blue_water_consumption,Mm3,0.0017460446861522483,0.0031867295590409773
 DNK,Denmark,Denmark,Outside protocol,climate_change,kt CO2eq,293.4753186512448,100.0
 DNK,Denmark,Denmark,Scope 1,climate_change,kt CO2eq,163.39469914555332,100.0
-DNK,Denmark,Denmark,Scope 2,climate_change,kt CO2eq,4.891073209918721,24.964550707945715
-RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,climate_change,kt CO2eq,3.1598214197787096,16.128059973044138
-RoW Europe,RoW Europe,Europe,Scope 2,climate_change,kt CO2eq,1.4115422539338907,7.20465972647467
-RUS,Russia,Europe,Scope 2,climate_change,kt CO2eq,1.322099819373979,6.748136158500898
-DEU,Germany,Europe,Scope 2,climate_change,kt CO2eq,1.287936735166398,6.573764193200842
-CZE,Czech Republic,Europe,Scope 2,climate_change,kt CO2eq,1.2350649511070249,6.30390106142578
-RoW Middle East,RoW Middle East,Middle East,Scope 2,climate_change,kt CO2eq,0.8443576164618973,4.30968984251894
-NLD,Netherlands,Europe,Scope 2,climate_change,kt CO2eq,0.7598838824862829,3.87852704351459
-ITA,Italy,Europe,Scope 2,climate_change,kt CO2eq,0.7020523829738643,3.583349003822499
-HRV,Croatia,Europe,Scope 2,climate_change,kt CO2eq,0.5578841889180249,2.8474994189744796
-POL,Poland,Europe,Scope 2,climate_change,kt CO2eq,0.5400043952190213,2.7562390764506346
-GRC,Greece,Europe,Scope 2,climate_change,kt CO2eq,0.44181424899004196,2.2550662705349582
-HUN,Hungary,Europe,Scope 2,climate_change,kt CO2eq,0.2509286680843192,1.2807662428288138
-FIN,Finland,Europe,Scope 2,climate_change,kt CO2eq,0.2437711972201128,1.244233760761735
-GBR,United Kingdom,Europe,Scope 2,climate_change,kt CO2eq,0.21889555334413577,1.1172658651114984
-BEL,Belgium,Europe,Scope 2,climate_change,kt CO2eq,0.21166069131976786,1.0803383704450826
-TUR,Turkey,Middle East,Scope 2,climate_change,kt CO2eq,0.20818801819694233,1.0626134825634026
-RoW America,RoW America,America,Scope 2,climate_change,kt CO2eq,0.19551636101063877,0.997936015102956
-SVN,Slovenia,Europe,Scope 2,climate_change,kt CO2eq,0.1640931590170828,0.8375486960206507
-RoW Africa,RoW Africa,Africa,Scope 2,climate_change,kt CO2eq,0.16405150225547674,0.8373360755398667
-CAN,Canada,America,Scope 2,climate_change,kt CO2eq,0.1485714861655366,0.758324449655095
-ESP,Spain,Europe,Scope 2,climate_change,kt CO2eq,0.13756532208102448,0.7021478336865234
-SWE,Sweden,Europe,Scope 2,climate_change,kt CO2eq,0.12592363283349503,0.6427274306230973
-SVK,Slovakia,Europe,Scope 2,climate_change,kt CO2eq,0.09472234355269761,0.4834727773040368
-EST,Estonia,Europe,Scope 2,climate_change,kt CO2eq,0.0848447637667196,0.43305657397697084
-AUT,Austria,Europe,Scope 2,climate_change,kt CO2eq,0.04028586182708806,0.2056232645130142
-AUS,Australia,Asia and Pacific,Scope 2,climate_change,kt CO2eq,0.035111298126946015,0.1792117486065005
-BGR,Bulgaria,Europe,Scope 2,climate_change,kt CO2eq,0.033868604020069235,0.17286890753377276
-LVA,Latvia,Europe,Scope 2,climate_change,kt CO2eq,0.026314872531465465,0.13431386967438466
-PRT,Portugal,Europe,Scope 2,climate_change,kt CO2eq,0.012092283040497595,0.06172028104734723
-ZAF,South Africa,Africa,Scope 2,climate_change,kt CO2eq,0.010483784611121757,0.05351033634188422
-BRA,Brazil,America,Scope 2,climate_change,kt CO2eq,0.007671387762543486,0.0391555678230205
-MLT,Malta,Europe,Scope 2,climate_change,kt CO2eq,0.007110986456164557,0.036295220772494904
-LTU,Lithuania,Europe,Scope 2,climate_change,kt CO2eq,0.005701253086385912,0.02909979378048981
-LUX,Luxembourg,Europe,Scope 2,climate_change,kt CO2eq,0.004451051650353483,0.022718634512277427
-CHE,Switzerland,Europe,Scope 2,climate_change,kt CO2eq,0.0037310991428939075,0.01904392139546315
-NOR,Norway,Europe,Scope 2,climate_change,kt CO2eq,0.0018680324671920471,0.009534633658055543
-IRL,Ireland,Europe,Scope 2,climate_change,kt CO2eq,0.0010912460397504184,0.005569834252112325
-MEX,Mexico,America,Scope 2,climate_change,kt CO2eq,2.2354109288871982e-05,0.00011409771862365534
-CYP,Cyprus,Middle East,Scope 2,climate_change,kt CO2eq,1.004620517954944e-06,5.1276885023656515e-06
-FRA,France,Europe,Scope 2,climate_change,kt CO2eq,8.78604433919213e-07,4.48448919110876e-06
-USA,United States,America,Scope 2,climate_change,kt CO2eq,3.680191910922459e-08,1.8784085543614695e-07
-CHN,China,Asia and Pacific,Scope 2,climate_change,kt CO2eq,2.575942580984838e-09,1.3147881134419003e-08
-TWN,Taiwan,Asia and Pacific,Scope 2,climate_change,kt CO2eq,2.371535354480092e-09,1.2104565209235157e-08
-IND,India,Asia and Pacific,Scope 2,climate_change,kt CO2eq,1.7303344662373585e-09,8.831808617480612e-09
-JPN,Japan,Asia and Pacific,Scope 2,climate_change,kt CO2eq,8.306822221490459e-10,4.239889195478531e-09
-DNK,Denmark,Denmark,Scope 3,climate_change,kt CO2eq,1337.007903064033,37.38430431606877
-RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 3,climate_change,kt CO2eq,318.1271585617888,8.895207335442795
-RoW Middle East,RoW Middle East,Middle East,Scope 3,climate_change,kt CO2eq,210.84904988413032,5.895585977882421
-CHN,China,Asia and Pacific,Scope 3,climate_change,kt CO2eq,185.6253912209782,5.190302987956248
-RUS,Russia,Europe,Scope 3,climate_change,kt CO2eq,177.157131141021,4.953520534291445
-DEU,Germany,Europe,Scope 3,climate_change,kt CO2eq,164.3799951819502,4.59625687273266
-IND,India,Asia and Pacific,Scope 3,climate_change,kt CO2eq,88.90629189093981,2.485923878271159
-RoW Africa,RoW Africa,Africa,Scope 3,climate_change,kt CO2eq,84.07073533603479,2.3507160628410118
-RoW Europe,RoW Europe,Europe,Scope 3,climate_change,kt CO2eq,73.95584031368071,2.0678917707974183
-NLD,Netherlands,Europe,Scope 3,climate_change,kt CO2eq,67.28659618121632,1.8814119065910633
-NOR,Norway,Europe,Scope 3,climate_change,kt CO2eq,65.17571501108667,1.822389200847635
-USA,United States,America,Scope 3,climate_change,kt CO2eq,56.87422307158588,1.5902697793898652
-GBR,United Kingdom,Europe,Scope 3,climate_change,kt CO2eq,55.657344371818745,1.5562444280635328
-JPN,Japan,Asia and Pacific,Scope 3,climate_change,kt CO2eq,53.78007097047716,1.5037536686900228
-RoW America,RoW America,America,Scope 3,climate_change,kt CO2eq,53.43504719661026,1.4941064005407778
-POL,Poland,Europe,Scope 3,climate_change,kt CO2eq,46.332478383016564,1.2955102715689886
-FRA,France,Europe,Scope 3,climate_change,kt CO2eq,42.50239627675833,1.1884166974115364
-AUS,Australia,Asia and Pacific,Scope 3,climate_change,kt CO2eq,38.14602071127784,1.0666073427459575
-CAN,Canada,America,Scope 3,climate_change,kt CO2eq,34.56162385221774,0.9663834153768115
-KOR,South Korea,Asia and Pacific,Scope 3,climate_change,kt CO2eq,33.653266096823884,0.9409846704047866
-GRC,Greece,Europe,Scope 3,climate_change,kt CO2eq,29.544877136549243,0.8261093111883581
-ITA,Italy,Europe,Scope 3,climate_change,kt CO2eq,28.08304036254875,0.7852346456800889
-SWE,Sweden,Europe,Scope 3,climate_change,kt CO2eq,27.555026945955163,0.7704707731527353
-BEL,Belgium,Europe,Scope 3,climate_change,kt CO2eq,25.56984423016023,0.7149627431701157
-ZAF,South Africa,Africa,Scope 3,climate_change,kt CO2eq,25.492887621871155,0.7128109464179663
-ESP,Spain,Europe,Scope 3,climate_change,kt CO2eq,23.254455691746095,0.6502217722815792
-TUR,Turkey,Middle East,Scope 3,climate_change,kt CO2eq,21.693911073705202,0.6065871200361094
-CZE,Czech Republic,Europe,Scope 3,climate_change,kt CO2eq,20.533698999716464,0.5741462338261083
-TWN,Taiwan,Asia and Pacific,Scope 3,climate_change,kt CO2eq,18.163569354270415,0.5078746375768769
-IRL,Ireland,Europe,Scope 3,climate_change,kt CO2eq,17.390100465705356,0.4862475430452278
-BRA,Brazil,America,Scope 3,climate_change,kt CO2eq,16.315863409010056,0.45621061884824965
-IDN,Indonesia,Asia and Pacific,Scope 3,climate_change,kt CO2eq,13.3367028976638,0.37290980745637453
-BGR,Bulgaria,Europe,Scope 3,climate_change,kt CO2eq,13.068461556562376,0.3654094659079778
-FIN,Finland,Europe,Scope 3,climate_change,kt CO2eq,12.134362616106271,0.3392909673027709
-CHE,Switzerland,Europe,Scope 3,climate_change,kt CO2eq,11.213698184384096,0.31354811327056564
-MEX,Mexico,America,Scope 3,climate_change,kt CO2eq,9.242355516021656,0.25842706719715064
-PRT,Portugal,Europe,Scope 3,climate_change,kt CO2eq,9.13131425216068,0.2553222236204551
-AUT,Austria,Europe,Scope 3,climate_change,kt CO2eq,9.119652759093047,0.254996154638648
-HUN,Hungary,Europe,Scope 3,climate_change,kt CO2eq,8.777771226710858,0.2454367472354985
-ROU,Romania,Europe,Scope 3,climate_change,kt CO2eq,6.792231859716898,0.18991874486832644
-SVK,Slovakia,Europe,Scope 3,climate_change,kt CO2eq,6.456476056333157,0.18053062001071088
-LVA,Latvia,Europe,Scope 3,climate_change,kt CO2eq,6.314466656403831,0.17655987113889512
-EST,Estonia,Europe,Scope 3,climate_change,kt CO2eq,5.729613822625462,0.16020670204544468
-HRV,Croatia,Europe,Scope 3,climate_change,kt CO2eq,5.673467117463517,0.15863677451748587
-LUX,Luxembourg,Europe,Scope 3,climate_change,kt CO2eq,5.10537922694809,0.14275237284070297
-CYP,Cyprus,Middle East,Scope 3,climate_change,kt CO2eq,5.004387417348741,0.13992852375586198
-SVN,Slovenia,Europe,Scope 3,climate_change,kt CO2eq,3.79882213503001,0.10621950881002266
-LTU,Lithuania,Europe,Scope 3,climate_change,kt CO2eq,3.289335917835012,0.09197367844147299
-MLT,Malta,Europe,Scope 3,climate_change,kt CO2eq,1.1182934977435368,0.03126879380332512
+DNK,Denmark,Denmark,Scope 2,climate_change,kt CO2eq,5.184921211253403,26.07214190579284
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,climate_change,kt CO2eq,3.1609249056473385,15.894567985859512
+RoW Europe,RoW Europe,Europe,Scope 2,climate_change,kt CO2eq,1.413715939103369,7.108806687126886
+RUS,Russia,Europe,Scope 2,climate_change,kt CO2eq,1.3221416890924627,6.6483297109254025
+DEU,Germany,Europe,Scope 2,climate_change,kt CO2eq,1.287191224737589,6.472582880991734
+CZE,Czech Republic,Europe,Scope 2,climate_change,kt CO2eq,1.2336366266049197,6.203286005430317
+RoW Middle East,RoW Middle East,Middle East,Scope 2,climate_change,kt CO2eq,0.844537945765053,4.2467208795811935
+NLD,Netherlands,Europe,Scope 2,climate_change,kt CO2eq,0.7596195565114683,3.8197125982932314
+ITA,Italy,Europe,Scope 2,climate_change,kt CO2eq,0.7020850913438691,3.5304031412723953
+HRV,Croatia,Europe,Scope 2,climate_change,kt CO2eq,0.5582784549907084,2.8072779717217498
+POL,Poland,Europe,Scope 2,climate_change,kt CO2eq,0.540464708008098,2.717702350361009
+GRC,Greece,Europe,Scope 2,climate_change,kt CO2eq,0.4416856623476033,2.2209963849570267
+HUN,Hungary,Europe,Scope 2,climate_change,kt CO2eq,0.25101401799606887,1.2622126414057282
+FIN,Finland,Europe,Scope 2,climate_change,kt CO2eq,0.2430203293206562,1.2220167392879202
+GBR,United Kingdom,Europe,Scope 2,climate_change,kt CO2eq,0.21880062134395697,1.100229032675361
+BEL,Belgium,Europe,Scope 2,climate_change,kt CO2eq,0.2116223550436483,1.0641334451063502
+TUR,Turkey,Middle East,Scope 2,climate_change,kt CO2eq,0.20822193768356528,1.0470346001405701
+RoW America,RoW America,America,Scope 2,climate_change,kt CO2eq,0.19558662357018694,0.9834984943510995
+RoW Africa,RoW Africa,Africa,Scope 2,climate_change,kt CO2eq,0.16446692843738592,0.8270145142654577
+SVN,Slovenia,Europe,Scope 2,climate_change,kt CO2eq,0.16394569523972538,0.8243935166954425
+CAN,Canada,America,Scope 2,climate_change,kt CO2eq,0.14850514601872514,0.7467514129891104
+ESP,Spain,Europe,Scope 2,climate_change,kt CO2eq,0.1375307542038579,0.6915671798891012
+SWE,Sweden,Europe,Scope 2,climate_change,kt CO2eq,0.12567384570541557,0.6319452515434129
+SVK,Slovakia,Europe,Scope 2,climate_change,kt CO2eq,0.094627013603137,0.4758276599126901
+EST,Estonia,Europe,Scope 2,climate_change,kt CO2eq,0.08480468876762562,0.4264365435345997
+AUT,Austria,Europe,Scope 2,climate_change,kt CO2eq,0.04024157463456267,0.20235293876939006
+AUS,Australia,Asia and Pacific,Scope 2,climate_change,kt CO2eq,0.03509684989133846,0.17648292298584073
+BGR,Bulgaria,Europe,Scope 2,climate_change,kt CO2eq,0.03386415600217983,0.1702843774930389
+LVA,Latvia,Europe,Scope 2,climate_change,kt CO2eq,0.02638109441192923,0.13265614058803912
+PRT,Portugal,Europe,Scope 2,climate_change,kt CO2eq,0.012083104911053372,0.060759346780393984
+ZAF,South Africa,Africa,Scope 2,climate_change,kt CO2eq,0.010478999827563243,0.052693176888017126
+BRA,Brazil,America,Scope 2,climate_change,kt CO2eq,0.007675030943144587,0.03859354611728873
+MLT,Malta,Europe,Scope 2,climate_change,kt CO2eq,0.007110043784371487,0.03575253373189087
+LTU,Lithuania,Europe,Scope 2,climate_change,kt CO2eq,0.005707335065935909,0.028699076356266763
+LUX,Luxembourg,Europe,Scope 2,climate_change,kt CO2eq,0.004451933072692072,0.022386344188682655
+CHE,Switzerland,Europe,Scope 2,climate_change,kt CO2eq,0.0037303661660138586,0.018757977619754496
+NOR,Norway,Europe,Scope 2,climate_change,kt CO2eq,0.0018650918788106143,0.009378530193699327
+IRL,Ireland,Europe,Scope 2,climate_change,kt CO2eq,0.0010920673112979442,0.005491411103613413
+MEX,Mexico,America,Scope 2,climate_change,kt CO2eq,2.2363527107013588e-05,0.0001124539850253873
+CYP,Cyprus,Middle East,Scope 2,climate_change,kt CO2eq,1.0043790491347877e-06,5.050474641622796e-06
+FRA,France,Europe,Scope 2,climate_change,kt CO2eq,8.781757266513703e-07,4.415866940038306e-06
+USA,United States,America,Scope 2,climate_change,kt CO2eq,3.678632944812796e-08,1.849783945575107e-07
+CHN,China,Asia and Pacific,Scope 2,climate_change,kt CO2eq,2.5774298016691357e-09,1.2960489234723102e-08
+TWN,Taiwan,Asia and Pacific,Scope 2,climate_change,kt CO2eq,2.3718471781673293e-09,1.1926726306624809e-08
+IND,India,Asia and Pacific,Scope 2,climate_change,kt CO2eq,1.7311277820801907e-09,8.704897789670446e-09
+JPN,Japan,Asia and Pacific,Scope 2,climate_change,kt CO2eq,8.306370431638635e-10,4.176820819296728e-09
+DNK,Denmark,Denmark,Scope 3,climate_change,kt CO2eq,1344.0286027323182,37.0196878449852
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 3,climate_change,kt CO2eq,324.223001967942,8.93034143813361
+RoW Middle East,RoW Middle East,Middle East,Scope 3,climate_change,kt CO2eq,216.58777735185734,5.965655710231794
+RUS,Russia,Europe,Scope 3,climate_change,kt CO2eq,187.88899568522015,5.175181507026248
+CHN,China,Asia and Pacific,Scope 3,climate_change,kt CO2eq,187.22895592826546,5.157001487852497
+DEU,Germany,Europe,Scope 3,climate_change,kt CO2eq,165.28278111700143,4.55251990222788
+IND,India,Asia and Pacific,Scope 3,climate_change,kt CO2eq,90.22723644405728,2.4852031582395697
+RoW Africa,RoW Africa,Africa,Scope 3,climate_change,kt CO2eq,89.69575846910287,2.470564222215962
+RoW Europe,RoW Europe,Europe,Scope 3,climate_change,kt CO2eq,75.0682219194553,2.0676659238403032
+NOR,Norway,Europe,Scope 3,climate_change,kt CO2eq,69.94431330470664,1.9265338846272924
+NLD,Netherlands,Europe,Scope 3,climate_change,kt CO2eq,67.52523992887744,1.8599033523117927
+USA,United States,America,Scope 3,climate_change,kt CO2eq,57.601802702517105,1.5865739397365377
+GBR,United Kingdom,Europe,Scope 3,climate_change,kt CO2eq,56.13560114097296,1.5461891413655433
+RoW America,RoW America,America,Scope 3,climate_change,kt CO2eq,55.29202422980198,1.5229538070420772
+JPN,Japan,Asia and Pacific,Scope 3,climate_change,kt CO2eq,53.78295395655675,1.4813882404030083
+POL,Poland,Europe,Scope 3,climate_change,kt CO2eq,47.03714863509841,1.2955829630779954
+FRA,France,Europe,Scope 3,climate_change,kt CO2eq,42.61832426872456,1.1738716406013603
+AUS,Australia,Asia and Pacific,Scope 3,climate_change,kt CO2eq,38.98704266720065,1.0738522577605722
+CAN,Canada,America,Scope 3,climate_change,kt CO2eq,34.99723076494029,0.963957579268152
+KOR,South Korea,Asia and Pacific,Scope 3,climate_change,kt CO2eq,33.6787431465775,0.9276413878120766
+GRC,Greece,Europe,Scope 3,climate_change,kt CO2eq,29.732178452063675,0.818937902816349
+ITA,Italy,Europe,Scope 3,climate_change,kt CO2eq,28.252426899867565,0.7781798858819857
+SWE,Sweden,Europe,Scope 3,climate_change,kt CO2eq,27.65935195455694,0.761844333722272
+ZAF,South Africa,Africa,Scope 3,climate_change,kt CO2eq,26.195316629785353,0.7215192017965864
+BEL,Belgium,Europe,Scope 3,climate_change,kt CO2eq,25.66709066884706,0.70696983867604
+ESP,Spain,Europe,Scope 3,climate_change,kt CO2eq,23.341745502088774,0.6429209396941026
+TUR,Turkey,Middle East,Scope 3,climate_change,kt CO2eq,21.8616677781835,0.6021539387434525
+CZE,Czech Republic,Europe,Scope 3,climate_change,kt CO2eq,20.643178712660376,0.5685920898687393
+TWN,Taiwan,Asia and Pacific,Scope 3,climate_change,kt CO2eq,18.154627857837237,0.5000478820709001
+IRL,Ireland,Europe,Scope 3,climate_change,kt CO2eq,17.480098221006116,0.4814687561900109
+BRA,Brazil,America,Scope 3,climate_change,kt CO2eq,16.62289529592962,0.45785810933202864
+IDN,Indonesia,Asia and Pacific,Scope 3,climate_change,kt CO2eq,13.919485835450814,0.3833958738255441
+BGR,Bulgaria,Europe,Scope 3,climate_change,kt CO2eq,13.191922632766552,0.3633560007185925
+FIN,Finland,Europe,Scope 3,climate_change,kt CO2eq,12.303309552518526,0.3388801980616572
+CHE,Switzerland,Europe,Scope 3,climate_change,kt CO2eq,11.255838371984646,0.3100288357832419
+MEX,Mexico,America,Scope 3,climate_change,kt CO2eq,9.547997418535989,0.26298836442941687
+PRT,Portugal,Europe,Scope 3,climate_change,kt CO2eq,9.21900760338674,0.253926726725989
+AUT,Austria,Europe,Scope 3,climate_change,kt CO2eq,9.21656289727819,0.2538593901701841
+HUN,Hungary,Europe,Scope 3,climate_change,kt CO2eq,8.89024832733763,0.2448714389510567
+ROU,Romania,Europe,Scope 3,climate_change,kt CO2eq,6.81926825343463,0.18782872742452025
+SVK,Slovakia,Europe,Scope 3,climate_change,kt CO2eq,6.489448228713166,0.17874422257440611
+LVA,Latvia,Europe,Scope 3,climate_change,kt CO2eq,6.292521898369893,0.17332011830836144
+HRV,Croatia,Europe,Scope 3,climate_change,kt CO2eq,5.794135750647817,0.15959265776367648
+EST,Estonia,Europe,Scope 3,climate_change,kt CO2eq,5.790735191620695,0.15949899336291407
+LUX,Luxembourg,Europe,Scope 3,climate_change,kt CO2eq,5.106276552067563,0.14064638477441463
+CYP,Cyprus,Middle East,Scope 3,climate_change,kt CO2eq,5.015353909279982,0.13814202746595064
+SVN,Slovenia,Europe,Scope 3,climate_change,kt CO2eq,3.8435864099063277,0.10586706920574239
+LTU,Lithuania,Europe,Scope 3,climate_change,kt CO2eq,3.3191680303365634,0.09142258143786401
+MLT,Malta,Europe,Scope 3,climate_change,kt CO2eq,1.12069119368766,0.03086812146452798
 DNK,Denmark,Denmark,Outside protocol,land_use,km2,0.6451,100.0
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,land_use,km2,0.05800812832185682,62.17113674606345
 RoW Europe,RoW Europe,Europe,Scope 2,land_use,km2,0.0164092084935395,17.58683092628103

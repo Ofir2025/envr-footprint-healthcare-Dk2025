@@ -1,22 +1,22 @@
 indicator,unit,producing_world_region,value
-climate_change,kt CO2eq,Denmark,2971.0210601106774
+climate_change,kt CO2eq,Denmark,2978.4638993360854
 material_extraction,kt,Denmark,1844.98905554287
-climate_change,kt CO2eq,Europe,1321.6076778658241
-climate_change,kt CO2eq,Asia and Pacific,1153.381415403501
+climate_change,kt CO2eq,Europe,1343.4785970627822
+climate_change,kt CO2eq,Asia and Pacific,1164.7587076557575
 land_use,km2,Asia and Pacific,1040.5521676844387
 land_use,km2,Europe,955.0016334748041
 land_use,km2,Africa,581.3259584550088
 material_extraction,kt,Europe,542.2471023169171
 land_use,km2,America,474.9672829951887
 material_extraction,kt,Asia and Pacific,391.17958526859775
+climate_change,kt CO2eq,Middle East,336.4419423046809
 land_use,km2,Denmark,332.9295457243551
-climate_change,kt CO2eq,Middle East,329.66644343433546
 climate_change,kt CO2eq,Unallocated,252.90240567336662
-climate_change,kt CO2eq,America,210.69352504680793
+climate_change,kt CO2eq,America,214.77585870211468
 material_extraction,kt,Middle East,161.1744482061826
 waste_generation,kt,Denmark,159.65498448227711
 land_use,km2,Middle East,128.98691951097902
-climate_change,kt CO2eq,Africa,121.11383948963878
+climate_change,kt CO2eq,Africa,128.037290468996
 material_extraction,kt,America,115.74974318527137
 waste_generation,kt,Europe,60.75443738263327
 material_extraction,kt,Africa,48.89801953145546

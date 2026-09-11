@@ -134,6 +134,55 @@ SCOPE_TAG: dict[str, str] = {
     "zorg_en_welzijn": "_zorg_en_welzijn",
 }
 
+#: The care boundary the manuscript reports, and the only one the year-scoped
+#: silver frames are ever written for.
+MANUSCRIPT_BOUNDARY = "health_eldercare"
+
+
+def require_manuscript_boundary(path: str | _os.PathLike[str],
+                                reader: str) -> None:
+    """Refuse to read a manuscript-boundary silver frame on another boundary.
+
+    ``dk_data_<year>.csv`` and ``dk_expenditure_breakdown_<year>.csv`` are
+    scoped on the YEAR and not on the care boundary, because
+    :mod:`analysis.main_2025` writes them only for
+    :data:`MANUSCRIPT_BOUNDARY` and skips the write for every other one. The
+    files therefore have exactly one possible boundary by construction, and a
+    boundary suffix in the name would distinguish nothing.
+
+    What the name could not prevent is a reader on a *different* boundary
+    opening them anyway and publishing the manuscript boundary's expenditure
+    as that boundary's own. That is prevented here instead of in the name, and
+    prevented out loud: the caller is told which boundary it is on, which file
+    it tried to read, and what to run.
+
+    Parameters
+    ----------
+    path : str or os.PathLike
+        The silver frame about to be read. Named in the message so the caller
+        does not have to find it.
+    reader : str
+        Module doing the read, e.g. ``"analysis.lenzen_replication"``.
+
+    Returns
+    -------
+    None
+        On the manuscript boundary, where the read is legitimate.
+
+    Raises
+    ------
+    SystemExit
+        On any other boundary.
+    """
+    if SCOPE == MANUSCRIPT_BOUNDARY:
+        return
+    raise SystemExit(
+        f"{reader} reads {path}, which analysis.main_2025 writes only for "
+        f"HC_SCOPE={MANUSCRIPT_BOUNDARY}; this run is on HC_SCOPE={SCOPE!r}, "
+        f"so the file holds the manuscript boundary's expenditure and not this "
+        f"run's. Run {reader} on the manuscript boundary, or give this module "
+        f"its own boundary-scoped input before running it on another one.")
+
 
 def table_year(analysis_year: str | None = None) -> str:
     """EXIOBASE table year behind one analysis year.
