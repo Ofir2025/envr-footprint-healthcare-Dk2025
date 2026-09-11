@@ -254,14 +254,40 @@ disk are
 
 | Folder | Variant | Background stem | Climate total, kt CO2e | Transport share of climate |
 |:---|:---|:---|:---|:---|
-| `2019a/` | a | `2016_v3_7` | 8,694.66 | 34.93 % |
-| `2019b/` | b | `2016_v3_7_snacship` | 6,625.53 | 16.56 % |
-| `2019c/` | c | `2016_snacship` | 4,109.26 | 21.17 % |
-| `2019d/` | d | `2016_snacship_capital_zorg_en_welzijn` | 5,977.78 | 19.83 % |
+| `2016a/` | a | `2016_v3_7` | 8,240.97 | 34.95 % |
+| `2016b/` | b | `2016_v3_7_snacship` | 6,277.87 | 16.55 % |
+| `2016c/` | c | `2016_snacship` | 3,901.22 | 21.12 % |
+| `2016d/` | d | `2016_snacship_capital_zorg_en_welzijn` | 5,681.42 | 19.81 % |
+| `2016_uncorrected/` | - | `2016` | 6,092.21 | 46.81 % |
+| `2019a/` | a | `2016_y2019_v3_7` | 8,698.33 | 34.92 % |
+| `2019b/` | b | `2016_y2019_v3_7_snacship` | 6,629.20 | 16.55 % |
+| `2019c/` | c | `2016_y2019_snacship` | 4,112.93 | 21.16 % |
+| `2019d/` | d | `2016_y2019_snacship_capital_zorg_en_welzijn` | 5,981.45 | 19.82 % |
+| `2019_uncorrected/` | - | `2016_y2019` | 6,422.53 | 46.83 % |
 | `2022c/` | c | `2022_snacship` | 4,675.47 | 14.87 % |
 | `2022d/` | d | `2022_snacship_capital_zorg_en_welzijn` | 6,495.66 | 14.50 % |
-| `2019_uncorrected/` | — | `2016` | 6,418.86 | 46.85 % |
-| `2022_uncorrected/` | — | `2022` | 6,087.33 | 32.19 % |
+| `2022_uncorrected/` | - | `2022` | 6,087.33 | 32.19 % |
+
+**Thirteen folders, not eight.** 2016 and 2019 each carry the full grid - a, b, c,
+d and the uncorrected configuration - because every one of those five is
+buildable for both years and withholding one would leave a reader unable to
+separate the release effect from the correction effect in the earlier year.
+
+**The background stem carries the analysis year when it differs from the table
+year.** `table_year` maps 2016 and 2019 onto the same EXIOBASE table, but a
+prepared background also stores `Ystim`, the Danish demand vector, which is a
+property of the analysis year. Both years resolving to one stem meant one demand
+vector overwrote the other; `2016_y2019_snacship` is the 2019 analysis on the
+2016 table, and `2016_snacship` is now the 2016 analysis on it.
+`constants.mrio_stem` strips the year element, so the two still share
+`mrio2016.pkl` - the table is the same table.
+
+**2016 against 2019 on the same release isolates the reference year.** `2016a`
+and `2019a` differ only in the Danish expenditure vector, since both run on
+EXIOBASE v3.7's `IOT_2016_ixi` uncorrected: 8,240.97 against 8,698.33 kt, a 5.6 %
+difference that is Danish health expenditure growth between 2016 and 2019 and
+nothing else. The transport share is 34.95 % against 34.92 %, which is the same
+model structure reporting the same thing twice, as it should.
 
 **There is no `2022a` or `2022b`, and there cannot be.** EXIOBASE v3.7 (2019)
 publishes `IOT_<year>_ixi` for 1995-2016 — 22 tables, verified against Zenodo
