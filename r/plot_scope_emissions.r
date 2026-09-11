@@ -14,6 +14,8 @@ args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
 source(file.path(here, "_dk_common.r"))
 
+SUB <- "scopes"
+
 UNIT_LAB <- expression("Greenhouse gas emissions (kt CO"[2]*"-eq)")
 
 scope_factor <- function(x) factor(x, levels = SCOPE_ORDER)
@@ -45,7 +47,7 @@ p1 <- ggplot(mutate(d_cont, region = factor(region, levels = ord)),
   theme_dkhc() +
   theme(panel.grid.major.y = element_blank())
 
-dk_save(p1, "scope_emissions_by_continent_2022", w = 15, h = 9.5)
+dk_save(p1, "scope_emissions_by_continent_2022", w = 15, h = 9.5, sub = SUB)
 
 # ----------------------------------------------------------- 2. industry group
 d_ind <- read_csv(gold_path("scope_by_industry_group.csv"), show_col_types = FALSE) %>%
@@ -74,7 +76,7 @@ p2 <- ggplot(mutate(d_ind, producing_sector_group =
   theme_dkhc() +
   theme(panel.grid.major.y = element_blank())
 
-dk_save(p2, "scope_emissions_by_industry_group_2022", w = 16, h = 10)
+dk_save(p2, "scope_emissions_by_industry_group_2022", w = 16, h = 10, sub = SUB)
 
 # ------------------------------------------------------------- 3. top origins
 d_top <- read_csv(gold_path("scope_by_origin_industry_top25.csv"),
@@ -108,7 +110,7 @@ p3 <- ggplot(mutate(d_top, pair = factor(pair, levels = ord_p)),
         axis.text.y = element_text(size = 13),
         plot.margin = margin(14, 26, 12, 24))
 
-dk_save(p3, "scope_emissions_top_origins_2022", w = 16, h = 11)
+dk_save(p3, "scope_emissions_top_origins_2022", w = 16, h = 11, sub = SUB)
 
 # ----------------------------------------------- 4. continent x industry group
 d_cross <- read_csv(gold_path("scope_by_continent_and_industry_group.csv"),
@@ -149,6 +151,7 @@ p4 <- ggplot(mutate(d_cross, key = factor(key, levels = key_ord)),
   theme(panel.grid.major.y = element_blank(),
         axis.text.y = element_text(size = 12))
 
-dk_save(p4, "scope_emissions_continent_by_industry_2022", w = 20, h = 12.5)
+dk_save(p4, "scope_emissions_continent_by_industry_2022", w = 20, h = 12.5,
+        sub = SUB)
 
-cat("\nscope figures written to ", file.path(fig_dir), "\n", sep = "")
+cat("\nscope figures written to ", file.path(fig_dir, SUB), "\n", sep = "")
