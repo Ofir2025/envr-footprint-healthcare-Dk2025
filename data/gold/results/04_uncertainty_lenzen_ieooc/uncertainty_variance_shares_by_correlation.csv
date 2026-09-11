@@ -1,4 +1,4 @@
-rho_mrio,mrio_variance_share_pct,note
-1.0,78.60301242725508,frozen-input estimate: the share of output variance that disappears when the bottom-up terms alone are varied
-0.76,78.4296161524205,frozen-input estimate: the share of output variance that disappears when the bottom-up terms alone are varied
-0.0,78.42860704397073,frozen-input estimate: the share of output variance that disappears when the bottom-up terms alone are varied
+rho_mrio,mrio_variance_share_pct,note,draws,seed
+1.0,78.60301242725508,frozen-input estimate: the share of output variance that disappears when the bottom-up terms alone are varied,40000,17
+0.76,78.4296161524205,frozen-input estimate: the share of output variance that disappears when the bottom-up terms alone are varied,40000,17
+0.0,78.42860704397073,frozen-input estimate: the share of output variance that disappears when the bottom-up terms alone are varied,40000,17

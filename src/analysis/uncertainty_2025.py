@@ -12,17 +12,27 @@ implementation. Design decisions, each defensible in the SI:
    Methods, as in the IEooc reference implementation.
 2. **MRIO parameter uncertainty is included**, not waved away. EXIOBASE ships
    no element-level standard deviations, so it enters as one multiplicative
-   factor applied jointly to all MRIO components, calibrated to the only
-   published Monte Carlo estimate for this exact quantity: Lenzen et al.
-   (2020) SI Tab. SI 7.1 gives the Danish health-care GHG footprint as
-   2.84 +/- 0.24 Mt CO2e, i.e. a relative SD of 8.35 % obtained by propagating
-   Eora's Q, T and y. Because it is shared, it cancels in group *rankings* -
-   which is the statistically correct behaviour.
+   factor applied jointly to all MRIO components, calibrated to the closest
+   published Monte Carlo estimate: Lenzen et al. (2020) SI Tab. SI 7.1 gives
+   the Danish health-care GHG footprint as 2.84 +/- 0.24 Mt CO2e, i.e. a
+   relative SD of 8.35 % obtained by propagating Eora's Q, T and y. This is a
+   TRANSFER, not a reproduction. The calibration target is an Eora footprint
+   39 % smaller than this study's EXIOBASE 4.675 Mt, and Lenzen's own Fig. SI
+   7.1 makes the relative SD a decreasing function of footprint size, so
+   carrying 8.35 % up to a larger footprint errs wide rather than narrow.
+   Lenzen also fit a normal to their draws and report sigma_F; this study
+   reinterprets the same number as a lognormal CV. Because the factor is
+   shared, it cancels in group *rankings* - which is the statistically correct
+   behaviour.
 3. **Central estimate and interval are consistent.** All multipliers have
-   median 1, so the MC median reproduces the deterministic model. Structural
-   corrections (price base year, waste-extension reference year, pharma mapping) are
-   discrete SCENARIOS, never hidden inside a distribution. E[X] = exp(sigma^2/2)
-   > 1 for a median-1 lognormal, so mean and median are both reported.
+   median 1, so the simulation adds dispersion without shifting the centre.
+   The median of a SUM of lognormals is not the sum of the medians, so the MC
+   median reproduces the deterministic model to within 0.5 % (0.45 % for
+   climate), not exactly; only the MRIO block on its own has median exactly 1.
+   Structural corrections (price base year, waste-extension reference year,
+   pharma mapping) are discrete SCENARIOS, never hidden inside a distribution.
+   E[X] = exp(sigma^2/2) > 1 for a median-1 lognormal, so mean and median are
+   both reported.
 4. **Correlation.** Commuting and visitor travel are transplants of the same
    Dutch study through the same DK/NL ratio method, so they share a method
    factor with rho = 0.8 (rho in {0, 0.5, 0.8} reported); ignoring it would
@@ -37,7 +47,10 @@ implementation. Design decisions, each defensible in the SI:
 Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 .venv/bin/python -m analysis.uncertainty_2025
 """
 
+from __future__ import annotations
+
 import os
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -72,10 +85,16 @@ INDICATORS = ["Global warming (ktCO2eq)", "Material extraction (kt)",
 # 95 % factor range = GSD^(+/-1.96).
 # ---------------------------------------------------------------------------
 PARAMS = {
+    # Each `why` is the gold table's own provenance cell and is carried verbatim
+    # into the tables of record, which allow 180 characters; keep them inside it
+    # so nothing is cut mid-word. The fuller argument - in particular that the
+    # mrio calibration is a transfer from Eora's 2.84 Mt to EXIOBASE's 4.675 Mt,
+    # and that Lenzen's own Fig. SI 7.1 makes it err wide - is in section 04 of
+    # docs/methods/replications.md and in docs/revision/uncertainty.md.
     "mrio": dict(gsd=None, cv=0.0835,
                  why="Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish "
-                     "health-care GHG footprint from a full MRIO Monte Carlo (Eora "
-                     "Q, T, y). Applied jointly to all MRIO components."),
+                     "health-care GHG footprint from an Eora MRIO Monte Carlo, "
+                     "transferred from their 2.84 Mt to this study's 4.675 Mt"),
     "direct": dict(gsd=1.10,
                    why="Statistics Denmark DRIVHUS/AFFALD accounts; residual risk is the "
                        "alpha-proration of industry 880000 and the medical-N2O netting"),
@@ -88,8 +107,9 @@ PARAMS = {
     "commute": dict(gsd=1.25,
                     why="ratio method on NL base values with DST employment and TU distances"),
     "visitor": dict(gsd=1.40,
-                    why="no Danish source; Dutch base is itself a transplanted English "
-                        "per-capita figure"),
+                    why="patient travel from the Danish travel survey (TU Tabel 15, "
+                        "purpose 33); the VISITOR part alone has no Danish source, "
+                        "carrying the NHS England ratio 0.236 (Tennison 2021)"),
 }
 
 # Discrete scenarios (structural choices, NOT random variables)
@@ -111,19 +131,46 @@ BU_TO_GROUP = {  # bottom-up row -> Figure-1 contribution group
 PHARMA_GROUP = "Pharmaceuticals and chemical products"
 
 
-def _ln(rng, gsd, n):
-    """Median-1 lognormal factor."""
+def _ln(rng: np.random.Generator, gsd: float, n: int) -> np.ndarray:
+    """Draw a median-1 lognormal multiplier.
+
+    Parameters
+    ----------
+    rng : numpy.random.Generator
+        Generator supplying the draws; consumed in place.
+    gsd : float
+        Geometric standard deviation, so that :math:`\\sigma=\\ln(\\mathrm{GSD})`.
+    n : int
+        Number of draws.
+
+    Returns
+    -------
+    numpy.ndarray
+        Array of ``n`` positive multipliers with median 1.
+    """
     return rng.lognormal(0.0, np.log(gsd), n)
 
 
-def _ln_cv(rng, cv, n):
-    """Median-1 lognormal with a target coefficient of variation."""
-    sigma = np.sqrt(np.log(1 + cv ** 2))
-    return rng.lognormal(0.0, sigma, n)
+def load_groups() -> tuple[pd.DataFrame, dict[str, pd.DataFrame], pd.Series]:
+    """Read the deterministic group x component decomposition the draws perturb.
 
+    Returns
+    -------
+    mrio : pandas.DataFrame
+        MRIO amount per contribution group (rows) and indicator (columns),
+        i.e. each Figure-1 group total less the bottom-up rows mapped to it.
+    parts : dict of str to pandas.DataFrame
+        One frame per bottom-up component, same shape as ``mrio``, zero
+        everywhere except in the group that component belongs to.
+    total : pandas.Series
+        Deterministic total per indicator, from ``table_01.csv``.
 
-def load_groups():
-    """Group x component decomposition, from the model's own outputs."""
+    Raises
+    ------
+    AssertionError
+        When the group table does not reproduce the reported total, which
+        means one of the two inputs is stale.
+    """
     fig1 = pd.read_csv(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
                                     "full_results_tables_fig1_absolute.csv"),
                        index_col=0)[INDICATORS].astype(float)
@@ -150,10 +197,69 @@ def load_groups():
     return mrio, parts, total
 
 
-def run_mc(mrio, parts, pharma_scenario="A", price_base_year="none",
-           reference_year="central", rho=RHO_TRAVEL, rho_mrio=RHO_MRIO,
-           n=N_DRAWS, seed=SEED, cv_target=None):
-    """Return (group_draws dict of arrays [n x groups], totals [n x indicators])."""
+def run_mc(mrio: pd.DataFrame, parts: dict[str, pd.DataFrame],
+           pharma_scenario: str = "A", price_base_year: str = "none",
+           reference_year: str = "central", rho: float = RHO_TRAVEL,
+           rho_mrio: float = RHO_MRIO, n: int = N_DRAWS, seed: int = SEED,
+           cv_target: float | None = None,
+           ) -> tuple[list[str], dict[str, np.ndarray], dict[str, np.ndarray],
+                      dict[str, np.ndarray]]:
+    """Simulate the footprint by recombining the deterministic amounts.
+
+    Parameters
+    ----------
+    mrio : pandas.DataFrame
+        MRIO amount per contribution group and indicator, from
+        :func:`load_groups`.
+    parts : dict of str to pandas.DataFrame
+        Bottom-up amount per component, group and indicator.
+    pharma_scenario : {'A', 'B'}, optional
+        ``'A'`` keeps the *Chemicals nec* mapping; ``'B'`` applies the
+        pharmaceutical-specific ratio, a structural scenario rather than a
+        parameter.
+    price_base_year : {'none', 'nowcast_adjusted'}, optional
+        Structural scenario on the price base year.
+    reference_year : {'central', 'low', 'high'}, optional
+        Structural scenario on the waste-extension reference year; applies to
+        the waste indicator only.
+    rho : float, optional
+        Correlation imposed between the log-factors of commuting and visitor
+        travel.
+    rho_mrio : float, optional
+        Correlation of the MRIO factor across contribution groups. At the
+        default 1.0 every group carries numerically the same draw.
+    n : int, optional
+        Number of draws.
+    seed : int, optional
+        Seed of the generator, so a run is reproducible.
+    cv_target : float, optional
+        Relative standard deviation the MRIO block must reproduce. Defaults to
+        the calibrated ``PARAMS["mrio"]["cv"]``.
+
+    Returns
+    -------
+    groups : list of str
+        Contribution-group names, in the column order of every array below.
+    group_draws : dict of str to numpy.ndarray
+        Per indicator, an ``(n, len(groups))`` array of group totals.
+    totals : dict of str to numpy.ndarray
+        Per indicator, the ``(n,)`` array of footprint totals.
+    factors : dict of str to numpy.ndarray
+        The realised multipliers, one ``(n,)`` array per stochastic parameter.
+        ``factors["mrio"]`` is the multiplier realised on the whole MRIO block
+        of ``INDICATORS[0]``, i.e. the drawn block amount over its
+        deterministic amount; at ``rho_mrio = 1`` that is exactly the shared
+        factor :math:`e^{\\sigma_M z_0}` every group carries. It is returned
+        so the audit can test the parameter that carries most of the variance
+        rather than skipping it.
+
+    Notes
+    -----
+    The draw order of ``rng`` is part of the published result: every reported
+    median and interval is reproducible only from this sequence at the seed
+    and draw count the output tables now record. Adding or removing a draw
+    here moves every number in the layer.
+    """
     rng = np.random.default_rng(seed)
     cv_target = PARAMS["mrio"]["cv"] if cv_target is None else float(cv_target)
     # MRIO factor, correlated across groups with correlation rho_mrio.
@@ -161,7 +267,11 @@ def run_mc(mrio, parts, pharma_scenario="A", price_base_year="none",
     # median 1 with the same sigma, while the correlation between any two
     # groups' log-factors is exactly rho.
     shared = rng.standard_normal(n)
-    f = {"mrio": None,
+    # "mrio" is filled in below, from the block actually realised on the first
+    # indicator. It used to be left at None, which made the audit's median-1
+    # and realised-spread checks silently skip the one parameter carrying
+    # 78 % of the variance.
+    f: dict[str, np.ndarray] = {
          "B_HEAL": _ln(rng, PARAMS["direct"]["gsd"], n),
          "B_ANAE": _ln(rng, PARAMS["anaesthetic"]["gsd"], n),
          "B_PMDI": _ln(rng, PARAMS["pmdi"]["gsd"], n)}
@@ -203,6 +313,13 @@ def run_mc(mrio, parts, pharma_scenario="A", price_base_year="none",
             own = rng.standard_normal(n)
             mrio_factor[g] = np.exp(sigma_mrio * (np.sqrt(rho_mrio) * shared
                                                   + np.sqrt(1.0 - rho_mrio) * own))
+        if ind == INDICATORS[0]:
+            # The block multiplier actually realised, amount-weighted over the
+            # groups. Nothing is drawn here, so the generator's sequence - and
+            # therefore every published median and interval - is untouched.
+            amt = mrio[ind].values.astype(float)
+            f["mrio"] = (sum(amt[gi] * mrio_factor[g]
+                             for gi, g in enumerate(groups)) / amt.sum())
         G = np.empty((n, len(groups)))
         # pharma-mapping ratio (scenario B), truncated at 1.0 without a point mass
         if pharma_scenario == "B":
@@ -232,7 +349,26 @@ def run_mc(mrio, parts, pharma_scenario="A", price_base_year="none",
     return groups, out, totals, f
 
 
-def summarize(totals, deterministic):
+def summarize(totals: dict[str, np.ndarray],
+              deterministic: pd.Series) -> pd.DataFrame:
+    """Percentiles, moments and Monte Carlo standard error per indicator.
+
+    Parameters
+    ----------
+    totals : dict of str to numpy.ndarray
+        Simulated footprint totals, as returned by :func:`run_mc`.
+    deterministic : pandas.Series
+        Deterministic total per indicator, for the ``deterministic`` column.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per indicator. ``median`` is the reported central value, not
+        ``mean``: median-1 multipliers leave the median at the deterministic
+        estimate to within 0.5 %, while the mean is inflated (see
+        :func:`analytic_moments`). ``mcse_median_pct`` is the standard error
+        of the median itself, from twenty equal batches of the draws.
+    """
     rows = []
     for ind, arr in totals.items():
         q = np.percentile(arr, [2.5, 16, 50, 84, 97.5])
@@ -263,7 +399,8 @@ def _sigma(name: str) -> float:
     return float(np.log(PARAMS[_PARAM_OF[name]]["gsd"]))
 
 
-def sigma_for_rho(amounts, rho, target_cv=None):
+def sigma_for_rho(amounts: np.ndarray, rho: float,
+                  target_cv: float | None = None) -> float:
     r"""Log-scale spread that holds the calibrated total CV at a given correlation.
 
     Parameters
@@ -289,7 +426,9 @@ def sigma_for_rho(amounts, rho, target_cv=None):
     group's marginal spread and lets the TOTAL's spread fall as the correlation
     falls, so the independence case silently abandoned the calibration target
     and reported an interval roughly half as wide as the evidence supports
-    (block CV 4.27 % against the calibrated 8.35 %). Rodrigues (2016) shows the
+    (block CV 4.29 % against the calibrated 8.35 %, the
+    ``mrio_block_cv_if_not_recalibrated_pct`` column of
+    ``uncertainty_mrio_correlation.csv``). Rodrigues (2016) shows the
     two assumptions - uncorrelated disaggregates and a known aggregate
     uncertainty - are mutually exclusive, and Rodrigues et al. (2018) measure
     the penalty: assuming independence between country accounts understates the
@@ -329,20 +468,25 @@ def sigma_for_rho(amounts, rho, target_cv=None):
     return 0.5 * (lo + hi)
 
 
-def tier1_error_propagation(mrio, parts, rho=RHO_TRAVEL):
+def tier1_error_propagation(mrio: pd.DataFrame,
+                            parts: dict[str, pd.DataFrame],
+                            rho: float = RHO_TRAVEL) -> pd.DataFrame:
     r"""IPCC Tier 1 uncertainty, reported alongside the Tier 2 simulation.
 
     Parameters
     ----------
-    mrio, parts : pandas.DataFrame and dict
-        Deterministic amounts, as loaded by :func:`load_groups`.
-    rho : float
+    mrio : pandas.DataFrame
+        Deterministic MRIO amount per contribution group and indicator.
+    parts : dict of str to pandas.DataFrame
+        Deterministic bottom-up amount per component, group and indicator.
+    rho : float, optional
         Correlation of the travel pair's log-factors.
 
     Returns
     -------
     pandas.DataFrame
-        One row per indicator with the Tier 1 combined uncertainty, in percent.
+        One row per indicator with the Tier 1 combined uncertainty, in percent
+        of the deterministic total.
 
     Notes
     -----
@@ -361,6 +505,22 @@ def tier1_error_propagation(mrio, parts, rho=RHO_TRAVEL):
     The covariance of the correlated travel pair is added, since ignoring it
     would make the Tier 1 figure inconsistent with the Tier 2 one for a reason
     that has nothing to do with the tier.
+
+    The per-term variance is the same expression :func:`sobol_first_order` and
+    :func:`analytic_moments` use,
+
+    .. math::
+        \operatorname{Var}(a_i h_i) =
+        a_i^2\left(e^{\sigma_i^2}-1\right)e^{\sigma_i^2},
+
+    because :math:`a_i` is the *median* of the term, not its mean. This module
+    used to compute :math:`a_i^2(e^{\sigma_i^2}-1)` here, the variance of a
+    lognormal whose mean is :math:`a_i`, so the three closed forms in this
+    module disagreed with one another; the climate figure moved from 7.84 % to
+    7.90 % when they were reconciled. The residual gap against the Tier 2
+    coefficient of variation is now a matter of what each divides by: Tier 1
+    normalises on the deterministic total, the reported Tier 2 CV on the
+    simulated mean, which sits about 0.84 % above it.
     """
     rows = []
     for ind in INDICATORS:
@@ -368,8 +528,8 @@ def tier1_error_propagation(mrio, parts, rho=RHO_TRAVEL):
         for code in BU_TO_GROUP:
             terms.append((float(parts[code][ind].sum()), _sigma(code)))
         total = sum(a for a, _ in terms)
-        # A lognormal's relative standard deviation is sqrt(exp(s^2) - 1).
-        var = sum((a * np.sqrt(np.exp(s ** 2) - 1)) ** 2 for a, s in terms)
+        var = sum(a ** 2 * (np.exp(s ** 2) - 1) * np.exp(s ** 2)
+                  for a, s in terms)
         a_c = float(parts["B_COMM"][ind].sum())
         a_v = float(parts["B_VISI"][ind].sum())
         s_c, s_v = _sigma("B_COMM"), _sigma("B_VISI")
@@ -381,7 +541,9 @@ def tier1_error_propagation(mrio, parts, rho=RHO_TRAVEL):
     return pd.DataFrame(rows)
 
 
-def sobol_first_order(mrio, parts, pharma_scenario="A", rho=RHO_TRAVEL):
+def sobol_first_order(mrio: pd.DataFrame, parts: dict[str, pd.DataFrame],
+                      pharma_scenario: str = "A",
+                      rho: float = RHO_TRAVEL) -> pd.DataFrame:
     r"""Exact variance decomposition of the additive lognormal model.
 
     Parameters
@@ -412,6 +574,12 @@ def sobol_first_order(mrio, parts, pharma_scenario="A", rho=RHO_TRAVEL):
     .. math::
         \operatorname{Var}(F)=\sum_j a_j^2 (e^{\sigma_j^2}-1)e^{\sigma_j^2}
         + 2 a_C a_V e^{(\sigma_C^2+\sigma_V^2)/2}(e^{\rho\sigma_C\sigma_V}-1)
+
+    That the shares sum to 100 % is arithmetic - every share is its own term
+    over the sum of the same terms - and so is not evidence that the
+    decomposition is right. The evidence is the frozen-input comparison in
+    :mod:`analysis.uncertainty_audit`, which rebuilds two of these shares from
+    the draws and finds the closed form.
     """
     rows = []
     for ind in INDICATORS:
@@ -434,8 +602,32 @@ def sobol_first_order(mrio, parts, pharma_scenario="A", rho=RHO_TRAVEL):
     return pd.DataFrame(rows)
 
 
-def analytic_moments(mrio, parts, rho=RHO_TRAVEL):
-    """Closed-form mean and SD of the additive lognormal sum (verification).
+def analytic_moments(mrio: pd.DataFrame, parts: dict[str, pd.DataFrame],
+                     rho: float = RHO_TRAVEL) -> dict[str, tuple[float, float]]:
+    r"""Closed-form mean and SD of the additive lognormal sum (verification).
+
+    Parameters
+    ----------
+    mrio : pandas.DataFrame
+        Deterministic MRIO amount per contribution group and indicator.
+    parts : dict of str to pandas.DataFrame
+        Deterministic bottom-up amount per component, group and indicator.
+    rho : float, optional
+        Correlation of the travel pair's log-factors.
+
+    Returns
+    -------
+    dict of str to tuple of float
+        ``indicator -> (mean, standard deviation)``.
+
+    Notes
+    -----
+    The mean is :math:`\sum_j a_j e^{\sigma_j^2/2}`, which sits above the
+    deterministic total :math:`\sum_j a_j` by the amount every median-1
+    lognormal contributes. That inflation is a property of all six
+    parameters, not of the MRIO factor alone: for climate it is +0.84 %,
+    of which the MRIO factor supplies +0.35 pp and visitor travel, on a much
+    smaller amount but a much wider spread, a further +0.32 pp.
 
     The covariance of the correlated travel pair is included; without it the
     closed form understates the SD and the assertion against the simulation had
@@ -457,7 +649,26 @@ def analytic_moments(mrio, parts, rho=RHO_TRAVEL):
     return res
 
 
-def ranking_probabilities(groups, group_draws, top=3):
+def ranking_probabilities(groups: list[str],
+                          group_draws: dict[str, np.ndarray],
+                          top: int = 3) -> pd.DataFrame:
+    """Probability that each contribution group takes each of the top ranks.
+
+    Parameters
+    ----------
+    groups : list of str
+        Contribution-group names, in the column order of ``group_draws``.
+    group_draws : dict of str to numpy.ndarray
+        Per indicator, an ``(n, len(groups))`` array of group totals, ranked
+        within each draw so that the shared MRIO factor cancels.
+    top : int, optional
+        How many ranks to report.
+
+    Returns
+    -------
+    pandas.DataFrame
+        ``indicator``, ``group`` and one ``P_rank_r`` column per rank.
+    """
     rows = []
     for ind, G in group_draws.items():
         ranks = (-G).argsort(axis=1).argsort(axis=1)
@@ -469,7 +680,19 @@ def ranking_probabilities(groups, group_draws, top=3):
     return pd.DataFrame(rows)
 
 
-def main():
+def main() -> None:
+    """Run every configuration and write the layer's thirteen tables.
+
+    Notes
+    -----
+    Every table that reports a median or an interval carries its own ``draws``
+    and ``seed``, because the layer publishes the same central case from five
+    different runs: the headline at 100,000 draws and the sensitivity sweeps
+    at 20,000 or 40,000 with their own seeds. Their medians span about 3 kt,
+    twice the Monte Carlo standard error of the median, which is the expected
+    size; without the two columns a reader comparing two files in this folder
+    could only read that as a contradiction.
+    """
     out_dir = os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc")
     os.makedirs(out_dir, exist_ok=True)
     mrio, parts, total = load_groups()
@@ -488,6 +711,7 @@ def main():
         _, G, tot, _ = run_mc(mrio, parts, scen)
         s = summarize(tot, total)
         s.insert(0, "pharma_scenario", scen)
+        s["draws"], s["seed"] = N_DRAWS, SEED
         summaries.append(s)
         r = ranking_probabilities(groups, G)
         r.insert(0, "pharma_scenario", scen)
@@ -499,15 +723,20 @@ def main():
                                   n=20_000)
             for ind, arr in tot.items():
                 scen_rows.append(dict(price_base_year=pv, reference_year=wv, indicator=ind,
-                                      median=float(np.median(arr))))
-    # travel-correlation sensitivity
+                                      median=float(np.median(arr)),
+                                      draws=20_000, seed=SEED))
+    # Travel-correlation sensitivity. The rho = 0.8 row IS the study default,
+    # so it and the headline describe the same configuration at different draw
+    # counts; the draws and seed columns are what lets a reader see that the
+    # 3 kt between them is Monte Carlo noise rather than a second answer.
     rho_rows = []
     for rho in (0.0, 0.5, 0.8):
         _, _, tot, _ = run_mc(mrio, parts, "A", rho=rho, n=20_000)
         a = tot["Global warming (ktCO2eq)"]
         q = np.percentile(a, [2.5, 50, 97.5])
         rho_rows.append(dict(rho=rho, median=q[1], p2_5=q[0], p97_5=q[2],
-                             cv_pct=100 * a.std(ddof=1) / a.mean()))
+                             cv_pct=100 * a.std(ddof=1) / a.mean(),
+                             draws=20_000, seed=SEED))
 
     # MRIO correlation across contribution groups: the rho = 1 default is a
     # perfect-correlation bound; rho = 0 is the independence bound that
@@ -547,14 +776,24 @@ def main():
             sigma_used=sig_cal,
             mrio_block_cv_if_not_recalibrated_pct=cv_uncal,
             median_group_cv_pct=float(np.median(group_cv)),
-            max_group_cv_pct=float(group_cv.max())))
+            max_group_cv_pct=float(group_cv.max()),
+            draws=40_000, seed=13))
     mrio_rho = pd.DataFrame(mrio_rho_rows)
 
     # Median-1 lognormal multipliers have mean exp(sigma^2/2) > 1, so the MC
-    # mean sits slightly above the deterministic value by construction. Small
-    # here, but reported rather than left for a referee to find.
-    sigma_mrio = np.sqrt(np.log(1.0 + PARAMS["mrio"]["cv"] ** 2))
-    mean_inflation = float(np.exp(sigma_mrio ** 2 / 2.0))
+    # mean sits above the deterministic value by construction. This is the
+    # inflation of the WHOLE sum, sum_j a_j exp(sigma_j^2/2) over sum_j a_j,
+    # not of the MRIO factor alone. The two are different quantities and the
+    # difference is not small: the MRIO factor contributes +0.35 %, the sum
+    # inflates by +0.84 %, because visitor travel carries a spread wide enough
+    # that its own inflation adds a further +0.32 pp on a much smaller amount.
+    # Quoting the MRIO factor's figure as the gap between the simulated mean
+    # and the deterministic estimate accounted for under half of it.
+    _gwp = INDICATORS[0]
+    _terms = [(float(mrio[_gwp].sum()), _sigma("mrio"))]
+    _terms += [(float(parts[c][_gwp].sum()), _sigma(c)) for c in BU_TO_GROUP]
+    mean_inflation = float(sum(a * np.exp(s ** 2 / 2) for a, s in _terms)
+                           / sum(a for a, _ in _terms))
 
     summ = pd.concat(summaries, ignore_index=True)
     rk = pd.concat(ranks, ignore_index=True)
@@ -578,7 +817,8 @@ def main():
             mrio_variance_share_pct=100 * (1 - float(bu.var(ddof=1))
                                            / float(arr.var(ddof=1))),
             note="frozen-input estimate: the share of output variance that "
-                 "disappears when the bottom-up terms alone are varied"))
+                 "disappears when the bottom-up terms alone are varied",
+            draws=40_000, seed=17))
     rho_shares = pd.DataFrame(share_rows)
 
     # The calibration is a CARBON statistic applied to five categories. Schulte
@@ -603,40 +843,63 @@ def main():
             noncarbon_rows.append(dict(
                 indicator=ind, mrio_spread_multiplier=mult, basis=label,
                 median=q[1], p2_5=q[0], p97_5=q[2],
-                cv_pct=100 * arr.std(ddof=1) / arr.mean()))
+                cv_pct=100 * arr.std(ddof=1) / arr.mean(),
+                draws=40_000, seed=23))
     noncarbon = pd.DataFrame(noncarbon_rows)
 
     # IPCC (2000) section 6.4, step 5: a Tier 2 result is converged when the
-    # 95 % range is determined to within 1 %. Measured rather than assumed.
-    _, _, tot_conv, _ = run_mc(mrio, parts, "A")
-    arr = tot_conv["Global warming (ktCO2eq)"]
-    halves = [np.percentile(h, [2.5, 97.5]) for h in np.array_split(arr, 2)]
-    conv = float(np.max(np.abs(halves[0] - halves[1])
-                        / np.percentile(arr, [2.5, 97.5])))
-    convergence = pd.DataFrame([dict(
-        criterion="IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %",
-        draws=N_DRAWS,
-        max_relative_difference_between_halves_pct=100 * conv,
-        passes=bool(conv < 0.01))])
+    # 95 % range is determined to within 1 %. Measured rather than assumed, and
+    # measured on every indicator in both pharmaceutical-mapping scenarios. The
+    # table used to hold one row - climate, scenario A - while the documents
+    # said "the criterion is met at 100,000 draws" without qualification. Ten
+    # rows cost one extra run and make that sentence simply true; the four
+    # non-carbon indicators and scenario B carry wider spreads, so the one
+    # combination that was measured was not the demanding one.
+    conv_rows = []
+    for scen in ("A", "B"):
+        _, _, tot_conv, _ = run_mc(mrio, parts, scen)
+        for ind, arr in tot_conv.items():
+            halves = [np.percentile(h, [2.5, 97.5])
+                      for h in np.array_split(arr, 2)]
+            conv = float(np.max(np.abs(halves[0] - halves[1])
+                                / np.percentile(arr, [2.5, 97.5])))
+            conv_rows.append(dict(
+                criterion="IPCC (2000) 6.4 step 5: 95 % range determined to "
+                          "within 1 %",
+                indicator=ind, pharma_scenario=scen,
+                draws=N_DRAWS, seed=SEED,
+                max_relative_difference_between_halves_pct=100 * conv,
+                passes=bool(conv < 0.01)))
+    convergence = pd.DataFrame(conv_rows)
 
     # Schulte et al. (2026) section 4: where results are correlated, share the
     # full sample, or failing that the covariance matrix. Publishing group
     # medians and spreads alone is the option that paper ranks worst.
     _, G_full, _, _ = run_mc(mrio, parts, "A")
     gwp = G_full["Global warming (ktCO2eq)"]
+    # The published sample is (N_DRAWS x 9) float32, kt CO2eq, pharma scenario
+    # A, rho = 0.8, rho_mrio = 1.0, seed 42, columns in the order of `groups`.
+    # That order is the covariance table's row order, and its key column is
+    # named `group` rather than shipped as a blank header, so the .npy's column
+    # order is readable from a file rather than inferred. The full
+    # specification is in docs/methods/replications.md section 04.
     cov = pd.DataFrame(np.cov(gwp, rowvar=False), index=groups, columns=groups)
-    cov.to_csv(os.path.join(out_dir, "uncertainty_group_covariance_gwp.csv"))
+    cov.to_csv(os.path.join(out_dir, "uncertainty_group_covariance_gwp.csv"),
+               index_label="group")
     np.save(os.path.join(out_dir, "uncertainty_group_draws_gwp.npy"),
             gwp.astype(np.float32))
+    # z = 1.959964, not 1.96: the columns are named for the 2.5th and 97.5th
+    # percentiles and now hold them, rather than the 2.503rd and 97.497th.
+    z95 = 1.959963984540054
     par = pd.DataFrame([dict(parameter=k, distribution="lognormal, median 1",
                              gsd=v.get("gsd"), cv=v.get("cv"),
-                             factor_2_5pct=(v["gsd"] ** -1.96 if v.get("gsd") else
-                                            np.exp(-1.96 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
-                             factor_97_5pct=(v["gsd"] ** 1.96 if v.get("gsd") else
-                                             np.exp(1.96 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
+                             factor_2_5pct=(v["gsd"] ** -z95 if v.get("gsd") else
+                                            np.exp(-z95 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
+                             factor_97_5pct=(v["gsd"] ** z95 if v.get("gsd") else
+                                             np.exp(z95 * np.sqrt(np.log(1 + v["cv"] ** 2)))),
                              source=v["why"]) for k, v in PARAMS.items()])
     # Single source of truth for the seven uncertainty_summary sheets: the richer
-    # mrio_correlation frame (with its extra median_1_lognormal_mean_inflation
+    # mrio_correlation frame (with its extra mean_over_deterministic_closed_form
     # column) is folded in here rather than written a second time afterwards, so
     # each CSV has exactly one writer and the result no longer depends on
     # statement order.
@@ -645,7 +908,7 @@ def main():
         "ranking_probabilities": rk, "structural_scenarios": pd.DataFrame(scen_rows),
         "travel_correlation": pd.DataFrame(rho_rows),
         "mrio_correlation": mrio_rho.assign(
-            median_1_lognormal_mean_inflation=mean_inflation),
+            mean_over_deterministic_closed_form=mean_inflation),
         "parameters": par,
     }, out_dir, "uncertainty", index=False)
     for name, df in (("uncertainty_tier1_error_propagation", tier1),
@@ -658,8 +921,9 @@ def main():
                 "cv_pct", "p2_5", "p97_5"]].round(2).to_string(index=False))
     print("\nFirst-order variance shares (GWP):")
     print(sob[sob.indicator == INDICATORS[0]].round(2).to_string(index=False))
-    print(f"\nMRIO-correlation sensitivity (GWP). Median-1 lognormal mean "
-          f"inflation exp(sigma^2/2) = {mean_inflation:.5f} "
+    print(f"\nMRIO-correlation sensitivity (GWP). Closed-form mean over "
+          f"deterministic, all six parameters, "
+          f"sum a_j exp(sigma_j^2/2) / sum a_j = {mean_inflation:.5f} "
           f"(+{100 * (mean_inflation - 1):.2f} %):")
     print(mrio_rho[["rho_mrio", "median", "p2_5", "p97_5", "cv_pct"]]
           .round(2).to_string(index=False))
