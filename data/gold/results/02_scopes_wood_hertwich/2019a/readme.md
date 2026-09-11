@@ -10,11 +10,11 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 
 Variant a: the submitted configuration. Its partition closes on
 `01_eriksen_replication/2019a`, and its transport share is the
-measurement that matters here - 34.93 % of the climate footprint by
-producing node, against the 46 % the submitted manuscript reports and
-the 47.28 % that `2019_uncorrected` returns on v3.8.2. The submitted
-number is reproduced by the v3.8.2 run, not by the v3.7 one, which is
-the finding this variant exists to establish.
+measurement that matters here - 34.94 % of this folder's climate
+total by producing node, against the 46 % the submitted manuscript
+reports and the 46.87 % that `2019_uncorrected` returns on v3.8.2.
+The submitted number is reproduced by the v3.8.2 run, not by the
+v3.7 one, which is the finding this variant exists to establish.
 
 ## Conventions
 

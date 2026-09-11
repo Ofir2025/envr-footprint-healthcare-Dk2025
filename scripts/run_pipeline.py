@@ -154,6 +154,9 @@ STAGES: tuple[tuple[str, str], ...] = (
     ("manuscript_figure_tables", "the tables the manuscript figures read"),
     ("scope_figure_tables", "the tables the scope figures read"),
     ("year_comparison", "the 2019 against 2022 bridge"),
+    ("variant_comparison",
+     "every variant side by side, for every indicator; it reads the variant "
+     "folders rather than the model, so it runs after they are written"),
 
     # --- the semantic layer and the registers ------------------------------
     ("build_star_schema", "the star schema over the reported facts"),
