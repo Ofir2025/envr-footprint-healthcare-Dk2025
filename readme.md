@@ -16,11 +16,25 @@ the Danish health industry. See
 
 | Indicator | Health care footprint | Share of the national consumption footprint |
 |:---|:---|:---|
-| Climate change | 4,864 kt CO₂e (~0.83 t/capita) | 7.5 % own model · 7.7 % vs DST AFTRYK · 8.5 % vs Eurostat FIGARO |
-| Material extraction | 5,568 kt | 6.8 % |
-| Blue water | 42.8 Mm³ | 4.9 % |
-| Land use | 3,831 km² | 4.4 % |
-| Waste (domestic, DST accounts) | 216 kt (17 kt hazardous) | - |
+| Climate change | 4,675.5 kt CO₂-eq (~0.80 t/capita) | 6.1 % |
+| Material extraction | 4,257.2 kt | 7.9 % |
+| Blue water | 95.4 Mm³ | 7.5 % |
+| Land use | 4,851.8 km² | 4.9 % |
+| Waste generation | 259.3 kt | 2.4 % |
+
+Every cell is read from gold: the footprints from
+[`data/gold/results/01_eriksen_replication/2022_shipping_corrected/figure1_activity_contributions.csv`](data/gold/results/01_eriksen_replication/2022_shipping_corrected/figure1_activity_contributions.csv)
+summed over activity groups, the denominators from `national_footprint` in
+[`data/gold/results/00_core_footprint/national_totals_summary.csv`](data/gold/results/00_core_footprint/national_totals_summary.csv),
+and the per-capita value on the 2022 Danish population of 5,873,420 that
+`analysis.constants.DK_POPULATION` carries. The same values, with the national
+total and the per-person figure in full, are published as table 1 of
+[`data/gold/results/19_tables_of_record/`](data/gold/results/19_tables_of_record/).
+The health-care share against the Statistics Denmark AFTRYK and Eurostat FIGARO
+national totals used to be quoted here and is gone: no current gold table
+publishes it, and
+[`data/gold/results/06_benchmarks_validation/figaro_vs_this_study_climate.csv`](data/gold/results/06_benchmarks_validation/figaro_vs_this_study_climate.csv)
+carries only the three national totals themselves.
 
 Ten further pressure accounts (PM2.5, PM10, NOx, SOx, NH₃, NMVOC, energy,
 N and P to water) are reported alongside. All monetary values are **million
@@ -80,6 +94,11 @@ PYTHONPATH=src python -m analysis.dk_shipping_correction
 # which drifts as the pipeline grows):
 python scripts/run_pipeline.py
 ```
+
+Figures are drawn in R, after the pipeline: every figure command is listed in
+[`figures/manuscript/readme.md`](figures/manuscript/readme.md), and every one of
+them needs `LANG=en_US.UTF-8`, because the locale guard in `r/_dk_common.r`
+stops the script rather than draw CO₂, Mm³ and km² as `..`.
 
 `python scripts/run_pipeline.py --check` reports stage coverage against the
 modules on disk without running anything. It defaults to
