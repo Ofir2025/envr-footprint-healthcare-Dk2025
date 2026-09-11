@@ -1472,7 +1472,7 @@ studies. Report the interval and this sentence together, or not at all.
 
 | Convention | This study | Effect if changed |
 |:---|:---|:---|
-| Capital | excluded from the headline | +19.4 % (Södersten endogenisation) |
+| Capital | excluded from the headline | +19.5 % (Södersten endogenisation) |
 | Sector boundary | health + eldercare | +12 % on NACE Q incl. childcare |
 | Scope 2 | Hertwich & Wood full-multiplier | −2.2 % on the GHG-Protocol strict form |
 | Waste | MRIO extension retained for comparability | the Danish account is 4.6× lower |

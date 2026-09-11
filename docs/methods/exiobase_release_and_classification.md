@@ -469,7 +469,7 @@ here.
 
 1. **Test the country block against national accounts, per industry, in the year
    you will use.** Not the national total, which was right to 3 % in a release
-   whose health industry was out by a factor of three.
+   whose health industry was out by a factor of 2.7.
 2. **Read the release's `metadata.json` for the build date before calling any
    year observed.** Compare the build date with the reference year.
 3. **Find where each satellite account actually ends.** A table published for

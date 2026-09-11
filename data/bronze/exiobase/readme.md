@@ -8,6 +8,8 @@ mixture is deliberate and invisible from the filenames alone.
 | file | release | what it is |
 |:---|:---|:---|
 | `IOT_2022_ixi/` | **v3.8.2** | the background model: industry-by-industry monetary tables for 2022 |
+| `IOT_2016_ixi/` | **v3.8.2** | the same release at 2016, the background the 2019 analysis year runs on |
+| `v3_10_2/` | **v3.10.2** | the release this study rejected, kept for the diagnostic that rejects it |
 | `mr_hsut_2011_v3_3_17_extensions.xlsb` | **v3.3.17** | the hybrid supply-use extension workbook, 2011, read for the waste rows only |
 | `characterisation_desire_version3_4_adapted.xlsx` | **v3.4**, adapted | DESIRE characterisation factors, modified by CML Leiden for the Steenmeijer replication |
 | `classifications.xlsx` | **no release stamp; v3.3-era coding, adapted** | industry and region labels and the reporting aggregation, extended by this study |
@@ -54,6 +56,30 @@ One year is ~1.5 GB unpacked, which is why it is linked rather than copied and
 why `.gitignore` excludes `data/bronze/exiobase/IOT_2016_ixi`. The pipeline
 reads the year named by `HC_BACKGROUND_YEAR`, so a run on another background
 year needs that year's archive linked under the same name pattern.
+
+### A second release, for the diagnostic that rejects it
+
+`analysis.release_defect_audit` compares the background release against the one
+the study rejected, so it needs both, and a folder named `IOT_<year>_ixi` says
+which year it is but not which release. Any release other than the background
+therefore goes in a **release-qualified folder** whose name is the release with
+dots written as underscores:
+
+```
+data/bronze/exiobase/v3_10_2
+  -> ~/Library/CloudStorage/OneDrive-Personal/Data/lca/input_output/mrio/
+     exiobase/versions/v3_10_2/industry
+```
+
+Inside it the audit reads either `IOT_<year>_ixi/` txt distributions or
+`IOT_<year>_ixi.mat` year-files; v3.10.2 is distributed as the latter, ~640 MB
+each. The flat `IOT_<year>_ixi` folders above carry no release in their name, so
+the audit reads it from their own `metadata.json` (`name: exio382_ntnu`).
+
+Without this link the audit still runs, and publishes the v3.10.2 rows of
+`09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv` carrying
+`not on disk under data/bronze/exiobase` and no number, rather than omitting
+them: a release that could not be compared must not read as one that passed.
 
 Expected contents of an `IOT_<year>_ixi` archive: `A.txt` (~730 MB), `Z.txt`
 (~709 MB), `Y.txt` (~23 MB), `x.txt`, `unit.txt`, `industries.txt` (163 rows),

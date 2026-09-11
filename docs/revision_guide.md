@@ -13,9 +13,12 @@ Put this in the methods, verbatim. Each part of it has been got wrong in a draft
 > basic prices, million euro. The Danish demand vector is Danish 2022
 > expenditure, so demand year and model year coincide.
 
-`3.8.2` and not "EXIOBASE 3": v3.10.2 and v3.8.2 disagree by a factor of three on
-the size of the Danish health industry, and this study rejects v3.10.2 for that
-reason, so the release is not a detail a reader can fill in. `ixi` and not `pxp`:
+`3.8.2` and not "EXIOBASE 3": v3.10.2 and v3.8.2 disagree by a factor of 2.7 on
+the size of the Danish health industry -- 16,326 against 43,955 M.EUR of output
+in 2022, where the national accounts give 45,321
+(`09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv`) -- and this
+study rejects v3.10.2 for that reason, so the release is not a detail a reader
+can fill in. `ixi` and not `pxp`:
 those have 163 and 200 sectors and their results are not interchangeable. And the
 2022 tables are themselves a nowcast, compiled in September 2021, which the
 limitations must say. The full argument, the measured size of the projection
