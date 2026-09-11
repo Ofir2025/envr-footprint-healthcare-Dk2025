@@ -452,6 +452,72 @@ A four-step decomposition, each step measured rather than inferred:
 **The reallocation is the whole story.** Year, release, and demand vector together move the
 share by less than half of what the data correction does.
 
+<a id="transport-results-paragraph"></a>
+
+#### Results paragraph, for the manuscript
+
+Journal register, paste-ready. It is the answer to the question a co-author and a reviewer
+will both ask: how can a share fall from 46 % to 15 % and the study still be the same
+study?
+
+> **Transport.** The submitted analysis reported transport as the largest single
+> contributor to the Danish health-care climate footprint, at 46 % of sector contributions.
+> On the corrected model it is 18.5 % of the 3,943 kt multi-regional supply-chain
+> component and 15.5 % of the 4,712 kt total that additionally carries the bottom-up
+> Danish items, measured on the producing-node perspective in both cases. The fall of
+> roughly 32 percentage points has three distinct sources, and only one of them is a
+> change of data.
+>
+> The first source is the reference year, the background release and the demand vector
+> moving together, and it accounts for 9.8 of the 32 points. The submitted figure was
+> computed for 2019 Danish health expenditure on a 2016 EXIOBASE background; the present
+> analysis uses 2022 expenditure on the 2022 table of the same release family, so that
+> expenditure year and model year coincide and no deflation is required. Re-running the
+> present pipeline on the submitted configuration returns 47.3 % against the manuscript's
+> 46 %, a 1.3-point residual attributable to the demand vector rather than to any
+> modelling disagreement; the submitted number is therefore reproducible, and the
+> withdrawal is not a correction of an analytical error. Moving to 2022 expenditure and
+> the 2022 background, with no other change, brings the share to 37.5 %: Danish health
+> expenditure grew faster than its transport content, and the health-care footprint as a
+> whole falls from 6,361 kt to 4,712 kt across the two configurations.
+>
+> The second source is the correction to the Danish sea-transport allocation described in
+> the methods, and it accounts for 19.0 of the 32 points — more than the year, the release
+> and the demand vector combined. Rescaling one row of the Danish block from EXIOBASE's
+> 73.65 % domestic-intermediate share to the 9 % published in the Danish national accounts
+> releases 11,510 M€ of output from Danish intermediate use. Danish sea transport as a
+> producing node falls from 852 kt to 74 kt of the health-care footprint, a reduction of
+> 91 %, because the great majority of what the uncorrected model recorded as Danish
+> industries buying Danish shipping was the freight of world trade rather than of Danish
+> production. The Danish health-and-social-work industry alone was recorded as buying
+> 394 M€ of sea transport, which no hospital system does.
+>
+> The third source is the denominator, and it accounts for the remaining 3.0 points.
+> Including the bottom-up Danish items — anaesthetic gases, the direct fuel and waste
+> accounts, patient and visitor travel — adds 769 kt of entirely domestic emissions to the
+> total, which dilutes every supply-chain share proportionately. This step changes no
+> emission estimate; it changes what the share is a share of, which is why the basis is
+> stated wherever a transport figure appears.
+>
+> What survives the correction is substantial and should not be understated. Transport
+> remains the largest producing-node group in the footprint at 728 kt, and sea and coastal
+> water transport across all regions remains 476 kt, or 10.1 % of the total — genuine
+> international shipping in Danish health supply chains, now carried overwhelmingly by
+> foreign rather than Danish operators, since no Danish source licenses a correction to
+> another country's block. What changes is the headline: measured by purchased product,
+> the chemical and pharmaceutical group is the largest contributor at 1,738 kt, or 36.9 %,
+> against transport's 596 kt, or 12.6 %. The claim that transport dominates the Danish
+> health-care footprint does not survive; the claim that it is one of its three largest
+> components does.
+
+**One step in the decomposition has no gold table.** The 37.5 % intermediate figure is the
+uncorrected 2022 run, which is not a published gold folder — the gold layer carries the
+2019 uncorrected run (`01_eriksen_replication/2019/`) and the 2022 corrected run
+(`01_eriksen_replication/2022/`) but not the 2022 uncorrected one. The 47.3 %, 18.5 % and
+15.5 % endpoints all reproduce from gold; 37.5 %, and the 852 kt and 85.2 Mt uncorrected
+levels quoted alongside it, are documented figures without a gold table behind them. If a
+reviewer asks for the decomposition, that intermediate run should be materialised.
+
 #### What survives, and what should the paper now say?
 
 Transport is **still the third largest** contributor at 15.5 % of the total climate
@@ -487,7 +553,21 @@ scoped in [docs/methods/methods.md, "Danish SNAC"](../methods/methods.md#danish-
   This omission is a large part of why our national total remains above the
   official one.
 - **The 9 % benchmark is a single published year.** Rørmose report it for 2019;
-  we apply it to 2022.
+  we apply it to 2022, and to 2016 wherever a 2016 background is corrected. They
+  give no time series for the national-accounts share and assert no stability.
+  What *is* verified across years is the EXIOBASE side: measured on v3.8.2 the
+  Danish intermediate share is 73.51 % in 2016 and 73.65 % in 2022 against their
+  74 % for 2019, and the domestic final-demand and export shares track their 2019
+  values equally closely. The defect is therefore demonstrably structural; the
+  benchmark's constancy is assumed, and a reviewer is entitled to ask for the
+  Danish national-accounts water-transport share for the analysis year itself,
+  which is a single query against Statistics Denmark's published IO tables.
+- **The correction has not been applied to the 2016 background.** Only
+  `mrio2022_snacship.pkl` exists; the 2019 comparison run in
+  `01_eriksen_replication/2019/` is on an uncorrected 2016 background, which is
+  correct for that run's purpose — it is the reproduction of the submitted
+  finding — but means no corrected 2016 result exists to compare against
+  Schmidt and Merciai (2023), whose base year is 2016.
 - **The released output is distributed across foreign final demand in proportion
   to existing demand.** That is a neutral assumption, not a measured trade
   pattern.

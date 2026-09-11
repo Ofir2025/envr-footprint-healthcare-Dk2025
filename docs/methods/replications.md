@@ -1312,8 +1312,21 @@ benchmark and with no correction applied.
 
 #### The correction
 
-The row's **total output is left unchanged**: it is not in dispute and matches the
-national accounts. Only its *allocation* is corrected:
+The row's **total output is left unchanged**. This is a scope decision, not a claim that
+the level is right: EXIOBASE's Danish sea-transport output is **not** reconciled with the
+national accounts, and this repository's own release diagnostics say so
+(`09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv`: v3.8.2 gives
+17,804.5 M€ against 78,950.2 M€ for 2022, a ratio of 0.226, and 15,432.1 M€ against
+24,391.4 M€ for 2016, a ratio of 0.633). Statistics Denmark report the same defect for
+2019 — 137,637 against 246,064 million DKK, *"just a little more than half the number it
+should be"* (Rørmose Jensen & Iliev, 2022, p. 12). What this layer corrects is the
+*allocation* of that output, because the allocation is what determines whether the
+industry's emissions land in Danish consumption; the level is left to the full
+national-accounts coupling. An earlier version of this paragraph, and of the module
+docstring, asserted that the output level matched the national accounts. It does not, and
+the assertion has been withdrawn.
+
+Only the allocation is corrected:
 
 $$t = \phi \, x_{\text{row}}, \qquad \phi = 0.09$$
 $$\mathbf{Z}[\text{row}, \text{DK}] \leftarrow \mathbf{Z}[\text{row}, \text{DK}] \cdot \frac{t}{\sum \mathbf{Z}[\text{row}, \text{DK}]}$$
@@ -1334,7 +1347,125 @@ holds.
 The 18.5 % is on the 3,943 kt MRIO supply-chain basis; on the 4,712 kt total, which
 includes the entirely-Danish bottom-up items, transport is 15.5 %. **Quote the basis with
 the share**: six figures in the revision documents drifted precisely because it was
-omitted.
+omitted. Both figures are on the **producing-node (hotspot)** perspective; the
+purchased-product (contribution) perspective gives a different number for the same
+footprint, and the two must not be mixed in one ranking — see
+[the note on perspective](#r10-perspective) below.
+
+<a id="r10-methods-paragraph"></a>
+
+### Methods paragraph, for the manuscript
+
+Journal register, paste-ready. Every claim is traceable to a page or to a gold table.
+
+> **Correction of the Danish sea-transport allocation.** Denmark operates one of the
+> world's largest merchant fleets, and the treatment of that fleet determines whether the
+> emissions of internationally traded shipping services fall inside or outside a Danish
+> consumption-based account. Statistics Denmark compared EXIOBASE v3.8 with the Danish
+> national-accounts input-output table for the water-transport industry in 2019 and found
+> the two irreconcilable: EXIOBASE delivers 74 % of the industry's output to intermediate
+> use by other Danish industries and 14 % to exports, where the national accounts record
+> 9 % and 90 % respectively; EXIOBASE sources 59 % of the industry's inputs domestically
+> against 7 % in the national accounts; and it assigns the industry a gross value added of
+> −1,880 million DKK, against +33,339 million, so that recorded inputs exceed recorded
+> output (Rørmose Jensen & Iliev, 2022, Table 1 and accompanying text, p. 12). Because the
+> industry accounts for more than half of Denmark's production-based CO₂ emissions
+> (Rørmose Jensen & Iliev, 2022, p. 11), an allocation that books its output to Danish
+> buyers charges the emissions of a globally trading fleet to Danish final consumption,
+> and thence to every product Danish consumers buy, health care included. We reproduce the
+> defect on the release used here, EXIOBASE v3.8.2 `IOT_2022_ixi`: the Danish
+> *Sea and coastal water transport* row delivers 73.65 % of its output to Danish
+> intermediate use in 2022 and 73.51 % in 2016, against Statistics Denmark's 74 % for 2019,
+> so the misallocation is a structural property of the monetary build rather than a
+> single-year artefact.
+>
+> We correct the allocation of that row and nothing else. Writing $r$ for the Danish
+> sea-transport node, $x_r$ for its total output, $\mathbf{Z}$ for the intermediate matrix,
+> $\mathbf{Y}$ for final demand and $\mathbf{V}$ for primary inputs, the observed and target
+> domestic-intermediate shares are
+>
+> $$\phi_{\text{obs}} = \frac{1}{x_r}\sum_{j \in \mathrm{DK}} \mathbf{Z}_{rj}, \qquad \phi^{\ast} = 0.09 ,$$
+>
+> with $\phi^{\ast}$ taken from the Danish national accounts as published by Rørmose Jensen
+> & Iliev (2022, p. 12) and not fitted. The row's Danish intermediate deliveries are scaled
+> to the target, preserving their relative composition across Danish buyers,
+>
+> $$\tilde{\mathbf{Z}}_{rj} = \frac{\phi^{\ast}}{\phi_{\text{obs}}}\,\mathbf{Z}_{rj}, \qquad j \in \mathrm{DK},$$
+>
+> and the released amount
+> $\Delta = \bigl(\phi_{\text{obs}} - \phi^{\ast}\bigr)\,x_r$ is booked as exported service,
+> spread across the final-demand columns $c$ of all regions other than Denmark in
+> proportion to the total size of each column,
+>
+> $$\tilde{\mathbf{Y}}_{rc} = \mathbf{Y}_{rc} + \Delta\,w_c, \qquad w_c = \frac{\sum_i \mathbf{Y}_{ic}}{\sum_{c' \notin \mathrm{DK}} \sum_i \mathbf{Y}_{ic'}}, \qquad c \notin \mathrm{DK}.$$
+>
+> Each Danish buyer $j$ that ceases to purchase the service has the same amount credited to
+> its residual net operating surplus, the last row $q$ of the primary-input block,
+>
+> $$\tilde{\mathbf{V}}_{qj} = \mathbf{V}_{qj} + \bigl(\mathbf{Z}_{rj} - \tilde{\mathbf{Z}}_{rj}\bigr), \qquad j \in \mathrm{DK}.$$
+>
+> Technical coefficients and the Leontief inverse are then rebuilt on the corrected
+> transactions, $\tilde{\mathbf{A}} = \tilde{\mathbf{Z}}\,\hat{x}^{-1}$ and
+> $\tilde{\mathbf{L}} = \bigl(\mathbf{I} - \tilde{\mathbf{A}}\bigr)^{-1}$.
+>
+> Four things are deliberately held fixed. Total output $x$ is unchanged for every
+> industry, so the emission intensities $s_i = e_i / x_i$ and the whole environmental
+> satellite are untouched and the correction acts only through $\tilde{\mathbf{L}}$. The
+> Danish final-demand cell of the same row is left alone, although Statistics Denmark
+> record 1 % against EXIOBASE's 12 % (Rørmose Jensen & Iliev, 2022, p. 12), because that
+> discrepancy is about a sixth the size of the intermediate one, 11 percentage points
+> against 65. The import
+> structure of the shipping industry is left alone, so EXIOBASE's 41 %-imported input mix
+> is retained against the national accounts' 93 %. And no other region's sea transport is
+> touched, since no Danish source licenses a correction to a foreign block. The correction
+> is therefore a targeted repair of the single defect with a first-order effect on the
+> result, not a national-accounts reconstruction; Statistics Denmark's own remedy is
+> structural, replacing the Danish block outright with national-accounts data and using
+> EXIOBASE only to price the emission content of imports — the simplified single-country
+> national-accounts-consistent (SNAC) design of Tukker et al. (2018) that they adopt after
+> concluding that EXIOBASE could not be used on its own (Rørmose Jensen & Iliev, 2022,
+> pp. 12-13).
+>
+> The correction is verified by the accounting identities it must not break. The row
+> balance $\sum_j \tilde{\mathbf{Z}}_{rj} + \sum_c \tilde{\mathbf{Y}}_{rc} = x_r$ holds to
+> $1.1\times10^{-11}$ M€ and the column balance
+> $\sum_i \tilde{\mathbf{Z}}_{ij} + \sum_q \tilde{\mathbf{V}}_{qj} = x_j$ holds across the
+> Danish block to a maximum residual of $2.4\times10^{-5}$ M€; industry output is unchanged
+> by construction. The reallocated amount for 2022 is 11,509.8 M€, moving the row's
+> domestic intermediate share from 73.65 % to 9.00 %.
+>
+> Two independent constructs corroborate the direction and approximate size. EXIOBASE's own
+> hybrid build, which resolves the same monetary source data onto homogeneous activity
+> units rather than establishment units, allocates 7.8 % of Danish sea-transport output to
+> Danish intermediate use with no manual correction, within 1.2 percentage points of the
+> national-accounts benchmark. The Danish Energy Agency applies a technical reallocation of
+> the same kind in its statutory consumption-based account. The most recent independent
+> Danish consumption study, Schmidt and Merciai (2023), is **silent** on this allocation: it
+> is built on the hybrid EXIOBASE v4.0 for base year 2016 (Schmidt & Merciai, 2023, p. 16),
+> its catalogue of the common defects of consumption-based footprints covers land-use
+> change, biogenic carbon, marginal electricity, endogenised capital and aviation contrails
+> but not national-accounts consistency in the domestic block (pp. 8-9, and Table 4.2,
+> p. 27), and neither its methods nor its results chapter discusses Danish shipping. Its
+> relevance here is as a benchmark rather than a precedent: it reports a Danish
+> consumption-based footprint of 73.9 Mt CO₂-eq for 2016 (p. 25), of which health and
+> social work services account for 6.1 Mt, or 1.07 t per capita (Table 4.1, p. 26).
+
+<a id="r10-perspective"></a>
+
+### A note on perspective, required when quoting the share
+
+Transport's share of this footprint depends on which marginal of the impact array
+$E_{ij} = s_i L_{ij} y_{H,j}$ is taken. Both marginals are in the gold outputs and they
+differ materially:
+
+| Perspective | Gold table | Transport, climate | Share of 4,712 kt | Share of 3,943 kt MRIO |
+|:---|:---|:---|:---|:---|
+| Producing node (hotspot), summing over $j$ | `01_eriksen_replication/2022/hotspot_by_sector_group.csv` | 728.2 kt | 15.45 % | 18.47 % |
+| Purchased product (contribution), summing over $i$ | `01_eriksen_replication/2022/contribution_by_sector_group.csv` | 595.8 kt | 12.64 % | 15.11 % |
+
+Transport ranks **first** among producing nodes and **fourth** among purchased products,
+where the chemical group leads at 1,738.3 kt (36.89 %). Any sentence that ranks transport
+against the chemical group must take both figures from the same table.
 
 ### Why this is not a novel method
 
@@ -1367,6 +1498,37 @@ applies is a far easier argument at review than proposing a new one.
   [docs/methods/methods.md, "Danish SNAC"](methods.md#danish-snac-what-statistics-denmark-does-what-we-patch-and-the-feasibility-of-a-full-build).
 - $\phi$ is set to the benchmark exactly rather than fitted; the correction carries no
   free parameter.
+- **The 9 % benchmark is published for one year only.** Rørmose Jensen & Iliev (2022,
+  Table 1, p. 12) state it for **2019**; they give no time series for the
+  national-accounts share and make no claim that it is stable. We apply it to 2022 and,
+  where a 2016 background is used, to 2016. What is verified across years is the
+  *EXIOBASE* side of the discrepancy, not the benchmark: measured on v3.8.2 the Danish
+  intermediate share is 73.51 % in 2016 and 73.65 % in 2022 against Statistics Denmark's
+  74 % for 2019, and the other two EXIOBASE uses track their 2019 values equally closely
+  (domestic final demand 11.03 % / 10.36 % against 12 %; exports 15.46 % / 15.99 % against
+  14 %).
+- **The export-distribution key is ours, not either source's.** Neither Rørmose Jensen &
+  Iliev (2022) nor Schmidt and Merciai (2023) proposes a key, because neither builds a
+  corrected EXIOBASE: Statistics Denmark discard the Danish block instead of repairing it
+  (pp. 12-13), and Schmidt and Merciai do not treat the allocation at all. Weighting the
+  released amount by each foreign final-demand column's total size is this study's own
+  choice of a neutral numéraire; it is not a measured trade pattern and is stated as an
+  assumption wherever the result depends on it.
+- **The released amount is booked to final demand, not to foreign intermediate use.** The
+  national accounts book the exported 90 % as exports without saying who abroad consumes
+  them, and the exports of a freight industry are in reality overwhelmingly intermediate
+  inputs to foreign producers and traders. Booking them to $\mathbf{Y}$ makes them
+  terminal: the released output cannot re-enter any supply chain and therefore cannot
+  return to Denmark through imports. That is deliberately conservative for the quantity
+  being measured — it forecloses any possibility that the correction lowers the Danish
+  footprint by routing emissions around a loop — but it is a departure from the
+  national-accounts structure, not a reproduction of it.
+- **The negative value added of the shipping industry is not repaired.** The credit in
+  $\tilde{\mathbf{V}}$ accrues to the Danish industries that stop buying the service, not
+  to the shipping industry itself, so the defect Rørmose Jensen & Iliev report in the last
+  line of their Table 1 (p. 12) survives the correction. Measured on v3.8.2, Danish
+  sea-transport value added is −493 M€ in 2016 (−3.2 % of output) and +271 M€ in 2022
+  (+1.5 %), against the national accounts' +14 % of output for 2019.
 
 ### Outputs
 
@@ -1379,6 +1541,82 @@ container ships).
 
 Row balance residual 1.1 × 10⁻¹¹ M€; maximum column-balance residual in the Danish block
 2.4 × 10⁻⁵ M€; industry output unchanged.
+
+<a id="r10-si"></a>
+
+### For the supplementary information
+
+Paste-ready SI block. Quantities are from
+`data/gold/results/10_sea_transport_reallocation/shipping_reallocation_diagnostics.csv`
+unless a footnote says otherwise; shares are of the row's own total output.
+
+**SI Table S10.1. Allocation of Danish *Sea and coastal water transport* output, before
+and after the correction.** EXIOBASE v3.8.2 `IOT_2022_ixi`, million euro at basic prices.
+The national-accounts column is Statistics Denmark's 2019 comparison, reported in million
+DKK and reproduced here as shares only, since the two currencies and years are not
+commensurate.
+
+| Use of output | EXIOBASE, before | Share, before | EXIOBASE, after | Share, after | Danish national accounts, 2019 |
+|:---|:---|:---|:---|:---|:---|
+| Danish intermediate use | 13,112.2 | 73.65 % | 1,602.4 | 9.00 % | 9 % |
+| Danish final demand | 1,845.0 | 10.36 % | 1,845.0 | 10.36 % | 1 % |
+| Foreign intermediate use | 2,173.3 | 12.21 % | 2,173.3 | 12.21 % | 90 % combined |
+| Foreign final demand | 674.0 | 3.79 % | 12,183.8 | 68.43 % | 90 % combined |
+| **Total output** | **17,804.5** | **100 %** | **17,804.5** | **100 %** | **100 %** |
+
+National-accounts shares from Rørmose Jensen & Iliev (2022), Table 1, p. 12. Their table
+reports exports as a single 90 % figure and does not split it between foreign intermediate
+and foreign final use; the correction adds the released amount to foreign final demand
+only, so the two EXIOBASE export lines are not separately benchmarked.
+
+**SI Table S10.2. The same measurement in the 2016 background**, used for the comparison
+run reported against the submitted manuscript. The EXIOBASE side of the discrepancy is
+effectively identical in the two years, which is the evidence that the misallocation is
+structural rather than a single-year artefact.
+
+| Quantity | 2016 background | 2022 background | Statistics Denmark, 2019 |
+|:---|:---|:---|:---|
+| Total output, M€ | 15,432.1 | 17,804.5 | n/a (246,064 M DKK) |
+| Share to Danish intermediate use | 73.51 % | 73.65 % | 9 % |
+| Share to Danish final demand | 11.03 % | 10.36 % | 1 % |
+| Share to exports | 15.46 % | 15.99 % | 90 % |
+| Value added, M€ | −493 | +271 | +33,339 M DKK (+14 % of output) |
+| Amount released at $\phi^{\ast}=0.09$, M€ | 9,955.9 | 11,509.8 | n/a |
+
+**Released amount.** For 2022, $\Delta = 11{,}509.8$ M€, which is 64.65 % of the row's
+total output and 17.1 times the foreign final demand the row already carried. It is
+distributed over the 336 non-Danish final-demand columns in proportion to each column's
+total size, which apportions it as follows.
+
+| Final-demand category | Share of $\Delta$ | M€ |
+|:---|:---|:---|
+| Household final consumption | 50.42 % | 5,803.1 |
+| Gross fixed capital formation | 25.88 % | 2,978.9 |
+| Government final consumption | 16.44 % | 1,892.0 |
+| NPISH final consumption | 5.76 % | 662.5 |
+| Changes in inventories | 1.43 % | 164.5 |
+| Changes in valuables | 0.08 % | 8.7 |
+| Exports (fob) | 0.00 % | 0.0 |
+
+The four largest receiving regions are the United States (24.55 %, 2,825.1 M€), China
+(17.74 %, 2,041.9 M€), Japan (5.45 %, 626.8 M€) and rest-of-world Asia and Pacific
+(4.76 %, 547.5 M€). These are consequences of a size-weighted key, not observed purchases
+of Danish shipping.
+
+**Balance residuals.** Row balance
+$\sum_j \tilde{\mathbf{Z}}_{rj} + \sum_c \tilde{\mathbf{Y}}_{rc} - x_r = 1.09\times10^{-11}$
+M€. Maximum column-balance residual across the 163 Danish industries,
+$\max_j \bigl| \sum_i \tilde{\mathbf{Z}}_{ij} + \sum_q \tilde{\mathbf{V}}_{qj} - x_j \bigr| = 2.45\times10^{-5}$
+M€. Both are numerical noise on a matrix whose entries run to $10^{4}$ M€.
+
+**Why value added absorbs the offset rather than output.** Removing an input from a
+column leaves that column short by the amount removed, and the shortfall must be taken up
+either by reducing the buying industry's output or by raising its primary inputs; since
+the buying industries' outputs are the part of the Danish block that is not in dispute,
+and since changing them would change every emission intensity $s_i = e_i/x_i$ in the
+Danish economy and so alter results far beyond shipping, the offset is credited instead to
+the residual net operating surplus — the accounting item that exists precisely to absorb
+the difference between an industry's output and its measured costs.
 
 ---
 
