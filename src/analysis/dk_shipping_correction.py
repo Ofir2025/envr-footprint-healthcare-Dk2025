@@ -17,8 +17,8 @@ The target share, and why it is read rather than quoted
 Rørmose Jensen & Iliev publish the national-accounts share for 2019 only, and
 give no time series. Quoting their 9 % for every background year was a stopgap.
 The share they quote is a ratio inside Statistics Denmark's own domestic
-input-output table, so it can be read from that table directly, for each year
-the study runs on:
+input-output table, so it can be read from that table, for each year the study
+runs on:
 
 .. math::
 
@@ -27,8 +27,15 @@ the study runs on:
 
 where :math:`d_{\\mathrm{wt},j}` is the delivery of row 500000 (Water
 transport) of the ``DIO`` sheet to Danish industry :math:`j` and
-:math:`x_{\\mathrm{wt}}` is that row's ``Total``. This module reads
-:math:`\\phi` with :func:`dst_domestic_intermediate_share`. The values are
+:math:`x_{\\mathrm{wt}}` is that row's ``Total``.
+
+**The workbook is not opened here.** :mod:`analysis.build_shipping_inputs` is
+the silver stage that reads it and writes
+``data/silver/inputs/dst_water_transport_domestic_share.csv``, carrying both
+quantities of the quotient beside the share itself; this module reads that file
+with :func:`dst_domestic_intermediate_share`. Before the routing, this module
+read bronze and wrote gold in one step, which is medallion rule 4 broken and no
+reproducible middle for a reviewer to inspect. The values are
 
 =======  =============
 year     :math:`\\phi`
@@ -40,8 +47,10 @@ year     :math:`\\phi`
 
 The 2019 value is the validation, not an input: it reproduces Rørmose Jensen &
 Iliev's 9 % to within 0.3 percentage points, which is what licenses reading the
-other two years off the same table. :func:`dst_domestic_intermediate_share`
-asserts it on every call and fails loudly if it drifts.
+other two years off the same table. It is asserted twice: by the silver stage
+when it reads the workbook, and by :func:`domestic_share_rows` on every call
+here, against the row recorded in the silver table. No run can apply a share
+whose validating row it has not just checked.
 
 2022's lower share is real, not a parsing accident. The row's total output rose
 from 225 bn DKK in 2019 to 337 bn DKK in 2022 in the container-freight boom, and
@@ -122,17 +131,20 @@ from __future__ import annotations
 
 import os
 import pickle
-import re
 import tempfile
 from typing import Sequence
 
 import numpy as np
 import pandas as pd
 
-from analysis.build_dst_concordance import DST_IO
+from analysis.build_shipping_inputs import (DST_SHEET, EXPENDITURE_CSV,
+                                            RORMOSE_2019_SHARE,
+                                            RORMOSE_CROSS_CHECK_YEAR,
+                                            RORMOSE_TOLERANCE,
+                                            SECTOR_GROUP_CSV, SHARE_CSV)
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_TAG, BACKGROUND_YEAR,
                                 K_DK, N_FINAL_DEMAND, N_SECTORS, model_label)
-from paths import MRIO_DIR, OUTPUT_DIR
+from paths import MRIO_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 
 FOLDER = "10_sea_transport_reallocation"
 
@@ -153,44 +165,10 @@ TAG = "_snacship"
 
 SECTOR_NAME = "Sea and coastal water transport"
 
-#: The share Rørmose Jensen & Iliev (2022), Statistics Denmark, "Coupled
-#: models", pp. 11-12, report for the Danish national accounts in 2019.
-#:
-#: It is no longer the target the correction applies. It survives for exactly
-#: two purposes: the cross-check in
-#: :func:`dst_domestic_intermediate_share`, which tests that this module's
-#: parse of the Danish table reproduces the published figure, and the
-#: verification rows, which record it beside the share actually used.
-RORMOSE_2019_SHARE = 0.09
-
-#: Year of the DST table whose share validates the parse. It is the one year
-#: Rørmose Jensen & Iliev publish, and it is NOT a background year of this
-#: study - the 2019 analysis runs on the 2016 background.
-RORMOSE_CROSS_CHECK_YEAR = "2019"
-
-#: How far the DST 2019 share may sit from :data:`RORMOSE_2019_SHARE` before
-#: the cross-check fails. 0.005 is half a percentage point; the observed gap is
-#: 0.003, so the check has roughly a factor of two of headroom and would still
-#: catch a parse that picked up the wrong row, the wrong sheet or the import
-#: block instead of the domestic one.
-RORMOSE_TOLERANCE = 0.005
-
-#: Sheet of the DST workbook holding the DOMESTIC input-output table. The
-#: ``IO`` sheet is the total table, domestic plus imported; only the domestic
-#: one measures what share of a Danish industry's output Danish industries
-#: actually buy, which is the quantity Rørmose Jensen & Iliev compare EXIOBASE
-#: against.
-DST_SHEET = "DIO"
-
-#: DST DB07 code of Water transport, the Danish counterpart of EXIOBASE's
-#: :data:`SECTOR_NAME`.
-WATER_TRANSPORT_CODE = "500000"
-
-#: Row label opening the Danish-production block of the ``DIO`` sheet, and the
-#: one opening the Imports block that follows it. The 117 product codes repeat
-#: in both, so the domestic row has to be located between them.
-DST_DOMESTIC_BLOCK = "Danish production"
-DST_IMPORT_BLOCK = "Imports"
+#: The parse of the Danish table, the cross-check constants and the sheet and
+#: row labels all live in :mod:`analysis.build_shipping_inputs`, the silver
+#: stage that reads bronze on this module's behalf. They are imported above
+#: rather than restated, so there is one definition of each.
 
 #: Environment variable pinning the target share by hand, for a sensitivity run
 #: or to revert to the published 9 % with one variable. Documented in the
@@ -204,72 +182,87 @@ PHI_ENV = "HC_SHIPPING_PHI"
 PHI_GRID: tuple[float, ...] = (0.05, 0.065, 0.077, 0.09, 0.10, 0.125, 0.15)
 
 
-def _dio_domestic_intermediate_share(year: str) -> float:
-    """Raw share of Water transport output bought by Danish industries.
-
-    Reads the ``DIO`` (domestic input-output) sheet of Statistics Denmark's
-    published table for one year and divides row 500000's deliveries to the
-    117 Danish industries by that row's own total output. Both are in 1000
-    DKK, so the quotient is dimensionless.
-
-    The workbook is located through the same :data:`DST_IO` path constant
-    :mod:`analysis.build_dst_concordance` uses, and parsed with that module's
-    conventions: ``header=None``, the six-digit industry codes taken from row
-    2 with ``re.fullmatch(r"\\d{6}", code)``, the row labels from column A, and
-    the banner from row 0.
+def _silver(name: str) -> str:
+    """Path of a silver product, checked to exist.
 
     Parameters
     ----------
-    year : str
-        Reference year of the published Danish input-output table, e.g.
-        ``"2016"``.
+    name : str
+        File name under ``data/silver/inputs/``.
 
     Returns
     -------
-    float
-        The domestic intermediate share, between 0 and 1.
+    str
+        Absolute path to the file.
 
     Raises
     ------
-    ValueError
-        If the sheet does not yield 117 industry columns, if the Water
-        transport row cannot be located inside the Danish-production block, or
-        if the row's total output is not positive.
+    FileNotFoundError
+        If the silver stage has not been run. This module no longer reads
+        bronze, so a missing silver input is a missing prerequisite, not
+        something to fall back from: falling back to the workbook is exactly
+        the layer skip this routing removed.
     """
-    sheet = pd.read_excel(str(DST_IO).format(year=year),
-                          sheet_name=DST_SHEET, header=None)
-    header = [str(v).strip() for v in sheet.iloc[2, :].tolist()]
-    banner = [str(v).strip() for v in sheet.iloc[0, :].tolist()]
-    labels = [str(v).strip() for v in sheet.iloc[:, 0].tolist()]
+    path = SILVER_INPUT_DIR / name
+    if not path.exists():
+        raise FileNotFoundError(
+            f"{path} is missing. It is written by the silver stage, which "
+            f"runs before this module:\n"
+            f"    PYTHONPATH=src .venv/bin/python -m "
+            f"analysis.build_shipping_inputs")
+    return str(path)
 
-    industry_columns = [j for j, code in enumerate(header)
-                        if re.fullmatch(r"\d{6}", code)]
-    if len(industry_columns) != 117:
-        raise ValueError(f"read {len(industry_columns)} industry columns from "
-                         f"the {year} {DST_SHEET} sheet, expected 117")
 
-    first = labels.index(DST_DOMESTIC_BLOCK)
-    last = labels.index(DST_IMPORT_BLOCK)
-    rows = [i for i, label in enumerate(labels)
-            if label == WATER_TRANSPORT_CODE and first < i < last]
-    if len(rows) != 1:
-        raise ValueError(f"found {len(rows)} rows coded "
-                         f"{WATER_TRANSPORT_CODE} in the Danish-production "
-                         f"block of the {year} {DST_SHEET} sheet, expected 1")
-    row = rows[0]
+def domestic_share_rows() -> pd.DataFrame:
+    """The silver table of Danish water-transport domestic shares.
 
-    total_column = banner.index("Total")
-    deliveries = pd.to_numeric(sheet.iloc[row, industry_columns],
-                               errors="coerce").to_numpy(dtype=float)
-    total = float(pd.to_numeric(sheet.iat[row, total_column]))
-    if not np.isfinite(total) or total <= 0:
-        raise ValueError(f"the {year} {DST_SHEET} Water transport row has "
-                         f"total output {total}, which cannot be a divisor")
-    return float(np.nansum(deliveries) / total)
+    Returns
+    -------
+    pandas.DataFrame
+        As written by :func:`analysis.build_shipping_inputs.domestic_share_table`:
+        ``background_year``, ``dst_table_year``,
+        ``domestic_intermediate_dkk``, ``row_total_dkk``, ``phi``,
+        ``source_workbook``, ``retrieved``. ``dst_table_year`` is read as text.
+
+    Raises
+    ------
+    AssertionError
+        If the recorded 2019 share does not reproduce
+        :data:`analysis.build_shipping_inputs.RORMOSE_2019_SHARE`. The silver
+        stage asserts this when it reads the workbook; it is asserted again
+        here, on every call, so that no run can apply a share whose validating
+        row it has not just checked.
+    """
+    # float_precision="round_trip" is not decoration. pandas' default C parser
+    # converts decimal text with a fast routine that is not correctly rounded,
+    # and it loses the last bit of phi: 0.07735475790478258 comes back as
+    # 0.0773547579047825. phi multiplies a row block of A before a Leontief
+    # inversion, so a one-bit difference here is a difference in a published
+    # number, and routing this read through silver would have moved one.
+    table = pd.read_csv(_silver(SHARE_CSV),
+                        dtype={"dst_table_year": str, "background_year": str},
+                        float_precision="round_trip")
+    cross = table.loc[table.dst_table_year == RORMOSE_CROSS_CHECK_YEAR, "phi"]
+    if cross.empty:
+        raise AssertionError(
+            f"{SHARE_CSV} carries no row for the cross-check year "
+            f"{RORMOSE_CROSS_CHECK_YEAR}, so the parse behind the other years "
+            f"is unvalidated. Rebuild it with analysis.build_shipping_inputs.")
+    check = float(cross.iloc[0])
+    if abs(check - RORMOSE_2019_SHARE) > RORMOSE_TOLERANCE:
+        raise AssertionError(
+            f"cross-check failed: {SHARE_CSV} records a domestic intermediate "
+            f"share of {check:.4f} for the DST {DST_SHEET} table of "
+            f"{RORMOSE_CROSS_CHECK_YEAR}, which is more than "
+            f"{RORMOSE_TOLERANCE} from the {RORMOSE_2019_SHARE} Rørmose "
+            f"Jensen & Iliev (2022, pp. 11-12) report. Either the parse is "
+            f"wrong or the published table has been revised; do not apply a "
+            f"share this has not validated.")
+    return table
 
 
 def dst_domestic_intermediate_share(year: str) -> float:
-    """Target share phi for one background year, from the Danish table.
+    """Target share phi for one background year, read from silver.
 
     This is the quantity Rørmose Jensen & Iliev (2022, pp. 11-12) quote as 9 %
     for 2019: the fraction of Danish water-transport output that Danish
@@ -277,11 +270,11 @@ def dst_domestic_intermediate_share(year: str) -> float:
     input-output table. Reading it per year replaces quoting their single
     published year for every year of the study.
 
-    Every call re-reads the 2019 table and asserts that it reproduces
-    :data:`RORMOSE_2019_SHARE` to within :data:`RORMOSE_TOLERANCE`. That is the
-    validation of this parse against the only published figure, and it is
-    inside the function rather than in a test so that no run can apply a share
-    this module has not just proved it reads correctly.
+    The workbook itself is read by :mod:`analysis.build_shipping_inputs`, which
+    writes ``dst_water_transport_domestic_share.csv`` with the two quantities
+    the share is the quotient of. This module reads that file and never opens
+    bronze, which is what keeps it off
+    :data:`analysis.audit_consistency.LAYER_SKIPPERS`.
 
     Units
     -----
@@ -304,25 +297,24 @@ def dst_domestic_intermediate_share(year: str) -> float:
     Raises
     ------
     AssertionError
-        If the 2019 table does not reproduce the published 9 %.
+        If the recorded 2019 row does not reproduce the published 9 %.
+    KeyError
+        If the silver table has no row for the year asked for.
 
     Examples
     --------
     >>> round(dst_domestic_intermediate_share("2016"), 3)  # doctest: +SKIP
     0.077
     """
-    check = _dio_domestic_intermediate_share(RORMOSE_CROSS_CHECK_YEAR)
-    if abs(check - RORMOSE_2019_SHARE) > RORMOSE_TOLERANCE:
-        raise AssertionError(
-            f"cross-check failed: the DST {DST_SHEET} table for "
-            f"{RORMOSE_CROSS_CHECK_YEAR} gives a domestic intermediate share "
-            f"of {check:.4f}, which is more than {RORMOSE_TOLERANCE} from the "
-            f"{RORMOSE_2019_SHARE} Rørmose Jensen & Iliev (2022, pp. 11-12) "
-            f"report. Either the parse is wrong or the published table has "
-            f"been revised; do not apply a share this has not validated.")
-    if str(year) == RORMOSE_CROSS_CHECK_YEAR:
-        return check
-    return _dio_domestic_intermediate_share(str(year))
+    table = domestic_share_rows()
+    match = table.loc[table.dst_table_year == str(year), "phi"]
+    if match.empty:
+        raise KeyError(
+            f"{SHARE_CSV} has no row for DST table year {year!r}; it carries "
+            f"{sorted(table.dst_table_year)}. Rebuild it with "
+            f"analysis.build_shipping_inputs.")
+    return float(match.iloc[0])
+
 
 
 def applied_target_share(year: str) -> tuple[float, str]:
@@ -375,13 +367,13 @@ def applied_target_share(year: str) -> tuple[float, str]:
 #: is an analysis-year quantity, so the band needs both.
 ANALYSIS_YEAR_FOR_BACKGROUND: dict[str, str] = {"2016": "2019", "2022": "2022"}
 
-#: Danmarks Nationalbank annual average DKK per euro, as
-#: ``analysis.main_2025.DKK_PER_EUR_BY_YEAR``. Restated here because
-#: :mod:`analysis.main_2025` is a script: importing it would run the whole
-#: replication. :func:`phi_sensitivity` asserts its expenditure vector against
-#: the published ``table_01.csv``, so a drift between the two copies fails the
-#: run rather than passing silently.
-DKK_PER_EUR_BY_YEAR: dict[str, float] = {"2019": 7.4661, "2022": 7.4396}
+#: The euro conversion the expenditure frame uses moved with the frame, to
+#: :data:`analysis.build_shipping_inputs.DKK_PER_EUR_BY_YEAR`. It was restated
+#: here only because :mod:`analysis.main_2025` is a script and importing it
+#: would run the whole replication; the silver stage is a module, so there is
+#: no reason to hold a third copy. :func:`phi_sensitivity` still asserts its
+#: expenditure vector against the published ``table_01.csv``, so a drift
+#: between the remaining two copies fails the run rather than passing silently.
 
 #: Sector group, in EXIOBASE's own ``classifications.xlsx`` aggregation, whose
 #: share of the footprint the band reports. It is the group the manuscript
@@ -393,16 +385,21 @@ SENSITIVITY_CSV = "phi_sensitivity_{background_year}.csv"
 
 
 def _cbs_expenditure_frame(analysis_year: str) -> pd.DataFrame:
-    """Rebuild the expenditure and direct-emission frame the background reads.
+    """The expenditure and direct-emission frame the background reads.
 
     ``functions_2025.createBackground`` consumes a three-row, three-column
     frame indexed by ``(Index, Unit)``: expenditure on health-care services,
     pharmaceuticals and appliances in M.EUR, the basic-price conversion (1.0,
     because both Danish expenditure routes are already at basic prices), and
-    the sector's direct greenhouse-gas emissions in kt. This rebuilds it with
-    the same :mod:`analysis.extra_functions` routines
-    :mod:`analysis.main_2025` uses, rather than reading the silver copy, which
-    holds whichever analysis year ran last.
+    the sector's direct greenhouse-gas emissions in kt.
+
+    It is read from ``dk_health_expenditure_frame.csv``, which
+    :mod:`analysis.build_shipping_inputs` builds per analysis year with the
+    same :mod:`analysis.extra_functions` routines :mod:`analysis.main_2025`
+    calls. Reading it here rather than rebuilding it from bronze is what keeps
+    this module on one side of the layer boundary; carrying it per analysis
+    year is what keeps it from picking up whichever year ran last, which is why
+    it is not the ``dk_data_2025.csv`` frame beside it in silver.
 
     Parameters
     ----------
@@ -414,66 +411,45 @@ def _cbs_expenditure_frame(analysis_year: str) -> pd.DataFrame:
     pandas.DataFrame
         Indexed by ``(Index, Unit)``, columns ``HC service``, ``Pharm``,
         ``MedAppl``, in the positional order ``createBackground`` reads.
+
+    Raises
+    ------
+    KeyError
+        If the silver table has no block for the analysis year asked for.
     """
-    from analysis.extra_functions import (calculate_healthcare_totals,
-                                          calculate_healthcare_totals_2022,
-                                          eldercare_share_of_social_work,
-                                          eldercare_share_of_social_work_io)
-    from paths import BRONZE_DIR
-
-    io_2022 = (BRONZE_DIR / "dst_input_output"
-               / "input_output_en_2022.xlsx")
-    if analysis_year == "2022":
-        hc51, hc52, services, _ = calculate_healthcare_totals_2022(io_2022)
-        alpha = eldercare_share_of_social_work_io(io_2022)
-    else:
-        hc51, hc52, services, _ = calculate_healthcare_totals(
-            BRONZE_DIR / "dst_supply_use" / "dk_umat_2019.xlsx")
-        alpha = eldercare_share_of_social_work(
-            BRONZE_DIR / "dst_supply_use" / "dk_umat_2019.xlsx")
-
-    to_meur = 1.0 / (DKK_PER_EUR_BY_YEAR[analysis_year] * 1000.0)
-
-    drivhus = pd.read_csv(BRONZE_DIR / "dst_emission_accounts"
-                          / "dk_direct_emissions_drivhus.csv", comment="#")
-    dh = drivhus[drivhus["year"] == int(analysis_year)].set_index(
-        ["industry_code", "emtype"])["value_kt_co2e"]
-    direct_kt = (dh[("VQA", "GHGEXBIO")] + dh[("V870000", "GHGEXBIO")]
-                 + alpha * dh[("V880000", "GHGEXBIO")]
-                 - dh[("V860010", "N2O")])
-
-    frame = pd.DataFrame(
-        [dict(Index="Expenditure", Unit="MEUR",
-              **{"HC service": float(services) * to_meur,
-                 "Pharm": float(hc51) * to_meur,
-                 "MedAppl": float(hc52) * to_meur}),
-         dict(Index="Conversion", Unit="na",
-              **{"HC service": 1.0, "Pharm": 1.0, "MedAppl": 1.0}),
-         dict(Index="DirectEm", Unit="kt CO2e",
-              **{"HC service": float(direct_kt), "Pharm": 0.0, "MedAppl": 0.0})]
-    ).set_index(["Index", "Unit"])
-    return frame
+    table = pd.read_csv(_silver(EXPENDITURE_CSV),
+                        dtype={"analysis_year": str},
+                        float_precision="round_trip")
+    block = table[table.analysis_year == str(analysis_year)]
+    if block.empty:
+        raise KeyError(
+            f"{EXPENDITURE_CSV} has no block for analysis year "
+            f"{analysis_year!r}; it carries "
+            f"{sorted(table.analysis_year.unique())}. Rebuild it with "
+            f"analysis.build_shipping_inputs.")
+    return (block.drop(columns=["analysis_year"])
+                 .set_index(["Index", "Unit"])[["HC service", "Pharm",
+                                                "MedAppl"]])
 
 
 def _sector_group_by_code() -> dict[str, str]:
     """The aggregate sector group of every EXIOBASE industry code.
 
-    Read from the same ``classifications.xlsx`` sheet
-    :mod:`analysis.main_2025` merges on, so the groups the band reports are
-    the groups the published contribution tables report.
+    Read from ``exiobase_industry_sector_group.csv``, which
+    :mod:`analysis.build_shipping_inputs` builds from the same
+    ``classifications.xlsx`` sheet :mod:`analysis.main_2025` merges on, so the
+    groups the band reports are the groups the published contribution tables
+    report.
 
     Returns
     -------
     dict of str to str
-        EXIOBASE industry code, e.g. ``"i61.a"``, to its aggregate group name,
-        e.g. ``"Transport"``.
+        EXIOBASE industry code as the background labels carry it, e.g.
+        ``"A_PARI"``, to its aggregate group name, e.g. ``"Transport"``.
     """
-    from paths import EXIOBASE_DIR
+    table = pd.read_csv(_silver(SECTOR_GROUP_CSV))
+    return dict(zip(table["exiobase_industry_code"], table["sector_group"]))
 
-    table = pd.read_excel(EXIOBASE_DIR / "classifications.xlsx",
-                          sheet_name="disagg_ind", skiprows=5)
-    return dict(zip(table["Code"].astype(str).str.strip(),
-                    table["AggDescription"].astype(str).str.strip()))
 
 
 def _published_non_mrio_additions(analysis_year: str) -> tuple[float, float]:

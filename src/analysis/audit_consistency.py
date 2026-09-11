@@ -383,19 +383,18 @@ def c16_gold_clean(results: list[dict[str, Any]]) -> None:
 #: Modules that read bronze and write gold in one step. The list is debt, and
 #: the check below exists so it can shrink and not grow.
 #:
-#: ``dk_shipping_correction`` joined it on 11 September 2026, and the reason is
-#: recorded here rather than left to be rediscovered. The module's target share
-#: phi stopped being the hardcoded 0.09 and is now read, per background year,
-#: from Statistics Denmark's domestic input-output workbook in bronze, while
-#: the module continues to write its own diagnostics to gold. The read is the
-#: point of the change - the share has to come from the Danish table - so the
-#: boundary crossing is deliberate, not an oversight. Re-plumbing it means
-#: publishing phi as a silver artefact from a step that runs before this one;
-#: that is a separate change, because this module runs BEFORE the pipeline
-#: whose concordance stage reads the same workbook.
+#: ``dk_shipping_correction`` was on it for one day. It joined on 11 September
+#: 2026, when its target share phi stopped being the hardcoded 0.09 and started
+#: being read per background year from Statistics Denmark's domestic
+#: input-output workbook, and it left on the same day: the workbook read moved
+#: to :mod:`analysis.build_shipping_inputs`, a silver stage that writes
+#: ``dst_water_transport_domestic_share.csv`` and two companion inputs, and the
+#: correction now reads those. The note survives because it is the worked
+#: example of how a name comes off this list - not by argument, but by giving
+#: the module a middle to read from.
 LAYER_SKIPPERS = {
     "build_dst_concordance", "capital_endogenised_sodersten", "capital_gfcf",
-    "dk_shipping_correction", "export_tables", "figaro_recipe_validation",
+    "export_tables", "figaro_recipe_validation",
     "impact_categories_full", "main", "main_2025",
     "manuscript_figure_tables", "recipe_validation_2022",
     "release_defect_audit",
@@ -405,10 +404,10 @@ LAYER_SKIPPERS = {
 def c17_layer_boundary(results: list[dict[str, Any]]) -> None:
     """C17: no NEW module reads bronze and writes gold in one step.
 
-    Medallion rule 4. The eleven in ``LAYER_SKIPPERS`` are the known debt,
+    Medallion rule 4. The names in ``LAYER_SKIPPERS`` are the known debt,
     carried into the bronze phase where their read paths change anyway. The
     check exists so the list can shrink and never grow: remove a name when the
-    module is re-plumbed, and C17 fails the moment a twelfth appears.
+    module is re-plumbed, and C17 fails the moment an unlisted one appears.
     """
     src = os.path.join(str(PROJECT_ROOT), "src", "analysis")
     own_file = os.path.basename(__file__)
