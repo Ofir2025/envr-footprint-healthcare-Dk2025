@@ -119,8 +119,8 @@ units and are labelled as such wherever they are quoted.
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `Revision` | dimension | str |  | DNK |
-| `Health care (kt CO₂-eq)` | measure | int64 |  | 2022 |
+| `Revision` | dimension | str |  | IPCC SAR (1995) |
+| `Health care (kt CO₂-eq)` | measure | float64 |  | 3703.5 |
 
 ### `table_08.csv`
 

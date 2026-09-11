@@ -343,14 +343,46 @@ def t_boundary_matched() -> Table:
         "boundaries; it remains, and the agreement should be read with it.")
 
 
+#: The two columns :func:`t_gwp_revision` reads, named rather than guessed.
+#:
+#: An earlier version guessed at ``healthcare_kt`` and ``value``, neither of
+#: which the file has ever carried, and fell back to ``d.columns[0]`` and
+#: ``d.columns[1]`` when the guess failed -- which it always did. Those are
+#: ``country_consuming`` and ``analysis_year``, so every row of table 7 read
+#: "DNK / 2,022", in the sidecar CSV and in the Word document alike, and the
+#: table still looked like a table. A builder that silently substitutes the
+#: wrong column is worse than one that stops: the fallback is gone, and a
+#: missing column now raises.
+GWP_REVISION_COLUMNS: tuple[str, str] = ("gwp_revision", "healthcare_kt_co2eq")
+
+
 def t_gwp_revision() -> Table:
-    """The climate footprint on five global-warming-potential revisions."""
+    """The climate footprint on five global-warming-potential revisions.
+
+    Returns
+    -------
+    Table
+        One row per IPCC assessment revision, carrying the revision label and
+        the health-care climate footprint restated on that revision's global
+        warming potentials.
+
+    Raises
+    ------
+    KeyError
+        If ``gwp_revision_sensitivity.csv`` does not carry both names in
+        :data:`GWP_REVISION_COLUMNS`. Raising is the point: the alternative is
+        publishing whichever column happens to sit in that position.
+    """
     d = _read("15_gwp_revision", "gwp_revision_sensitivity.csv")
-    cols = {c.lower(): c for c in d.columns}
-    val = cols.get("healthcare_kt") or cols.get("value") or d.columns[1]
+    revision, footprint = GWP_REVISION_COLUMNS
+    absent = [c for c in GWP_REVISION_COLUMNS if c not in d.columns]
+    if absent:
+        raise KeyError(
+            f"gwp_revision_sensitivity.csv is missing {absent}; it carries "
+            f"{list(d.columns)}. Table 7 is not built from a guess.")
     rows = [{
-        "Revision": r[d.columns[0]],
-        "Health care (kt CO\u2082-eq)": _fmt(r[val], 1),
+        "Revision": r[revision],
+        "Health care (kt CO\u2082-eq)": _fmt(r[footprint], 1),
     } for _, r in d.iterrows()]
     return Table(
         7, "The choice of global-warming-potential revision moves the climate "
@@ -499,14 +531,46 @@ def t_variance() -> Table:
         "calibration rather than of the correlation choice.")
 
 
+#: The two rows of ``target_consistency.csv`` the table 12 caption quotes.
+#:
+#: The caption used to carry a hand-typed 27 %, which is the B1G variant that
+#: applies the Danish grid trajectory to every region's grid and is reported as
+#: an upper bound rather than an evidenced pathway. The table's own rows give
+#: 19.7 % with the Danish grid pathway and 15.4 % for the interventions alone,
+#: which is what every other document says. A caption typed beside a table
+#: drifts from it; this one is read out of it.
+TARGET_SHARE_ROWS: tuple[str, str] = (
+    "share of the target with the grid pathway",
+    "share of the target the interventions alone reach")
+
+
 def t_scenarios() -> Table:
-    """The mitigation ladder against the regional target."""
+    """The mitigation ladder against the regional target.
+
+    Returns
+    -------
+    Table
+        The target-consistency ladder, with a caption whose two percentages
+        are read from :data:`TARGET_SHARE_ROWS` rather than typed beside them.
+
+    Raises
+    ------
+    KeyError
+        If either row in :data:`TARGET_SHARE_ROWS` is absent from
+        ``target_consistency.csv``.
+    """
     d = _read("18_mitigation_scenarios", "target_consistency.csv")
     rows = [{
         "Quantity": r["quantity"],
         "Value": _fmt(r["value"], 1),
         "Unit": _unit(r["unit"]),
     } for _, r in d.iterrows()]
+    share = dict(zip(d["quantity"], d["value"]))
+    absent = [q for q in TARGET_SHARE_ROWS if q not in share]
+    if absent:
+        raise KeyError(f"target_consistency.csv is missing {absent}; the "
+                       "table 12 caption is quoted from those rows.")
+    with_grid, levers_only = (float(share[q]) for q in TARGET_SHARE_ROWS)
     return Table(
         12, "Every quantified lever, plus a decarbonising grid, leaves the "
             "2035 footprint above today's",
@@ -523,7 +587,12 @@ def t_scenarios() -> Table:
         "largest across the whole set is 0.7 % of total output.",
         "An earlier figure of 31 % of the target came from summing "
         "climate-only levers with the grid pathway folded in unannounced. The "
-        "like-for-like value is 27 %; the interventions alone reach 15 %.")
+        f"like-for-like value is {_fmt(with_grid, 1)} %, which this table "
+        f"states as a row of its own, and the interventions alone reach "
+        f"{_fmt(levers_only, 1)} %. A caption of "
+        "27 % also circulates: that is the B1G variant, which applies the "
+        "Danish grid trajectory to every region's grid and is reported as an "
+        "upper bound rather than an evidenced pathway.")
 
 
 def t_burden_shift() -> Table:
