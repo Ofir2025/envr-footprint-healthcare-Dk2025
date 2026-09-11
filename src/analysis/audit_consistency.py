@@ -445,8 +445,22 @@ def c17_layer_boundary(results: list[dict[str, Any]]) -> None:
         # was split out under that name, every module that reads only those
         # workbooks silently dropped out of this check's field of view, and the
         # count fell from 11 to 10 with nothing having been re-plumbed.
+        #
+        # Matched on identifier boundaries rather than as bare substrings,
+        # which is the other half of the same lesson. When silver grew a folder
+        # per bronze provider, the constant naming the one mirroring
+        # ``data/bronze/dst_input_output/`` became
+        # ``SILVER_DST_INPUT_OUTPUT_DIR`` - and that name ENDS IN
+        # ``OUTPUT_DIR``. A substring test read every module importing it as a
+        # module writing gold, and reported two silver stages as new
+        # bronze-to-gold offenders. ``\b`` does not match between ``_`` and
+        # ``O``, so an identifier that merely contains the name no longer
+        # counts as the name.
         bronze_names = ("BRONZE_DIR", "EXIOBASE_DIR", "EXIOBASE_BASE_DIR")
-        if any(n in text for n in bronze_names) and "OUTPUT_DIR" in text:
+        def names(*wanted: str) -> bool:
+            """Whether any of ``wanted`` occurs as a whole identifier."""
+            return any(re.search(rf"\b{w}\b", text) for w in wanted)
+        if names(*bronze_names) and names("OUTPUT_DIR"):
             found.add(name[:-3])
     new = sorted(found - LAYER_SKIPPERS)
     _check(results, "C17 no new bronze-to-gold module", not new,
