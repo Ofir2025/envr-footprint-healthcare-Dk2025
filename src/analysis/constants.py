@@ -107,6 +107,18 @@ RELEASE_TAG: dict[str, str] = {
 #: EXIOBASE table years each release actually publishes. v3.7 (2019) stops at
 #: 2016: it has no 2022 table and cannot be given one, which is why the 2022
 #: series has no v3.7 variants.
+#:
+#: This is a property of the release, not of what happens to be downloaded here,
+#: and it was verified against the Zenodo record rather than inferred from the
+#: local tree: record 3583071 (v3.7) publishes ``IOT_<year>_ixi`` for 1995-2016,
+#: 22 tables; record 5589597 (v3.8.2) publishes 1995-2022, 28 tables. There is
+#: therefore no v3.7 2019 table to test variant a against, and none to be
+#: obtained: variant a runs on ``IOT_2016_ixi`` because that is the newest table
+#: its release has, which is also why the submitted manuscript analysed 2019
+#: expenditure on a 2016 background.
+#:
+#: The tuples below list the years this study builds backgrounds for, which is a
+#: subset of what each release publishes.
 RELEASE_TABLE_YEARS: dict[str, tuple[str, ...]] = {
     "v3_7": ("2016",),
     "v3_8_2": ("2016", "2022"),
