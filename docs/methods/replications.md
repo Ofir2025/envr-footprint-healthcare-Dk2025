@@ -1451,8 +1451,8 @@ Journal register, paste-ready. Every claim is traceable to a page or to a gold t
 > \phi^{\ast}(t) = \frac{\sum_{j=1}^{117} d_{\text{wt},j}(t)}{x_{\text{wt}}(t)} ,$$
 >
 > with $\phi^{\ast}(t)$ read, for the background year $t$ of the run, from the domestic
-> input-output table Statistics Denmark publish — sheet $\mathrm{DIO}$ of
-> $\texttt{input\_output\_en}\langle t \rangle$, row 500000 *Water transport*, its
+> input-output table Statistics Denmark publish — the `DIO` sheet of
+> `input_output_en_<t>.xlsx`, row 500000 *Water transport*, its
 > deliveries to the 117 Danish industries over its own total output — and not fitted. This
 > is the same quantity Rørmose Jensen & Iliev (2022, p. 12) report as 9 % for 2019, and
 > reading it for 2019 returns $\phi^{\ast} = 0.0931$, reproducing their figure to within
