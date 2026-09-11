@@ -959,6 +959,21 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
                "they sum to 90.6 %"),
     ("78.9 %", "the top of the input-output variance share across the "
                "correlation sweep; the range is 78.4 % to 78.6 %"),
+    # Withdrawn on 11 September 2026, not superseded by a better value: no
+    # module computed any of the three, and none could be reconstructed from
+    # the modules and data of layer 05. The evidence for each withdrawal, and
+    # why they were not computed instead, is in
+    # docs/revision/defects_and_fixes.md, "Findings of 11 September 2026".
+    ("74 % manure", "withdrawn: a composition share of the 2011 hybrid waste "
+                    "extension that no module computes. The extension itself "
+                    "gives 73.14 % for Denmark"),
+    ("69 % overburden plus manure", "withdrawn: the extension has no overburden "
+                                    "fraction, and the published waste boundary "
+                                    "excludes manure and both mining fractions, "
+                                    "so the share is zero by construction"),
+    ("$r = -0.19$", "withdrawn: at p = 0.56 this implies about twelve sector "
+                    "groups, and no document records which; no module retrieves "
+                    "the measured Danish 2011 structure by industry"),
 )
 
 #: Documents that record what a number used to be, and therefore must be
