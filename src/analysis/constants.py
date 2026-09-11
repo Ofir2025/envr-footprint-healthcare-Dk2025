@@ -815,6 +815,15 @@ def variant_config(letter: str) -> dict[str, str]:
 #: state allowed, since the transport bridge was measured on ``2019_uncorrected``
 #: and reported as the submitted configuration.
 UNLETTERED_VARIANTS: dict[str, dict[str, str]] = {
+    "2016_uncorrected": {
+        "release": "v3_8_2",
+        "tag": "",
+        "scope": "health_eldercare",
+        "capital": "excluded",
+        "summary": "EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping "
+                   "correction, health-care boundary, capital excluded - the "
+                   "2016 counterpart of 2019_uncorrected and 2022_uncorrected",
+    },
     "2019_uncorrected": {
         "release": "v3_8_2",
         "tag": "",

@@ -56,10 +56,21 @@ def main():
     vp = ax.violinplot(data, showextrema=False, widths=0.85)
     for b in vp["bodies"]:
         b.set_facecolor(OKABE_ITO[0]); b.set_alpha(0.55)
+    # The five violins are ALMOST THE SAME SHAPE, and that is the finding rather
+    # than a fault in the drawing: material extraction, blue water and land use
+    # are 100 % MRIO-driven, so normalising each on its own deterministic total
+    # leaves one lognormal multiplier drawn three times. Climate change (78 %
+    # MRIO) and waste generation (95 %) differ only slightly. Without the CV
+    # printed on each violin a reader sees five identical shapes and cannot tell
+    # whether the figure is informative or broken; with it, the 7.2 % to 8.4 %
+    # spread is legible and the reason for the sameness is on the page.
     for k, i in enumerate(INDICATORS, start=1):
-        q = np.percentile(tot[i] / float(total[i]), [2.5, 50, 97.5])
+        arr = tot[i] / float(total[i])
+        q = np.percentile(arr, [2.5, 50, 97.5])
         ax.plot([k, k], [q[0], q[2]], color="k", lw=1.2)
         ax.plot(k, q[1], "o", color="k", ms=4)
+        ax.text(k, q[2] + 0.035, f"CV {100 * arr.std(ddof=1) / arr.mean():.1f} %",
+                ha="center", va="bottom", fontsize=9)
     ax.axhline(1.0, color=OKABE_ITO[5], lw=1.2, ls="--", label="Deterministic estimate")
     ax.set_xticks(range(1, len(INDICATORS) + 1))
     ax.set_xticklabels([SHORT[i] for i in INDICATORS], rotation=20, ha="right")
@@ -122,6 +133,57 @@ def main():
     ax.invert_yaxis()
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.13), ncol=3)
     fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "uncertainty_variance_shares.png"), dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+    # 2b. where the uncertainty actually varies: across contribution groups
+    #
+    # The five indicators barely differ from one another (see the violins), so a
+    # reader could leave this analysis believing the uncertainty is one number.
+    # It is not: across the nine contribution groups of the climate footprint the
+    # coefficient of variation runs from 8.3 % to 26.3 %, a factor of three, and
+    # that spread is what a reader deciding which estimate to trust needs.
+    #
+    # The design follows Schulte et al. (2024, Earth Syst. Sci. Data 16:2669),
+    # figures 5 and 6: a 95 % interval drawn as a bar of RELATIVE deviation from
+    # the central value, with the entries sorted by their share of the total, so
+    # magnitude and precision are read together. Sorting by share rather than by
+    # uncertainty is deliberate - it puts the groups that matter at the top and
+    # lets the reader see that the largest are also the tightest.
+    det_groups = {ind: (mrio[ind] + sum(pt[ind] for pt in parts.values()))
+                  for ind in mrio.columns}
+    ind0 = INDICATORS[0]
+    M = G[ind0]
+    det = det_groups[ind0]
+    rows = []
+    for j, g in enumerate(groups):
+        arr = M[:, j]
+        med = float(np.median(arr))
+        q = np.percentile(arr, [2.5, 97.5])
+        rows.append((g, float(det.get(g, np.nan)), med,
+                     100 * (q[0] / med - 1), 100 * (q[1] / med - 1),
+                     100 * float(arr.std(ddof=1)) / float(arr.mean())))
+    rows.sort(key=lambda r: r[1])                     # ascending: largest on top
+    names = [r[0] for r in rows]
+    share = np.array([r[1] for r in rows]) / float(det.sum()) * 100
+    lo = np.array([r[3] for r in rows]); hi = np.array([r[4] for r in rows])
+    cv = np.array([r[5] for r in rows])
+
+    fig, ax = plt.subplots(figsize=(9.8, 5.6))
+    y = np.arange(len(names))
+    ax.barh(y, hi - lo, left=lo, height=0.62, color=OKABE_ITO[0], alpha=0.55,
+            zorder=2)
+    ax.plot(np.zeros(len(names)), y, "o", color="k", ms=5, zorder=3)
+    ax.axvline(0, color="k", lw=1.0, zorder=1)
+    for k in range(len(names)):
+        ax.text(hi[k] + 1.4, y[k], f"CV {cv[k]:.1f} %   {share[k]:.0f} % of total",
+                va="center", fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels(names)
+    ax.set_xlabel("95 % interval, relative to the group's own median (%)")
+    ax.set_xlim(min(lo) - 4, max(hi) + 38)
+    ax.grid(axis="x", color="0.88", zorder=0)
+    ax.set_axisbelow(True)
+    fig.savefig(os.path.join(fig_dir, "uncertainty_by_group_climate.png"),
+                dpi=300, bbox_inches="tight")
     plt.close(fig)
 
     # 3. tornado for climate change

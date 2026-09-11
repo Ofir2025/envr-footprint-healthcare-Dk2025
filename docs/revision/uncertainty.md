@@ -804,6 +804,18 @@ All four are in `figures/uncertainty/` and are rebuilt by
 Violins of the simulated total for each indicator, normalised on its own
 deterministic estimate, with the 2.5th, 50th and 97.5th percentiles marked.
 
+**Why the five look almost identical, which is the point rather than a fault.**
+Material extraction, blue water and land use are **100 % MRIO-driven**: their
+bottom-up terms are zero, because EXIOBASE attributes extraction, abstraction and
+land occupation to extractive and agricultural industries, so a health *service*
+industry has no direct row. Normalising each on its own deterministic total
+therefore leaves one lognormal multiplier drawn three times. Climate change
+(78 % MRIO) and waste generation (95 %) differ only slightly, and the whole
+spread across the five is 7.2 % to 8.4 %. The CV is printed on each violin so
+that spread is legible; without it a reader sees five identical shapes and cannot
+tell whether the figure is informative or broken. The figure that shows where
+uncertainty genuinely varies is the group-level one below.
+
 **What it says.** All five distributions are centred on 1.0 and are close to
 symmetric, slightly right-skewed — the signature of lognormal multipliers with a
 median of one. Climate change spans **−14.2 % to +16.9 %** around the median, and
@@ -841,6 +853,36 @@ running to 100.
 most a fifth of the climate variance and essentially none of the other four. The
 width of this study's interval is a property of EXIOBASE, not of the Danish data
 collection, and no amount of further Danish primary data will narrow it.
+
+#### `uncertainty_by_group_climate.png` — where the uncertainty actually varies
+
+The five indicators barely differ from one another, so the violins alone could
+leave a reader believing the uncertainty of this study is one number. It is not.
+This figure draws the 95 % interval of each contribution group of the climate
+footprint as a relative deviation from that group's own median, with the groups
+sorted by their share of the total so magnitude and precision are read together.
+
+The design follows Schulte et al. (2024), figures 5 and 6, which plot
+EXIOBASE-derived uncertainty the same way — a confidence bar in relative terms,
+ordered by the entry's share of the total rather than by its uncertainty. Sorting
+by share is the deliberate half of that choice: it puts the groups that matter at
+the top, and lets the reader see that the largest groups are also the tightest.
+
+**What it says.** Seven of the nine bars are the same width, −15 % to +18 %,
+because those groups are entirely MRIO-driven and share one multiplier. Two are
+not. **Individual travel spans −39 % to +66 %, a CV of 26.2 %**, four times the
+width of any other bar and the single loosest estimate in the study. Operational
+impacts is slightly wider than the MRIO groups at 9.1 %, because the Danish
+direct-emissions account carries its own error.
+
+**What to take from it.** The three groups that make up 62 % of the footprint —
+pharmaceuticals, services and transport — are the three most precisely estimated.
+The loosest group is 13 % of the total. That combination is what makes the
+headline robust while leaving the middle of the ranking genuinely open, and it is
+also the answer to a reviewer asking where further data collection would pay:
+only individual travel has enough width to be worth narrowing, and narrowing it
+would move the total's interval by little, because it is 13 % of a footprint
+whose variance is three-quarters MRIO.
 
 #### `uncertainty_tornado_climate.png` — one parameter at a time
 

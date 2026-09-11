@@ -1,0 +1,31 @@
+indicator,unit,purchased_world_region,value
+climate_change,kt CO2eq,Denmark,3924.583758331353
+material_extraction,kt,Asia and Pacific,3352.6087699997643
+material_extraction,kt,Denmark,2270.66685539884
+land_use,km2,Asia and Pacific,1505.3133350686855
+land_use,km2,Denmark,1325.4764329214718
+material_extraction,kt,Europe,995.5368382102268
+climate_change,kt CO2eq,Asia and Pacific,982.9540775028821
+land_use,km2,America,894.4629499147901
+climate_change,kt CO2eq,Europe,804.9422882154781
+land_use,km2,Europe,762.2353730294673
+material_extraction,kt,America,497.3024071685581
+material_extraction,kt,Middle East,352.7168850282652
+land_use,km2,Africa,319.994607772235
+land_use,km2,Middle East,309.2573042787618
+climate_change,kt CO2eq,America,279.5573883671054
+waste_generation,kt,Denmark,214.10693206267592
+climate_change,kt CO2eq,Middle East,200.7391368524865
+material_extraction,kt,Africa,85.2089925183968
+climate_change,kt CO2eq,Africa,85.09307742054868
+waste_generation,kt,Europe,48.08042922858054
+waste_generation,kt,Asia and Pacific,45.13498427301427
+waste_generation,kt,America,31.51874057182212
+blue_water_consumption,Mm3,Asia and Pacific,23.67534248263969
+blue_water_consumption,Mm3,Denmark,20.982925034575707
+blue_water_consumption,Mm3,America,13.739530889558344
+waste_generation,kt,Africa,12.931787890311243
+blue_water_consumption,Mm3,Middle East,11.527559757781269
+blue_water_consumption,Mm3,Europe,8.466804660172325
+waste_generation,kt,Middle East,5.795201110693531
+blue_water_consumption,Mm3,Africa,3.182863528508366
