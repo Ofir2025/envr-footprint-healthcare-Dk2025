@@ -14,6 +14,16 @@ data/bronze/exiobase/IOT_2016_ixi
 # directory holding symlinks rather than a symlink itself.
 data/bronze/exiobase/v3_7/
 data/bronze/exiobase/v3_8_2/
+# Total-output vectors fetched per release for the release-choice comparison,
+# one x.txt per release and table year. Untracked for two reasons: they are
+# EXIOBASE redistribution, and from v3.9 onwards EXIOBASE is under a customised
+# non-commercial licence that the CC-BY-SA terms of v3.7/v3.8.2 do not cover.
+# The DERIVED comparison - Danish health output against the national accounts,
+# 21 numbers - is published in gold, which is reporting a research finding
+# rather than redistributing the database. Re-fetch with
+# `analysis.fetch_release_output_vectors`, which pulls only x.txt out of each
+# remote archive by HTTP range request: 0.46 MB instead of 0.76 GB.
+data/bronze/exiobase/release_output_vectors/
 
 # Large external MRIO downloads: reproducible from the documented URLs
 data/bronze/eurostat_figaro/estat_naio_10_fcp_ii4_*.tsv.gz

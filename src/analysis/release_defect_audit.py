@@ -45,10 +45,22 @@ import scipy.io as sio
 
 from analysis.constants import K_DK, N_SECTORS
 from paths import BRONZE_DIR, EXIOBASE_BASE_DIR, OUTPUT_DIR
+from analysis.fetch_release_output_vectors import VECTOR_DIR
 
 FOLDER = "09_exiobase_release_diagnostics"
 DKK_PER_EUR_2022 = 7.4396
 DKK_PER_EUR_2016 = 7.4452
+DKK_PER_EUR_2019 = 7.4661
+
+#: Nationalbank annual average DKK per EUR, by reference year of the Danish
+#: table being converted. The krone is pegged inside ERM II, so the three differ
+#: by less than 0.4 %, but a year converted at another year's rate is still a
+#: year converted at the wrong rate.
+DKK_PER_EUR: dict[str, float] = {
+    "2016": DKK_PER_EUR_2016,
+    "2019": DKK_PER_EUR_2019,
+    "2022": DKK_PER_EUR_2022,
+}
 
 DST_IO = str(BRONZE_DIR / "dst_input_output"
              / "input_output_en_{year}.xlsx")
@@ -160,7 +172,7 @@ def _dst_output(year: str) -> dict[str, float]:
     labels = [str(v) for v in sheet.iloc[:, 0].tolist()]
     row = max(i for i, v in enumerate(labels) if v.strip().lower() == "total output")
     vals = pd.to_numeric(sheet.iloc[row, 2:], errors="coerce").values
-    fx = DKK_PER_EUR_2022 if str(year) == "2022" else DKK_PER_EUR_2016
+    fx = DKK_PER_EUR.get(str(year), DKK_PER_EUR_2016)
     out = {}
     for c, v in zip(codes, vals):
         if re.fullmatch(r"\d{6}", c) and np.isfinite(v):
@@ -298,6 +310,151 @@ def _normalise_country(
     frame[column] = (frame[column].astype(str)
                      .replace({"ROM": "ROU"}).replace(row_names))
     return frame
+
+
+
+# ---------------------------------------------------------------------------
+# The release-choice series: every release against the national accounts,
+# per table year. Lifted here rather than given its own module because it
+# reads bronze and writes gold, which this module is already recorded as
+# doing in audit_consistency.LAYER_SKIPPERS. That list may shrink and never
+# grow, so a new name for the same kind of diagnostic on the same sources
+# would have had to be added to it.
+# ---------------------------------------------------------------------------
+
+#: Layer the release series publishes into.
+SERIES_FOLDER = "09_exiobase_release_diagnostics"
+
+#: Output.
+SERIES_CSV = "dk_health_output_by_release.csv"
+
+#: The EXIOBASE industry whose label the comparison is keyed on. The txt
+#: distribution suffixes the ISIC code, the .mat distribution does not, so the
+#: match is on the prefix.
+HEALTH_INDUSTRY = "Health and social work"
+
+#: DST 117-industry codes that make up health and social work, matching the
+#: EXIOBASE aggregate: human health, residential care, social work.
+DST_HEALTH_PREFIXES = ("86", "87", "88")
+
+#: Years Statistics Denmark's published input-output table is held for.
+DST_YEARS = ("2016", "2019", "2022")
+
+
+def release_health_output() -> pd.DataFrame:
+    """Read Danish health output from every fetched release-year vector.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Columns ``release``, ``table_year``, ``exiobase_output_meur``.
+
+    Raises
+    ------
+    FileNotFoundError
+        If no vector has been fetched.
+    """
+    rows = []
+    for path in sorted(VECTOR_DIR.glob("x_v*_[0-9][0-9][0-9][0-9].txt")):
+        match = re.fullmatch(r"x_v(.+)_(\d{4})\.txt", path.name)
+        if not match:
+            continue
+        frame = pd.read_csv(path, sep="\t")
+        danish = frame[frame.region == "DK"]
+        health = danish[danish.sector.str.startswith(HEALTH_INDUSTRY)]
+        if len(health) != 1:
+            raise RuntimeError(f"{path.name}: {len(health)} rows match "
+                               f"{HEALTH_INDUSTRY!r}, expected exactly one")
+        rows.append({"release": "v" + match.group(1).replace("_", "."),
+                     "table_year": match.group(2),
+                     "exiobase_output_meur": float(health.indout.iloc[0])})
+    if not rows:
+        raise FileNotFoundError(
+            f"no output vector in {VECTOR_DIR}; run\n"
+            "  PYTHONPATH=src .venv/bin/python -m "
+            "analysis.fetch_release_output_vectors")
+    return pd.DataFrame(rows)
+
+
+def national_accounts_health() -> dict[str, float]:
+    """Danish health-and-social-work output per year, from the DST table.
+
+    Returns
+    -------
+    dict of str to float
+        Year to total output in M.EUR, summed over DST industries 86, 87 and 88.
+    """
+    totals: dict[str, float] = {}
+    for year in DST_YEARS:
+        by_code = _dst_output(year)
+        totals[year] = sum(value for code, value in by_code.items()
+                           if str(code).startswith(DST_HEALTH_PREFIXES))
+    return totals
+
+
+def build_series() -> pd.DataFrame:
+    """Join the release vectors to the national accounts.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per release and table year, with the national-accounts value and
+        the ratio where the accounts publish that year, and an ``assessment``
+        naming what the ratio means.
+    """
+    series = release_health_output()
+    accounts = national_accounts_health()
+    series["national_accounts_output_meur"] = series.table_year.map(accounts)
+    series["ratio_exiobase_over_dst"] = (series.exiobase_output_meur
+                                         / series.national_accounts_output_meur)
+    series["assessment"] = series.ratio_exiobase_over_dst.map(_assess)
+    series["unit"] = "M.EUR"
+    series["exiobase_industry"] = HEALTH_INDUSTRY
+    series["dst_industries"] = ";".join(DST_HEALTH_PREFIXES)
+    return series.sort_values(
+        ["table_year", "release"],
+        key=lambda c: (c.map(_release_sort) if c.name == "release" else c)
+    ).reset_index(drop=True)
+
+
+def _release_sort(release: str) -> tuple[int, ...]:
+    """Sort key putting v3.9.6 after v3.9.5 and before v3.10.1.
+
+    Parameters
+    ----------
+    release : str
+        e.g. ``"v3.10.2"``.
+
+    Returns
+    -------
+    tuple of int
+        The numeric components.
+    """
+    return tuple(int(part) for part in re.findall(r"\d+", release))
+
+
+def _assess(ratio: float) -> str:
+    """Describe what one ratio means for usability.
+
+    Parameters
+    ----------
+    ratio : float
+        EXIOBASE output over national-accounts output. ``NaN`` where the
+        accounts publish no table for that year.
+
+    Returns
+    -------
+    str
+        ``"not assessable"``, ``"agrees"``, ``"overstates"`` or ``"defective"``.
+    """
+    if pd.isna(ratio):
+        return "not assessable: no DST table for this year"
+    if ratio < 0.75:
+        return "defective: health industry far below the national accounts"
+    if ratio > 1.15:
+        return "overstates the national accounts by more than 15 %"
+    return "agrees with the national accounts within 15 %"
+
 
 
 def main() -> None:
@@ -476,6 +633,15 @@ def main() -> None:
                               columns=["mrio_release", "mrio_year"],
                               values="ratio_exiobase_over_dst")
         print(piv.round(2).to_string())
+    series = build_series()
+    series_out = os.path.join(str(OUTPUT_DIR), SERIES_FOLDER, SERIES_CSV)
+    series.to_csv(series_out, index=False)
+    ratios = series.dropna(subset=["ratio_exiobase_over_dst"]).pivot(
+        index="release", columns="table_year", values="ratio_exiobase_over_dst")
+    print("\nDanish health output / national accounts, by release and year")
+    print(ratios.reindex(sorted(ratios.index, key=_release_sort))
+          .round(4).to_string())
+
     print(f"\nwritten -> {out_dir}")
 
 
