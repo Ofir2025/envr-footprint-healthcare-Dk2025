@@ -80,7 +80,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `demand_component` | dimension | str |  | healthcare_services |
 | `basic_price_expenditure_meur` | measure | float64 | M.EUR | 37552.28493467391 |
-| `y_H_meur` | measure | float64 | M.EUR | 10022.046976724128 |
+| `y_H_meur` | measure | float64 | M.EUR | 10009.058855373154 |
 | `unit` | dimension | str |  | M.EUR |
 
 ### `expenditure_vector_detail.csv`
@@ -119,7 +119,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `producing_sector_code` | dimension | str |  | WHEA |
 | `producing_sector_name` | dimension | str |  | Cultivation of wheat |
 | `producing_sector_group` | dimension | str |  | Food and catering |
-| `value` | measure | float64 | kt | 1.1451961815713651e-05 |
+| `value` | measure | float64 | kt | 1.1449541602679268e-05 |
 
 ### `extended_indicators_summary.csv`
 
@@ -133,7 +133,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `unit` | dimension | str |  | kt |
 | `demand_component` | dimension | str |  | healthcare_services |
 | `n_stressor_rows` | measure | int64 |  | 48 |
-| `value` | measure | float64 | kt | 1.2820478567488611 |
+| `value` | measure | float64 | kt | 1.237595944714854 |
 
 ### `footprint_bilateral_producer_x_purchase.csv.gz`
 
@@ -158,7 +158,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `purchased_sector_code` | dimension | str |  | POWT |
 | `purchased_sector_name` | dimension | str |  | Transmission of electricity |
 | `purchased_sector_group` | dimension | str |  | Electricity |
-| `value` | measure | float64 | kt CO2eq | 54.31864188434562 |
+| `value` | measure | float64 | kt CO2eq | 54.31864093317648 |
 
 ### `footprint_by_producing_node.csv`
 
@@ -177,7 +177,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `producing_sector_code` | dimension | str |  | WHEA |
 | `producing_sector_name` | dimension | str |  | Cultivation of wheat |
 | `producing_sector_group` | dimension | str |  | Food and catering |
-| `value` | measure | float64 | kt CO2eq | 0.0591484115147743 |
+| `value` | measure | float64 | kt CO2eq | 0.0591359113197146 |
 
 ### `footprint_by_purchased_product.csv`
 
@@ -196,7 +196,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `purchased_sector_code` | dimension | str |  | WHEA |
 | `purchased_sector_name` | dimension | str |  | Cultivation of wheat |
 | `purchased_sector_group` | dimension | str |  | Food and catering |
-| `value` | measure | float64 | kt CO2eq | 0.00089628418447 |
+| `value` | measure | float64 | kt CO2eq | 0.0008962830278076 |
 
 ### `national_footprint_by_producing_node.csv`
 
@@ -214,7 +214,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `producing_sector_code` | dimension | str |  | WHEA |
 | `producing_sector_name` | dimension | str |  | Cultivation of wheat |
 | `producing_sector_group` | dimension | str |  | Food and catering |
-| `value` | measure | float64 | kt CO2eq | 1.4657021219399546 |
+| `value` | measure | float64 | kt CO2eq | 1.4656191562911896 |
 
 ### `national_footprint_by_purchased_product.csv`
 
@@ -232,7 +232,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `purchased_sector_code` | dimension | str |  | WHEA |
 | `purchased_sector_name` | dimension | str |  | Cultivation of wheat |
 | `purchased_sector_group` | dimension | str |  | Food and catering |
-| `value` | measure | float64 | kt CO2eq | 0.1269444699860208 |
+| `value` | measure | float64 | kt CO2eq | 0.1269443061630942 |
 
 ### `national_totals_summary.csv`
 
@@ -244,11 +244,11 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `national_footprint` | measure | float64 | varies by row | 77477.50333386465 |
-| `national_supply_chain` | measure | float64 | varies by row | 67755.50852916535 |
+| `national_footprint` | measure | float64 | varies by row | 77240.62118630517 |
+| `national_supply_chain` | measure | float64 | varies by row | 67518.62638160588 |
 | `national_direct_households` | measure | float64 | varies by row | 9721.994804699298 |
-| `healthcare_footprint_mrio` | measure | float64 | varies by row | 3943.3970167956713 |
-| `healthcare_share_pct` | measure | float64 | % | 5.089731660302548 |
+| `healthcare_footprint_mrio` | measure | float64 | varies by row | 3906.4460701401745 |
+| `healthcare_share_pct` | measure | float64 | % | 5.05750214089784 |
 
 ### `national_vs_healthcare_by_product_group.csv`
 
@@ -263,7 +263,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `sector_code` | dimension | str |  | ALUM |
 | `sector_name` | dimension | str |  | Aluminium production |
 | `sector_group` | dimension | str |  | Metal Products |
-| `national` | measure | float64 | varies by row | 7.953724723473594 |
-| `healthcare` | measure | float64 | varies by row | 0.7812067574513278 |
-| `healthcare_vs_sector_ratio_pct` | measure | float64 | % | 9.821898350916964 |
-| `sector_share_of_national_pct` | measure | float64 | % | 0.0117388606419357 |
+| `national` | measure | float64 | varies by row | 7.951193768306848 |
+| `healthcare` | measure | float64 | varies by row | 0.7809389606695519 |
+| `healthcare_vs_sector_ratio_pct` | measure | float64 | % | 9.821656765331824 |
+| `sector_share_of_national_pct` | measure | float64 | % | 0.0117762966968074 |

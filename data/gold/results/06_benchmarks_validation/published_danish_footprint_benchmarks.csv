@@ -3,4 +3,4 @@ Eurostat FIGARO (env_ac_ghgfp),2022,national accounts (FIGARO),57.4,9.77,exogeno
 Statistics Denmark AFTRYK,2022,national accounts coupled to EXIOBASE,62.9,10.71,exogenous,Denmark's official consumption-based account
 Rørmose Jensen & Iliev 2022 (Statistics Denmark),2020,national accounts coupled to EXIOBASE,65.4,11.0,exogenous,"simplified SNAC; 38 % arises in Denmark, 62 % abroad"
 Schmidt & Merciai 2023,2016,EXIOBASE (v4 hybrid),73.9,12.9,"ENDOGENISED, contributing 1.1 t per capita","consequential/marginal model, so not a like-for-like attributional comparison, but the closest published Danish EXIOBASE-based figure"
-this study (EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)),2022,"EXIOBASE (v3.8.2, sea-transport reallocation)",77.47750333386465,13.191207734823092,exogenous (excluded from the headline),attributional
+this study (EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)),2022,"EXIOBASE (v3.8.2, sea-transport reallocation)",77.24062118630518,13.15087652275934,exogenous (excluded from the headline),attributional

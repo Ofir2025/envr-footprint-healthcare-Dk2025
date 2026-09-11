@@ -1,6 +1,6 @@
 model,consuming_country_iso3,analysis_year,indicator,unit,full_mrio,domestic_only,domestic_share_of_full_pct,share_of_national_full_pct,share_of_national_domestic_pct
-EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,climate_change,kt CO2eq,4061.9511864328815,839.4965252767034,20.66732185459696,5.995012471472214,3.983162174492114
-EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,material_extraction,kt,4233.7491225401445,1938.665547265125,45.79075167547891,7.849101957896812,9.58930232427841
-EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,blue_water_consumption,Mm3,95.32735307556368,4.407169801454565,4.623195399080375,7.689772974709472,3.314850665593165
-EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,land_use,km2,4853.7909278171865,372.1022282051965,7.666218709023295,5.125303734283917,1.9718912880376847
-EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,waste_generation,kt,259.41809167194054,131.20217505477592,50.575568654129896,9.341121065849958,12.249934000577209
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,climate_change,kt CO2eq,4025.0002397773846,818.1006438667325,20.325480624368364,5.96131831389555,3.9070037703104274
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,material_extraction,kt,4231.533062292296,1938.3727973332184,45.80781406640287,7.847060283516882,9.58874202479518
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,blue_water_consumption,Mm3,95.27125539157144,4.403257758320109,4.621811416489072,7.687477879093284,3.3125314019090917
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,land_use,km2,4850.156051198475,372.0927625747655,7.671768880154304,5.122726009278882,1.971847450507647
+EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),DNK,2022,waste_generation,kt,259.2750606871876,131.19405102267828,50.60033567245498,9.33905427073223,12.249769553526251

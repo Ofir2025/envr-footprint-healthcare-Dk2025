@@ -62,10 +62,10 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | M.EUR |
 | `sheet` | dimension | str |  | Q_factorinputs |
 | `n_nonzero_factors` | measure | int64 |  | 8 |
-| `healthcare_supply_chain` | measure | float64 | varies by row | 11977.476858927186 |
-| `national_supply_chain` | measure | float64 | varies by row | 286028.6902930252 |
-| `healthcare_share_of_national_pct` | measure | float64 | % | 4.187508898725064 |
-| `healthcare_per_capita` | measure | float64 | varies by row | 0.0020392678982479 |
+| `healthcare_supply_chain` | measure | float64 | varies by row | 11962.972792590075 |
+| `national_supply_chain` | measure | float64 | varies by row | 285935.7087947619 |
+| `healthcare_share_of_national_pct` | measure | float64 | % | 4.183798114273591 |
+| `healthcare_per_capita` | measure | float64 | varies by row | 0.0020367984568769 |
 | `component` | dimension | str |  | supply chain (MRIO) only; the Danish dir |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
@@ -90,7 +90,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_code` | dimension | str |  | OBUS |
 | `producing_sector_name` | dimension | str |  | Other business activities (74) |
 | `producing_sector_group` | dimension | str |  | Services |
-| `value` | measure | float64 | M.EUR | 799.9756103392839 |
+| `value` | measure | float64 | M.EUR | 799.9663648777786 |
 
 ### `impact_categories_by_sector_group.csv`
 
@@ -100,7 +100,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | EPS (Steen, 1999)) |
 | `unit` | dimension | str |  | elu |
 | `producing_sector_group` | dimension | str |  | Chemical |
-| `value` | measure | float64 | varies by row | 175687614.1292201 |
+| `value` | measure | float64 | varies by row | 175674429.00652152 |
 
 ### `impact_categories_domestic_vs_imported.csv`
 
@@ -111,8 +111,8 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | elu |
 | `quality_flag` | dimension | str |  | ok |
 | `origin` | dimension | str |  | domestic |
-| `value` | measure | float64 | varies by row | 336581947.66712177 |
-| `share_of_total_pct` | measure | float64 | % | 12.55580440413941 |
+| `value` | measure | float64 | varies by row | 331330030.10034984 |
+| `share_of_total_pct` | measure | float64 | % | 12.414416241782265 |
 
 ### `stressor_totals_uncharacterised.csv`
 
@@ -122,6 +122,6 @@ units and are labelled as such wherever they are quoted.
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `stressor` | dimension | str |  | Taxes less subsidies on products purchas |
-| `healthcare_supply_chain` | measure | float64 |  | 829.2950355096353 |
-| `national_supply_chain` | measure | float64 |  | 16395.595223811626 |
+| `healthcare_supply_chain` | measure | float64 |  | 827.7673185085812 |
+| `national_supply_chain` | measure | float64 |  | 16385.801458919927 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |

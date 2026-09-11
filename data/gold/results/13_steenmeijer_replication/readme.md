@@ -38,7 +38,7 @@ the two can be set side by side:
 | [`steenmeijer_fig3_hotspot_region_nl.tiff`](../../../../figures/steenmeijer_replication/steenmeijer_fig3_hotspot_region_nl.tiff) | Geographical hotspot analysis of the Dutch health-care impact footprints, 2016, in the six world regions of the DESIRE concordance. The indirect impact of private travel is distributed proportionally among all regions, as in the original. |
 | [`steenmeijer_fig3_hotspot_region_dk.tiff`](../../../../figures/steenmeijer_replication/steenmeijer_fig3_hotspot_region_dk.tiff) | The same figure for Denmark, 2022, shipping-corrected, with Denmark in the home-country slot the Netherlands occupies above. |
 
-All six are produced by `R/plot_steenmeijer_replication.R` from the
+All six are produced by `r/plot_steenmeijer_replication.r` from the
 tables in this folder and in `01_eriksen_replication/`. None carries a
 title or a caption on the image: the captions are the table above.
 
