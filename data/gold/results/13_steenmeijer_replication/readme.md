@@ -19,7 +19,7 @@ from.
 
 The archive does not reproduce the article's own tables exactly: their
 script reads Statistics Netherlands at run time, so the direct
-emissions and the expenditure move with the vintage of the query. The
+emissions and the expenditure move with the release of the query. The
 differences, and two inconsistencies internal to the archive, are
 tabulated in the methods section linked above.
 

@@ -2295,20 +2295,20 @@ the identical rule.
 
 The archived workbooks do not reproduce the article's own tables exactly, and the module's
 own warning says why: `main.py` reads the most recent Statistics Netherlands data at run
-time, so the expenditure and the direct emissions move with the vintage of the query rather
+time, so the expenditure and the direct emissions move with the release of the query rather
 than staying at the values the article was written against. Three consequences, all
 verifiable in the converted CSVs:
 
 | What | Article | Archive | Difference | Why |
 |:---|:---|:---|:---|:---|
 | Climate change, total | 17,575 kt | 17,718.56 kt | +0.8 % | direct emissions and the conversion factors, below |
-| Direct emissions of the sector | 1,573.8 kt (1,588 less the 14.2 kt of anaesthetic gases) | 1,699.0 kt | +125.2 kt | a later Statistics Netherlands vintage; the archived input `CBS_data_2016.csv` carries 1,699.0 |
+| Direct emissions of the sector | 1,573.8 kt (1,588 less the 14.2 kt of anaesthetic gases) | 1,699.0 kt | +125.2 kt | a later Statistics Netherlands release; the archived input `CBS_data_2016.csv` carries 1,699.0 |
 | Basic-price expenditure | 92,515 M€ | 92,528.02 M€ | +13.0 M€ | the article applied the conversion factors rounded to two places (0.67, 0.85); the code applies them unrounded (0.67262, 0.84940) |
 | Material extraction, total | 33,801 kt | 33,872.19 kt | +0.2 % | the same expenditure difference |
 | Health care's climate share of the national footprint | 7.3 % | 7.341 % | +0.04 pp | the same |
 
 Two further discrepancies are internal to the archive and are findings in their own right,
-not vintage effects:
+not release effects:
 
 - **`ContributionAnalysis.xlsx` is stale relative to the other five workbooks.** Its
   climate total is 17,694.56 kt where `HotspotAnalysis.xlsx`, `Table1.xlsx` and
@@ -2330,7 +2330,7 @@ archived workbooks hold.
 
 | Figure | Largest disagreement | Where it is |
 |:---|:---|:---|
-| 1 | 0.52 pp | the operational-impacts band of the climate bar, which is the direct-emissions vintage above; every other band of every bar is within 0.12 pp |
+| 1 | 0.52 pp | the operational-impacts band of the climate bar, which is the direct-emissions release above; every other band of every bar is within 0.12 pp |
 | 2 | 3.63 pp | the climate bar only. Its *other* band is drawn 3.6 pp larger and its five named groups correspondingly smaller than any grouping of table S9 gives. The other four bars are within 0.52 pp |
 | 3 | 1.79 pp | the climate bar's Netherlands band only, drawn 1.8 pp larger than table S10 supports. The other four bars are within 0.08 pp |
 

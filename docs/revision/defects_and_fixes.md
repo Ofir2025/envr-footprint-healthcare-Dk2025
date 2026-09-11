@@ -787,7 +787,7 @@ re-run and are byte-identical, as they must be.
 | 2019 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
 | 2022 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
 
-Old values are from `phi-snapshot-before.json` (`.superpowers/sdd/gold_layer_organisation/`),
+Old values are the gold tables as committed before the change (commit `c536fe4`),
 taken before anything was rebuilt, except the two producing-node rows, which
 are the published figures the documents already carried; the Danish
 sea-transport node was reported to the unit, so its change is given to the
