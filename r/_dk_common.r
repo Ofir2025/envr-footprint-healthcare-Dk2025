@@ -457,6 +457,11 @@ facet_ceiling <- function(data, group, extent, room = 1.06) {
 # built by the caller's ranking), `share_pct` and `is_rest`. Stacked figures are
 # handled too: every segment of a truncated remainder is scaled by the same
 # factor, so the composition of the bar survives the break.
+# The sentence explaining the device. It belongs in the figure CAPTION and in
+# the folder readme, NOT on the figure: a figure carries no titles, notes or
+# captions in this study. It was being concatenated into the x-axis title of
+# figures 2, 5 and 6, which put a 150-character sentence under the panels and
+# left the actual axis title unreadable.
 REMAINDER_NOTE <- paste(
   "The remainder sits at the foot of each panel; where it exceeds the ranked",
   "bars its own bar is broken and its true share printed.")
@@ -489,6 +494,30 @@ remainder_label <- function(d, size = 4.6, hjust = -0.22) {
   geom_text(data = lab, inherit.aes = FALSE,
             aes(x = x, y = key, label = lab), hjust = hjust, size = size,
             fontface = "bold", colour = INK)
+}
+
+# ---- value labels on ranked bars --------------------------------------------
+# Every ranked bar carries its value. The remainder already has its own label
+# from `remainder_label`, so it is excluded here rather than labelled twice.
+#
+# Placed OUTSIDE the bar end, in the ink colour, never inside: a share of 0.8 %
+# in a panel whose largest bar is 2.6 % has no room inside it, and a rule that
+# labels only the bars wide enough to hold a label is the rule that left the
+# tallest bars of figures 2, 4 and 5 with no number on them at all. Outside
+# placement needs headroom, which `facet_ceiling(room = )` reserves.
+#
+# One decimal below 10, none above: 2.6 and 41 read at a glance, 2.6 and 41.3
+# do not, and the axis title already carries the unit.
+ranked_labels <- function(d, size = 3.5, hjust = -0.25, digits_below = 1) {
+  lab <- d %>% filter(!is_rest) %>%
+    group_by(indicator, key) %>%
+    summarise(x = sum(plot_x), v = sum(share_pct), .groups = "drop") %>%
+    mutate(lab = if_else(v < 10,
+                         sprintf(paste0("%.", digits_below, "f"), v),
+                         sprintf("%.0f", v)))
+  geom_text(data = lab, inherit.aes = FALSE,
+            aes(x = x, y = key, label = lab), hjust = hjust, size = size,
+            colour = INK, na.rm = TRUE)
 }
 
 # Break marks. The remainder is level 1 of every panel after prepare_remainder,

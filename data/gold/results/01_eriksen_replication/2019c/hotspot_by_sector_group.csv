@@ -2,7 +2,7 @@ indicator,unit,producing_sector_group,value
 land_use,km2,Food and catering,3291.3343890550173
 material_extraction,kt,Minerals and Metals,2753.7216743608055
 climate_change,kt CO2eq,Transport,870.0931007447377
-climate_change,kt CO2eq,Private travel,621.4199186512448
+climate_change,kt CO2eq,Private travel,625.0899186512448
 climate_change,kt CO2eq,Food and catering,442.7542626406995
 climate_change,kt CO2eq,Coal and Petroleum,365.86631323671287
 climate_change,kt CO2eq,Waste management and disposal,339.276766135033
@@ -24,7 +24,7 @@ waste_generation,kt,Waste management and disposal,41.092338516524975
 material_extraction,kt,Food and catering,34.66892219200905
 material_extraction,kt,Chemical,34.22150535928024
 climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",23.96755532854693
-material_extraction,kt,Private travel,23.4337
+material_extraction,kt,Private travel,23.5848
 material_extraction,kt,Services,22.175944220615953
 waste_generation,kt,Electricity,20.58607216071184
 climate_change,kt CO2eq,Paper Products,17.61917506935733
@@ -56,7 +56,7 @@ material_extraction,kt,"Electrical, electronic and measuring equipment",2.205555
 material_extraction,kt,"Steam, hot water supply and water distribution",2.158081045427955
 material_extraction,kt,Waste management and disposal,1.9248894341030296
 blue_water_consumption,Mm3,Chemical,1.8247760236967485
-land_use,km2,Private travel,1.5258
+land_use,km2,Private travel,1.5356999999999998
 waste_generation,kt,"Electrical, electronic and measuring equipment",1.4632200864092364
 land_use,km2,Electricity,1.320252560865174
 land_use,km2,Waste management and disposal,1.0317130688625444
@@ -81,7 +81,7 @@ waste_generation,kt,Natural gas and gaseous fuels,0.21500876465708324
 blue_water_consumption,Mm3,Textile,0.21281233160103727
 land_use,km2,Construction,0.20314670272688895
 land_use,km2,Metal Products,0.19335947440714463
-blue_water_consumption,Mm3,Private travel,0.1624
+blue_water_consumption,Mm3,Private travel,0.1634
 material_extraction,kt,Transport Equipment,0.16143670733572113
 land_use,km2,"Steam, hot water supply and water distribution",0.15515734418357238
 blue_water_consumption,Mm3,General and special Machinery,0.11658732332656517

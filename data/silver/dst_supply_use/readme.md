@@ -21,6 +21,8 @@ publications.
 
 | file | derives from | transformation | rows × cols | rebuild |
 |:---|:---|:---|:---|:---|
+| `dk_data_2016.csv` | `input_output_en_2016.xlsx`, sheets `CP` and `IO`, plus `dk_direct_emissions_drivhus.csv` | the same as 2022: the published 117-industry workbook rather than the detailed supply-use table, so the 2016 vector needs no confidential extract | 3 × 6 | the same, with `HC_ANALYSIS_YEAR=2016` |
+| `dk_expenditure_breakdown_2016.csv` | `input_output_en_2016.xlsx`, sheets `CP` and `IO` | every (purpose × transaction) cell that entered the 2016 totals | 15 × 6 | the same, with `HC_ANALYSIS_YEAR=2016` |
 | `dk_data_2019.csv` | `dk_umat_2019.xlsx`, sheet `Ubas`, plus `dk_direct_emissions_drivhus.csv` | healthcare totals summed over the boundary's purpose × transaction cells, converted 1000 DKK → M.EUR at the year's Nationalbank average, `Conversion` set to 1.0, `DirectEm` built from DRIVHUS less hospital N2O | 3 × 6 | `HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src .venv/bin/python -m analysis.main_2025` |
 | `dk_data_2022.csv` | `input_output_en_2022.xlsx`, sheets `CP` and `IO`, plus `dk_direct_emissions_drivhus.csv` | the same | 3 × 6 | the same, with `HC_ANALYSIS_YEAR=2022` |
 | `dk_expenditure_breakdown_2019.csv` | `dk_umat_2019.xlsx`, sheet `Ubas` | every (purpose × transaction) cell that entered the 2019 totals, kept unaggregated as a provenance record | 14 × 5 | the same, with `HC_ANALYSIS_YEAR=2019` |

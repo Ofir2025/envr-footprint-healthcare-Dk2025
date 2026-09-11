@@ -1,0 +1,16 @@
+category,purpose_code,purpose,transaction,source_sheet,value_kdkk
+HC.5.1 Pharmaceuticals,06112,Pharmaceutical products and other medical products,Household consumption (Transaction code 3110),CP,6655269.0
+HC.5.1 Pharmaceuticals,06112,Pharmaceutical products and other medical products,Marketed individual government consumption (Transaction code 3141),IO,5411810.0
+HC.5.2 Appliances,06134,"Assistive products and Repair, rental and maintenance of medical and assistive products",Household consumption (Transaction code 3110),CP,3503322.0000000005
+HC.5.2 Appliances,06134,"Assistive products and Repair, rental and maintenance of medical and assistive products",Marketed individual government consumption (Transaction code 3141),IO,1748839.0
+HC.5.2 Appliances,06134,"Assistive products and Repair, rental and maintenance of medical and assistive products",Non-market individual government consumption (Transaction code 3142),IO,854070.0
+Healthcare services,06200,Outpatient care services,Household consumption (Transaction code 3110),CP,10960523.0
+Healthcare services,06340,Hospital services,Household consumption (Transaction code 3110),CP,4570074.999999999
+Healthcare services,13302,"Retirement homes, day-care centres etc.",Household consumption (Transaction code 3110),CP,4812096.0
+Healthcare services,06300,"Hospitals, sanatoriums",NPISH (Transaction code 3130),IO,2298963.0
+Healthcare services,13302,"Retirement homes, day-care centres etc.",NPISH (Transaction code 3130),IO,2298963.0
+Healthcare services,06200,Outpatient care services,Marketed individual government consumption (Transaction code 3141),IO,15573675.0
+Healthcare services,06200,Outpatient care services,Non-market individual government consumption (Transaction code 3142),IO,18770193.0
+Healthcare services,06300,"Hospitals, sanatoriums",Non-market individual government consumption (Transaction code 3142),IO,104737614.0
+Healthcare services,06400,Other hospital services,Non-market individual government consumption (Transaction code 3142),IO,9196854.0
+Healthcare services,13302,"Retirement homes, day-care centres etc.",Non-market individual government consumption (Transaction code 3142),IO,57499606.0
