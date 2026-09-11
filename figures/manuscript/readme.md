@@ -149,7 +149,18 @@ than within one. They are drawn from
 | `fig11_footprint_by_year.tiff` | the health-care footprint in 2016, 2019 and 2022, one panel per indicator, one line per boundary |
 | `fig12_share_of_national_by_year.tiff` | the same three years as a share of the Danish national footprint |
 | `fig13_activity_groups_by_year.tiff` | what each activity group contributed to the climate footprint in each year, grouped bars ranked by the latest year |
-| `fig10_year_bridge_climate_2019_2022.tiff` | the two-step bridge from 2019 to 2022, correction step then year step |
+| `fig10_year_bridge_climate_2016_2022.tiff` | the three-step bridge across all three reference years: the shipping correction on 2016, then 2016 to 2019, then 2019 to 2022 |
+
+**The bridge spans all three years.** `fig10` used to run 2019 to 2022 in two
+steps, because no 2016 analysis existed. It now chains four states - 2016 before
+the shipping correction, 2016 after it, 2019, 2022 - so the correction is
+isolated on the earliest year and the two reference-year steps run on a
+configuration that does not otherwise change. The correction is a one-off
+−2,191 kt, of which transport is −1,727; the year steps are +212 kt
+(2016→2019) and +563 kt (2019→2022), the latter dominated by pharmaceuticals at
++953 kt. A step is labelled only when it moves at least 20 kt: below that the
+segment is too short to hold a number, and the value is in
+`06_benchmarks_validation/year_comparison_two_step_bridge.csv`.
 
 **Connected dots, not an area plot.** With three observations an area plot draws
 the region under a curve whose shape between the points is an artefact of the
@@ -200,6 +211,7 @@ LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2016 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_
 
 # ---- the comparison series across 2016, 2019 and 2022 -----------------------
 LANG=en_US.UTF-8 DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_comparison.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_bridge.r
 
 # ---- variant b: v3.7, shipping-corrected ------------------------------------
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_manuscript_figures.r
@@ -315,7 +327,7 @@ than v3.7, returns 46.85 % and is the run that reproduces the submitted finding.
 `2022c` is the manuscript's headline. Comparing `2019_uncorrected` with `2022c`
 directly - the only pair the figure set drew before the variant scheme existed -
 mixes the year with the correction; see
-`comparison/fig10_year_bridge_climate_2019_2022.tiff` and
+`comparison/fig10_year_bridge_climate_2016_2022.tiff` and
 `analysis.year_comparison.two_step_bridge` for the two-step decomposition that
 separates them: `2019_uncorrected` -> `2019c` isolates the correction alone,
 `2019c` -> `2022c` isolates the year alone. **Do not present `2019_uncorrected`
@@ -392,7 +404,7 @@ that the rule is doing what it claims.
 
 ## The cross-year comparison
 
-`comparison/fig10_year_bridge_climate_2019_2022.tiff` decomposes the
+`comparison/fig10_year_bridge_climate_2016_2022.tiff` decomposes the
 2019-to-2022 climate footprint change into its two causes, per activity group:
 the Danish sea-transport reallocation (step 1) and the reference year (step
 2). Each group is drawn as three markers - 2019 uncorrected, 2019
