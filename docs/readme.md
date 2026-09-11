@@ -16,7 +16,7 @@ lives - see [`revision_guide.md`](revision_guide.md).
 | Trace any published number back to its data and method | `data/gold/results/manifest_lineage.csv` |
 | See which of the author's requests are answered | [`revision/request_checklist.md`](revision/request_checklist.md) |
 | Understand the modelling approaches implemented | [`methods/methods.md`](methods/methods.md) |
-| Understand the data layout | [`../README.md`](../README.md) (Repository layout) and [`../data/readme.md`](../data/readme.md) |
+| Understand the data layout | [`../readme.md`](../readme.md) (Repository layout) and [`../data/readme.md`](../data/readme.md) |
 | See the audit behind a transport finding that was withdrawn | [`revision/results_2022.md`, "Auditing the withdrawal"](revision/results_2022.md#auditing-the-withdrawal-reproducibility-decomposition-and-what-the-paper-should-now-say) |
 | Read the uncertainty response to Reviewer 1 | [`revision/uncertainty.md`, section 5](revision/uncertainty.md#5-the-response-to-reviewer-1-proxies-eliminated-not-bounded) |
 
