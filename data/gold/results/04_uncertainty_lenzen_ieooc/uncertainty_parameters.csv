@@ -1,7 +1,7 @@
 parameter,distribution,gsd,cv,factor_2_5pct,factor_97_5pct,source
-mrio,"lognormal, median 1",,0.0835,0.8492719697197726,1.1774791064044678,"Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish health-care GHG footprint from a full MRIO Monte Carlo (Eora Q, T, y). Applied jointly to all MRIO components."
-direct,"lognormal, median 1",1.1,,0.8296030443475101,1.2053957694749162,Statistics Denmark DRIVHUS/AFFALD accounts; residual risk is the alpha-proration of industry 880000 and the medical-N2O netting
-anaesthetic,"lognormal, median 1",1.3,,0.5979584803132248,1.6723569159453617,"Denmark NID 2.G.3.a activity +/-25 %, EF +/-20 % (DCE 2024); volatile agents are a transferred proxy"
-pmdi,"lognormal, median 1",1.15,,0.7603827096986447,1.3151272211283191,register dispensing x producer HFC content (Danish EPA F-gas inventory / Vestbo & Press-Kristensen 2023)
-commute,"lognormal, median 1",1.25,,0.645738044973055,1.5486155845776866,ratio method on NL base values with DST employment and TU distances
-visitor,"lognormal, median 1",1.4,,0.517117279600117,1.933797301790597,no Danish source; Dutch base is itself a transplanted English per-capita figure
+mrio,"lognormal, median 1",,0.0835,0.8492745192964093,1.1774755715365872,"Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish health-care GHG footprint from an Eora MRIO Monte Carlo, transferred from their 2.84 Mt to this study's 4.675 Mt"
+direct,"lognormal, median 1",1.1,,0.8296058920809612,1.205391631792328,Statistics Denmark DRIVHUS/AFFALD accounts; residual risk is the alpha-proration of industry 880000 and the medical-N2O netting
+anaesthetic,"lognormal, median 1",1.3,,0.5979641305510489,1.6723411136357933,"Denmark NID 2.G.3.a activity +/-25 %, EF +/-20 % (DCE 2024); volatile agents are a transferred proxy"
+pmdi,"lognormal, median 1",1.15,,0.7603865371635662,1.3151206013329122,register dispensing x producer HFC content (Danish EPA F-gas inventory / Vestbo & Press-Kristensen 2023)
+commute,"lognormal, median 1",1.25,,0.6457432345436678,1.5486031389963808,ratio method on NL base values with DST employment and TU distances
+visitor,"lognormal, median 1",1.4,,0.5171235461699253,1.933773867785558,"patient travel from the Danish travel survey (TU Tabel 15, purpose 33); the VISITOR part alone has no Danish source, carrying the NHS England ratio 0.236 (Tennison 2021)"
