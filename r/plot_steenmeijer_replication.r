@@ -114,16 +114,20 @@ fig3_cols <- function(home)
 UNDISTRIBUTED_CODE <- "B_REST"
 
 # ---- reading the gold facts ------------------------------------------------
-# The Danish results live in a per-variant folder whose name another stream is
-# changing (2022 -> 2022_shipping_corrected). gold_path() resolves a bare year
-# only, so the Danish reader prefers the shipping-corrected folder, then any
-# 2022 folder, and says which file it took.
+# The Danish results live in a per-variant folder. This comparison wants the
+# headline configuration for the year, which is variant c (v3.8.2, shipping
+# correction applied, health-care boundary, capital excluded), so the reader
+# prefers `variant_name()` for that variant, then the uncorrected companion,
+# then any folder carrying the year, and says which file it took.
 dk_path <- function(name, year = "2022") {
   hits <- list.files(gold_root, pattern = sprintf("^%s$", name),
                      recursive = TRUE, full.names = TRUE)
   if (length(hits) == 0)
     stop(sprintf("Danish fact '%s' not found under %s/", name, gold_root))
-  for (pat in c(sprintf("/%s_shipping_corrected/", year),
+  headline <- variant_name(year, tag = "_snacship", release = "v3_8_2",
+                           scope = "health_eldercare", capital = "excluded")
+  for (pat in c(sprintf("/%s/", headline),
+                sprintf("/%s_uncorrected/", year),
                 sprintf("/%s/", year), year)) {
     hit <- hits[grepl(pat, hits, fixed = TRUE)]
     if (length(hit) == 1) return(hit[[1]])

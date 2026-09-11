@@ -14,8 +14,8 @@ change at once between the runs, and only one of them is the passage of time:
 A reader who takes the difference as a trend attributes the third to the first.
 Since ``analysis.dk_shipping_correction`` now also runs on the 2016 background,
 point 3 no longer has to be confounded with the other two: :func:`two_step_bridge`
-below isolates it as its own step, using the four-way ``2019_uncorrected`` /
-``2019_shipping_corrected`` / ``2022_uncorrected`` / ``2022_shipping_corrected``
+below isolates it as its own step, using the variant folders
+``2019_uncorrected`` / ``2019c`` / ``2022_uncorrected`` / ``2022c``
 Eriksen folders. :func:`totals` and :func:`climate_bridge` are kept as they were
 for continuity with the submitted (2019, uncorrected) versus headline
 (2022, shipping-corrected) comparison the manuscript figures still draw on; they
@@ -83,7 +83,9 @@ RUN_DIFFERENCES: tuple[dict[str, str], ...] = (
 
 def _read(year: str, name: str) -> pd.DataFrame:
     """Read one table from a year's (legacy-tagged) Eriksen variant folder."""
-    folder = eriksen_folder(year, _LEGACY_TAG[year])
+    # By keyword: eriksen_folder resolves four axes, and a positional
+    # second argument is the RELEASE, not the tag.
+    folder = eriksen_folder(year, tag=_LEGACY_TAG[year])
     return pd.read_csv(os.path.join(str(OUTPUT_DIR), folder, name))
 
 
@@ -150,19 +152,23 @@ def climate_bridge() -> pd.DataFrame:
     return b
 
 
-#: The three nodes of the honest, two-step bridge: the manuscript's own
-#: uncorrected 2019 run, the same 2019 expenditure corrected for the phantom
-#: Danish shipping input, and the 2022 headline (corrected the same way). The
-#: step 2019_uncorrected -> 2019_shipping_corrected isolates the correction
-#: alone (same year, same background release); the step
-#: 2019_shipping_corrected -> 2022_shipping_corrected isolates the year alone
-#: (same correction state on both ends).
-BRIDGE_NODES: tuple[str, str, str] = (
-    "2019_uncorrected", "2019_shipping_corrected", "2022_shipping_corrected")
+#: The three nodes of the honest, two-step bridge, named by the variant folder
+#: each one reads: the manuscript's own uncorrected 2019 run, the same 2019
+#: expenditure corrected for the phantom Danish shipping input (variant c on the
+#: 2016 table), and the 2022 headline (variant c on the 2022 table). The step
+#: 2019_uncorrected -> 2019c isolates the correction alone (same year, same
+#: background release); the step 2019c -> 2022c isolates the year alone (same
+#: correction state, release, boundary and capital treatment on both ends).
+#:
+#: All three are on EXIOBASE v3.8.2, which is what makes the first step the
+#: correction ALONE. None of them is variant a or b: those are on v3.7, so a
+#: bridge through them would move the release at the same time and measure two
+#: things at once - which is precisely what this decomposition exists to avoid.
+BRIDGE_NODES: tuple[str, str, str] = ("2019_uncorrected", "2019c", "2022c")
 _BRIDGE_YEAR_TAG: dict[str, tuple[str, str]] = {
     "2019_uncorrected": ("2019", ""),
-    "2019_shipping_corrected": ("2019", "_snacship"),
-    "2022_shipping_corrected": ("2022", "_snacship"),
+    "2019c": ("2019", "_snacship"),
+    "2022c": ("2022", "_snacship"),
 }
 
 
@@ -182,18 +188,16 @@ def two_step_bridge() -> pd.DataFrame:
     for node in BRIDGE_NODES:
         year, tag = _BRIDGE_YEAR_TAG[node]
         d = pd.read_csv(os.path.join(
-            str(OUTPUT_DIR), eriksen_folder(year, tag),
+            str(OUTPUT_DIR), eriksen_folder(year, tag=tag),
             "figure1_activity_contributions.csv"))
         d = d[d.indicator == "climate_change"]
         frames[node] = d.set_index("contribution_group")["value"]
     wide = pd.DataFrame(frames).fillna(0.0)
     wide.columns = [f"value_{c}" for c in wide.columns]
     wide["delta_correction_kt"] = (
-        wide["value_2019_shipping_corrected"]
-        - wide["value_2019_uncorrected"])
+        wide["value_2019c"] - wide["value_2019_uncorrected"])
     wide["delta_year_kt"] = (
-        wide["value_2022_shipping_corrected"]
-        - wide["value_2019_shipping_corrected"])
+        wide["value_2022c"] - wide["value_2019c"])
     wide = wide.reset_index()
 
     total_correction = float(wide["delta_correction_kt"].sum())
@@ -254,7 +258,7 @@ def main() -> None:
 
     print("\nTwo-step bridge, kt CO2eq (correction step, then year step)")
     print(tb[["contribution_group", "value_2019_uncorrected",
-              "value_2019_shipping_corrected", "value_2022_shipping_corrected",
+              "value_2019c", "value_2022c",
               "delta_correction_kt", "delta_year_kt"]]
           .round(1).to_string(index=False))
     print(f"\ncorrection step net {float(tb['delta_correction_kt'].sum()):,.1f} kt "

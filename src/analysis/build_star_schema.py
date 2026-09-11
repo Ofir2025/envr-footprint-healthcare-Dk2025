@@ -354,14 +354,17 @@ YEAR_MODELS: dict[str, dict[str, str]] = {
     "2019": dict(
         background_year="2016",
         model_label="EXIOBASE v3.8.2 IOT_2016_ixi",
-        # This is the UNCORRECTED 2019 run, as submitted. A corrected 2016
-        # background now also exists (mrio2016_snacship.pkl, built by
-        # analysis.dk_shipping_correction) and is published at
-        # 01_eriksen_replication/2019_shipping_corrected/, but is not one of
-        # the two runs this legacy year-keyed row pair compares - see
-        # analysis.year_comparison.two_step_bridge for the four-way,
-        # tag-aware decomposition.
-        danish_block_correction="none (uncorrected, as submitted)",
+        # This is the UNCORRECTED v3.8.2 2019 run. It is NOT variant a, and it
+        # is not "as submitted": the submitted estimate was computed on
+        # EXIOBASE v3.7, which variant a runs and which returns a different
+        # answer (01_eriksen_replication/2019a). A corrected 2016 background
+        # also exists (mrio2016_snacship.pkl, built by
+        # analysis.dk_shipping_correction) and is published as variant c at
+        # 01_eriksen_replication/2019c/, but is not one of the two runs this
+        # legacy year-keyed row pair compares - see
+        # analysis.year_comparison.two_step_bridge for the variant-aware
+        # decomposition.
+        danish_block_correction="none (uncorrected)",
         source_folder="01_eriksen_replication/2019_uncorrected",
         note="pre-COVID validation baseline; not comparable with 2022 as a "
              "trend, because the reference year, the background year and "
@@ -372,7 +375,7 @@ YEAR_MODELS: dict[str, dict[str, str]] = {
                     "reallocation (Rormose Jensen & Iliev 2022)",
         danish_block_correction="sea-transport reallocation "
                                 "(Rormose Jensen & Iliev 2022)",
-        source_folder="01_eriksen_replication/2022_shipping_corrected",
+        source_folder="01_eriksen_replication/2022c",
         note="the manuscript's headline year"),
 }
 

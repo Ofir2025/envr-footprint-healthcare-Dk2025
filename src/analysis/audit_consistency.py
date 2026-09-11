@@ -97,8 +97,10 @@ import numpy as np
 import pandas as pd
 
 from analysis import gold_scope
-from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, MODEL_LABEL,
-                                eriksen_folder, scopes_folder)
+from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR,
+                                EXIOBASE_RELEASE, MODEL_LABEL, RELEASE_LABEL,
+                                VARIANTS, eriksen_folder, scopes_folder,
+                                variant_axes)
 from paths import BACKGROUND_DIR, GOLD_DIR, OUTPUT_DIR, PROJECT_ROOT
 
 #: Tolerance for values that should be identical up to floating point.
@@ -240,20 +242,24 @@ def c3_freshness(results: list[dict[str, Any]]) -> None:
             continue
         if os.path.basename(rel) in BACKGROUND_INDEPENDENT_FILES:
             continue
-        # Year-scoped folders belong to their own background. A 2019 table is
-        # not stale because the 2022 background was rebuilt after it; it is
-        # derived from IOT_2016 and is checked when the audit runs for 2019.
-        # A folder may carry a bare year (``02_scopes_wood_hertwich/2019``) or
-        # a self-describing variant of it (``01_eriksen_replication/
-        # 2019_shipping_corrected``) - the leading 4-digit year is extracted
-        # either way, so renaming "2019" to "2019_shipping_corrected" does not
-        # blind this check into comparing every variant against whichever
-        # year the audit happens to be running for.
+        # Variant folders belong to their own background. A 2019 table is not
+        # stale because the 2022 background was rebuilt after it; it is derived
+        # from IOT_2016 and is checked when the audit runs for 2019.
+        #
+        # A folder may carry a bare year (``02_scopes_wood_hertwich/2019``), a
+        # lettered variant (``01_eriksen_replication/2019a``) or a
+        # self-describing unlettered one (``2019_uncorrected``). All three are
+        # recognised: the year is the leading four digits, and what follows is
+        # either nothing, a variant letter, or an underscore. Recognising the
+        # letter form matters - while only the bare and underscore forms were
+        # accepted, every `<year><letter>` folder fell through to being compared
+        # against whichever year the audit happened to be running for, which is
+        # the exact blindness this filter exists to prevent.
         parts = rel.split(os.sep)
         other_year = {p[:4] for p in parts
                       if len(p) >= 4 and p[:4].isdigit()
                       and p.startswith(("19", "20"))
-                      and (len(p) == 4 or p[4] == "_")}
+                      and (len(p) == 4 or p[4] == "_" or p[4:] in VARIANTS)}
         if other_year and ANALYSIS_YEAR not in other_year:
             continue
         if os.path.getmtime(path) < built - 60:
@@ -428,12 +434,19 @@ def c17_layer_boundary(results: list[dict[str, Any]]) -> None:
             # This module is the auditor, not an audited pipeline stage: it
             # never reads bronze, and the exclusion is necessary rather than
             # cosmetic, because this very check's condition below spells out
-            # "BRONZE_DIR" and "EXIOBASE_DIR" as string literals next to
-            # "OUTPUT_DIR", so the file that defines the heuristic always
-            # contains the substrings the heuristic searches for.
+            # the bronze path names as string literals next to "OUTPUT_DIR", so
+            # the file that defines the heuristic always contains the
+            # substrings the heuristic searches for.
             continue
         text = open(os.path.join(src, name), encoding="utf-8").read()
-        if ("BRONZE_DIR" in text or "EXIOBASE_DIR" in text) and "OUTPUT_DIR" in text:
+        # EXIOBASE_BASE_DIR is named explicitly. It is not a superstring match
+        # away from EXIOBASE_DIR - "EXIOBASE_DIR" does not occur inside
+        # "EXIOBASE_BASE_DIR" - so when the release-independent auxiliary root
+        # was split out under that name, every module that reads only those
+        # workbooks silently dropped out of this check's field of view, and the
+        # count fell from 11 to 10 with nothing having been re-plumbed.
+        bronze_names = ("BRONZE_DIR", "EXIOBASE_DIR", "EXIOBASE_BASE_DIR")
+        if any(n in text for n in bronze_names) and "OUTPUT_DIR" in text:
             found.add(name[:-3])
     new = sorted(found - LAYER_SKIPPERS)
     _check(results, "C17 no new bronze-to-gold module", not new,
@@ -806,29 +819,48 @@ def c8_citations(results: list[dict[str, Any]]) -> None:
 
 
 def c4_provenance(results: list[dict[str, Any]]) -> None:
-    """Every file naming a model must name the current one."""
+    """Every file naming a model must name the release of its OWN variant.
+
+    The check used to accept any label containing ``v3.8.2`` and reject every
+    other, on the reading that v3.8.2 IS the study's release. That reading
+    stopped being true the moment the release became a selectable input: model
+    variants a and b run EXIOBASE v3.7, the release the manuscript was
+    submitted on, and their tables must say v3.7 - a check that rejected them
+    would force the pipeline to mislabel them, which is the defect it exists to
+    catch.
+
+    So the expectation is read from the file's own variant folder
+    (``analysis.constants.variant_axes``) rather than from a literal, and from
+    the release this process is configured for outside a variant folder. A
+    v3.10.2 label is still rejected everywhere, and a v3.7 label is now
+    rejected everywhere EXCEPT the two variants that are on v3.7 - which the
+    old rule could not express at all.
+    """
     wrong = []
     for path in glob.glob(os.path.join(str(OUTPUT_DIR), "**", "*.csv"),
                           recursive=True):
         if "manifest_lineage" in path:
             continue
+        rel = os.path.relpath(path, str(OUTPUT_DIR))
         try:
             head = pd.read_csv(path, nrows=200)
         except Exception:                                  # noqa: BLE001
             continue
         if "model" not in head.columns:
             continue
+        axes = variant_axes(rel)
+        expected = RELEASE_LABEL[axes["release"] if axes else EXIOBASE_RELEASE]
         labels = {str(v) for v in head["model"].dropna().unique()}
         foreign = {v for v in labels
                    if v != MODEL_LABEL and "EXIOBASE" in v
-                   and "v3.8.2" not in v}
+                   and expected not in v}
         if foreign:
-            wrong.append((os.path.relpath(path, str(OUTPUT_DIR)),
-                          sorted(foreign)[0][:60]))
+            wrong.append((rel, sorted(foreign)[0][:60], expected))
     _check(results, "C4 no gold file carries a superseded model label",
            not wrong,
            "all current" if not wrong
-           else f"{len(wrong)} files, e.g. {wrong[0][0]} -> {wrong[0][1]}")
+           else f"{len(wrong)} files, e.g. {wrong[0][0]} -> {wrong[0][1]} "
+                f"(its folder is on {wrong[0][2]})")
 
 
 def c5_manifest(results: list[dict[str, Any]]) -> None:
