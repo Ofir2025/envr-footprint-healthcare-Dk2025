@@ -10,6 +10,11 @@ effect and the correction effect be read separately. All four variants carry
 the same figure set, drawn by the same code from the same tables, so a
 difference between them is a difference in the data and never in the plotting.
 
+Every command below needs a UTF-8 locale. If the shell is not already one,
+prefix each with `LANG=en_US.UTF-8`; `r/_dk_common.r` stops with that
+instruction otherwise, because a C locale drops CO₂, Mm³ and km² to `..` in
+every figure.
+
 ```bash
 # 2022, shipping-corrected - EXIOBASE v3.8.2 IOT_2022 with the Danish
 # sea-transport reallocation applied. The manuscript's headline.
