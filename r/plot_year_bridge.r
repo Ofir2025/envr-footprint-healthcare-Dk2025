@@ -109,7 +109,9 @@ seg2 <- d %>% transmute(group, x = value_2019_shipping_corrected,
                         step = STEP2, delta = delta_year_kt)
 segs <- bind_rows(seg1, seg2) %>% mutate(step = factor(step, levels = STEP_ORDER))
 
-fmt_delta <- function(x) sprintf("%+.0f", x)
+# A signed whole number in the colour of its step is a change; a level would
+# carry no sign. Zero prints as "0", never "+0" (house rule: no 0.0, no +0).
+fmt_delta <- function(x) ifelse(abs(x) < 0.5, "0", sprintf("%+.0f", x))
 
 # The step-1 label always sits at the step's own destination (the 2019
 # shipping-corrected point) nudged above the row; the step-2 label always
@@ -142,10 +144,9 @@ p <- ggplot() +
   # Same unicode-subscript convention as IND_UNIT_TXT in
   # plot_manuscript_figures.r ("kt CO₂-eq"): a real subscript, typed
   # directly, since this axis title is a plain string rather than plotmath.
-  labs(x = paste0("Climate footprint level (kt CO₂-eq)", SEP,
-                  "the signed number beside each marker is the CHANGE across ",
-                  "that step, not a level"),
-       y = NULL) +
+  # The axis title names the quantity and unit, nothing more: an explanation
+  # of the labels is a note, and notes belong in the manuscript caption.
+  labs(x = "Climate footprint (kt CO₂-eq)", y = NULL) +
   theme_dkhc() +
   theme(panel.grid.major.y = element_blank(),
         axis.text.y = element_text(size = 13.5, colour = INK),
