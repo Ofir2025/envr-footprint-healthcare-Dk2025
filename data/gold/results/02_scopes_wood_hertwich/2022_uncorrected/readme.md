@@ -1,4 +1,4 @@
-# 02_scopes_wood_hertwich/2022_uncorrected
+# 02_scopes_wood_hertwich/2022_uncorrected — EXIOBASE v3.8.2 IOT_2022_ixi, no Danish shipping correction, health-care boundary, capital excluded
 
 **GHG-Protocol scope decomposition**
 
@@ -10,21 +10,20 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 
 Reference year 2022 on EXIOBASE v3.8.2 `IOT_2022_ixi` with the Danish
 sea-transport reallocation **not** applied - the comparison run, not
-the headline. Its partition closes on
+the headline, and not a lettered variant. Its partition closes on
 `01_eriksen_replication/2022_uncorrected` exactly: the climate `TOTAL`
 of 6,085.494934 kt CO2-eq plus the self-supply loop of 1.833390 kt is
 the grand total of 6,087.328324 kt published there.
 
-What the correction is worth, read across this folder and
-`2022_shipping_corrected`: the climate footprint falls from 6,085.49
-to 4,673.63 kt, and the transport industry group falls from 32.20 % of
-it to 14.87 %. The ledger's MRIO decomposition row moves from
-5,318.307735 to 3,906.446070 kt on the same comparison. Nothing in
-this folder is on the headline basis, and no manuscript number is
-taken from it.
+What the correction is worth, read across this folder and `2022c`: the
+climate footprint falls from 6,085.49 to 4,673.63 kt, and the
+transport industry group falls from 32.19 % of it to 14.87 %. The
+ledger's MRIO decomposition row moves from 5,318.307735 to
+3,906.446070 kt on the same comparison. Nothing in this folder is on
+the headline basis, and no manuscript number is taken from it.
 
 Its purpose is figures 3 to 6 of the `2022_uncorrected` figure
-variant. Until this layer carried the correction state in its folder
+variant. Until this layer carried the configuration in its folder
 name, those four figures were drawn from the shipping-corrected
 tables and were byte-identical to the corrected variant's.
 

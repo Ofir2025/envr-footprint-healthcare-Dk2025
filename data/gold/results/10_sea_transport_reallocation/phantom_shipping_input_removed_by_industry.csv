@@ -146,9 +146,9 @@ DNK,Sea and coastal water transport,2022,2022,DNK,Health and social work (85),40
 DNK,Sea and coastal water transport,2022,2022,DNK,"Wholesale trade and commission trade, except of motor vehicles and motorcycles (51)",406.4283479315024,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of electrical machinery and apparatus n.e.c. (31),381.10339621887726,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Manufacture of fabricated metal products, except machinery and equipment (28)",291.9916166096106,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of fish products,220.75274507641214,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of fish products,220.75274507641217,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Processing of Food products nec,163.83913107660533,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Supporting and auxiliary transport activities; activities of travel agencies (63),150.86277135418933,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Supporting and auxiliary transport activities; activities of travel agencies (63),150.8627713541893,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Education (80),150.3512102752643,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Renting of machinery and equipment without operator and of personal and household goods (71),143.33179964707824,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Transport via pipelines,111.63650309253248,M.EUR
@@ -157,7 +157,7 @@ DNK,Sea and coastal water transport,2022,2022,DNK,"Publishing, printing and repr
 DNK,Sea and coastal water transport,2022,2022,DNK,Construction (45),38.39396273566818,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Computer and related activities (72),32.25017986473195,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Financial intermediation, except insurance and pension funding (65)",11.917270737649766,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Recreational, cultural and sporting activities (92)",10.836969711836055,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Recreational, cultural and sporting activities (92)",10.836969711836057,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Real estate activities (70),8.565942998746346,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of other non-metallic mineral products n.e.c.,7.099629878233036,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Manufacture of cement, lime and plaster",7.086967667505768,M.EUR
@@ -177,12 +177,12 @@ DNK,Sea and coastal water transport,2022,2022,DNK,Hotels and restaurants (55),3.
 DNK,Sea and coastal water transport,2022,2022,DNK,"Manufacture of radio, television and communication equipment and apparatus (32)",3.1065161358335134,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Sale, maintenance, repair of motor vehicles, motor vehicles parts, motorcycles, motor cycles parts and accessoiries",2.887888606172686,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of other transport equipment (35),1.9966234757602823,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Other service activities (93),1.9132764517566558,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Re-processing of ash into clinker,1.8247239979761622,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Other service activities (93),1.913276451756656,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Re-processing of ash into clinker,1.8247239979761625,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Quarrying of sand and clay,1.5156477351127624,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Petroleum Refinery,1.3913423622004373,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Chemicals nec,1.290225841332914,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of basic iron and steel and of ferro-alloys and first products thereof,1.2809904792744393,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of basic iron and steel and of ferro-alloys and first products thereof,1.280990479274439,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Activities auxiliary to financial intermediation (67),1.1562830196704224,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Forestry, logging and related service activities (02)",1.1222761309612803,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Research and development (73),1.0176040087781353,M.EUR
@@ -198,79 +198,213 @@ DNK,Sea and coastal water transport,2022,2022,DNK,Production of meat products ne
 DNK,Sea and coastal water transport,2022,2022,DNK,"Collection, purification and distribution of water (41)",0.6934441028848365,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Copper production,0.6761506133103727,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Inland water transport,0.5559034962843313,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of tobacco products (16),0.49194611318439846,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Transport via railways,0.43126260304420083,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of textiles (17),0.42122120609785607,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of tobacco products (16),0.4919461131843984,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Transport via railways,0.4312626030442008,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of textiles (17),0.421221206097856,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Re-processing of secondary glass into new glass,0.4178209355675819,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of office machinery and computers (30),0.3435196699935236,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Processing vegetable oils and fats,0.3401975760345,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Re-processing of secondary paper into new pulp,0.3396771834618816,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Paper,0.3266808976931483,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Food,0.32641191097714434,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Food,0.3264119109771443,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Cultivation of crops nec,0.2942033573849861,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Pigs farming,0.28885151907777556,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of wearing apparel; dressing and dyeing of fur (18),0.24650528333733104,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Processing of meat poultry,0.22883494906552812,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Recycling of bottles by direct reuse,0.22463802107558517,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Pigs farming,0.2888515190777755,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of wearing apparel; dressing and dyeing of fur (18),0.246505283337331,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Processing of meat poultry,0.2288349490655281,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Recycling of bottles by direct reuse,0.2246380210755851,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,P- and other fertiliser,0.2122343119809861,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Aluminium production,0.2120730350754279,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Raw milk,0.2027091444818469,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Cultivation of wheat,0.1909148181816739,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Cultivation of cereal grains nec,0.18051416024109312,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Precious metals production,0.17934968789405828,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Biogasification of sewage slugde, incl. land application",0.16942025101989525,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",0.16224328551811215,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Cultivation of cereal grains nec,0.1805141602410931,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Precious metals production,0.1793496878940582,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Biogasification of sewage slugde, incl. land application",0.1694202510198952,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",0.1622432855181121,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Tanning and dressing of leather; manufacture of luggage, handbags, saddlery, harness and footwear (19)",0.1372813779797106,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Oil/Hazardous waste,0.13276176080243077,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Oil/Hazardous waste,0.1327617608024307,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Lead, zinc and tin production",0.1280924960673682,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Distribution and trade of electricity,0.12430743011331065,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Distribution and trade of electricity,0.1243074301133106,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Inert/metal/hazardous,0.102670547872444,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",0.10046730829831486,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",0.1004673082983148,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,"Mining of chemical and fertilizer minerals, production of salt, other mining and quarrying n.e.c.",0.0964375074565205,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Insurance and pension funding, except compulsory social security (66)",0.09617641156053877,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Insurance and pension funding, except compulsory social security (66)",0.0961764115605387,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Other non-ferrous metal production,0.0887547193854784,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Wood,0.08520575244727217,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by coal,0.08429397124634123,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Recycling of waste and scrap,0.07814646516612171,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Meat animals nec,0.07562520926832954,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Textiles,0.07298947078784479,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of gas; distribution of gaseous fuels through mains,0.07195538414291205,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Plastic,0.07069507881904573,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Pulp,0.06831423382736841,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Waste water treatment, other",0.06738572752774259,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by gas,0.05865549461804396,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,N-fertiliser,0.05541867629475456,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Cultivation of oil seeds,0.05045999284941211,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Metals and Inert materials,0.04549055948536975,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Steam and hot water supply,0.042242802110558766,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Cattle farming,0.03560618565308046,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Waste water treatment, food",0.031875060336922896,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Mining of coal and lignite; extraction of peat (10),0.028392147572868273,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Cultivation of vegetables, fruit, nuts",0.02521503951717455,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Transmission of electricity,0.02398095448085277,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by wind,0.022158616453166156,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Poultry farming,0.020605078929560365,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Cultivation of sugar cane, sugar beet",0.01865799282374114,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Quarrying of stone,0.018443481800549857,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Biogasification of food waste, incl. land application",0.012235638286186252,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Fishing, operating of fish hatcheries and fish farms; service activities incidental to fishing (05)",0.011886988073841302,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Composting of food waste, incl. land application",0.011743485898849208,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Retail sale of automotive fuel,0.011620929368692698,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Paper,0.008035283985869527,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by biomass and waste,0.006569229809863237,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by petroleum and other oil derivatives,0.0038279945134259046,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Animal products nec,0.00195348239228837,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Food,0.0015408126207588904,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Biogasification of paper, incl. land application",0.0012271734179643294,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Paper,0.001026647784269521,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Mining of nickel ores and concentrates,0.0008013335361306477,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Wood,0.0001694808394092771,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Textiles,0.00013774923502562036,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Wood,0.0852057524472721,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by coal,0.0842939712463412,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Recycling of waste and scrap,0.0781464651661217,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Meat animals nec,0.0756252092683295,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Textiles,0.0729894707878447,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Manufacture of gas; distribution of gaseous fuels through mains,0.071955384142912,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Plastic,0.0706950788190457,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Pulp,0.0683142338273684,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Waste water treatment, other",0.0673857275277425,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by gas,0.0586554946180439,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,N-fertiliser,0.0554186762947545,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Cultivation of oil seeds,0.0504599928494121,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Incineration of waste: Metals and Inert materials,0.0454905594853697,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Steam and hot water supply,0.0422428021105587,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Cattle farming,0.0356061856530804,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Waste water treatment, food",0.0318750603369228,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Mining of coal and lignite; extraction of peat (10),0.0283921475728682,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Cultivation of vegetables, fruit, nuts",0.0252150395171745,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Transmission of electricity,0.0239809544808527,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by wind,0.0221586164531661,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Poultry farming,0.0206050789295603,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Cultivation of sugar cane, sugar beet",0.0186579928237411,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Quarrying of stone,0.0184434818005498,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Biogasification of food waste, incl. land application",0.0122356382861862,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Fishing, operating of fish hatcheries and fish farms; service activities incidental to fishing (05)",0.0118869880738413,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Composting of food waste, incl. land application",0.0117434858988492,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Retail sale of automotive fuel,0.0116209293686926,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Paper,0.0080352839858695,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by biomass and waste,0.0065692298098632,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by petroleum and other oil derivatives,0.0038279945134259,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Animal products nec,0.0019534823922883,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Food,0.0015408126207588,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Biogasification of paper, incl. land application",0.0012271734179643,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Paper,0.0010266477842695,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Mining of nickel ores and concentrates,0.0008013335361306,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Wood,0.0001694808394092,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Textiles,0.0001377492350256,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Processing of nuclear fuel,5.993858259422569e-05,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Landfill of waste: Plastic,4.414843818480529e-05,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by hydro,2.4114061794804164e-05,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Mining of iron ores,2.023544682306002e-06,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Production of electricity by solar photovoltaic,1.0950980652962358e-06,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,Mining of aluminium ores and concentrates,1.8002066113934998e-07,M.EUR
-DNK,Sea and coastal water transport,2022,2022,DNK,"Wool, silk-worm cocoons",9.077831729901579e-08,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,Mining of aluminium ores and concentrates,1.8002066113935e-07,M.EUR
+DNK,Sea and coastal water transport,2022,2022,DNK,"Wool, silk-worm cocoons",9.07783172990158e-08,M.EUR
 DNK,Sea and coastal water transport,2022,2022,DNK,Mining of other non-ferrous metal ores and concentrates,3.1920823477106294e-08,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Sea and coastal water transport,3989.8221656499504,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Other land transport,1481.0065017191332,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Post and telecommunications (64),401.71988093706346,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of machinery and equipment n.e.c. (29),310.2705887727911,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of electrical machinery and apparatus n.e.c. (31),250.10174002764245,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Other business activities (74),238.65174121477648,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Health and social work (85),178.05456883554473,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Wholesale trade and commission trade, except of motor vehicles and motorcycles (51)",131.71482688464698,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Supporting and auxiliary transport activities; activities of travel agencies (63),115.44560438024493,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of fish products,86.14555907579404,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Transport via pipelines,77.21565652321061,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processing of Food products nec,74.42028577584553,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Manufacture of fabricated metal products, except machinery and equipment (28)",74.11684637491055,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Education (80),63.645629808909796,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Re-processing of secondary plastic into new plastic,51.69604170880576,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Renting of machinery and equipment without operator and of personal and household goods (71),48.16718070987999,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Computer and related activities (72),47.49841586669212,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Public administration and defence; compulsory social security (75),45.72205740579241,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processing of meat pigs,42.54255001249109,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Construction (45),35.39484293742491,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Recreational, cultural and sporting activities (92)",28.118140830849082,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of other non-metallic mineral products n.e.c.,25.632638351210666,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Activities of membership organisation n.e.c. (91),25.513958145775256,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Manufacture of cement, lime and plaster",25.4279283093633,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Publishing, printing and reproduction of recorded media (22)",23.174707537223817,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",21.128317978899368,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Manufacture of motor vehicles, trailers and semi-trailers (34)",20.94213521363954,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of beverages,20.936484036361815,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processing of dairy products,17.825779692565458,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Quarrying of sand and clay,17.65197941152132,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Manufacture of radio, television and communication equipment and apparatus (32)",16.463257266206273,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Real estate activities (70),15.155927763220635,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of rubber and plastic products (25),14.490421478642693,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Hotels and restaurants (55),13.769157099446486,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Manufacture of bricks, tiles and construction products, in baked clay",13.457619488102896,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Plastics, basic",11.507986830198613,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Financial intermediation, except insurance and pension funding (65)",10.7125950471837,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processed rice,9.936862071179293,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of furniture; manufacturing n.e.c. (36),9.889216646465396,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Petroleum Refinery,7.750634190125152,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Re-processing of ash into clinker,6.466016643493199,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Other service activities (93),4.115223992724746,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Chemicals nec,3.893231071411799,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of other transport equipment (35),3.8409297812458174,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Collection, purification and distribution of water (41)",3.744570427447574,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Forestry, logging and related service activities (02)",3.406561402361568,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of ceramic goods,2.8807088929477334,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Manufacture of wood and of products of wood and cork, except furniture; manufacture of articles of straw and plaiting materials (20)",2.8451913599982754,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Re-processing of secondary wood material into new wood material,2.7351982950754983,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Mining of chemical and fertilizer minerals, production of salt, other mining and quarrying n.e.c.",2.7124712763282983,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of glass and glass products,2.6840934606958022,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Sugar refining,2.6399285818686264,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Transport via railways,2.3776206160781066,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of basic iron and steel and of ferro-alloys and first products thereof,2.1175489989111433,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of tobacco products (16),2.0871684787898657,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Inland water transport,1.9966226904843383,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processing of meat cattle,1.9412034948776902,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of textiles (17),1.6815906612675404,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Re-processing of secondary glass into new glass,1.4861705280692574,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Sale, maintenance, repair of motor vehicles, motor vehicles parts, motorcycles, motor cycles parts and accessoiries",1.31433754402144,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Research and development (73),1.2923831685815739,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Activities auxiliary to financial intermediation (67),1.247013028207086,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Re-processing of secondary aluminium into new aluminium,1.1605421857041434,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Copper production,1.1422297741681147,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,P- and other fertiliser,0.987748121803612,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of wearing apparel; dressing and dyeing of fur (18),0.7847471145160524,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Recycling of bottles by direct reuse,0.6635199519426664,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of office machinery and computers (30),0.5884934225149054,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Re-processing of secondary paper into new pulp,0.5866964839591079,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Incineration of waste: Paper,0.5422684103397477,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Incineration of waste: Food,0.5420615322709584,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Pigs farming,0.5373122094839842,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Tanning and dressing of leather; manufacture of luggage, handbags, saddlery, harness and footwear (19)",0.5289749071914822,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processing of meat poultry,0.4945732419593663,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",0.45557024134975804,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Distribution and trade of electricity,0.43665568066698224,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Air transport (62),0.43149885886316763,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of electricity by coal,0.38508560328528585,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Raw milk,0.3819082758568914,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Recycling of waste and scrap,0.3708706120076933,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Aluminium production,0.33914277110548696,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Quarrying of stone,0.3099720997779771,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Manufacture of gas; distribution of gaseous fuels through mains,0.3005410960674384,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Precious metals production,0.2940143326274582,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Biogasification of sewage slugde, incl. land application",0.2768061150215391,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Cultivation of wheat,0.2760605468493875,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,N-fertiliser,0.2731292363893112,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Cultivation of cereal grains nec,0.26926754420797944,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of electricity by gas,0.2567379551422229,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processing vegetable oils and fats,0.250509798390865,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Steam and hot water supply,0.2401148838261114,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Incineration of waste: Oil/Hazardous waste,0.22007385867818452,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Lead, zinc and tin production",0.19418944458275111,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Landfill of waste: Inert/metal/hazardous,0.16651234782652846,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Incineration of waste: Wood,0.13894585423956968,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Other non-ferrous metal production,0.13507391357621412,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Insurance and pension funding, except compulsory social security (66)",0.1243640092101003,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of electricity by wind,0.1211491479017308,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Pulp,0.11878321071966458,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Incineration of waste: Textiles,0.11682023999549587,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Incineration of waste: Plastic,0.11374281720161819,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Cultivation of vegetables, fruit, nuts",0.11078088035067261,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Waste water treatment, other",0.10254314722262241,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Incineration of waste: Metals and Inert materials,0.09018643934027677,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Transmission of electricity,0.08126060528457706,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Cultivation of oil seeds,0.06482355445030255,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Cattle farming,0.05930654330273303,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Poultry farming,0.04860601755537765,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Waste water treatment, food",0.046480029065113206,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of electricity by biomass and waste,0.03763386753439832,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Cultivation of sugar cane, sugar beet",0.025427369840008707,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Composting of food waste, incl. land application",0.019400261430793375,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Fishing, operating of fish hatcheries and fish farms; service activities incidental to fishing (05)",0.01917669968165951,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Biogasification of food waste, incl. land application",0.017879990593087647,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of meat products nec,0.017585127819237576,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Paper,0.005135715213796326,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Biogasification of paper, incl. land application",0.005016910107484866,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Meat animals nec,0.004860229587802477,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Animal products nec,0.00478919123542912,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Landfill of waste: Food,0.004774194363968169,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of electricity by petroleum and other oil derivatives,0.004764305467283924,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Landfill of waste: Paper,0.004527113816371041,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Retail sale of automotive fuel,0.0017016761019374952,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Landfill of waste: Wood,0.00015215664922995766,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Landfill of waste: Textiles,0.0001327260854184246,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Landfill of waste: Plastic,3.731938904160277e-05,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",1.6680340675198605e-05,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of electricity by solar photovoltaic,4.302280024065765e-06,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Extraction of natural gas and services related to natural gas extraction, excluding surveying",3.5846176633904616e-06,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Mining of precious metal ores and concentrates,1.3738261629466185e-06,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Cultivation of crops nec,2.6561698800711545e-07,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Production of electricity by hydro,3.868408822880864e-08,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,Processing of nuclear fuel,2.973719709061491e-09,M.EUR
+DNK,Sea and coastal water transport,2016_v3_7,2019,DNK,"Wool, silk-worm cocoons",1.4807457720047548e-09,M.EUR
