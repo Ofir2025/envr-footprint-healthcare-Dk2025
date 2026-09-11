@@ -109,14 +109,19 @@ it is dimensionless: the crowns cancel, the share is applied to EXIOBASE's own r
 total in M€, and no exchange rate enters anywhere. `HC_SHIPPING_PHI` pins the
 value by hand, which is how the published 0.09 is recovered with one variable.
 
-**Total industry output is unchanged**: it is not in dispute; it matches the
-national accounts. Only its *allocation* changes. Danish industries that stop
-buying phantom shipping have that amount credited to value added instead, since
-their own output comes from the national accounts and is also not in dispute.
+**Total industry output is left unchanged.** That is a scope decision, not a
+claim that the level is right: EXIOBASE's Danish sea-transport output is *not*
+reconciled with the national accounts (the release diagnostics give a ratio of
+0.226 for 2022, `09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv`).
+What this correction fixes is the *allocation* of that output, because the
+allocation decides whether the fleet's emissions land in Danish consumption; the
+level is left to the full national-accounts coupling. Danish industries that stop
+buying phantom shipping have that amount credited to value added, so that each
+column still sums to the output the national accounts give it.
 
 Verified: row balance to 1×10⁻¹¹, maximum column-balance residual 2×10⁻⁵ M€.
 
-**Effect:** transport falls from 37.5 % to **17.8 %** of the health-care climate
+**Effect:** transport falls from 36.8 % to **17.8 %** of the health-care climate
 supply-chain footprint (the 3,906 kt MRIO component; 14.9 % of the 4,675 kt total
 once the domestic bottom-up items are included); the Danish sea-transport node
 falls from 852 kt to **53 kt**; the Danish national footprint falls from 85.2 Mt
@@ -155,8 +160,8 @@ flowchart LR
 
     BEFORE --> OP --> AFTER
 
-    INV["<b>Left untouched</b><br/>total industry output, which matches<br/>the national accounts and is not in dispute<br/>row balance 1×10<sup>−11</sup>, column residual 2×10<sup>−5</sup> M€"]
-    EFF["<b>Effect on the study</b><br/>transport 37.5 % → 17.8 % of the<br/>supply-chain climate footprint<br/>Danish sea-transport node 852 → 53 kt<br/>Danish national footprint 85.2 → 77.2 Mt"]
+    INV["<b>Left untouched</b><br/>total industry output: its level is not<br/>reconciled with the national accounts;<br/>only the allocation is corrected<br/>row balance 1×10<sup>−11</sup>, column residual 2×10<sup>−5</sup> M€"]
+    EFF["<b>Effect on the study</b><br/>transport 36.8 % → 17.8 % of the<br/>supply-chain climate footprint<br/>Danish sea-transport node 852 → 53 kt<br/>Danish national footprint 85.2 → 77.2 Mt"]
 
     AFTER --> INV
     AFTER --> EFF
@@ -468,12 +473,16 @@ A four-step decomposition, each step measured rather than inferred:
 
 | Step | Transport share | Change |
 |:---|:---|:---|
-| 2019, v3.7/2016 background, uncorrected | **47.3 %** | n/a |
-| 2022 demand and v3.8.2 background, still uncorrected | 37.5 % | −9.8 pp |
-| **Danish sea-transport reallocation applied** | 17.8 % | **−19.7 pp** |
-| Bottom-up items included in the denominator | **14.9 %** | −2.9 pp |
+| 2019, 2016 background, uncorrected | **54.1 %** | n/a |
+| 2022 demand and v3.8.2 background, still uncorrected | 36.8 % | -17.2 pp |
+| **Danish sea-transport reallocation applied** | 17.8 % | **-19.0 pp** |
+| Bottom-up items included in the denominator | **14.9 %** | -2.9 pp |
 
-**The reallocation is the whole story.** Year, release, and demand vector together move the
+The first three rows share one denominator, the MRIO supply-chain component; the
+last row switches to the total. Taken in the other order — correction first on the
+2019 data, then the year — the steps are -27.4 pp and -8.9 pp
+(`06_benchmarks_validation/year_comparison_two_step_bridge.csv`). **In either order
+the reallocation is the larger step.** Year, release, and demand vector together move the
 share by less than half of what the data correction does.
 
 <a id="transport-results-paragraph"></a>
