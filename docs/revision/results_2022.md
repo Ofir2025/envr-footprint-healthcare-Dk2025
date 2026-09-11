@@ -1910,8 +1910,8 @@ the Danish sea-transport correction), and the demand vector (F1). The last is th
 Climate is nearly flat because two large changes offset: a 57 % larger demand vector
 against the withdrawal of the phantom shipping emissions. The other four rise roughly with
 the demand vector. Waste falls because the 2011 hybrid waste extension was replaced with
-Denmark's own SEEA waste accounts, which are 4.6× lower at the health sector, a change of
-concept, not a correction of arithmetic.
+Denmark's own SEEA waste accounts, which are 3.1× lower at the health sector's direct
+row, a change of concept, not a correction of arithmetic.
 
 **The decisive outstanding test** is to run our corrected pipeline on **2019** and compare
 with Table 1 directly. That isolates the method change from the year change and would let

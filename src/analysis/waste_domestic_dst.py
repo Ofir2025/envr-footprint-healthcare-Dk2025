@@ -9,7 +9,9 @@ Testing it against Denmark's own SEEA waste accounts shows it is not merely
 out of date but a DIFFERENT CONCEPT: it is a total-residuals account in which
 livestock manure and mining overburden dominate (74 % of the Danish total is
 manure; 69 % of the healthcare "waste" footprint is mining overburden plus
-manure). At the Danish health sector it overstates direct waste 12-15x, and it
+manure). At the Danish health sector it overstates direct waste 3.1x against the
+measured NACE Q account and 3.5x against the study's own boundary
+(``analysis.waste_validation``, which computes both), and it
 fails as an allocation key too - its 2011 Danish sector structure is
 statistically uncorrelated with the measured 2011 structure (Pearson
 r = -0.19). See analysis.waste_validation and the revision notes.

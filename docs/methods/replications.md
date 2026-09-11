@@ -469,6 +469,13 @@ Patient and visitor travel (263.57 kt) is caused by the health system but is not
 attributable to it under any GHG-Protocol scope, because the providers neither own,
 control, nor purchase it. It is reported separately rather than folded into Scope 3.
 
+"Outside protocol" is this study's own term for that category, and it appears in
+neither the manuscript nor the appendix, so it is defined here and nowhere else.
+The figures do not use it: the scope figures carry no title and no on-image note,
+so their legend names the content instead, "Patient and visitor travel"
+(`SCOPE_LABELS` in `r/_dk_common.r`). A reader with the figure alone can then see
+what the fourth series is without this section.
+
 ### Data requirements
 
 | Input | Source |
@@ -495,7 +502,7 @@ control, nor purchase it. It is reported separately rather than folded into Scop
 | File | Rows | Content |
 |:---|:---|:---|
 | `scopes_summary_detailed.csv` | n/a | every scope and variant, with its `basis` stated |
-| `scopes_by_producing_node.csv` | 23,727 | each scope resolved to producing node |
+| `scopes_by_producing_node.csv` | 23,726 (2022), 23,735 (2019) | each scope resolved to producing node |
 | `double_counting_ledger.csv` | n/a | every overlap risk, its test, and its verdict |
 
 ### Verification
@@ -630,18 +637,20 @@ f_T   = (e_T - e_wdc) / e_T                                      # eq. 12
 
 #### What it shows
 
+Every cell is a row of `cabernard_target_scope3.csv`.
+
 | Target set | Nodes | Eq. (8) naive (Mt) | Eq. (9) corrected (Mt) | $f_T$, eq. (12) | Overestimate against the corrected value |
 |:---|:---|:---|:---|:---|:---|
-| T1 Danish health and social work | 1 | 4.39 | 4.33 | 1.5 % | 1.5 % |
-| T2 health and social work, all regions | 49 | 2,592.1 | 2,554.5 | 1.4 % | 1.5 % |
-| T3 T2 + chemicals + medical instruments | 147 | 9,280.5 | 5,999.5 | **35.4 %** | **54.7 %** |
+| T1 Danish health and social work | 1 | 2.84 | 2.80 | 1.5 % | 1.5 % |
+| T2 health and social work, all regions | 49 | 2,624.3 | 2,586.1 | 1.5 % | 1.5 % |
+| T3 T2 + chemicals + medical instruments | 147 | 9,403.7 | 6,080.8 | **35.3 %** | **54.6 %** |
 
 Two statistics are reported because they answer different questions and only one of
 them is equation (12). $f_T$ takes the naive figure as its denominator and therefore
 says what share of the naive total is double counted. The overestimate takes the
 corrected figure as its denominator and says by how much the naive total exceeds the
 right answer. They coincide while double counting is small and diverge once it is not,
-which is why the T3 row reads 35.4 % against 54.7 %. Both are written to
+which is why the T3 row reads 35.3 % against 54.6 %. Both are written to
 `cabernard_target_scope3.csv`, as `double_counting_factor_f_T` and
 `overestimate_vs_correct_pct`.
 
@@ -649,7 +658,7 @@ The T3 row is the finding, and it is the same mechanism Cabernard reports: a bro
 defined target set whose members sit in each other's supply chains. Her own G20 paper
 reports overestimation above 40 % for biomass and fossil resources and above 100 % for
 metals and non-metallic minerals. Those are overestimates against the corrected value,
-so the comparable figure here is **54.7 %**, which is of that order.
+so the comparable figure here is **54.6 %**, which is of that order.
 
 ### Data requirements
 
@@ -704,7 +713,7 @@ manuscript's reported numbers are all final-demand footprints and are unaffected
 
 ### Verification
 
-`complement_identity_rel_dev` is ≤ 2.3 × 10⁻¹⁵ for all three target sets: target plus
+`complement_identity_rel_dev` is ≤ 1.4 × 10⁻¹⁵ for all three target sets: target plus
 non-target scope 3 reconstructs the world total to machine precision.
 
 ---
@@ -919,15 +928,25 @@ inherited from Steenmeijer et al. fit to answer that?
 The inherited waste extension applies the **2011 hybrid EXIOBASE waste-supply account** to
 the analysis year's monetary output. Testing it against Denmark's own SEEA accounts shows
 it is not merely out of date but a **different concept**: a total-residuals account in
-which livestock manure and mining overburden dominate. 74 % of the Danish total is manure;
-69 % of the health-care "waste" footprint is mining overburden plus manure.
+which livestock manure and mining overburden dominate.
+
+Every cell is a row of `waste_extension_validation.csv`.
 
 | Quantity | Value |
 |:---|:---|
-| Hybrid extension, direct waste of Danish health | 240.4 kt |
-| DST AFFALD01, NACE Q total waste excl. soil | 51.8 kt |
-| DST, study boundary (QA + 870000 + α × 880000, α = 0.4914) | 45.1 kt |
-| **Ratio, hybrid / measured** | **4.6×** |
+| Hybrid extension, direct waste of Danish health | 159.99 kt |
+| This study's model, after the AFFALD01 replacement | 42.76 kt |
+| DST AFFALD01, NACE Q total waste excl. soil | 51.80 kt |
+| DST, study boundary (QA + 870000 + α × 880000, α = 0.4914) | 45.14 kt |
+| **Ratio, hybrid / measured (NACE Q)** | **3.09×** |
+| Ratio, hybrid / measured (study boundary) | 3.54× |
+| Ratio, modelled / measured (study boundary) | 0.947× |
+
+The hybrid figure is **recomputed** here rather than read from the background's own
+direct-impact row, because `analysis.main_2025` overwrites that row with the Danish
+account before persisting the object. Reading it and calling it "hybrid" compared the
+Danish account against itself. The inherited value survives in the intensity matrix,
+which the replacement does not touch, as $B_{6,h} E_H$.
 
 It also fails as an allocation key: its 2011 Danish sector structure is statistically
 uncorrelated with the measured 2011 structure (Pearson $r = -0.19$). A key that does not
@@ -976,8 +995,12 @@ indicator, which covers the global chain. Both are reported.
 
 ### Verification
 
-The hybrid-versus-measured ratio and the $r = -0.19$ correlation are both computed and
-written out, so the decision to report the DST account is evidenced rather than asserted.
+The hybrid-versus-measured ratio is computed and written out, so the decision to
+report the DST account is evidenced rather than asserted. The composition shares (74 %
+manure, 69 % overburden plus manure) and the $r = -0.19$ correlation against the
+measured 2011 structure come from the exploratory analysis recorded in
+`analysis.waste_domestic_dst`'s own docstring and are **not** recomputed by the
+pipeline; they are the reasoning behind the decision, not an output of it.
 
 ---
 

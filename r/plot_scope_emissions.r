@@ -36,7 +36,8 @@ p1 <- ggplot(mutate(d_cont, region = factor(region, levels = ord)),
              aes(value, region, fill = scope)) +
   geom_col(width = 0.72, colour = "white", linewidth = 0.15,
            position = position_stack(reverse = TRUE)) +
-  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER, name = NULL) +
+  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER,
+                    labels = SCOPE_LABELS, name = NULL) +
   scale_x_continuous(labels = smart_labs, breaks = scales::extended_breaks(n = 5),
                      limits = c(0, nice_ceiling(
                        d_cont %>% group_by(region) %>%
@@ -65,7 +66,8 @@ p2 <- ggplot(mutate(d_ind, producing_sector_group =
              aes(value, producing_sector_group, fill = scope)) +
   geom_col(width = 0.72, colour = "white", linewidth = 0.15,
            position = position_stack(reverse = TRUE)) +
-  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER, name = NULL) +
+  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER,
+                    labels = SCOPE_LABELS, name = NULL) +
   scale_x_continuous(labels = smart_labs, breaks = scales::extended_breaks(n = 5),
                      limits = c(0, nice_ceiling(
                        d_ind %>% group_by(producing_sector_group) %>%
@@ -97,7 +99,8 @@ p3 <- ggplot(mutate(d_top, pair = factor(pair, levels = ord_p)),
              aes(value, pair, fill = scope)) +
   geom_col(width = 0.72, colour = "white", linewidth = 0.15,
            position = position_stack(reverse = TRUE)) +
-  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER, name = NULL) +
+  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER,
+                    labels = SCOPE_LABELS, name = NULL) +
   scale_x_continuous(labels = smart_labs, breaks = scales::extended_breaks(n = 5),
                      limits = c(0, nice_ceiling(
                        d_top %>% group_by(pair) %>%
@@ -141,7 +144,8 @@ p4 <- ggplot(mutate(d_cross, key = factor(key, levels = key_ord)),
                 "producing_world_region", "value") +
   facet_wrap(~producing_world_region, scales = "free", ncol = 3, nrow = 2) +
   scale_y_discrete(labels = function(x) sub("\\|\\|\\|.*$", "", x)) +
-  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER, name = NULL) +
+  scale_fill_manual(values = SCOPE_COLS, breaks = SCOPE_ORDER,
+                    labels = SCOPE_LABELS, name = NULL) +
   scale_x_continuous(labels = smart_labs, breaks = scales::extended_breaks(n = 3),
                      guide = guide_axis(check.overlap = TRUE),
                      expand = expansion(mult = c(0, 0.02))) +
