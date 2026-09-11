@@ -82,11 +82,29 @@ def main():
         dom = float(s[DK_BLOCK] @ (L_dom @ y_dk)) + float(Hstim[k, 0])
         nat_full = float(s @ (L @ y_nat))
         nat_dom = float(s[DK_BLOCK] @ (L_dom @ y_nat[DK_BLOCK]))
+        # Both shares are published with the denominator they are taken over.
+        # The domestic-only share was previously a percentage with no
+        # denominator anywhere in the gold layer, so it could not be
+        # reconciled from the published tables at all: nat_dom is not the
+        # national footprint, it is the part of it that arises inside Denmark
+        # under the domestic-only inverse, and it is a different quantity from
+        # 00_core_footprint's national_supply_chain.
         rows.append(dict(indicator=ind, unit=unit,
                          full_mrio=full, domestic_only=dom,
                          domestic_share_of_full_pct=100 * dom / full,
+                         national_full_mrio=nat_full,
+                         national_domestic_only=nat_dom,
                          share_of_national_full_pct=100 * full / nat_full,
-                         share_of_national_domestic_pct=100 * dom / nat_dom if nat_dom else np.nan))
+                         share_of_national_domestic_pct=100 * dom / nat_dom if nat_dom else np.nan,
+                         denominator_note=(
+                             "share_of_national_full_pct is over national_full_mrio, "
+                             "which is 00_core_footprint's national_supply_chain; "
+                             "share_of_national_domestic_pct is over "
+                             "national_domestic_only, the pressure arising inside "
+                             "Denmark from all Danish final demand under the "
+                             "domestic-only inverse L_dom = (I - A_DK,DK)^-1. The "
+                             "second denominator is Malik's model form and is "
+                             "published nowhere else")))
         for c, col in (("healthcare_services", 1), ("pharmaceuticals", 2),
                        ("medical_appliances", 3)):
             f_c = float(s @ (L @ Ystim[:, col]))
