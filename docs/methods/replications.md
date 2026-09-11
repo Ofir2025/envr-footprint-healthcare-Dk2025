@@ -1479,8 +1479,8 @@ differ materially:
 
 | Perspective | Gold table | Transport, climate | Share of 4,712 kt | Share of 3,943 kt MRIO |
 |:---|:---|:---|:---|:---|
-| Producing node (hotspot), summing over $j$ | `01_eriksen_replication/2022/hotspot_by_sector_group.csv` | 728.2 kt | 15.45 % | 18.47 % |
-| Purchased product (contribution), summing over $i$ | `01_eriksen_replication/2022/contribution_by_sector_group.csv` | 595.8 kt | 12.64 % | 15.11 % |
+| Producing node (hotspot), summing over $j$ | `01_eriksen_replication/2022_shipping_corrected/hotspot_by_sector_group.csv` | 728.2 kt | 15.45 % | 18.47 % |
+| Purchased product (contribution), summing over $i$ | `01_eriksen_replication/2022_shipping_corrected/contribution_by_sector_group.csv` | 595.8 kt | 12.64 % | 15.11 % |
 
 Transport ranks **first** among producing nodes and **fourth** among purchased products,
 where the chemical group leads at 1,738.3 kt (36.89 %). Any sentence that ranks transport

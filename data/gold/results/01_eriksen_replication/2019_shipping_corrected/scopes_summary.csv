@@ -1,0 +1,11 @@
+Component,kt_CO2eq
+"Scope 1 direct (DRIVHUS, excl. medical N2O)",150.92464394929328
+  + Anaesthetic gases (bottom-up),12.47005519626
+Scope 1 (Total),163.3946991455533
+Scope 2 (generation of purchased energy),23.847200462093642
+Scope 3 (MRIO supply chain excl. Scope 2),3263.9150663212204
+"  + pMDI (bottom-up, use phase)",12.8
+  + Commute (bottom-up),327.9446
+Scope 3 (Total),3604.6596663212204
+Outside protocol (patient/visitor travel),293.4753186512448
+Grand Total,4085.376884580112

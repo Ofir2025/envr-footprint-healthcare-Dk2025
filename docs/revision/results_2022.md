@@ -510,13 +510,23 @@ study?
 > health-care footprint does not survive; the claim that it is one of its three largest
 > components does.
 
-**One step in the decomposition has no gold table.** The 37.5 % intermediate figure is the
-uncorrected 2022 run, which is not a published gold folder — the gold layer carries the
-2019 uncorrected run (`01_eriksen_replication/2019/`) and the 2022 corrected run
-(`01_eriksen_replication/2022/`) but not the 2022 uncorrected one. The 47.3 %, 18.5 % and
-15.5 % endpoints all reproduce from gold; 37.5 %, and the 852 kt and 85.2 Mt uncorrected
-levels quoted alongside it, are documented figures without a gold table behind them. If a
-reviewer asks for the decomposition, that intermediate run should be materialised.
+**The decomposition now has a gold table for every step.** The gold layer holds
+all four (reference year x correction state) combinations at
+`01_eriksen_replication/`: `2019_uncorrected/`, `2019_shipping_corrected/`,
+`2022_uncorrected/` and `2022_shipping_corrected/` (see
+[section 01](../methods/replications.md#r01)). The 2022 uncorrected run behind
+the 37.5 % intermediate figure above is now published at `2022_uncorrected/`
+rather than existing only as a documented, unpublished figure; measured from it
+directly, the climate footprint is 6,087.3 kt CO2eq and transport is 32.2 % of
+the total (36.8 % of the MRIO supply-chain component alone). The new
+`2019_shipping_corrected/` folder completes the other missing corner: applying
+the correction alone, holding the 2019 expenditure and 2016 background fixed,
+moves transport from 47.3 % of the total to 22.0 % (27.3 % of the MRIO
+component) — by itself a larger share of the full 2019-to-2022 movement than
+the reference-year change contributes on its own, which moves the corrected
+share from 22.0 % to 15.5 %. `analysis.year_comparison.two_step_bridge`
+computes this two-step decomposition group by group. A reviewer asking for the
+decomposition can now be pointed at the gold layer directly, for every step.
 
 #### What survives, and what should the paper now say?
 
@@ -562,12 +572,15 @@ scoped in [docs/methods/methods.md, "Danish SNAC"](../methods/methods.md#danish-
   benchmark's constancy is assumed, and a reviewer is entitled to ask for the
   Danish national-accounts water-transport share for the analysis year itself,
   which is a single query against Statistics Denmark's published IO tables.
-- **The correction has not been applied to the 2016 background.** Only
-  `mrio2022_snacship.pkl` exists; the 2019 comparison run in
-  `01_eriksen_replication/2019/` is on an uncorrected 2016 background, which is
-  correct for that run's purpose — it is the reproduction of the submitted
-  finding — but means no corrected 2016 result exists to compare against
-  Schmidt and Merciai (2023), whose base year is 2016.
+- **The correction has now been applied to the 2016 background too.**
+  `mrio2016_snacship.pkl` exists alongside `mrio2022_snacship.pkl`
+  (`analysis.dk_shipping_correction`, run once per background year); the 2019
+  comparison run at `01_eriksen_replication/2019_shipping_corrected/` uses it.
+  `01_eriksen_replication/2019_uncorrected/` remains on the uncorrected 2016
+  background, which is correct for THAT run's purpose — it is the reproduction
+  of the submitted finding. A corrected-2016 result now exists; a formal
+  comparison against Schmidt and Merciai (2023), whose base year is 2016, is
+  not built here and remains a follow-on.
 - **The released output is distributed across foreign final demand in proportion
   to existing demand.** That is a neutral assumption, not a measured trade
   pattern.
@@ -1486,7 +1499,7 @@ What we still do not claim, and should say plainly:
 | Engine | `analysis.scenario_engine` |
 | Scenarios | `analysis.mitigation_scenarios` |
 | Tables | `18_mitigation_scenarios/mitigation_scenarios.csv`, `target_consistency.csv`, `burden_shifting.csv` |
-| Figures | `figures/manuscript/2022/fig8_mitigation_waterfall_2022.tiff`, `fig9_burden_shifting_2022.tiff` |
+| Figures | `figures/manuscript/2022_shipping_corrected/fig8_mitigation_waterfall_2022.tiff`, `fig9_burden_shifting_2022.tiff` |
 | Method note | [docs/methods/replications.md, section 18](../methods/replications.md#r18) |
 
 ```bash

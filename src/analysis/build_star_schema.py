@@ -351,11 +351,15 @@ YEAR_MODELS: dict[str, dict[str, str]] = {
     "2019": dict(
         background_year="2016",
         model_label="EXIOBASE v3.8.2 IOT_2016_ixi",
-        # No corrected 2016 background exists, so the 2019 run carries none.
-        # That is one of the three things changing between the two years, and is
-        # why the pair is not a time series; see analysis.year_comparison.
-        danish_block_correction="none (no corrected 2016 background exists)",
-        source_folder="01_eriksen_replication/2019",
+        # This is the UNCORRECTED 2019 run, as submitted. A corrected 2016
+        # background now also exists (mrio2016_snacship.pkl, built by
+        # analysis.dk_shipping_correction) and is published at
+        # 01_eriksen_replication/2019_shipping_corrected/, but is not one of
+        # the two runs this legacy year-keyed row pair compares - see
+        # analysis.year_comparison.two_step_bridge for the four-way,
+        # tag-aware decomposition.
+        danish_block_correction="none (uncorrected, as submitted)",
+        source_folder="01_eriksen_replication/2019_uncorrected",
         note="pre-COVID validation baseline; not comparable with 2022 as a "
              "trend, because the reference year, the background year and "
              "the sea-transport reallocation all differ"),
@@ -365,7 +369,7 @@ YEAR_MODELS: dict[str, dict[str, str]] = {
                     "reallocation (Rormose Jensen & Iliev 2022)",
         danish_block_correction="sea-transport reallocation "
                                 "(Rormose Jensen & Iliev 2022)",
-        source_folder="01_eriksen_replication/2022",
+        source_folder="01_eriksen_replication/2022_shipping_corrected",
         note="the manuscript's headline year"),
 }
 

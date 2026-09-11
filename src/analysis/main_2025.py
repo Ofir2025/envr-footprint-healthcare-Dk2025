@@ -1014,12 +1014,6 @@ sector_names_full = pd.Series(list(labels_ind['Name']) * nr, index=np.arange(N))
 # Denmark region index 
 k_DK = 6
 start_DK, end_DK = k_DK * ns, (k_DK + 1) * ns
-dk_sector_names = sector_names_full.iloc[start_DK:end_DK]
-
-# --- Diagnostics: show DK block sector names (first 25) ---
-print("\n[DIAG] First 25 sector names in the Denmark block:")
-for i, nm in enumerate(dk_sector_names.head(25).tolist(), start=1):
-    print(f"  {i:>2}. {nm}")
 
 # --- Helper: find positions in a specific region block by exact or regex match ---
 def find_positions_in_region(names_series: pd.Series,
@@ -1152,9 +1146,13 @@ print("\n[CHECK] dk_data_2025 DirectEm (kt CO2e) for HC service:",
 fig_1 = pd.merge(df_c_aggsec.reset_index(), sec_labels[['SAggDescription','SAggCode']].drop_duplicates(), on = 'SAggDescription', how = 'left')
 fig_1 = pd.merge(fig_1, fig_labels, on = 'SAggCode', how = 'left')
 
-# Disaggregate Transport from 'Other'
-fig_1['Contribution'] = fig_1['Contribution'].fillna('Unallocated')
-fig_1.loc[fig_1['Contribution'] == 'Other', 'Contribution'] = 'Unallocated'
+# Sectors the agg_ind_fig classification does not map to one of the nine named
+# 'Contribution' groups fall through as NaN and are labelled 'Other', following
+# Steenmeijer et al.'s own usage ("the remaining sectors combined in the group
+# labelled other"). 'Unallocated' is reserved for the bottom-up rows in figure
+# 3 that genuinely have no producing region (ISO3 == 'GLO'); this is a
+# different bucket and must not share that label.
+fig_1['Contribution'] = fig_1['Contribution'].fillna('Other')
 # Exact match: the substring test also captured 'Transport Equipment' (vehicle
 # manufacturing), inflating the transport group.
 mask_transport = fig_1['SAggDescription'].eq('Transport')
@@ -1171,9 +1169,9 @@ fig_2 = pd.merge(df_h_aggsec.reset_index(),
                  on='SAggDescription', how='left')
 fig_2 = pd.merge(fig_2, fig_labels, on='SAggCode', how='left')
 
-# Disaggregate Transport from 'Other' in hotspot (exact match, see fig_1 note)
-fig_2['Hotspot'] = fig_2['Hotspot'].fillna('Unallocated')
-fig_2.loc[fig_2['Hotspot'] == 'Other', 'Hotspot'] = 'Unallocated'
+# Same 'Other' fallback as fig_1 (see note there); disaggregate Transport
+# from it (exact match, see fig_1 note).
+fig_2['Hotspot'] = fig_2['Hotspot'].fillna('Other')
 mask_transport = fig_2['SAggDescription'].eq('Transport')
 fig_2.loc[mask_transport, 'Hotspot'] = 'Transport'
 
@@ -1234,51 +1232,6 @@ print("Raw tables exported for full traceability")
 # 8)  Diagnostics and additional checks
 ##############################################
 
-
-# 7H) Diagnostics for large 'Other' and Denmark share
-
-print("\n[DIAG] Coverage of 'Contribution' mapping in fig_1 input:")
-fig_1_in = pd.merge(df_c_aggsec.reset_index(),
-                    sec_labels[['SAggDescription','SAggCode']].drop_duplicates(),
-                    on='SAggDescription', how='left')
-fig_1_in = pd.merge(fig_1_in, fig_labels, on='SAggCode', how='left')  # adds 'Contribution'
-mapped = fig_1_in['Contribution'].notna().sum()
-total = len(fig_1_in)
-print(f"  mapped rows: {mapped}/{total} ({mapped/total:.1%}) have a named 'Contribution'")
-
-print("\n[DIAG] Share by Contribution group (Global warming only):")
-gwp_col = 'Global warming (ktCO2eq)'
-share_by_group = (100 * fig_1_in.groupby('Contribution')[gwp_col].sum() /
-                  fig_1_in[gwp_col].sum()).sort_values(ascending=False)
-print(share_by_group)
-
-# Drill into what's inside 'Other'
-if 'Other' in share_by_group.index:
-    print("\n[DIAG] Top 20 SAggDescription inside 'Other' (GWP):")
-    other = fig_1_in[fig_1_in['Contribution'].fillna('Other') == 'Other']
-    top_other = (other.groupby('SAggDescription')[gwp_col].sum()
-                 .sort_values(ascending=False).head(20))
-    print(top_other)
-
-
-print("\n[DIAG] Expenditure shares from DK SUT (MEUR):")
-bp_HCserv = float(cbs_data.iloc[0, 0])
-bp_pharm  = float(cbs_data.iloc[0, 1]) * float(cbs_data.iloc[1, 1])  # conv=1.0 expected
-bp_appl   = float(cbs_data.iloc[0, 2]) * float(cbs_data.iloc[1, 2])
-tot_meur  = bp_HCserv + bp_pharm + bp_appl
-print(f"  HC services: {bp_HCserv:.0f} MEUR ({100*bp_HCserv/tot_meur:.1f}%)")
-print(f"  Pharma     : {bp_pharm:.0f} MEUR ({100*bp_pharm/tot_meur:.1f}%)")
-print(f"  Appliances : {bp_appl:.0f} MEUR ({100*bp_appl/tot_meur:.1f}%)")
-
-# Verify sector indices used in createBackground()
-inds = bg['label']['industry'].reset_index(drop=True)
-print("\n[DIAG] Sector name checks for hardcoded indices (should match EXIOBASE v3.7):")
-for idx in [62, 89, 137]:
-    if 0 <= idx < len(inds):
-        print(f"  idx {idx:>3}: {inds.loc[idx, 'Name']}")
-    else:
-        print(f"  idx {idx:>3}: OUT OF RANGE")
-
 # Contribution share for 'Pharmaceuticals and chemical products' (GWP)
 
 print("[CHECK] Healthcare services expenditure (MEUR):", bp_HCserv)
@@ -1292,211 +1245,6 @@ x_tot = bg['L'] @ bg['Ystim'][:, 0]
 print(x_tot[k_DK*ns + k_health])
 
 
-print("\n[DIAG] Top 15 intermediate-use sectors for DK healthcare (scaled):")
-Ystim_df = pd.DataFrame(bg['Ystim'][:, 0], index=pd.MultiIndex.from_product(
-    [bg['label']['region']['ISO3'], bg['label']['industry']['Name']]), columns=['MEUR'])
-dk_block = Ystim_df.loc['DNK']
-print(dk_block.sort_values('MEUR', ascending=False).head(15))
-
-x_tot = bg['L'] @ bg['Ystim'][:, 0]
-x_diag = np.diag(x_tot.astype(float))
-Z_diag = bg['A'] @ x_diag  # shape: (ns*nr, ns*nr)
-ns_ = bg['label']['industry'].shape[0]
-nr = bg['label']['region'].shape[0]
-names_ = list(bg['label']['industry']['Name'])
-
-
-assert Z_diag.shape == (ns_ * nr, ns_ * nr)
-assert len(names_) == ns_
-
-
-# Slice DK and NL blocks (163 rows each)
-
-if 'k_NL' not in globals():
-    k_NL = list(bg['label']['region']['ISO3']).index('NLD')
-
-start_DK, end_DK = k_DK*ns_, (k_DK+1)*ns_
-start_NL, end_NL = k_NL*ns_, (k_NL+1)*ns_
-
-col_DK = pd.Series(Z_diag[start_DK:end_DK, k_DK*ns_ + 137], index=names_, name='DK_HSW_Z')
-col_NL = pd.Series(Z_diag[start_NL:end_NL, k_NL*ns_ + 137], index=names_, name='NL_HSW_Z')
-
-# Compare DK vs NL 'Health & social work' columns (index 137 checked above)
-ns_ = bg['label']['industry'].shape[0]
-names_ = list(bg['label']['industry']['Name'])
-k_DK = 6
-k_NL = list(bg['label']['region']['ISO3']).index('NLD')
-
-
-j_DK = k_DK * ns_ + 137
-j_NL = k_NL * ns_ + 137
-
-start_DK, end_DK = k_DK * ns_, (k_DK + 1) * ns_
-start_NL, end_NL = k_NL * ns_, (k_NL + 1) * ns_
-
-col_DK = pd.Series(
-    Z_diag[start_DK:end_DK, j_DK],
-    index=names_,
-    name='DK_HSW_Z'
-)
-
-col_NL = pd.Series(
-    Z_diag[start_NL:end_NL, j_NL],
-    index=names_,
-    name='NL_HSW_Z'
-)
-
-col_DK_global = pd.Series(
-    Z_diag[:, j_DK].reshape(nr, ns_).sum(axis=0),
-    index=names_,
-    name='Global_to_DK_HSW_Z'
-)
-
-
-print("\n[DIAG] DK Health&SocialWork column (Z) top-12 by MEUR:")
-print(col_DK.sort_values(ascending=False).head(12))
-
-
-# Diagnostic: group-level intensity (kt CO2e per MEUR) for MRIO
-g_int = (mult_aggsec[['Global warming (ktCO2eq)/MEUR']]
-         .rename(columns={'Global warming (ktCO2eq)/MEUR':'ktCO2e_per_MEUR'}))
-print("\n[DIAG] Group intensities (kt CO2e/MEUR), top 10:")
-print(g_int.sort_values('ktCO2e_per_MEUR', ascending=False).head(10))
-
-# === EXTRA: Resolve pharma/chemical group intensity robustly, and print Chemicals nec sector intensity ===
-def _norm_label(s: str) -> str:
-    return (str(s).strip().lower().replace('&', 'and').replace('  ', ' '))
-
-gwp_int_col = 'Global warming (ktCO2eq)/MEUR'
-
-# 1) Pharma/chemical aggregated group intensity (robust lookup in mult_aggsec)
-_mult_aggsec_norm = mult_aggsec.copy()
-_mult_aggsec_norm.index = pd.Index([_norm_label(ix) for ix in _mult_aggsec_norm.index], name='SAggDescription_norm')
-
-# Find candidates whose normalized label contains 'pharm' or 'chemical'
-_candidates = [ix for ix in _mult_aggsec_norm.index if ('pharm' in ix) or ('chemical' in ix)]
-if _candidates := _candidates:  # Python 3.8+ walrus-safe; falls back to simple truthy check
-    # If multiple, pick the one with highest intensity (defensive)
-    _best_key = max(_candidates, key=lambda k: float(_mult_aggsec_norm.loc[k, gwp_int_col]))
-    # Recover pretty original label from the un-normalized index of mult_aggsec
-    # (by matching normalized strings back to the original)
-    _orig_label = None
-    for orig in mult_aggsec.index:
-        if _norm_label(orig) == _best_key:
-            _orig_label = orig
-            break
-    _pharma_int = float(_mult_aggsec_norm.loc[_best_key, gwp_int_col])
-
-    print(f"\n[DIAG] Pharma/chemical group resolved as: '{_orig_label or _best_key}'")
-    print(f"[DIAG] Intensity for pharma/chemical group: {_pharma_int:.3f} kt CO2e/MEUR")
-else:
-    print("\n[DIAG] Pharma/chemical group intensity: not found (check aggregation labels).")
-
-# 2) Chemicals nec sector intensity (single EXIOBASE sector from mult_allsec)
-_mult_allsec_norm = mult_allsec.copy()
-_mult_allsec_norm.index = pd.Index([_norm_label(ix) for ix in _mult_allsec_norm.index], name='SecName_norm')
-
-if 'chemicals nec' in _mult_allsec_norm.index:
-    _chemnec_int = float(_mult_allsec_norm.loc['chemicals nec', gwp_int_col])
-    # Recover pretty original sector name for the printout
-    _chemnec_pretty = None
-    for orig in mult_allsec.index:
-        if _norm_label(orig) == 'chemicals nec':
-            _chemnec_pretty = orig
-            break
-    print(f"[DIAG] Intensity for '{_chemnec_pretty or 'Chemicals nec'}': {_chemnec_int:.3f} kt CO2e/MEUR")
-else:
-    print("[DIAG] 'Chemicals nec' sector not found in mult_allsec (check sector naming).")
-
-
-# Diagnostic: transport emissions by region
-
-transport_mask = sector_names_full.str.contains('Transport', case=False, na=False)
-transport_emissions_by_region = pd.Series(0.0, index=list(bg['label']['region']['ISO3']))
-
-for r in range(nr):
-    start, end = r * ns_, (r + 1) * ns_
-    sel = np.array(transport_mask[start:end])
-    if sel.any():
-        transport_emissions_by_region.iloc[r] = float(
-            B[0, start:end][sel] @ x_tot[start:end][sel]
-        )
-
-print("\n[DIAG] Transport emissions by region (kt CO2eq):")
-print(transport_emissions_by_region.sort_values(ascending=False))
-
-
-# === PATCH: Robust resolution of the pharma/chemical aggregated group ===
-def _norm_label(x: str) -> str:
-    return (str(x)
-            .strip()
-            .lower()
-            .replace('&', 'and')
-            .replace('  ', ' '))
-
-gwp_col = 'Global warming (ktCO2eq)'
-
-# Build a normalized index copy for robust lookup, preserving original labels
-_df_c_aggsec_norm = df_c_aggsec.copy()
-_df_c_aggsec_norm.index = pd.Index([_norm_label(s) for s in df_c_aggsec.index], name='SAggDescription_norm')
-
-# Candidates whose normalized label contains 'pharm' or 'chemical'
-_candidates = [k for k in _df_c_aggsec_norm.index if ('pharm' in k) or ('chemical' in k)]
-
-if _candidates:
-    # Pick the candidate with the largest GWP (most representative if multiple exist)
-    _best_key = max(_candidates, key=lambda k: float(_df_c_aggsec_norm.loc[k, gwp_col]))
-    # Recover the original human-readable label that corresponds to the normalized key
-    _orig_label = df_c_aggsec.index[_df_c_aggsec_norm.index.get_loc(_best_key)]
-    _share = 100.0 * float(_df_c_aggsec_norm.loc[_best_key, gwp_col]) / float(df_c_aggsec[gwp_col].sum())
-
-    print(f"\n[DIAG] Pharma/chemical group resolved as: '{_orig_label}'")
-    print(f"[DIAG] GWP share for '{_orig_label}': {_share:.1f}%")
-
-
-
-# Optional: confirm that 'Chemicals nec' appears in the pharma/chem breakdown
-inds_chk = bg['label']['industry'].reset_index(drop=True)
-print("\n[DIAG] Sector @ index 62:", inds_chk.loc[62, 'Name'] if 62 < len(inds_chk) else 'index 62 out of range')
-
-
-# === Audit: what goes into DK 'Other land transport' (inputs per euro of output)?
-# Find DK region index and the local sector index for 'Other land transport'
-k_DK = list(bg['label']['region']['ISO3']).index('DNK')
-ns_  = int(bg['label']['industry'].shape[0])
-nr   = int(bg['label']['region'].shape[0])
-
-sector_names = list(bg['label']['industry']['Name'])
-sector_names_full = pd.Series(sector_names * nr)  # (ns*nr,)
-
-# Robust find of the sector position within a region
-def _find_pos_in_region(names_series, region_idx, ns, pattern_regex):
-    start, end = region_idx*ns, (region_idx+1)*ns
-    sub = names_series.iloc[start:end]
-    hit = sub[sub.str.contains(pattern_regex, case=False, regex=True, na=False)]
-    if hit.empty:
-        return None
-    return hit.index[0]
-
-# Try typical EXIOBASE label 'Other land transport'
-j_local = _find_pos_in_region(sector_names_full, k_DK, ns_, r"\bother\s+land\s+transport\b")
-if j_local is None:
-    raise ValueError("Could not find 'Other land transport' in DK block; check sector names.")
-j_DK_OLT = j_local  # absolute index in (ns*nr,)
-
-# Column of A for DK 'Other land transport' (input coefficients per euro output)
-A_col = bg['A'][:, j_DK_OLT]  # shape (ns*nr,)
-
-# (a) DK-only suppliers to DK OLT (length 163)
-start_DK, end_DK = k_DK*ns_, (k_DK+1)*ns_
-inputs_DK_only = pd.Series(A_col[start_DK:end_DK], index=sector_names, name='coeff_per_euro')
-print("\n[DIAG] Inputs to DK Other land transport (DK suppliers only), top 20 by coefficient:")
-print(inputs_DK_only.sort_values(ascending=False).head(20))
-
-# (b) Global-by-sector suppliers to DK OLT (sum across 49 regions into 163 sectors)
-inputs_global_by_sector = pd.Series(A_col.reshape(nr, ns_).sum(axis=0), index=sector_names, name='coeff_per_euro')
-print("\n[DIAG] Inputs to DK Other land transport (GLOBAL, aggregated by sector), top 20:")
-print(inputs_global_by_sector.sort_values(ascending=False).head(20))
 
 # The following is a chunk of code that will produce an excel sheet with all the results for a table in the article
 

@@ -1,40 +1,61 @@
 # Manuscript figures
 
-One directory per reference year. Both years carry the same figure set, drawn by
-the same code from the same tables, so a difference between them is a difference
-in the data and never in the plotting.
+One directory per (reference year, Danish sea-transport correction state)
+variant - a 2x2, not two folders - because the transport-share swing the
+co-author asked about (roughly 46 % in 2019 down to 15-18 % in 2022) is never
+one comparison: reference year, background release, AND the sea-transport
+correction all change at once between the submitted 2019 run and the corrected
+2022 headline. Splitting "corrected or not" out as its own axis lets the year
+effect and the correction effect be read separately. All four variants carry
+the same figure set, drawn by the same code from the same tables, so a
+difference between them is a difference in the data and never in the plotting.
 
 ```bash
-# 2022 - EXIOBASE v3.8.2 IOT_2022, Danish sea-transport reallocation applied
-HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022 Rscript R/plot_manuscript_figures.R
-HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022 Rscript R/plot_absolute_and_percapita.R
-HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022 Rscript R/plot_scenarios.R
+# 2022, shipping-corrected - EXIOBASE v3.8.2 IOT_2022 with the Danish
+# sea-transport reallocation applied. The manuscript's headline.
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript R/plot_manuscript_figures.R
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript R/plot_absolute_and_percapita.R
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript R/plot_scenarios.R
 
-# 2019 - EXIOBASE v3.8.2 IOT_2016, the manuscript's own background, UNCORRECTED
-HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019 Rscript R/plot_manuscript_figures.R
-HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019 Rscript R/plot_absolute_and_percapita.R
+# 2022, uncorrected - same background, correction NOT applied
+HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript R/plot_manuscript_figures.R
+HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript R/plot_absolute_and_percapita.R
+
+# 2019, shipping-corrected - EXIOBASE v3.8.2 IOT_2016 with the same correction
+# applied, so it is comparable with 2022_shipping_corrected on correction state
+HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript R/plot_manuscript_figures.R
+HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript R/plot_absolute_and_percapita.R
+
+# 2019, uncorrected - EXIOBASE v3.8.2 IOT_2016, the manuscript's own
+# background, exactly as submitted
+HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript R/plot_manuscript_figures.R
+HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript R/plot_absolute_and_percapita.R
 ```
 
 Run with a UTF-8 locale (`LANG=en_US.UTF-8`). R parses source files in the
 process locale, and under `C` the non-ASCII characters in the labels are
 mangled: "Södersten" came out as "S..dersten" with no warning.
 
-## The two years are not like for like
+## The four variants are not interchangeable
 
-| | 2019 | 2022 |
-|:---|:---|:---|
-| Background | EXIOBASE v3.8.2 IOT_2016 | EXIOBASE v3.8.2 IOT_2022 |
-| Danish sea-transport reallocation | **not applied** | applied |
-| Climate footprint | 6,361 kt CO₂e | 4,712 kt CO₂e |
-| Transport, activity view | 41 % | 13 % |
+| | 2019_uncorrected | 2019_shipping_corrected | 2022_uncorrected | 2022_shipping_corrected |
+|:---|:---|:---|:---|:---|
+| Background | EXIOBASE v3.8.2 IOT_2016 | EXIOBASE v3.8.2 IOT_2016 | EXIOBASE v3.8.2 IOT_2022 | EXIOBASE v3.8.2 IOT_2022 |
+| Danish sea-transport reallocation | not applied | applied | not applied | applied |
+| Reproduces | the submitted manuscript | — | — | the resubmission's headline |
 
-The 2019 set runs on the background the submitted manuscript used, so it
-reproduces the manuscript's transport finding rather than correcting it: in
-figure 2 the single pair `DNK - TWAS` carries 27 % of the climate footprint,
-which is the phantom shipping the correction removes. That reproduction is the
-point of having it: it isolates the method change from the year change. **Do not
-present the two sets side by side as a time series.** A corrected 2019 run would need a
-`_snacship` background built for 2016, which does not exist yet.
+`2019_uncorrected` runs on the background and correction state the submitted
+manuscript used, so it reproduces the manuscript's transport finding rather
+than correcting it. `2022_shipping_corrected` is the manuscript's headline.
+Comparing those two directly - the only pair the figure set drew before this
+2x2 existed - mixes the year, the background release, AND the correction; see
+`comparison/fig10_year_bridge_climate_2019_2022.tiff` and
+`analysis.year_comparison.two_step_bridge` for the two-step decomposition that
+separates them: `2019_uncorrected` -> `2019_shipping_corrected` isolates the
+correction alone, `2019_shipping_corrected` -> `2022_shipping_corrected`
+isolates the year alone. **Do not present `2019_uncorrected` and
+`2022_shipping_corrected` side by side as a time series** without that
+decomposition alongside them.
 
 ## The set
 

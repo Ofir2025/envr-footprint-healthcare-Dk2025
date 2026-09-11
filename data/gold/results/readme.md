@@ -58,5 +58,7 @@ that nothing in the current revision cites.
 Use lowercase `snake_case`, add the analysis year where a table is
 year-specific, and keep out editor lock files and temporary
 artefacts. Layers whose results differ by reference year are stored
-under a year subdirectory (`01_eriksen_replication/2022`), so a run for
-one year cannot overwrite another.
+under a year subdirectory (`02_scopes_wood_hertwich/2022`); where the
+background correction state also varies, the subdirectory names both
+(`01_eriksen_replication/2022_shipping_corrected`), so a run for one
+year or correction state cannot overwrite another.
