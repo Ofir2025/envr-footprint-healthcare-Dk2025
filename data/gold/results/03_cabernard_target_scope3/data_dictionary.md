@@ -59,8 +59,8 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `origin` | dimension | str |  | domestic |
-| `value` | measure | float64 | kt CO2eq | 1698.2148957165712 |
-| `share_of_total_pct` | measure | float64 | % | 38.84511562501606 |
+| `value` | measure | float64 | kt CO2eq | 785.7593108580783 |
+| `share_of_total_pct` | measure | float64 | % | 28.070601798615066 |
 
 ### `cabernard_target_scope3.csv`
 
@@ -69,11 +69,11 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `target` | dimension | str |  | T1 Danish health and social work |
 | `n_target_nodes` | measure | int64 |  | 1 |
-| `e_T_naive_MtCO2e` | measure | float64 |  | 4.437610024730658 |
-| `e_T_wdc_MtCO2e` | measure | float64 |  | 4.371759147559158 |
-| `double_counting_factor_f_T` | measure | float64 |  | 0.0148392663628653 |
-| `overestimate_vs_correct_pct` | measure | float64 | % | 1.5062787072399797 |
-| `complement_identity_rel_dev` | measure | float64 |  | 1.0575849045625703e-15 |
+| `e_T_naive_MtCO2e` | measure | float64 |  | 2.8413860578232235 |
+| `e_T_wdc_MtCO2e` | measure | float64 |  | 2.7992250272911696 |
+| `double_counting_factor_f_T` | measure | float64 |  | 0.0148381915283814 |
+| `overestimate_vs_correct_pct` | measure | float64 | % | 1.5061679615251666 |
+| `complement_identity_rel_dev` | measure | float64 |  | 1.3597520201518761e-15 |
 | `note` | dimension | str |  | target-perspective scope 3 (Cabernard et |
 
 ### `cabernard_target_scope3_by_producing_node.csv.gz`
@@ -90,7 +90,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_country_iso3` | dimension | str |  | DNK |
 | `producing_country_name` | dimension | str |  | Denmark |
 | `producing_world_region` | dimension | str |  | Denmark |
-| `producing_sector_code` | dimension | str |  | TWAS |
-| `producing_sector_name` | dimension | str |  | Sea and coastal water transport |
-| `producing_sector_group` | dimension | str |  | Transport |
-| `value` | measure | float64 | kt CO2eq | 948.5306369446506 |
+| `producing_sector_code` | dimension | str |  | HEAL |
+| `producing_sector_name` | dimension | str |  | Health and social work (85) |
+| `producing_sector_group` | dimension | str |  | Services |
+| `value` | measure | float64 | kt CO2eq | 138.4414615564347 |

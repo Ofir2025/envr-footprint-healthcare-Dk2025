@@ -14,7 +14,8 @@ the released files are self-consistent:
                            where E[i,j] = s_i L_ij y_j
   T7  units                monetary unit of the release is M.EUR
 
-Run: PYTHONPATH=src .venv/bin/python -m analysis.validate_io_identities
+Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+         .venv/bin/python -m analysis.validate_io_identities
 """
 
 import os
@@ -22,9 +23,16 @@ import pickle
 
 import numpy as np
 
+from analysis.constants import BACKGROUND_YEAR
 from paths import MRIO_DIR, BACKGROUND_DIR
 
-YEAR = os.environ.get("HC_BACKGROUND_YEAR", "2022")
+#: The background these identities are tested on. It is
+#: ``analysis.constants.BACKGROUND_YEAR``, which carries both
+#: ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``, rather than a bare year:
+#: the identities have to hold for the model variant the rest of the pipeline
+#: actually loads, and a variant selected on the command line would otherwise
+#: go untested while the uncorrected background was certified in its place.
+YEAR = BACKGROUND_YEAR
 TOL = 1e-6
 
 

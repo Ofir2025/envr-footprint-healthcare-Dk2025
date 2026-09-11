@@ -44,6 +44,7 @@ import pickle
 import numpy as np
 import pandas as pd
 
+from analysis.constants import BACKGROUND_YEAR
 from paths import BACKGROUND_DIR, OUTPUT_DIR
 
 NS, NY, K_DK, K_HEALTH, K_CHEM, K_INSTR = 163, 7, 6, 137, 62, 89
@@ -58,11 +59,13 @@ def main() -> None:
     the table to
     ``data/gold/results/06_benchmarks_validation/demand_vector_consistency.csv``
     and prints it alongside the total Danish final demand EXIOBASE records.
-    Reads ``HC_ANALYSIS_YEAR`` from the environment (default ``"2022"``) to
-    select the background year's pickled background information.
+    The background actually loaded is ``analysis.constants.BACKGROUND_YEAR``,
+    which carries both ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``, so a
+    model variant selected on the command line reaches this table rather than
+    being silently replaced by the uncorrected background.
     """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    bgy = "2022" if year == "2022" else "2016"
+    bgy = BACKGROUND_YEAR
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{bgy}.pkl"), "rb") as fh:
         bg = pickle.load(fh)

@@ -174,7 +174,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Unnamed: 0` | dimension | str |  | water transport |
-| `EXIOBASE 2022 DK health column (%)` | measure | float64 |  | 3.9 |
+| `EXIOBASE 2022 DK health column (%)` | measure | float64 |  | 0.6 |
 | `DST IOT 2022 health industries (%)` | measure | float64 |  | 0.4 |
 
 ### `recipe_validation_three_way.csv`
@@ -182,7 +182,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `input_group_share_pct` | dimension | str |  | Water transport |
-| `EXIOBASE v3.10.2 (modelled)` | measure | float64 |  | 3.9 |
+| `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022) (modelled)` | measure | float64 |  | 0.6 |
 | `Eurostat FIGARO Q86 (official EU)` | measure | float64 |  | 0.1 |
 | `Statistics Denmark IO 86 (national)` | measure | float64 |  | 0.1 |
 

@@ -66,7 +66,8 @@ Self-supply correction: the services component is y = A[:,h] E_H, so the
 footprint contains s_h (L_hh - 1) E_H of the health sector's OWN direct
 emissions through the intra-sector loop a_hh. That term overlaps the
 national-accounts Scope 1 and is removed from the MRIO part before Scope 1 is
-added (Denmark 2022: 3.2 kt CO2e, 2.5 % of Scope 1). The construction is
+added (Denmark 2022: 1.83 kt CO2e, 1.4 % of Scope 1, published in this
+folder's scopes_summary_detailed.csv as "self-supply loop removed"). The construction is
 otherwise exactly complementary to a national-accounts Scope 1, because
     F_services = (m_h - s_h) E_H
 identically (verified in code): the Z-column footprint IS the health sector's

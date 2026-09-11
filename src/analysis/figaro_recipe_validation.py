@@ -9,11 +9,22 @@ Q87_88 residential care and social work, giving the Danish health industry's
 purchases by product and by country of origin.
 
 Comparing all three answers two questions at once:
-  * does EXIOBASE's estimated Danish health recipe resemble the observed one?
+  * does the modelled Danish health recipe resemble the observed one?
   * do two independent official sources (DST national accounts and Eurostat
     FIGARO) agree with each other, i.e. is the benchmark itself trustworthy?
 
-Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 .venv/bin/python -m analysis.figaro_recipe_validation
+The modelled column is read at ``analysis.constants.BACKGROUND_YEAR`` and is
+headed by ``analysis.constants.MODEL_LABEL``, so it names the release and the
+variant it is: on the sea-transport-reallocated background the water transport
+row is the residual left after the correction (0.6 %, against 3.9 % on the
+uncorrected release and 0.1 % in both official sources), not the defect that
+motivated it. The divergences the reallocation does not touch remain visible
+and are the reason this table exists: land transport and post and
+telecommunications overstated, chemicals and pharmaceuticals understated
+threefold or more.
+
+Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+         .venv/bin/python -m analysis.figaro_recipe_validation
 """
 
 import os
@@ -23,6 +34,7 @@ import re
 import numpy as np
 import pandas as pd
 
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL
 from paths import BRONZE_DIR, BACKGROUND_DIR, OUTPUT_DIR
 
 # common reporting groups; each source is mapped onto them with its own codes
@@ -111,14 +123,18 @@ def main() -> None:
     ``data/gold/results/06_benchmarks_validation/recipe_validation_three_way.csv``
     and prints the comparison table. Reads ``HC_ANALYSIS_YEAR`` from the
     environment (default ``"2022"``) to select the FIGARO and DST source
-    files.
+    files; the EXIOBASE column is read from
+    ``analysis.constants.BACKGROUND_YEAR``, which carries both that variable
+    and ``HC_BACKGROUND_TAG``, so the recipe compared here is the one the
+    headline tables are computed from.
     """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     # --- EXIOBASE ---
     with open(os.path.join(str(BACKGROUND_DIR),
-                           f"gddz_background_information_2022.pkl"), "rb") as fh:
+                           f"gddz_background_information_{BACKGROUND_YEAR}.pkl"), "rb") as fh:
         bg = pickle.load(fh)
-    with open(os.path.join(str(BACKGROUND_DIR), "pickled_mrio", "mrio2022.pkl"), "rb") as fh:
+    with open(os.path.join(str(BACKGROUND_DIR), "pickled_mrio",
+                           f"mrio{BACKGROUND_YEAR}.pkl"), "rb") as fh:
         m = pickle.load(fh)
     Z = m["Z"]
     ind_names = list(bg["label"]["industry"]["Name"])
@@ -147,7 +163,7 @@ def main() -> None:
     vals = io.loc[rows, hcols].apply(pd.to_numeric, errors="coerce").fillna(0).sum(axis=1)
     dst = _shares(vals.to_numpy(float), codes[rows].tolist(), GROUPS_DST)
 
-    df = pd.DataFrame({"EXIOBASE v3.10.2 (modelled)": exio,
+    df = pd.DataFrame({f"{MODEL_LABEL} (modelled)": exio,
                        "Eurostat FIGARO Q86 (official EU)": figaro,
                        "Statistics Denmark IO 86 (national)": dst}).round(1)
     df.index.name = "input_group_share_pct"

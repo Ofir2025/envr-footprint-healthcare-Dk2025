@@ -23,10 +23,67 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from analysis.constants import scopes_folder
+from analysis.constants import BACKGROUND_YEAR, scopes_folder
 from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 
 NS, K_DK, K_HEALTH, K_CHEM, K_INSTR = 163, 6, 137, 62, 89
+
+
+def _t3_overestimate_pct(year: str) -> float:
+    """The published T3 target-set overestimate, read from its own gold table.
+
+    The ledger's last row cites the Cabernard eq. 8 against eq. 9 comparison
+    rather than recomputing it, so the figure it prints has to be the one
+    ``analysis.cabernard_target_scope3`` published, not a literal typed
+    beside it.
+
+    Parameters
+    ----------
+    year : str
+        Analysis year the ledger is being written for. A row is used only
+        when its own ``analysis_year`` matches, so a ledger for one year
+        cannot quote another year's correction.
+
+    Returns
+    -------
+    float
+        ``overestimate_vs_correct_pct`` of the broadest target set (T3), or
+        ``nan`` when that layer has not been run for this year.
+    """
+    path = os.path.join(str(OUTPUT_DIR), "03_cabernard_target_scope3",
+                        "cabernard_target_scope3.csv")
+    if not os.path.exists(path):
+        return float("nan")
+    d = pd.read_csv(path)
+    hit = d[(d["analysis_year"].astype(str) == str(year))
+            & (d["target"].astype(str).str.startswith("T3"))]
+    if hit.empty:
+        return float("nan")
+    return float(hit["overestimate_vs_correct_pct"].iloc[0])
+
+
+def _t3_verdict(pct: float) -> str:
+    """Opening clause of the target-aggregation verdict, for a figure or its absence.
+
+    Parameters
+    ----------
+    pct : float
+        The T3 overestimate from :func:`_t3_overestimate_pct`, possibly
+        ``nan``.
+
+    Returns
+    -------
+    str
+        A clause asserting the correction was performed when the figure is
+        present, and one saying so plainly when it is not, so an empty cell
+        is never read as a passing test.
+    """
+    if pct != pct:  # nan
+        return ("NOT TESTED for this analysis year - "
+                "analysis.cabernard_target_scope3 has not been run for it, and this "
+                "ledger quotes no other year's figure. ")
+    return ("REAL for a target-sector-perspective sum over 147 nodes, and "
+            "corrected there. ")
 
 
 def main() -> None:
@@ -38,11 +95,13 @@ def main() -> None:
     value in kt CO2-equivalent or M.EUR and a verdict. Writes the ledger to
     ``double_counting_ledger.csv`` under the scope-decomposition gold folder
     for the analysis year (``analysis.constants.scopes_folder``) and prints
-    it. Reads ``HC_ANALYSIS_YEAR`` from the environment (default ``"2022"``)
-    to select the background year's pickled background information.
+    it. The background actually loaded is
+    ``analysis.constants.BACKGROUND_YEAR``, which carries both
+    ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``, so the ledger is written
+    on the same background as the headline tables it is the audit trail for.
     """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    bgy = "2022" if year == "2022" else "2016"
+    bgy = BACKGROUND_YEAR
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{bgy}.pkl"), "rb") as fh:
         bg = pickle.load(fh)
@@ -55,6 +114,7 @@ def main() -> None:
     dk = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR), "dk_data_2025.csv"))
     E_H = float(dk[dk["Index"] == "Expenditure"].iloc[0]["HC service"])
     m = d @ L
+    t3_pct = _t3_overestimate_pct(year)
 
     rows = [
         dict(item="MRIO footprint decomposition by producing/purchased node",
@@ -105,13 +165,13 @@ def main() -> None:
              risk="Cabernard et al. (2019) eq. 8 vs 9: target-to-target flows counted twice",
              test="PERFORMED - analysis.cabernard_target_scope3 implements eq. 9 exactly, "
                   "q_T = rowsum(Y_T,all + A_TO L'_OO Y_O,all); f_T is eq. 12",
-             value=54.69, unit="% overestimate, broadest target set (T3)",
-             verdict="REAL for a target-sector-perspective sum over 147 nodes, and "
-                     "corrected there. The study's HEADLINE is a final-demand footprint "
+             value=t3_pct, unit="% overestimate, broadest target set (T3)",
+             verdict=_t3_verdict(t3_pct) + (
+                     "The study's HEADLINE is a final-demand footprint "
                      "f = s L y_H, which Wood & Hertwich (2018 p.5) show is additive; it "
                      "is not exposed. Scope 2 is one energy row-slice of one purchasing "
                      "column, not a sum over overlapping targets, so it is not exposed "
-                     "either. See 03_cabernard_target_scope3"),
+                     "either. See 03_cabernard_target_scope3")),
     ]
     df = pd.DataFrame(rows)
     df.insert(0, "analysis_year", year)
