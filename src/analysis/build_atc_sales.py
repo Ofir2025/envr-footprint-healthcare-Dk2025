@@ -54,7 +54,7 @@ REGISTER_NAME = "{year}_atc_code_data.txt"
 OUTPUT_NAME = "dk_atc_sales_{year}.csv"
 
 #: Years the study reads.
-YEARS: tuple[str, ...] = ("2019", "2022")
+YEARS: tuple[str, ...] = ("2016", "2019", "2022")
 
 #: The register is latin-1, not UTF-8: Danish product names carry ae, oe and aa.
 ENCODING = "latin-1"
@@ -95,6 +95,7 @@ STUDY_SLICE: dict[str, str] = {"sector": "2", "region": "0", "sex": "A",
 #: read into the study, because a register revision that moved the volume field
 #: would otherwise pass silently and change a published number.
 N01AB_LITRES_EXPECTED: dict[str, dict[str, float]] = {
+    "2016": {"N01AB06": 30.0, "N01AB07": 478.0, "N01AB08": 3228.0},
     "2019": {"N01AB06": 17.0, "N01AB07": 400.0, "N01AB08": 2714.0},
     "2022": {"N01AB06": 15.0, "N01AB07": 181.0, "N01AB08": 2400.0},
 }

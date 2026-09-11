@@ -3,7 +3,7 @@ land_use,km2,Food and catering,5332.868462327973
 material_extraction,kt,Minerals and Metals,4978.753463640985
 climate_change,kt CO2eq,Transport,1185.2700327851164
 material_extraction,kt,Non-metallic mineral products,645.5524934661119
-climate_change,kt CO2eq,Private travel,621.4199186512448
+climate_change,kt CO2eq,Private travel,625.0899186512448
 climate_change,kt CO2eq,Food and catering,601.9474618342185
 climate_change,kt CO2eq,Coal and Petroleum,545.7338506078736
 climate_change,kt CO2eq,Electricity,529.7416890588885
@@ -32,7 +32,7 @@ waste_generation,kt,Electricity,31.726747556600586
 climate_change,kt CO2eq,Furniture and timber,27.11013234236397
 climate_change,kt CO2eq,Paper Products,25.582127141666454
 waste_generation,kt,Construction,24.87882691944105
-material_extraction,kt,Private travel,23.4337
+material_extraction,kt,Private travel,23.5848
 material_extraction,kt,Transport,23.356389256028933
 climate_change,kt CO2eq,Textile,20.60010644808568
 waste_generation,kt,Paper Products,19.89319589489937
@@ -63,7 +63,7 @@ waste_generation,kt,"Electrical, electronic and measuring equipment",2.263461681
 blue_water_consumption,Mm3,Metal Products,2.1757278215411944
 land_use,km2,Electricity,2.0106809523059845
 land_use,km2,Waste management and disposal,1.5854375310066928
-land_use,km2,Private travel,1.5258
+land_use,km2,Private travel,1.5356999999999998
 land_use,km2,Coal and Petroleum,1.4312481302147386
 waste_generation,kt,General and special Machinery,1.3060253989045005
 material_extraction,kt,General and special Machinery,1.134155785996104
@@ -87,7 +87,7 @@ waste_generation,kt,Natural gas and gaseous fuels,0.3081881699995137
 land_use,km2,Non-metallic mineral products,0.24983652202431203
 land_use,km2,"Steam, hot water supply and water distribution",0.22846552224443628
 material_extraction,kt,Textile,0.1726962607385266
-blue_water_consumption,Mm3,Private travel,0.1624
+blue_water_consumption,Mm3,Private travel,0.1634
 blue_water_consumption,Mm3,Furniture and timber,0.13751556720496247
 land_use,km2,Natural gas and gaseous fuels,0.06777824876090648
 land_use,km2,Transport Equipment,0.05625157200989011

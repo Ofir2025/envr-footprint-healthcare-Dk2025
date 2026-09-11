@@ -6,7 +6,7 @@ climate_change,kt CO2eq,Services,922.2665777127675
 climate_change,kt CO2eq,Chemical,868.9465239845985
 land_use,km2,Chemical,825.2149865554253
 material_extraction,kt,Minerals and Metals,731.8656257997801
-climate_change,kt CO2eq,Private travel,621.4199186512448
+climate_change,kt CO2eq,Private travel,625.0899186512447
 land_use,km2,Services,596.8902132739016
 climate_change,kt CO2eq,Food and catering,409.5163518705291
 land_use,km2,Transport,360.7227649918731
@@ -37,7 +37,7 @@ land_use,km2,Waste management and disposal,28.3264451949221
 climate_change,kt CO2eq,Metal Products,25.57002448161109
 material_extraction,kt,Paper Products,24.28609101179449
 material_extraction,kt,General and special Machinery,24.094070084924724
-material_extraction,kt,Private travel,23.4337
+material_extraction,kt,Private travel,23.5848
 material_extraction,kt,Waste management and disposal,23.406490375604893
 climate_change,kt CO2eq,Natural gas and gaseous fuels,22.74161698489696
 land_use,km2,Furniture and timber,20.56324041818255
@@ -72,7 +72,7 @@ material_extraction,kt,Textile,2.464006362171572
 material_extraction,kt,Natural gas and gaseous fuels,2.046075284432087
 waste_generation,kt,Construction,1.6785605173888127
 land_use,km2,Transport Equipment,1.586188658826269
-land_use,km2,Private travel,1.5258
+land_use,km2,Private travel,1.5356999999999998
 waste_generation,kt,Metal Products,1.119588027614909
 waste_generation,kt,Coal and Petroleum,0.9343609833859501
 waste_generation,kt,General and special Machinery,0.9251279860875272
@@ -91,7 +91,7 @@ blue_water_consumption,Mm3,General and special Machinery,0.2361182207137314
 waste_generation,kt,Textile,0.2360319860102403
 blue_water_consumption,Mm3,Textile,0.23591031812170193
 blue_water_consumption,Mm3,Furniture and timber,0.1986641441232273
-blue_water_consumption,Mm3,Private travel,0.1624
+blue_water_consumption,Mm3,Private travel,0.1634
 waste_generation,kt,Transport Equipment,0.13541509574222688
 waste_generation,kt,Minerals and Metals,0.12756874157241516
 blue_water_consumption,Mm3,Coal and Petroleum,0.09318331230035141

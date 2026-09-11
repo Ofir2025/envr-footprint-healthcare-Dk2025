@@ -750,6 +750,36 @@ silently.
 
 ### Findings of 11 September 2026
 
+#### The 2016 and 2019 analyses share one background stem
+
+**Severity: high; blocks the 2016 variant.** `constants.background_stem` names a
+prepared background from the EXIOBASE **table** year, and `table_year` maps both
+the 2016 and the 2019 analysis year onto table 2016. Both therefore resolve to
+`gddz_background_information_2016_snacship.pkl`, and that pickle stores `Ystim`,
+the Danish health final-demand vector, which is a property of the **analysis**
+year, not the table year. One file cannot hold both.
+
+Found by C21, which recomputes each variant's climate headline from its own
+background: `2016c` published 3,311.74 kt while the shared background returned
+3,462.57 kt, a 4.55 % gap. The gap is not an error in the 2016 tables —
+`analysis.main_2025` builds its own demand vector from the 2016 workbook and the
+published numbers follow from it — but the stored vector in the shared pickle is
+2019's (11,604.8 M€ against 2016's 33,429.8 M€ of expenditure), so the check
+cannot verify 2016 and would begin failing for 2019 the moment a 2016 run
+overwrote it.
+
+The 2016 variant folders are therefore **withdrawn** rather than published: a
+gold table the project's own audit cannot verify is not a deliverable. Every
+2016 *input* is kept and documented, because none of it depends on the defect.
+
+**The fix**, not yet applied because it renames background files that docs, the
+audit's stem resolver and every variant's provenance label all refer to: give the
+stem the analysis year whenever it differs from the table year, so the plain stem
+keeps its natural meaning of "table year is the analysis year". `2016` then
+belongs to the 2016 analysis, and the 2019 analysis on the 2016 table becomes
+`2016_y2019`. Preparing a background from an existing MRIO pickle takes about a
+second, so the rebuild is cheap; the ripple through documentation is the work.
+
 #### A banned value survived inside the module that generates gold readmes
 
 **Severity: medium.** `2019_uncorrected`'s pre-AR6 transport share of 47.28 % was

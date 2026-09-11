@@ -107,6 +107,64 @@ is a withheld figure rather than a missing one:
   running it under `2022d` would put variant c's baseline and levers in variant
   d's folder. It is therefore run for `2022c` and for nothing else.
 
+## Captions the figures do not carry
+
+No figure in this study carries a title, a note or a caption. Two sentences that
+a reader of figures 2, 5 and 6 needs are therefore recorded here, to be used as
+caption text in the manuscript and the SI:
+
+**The remainder bar.** *A top-N ranking must show what it leaves out. The
+remainder sits at the foot of each panel; where it exceeds the ranked bars its
+own bar is broken and its true share printed, so the ranking is not flattened
+into slivers by a tail that is several times the largest ranked bar.* Until
+2026-09-11 this sentence was concatenated into the x-axis title of those three
+figures, which put 150 characters under the panels and left the axis title
+itself unreadable.
+
+**The axis labels are codes.** *Region and EXIOBASE industry codes are used on
+the y axis of figures 2, 4, 5 and 6. Full EXIOBASE industry names run to 90
+characters and reduce the plotting panel to a sliver; the names are one join
+away, in `data/gold/results/star/dim_industry.csv` and in each layer's data
+dictionary.*
+
+## Value labels
+
+Every ranked bar carries its value, and every point of the comparison series
+carries its value. Labels sit outside the bar end in the ink colour, never
+inside: a 0.8 % share in a panel whose largest bar is 2.6 % has no room inside
+it, and a rule that labels only the bars wide enough to hold a label is the rule
+that left the tallest bars of figures 2, 4 and 5 carrying no number at all until
+2026-09-11. `ranked_labels()` in `r/_dk_common.r` is the single implementation;
+`facet_ceiling(room = )` reserves the headroom it needs.
+
+## The comparison series
+
+`comparison/` holds the figures that run across the three reference years rather
+than within one. They are drawn from
+`data/gold/results/01_eriksen_replication/variant_comparison.csv` by
+`r/plot_year_comparison.r`, which needs only `DKHC_FIG_DIR=figures/manuscript`:
+
+| figure | content |
+|:---|:---|
+| `fig11_footprint_by_year.tiff` | the health-care footprint in 2016, 2019 and 2022, one panel per indicator, one line per boundary |
+| `fig12_share_of_national_by_year.tiff` | the same three years as a share of the Danish national footprint |
+| `fig13_activity_groups_by_year.tiff` | what each activity group contributed to the climate footprint in each year, grouped bars ranked by the latest year |
+| `fig10_year_bridge_climate_2019_2022.tiff` | the two-step bridge from 2019 to 2022, correction step then year step |
+
+**Connected dots, not an area plot.** With three observations an area plot draws
+the region under a curve whose shape between the points is an artefact of the
+interpolation, and stacking those areas makes the composition legible only for
+the band at the base. Cleveland's ordering of elementary perceptual tasks puts
+position along a common scale first and area seventh, so with three points the
+honest encodings are position and length: a connected dot plot for the levels, a
+grouped bar for the composition. The line carries no claim about the years
+between the points; it says only that the dots are one series in time order.
+
+Only variants `c` and `d` form a series: they exist in all three years on one
+release with the shipping correction applied. `a` and `b` are EXIOBASE v3.7,
+which publishes no table after 2016, so they exist for 2019 alone and are not
+drawn as a trend.
+
 ## Rendering
 
 Every command below carries `LANG=en_US.UTF-8` so it can be copied and pasted as
@@ -119,6 +177,13 @@ the default, so a line is self-contained and an exported `HC_*` left over from a
 earlier run cannot silently change which variant is drawn.
 
 ```bash
+# DKHC_FIG_DIR means two different things below, which is a trap worth naming.
+# For `plot_steenmeijer_variant_a.r` it is the PARENT and the script appends the
+# folder variant_name() resolved. For `plot_manuscript_figures.r`,
+# `plot_absolute_and_percapita.r` and `plot_year_comparison.r` it is the folder
+# written to directly. Passing the parent to the second kind writes every TIFF
+# to `figures/manuscript/` instead of the variant folder, silently.
+
 # ---- variant a: Steenmeijer figures 1-3, and only those --------------------
 # EXIOBASE v3.7 IOT_2016, uncorrected: the release and correction state the
 # manuscript was submitted on. HC_EXIOBASE_RELEASE is what selects it; without
@@ -128,6 +193,13 @@ earlier run cannot silently change which variant is drawn.
 # the folder that variant_name() resolved, the same resolver that chose the gold
 # tables, so one variant's numbers cannot be written into another's folder.
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG= HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript Rscript r/plot_steenmeijer_variant_a.r
+
+# ---- 2016c and 2016d: the earliest year of the series -----------------------
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2016 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2016c Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2016 HC_EXIOBASE_RELEASE=v3_8_2 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2016d Rscript r/plot_manuscript_figures.r
+
+# ---- the comparison series across 2016, 2019 and 2022 -----------------------
+LANG=en_US.UTF-8 DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_comparison.r
 
 # ---- variant b: v3.7, shipping-corrected ------------------------------------
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship HC_SCOPE=health_eldercare HC_CAPITAL=excluded DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_manuscript_figures.r
