@@ -21,10 +21,10 @@
 ```
 bronze (raw, never modified)
   EXIOBASE v3.10.2 IOT_2022_ixi ....... external store (Zenodo, MD5-verified)
-  DST IO tables 2006-2022 ............. data/bronze/input_output/
+  DST IO tables 2006-2022 ............. data/bronze/dst_input_output/
   DST detailed SUT 2019 ............... data/bronze/dk_umat_2019.xlsx
   DRIVHUS / AFFALD / SHA / NABB69 ..... StatBank API (queried in code)
-  FIGARO + Eurostat footprints ........ data/bronze/figaro/
+  FIGARO + Eurostat footprints ........ data/bronze/eurostat_figaro/
         |
         v  pipelines.prep_background_2022.build_background_2022
 silver (prepared model objects)

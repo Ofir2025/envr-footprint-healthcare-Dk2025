@@ -1080,7 +1080,7 @@ depending on the denominator**, now reported as a range with all three named.
 FIGARO also puts emissions arising in NACE Q due to Danish final demand at
 176 kt (Q86 alone 97 kt), corroborating our 142 kt Scope 1 plus the intra-health
 chain. FIGARO supply/use tables for DK 2022 and 2024 are in
-`data/bronze/figaro/`. **Assessment:** at A64 resolution FIGARO separates Q86
+`data/bronze/eurostat_figaro/`. **Assessment:** at A64 resolution FIGARO separates Q86
 from Q87-Q88 and has C21 pharmaceuticals separately, so it is a genuine
 cross-model benchmark and a plausible import-structure source, but its 64
 industries cannot substitute for the confidential ~2,350-product DST SUT for
