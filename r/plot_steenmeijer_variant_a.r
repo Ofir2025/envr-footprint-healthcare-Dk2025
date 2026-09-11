@@ -186,9 +186,10 @@ va_plot <- function(d, levels, cols) {
     scale_y_continuous(breaks = seq(0, 100, 10),
                        expand = expansion(mult = c(0, 0.012))) +
     scale_fill_manual(values = cols, breaks = levels, drop = FALSE) +
-    labs(x = sprintf("Segments below %d %% of the category are drawn but not labelled.",
-                     LABEL_FLOOR),
-         y = "Contribution (%)") +
+    # No x title. The label floor is a note about how the figure was drawn,
+    # and notes belong in the manuscript caption - the folder readme states
+    # it. The originals carry no x title either.
+    labs(x = NULL, y = "Contribution (%)") +
     guides(fill = guide_legend(ncol = 1, byrow = TRUE)) +
     theme_dkhc() +
     # The originals are a plain white panel: no gridlines, a thin dark axis line
