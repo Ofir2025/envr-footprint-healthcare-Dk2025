@@ -179,6 +179,10 @@ NOT_STAGES: frozenset[str] = frozenset({
     "main",                    # the RIVM original, kept for provenance
     "scenario_engine",         # library behind mitigation_scenarios
     "detail_tables",           # listed above; kept here for the set difference
+    # the silver stage that reads the Danish IO workbook, the supply-use
+    # workbook and the EXIOBASE classification on dk_shipping_correction's
+    # behalf; run before it, and rebuilt when a bronze source changes
+    "build_shipping_inputs",
     "dk_shipping_correction",  # a silver-layer step, run before this pipeline
     "audit_consistency", "build_manifest", "build_folder_metadata",
     "gold_scope", "bibliography", "build_star_schema", "build_tables_record",

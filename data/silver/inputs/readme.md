@@ -15,6 +15,20 @@ immutable Bronze sources.
   and ~78 MB per year, so it is not in version control - rebuild it by running
   the module.
 
+Three more are written by `analysis.build_shipping_inputs`, the silver stage
+that reads bronze on `analysis.dk_shipping_correction`'s behalf so the
+correction does not have to:
+
+| file | rows | content |
+|:---|:---|:---|
+| `dst_water_transport_domestic_share.csv` | 3 | the target share phi per DST table year, with the two 1000-DKK quantities it is the quotient of. The 2019 row is the cross-check against Rørmose Jensen & Iliev's published 9 %, not an input |
+| `dk_health_expenditure_frame.csv` | 6 | the expenditure (M.EUR), price conversion and direct-emission (kt CO2-eq) frame `createBackground` consumes, one three-row block per analysis year |
+| `exiobase_industry_sector_group.csv` | 169 | EXIOBASE industry code to its aggregate reporting group, from `classifications.xlsx` |
+
+Read them with `float_precision="round_trip"`. pandas' default CSV parser is not
+correctly rounded and drops the last bit of a float; phi multiplies a row block
+of **A** before a Leontief inversion, so that bit is a published number.
+
 `dk_data_2025.csv` and `dk_bottomup_data_2025.txt` carry an `ISO2` column (`DK`)
 so country ownership is explicit. The source files remain in Bronze and are not
 overwritten by the pipeline.
