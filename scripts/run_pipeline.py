@@ -187,6 +187,10 @@ NOT_STAGES: frozenset[str] = frozenset({
     # behalf; run before it, and rebuilt when a bronze source changes
     "build_shipping_inputs",
     "dk_shipping_correction",  # a silver-layer step, run before this pipeline
+    # the other silver-layer background stage: it endogenises consumption of
+    # fixed capital into a background pickle (variant d), writes no gold, and
+    # like dk_shipping_correction must run before the pipeline that reads it
+    "capital_endogenised_background",
     "audit_consistency", "build_manifest", "build_folder_metadata",
     "gold_scope", "bibliography", "build_star_schema", "build_tables_record",
     "uncertainty_audit",
