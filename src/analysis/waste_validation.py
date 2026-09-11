@@ -137,7 +137,7 @@ def main() -> None:
              value_kt=modelled_direct_kt / measured_scope if measured_scope else np.nan,
              basis="dimensionless; a conformance check on the replacement, not "
                    "on the extension. It is not 1.000 because the model takes "
-                   "AFFALD01 at the vintage main_2025 records, while this row "
+                   "AFFALD01 at the release main_2025 records, while this row "
                    "queries StatBank live"),
     ]
     df = pd.DataFrame(rows)

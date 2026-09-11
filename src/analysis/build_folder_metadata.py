@@ -232,7 +232,7 @@ README_NOTES: dict[str, str] = {
         "\n"
         "The archive does not reproduce the article's own tables exactly: their\n"
         "script reads Statistics Netherlands at run time, so the direct\n"
-        "emissions and the expenditure move with the vintage of the query. The\n"
+        "emissions and the expenditure move with the release of the query. The\n"
         "differences, and two inconsistencies internal to the archive, are\n"
         "tabulated in the methods section linked above.\n"
         "\n"
