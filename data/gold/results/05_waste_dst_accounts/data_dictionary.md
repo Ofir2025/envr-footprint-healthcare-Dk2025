@@ -57,7 +57,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `source` | dimension | str |  | EXIOBASE hybrid 2011 waste extension (as |
 | `quantity` | dimension | str |  | direct waste of the Danish health sector |
-| `value_kt` | measure | float64 |  | 240.4465651885147 |
+| `value_kt` | measure | float64 |  | 42.75704592555413 |
 | `basis` | dimension | str |  | absolute 2011 tonnes / analysis-year mon |
 | `analysis_year` | measure | int64 |  | 2022 |
 

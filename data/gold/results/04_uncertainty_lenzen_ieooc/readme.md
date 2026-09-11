@@ -38,7 +38,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 - **Rows:** 9
 - **Format:** csv
 - **Dimensions:** `Unnamed: 0`
-- **Measures:** `Food and food services`, `Heat and electricity`, `Individual travel`, `Medical, electrical equipment and machinery`, `Operational impacts`, `Pharmaceuticals and chemical products`, `Services`, `Transport`, `Unallocated`
+- **Measures:** `Food and food services`, `Heat and electricity`, `Individual travel`, `Medical, electrical equipment and machinery`, `Operational impacts`, `Other`, `Pharmaceuticals and chemical products`, `Services`, `Transport`
 
 ### `uncertainty_mrio_correlation.csv`
 

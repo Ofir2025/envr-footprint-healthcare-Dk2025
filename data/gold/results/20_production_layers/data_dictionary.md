@@ -63,9 +63,9 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | kt CO2eq |
 | `layer` | dimension | str |  | 0 |
 | `value` | measure | float64 | varies by row | 353.33928659046666 |
-| `share_pct` | measure | float64 | % | 8.6988278774147 |
-| `cumulative_share_pct` | measure | float64 | % | 8.6988278774147 |
-| `truncation_error_pct` | measure | float64 | % | 91.3011721225853 |
+| `share_pct` | measure | float64 | % | 8.778686379642336 |
+| `cumulative_share_pct` | measure | float64 | % | 8.778686379642336 |
+| `truncation_error_pct` | measure | float64 | % | 91.22131362035766 |
 
 ### `production_layers_by_producing_node.csv.gz`
 

@@ -27,10 +27,24 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 10
 - **Dimensions:** `country_producing`, `sector_producing`, `country_consuming`, `sector_consuming`, `unit`
 - **Measures:** `background_year`, `analysis_year`, `value`
 
+### `phi_sensitivity_2016.csv`
+
+- **Rows:** 8
+- **Format:** csv
+- **Dimensions:** `phi_source`, `model`
+- **Measures:** `phi`, `released_meur`, `footprint_climate_kt`, `transport_share_pct`, `background_year`
+
+### `phi_sensitivity_2022.csv`
+
+- **Rows:** 8
+- **Format:** csv
+- **Dimensions:** `phi_source`, `model`
+- **Measures:** `phi`, `released_meur`, `footprint_climate_kt`, `transport_share_pct`, `background_year`
+
 ### `shipping_reallocation_diagnostics.csv`
 
-- **Rows:** 14
+- **Rows:** 22
 - **Format:** csv
-- **Units:** %, M.EUR
-- **Dimensions:** `country_producing`, `sector_producing`, `quantity`, `unit`, `source`
-- **Measures:** `background_year`, `analysis_year`, `value`
+- **Units:** %, M.EUR, share (dimensionless)
+- **Dimensions:** `country_producing`, `sector_producing`, `quantity`, `unit`, `source`, `phi_source`
+- **Measures:** `background_year`, `analysis_year`, `value`, `phi_applied`, `rormose_2019_cross_check`
