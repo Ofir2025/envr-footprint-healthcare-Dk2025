@@ -10,9 +10,10 @@ GWP-100 values are read from.
 | Licences | CC BY-SA 4.0, CC BY 4.0, and IPCC terms respectively — see each entry |
 | Retrieved | 2026-09-07 |
 
-**Nothing in this folder is in version control.** The four files below total
-26 MB of third-party material; the two IPCC chapters are PDFs, which the
-author's global excludes file drops in any case. Every DOI and URL needed to
+**None of the four files below is in version control** - this readme is the
+only tracked thing here. They total 26 MB of third-party material, and the two
+IPCC chapters are PDFs, which the author's global excludes file drops in any
+case. Every DOI and URL needed to
 restore the folder is given here, and the values the study actually uses are
 quoted in `analysis.constants`, so a clone can check the numbers without the
 files.
