@@ -750,6 +750,22 @@ silently.
 
 ### Findings of 11 September 2026
 
+#### Three stale numbers in the FIGARO passage of the methods text
+
+**Severity: medium.** `docs/methods/methods.md` compared FIGARO's Danish national
+footprint against "our model's 64.72 Mt" and "our 142 kt Scope 1", and put the
+healthcare share at "7.5-8.5 %". All three predate the corrections: the model's
+2022 national total is **77.24 Mt** (`00_core_footprint/national_totals_summary.csv`),
+2022 Scope 1 is **130.1 kt** (`02_scopes_wood_hertwich/2022c/scopes_summary_detailed.csv`),
+and the share is **6.1 % to 8.2 %** across the three denominators — 8.15 % of
+FIGARO's 57.40 Mt, 7.43 % of AFTRYK's 62.90 Mt, 6.05 % of our own. AFTRYK was
+also quoted as 62.93 Mt where the repository carries 62.90. The two numbers in
+that passage that were *right* are the ones drawn straight from the extract:
+NACE Q at 176 kt and Q86 at 97 kt both reproduce from
+`env_ac_ghgfp_DKdest_2016-2023.csv` (176.1 and 96.6 kt), which is the argument
+for putting the extracts in a series a check can read rather than quoting them
+into prose.
+
 #### The FIGARO fact tables had no dimension tables
 
 **Severity: medium.** Every file in `data/bronze/eurostat_figaro/` is a long

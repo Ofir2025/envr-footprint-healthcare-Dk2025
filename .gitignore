@@ -101,3 +101,10 @@ data/silver/dk_medicines_register/dk_atc_sales_*.csv
 # makes a rebuild offline and the label on every row checkable against the
 # register it was read from.
 !data/silver/eurostat_figaro/figaro_dimensions.csv
+# The two FIGARO series, 1.1 MB together. Tracked because each is the whole
+# benchmark a reviewer would ask to see - the Danish health input recipe across
+# 2016/2019/2022/2024, and the Danish footprint across an unbroken 2016-2023 -
+# and because rebuilding them needs eight dissemination-API queries and the
+# 31 MB of bronze extracts those return.
+!data/silver/eurostat_figaro/figaro_dk_health_inputs.csv
+!data/silver/eurostat_figaro/figaro_dk_footprint_series.csv
