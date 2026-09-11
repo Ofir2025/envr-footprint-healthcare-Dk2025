@@ -442,50 +442,37 @@ facet_ceiling <- function(data, group, extent, room = 1.06) {
 }
 
 # ---- the remainder bar -------------------------------------------------------
-# House rule: a top-N ranking must always show what it leaves out. The awkward
-# part is that in a 200 x 200 MRIO the tail is routinely several times the
-# largest ranked bar, so a to-scale remainder flattens the ranking it is meant
-# to qualify into slivers.
+# House rule: a top-N ranking must always show what it leaves out, and the
+# remainder takes its place in the ranking by its own value like every other bar.
 #
-# The convention adopted across this study: pin the remainder to the FOOT of
-# every panel, draw it to scale wherever it fits, and where it does not, break
-# the bar and print its true share beside it. Nothing is hidden - the remainder
-# is present, labelled, and the one bar carrying break marks - and the axis
-# title says so. `REMAINDER_NOTE` is that sentence.
+# It did not, until 2026-09-11. It was pinned to the FOOT of every panel and,
+# where it exceeded the largest ranked bar, drawn truncated with break marks and
+# its true share printed beside it. The reasoning was that a tail several times
+# the largest ranked bar flattens the ranking it is meant to qualify. The
+# reasoning was wrong twice over: a chart whose bars are not in the order its
+# lengths imply is not a ranking, and the device needed a 150-character note to
+# explain itself, on figures that carry no notes. A 66 % remainder drawn at the
+# foot below bars of 16 % says the opposite of what is true.
 #
-# The three functions below expect `d` to carry `indicator`, `key` (a factor
-# built by the caller's ranking), `share_pct` and `is_rest`. Stacked figures are
-# handled too: every segment of a truncated remainder is scaled by the same
-# factor, so the composition of the bar survives the break.
-# The sentence explaining the device. It belongs in the figure CAPTION and in
-# the folder readme, NOT on the figure: a figure carries no titles, notes or
-# captions in this study. It was being concatenated into the x-axis title of
-# figures 2, 5 and 6, which put a 150-character sentence under the panels and
-# left the actual axis title unreadable.
+# Now it is ranked and drawn to scale. Nothing is truncated, no bar is broken,
+# and no note is needed. The ranked bars that end up short are readable because
+# every one carries its value - see `ranked_labels` below - which is the encoding
+# that should have been doing this work all along. The remainder keeps its grey
+# so it still reads as a residual rather than as a category.
+#
+# The functions below expect `d` to carry `indicator`, `key` (a factor built by
+# the caller's ranking), `share_pct` and `is_rest`.
 REMAINDER_NOTE <- paste(
-  "The remainder sits at the foot of each panel; where it exceeds the ranked",
-  "bars its own bar is broken and its true share printed.")
+  "The remainder is the pooled tail of the ranking and is ranked by its own",
+  "value, like every other bar.")
 
+# Kept as an identity so callers need not change: the ranking `order_key` built
+# already places the remainder correctly, and this no longer overrides it.
+# `plot_x` exists because the plotting code reads it; it is now simply the share.
 prepare_remainder <- function(d, room = 1.04) {
-  lv <- levels(d$key)
-  rest <- unique(as.character(d$key[d$is_rest]))
-  d <- d %>% mutate(key = factor(key, levels = c(lv[lv %in% rest],
-                                                 lv[!lv %in% rest])))
-  cap <- d %>% filter(!is_rest) %>%
-    group_by(indicator, key) %>%
-    summarise(.t = sum(share_pct), .groups = "drop_last") %>%
-    summarise(cap = max(.t), .groups = "drop")
-  tot <- d %>% filter(is_rest) %>%
-    group_by(indicator) %>%
-    summarise(rest_total = sum(share_pct), .groups = "drop")
-  d %>% left_join(cap, by = "indicator") %>%
-    left_join(tot, by = "indicator") %>%
-    mutate(trunc = is_rest & rest_total > cap,
-           plot_x = if_else(trunc, share_pct * cap * room / rest_total,
-                            share_pct))
+  d %>% mutate(plot_x = share_pct, trunc = FALSE)
 }
 
-# One label per remainder bar, at its drawn end, carrying the TRUE share.
 remainder_label <- function(d, size = 4.6, hjust = -0.22) {
   lab <- d %>% filter(is_rest) %>%
     group_by(indicator, key) %>%
@@ -495,6 +482,11 @@ remainder_label <- function(d, size = 4.6, hjust = -0.22) {
             aes(x = x, y = key, label = lab), hjust = hjust, size = size,
             fontface = "bold", colour = INK)
 }
+
+# Retained as a no-op: nothing is truncated any more, so there is nothing to
+# mark. Kept rather than deleted at every call site so the figure scripts read
+# the same, and so that a reader looking for the old break marks finds why.
+remainder_breaks <- function(d, linewidth = 0.9) NULL
 
 # ---- value labels on ranked bars --------------------------------------------
 # Every ranked bar carries its value. The remainder already has its own label
@@ -518,18 +510,6 @@ ranked_labels <- function(d, size = 3.5, hjust = -0.25, digits_below = 1) {
   geom_text(data = lab, inherit.aes = FALSE,
             aes(x = x, y = key, label = lab), hjust = hjust, size = size,
             colour = INK, na.rm = TRUE)
-}
-
-# Break marks. The remainder is level 1 of every panel after prepare_remainder,
-# so the row index is constant and needs no per-panel lookup.
-remainder_breaks <- function(d, linewidth = 0.9) {
-  b <- d %>% filter(trunc) %>% distinct(indicator, cap) %>%
-    tidyr::crossing(off = c(0.90, 0.96))
-  if (nrow(b) == 0) return(NULL)
-  geom_segment(data = b, inherit.aes = FALSE,
-               aes(x = cap * off, xend = cap * (off + 0.035),
-                   y = 1 - 0.34, yend = 1 + 0.34),
-               colour = "white", linewidth = linewidth)
 }
 
 # ---- top-N with a re-sorted remainder --------------------------------------
