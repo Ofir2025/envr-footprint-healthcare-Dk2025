@@ -533,12 +533,30 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
 #: state current claims, and any future legitimate use has to be argued for
 #: here rather than appearing silently.
 SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
-    ("4,064-5,540", "pre-correction 95 % interval; the current one is 4,065 to 5,532"),
+    # Superseded on 2026-09-11, when the sea-transport correction's target share
+    # moved from a fixed 0.09 to Statistics Denmark's domestic-IO value per year.
+    # The phi-sensitivity table in replications.md section 10 legitimately quotes
+    # 4,712.42, 11,509.8, 9,955.9 and 4,085.38 as its phi = 0.09 row, so those
+    # are deliberately NOT banned; only values with no surviving use are.
+    ("77,477.5", "national footprint on phi = 0.09; it is 77,240.6 kt"),
+    ("77.5 Mt", "national footprint on phi = 0.09; it is 77.2 Mt"),
+    ("3,943.4", "MRIO supply-chain component on phi = 0.09; it is 3,906.5 kt"),
+    ("595.85", "transport, purchased product, on phi = 0.09; it is 566.53 kt"),
+    ("728.2 kt", "transport, producing node, on phi = 0.09; it is 695.12 kt"),
+    ("852 kt to 74 kt", "DK sea transport before and after on phi = 0.09; it is 852 kt to 53.0 kt"),
+    ("813.01", "2019 corrected transport on phi = 0.09; it is 788.90 kt"),
+    ("2,275.0", "bridge correction step on phi = 0.09; it is 2,305.6 kt"),
+    ("+627.0 kt", "bridge year step on phi = 0.09; it is +620.7 kt"),
+    ("4,734 kt", "Monte Carlo median on phi = 0.09; it is 4,697 kt"),
+    ("4,064 to 5,531", "Monte Carlo 95 % interval on phi = 0.09; it is 4,032 to 5,488"),
+    ("4,064-5,531", "Monte Carlo 95 % interval on phi = 0.09; it is 4,032 to 5,488"),
+    ("78.8 %", "MRIO share of variance on phi = 0.09; it is 78.4 %"),
+    ("4,064-5,540", "pre-correction 95 % interval; the current one is 4,032 to 5,488"),
     ("4,059-5,531", "pre-correction 95 % interval from the correlation sweep"),
     ("4,057-5,546", "pre-correction 95 % interval"),
     ("4 063.9", "pre-correction interval, also with a thin-space separator"),
     ("86.8 %", "input-output share of variance before the covariance term was "
-               "reported separately; it is 78.8 %"),
+               "reported separately; it is 78.4 %"),
     ("18.9 %", "transport share after the reallocation; it is 18.5 % of the "
                "supply-chain component and 15.4 % of the total"),
     ("67.9 %", "first three production layers; the value is 63.0 %"),
@@ -554,8 +572,8 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
     ("4,713.4", "the same, to one decimal"),
     ("4,713.37", "the same, to two decimals"),
     ("4,711.53", "scope partition total before the same change; it is 4,710.58"),
-    ("4,065 to 5,532", "95 % interval before the same change; it is 4,064 to 5,531"),
-    ("4,735 kt", "Monte Carlo median before the same change; it is 4,734 kt"),
+    ("4,065 to 5,532", "95 % interval before the same change; it is 4,032 to 5,488"),
+    ("4,735 kt", "Monte Carlo median before the same change; it is 4,697 kt"),
 )
 
 #: Documents that record what a number used to be, and therefore must be
