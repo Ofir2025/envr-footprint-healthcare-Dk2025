@@ -75,11 +75,19 @@ then any analysis module, then `python -m analysis.build_manifest`.
 | Variable | Default | Effect |
 |:---|:---|:---|
 | `HC_ANALYSIS_YEAR` | `2022` | Which year's Danish expenditure and bottom-up data to use |
-| `HC_BACKGROUND_YEAR` | `2016` | Which EXIOBASE year to build a background from |
-| `HC_BACKGROUND_TAG` | *(empty)* | Model variant; `_snacship` selects the Danish sea-transport reallocation |
+| `HC_EXIOBASE_RELEASE` | `v3_8_2` | Which EXIOBASE release to read and to stamp on every gold row: `v3_7` (the submitted release, 2016 only) or `v3_8_2` |
+| `HC_BACKGROUND_YEAR` | *(the analysis year's table)* | Which EXIOBASE table year to build a background from |
+| `HC_BACKGROUND_TAG` | *(empty)* | `_snacship` selects the Danish sea-transport reallocation |
+| `HC_CAPITAL` | `excluded` | `endogenised` puts consumption of fixed capital inside the Leontief inverse |
 | `HC_SCOPE` | `health_eldercare` | `health_only`, `health_eldercare` or `zorg_en_welzijn` (adds childcare) |
 | `HC_WASTE_FRACTIONS` | `statistical` | `all` restores the unfiltered 19-fraction waste sum |
 | `HC_GWP_REVISION` | `AR6` | `AR4` reproduces the workbook's supplied climate factors |
+
+The first four of these define a model VARIANT, which is what a result folder
+under `01_eriksen_replication/` and `02_scopes_wood_hertwich/` is named after:
+`<year><letter>`, with a-d defined in
+[`docs/methods/replications.md`, section 01](methods/replications.md#r01) and
+resolved by `analysis.constants.variant_folder`.
 
 Background year and model provenance are defined **once**, in
 `analysis.constants`, so no module can pair one release's data with another's
