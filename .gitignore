@@ -23,12 +23,24 @@ data/bronze/eurostat_figaro/estat_naio_10_fcp_ii4_*.tsv.gz
 data/silver/background
 .venv/
 
-# Handoff workbooks between main_2025.py and eriksen_tables.py. They are
-# regenerable intermediates, not a deliverable, so they belong in silver, not
-# gold - and are ignored explicitly here rather than relying on a personal
-# global excludesFile, which is exactly the mechanism that once hid a
+# Handoff workbooks between main_2025.py and the three modules that read them
+# back. They are regenerable intermediates, not a deliverable, so they belong in
+# silver, not gold - and are ignored explicitly here rather than relying on a
+# personal global excludesFile, which is exactly the mechanism that once hid a
 # required input file from this repository.
-data/silver/inputs/eriksen_interim/
+data/silver/handoff/*
+# ...but the folder's own readme is tracked, because it is the only thing
+# that says what these workbooks are and why they are not gold. A negation
+# cannot reach inside an excluded DIRECTORY, so the pattern above excludes
+# the folder's contents rather than the folder itself.
+!data/silver/handoff/readme.md
+
+# The named-column form of the Danish medicines register: 78 MB per year,
+# rebuilt from the tracked bronze original by analysis.build_atc_sales. Ignored
+# explicitly for the same reason as the line above: the global excludesFile
+# already drops every .csv, but relying on a machine-local file to hide 156 MB
+# is relying on a setting this repository cannot see.
+data/silver/dk_medicines_register/dk_atc_sales_*.csv
 
 # The user's global gitignore excludes *.csv. The gold results ARE the
 # deliverable — detail tables alongside aggregates — so un-ignore them here.
@@ -63,3 +75,13 @@ data/silver/inputs/eriksen_interim/
 # read by `analysis.capital_gfcf`, and absent from every clone.
 !data/bronze/**/*.csv
 !data/bronze/*.csv
+
+# Silver products that ARE in version control. Silver is regenerable, so most
+# of it is ignored: the model-object store, the register, the handoff workbooks.
+# These few are tracked because they are small, because they are the numbers the
+# manuscript's expenditure and bottom-up terms rest on, and because a clone that
+# has them can read what the pipeline was last run on without rebuilding it.
+# Named one pattern at a time rather than as `!data/silver/**/*.csv`, so
+# un-ignoring them cannot drag the 78 MB register in with them.
+!data/silver/dst_supply_use/dk_data_*.csv
+!data/silver/dst_supply_use/dk_expenditure_breakdown_*.csv

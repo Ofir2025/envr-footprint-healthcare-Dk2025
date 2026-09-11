@@ -96,7 +96,8 @@ import re
 import numpy as np
 import pandas as pd
 
-from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
+from paths import (BACKGROUND_DIR, ERIKSEN_INTERIM_DIR, OUTPUT_DIR,
+                   SILVER_DK_BOTTOMUP_TXT)
 from analysis.export_tables import _labels, _node_frame
 
 ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
@@ -148,9 +149,9 @@ def main() -> None:
     # pipeline writes, so both use byte-identical numbers: GWP from DRIVHUS and
     # waste from AFFALD01 (Danish measured), the other categories from EXIOBASE.
     # Intermediate workbook, not a deliverable: it lives in silver's
-    # eriksen_interim handoff (see main_2025's interim_dir), not in gold.
+    # handoff (see main_2025's interim_dir), not in gold.
     contrib = pd.read_excel(
-        os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+        os.path.join(str(ERIKSEN_INTERIM_DIR),
                      *eriksen_folder().split("/"),
                      "contribution_analysis.xlsx"), sheet_name="full")
     b_heal = contrib[contrib["SecTxtCode"] == "B_HEAL"].iloc[0]
@@ -162,8 +163,7 @@ def main() -> None:
     # Bottom-up items, all five categories. `main_2025` rewrites this file in
     # place with the Danish primary values for the year it was run for, so this
     # module must run straight after it for the same year.
-    bu = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR), "dk_bottomup_data_2025.txt"),
-                     sep="\t").set_index("Source")
+    bu = pd.read_csv(SILVER_DK_BOTTOMUP_TXT, sep="\t").set_index("Source")
     for _row in ("Anaesthetic", "pMDI", "Commute (total)",
                  "Visitor travel (total)"):
         missing = [c for c in DIRECT_COL.values() if c not in bu.columns]

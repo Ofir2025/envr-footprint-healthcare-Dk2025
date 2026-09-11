@@ -148,17 +148,23 @@ import pandas as pd
 from analysis.constants import ANALYSIS_YEAR, K_DK, N_SECTORS
 from analysis.release_defect_audit import CONCORDANCE as SEED_CONCORDANCE
 from paths import (BRONZE_DIR, EXIOBASE_BASE_DIR, EXIOBASE_DIR, OUTPUT_DIR,
-                   SILVER_INPUT_DIR)
+                   SILVER_CLASSIFICATION_CONCORDANCES_DIR)
 
 FOLDER = "06_benchmarks_validation"
 #: This module's own output, not a bronze source: a conformed, regenerable
-#: product belongs in silver, so it is written to ``data/silver/inputs/``
-#: rather than beside the bronze concordances it is built from. It used to be
-#: written into ``data/bronze/classification_concordances/``, which broke
-#: medallion rule 1 (bronze is immutable source; nothing generated lives
-#: there) -- ``build_concordance`` still reads its bronze *sources* from that
-#: folder via ``ISIC_CSV``, but this file is this module's product.
-CONCORDANCE_CSV = SILVER_INPUT_DIR / "exiobase_industry_to_dst_db07.csv"
+#: product belongs in silver. It used to be written into
+#: ``data/bronze/classification_concordances/``, which broke medallion rule 1
+#: (bronze is immutable source; nothing generated lives there) --
+#: ``build_concordance`` still reads its bronze *sources* from that folder via
+#: ``ISIC_CSV``, but this file is this module's product.
+#:
+#: It sits in the silver folder of the SAME NAME, because silver mirrors bronze
+#: by provenance: the concordance's dominant source is
+#: ``classification_concordances/exiobase_industry_to_isic_rev3.csv``. The
+#: EXIOBASE classification workbook and the two Statistics Denmark sources that
+#: supply the split weights are named in that folder's readme.
+CONCORDANCE_CSV = (SILVER_CLASSIFICATION_CONCORDANCES_DIR
+                   / "exiobase_industry_to_dst_db07.csv")
 VALIDATION_CSV = "dst_concordance_validation.csv"
 ISIC_CSV = (BRONZE_DIR / "classification_concordances"
             / "exiobase_industry_to_isic_rev3.csv")

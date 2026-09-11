@@ -12,22 +12,26 @@ bronze-to-gold module with no reproducible middle - medallion rule 4 - and it
 was carried on ``audit_consistency.LAYER_SKIPPERS`` as debt.
 
 This module is the middle. It reads bronze, conforms what it finds, and writes
-three small CSVs to ``data/silver/inputs/``. ``dk_shipping_correction`` reads
-those and no longer opens bronze at all, which is how the skipper list shrinks
-by one rather than by being argued with.
+three small CSVs into silver. ``dk_shipping_correction`` reads those and no
+longer opens bronze at all, which is how the skipper list shrinks by one rather
+than by being argued with.
 
 What it writes
 --------------
-``dst_water_transport_domestic_share.csv``
+``dst_input_output/dst_water_transport_domestic_share.csv``
     The target share :math:`\phi` per year, with the two quantities it is the
     quotient of, so a reader can check the division rather than trust it.
 
-``dk_health_expenditure_frame.csv``
+``dst_supply_use/dk_health_expenditure_frame.csv``
     The three-row expenditure and direct-emission frame
     ``functions_2025.createBackground`` consumes, one block per analysis year.
 
-``exiobase_industry_sector_group.csv``
+``exiobase/exiobase_industry_sector_group.csv``
     EXIOBASE industry code to its aggregate reporting group.
+
+The three folders are not an accident: silver mirrors bronze by provenance, so
+each product sits under the silver folder named for the bronze folder it was
+read from.
 
 The share
 ---------
@@ -62,7 +66,9 @@ import re
 import numpy as np
 import pandas as pd
 
-from paths import BRONZE_DIR, EXIOBASE_BASE_DIR, SILVER_INPUT_DIR
+from paths import (BRONZE_DIR, EXIOBASE_BASE_DIR,
+                   SILVER_DST_INPUT_OUTPUT_DIR, SILVER_DST_SUPPLY_USE_DIR,
+                   SILVER_EXIOBASE_DIR)
 
 #: Statistics Denmark's published input-output workbook, one per year.
 DST_IO = BRONZE_DIR / "dst_input_output" / "input_output_en_{year}.xlsx"
@@ -123,10 +129,23 @@ ANALYSIS_YEAR_FOR_BACKGROUND: dict[str, str] = {"2016": "2019", "2022": "2022"}
 #: ``analysis.main_2025.DKK_PER_EUR_BY_YEAR``.
 DKK_PER_EUR_BY_YEAR: dict[str, float] = {"2019": 7.4661, "2022": 7.4396}
 
-#: The three silver products.
+#: The three silver products, by name. Kept as bare names because they are
+#: quoted back in this module's and ``dk_shipping_correction``'s error
+#: messages, where the folder is noise.
 SHARE_CSV = "dst_water_transport_domestic_share.csv"
 EXPENDITURE_CSV = "dk_health_expenditure_frame.csv"
 SECTOR_GROUP_CSV = "exiobase_industry_sector_group.csv"
+
+#: The same three as paths. They do NOT share a folder: silver mirrors bronze
+#: by provenance, and these three products come from three different providers'
+#: folders -- the share from Statistics Denmark's input-output workbooks, the
+#: expenditure frame from the detailed supply-use table, the sector groups from
+#: EXIOBASE's classification workbook. One module writing into three folders is
+#: the mirror working, not a defect: what groups a silver file is where its
+#: numbers came from, not which script happened to write it.
+SHARE_PATH = SILVER_DST_INPUT_OUTPUT_DIR / SHARE_CSV
+EXPENDITURE_PATH = SILVER_DST_SUPPLY_USE_DIR / EXPENDITURE_CSV
+SECTOR_GROUP_PATH = SILVER_EXIOBASE_DIR / SECTOR_GROUP_CSV
 
 
 def _today() -> str:
@@ -357,26 +376,25 @@ def sector_group_table() -> pd.DataFrame:
 
 def main() -> None:
     """Build and write all three silver products."""
-    SILVER_INPUT_DIR.mkdir(parents=True, exist_ok=True)
+    for target in (SHARE_PATH, EXPENDITURE_PATH, SECTOR_GROUP_PATH):
+        target.parent.mkdir(parents=True, exist_ok=True)
 
     share = domestic_share_table()
-    share.to_csv(SILVER_INPUT_DIR / SHARE_CSV, index=False)
+    share.to_csv(SHARE_PATH, index=False)
     for record in share.itertuples(index=False):
         role = ("cross-check" if record.dst_table_year
                 == RORMOSE_CROSS_CHECK_YEAR
                 else f"background {record.background_year}")
         print(f"  DST {record.dst_table_year}  phi {record.phi:.4f}  ({role})")
-    print(f"written -> {SILVER_INPUT_DIR / SHARE_CSV}")
+    print(f"written -> {SHARE_PATH}")
 
     frame = expenditure_frame_table()
-    frame.to_csv(SILVER_INPUT_DIR / EXPENDITURE_CSV, index=False)
-    print(f"written -> {SILVER_INPUT_DIR / EXPENDITURE_CSV}  "
-          f"({len(frame)} rows)")
+    frame.to_csv(EXPENDITURE_PATH, index=False)
+    print(f"written -> {EXPENDITURE_PATH}  ({len(frame)} rows)")
 
     groups = sector_group_table()
-    groups.to_csv(SILVER_INPUT_DIR / SECTOR_GROUP_CSV, index=False)
-    print(f"written -> {SILVER_INPUT_DIR / SECTOR_GROUP_CSV}  "
-          f"({len(groups)} rows)")
+    groups.to_csv(SECTOR_GROUP_PATH, index=False)
+    print(f"written -> {SECTOR_GROUP_PATH}  ({len(groups)} rows)")
 
 
 if __name__ == "__main__":

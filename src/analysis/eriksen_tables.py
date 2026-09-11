@@ -41,7 +41,7 @@ import pandas as pd
 
 from analysis.constants import ANALYSIS_YEAR, MODEL_LABEL, eriksen_folder
 from analysis.detail_tables import domestic_import_split, node_labels
-from paths import OUTPUT_DIR, SILVER_INPUT_DIR
+from paths import ERIKSEN_INTERIM_DIR, OUTPUT_DIR
 
 FOLDER = eriksen_folder()
 
@@ -149,8 +149,7 @@ def standardise(stem: str, prefix: str, description: str) -> pd.DataFrame:
     AssertionError
         If the reshaped table does not reproduce the workbook's column totals.
     """
-    path = os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim", FOLDER,
-                        f"{stem}.xlsx")
+    path = os.path.join(str(ERIKSEN_INTERIM_DIR), FOLDER, f"{stem}.xlsx")
     wide = pd.read_excel(path, sheet_name="full")
     wide = wide.drop(columns=[c for c in wide.columns
                               if str(c).startswith("Unnamed")])
@@ -267,7 +266,7 @@ def main() -> None:
     """Write every replication analysis as a detailed and an aggregate CSV."""
     out_dir = os.path.join(str(OUTPUT_DIR), FOLDER)
     for stem, (out_stem, prefix, noun, description) in ANALYSES.items():
-        source = os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim", FOLDER,
+        source = os.path.join(str(ERIKSEN_INTERIM_DIR), FOLDER,
                               f"{stem}.xlsx")
         if not os.path.exists(source):
             print(f"  skip {stem}: workbook not found - run analysis.main_2025")

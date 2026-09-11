@@ -39,7 +39,7 @@ import pandas as pd
 
 from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL
 from analysis.detail_tables import detail_rows, domestic_import_split
-from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR
+from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR, SILVER_DK_DATA_CSV
 from analysis.constants import DK_POPULATION, K_DK, N_SECTORS
 from analysis.production_layers import layer_decomposition
 
@@ -130,9 +130,10 @@ def main() -> None:
     xinv = np.where(x > 0, 1.0 / np.where(x > 0, x, 1.0), 0.0)
     pop = DK_POPULATION[year]
     y_nat = Y[:, K_DK * 7:(K_DK + 1) * 7].sum(axis=1)
-    expenditure_meur = float(pd.read_csv(
-        os.path.join(str(BACKGROUND_DIR), "..", "inputs", "dk_data_2025.csv")
-    ).query("Index == 'Expenditure'")[["HC service", "Pharm", "MedAppl"]].sum(axis=1).iloc[0])
+    expenditure_meur = float(pd.read_csv(SILVER_DK_DATA_CSV)
+                             .query("Index == 'Expenditure'")
+                             [["HC service", "Pharm", "MedAppl"]]
+                             .sum(axis=1).iloc[0])
 
     # intensity vectors: the five characterised rows plus the Lenzen-family extras
     series = [(B[0, :], "climate_change", "kt CO2eq", float(Hstim[0, 0])),

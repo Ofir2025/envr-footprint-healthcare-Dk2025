@@ -57,7 +57,7 @@ import subprocess
 
 import pandas as pd
 
-from paths import OUTPUT_DIR, SILVER_INPUT_DIR
+from paths import OUTPUT_DIR, silver_dk_expenditure_breakdown_csv
 
 API = "https://api.statbank.dk/v1/data"
 
@@ -159,8 +159,7 @@ def main() -> None:
         ``PURPOSE_TO_INDUSTRY``.
     """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    exp = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR),
-                                   f"dk_expenditure_breakdown_{year}.csv"))
+    exp = pd.read_csv(silver_dk_expenditure_breakdown_csv(year))
     exp["purpose_code"] = exp["purpose_code"].astype(str).str.zfill(5)
     exp["industry"] = exp["purpose_code"].map(PURPOSE_TO_INDUSTRY)
     missing = exp[exp["industry"].isna()]["purpose_code"].unique()

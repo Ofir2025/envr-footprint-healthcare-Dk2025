@@ -18,7 +18,7 @@ From <https://medstat.dk/>, download the yearly ATC data file for each year
 wanted and keep its published name, `<year>_atc_code_data.txt`. The files are
 served exactly as stored here: **no transformation has been applied**, which is
 the bronze contract. A version with named columns is a silver product —
-`data/silver/inputs/dk_atc_sales_<year>.csv`, written by
+`data/silver/dk_medicines_register/dk_atc_sales_<year>.csv`, written by
 `analysis.build_atc_sales`.
 
 | file | size | rows | encoding |
