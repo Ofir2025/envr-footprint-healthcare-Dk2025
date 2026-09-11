@@ -67,6 +67,16 @@ exists so that list can shrink and never grow. The twelfth,
 started being read from the Danish input-output workbook; the reason sits
 beside the list.
 
+**C18 Tables of record trace to their sources.** Every row of
+``19_tables_of_record/tables_of_record_index.csv`` declares the gold file or
+files its table was built from. Each number the table publishes must be a
+number that declared source publishes. Table 7 sat in the gold tree and in the
+Word document of record reading "DNK / 2,022" on all five rows, because its
+builder guessed at two column names, found neither, and fell back to whichever
+columns happened to sit in positions 0 and 1. Every other check in this module
+passed on it: the file existed, was fresh, was tracked, named the current model
+and had a lineage row. Only the cells were wrong, and nothing was reading them.
+
 Exit status is non-zero if any check fails, so this can gate a release.
 
 Run
@@ -78,6 +88,7 @@ from __future__ import annotations
 
 import glob
 import os
+import re
 import subprocess
 import sys
 from typing import Any
@@ -427,6 +438,176 @@ def c17_layer_boundary(results: list[dict[str, Any]]) -> None:
     new = sorted(found - LAYER_SKIPPERS)
     _check(results, "C17 no new bronze-to-gold module", not new,
            f"new: {', '.join(new)}" if new else f"{len(found)} known, none new")
+
+
+#: Where the tables of record and their index are published.
+TABLES_OF_RECORD = "19_tables_of_record"
+
+
+def _record_norm(name: Any) -> str:
+    """Reduce a column name or a text cell to comparable letters and digits.
+
+    A document typesets what a CSV spells out: ``healthcare_kt_co2eq`` becomes
+    ``Health care (kt CO₂-eq)``. Stripping case, separators and the subscript
+    and superscript digits leaves the two the same string, so a table column
+    can be matched to the source column it publishes without a hand-kept map
+    that would itself have to be maintained.
+
+    Parameters
+    ----------
+    name : Any
+        A column name or cell value.
+
+    Returns
+    -------
+    str
+        Lowercase letters and digits only.
+    """
+    s = (str(name).lower().replace("₂", "2").replace("³", "3")
+         .replace("²", "2"))
+    return re.sub(r"[^a-z0-9]", "", s)
+
+
+def _record_sources(declared: Any) -> list[str]:
+    """Split an index row's ``source`` field into gold-relative paths.
+
+    The field is written for a reader: two files are joined with " and ", and
+    the second is given as a bare filename when it sits in the first one's
+    folder.
+
+    Parameters
+    ----------
+    declared : Any
+        The ``source`` cell of one ``tables_of_record_index.csv`` row.
+
+    Returns
+    -------
+    list of str
+        One path per declared file, each relative to the gold results tree.
+    """
+    paths: list[str] = []
+    folder = ""
+    for part in str(declared).split(" and "):
+        path = part.strip()
+        if "/" not in path and folder:
+            path = f"{folder}/{path}"
+        folder = os.path.dirname(path)
+        paths.append(path)
+    return paths
+
+
+def _record_number(cell: Any) -> tuple[float, int] | None:
+    """Parse a published table cell as a number and its printed precision.
+
+    Parameters
+    ----------
+    cell : Any
+        One cell of a table of record, as published.
+
+    Returns
+    -------
+    tuple of (float, int), or None
+        The value and the number of decimal places it was printed to, or None
+        where the cell is empty or is not a number. ``n.r.`` and ``CV 0.50 %``
+        are both legitimate cells and both return None: they are annotations,
+        not figures, and nothing in a source file should have to match them.
+    """
+    text = str(cell).replace(",", "").replace("%", "").strip()
+    if not text:
+        return None
+    try:
+        value = float(text)
+    except ValueError:
+        return None
+    return value, len(text.split(".")[1]) if "." in text else 0
+
+
+def c18_tables_of_record(results: list[dict[str, Any]]) -> None:
+    """C18: every number in a table of record comes from its declared source.
+
+    Each row of ``tables_of_record_index.csv`` names the gold file or files its
+    table was built from. This resolves those files, matches each numeric
+    column of the table to the source column whose name it publishes -- exactly
+    where the two normalise to the same string, otherwise where exactly one
+    source column name contains the table's -- and requires every cell in that
+    column to be a value the source column holds, formatted to the precision
+    the cell was printed at.
+
+    The match is by name, and the comparison is over numbers only. A column the
+    builder derives (a per-person value, a share, a bridge step) matches no
+    source column and is not checked; a column of typeset units or composite
+    scenario labels is display rather than record. What is checked is the class
+    of defect that put ``country_consuming`` and ``analysis_year`` into table 7
+    under the headings ``Revision`` and ``Health care (kt CO₂-eq)``: a table
+    that names a source column and then publishes something else.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdict to.
+    """
+    root = os.path.join(str(OUTPUT_DIR), TABLES_OF_RECORD)
+    index_path = os.path.join(root, "tables_of_record_index.csv")
+    if not os.path.exists(index_path):
+        _check(results, "C18 tables of record trace to their sources", True,
+               "skipped: this layer is not in this working copy")
+        return
+    index = pd.read_csv(index_path)
+    problems: list[str] = []
+    traced = 0
+    for _, row in index.iterrows():
+        number = int(row["number"])
+        table_path = os.path.join(root, f"table_{number:02d}.csv")
+        if not os.path.exists(table_path):
+            problems.append(f"table {number} is indexed but not published")
+            continue
+        table = pd.read_csv(table_path, dtype=str, keep_default_na=False)
+        columns: dict[str, list[tuple[str, str, list[float]]]] = {}
+        for rel in _record_sources(row["source"]):
+            source_path = os.path.join(str(OUTPUT_DIR), rel)
+            if not os.path.exists(source_path):
+                problems.append(f"table {number} declares {rel}, which is not "
+                                f"in the tree")
+                continue
+            source = pd.read_csv(source_path)
+            for name in source.columns:
+                col = source[name]
+                if (not pd.api.types.is_numeric_dtype(col)
+                        or pd.api.types.is_bool_dtype(col)):
+                    continue
+                columns.setdefault(_record_norm(name), []).append(
+                    (rel, str(name), [float(v) for v in col.dropna()]))
+        for heading in table.columns:
+            cells = [(_record_number(v), v) for v in table[heading]]
+            numbers = [(parsed, raw) for parsed, raw in cells
+                       if parsed is not None]
+            filled = len([v for v in table[heading] if str(v).strip()])
+            if not numbers or 2 * len(numbers) < max(1, filled):
+                continue
+            key = _record_norm(heading)
+            match = columns.get(key)
+            if match is None:
+                near = [k for k in columns if len(key) >= 4 and key in k]
+                match = columns[near[0]] if len(near) == 1 else None
+            if match is None or len(match) != 1:
+                continue
+            rel, name, values = match[0]
+            traced += 1
+            published = {dp: {f"{v:.{dp}f}" for v in values}
+                         for dp in {parsed[1] for parsed, _ in numbers}}
+            wrong = [raw for (value, dp), raw in numbers
+                     if f"{value:.{dp}f}" not in published[dp]]
+            if wrong:
+                problems.append(
+                    f"table {number} publishes {heading!r} as {wrong[0]!r} "
+                    f"({len(wrong)} of {len(numbers)} cells), which is not a "
+                    f"value of {name} in {rel}")
+    _check(results, "C18 tables of record trace to their sources",
+           not problems,
+           f"{len(index)} tables, {traced} columns traced to their source "
+           f"column" if not problems
+           else "; ".join(problems[:2]) + (f"; and {len(problems) - 2} more"
+                                           if len(problems) > 2 else ""))
 
 
 def c8_citations(results: list[dict[str, Any]]) -> None:
@@ -910,7 +1091,7 @@ def main() -> None:
                   c7_star_integrity,
                   c8_citations, c9_gold_scope,
                   c14_gold_format, c15_gold_lowercase, c16_gold_clean,
-                  c17_layer_boundary,
+                  c17_layer_boundary, c18_tables_of_record,
                   c10_repo_profile):
         try:
             check(results)
