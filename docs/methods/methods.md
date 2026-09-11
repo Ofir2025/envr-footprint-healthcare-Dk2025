@@ -614,7 +614,7 @@ direction.
 
 | | Rørmose (2020) | This study (2022) |
 |:---|:---|:---|
-| Danish national footprint | 65.4 Mt CO₂e | 77.5 Mt |
+| Danish national footprint | 65.4 Mt CO₂e | 77.2 Mt |
 | Per capita | 11.0 t | 13.2 t |
 | Share arising in Denmark | 38 % | n/a |
 | Share arising abroad | **62 %** | n/a |
@@ -705,7 +705,7 @@ Danish side do not depend on which EXIOBASE release supplies the import side.
    — the recipe that, at the time this section was first drafted, sat behind a
    transport-dominance headline of ~41 % of GWP. **That transport figure is now
    superseded and withdrawn**: the sea-transport reallocation corrected it to
-   18.5 % of the supply-chain footprint (15.5 % of the total), documented in full
+   17.8 % of the supply-chain footprint (14.9 % of the total), documented in full
    in
    [docs/revision/results_2022.md, "The withdrawn transport finding"](../revision/results_2022.md#the-withdrawn-transport-finding).
    The recipe problem itself is unaffected by that correction and remains real:
