@@ -164,12 +164,30 @@ def climate_bridge() -> pd.DataFrame:
 #: correction ALONE. None of them is variant a or b: those are on v3.7, so a
 #: bridge through them would move the release at the same time and measure two
 #: things at once - which is precisely what this decomposition exists to avoid.
-BRIDGE_NODES: tuple[str, str, str] = ("2019_uncorrected", "2019c", "2022c")
+#: The bridge chain, in order. Each consecutive pair is one step, and each step
+#: changes exactly ONE thing, which is the whole point of drawing it as a chain
+#: rather than as a single before-and-after.
+#:
+#: It used to start at 2019 and run three nodes, because no 2016 analysis
+#: existed. It now starts at 2016, which moves the sea-transport correction onto
+#: the EARLIEST year and leaves two clean year steps on a configuration that does
+#: not otherwise change: same release, same correction state, same boundary,
+#: same capital treatment. A reader can therefore see the correction once and the
+#: reference-year growth twice, instead of seeing them confounded in one move.
+BRIDGE_NODES: tuple[str, ...] = ("2016_uncorrected", "2016c", "2019c", "2022c")
 _BRIDGE_YEAR_TAG: dict[str, tuple[str, str]] = {
-    "2019_uncorrected": ("2019", ""),
+    "2016_uncorrected": ("2016", ""),
+    "2016c": ("2016", "_snacship"),
     "2019c": ("2019", "_snacship"),
     "2022c": ("2022", "_snacship"),
 }
+
+#: What each step changes, in the order of :data:`BRIDGE_NODES`.
+BRIDGE_STEPS: tuple[tuple[str, str, str], ...] = (
+    ("delta_correction_kt", "2016_uncorrected", "2016c"),
+    ("delta_2016_2019_kt", "2016c", "2019c"),
+    ("delta_2019_2022_kt", "2019c", "2022c"),
+)
 
 
 def two_step_bridge() -> pd.DataFrame:
@@ -194,18 +212,19 @@ def two_step_bridge() -> pd.DataFrame:
         frames[node] = d.set_index("contribution_group")["value"]
     wide = pd.DataFrame(frames).fillna(0.0)
     wide.columns = [f"value_{c}" for c in wide.columns]
-    wide["delta_correction_kt"] = (
-        wide["value_2019c"] - wide["value_2019_uncorrected"])
-    wide["delta_year_kt"] = (
-        wide["value_2022c"] - wide["value_2019c"])
+    for name, a, b in BRIDGE_STEPS:
+        wide[name] = wide[f"value_{b}"] - wide[f"value_{a}"]
+    # Kept under its old name as well: the two-step figure and the revision
+    # documents refer to `delta_year_kt`, and the quantity they mean is the
+    # 2019-to-2022 step.
+    wide["delta_year_kt"] = wide["delta_2019_2022_kt"]
     wide = wide.reset_index()
 
-    total_correction = float(wide["delta_correction_kt"].sum())
-    total_year = float(wide["delta_year_kt"].sum())
-    wide["share_of_correction_change_pct"] = (
-        100 * wide["delta_correction_kt"] / total_correction)
-    wide["share_of_year_change_pct"] = (
-        100 * wide["delta_year_kt"] / total_year)
+    for name, _a, _b in BRIDGE_STEPS:
+        total = float(wide[name].sum())
+        wide[f"share_of_{name[6:-3]}_change_pct"] = (
+            100 * wide[name] / total if total else np.nan)
+    wide["share_of_year_change_pct"] = wide["share_of_2019_2022_change_pct"]
     wide["driver"] = np.where(
         wide["contribution_group"].eq("Transport"),
         "correction step: sea-transport reallocation; "
@@ -217,7 +236,7 @@ def two_step_bridge() -> pd.DataFrame:
             "IOT_2022; little affected by the correction",
             "background model and expenditure growth, no single dominant "
             "cause in either step"))
-    return wide.sort_values("delta_year_kt").reset_index(drop=True)
+    return wide.sort_values("delta_2019_2022_kt").reset_index(drop=True)
 
 
 def main() -> None:

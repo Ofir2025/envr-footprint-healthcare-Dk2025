@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# fig10  the two-step bridge: 2019 before the shipping correction, 2019 after
+# fig10  the three-step bridge: 2016 before the shipping correction, 2016 after
 #        it, and 2022 after it too - the same nine activity groups, three
 #        times, so a reader can see how much of the 2019-to-2022 move is the
 #        sea-transport reallocation and how much is the reference year.
@@ -75,39 +75,52 @@ source(file.path(here, "_dk_common.r"))
 br <- read_csv(gold_path("year_comparison_two_step_bridge.csv"),
                show_col_types = FALSE)
 
-STATE1 <- "2019, before shipping correction"
-STATE2 <- "2019, after shipping correction"
-STATE3 <- "2022, after shipping correction"
-STATE_ORDER <- c(STATE1, STATE2, STATE3)
-STATE_FILL  <- setNames(c("white", "grey45", INK), STATE_ORDER)
+# Four states, three steps. The chain used to start at 2019 because no 2016
+# analysis existed; starting at 2016 moves the shipping correction onto the
+# earliest year and leaves two clean reference-year steps on a configuration
+# that does not otherwise change - same release, same correction state, same
+# boundary, same capital treatment. The reader sees the correction once and
+# growth twice, rather than the two confounded in one move.
+STATE1 <- "2016, before shipping correction"
+STATE2 <- "2016, after shipping correction"
+STATE3 <- "2019, after shipping correction"
+STATE4 <- "2022, after shipping correction"
+STATE_ORDER <- c(STATE1, STATE2, STATE3, STATE4)
+STATE_FILL  <- setNames(c("white", "grey72", "grey40", INK), STATE_ORDER)
 
-STEP1 <- "Step 1: shipping correction (2019 uncorrected to 2019 corrected)"
-STEP2 <- "Step 2: reference year (2019 corrected to 2022 corrected)"
-STEP_ORDER <- c(STEP1, STEP2)
-# Both hues already carry meaning elsewhere in this house palette (SCOPE_COLS,
-# IND_COLS / REGION_COLS): reused here, not invented, and still Okabe-Ito.
-STEP_COLS  <- setNames(c("#0072B2", "#D55E00"), STEP_ORDER)
+STEP1 <- "Step 1: shipping correction, on 2016"
+STEP2 <- "Step 2: reference year, 2016 to 2019"
+STEP3 <- "Step 3: reference year, 2019 to 2022"
+STEP_ORDER <- c(STEP1, STEP2, STEP3)
+# All three hues already carry meaning elsewhere in this house palette
+# (SCOPE_COLS, IND_COLS / REGION_COLS): reused here, not invented, Okabe-Ito.
+STEP_COLS  <- setNames(c("#0072B2", "#009E73", "#D55E00"), STEP_ORDER)
+
+#: A step below this moves too little to hold a label on its own segment.
+LABEL_FLOOR_KT <- 20
 
 # Largest total movers at the top: transport and pharmaceuticals are the
 # whole story between them, and this puts them first.
 d <- br %>%
-  mutate(total_change = value_2022c - value_2019_uncorrected) %>%
+  mutate(total_change = value_2022c - value_2016_uncorrected) %>%
   arrange(abs(total_change)) %>%
   mutate(group = factor(contribution_group, levels = contribution_group))
 
 pts <- bind_rows(
-  d %>% transmute(group, state = STATE1, value = value_2019_uncorrected),
-  d %>% transmute(group, state = STATE2, value = value_2019c),
-  d %>% transmute(group, state = STATE3, value = value_2022c)
+  d %>% transmute(group, state = STATE1, value = value_2016_uncorrected),
+  d %>% transmute(group, state = STATE2, value = value_2016c),
+  d %>% transmute(group, state = STATE3, value = value_2019c),
+  d %>% transmute(group, state = STATE4, value = value_2022c)
 ) %>% mutate(state = factor(state, levels = STATE_ORDER))
 
-seg1 <- d %>% transmute(group, x = value_2019_uncorrected,
-                        xend = value_2019c,
-                        step = STEP1, delta = delta_correction_kt)
-seg2 <- d %>% transmute(group, x = value_2019c,
-                        xend = value_2022c,
-                        step = STEP2, delta = delta_year_kt)
-segs <- bind_rows(seg1, seg2) %>% mutate(step = factor(step, levels = STEP_ORDER))
+segs <- bind_rows(
+  d %>% transmute(group, x = value_2016_uncorrected, xend = value_2016c,
+                  step = STEP1, delta = delta_correction_kt),
+  d %>% transmute(group, x = value_2016c, xend = value_2019c,
+                  step = STEP2, delta = delta_2016_2019_kt),
+  d %>% transmute(group, x = value_2019c, xend = value_2022c,
+                  step = STEP3, delta = delta_2019_2022_kt)
+) %>% mutate(step = factor(step, levels = STEP_ORDER))
 
 # A signed whole number in the colour of its step is a change; a level would
 # carry no sign. Zero prints as "0", never "+0" (house rule: no 0.0, no +0).
@@ -126,12 +139,27 @@ p <- ggplot() +
                linewidth = 2.0, lineend = "round") +
   geom_point(data = pts, aes(x = value, y = group, fill = state),
              shape = 21, colour = INK, size = 5, stroke = 1.1) +
-  geom_text(data = seg1, aes(x = xend, y = group, label = fmt_delta(delta)),
-            colour = STEP_COLS[[STEP1]], fontface = "bold", size = 4.2,
-            nudge_y = 0.26) +
-  geom_text(data = seg2, aes(x = xend, y = group, label = fmt_delta(delta)),
-            colour = STEP_COLS[[STEP2]], fontface = "bold", size = 4.2,
-            nudge_y = -0.26) +
+  # Step labels, at the midpoint of each segment. Two rules keep them legible,
+  # and the first was learned by drawing it without them: consecutive midpoints
+  # are NOT far enough apart when two steps are both short, and "+50" and "+9"
+  # overprinted as "+5709".
+  #
+  # Steps 1 and 3 go above the row and step 2 below, so a short step 2 can never
+  # sit on top of either. And a step is labelled only when it moves at least
+  # LABEL_FLOOR_KT; below that the segment is too short to hold a number at any
+  # offset, and the value is published in
+  # 06_benchmarks_validation/year_comparison_two_step_bridge.csv, which the
+  # folder readme points at.
+  geom_text(data = segs %>% filter(step != STEP2, abs(delta) >= LABEL_FLOOR_KT),
+            aes(x = (x + xend) / 2, y = group, label = fmt_delta(delta),
+                colour = step),
+            fontface = "bold", size = 3.8, nudge_y = 0.30,
+            show.legend = FALSE) +
+  geom_text(data = segs %>% filter(step == STEP2, abs(delta) >= LABEL_FLOOR_KT),
+            aes(x = (x + xend) / 2, y = group, label = fmt_delta(delta),
+                colour = step),
+            fontface = "bold", size = 3.8, nudge_y = -0.30,
+            show.legend = FALSE) +
   scale_colour_manual(values = STEP_COLS, name = NULL,
                       guide = guide_legend(order = 2, ncol = 1,
                                            override.aes = list(linewidth = 3))) +
@@ -153,13 +181,16 @@ p <- ggplot() +
         legend.box = "vertical",
         legend.spacing.y = grid::unit(0.15, "lines"))
 
-dk_save(p, "fig10_year_bridge_climate_2019_2022", w = 16, h = 9.5,
+dk_save(p, "fig10_year_bridge_climate_2016_2022", w = 16, h = 9.5,
         sub = "comparison")
 
 cat(sprintf(
-  "\n2019 uncorrected %.0f kt -> 2019 corrected %.0f kt -> 2022 corrected %.0f kt\n",
-  sum(d$value_2019_uncorrected), sum(d$value_2019c),
-  sum(d$value_2022c)))
-cat(sprintf("correction step %+.0f kt, year step %+.0f kt\n",
-            sum(d$delta_correction_kt), sum(d$delta_year_kt)))
-cat("two-step year bridge figure written to ", fig_dir, "\n", sep = "")
+  paste0("\n2016 uncorrected %.0f kt -> 2016 corrected %.0f kt -> ",
+         "2019 corrected %.0f kt -> 2022 corrected %.0f kt\n"),
+  sum(d$value_2016_uncorrected), sum(d$value_2016c),
+  sum(d$value_2019c), sum(d$value_2022c)))
+cat(sprintf(
+  "shipping correction %+.0f kt, 2016-2019 %+.0f kt, 2019-2022 %+.0f kt\n",
+  sum(d$delta_correction_kt), sum(d$delta_2016_2019_kt),
+  sum(d$delta_2019_2022_kt)))
+cat("three-step year bridge figure written to ", fig_dir, "\n", sep = "")
