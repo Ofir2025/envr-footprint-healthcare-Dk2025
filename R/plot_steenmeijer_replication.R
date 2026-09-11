@@ -38,16 +38,19 @@ source(file.path(here, "_dk_common.R"))
 SUB <- "steenmeijer_replication"
 
 # ---- the five impact categories, in the article's order --------------------
-# Axis wording is theirs; the units are written ASCII, because the axis text is
-# a factor level rather than a plotmath expression and a superscript would have
-# to survive the TIFF device to be worth having.
+# Axis wording and units are theirs, sub/superscripts included: the axis text
+# is a factor level rather than a plotmath expression, so the sub/superscripts
+# are carried as Unicode escapes in the string itself, not as plotmath's
+# CO[2] / km^2 syntax - expressions would also refuse to wrap onto multiple
+# lines, which these labels need. ragg's TIFF device (see dk_save()) renders
+# the glyphs cleanly.
 IND_ORDER <- c("climate_change", "material_extraction", "blue_water_consumption",
                "land_use", "waste_generation")
 IND_LABEL <- c(
-  climate_change         = "Climate change\n(kilotonnes of\nCO2 equivalent)",
+  climate_change         = "Climate change\n(kilotonnes of\nCO\u2082 equivalent)",
   material_extraction    = "Material extraction\n(kilotonnes)",
-  blue_water_consumption = "Blue water\nconsumption\n(Mm3)",
-  land_use               = "Land use\n(km2)",
+  blue_water_consumption = "Blue water\nconsumption\n(Mm\u00b3)",
+  land_use               = "Land use\n(km\u00b2)",
   waste_generation       = "Waste generation\n(kilotonnes)")
 
 # ---- the article's grouping rules ------------------------------------------
@@ -80,11 +83,18 @@ FIG2_OTHER <- "Other"
 # The world regions, keyed by the EXIOBASE aggregate the gold tables carry.
 # The home country and "Europe excluding it" are named per country, and keep
 # the article's two colours in both.
+#
+# `home` is always the bare country name ("Netherlands", "Denmark"): that is
+# how the article's own legend prints the standalone entry. English needs the
+# definite article only inside the "Europe (excluding ...)" phrase - "the
+# Netherlands" there, but "Denmark" unchanged - so that phrasing is applied
+# locally rather than folded into `home` itself.
+with_article <- function(home) if (home == "Netherlands") paste("the", home) else home
 fig3_group <- function(region, home) {
   out <- unname(c("Asia and Pacific" = "Asia-Pacific",
                   "Middle East" = "Middle East", "America" = "Americas",
                   "Africa" = "Africa")[region])
-  out[region == "Europe"] <- sprintf("Europe (excluding %s)", home)
+  out[region == "Europe"] <- sprintf("Europe (excluding %s)", with_article(home))
   out[region %in% c("Netherlands", "Denmark")] <- home
   if (any(is.na(out)))
     stop(sprintf("no figure-3 region for: %s",
@@ -93,7 +103,7 @@ fig3_group <- function(region, home) {
 }
 fig3_levels <- function(home)
   c("Africa", "Americas", "Middle East",
-    sprintf("Europe (excluding %s)", home), "Asia-Pacific", home)
+    sprintf("Europe (excluding %s)", with_article(home)), "Asia-Pacific", home)
 fig3_cols <- function(home)
   setNames(unname(STEENMEIJER_COLS$fig3), fig3_levels(home))
 
@@ -161,7 +171,18 @@ steen_plot <- function(d, levels, cols) {
     labs(x = NULL, y = "Contribution (%)") +
     guides(fill = guide_legend(ncol = 1, byrow = TRUE)) +
     theme_dkhc() +
-    theme(panel.grid.major.x = element_blank(),
+    # The originals are a plain white panel: no gridlines, a thin dark axis
+    # line on the left and bottom. theme_dkhc()'s light-grey major gridlines
+    # are a house default for other figures, not a feature of these replicas,
+    # so both axes' grids are dropped here and an axis line drawn in instead.
+    # NOTE: theme_dkhc() sets panel.grid.major as an explicit element_line
+    # (inherit.blank = FALSE), so a parent-level `panel.grid = element_blank()`
+    # does not cascade down to it - panel.grid.major/.minor must be blanked
+    # by name, or the major gridlines silently survive the override.
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.line.x = element_line(colour = INK, linewidth = 0.3),
+          axis.line.y = element_line(colour = INK, linewidth = 0.3),
           legend.position = "right",
           legend.justification = "center",
           legend.text = element_text(size = 14, lineheight = 1.05,
@@ -206,7 +227,7 @@ render <- function(country, home, contribution, hotspot) {
 
 cat("Netherlands, from the archived RIVM outputs:\n")
 nl <- render(
-  "nl", "the Netherlands",
+  "nl", "Netherlands",
   read_csv(gold_path("nl_contribution_by_purchased_node.csv"),
            show_col_types = FALSE),
   read_csv(gold_path("nl_hotspot_by_producing_node.csv"),
