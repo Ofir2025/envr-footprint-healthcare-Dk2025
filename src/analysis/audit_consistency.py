@@ -533,6 +533,7 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
 #: state current claims, and any future legitimate use has to be argued for
 #: here rather than appearing silently.
 SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
+    ("37.5 %", "pre-publication estimate of the 2022 uncorrected transport share; the published 2022_uncorrected table gives 36.8 %"),
     # Superseded on 2026-09-11, when the sea-transport correction's target share
     # moved from a fixed 0.09 to Statistics Denmark's domestic-IO value per year.
     # The phi-sensitivity table in replications.md section 10 legitimately quotes
