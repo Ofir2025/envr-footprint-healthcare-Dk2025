@@ -60,8 +60,9 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 06
 - **Rows:** 49
 - **Format:** csv
 - **Units:** kt CO2eq
-- **Dimensions:** `country_consuming`, `country_producing`, `is_aggregate`, `unit`, `source`
+- **Dimensions:** `country_consuming`, `country_producing`, `country_producing_label`, `is_aggregate`, `unit`, `source`
 - **Measures:** `value`
+- **`is_aggregate` marks only the three codes that overlap their own members** — `WORLD`, `EU27_2020`, `EXT_EU27_2020` — read from `data/silver/eurostat_figaro/figaro_dimensions.csv`. `WRL_REST`, the residual for the countries FIGARO does not resolve individually, is **not** an aggregate and belongs in a sum over origins: the 49 countries plus `WRL_REST` reproduce the `WORLD` row to every published digit, and summing every row returns exactly three times it.
 
 ### `figaro_eu27_material_footprint_health.csv`
 

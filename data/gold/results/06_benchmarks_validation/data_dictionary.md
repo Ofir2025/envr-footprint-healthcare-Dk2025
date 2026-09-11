@@ -127,6 +127,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_consuming` | dimension | str |  | DNK |
 | `country_producing` | dimension | str |  | WORLD |
+| `country_producing_label` | dimension | str |  | All countries of the world |
 | `is_aggregate` | dimension | bool |  | True |
 | `value` | measure | float64 | kt CO2eq | 57401.691 |
 | `unit` | dimension | str |  | kt CO2eq |

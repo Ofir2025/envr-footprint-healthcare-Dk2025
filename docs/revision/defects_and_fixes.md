@@ -750,6 +750,59 @@ silently.
 
 ### Findings of 11 September 2026
 
+#### The FIGARO fact tables had no dimension tables
+
+**Severity: medium.** Every file in `data/bronze/eurostat_figaro/` is a long
+fact table — keys in code columns and one `value` — and nothing in the
+repository said what a code meant. A reader of
+`data/gold/results/06_benchmarks_validation/figaro_dk_footprint_by_origin.csv`
+saw `WRL_REST`; a reader of the use table saw `CPA_C21,Q86`. Eurostat's own
+SDMX codelists are now retrieved, one per code column, and joined to the codes
+actually used, as `data/silver/eurostat_figaro/figaro_dimensions.csv` (351 rows).
+Three things the join settled, each of which had a wrong reading available:
+
+**Each column resolves against the codelist of its own name, not its
+classification.** `nace_r2` writes food manufacturing `C10-C12`; `ind_use`
+writes it `C10-12`. Sixteen of the 69 `ind_use` codes are absent from `NACE_R2`
+for that reason, and `P3_S14`, `P3_S15` and `P5M` from every Eurostat codelist
+but `IND_USE`. Pairing column to same-named codelist resolves all 351 exactly;
+repairing the spelling and falling back on ESA 2010 semantics would have
+resolved them approximately.
+
+**`WRL_REST` is not an aggregate.** `figaro_benchmarks` flagged four `c_orig`
+codes as aggregates, but they are not four of a kind: `WORLD`, `EU27_2020` and
+`EXT_EU27_2020` each overlap their own members, while `WRL_REST` is the residual
+for the countries FIGARO does not resolve individually and belongs *in* a sum.
+Flagging the residual as an aggregate invites a reader of that gold file to drop
+the rest of the world — 7,393 kt CO₂-eq in 2022, 13 % of the Danish footprint.
+The set is now read from the dimension table, and the arithmetic is checked: the
+49 countries plus `WRL_REST` reproduce the `WORLD` row to every published digit
+in 2021, 2022 and 2023, and summing every row returns exactly three times it.
+
+**The `nace_r2` division rows are not a partition.** The footprint extracts carry
+21 NACE sections, 58 divisions, households' direct emissions, a `G-U_X_H`
+aggregate spanning sections and two totals in one column. The 21 sections
+reproduce the `TOTAL` row exactly; `TOTAL` plus `HH` reproduces `TOTAL_HH`
+exactly; the divisions recover only 63 % of the total, because nine of the 21
+sections are published with no division detail. Summing the division rows as
+though they covered the economy would understate by 37 %.
+
+#### `figaro_benchmarks` labelled gold numbers from the environment
+
+**Severity: high; caught by re-running, not by a check.** `_our_results()` reads
+this study's headline totals out of `00_core_footprint/*.csv` and loads no
+background itself, but the three tables it wrote stamped those numbers with
+`constants.MODEL_LABEL` — which describes the background the *current process*
+would load. Run without `HC_BACKGROUND_TAG`, it wrote
+`this study (EXIOBASE v3.8.2 IOT_2022_ixi)` onto the corrected 77,240.6 kt and
+3,906.4 kt, asserting in a published benchmark table that the Danish
+sea-transport reallocation had not been applied when it had. This is the same
+defect class as the background-selection bugs above, with the label rather than
+the number going wrong. The function now returns the `model` string carried by
+the gold row it read, and the three tables take their provenance from that, so
+the label cannot disagree with the number it labels. Values unchanged.
+
+
 #### Correction target read from the DST table per year
 
 **Severity: medium.** The sea-transport correction's target share $\phi$

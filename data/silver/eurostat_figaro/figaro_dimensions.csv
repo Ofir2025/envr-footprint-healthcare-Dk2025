@@ -1,0 +1,352 @@
+fact_column,code,label,entry_type,nace_level,codelist,bronze_files
+c_dest,DK,Denmark,country,,C_DEST,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_dest,WORLD,All countries of the world,country_aggregate,,C_DEST,env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+c_orig,AL,Albania,country,,C_ORIG,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,AR,Argentina,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,AT,Austria,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,AU,Australia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,BE,Belgium,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,BG,Bulgaria,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,BR,Brazil,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,CA,Canada,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,CH,Switzerland,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,CN,China,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,CY,Cyprus,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,CZ,Czechia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,DE,Germany,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,DK,Denmark,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,DOM,Domestic country,no_origin,,C_ORIG,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,EE,Estonia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,EL,Greece,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,ES,Spain,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,EU27_2020,European Union - 27 countries (from 2020),country_aggregate,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+c_orig,EXT_EU27_2020,Extra-EU27 (from 2020),country_aggregate,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+c_orig,FI,Finland,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,FR,France,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,HR,Croatia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,HU,Hungary,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,ID,Indonesia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,IE,Ireland,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,IN,India,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,IT,Italy,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,JP,Japan,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,KR,South Korea,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,LT,Lithuania,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,LU,Luxembourg,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,LV,Latvia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,ME,Montenegro,country,,C_ORIG,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,MK,North Macedonia,country,,C_ORIG,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,MT,Malta,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,MX,Mexico,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,NL,Netherlands,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,NO,Norway,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,PL,Poland,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,PT,Portugal,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,RO,Romania,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,RS,Serbia,country,,C_ORIG,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,RU,Russia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,SA,Saudi Arabia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,SE,Sweden,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,SI,Slovenia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,SK,Slovakia,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,TR,Türkiye,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,UK,United Kingdom,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,US,United States,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,WORLD,All countries of the world,country_aggregate,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+c_orig,WRL_REST,Rest of the world,country_residual,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+c_orig,ZA,South Africa,country,,C_ORIG,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+cpa2_1,CPA_A01,"Products of agriculture, hunting and related services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_A02,"Products of forestry, logging and related services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_A03,Fish and other fishing products; aquaculture products; support services to fishing,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_B,Mining and quarrying,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C10-12,Food products; beverages; tobacco products,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C13-15,Textiles; wearing apparel; leather and related products,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C16,"Wood and products of wood and cork, except furniture; articles of straw and plaiting materials",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C17,Paper and paper products,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C18,Printing and reproduction services of recorded media,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C19,Coke and refined petroleum products,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C20,Chemicals and chemical products,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C21,Basic pharmaceutical products and pharmaceutical preparations,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C22,Rubber and plastic products,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C23,Other non-metallic mineral products,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C24,Basic metals,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C25,"Fabricated metal products, except machinery and equipment",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C26,"Computer, electronic and optical products",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C27,Electrical equipment,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C28,Machinery and equipment n.e.c.,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C29,"Motor vehicles, trailers and semi-trailers",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C30,Other transport equipment,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C31_32,Furniture; other manufactured goods,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_C33,Repair and installation services of machinery and equipment,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_D35,"Electricity, gas, steam and air conditioning",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_E36,Natural water; water treatment and supply services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_E37-39,"Sewerage services; sewage sludge; waste collection, treatment and disposal services; materials recovery services; remediation services and other waste management services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_F,Constructions and construction works,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_G45,Wholesale and retail trade and repair services of motor vehicles and motorcycles,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_G46,"Wholesale trade services, except of motor vehicles and motorcycles",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_G47,"Retail trade services, except of motor vehicles and motorcycles",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_H49,Land transport services and transport services via pipelines,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_H50,Water transport services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_H51,Air transport services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_H52,Warehousing and support services for transportation,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_H53,Postal and courier services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_I,Accommodation and food services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_J58,Publishing services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_J59_60,"Motion picture, video and television programme production services, sound recording and music publishing; programming and broadcasting services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_J61,Telecommunications services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_J62_63,"Computer programming, consultancy and related services, and information services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_K64,"Financial services, except insurance and pension funding",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_K65,"Insurance, reinsurance and pension funding services, except compulsory social security",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_K66,Services auxiliary to financial services and insurance services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_L,Real estate services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_M69_70,Legal and accounting services; services of head offices; management consultancy services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_M71,Architectural and engineering services; technical testing and analysis services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_M72,Scientific research and development services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_M73,Advertising and market research services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_M74_75,"Other professional, scientific and technical services and veterinary services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_N77,Rental and leasing services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_N78,Employment services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_N79,"Travel agency, tour operator and other reservation services and related services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_N80-82,"Security and investigation services; services to buildings and landscape; office administrative, office support and other business support services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_O84,Public administration and defence services; compulsory social security services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_P85,Education services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_Q86,Human health services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_Q87_88,Residential care services and social work services without accommodation,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_R90-92,"Creative, arts, entertainment, library, archive, museum, other cultural services; gambling and betting services",product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_R93,Sporting services and amusement and recreation services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_S94,Services furnished by membership organisations,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_S95,Repair services of computers and personal and household goods,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_S96,Other personal services,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_T,Services of households as employers; undifferentiated goods and services produced by households for own use,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+cpa2_1,CPA_U,Services provided by extraterritorial organisations and bodies,product,,CPA2_1,figaro2026_supply_DK_2022-2024.csv
+geo,DK,Denmark,country,,GEO,figaro2026_supply_DK_2022-2024.csv
+ind_use,A01,"Crop and animal production, hunting and related service activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,A02,Forestry and logging,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,A03,Fishing and aquaculture,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,B,Mining and quarrying,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C10-12,Manufacture of food products; beverages and tobacco products,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C13-15,"Manufacture of textiles, wearing apparel, leather and related products",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C16,"Manufacture of wood and of products of wood and cork, except furniture; manufacture of articles of straw and plaiting materials",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C17,Manufacture of paper and paper products,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C18,Printing and reproduction of recorded media,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C19,Manufacture of coke and refined petroleum products,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C20,Manufacture of chemicals and chemical products,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C21,Manufacture of basic pharmaceutical products and pharmaceutical preparations,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C22,Manufacture of rubber and plastic products,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C23,Manufacture of other non-metallic mineral products,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C24,Manufacture of basic metals,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C25,"Manufacture of fabricated metal products, except machinery and equipment",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C26,"Manufacture of computer, electronic and optical products",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C27,Manufacture of electrical equipment,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C28,Manufacture of machinery and equipment n.e.c.,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C29,"Manufacture of motor vehicles, trailers and semi-trailers",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C30,Manufacture of other transport equipment,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C31_32,Manufacture of furniture; other manufacturing,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,C33,Repair and installation of machinery and equipment,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,D35,"Electricity, gas, steam and air conditioning supply",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,E36,"Water collection, treatment and supply",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,E37-39,"Sewerage, waste management, remediation activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,F,Construction,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,G45,Wholesale and retail trade and repair of motor vehicles and motorcycles,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,G46,"Wholesale trade, except of motor vehicles and motorcycles",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,G47,"Retail trade, except of motor vehicles and motorcycles",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,H49,Land transport and transport via pipelines,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,H50,Water transport,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,H51,Air transport,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,H52,Warehousing and support activities for transportation,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,H53,Postal and courier activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,I,Accommodation and food service activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,J58,Publishing activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,J59_60,"Motion picture, video, television programme production; programming and broadcasting activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,J61,Telecommunications,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,J62_63,"Computer programming, consultancy, and information service activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,K64,"Financial service activities, except insurance and pension funding",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,K65,"Insurance, reinsurance and pension funding, except compulsory social security",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,K66,Activities auxiliary to financial services and insurance activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,L,Real estate activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,M69_70,Legal and accounting activities; activities of head offices; management consultancy activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,M71,Architectural and engineering activities; technical testing and analysis,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,M72,Scientific research and development,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,M73,Advertising and market research,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,M74_75,"Other professional, scientific and technical activities; veterinary activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,N77,Rental and leasing activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,N78,Employment activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,N79,"Travel agency, tour operator reservation service and related activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,N80-82,"Security and investigation, service and landscape, office administrative and support activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,O84,Public administration and defence; compulsory social security,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,P3_S13,Final consumption expenditure by government,final_demand,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,P3_S14,Final consumption expenditure by households,final_demand,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,P3_S15,Final consumption expenditure by non-profit organisations serving households (NPISH),final_demand,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,P51G,Gross fixed capital formation,final_demand,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,P5M,Changes in inventories and acquisition less disposals of valuables,final_demand,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,P85,Education,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,Q86,Human health activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,Q87_88,Residential care activities and social work activities without accommodation,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,R90-92,"Creative, arts and entertainment activities; libraries, archives, museums and other cultural activities; gambling and betting activities",industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,R93,Sports activities and amusement and recreation activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,S94,Activities of membership organisations,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,S95,Repair of computers and personal and household goods,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,S96,Other personal service activities,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,T,Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+ind_use,U,Activities of extraterritorial organisations and bodies,industry,,IND_USE,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+na_item,P31_S14,Final consumption expenditure of household,final_demand,,NA_ITEM,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+na_item,P31_S15,Final consumption expenditure of NPISH,final_demand,,NA_ITEM,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+na_item,P3_S13,Final consumption expenditure of general government,final_demand,,NA_ITEM,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+na_item,P51G,Gross fixed capital formation,final_demand,,NA_ITEM,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+na_item,P52_P53,Changes in inventories and acquisitions less disposals of valuables,final_demand,,NA_ITEM,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+na_item,TOTAL,Total,total,,NA_ITEM,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,A,"Agriculture, forestry and fishing",industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,A01,"Crop and animal production, hunting and related service activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,A02,Forestry and logging,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,A03,Fishing and aquaculture,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,B,Mining and quarrying,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C,Manufacturing,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,C10-C12,Manufacture of food products; beverages and tobacco products,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C13-C15,"Manufacture of textiles, wearing apparel, leather and related products",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C16,"Manufacture of wood and of products of wood and cork, except furniture; manufacture of articles of straw and plaiting materials",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C17,Manufacture of paper and paper products,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C18,Printing and reproduction of recorded media,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C19,Manufacture of coke and refined petroleum products,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C20,Manufacture of chemicals and chemical products,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C21,Manufacture of basic pharmaceutical products and pharmaceutical preparations,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C22,Manufacture of rubber and plastic products,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C23,Manufacture of other non-metallic mineral products,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C24,Manufacture of basic metals,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C25,"Manufacture of fabricated metal products, except machinery and equipment",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C26,"Manufacture of computer, electronic and optical products",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C27,Manufacture of electrical equipment,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C28,Manufacture of machinery and equipment n.e.c.,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C29,"Manufacture of motor vehicles, trailers and semi-trailers",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C30,Manufacture of other transport equipment,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C31_C32,Manufacture of furniture; other manufacturing,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,C33,Repair and installation of machinery and equipment,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,D,"Electricity, gas, steam and air conditioning supply",industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,D35,"Electricity, gas, steam and air conditioning supply",industry,division,NACE_R2,figaro2026_supply_DK_2022-2024.csv
+nace_r2,E,"Water supply; sewerage, waste management and remediation activities",industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,E36,"Water collection, treatment and supply",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,E37-E39,"Sewerage, waste management, remediation activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,F,Construction,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,G,Wholesale and retail trade; repair of motor vehicles and motorcycles,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,G-U_X_H,Services (except transportation and storage),industry,cross_section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,G45,Wholesale and retail trade and repair of motor vehicles and motorcycles,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,G46,"Wholesale trade, except of motor vehicles and motorcycles",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,G47,"Retail trade, except of motor vehicles and motorcycles",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,H,Transportation and storage,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,H49,Land transport and transport via pipelines,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,H50,Water transport,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,H51,Air transport,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,H52,Warehousing and support activities for transportation,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,H53,Postal and courier activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,HH,Total activities by households,household,household,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,I,Accommodation and food service activities,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,J,Information and communication,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,J58,Publishing activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,J59_J60,"Motion picture, video, television programme production; programming and broadcasting activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,J61,Telecommunications,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,J62_J63,"Computer programming, consultancy, and information service activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,K,Financial and insurance activities,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,K64,"Financial service activities, except insurance and pension funding",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,K65,"Insurance, reinsurance and pension funding, except compulsory social security",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,K66,Activities auxiliary to financial services and insurance activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,L,Real estate activities,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,M,"Professional, scientific and technical activities",industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,M69_M70,Legal and accounting activities; activities of head offices; management consultancy activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,M71,Architectural and engineering activities; technical testing and analysis,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,M72,Scientific research and development,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,M73,Advertising and market research,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,M74_M75,"Other professional, scientific and technical activities; veterinary activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,N,Administrative and support service activities,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,N77,Rental and leasing activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,N78,Employment activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,N79,"Travel agency, tour operator and other reservation service and related activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,N80-N82,"Security and investigation, service and landscape, office administrative and support activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,O,Public administration and defence; compulsory social security,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,O84,Public administration and defence; compulsory social security,industry,division,NACE_R2,figaro2026_supply_DK_2022-2024.csv
+nace_r2,P,Education,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,P85,Education,industry,division,NACE_R2,figaro2026_supply_DK_2022-2024.csv
+nace_r2,Q,Human health and social work activities,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,Q86,Human health activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,Q87_Q88,Residential care activities and social work activities without accommodation,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,R,"Arts, entertainment and recreation",industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,R90-R92,"Creative, arts and entertainment activities; libraries, archives, museums and other cultural activities; gambling and betting activities",industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,R93,Sports activities and amusement and recreation activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,S,Other service activities,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,S94,Activities of membership organisations,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,S95,Repair of computers and personal and household goods,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,S96,Other personal service activities,industry,division,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,T,Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+nace_r2,TOTAL,Total - all NACE activities,total,all_activities,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,TOTAL_HH,All NACE activities plus households,total,all_activities_and_households,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
+nace_r2,U,Activities of extraterritorial organisations and bodies,industry,section,NACE_R2,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv;figaro2026_supply_DK_2022-2024.csv
+prd_ava,B2A3G,"Operating surplus and mixed income, gross",value_added,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_A01,"Products of agriculture, hunting and related services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_A02,"Products of forestry, logging and related services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_A03,Fish and other fishing products; aquaculture products; support services to fishing,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_B,Mining and quarrying,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C10-12,"Food, beverages and tobacco products",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C13-15,"Textiles, wearing apparel, leather and related products",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C16,"Wood and of products of wood and cork, except furniture; articles of straw and plaiting materials",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C17,Paper and paper products,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C18,Printing and recording services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C19,Coke and refined petroleum products,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C20,Chemicals and chemical products,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C21,Basic pharmaceutical products and pharmaceutical preparations,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C22,Rubber and plastic products,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C23,Other non-metallic mineral products,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C24,Basic metals,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C25,"Fabricated metal products, except machinery and equipment",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C26,"Computer, electronic and optical products",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C27,Electrical equipment,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C28,Machinery and equipment n.e.c.,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C29,"Motor vehicles, trailers and semi-trailers",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C30,Other transport equipment,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C31_32,Furniture and other manufactured goods,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_C33,Repair and installation services of machinery and equipment,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_D35,"Electricity, gas, steam and air conditioning",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_E36,Natural water; water treatment and supply services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_E37-39,"Sewerage services; sewage sludge; waste collection, treatment and disposal services; materials recovery services; remediation services and other waste management services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_F,Constructions and construction works,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_G45,Wholesale and retail trade and repair services of motor vehicles and motorcycles,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_G46,"Wholesale trade services, except of motor vehicles and motorcycles",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_G47,"Retail trade services, except of motor vehicles and motorcycles",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_H49,Land transport services and transport services via pipelines,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_H50,Water transport services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_H51,Air transport services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_H52,Warehousing and support services for transportation,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_H53,Postal and courier services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_I,Accommodation and food services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_J58,Publishing services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_J59_60,"Motion picture, video and television programme production services, sound recording and music publishing; programming and broadcasting services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_J61,Telecommunications services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_J62_63,"Computer programming, consultancy and related services; Information services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_K64,"Financial services, except insurance and pension funding",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_K65,"Insurance, reinsurance and pension funding services, except compulsory social security",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_K66,Services auxiliary to financial services and insurance services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_L,Real estate services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_M69_70,Legal and accounting services; services of head offices; management consultancy services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_M71,Architectural and engineering services; technical testing and analysis services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_M72,Scientific research and development services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_M73,Advertising and market research services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_M74_75,"Other professional, scientific and technical services and veterinary services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_N77,Rental and leasing services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_N78,Employment services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_N79,"Travel agency, tour operator and other reservation services and related services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_N80-82,"Security and investigation services; services to buildings and landscape; office administrative, office support and other business support services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_O84,Public administration and defence services; compulsory social security services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_P85,Education services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_Q86,Human health services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_Q87_88,Residential care services; social work services without accommodation,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_R90-92,"Creative, arts, entertainment, library, archive, museum, other cultural services; gambling and betting services",product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_R93,Sporting services and amusement and recreation services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_S94,Services furnished by membership organisations,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_S95,Repair services of computers and personal and household goods,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_S96,Other personal services,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_T,Services of households as employers; undifferentiated goods and services produced by households for own use,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,CPA_U,Services provided by extraterritorial organisations and bodies,product,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,D1,Compensation of employees,value_added,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,D21X31,Taxes less subsidies on products,value_added,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,D29X39,Other taxes less other subsidies on production,value_added,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,OP_NRES,Purchases on the domestic territory by non-residents,adjustment,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+prd_ava,OP_RES,Direct purchases abroad by residents,adjustment,,PRD_AVA,figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+unit,MIO_EUR,Million euro,unit,,UNIT,figaro2026_supply_DK_2022-2024.csv;figaro2026_use_DKdest_2022.csv;figaro2026_use_DKdest_2024.csv
+unit,THS_T,Thousand tonnes,unit,,UNIT,env_ac_co2fp_DKdest_2021-2023.csv;env_ac_ghgfp_DKdest_2021-2023.csv;env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv
