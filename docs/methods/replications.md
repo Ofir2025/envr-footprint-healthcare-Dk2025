@@ -1329,6 +1329,12 @@ decimal. EXIOBASE's own hybrid build, which resolves the same source data onto a
 rather than establishment units, gives **7.8 %** natively, within 1.2 points of the
 benchmark and with no correction applied.
 
+Their 9 % is the 2019 figure, and this study no longer quotes it for every year: the same
+share is now read from the same office's table for each background year the model runs on
+— **7.7 %** for 2016 and **6.5 %** for 2022 — with the 2019 reading, **9.3 %**, serving as
+the check that the parse reproduces what they published. See
+[Where $\phi$ comes from](#r10-phi).
+
 #### The correction
 
 The row's **total output is left unchanged**. This is a scope decision, not a claim that
@@ -1347,24 +1353,62 @@ the assertion has been withdrawn.
 
 Only the allocation is corrected:
 
-$$t = \phi \, x_{\text{row}}, \qquad \phi = 0.09$$
+$$t = \phi(t_{\text{bg}}) \, x_{\text{row}}$$
 $$\mathbf{Z}[\text{row}, \text{DK}] \leftarrow \mathbf{Z}[\text{row}, \text{DK}] \cdot \frac{t}{\sum \mathbf{Z}[\text{row}, \text{DK}]}$$
 
-The released amount, 11,509.8 M€, is added to exports, distributed over foreign final
-demand in proportion to existing shares. Value added is credited so the column balance
-holds.
+The released amount, 11,953.9 M€ on the 2022 background, is added to exports, distributed
+over foreign final demand in proportion to existing shares. Value added is credited so the
+column balance holds.
+
+<a id="r10-phi"></a>
+
+#### Where $\phi$ comes from
+
+$\phi$ is no longer the single published figure of 0.09 applied to every year. It is
+**read from Statistics Denmark's domestic input-output table for the background year the
+run uses**, sheet `DIO` of `input_output_en_<year>.xlsx`, as row 500000 (*Water
+transport*) deliveries to the 117 Danish industries over that row's own total output:
+
+$$\phi(t) = \frac{\sum_{j=1}^{117} d_{\text{wt},j}(t)}{x_{\text{wt}}(t)}$$
+
+| Statistics Denmark table | $\phi$ | Role in this study |
+|:---|:---|:---|
+| 2016 | 0.0774 | applied to the 2016 background, i.e. to the 2019 analysis year |
+| 2019 | 0.0931 | **cross-check only**; not a background year of this study |
+| 2022 | 0.0651 | applied to the 2022 background and analysis year |
+
+The 2019 row is the validation of the parse. Rørmose Jensen & Iliev (2022, p. 12) publish
+$\phi = 0.09$ for 2019 and for no other year; reading the same quantity out of the same
+office's table for that year gives $0.0931$, which reproduces their figure **to within
+0.3 percentage points**. `analysis.dk_shipping_correction.dst_domestic_intermediate_share`
+asserts that agreement on every call and refuses to return a share if it fails, so no run
+can apply a $\phi$ this repository has not just proved it reads correctly.
+
+The 2022 value is lower than the 2019 one because the denominator moved, not because the
+Danish economy stopped buying shipping. The row's total output rose from 225.6 bn DKK in
+2019 to 337.1 bn DKK in 2022 in the container-freight boom, and essentially all of that
+growth was exported.
+
+**No currency enters the model.** $\phi$ is a ratio of two quantities inside the Danish
+table — deliveries to Danish industries over the same row's total output, both in 1000
+DKK — so it is dimensionless and the crowns cancel. It is applied to EXIOBASE's own
+$x_{\text{row}}$, which is in M€. There is no exchange rate anywhere in this correction.
+
+$\phi$ can be pinned by hand with the environment variable `HC_SHIPPING_PHI`, which is how
+the value published by Rørmose Jensen & Iliev is recovered in one variable. What each
+choice is worth is in [the sensitivity band](#r10-sensitivity) below.
 
 #### Effect
 
 | Quantity | Before | After |
 |:---|:---|:---|
-| Share to DK intermediate use | 73.6 % | 9.0 % |
-| Transport share of the supply-chain footprint | 37.5 % | **18.5 %** |
-| DK sea transport as a producing node | 852 kt | **74 kt** |
-| Danish national footprint | 85.2 Mt | **77.5 Mt** |
+| Share to DK intermediate use | 73.6 % | 6.5 % |
+| Transport share of the supply-chain footprint | 37.5 % | **17.8 %** |
+| DK sea transport as a producing node | 852 kt | **53 kt** |
+| Danish national footprint | 85.2 Mt | **77.2 Mt** |
 
-The 18.5 % is on the 3,943 kt MRIO supply-chain basis; on the 4,712 kt total, which
-includes the entirely-Danish bottom-up items, transport is 15.5 %. **Quote the basis with
+The 17.8 % is on the 3,906 kt MRIO supply-chain basis; on the 4,675 kt total, which
+includes the entirely-Danish bottom-up items, transport is 14.9 %. **Quote the basis with
 the share**: six figures in the revision documents drifted precisely because it was
 omitted. Both figures are on the **producing-node (hotspot)** perspective; the
 purchased-product (contribution) perspective gives a different number for the same
@@ -1403,10 +1447,22 @@ Journal register, paste-ready. Every claim is traceable to a page or to a gold t
 > $\mathbf{Y}$ for final demand and $\mathbf{V}$ for primary inputs, the observed and target
 > domestic-intermediate shares are
 >
-> $$\phi_{\text{obs}} = \frac{1}{x_r}\sum_{j \in \mathrm{DK}} \mathbf{Z}_{rj}, \qquad \phi^{\ast} = 0.09 ,$$
+> $$\phi_{\text{obs}} = \frac{1}{x_r}\sum_{j \in \mathrm{DK}} \mathbf{Z}_{rj}, \qquad
+> \phi^{\ast}(t) = \frac{\sum_{j=1}^{117} d_{\text{wt},j}(t)}{x_{\text{wt}}(t)} ,$$
 >
-> with $\phi^{\ast}$ taken from the Danish national accounts as published by Rørmose Jensen
-> & Iliev (2022, p. 12) and not fitted. The row's Danish intermediate deliveries are scaled
+> with $\phi^{\ast}(t)$ read, for the background year $t$ of the run, from the domestic
+> input-output table Statistics Denmark publish — sheet $\mathrm{DIO}$ of
+> $\texttt{input\_output\_en}\langle t \rangle$, row 500000 *Water transport*, its
+> deliveries to the 117 Danish industries over its own total output — and not fitted. This
+> is the same quantity Rørmose Jensen & Iliev (2022, p. 12) report as 9 % for 2019, and
+> reading it for 2019 returns $\phi^{\ast} = 0.0931$, reproducing their figure to within
+> 0.3 percentage points; that agreement is asserted on every run and is what licenses
+> reading the other years off the same table. The applied values are
+> $\phi^{\ast} = 0.0774$ for the 2016 background and $\phi^{\ast} = 0.0651$ for 2022, the
+> fall reflecting a denominator that grew from 225.6 to 337.1 bn DKK in the freight boom
+> while domestic deliveries did not. Because $\phi^{\ast}$ is a ratio internal to the
+> Danish table it is dimensionless, so no exchange rate is involved: the share is applied
+> to EXIOBASE's own $x_r$, in M€. The row's Danish intermediate deliveries are scaled
 > to the target, preserving their relative composition across Danish buyers,
 >
 > $$\tilde{\mathbf{Z}}_{rj} = \frac{\phi^{\ast}}{\phi_{\text{obs}}}\,\mathbf{Z}_{rj}, \qquad j \in \mathrm{DK},$$
@@ -1447,11 +1503,11 @@ Journal register, paste-ready. Every claim is traceable to a page or to a gold t
 >
 > The correction is verified by the accounting identities it must not break. The row
 > balance $\sum_j \tilde{\mathbf{Z}}_{rj} + \sum_c \tilde{\mathbf{Y}}_{rc} = x_r$ holds to
-> $1.1\times10^{-11}$ M€ and the column balance
+> $7.3\times10^{-12}$ M€ and the column balance
 > $\sum_i \tilde{\mathbf{Z}}_{ij} + \sum_q \tilde{\mathbf{V}}_{qj} = x_j$ holds across the
 > Danish block to a maximum residual of $2.4\times10^{-5}$ M€; industry output is unchanged
-> by construction. The reallocated amount for 2022 is 11,509.8 M€, moving the row's
-> domestic intermediate share from 73.65 % to 9.00 %.
+> by construction. The reallocated amount for 2022 is 11,953.9 M€, moving the row's
+> domestic intermediate share from 73.65 % to 6.51 %.
 >
 > Two independent constructs corroborate the direction and approximate size. EXIOBASE's own
 > hybrid build, which resolves the same monetary source data onto homogeneous activity
@@ -1477,14 +1533,60 @@ Transport's share of this footprint depends on which marginal of the impact arra
 $E_{ij} = s_i L_{ij} y_{H,j}$ is taken. Both marginals are in the gold outputs and they
 differ materially:
 
-| Perspective | Gold table | Transport, climate | Share of 4,712 kt | Share of 3,943 kt MRIO |
+| Perspective | Gold table | Transport, climate | Share of 4,675 kt | Share of 3,906 kt MRIO |
 |:---|:---|:---|:---|:---|
-| Producing node (hotspot), summing over $j$ | `01_eriksen_replication/2022_shipping_corrected/hotspot_by_sector_group.csv` | 728.2 kt | 15.45 % | 18.47 % |
-| Purchased product (contribution), summing over $i$ | `01_eriksen_replication/2022_shipping_corrected/contribution_by_sector_group.csv` | 595.8 kt | 12.64 % | 15.11 % |
+| Producing node (hotspot), summing over $j$ | `01_eriksen_replication/2022_shipping_corrected/hotspot_by_sector_group.csv` | 695.1 kt | 14.87 % | 17.79 % |
+| Purchased product (contribution), summing over $i$ | `01_eriksen_replication/2022_shipping_corrected/contribution_by_sector_group.csv` | 566.5 kt | 12.12 % | 14.50 % |
 
 Transport ranks **first** among producing nodes and **fourth** among purchased products,
-where the chemical group leads at 1,738.3 kt (36.89 %). Any sentence that ranks transport
+where the chemical group leads at 1,737.4 kt (37.16 %). Any sentence that ranks transport
 against the chemical group must take both figures from the same table.
+
+<a id="r10-sensitivity"></a>
+
+### What $\phi$ is worth: the sensitivity band
+
+`analysis.dk_shipping_correction.phi_sensitivity` re-runs the whole correction at a band of
+target shares and re-solves the Leontief system at each, on the study's own Danish
+health-care demand vector. It writes no background pickle and touches no published result.
+Output: `10_sea_transport_reallocation/phi_sensitivity_2016.csv` and
+`phi_sensitivity_2022.csv`, with columns `phi`, `phi_source`, `released_meur`,
+`footprint_climate_kt`, `transport_share_pct`, `background_year`, `model`. The applied
+share is always evaluated as well, and the run is verified against the published grand
+total at that share before the table is written; both years reproduce it to 0.00000 %.
+
+**2022 background** (applied $\phi = 0.0651$; the footprint is the full 4,675 kt total,
+transport's share is on the purchased-product perspective):
+
+| $\phi$ | Released, M€ | Footprint, kt CO₂-eq | Transport, % of total |
+|---:|---:|---:|---:|
+| 0.050 | 12,222.0 | 4,653.57 | 11.80 |
+| **0.0651** | **11,953.9** | **4,675.47** | **12.12** |
+| 0.077 | 11,741.2 | 4,693.06 | 12.37 |
+| 0.090 | 11,509.8 | 4,712.42 | 12.64 |
+| 0.100 | 11,331.7 | 4,727.47 | 12.86 |
+| 0.125 | 10,886.6 | 4,765.70 | 13.39 |
+| 0.150 | 10,441.5 | 4,804.84 | 13.93 |
+
+**2016 background** (applied $\phi = 0.0774$, i.e. the 2019 analysis year):
+
+| $\phi$ | Released, M€ | Footprint, kt CO₂-eq | Transport, % of total |
+|---:|---:|---:|---:|
+| 0.050 | 10,573.2 | 3,989.81 | 18.49 |
+| 0.065 | 10,341.7 | 4,025.22 | 19.02 |
+| **0.0774** | **10,151.0** | **4,054.77** | 19.46 |
+| 0.090 | 9,955.9 | 4,085.38 | 19.90 |
+| 0.100 | 9,801.6 | 4,109.84 | 20.25 |
+| 0.125 | 9,415.8 | 4,172.06 | 21.12 |
+| 0.150 | 9,029.9 | 4,235.80 | 21.99 |
+
+Two things a reader should take from these. First, the footprint is **almost flat in
+$\phi$** over any defensible range: tripling the target share from 0.05 to 0.15 moves the
+2022 total by 151 kt, 3.2 %, and transport's share of it by 2.1 percentage points. The
+choice between the published 0.09 and the table-read 0.0651 is worth 37 kt, 0.8 %. Second,
+the row at $\phi = 0.09$ reproduces the totals this study published before the share was
+read per year — 4,712.42 kt for 2022 and 4,085.38 kt for 2019 — so the band also serves as
+the bridge between the two versions of these results.
 
 ### Why this is not a novel method
 
@@ -1505,7 +1607,8 @@ applies is a far easier argument at review than proposing a new one.
 | Input | Source |
 |:---|:---|
 | $\mathbf{Z}$, $x$, $\mathbf{Y}$ | EXIOBASE v3.8.2 `IOT_2022_ixi` |
-| $\phi = 0.09$ | Statistics Denmark national accounts, water transport |
+| $\phi(t)$ | Statistics Denmark domestic input-output table for the background year, sheet `DIO`, row 500000 *Water transport*: 0.0774 for 2016, 0.0651 for 2022 |
+| Cross-check $\phi(2019) = 0.0931$ against 0.09 | the same table for 2019, against Rørmose Jensen & Iliev (2022, p. 12) |
 | Cross-check 7.8 % | EXIOBASE hybrid v3.3.18 |
 
 ### Deviations from the source, stated
@@ -1515,17 +1618,27 @@ applies is a far easier argument at review than proposing a new one.
   effect on our result while leaving the rest of the block as EXIOBASE published it. The
   trade-off is set out in
   [docs/methods/methods.md, "Danish SNAC"](methods.md#danish-snac-what-statistics-denmark-does-what-we-patch-and-the-feasibility-of-a-full-build).
-- $\phi$ is set to the benchmark exactly rather than fitted; the correction carries no
-  free parameter.
-- **The 9 % benchmark is published for one year only.** Rørmose Jensen & Iliev (2022,
-  Table 1, p. 12) state it for **2019**; they give no time series for the
-  national-accounts share and make no claim that it is stable. We apply it to 2022 and,
-  where a 2016 background is used, to 2016. What is verified across years is the
-  *EXIOBASE* side of the discrepancy, not the benchmark: measured on v3.8.2 the Danish
-  intermediate share is 73.51 % in 2016 and 73.65 % in 2022 against Statistics Denmark's
-  74 % for 2019, and the other two EXIOBASE uses track their 2019 values equally closely
-  (domestic final demand 11.03 % / 10.36 % against 12 %; exports 15.46 % / 15.99 % against
-  14 %).
+- $\phi$ is read from the Danish table rather than fitted; the correction carries no free
+  parameter.
+- **The published benchmark covers one year; the table it comes from covers all of them.**
+  Rørmose Jensen & Iliev (2022, Table 1, p. 12) state 9 % for **2019** and give no time
+  series. Until 11 September 2026 that single figure was applied to every background year.
+  It is now read per year from the source it is drawn from — Statistics Denmark's own
+  domestic input-output table — which removes the constancy assumption rather than
+  restating it: $\phi = 0.0774$ for 2016 and $0.0651$ for 2022, with the 2019 table
+  returning $0.0931$ as the check that the parse reproduces the published figure. What is
+  additionally verified across years is the *EXIOBASE* side of the discrepancy: measured on
+  v3.8.2 the Danish intermediate share is 73.51 % in 2016 and 73.65 % in 2022 against
+  Statistics Denmark's 74 % for 2019, and the other two EXIOBASE uses track their 2019
+  values equally closely (domestic final demand 11.03 % / 10.36 % against 12 %; exports
+  15.46 % / 15.99 % against 14 %).
+- **The 2022 share is lower than the 2019 one, and that is a real movement.** Danish
+  water-transport output rose from 225.6 to 337.1 bn DKK between the two tables while
+  deliveries to Danish industries barely moved, so the domestic share falls. Reading the
+  share per year therefore does not merely refresh a constant; it carries the freight boom
+  into the correction. What that is worth is quantified in
+  [the sensitivity band](#r10-sensitivity): 37 kt, 0.8 % of the 2022 total, against
+  applying the published 0.09.
 - **The export-distribution key is ours, not either source's.** Neither Rørmose Jensen &
   Iliev (2022) nor Schmidt and Merciai (2023) proposes a key, because neither builds a
   corrected EXIOBASE: Statistics Denmark discard the Danish block instead of repairing it
@@ -1551,15 +1664,20 @@ applies is a far easier argument at review than proposing a new one.
 
 ### Outputs
 
-`shipping_reallocation_diagnostics.csv` (every quantity above, with its source),
+`shipping_reallocation_diagnostics.csv` (every quantity above, with its source, and on
+every row the $\phi$ applied, where it was read from, and the 2019 cross-check value),
 `phantom_shipping_input_removed_by_industry.csv` (which Danish industries were recorded as
-buying the phantom shipping, including 394 M€ by the health sector, which does not charter
-container ships).
+buying the phantom shipping, including 409 M€ removed from the health sector, which does
+not charter container ships), and the two sensitivity bands
+`phi_sensitivity_2016.csv` and `phi_sensitivity_2022.csv`
+([above](#r10-sensitivity)).
 
 ### Verification
 
-Row balance residual 1.1 × 10⁻¹¹ M€; maximum column-balance residual in the Danish block
-2.4 × 10⁻⁵ M€; industry output unchanged.
+Row balance residual 7.3 × 10⁻¹² M€; maximum column-balance residual in the Danish block
+2.4 × 10⁻⁵ M€; industry output unchanged. The 2019 cross-check of the target share passes:
+the Danish 2019 table gives $\phi = 0.0931$ against the published 0.09, a gap of 0.3
+percentage points.
 
 <a id="r10-si"></a>
 
@@ -1577,11 +1695,15 @@ commensurate.
 
 | Use of output | EXIOBASE, before | Share, before | EXIOBASE, after | Share, after | Danish national accounts, 2019 |
 |:---|:---|:---|:---|:---|:---|
-| Danish intermediate use | 13,112.2 | 73.65 % | 1,602.4 | 9.00 % | 9 % |
-| Danish final demand | 1,845.0 | 10.36 % | 1,845.0 | 10.36 % | 1 % |
-| Foreign intermediate use | 2,173.3 | 12.21 % | 2,173.3 | 12.21 % | 90 % combined |
-| Foreign final demand | 674.0 | 3.79 % | 12,183.8 | 68.43 % | 90 % combined |
+| Danish intermediate use | 13,112.2 | 73.65 % | 1,158.2 | 6.51 % | 9 % (2019 table); 6.51 % (2022 table) |
+| Danish final demand | 1,845.2 | 10.36 % | 1,845.2 | 10.36 % | 1 % |
+| Foreign intermediate use | 2,173.1 | 12.21 % | 2,173.1 | 12.21 % | 90 % combined |
+| Foreign final demand | 674.0 | 3.79 % | 12,627.9 | 70.93 % | 90 % combined |
 | **Total output** | **17,804.5** | **100 %** | **17,804.5** | **100 %** | **100 %** |
+
+The "after" share is 6.51 %, not 9 %, because the target is now read from Statistics
+Denmark's 2022 table rather than quoted from their 2019 one; both are given in the last
+column. See [Where $\phi$ comes from](#r10-phi).
 
 National-accounts shares from Rørmose Jensen & Iliev (2022), Table 1, p. 12. Their table
 reports exports as a single 90 % figure and does not split it between foreign intermediate
@@ -1600,30 +1722,32 @@ structural rather than a single-year artefact.
 | Share to Danish final demand | 11.03 % | 10.36 % | 1 % |
 | Share to exports | 15.46 % | 15.99 % | 90 % |
 | Value added, M€ | −493 | +271 | +33,339 M DKK (+14 % of output) |
-| Amount released at $\phi^{\ast}=0.09$, M€ | 9,955.9 | 11,509.8 | n/a |
+| $\phi^{\ast}$ applied, from the DST table of that year | 0.0774 | 0.0651 | 0.09 published for 2019; 0.0931 read from the 2019 table |
+| Amount released at that $\phi^{\ast}$, M€ | 10,151.0 | 11,953.9 | n/a |
 
-**Released amount.** For 2022, $\Delta = 11{,}509.8$ M€, which is 64.65 % of the row's
-total output and 17.1 times the foreign final demand the row already carried. It is
+**Released amount.** For 2022, $\Delta = 11{,}953.9$ M€, which is 67.14 % of the row's
+total output and 17.7 times the foreign final demand the row already carried. It is
 distributed over the 336 non-Danish final-demand columns in proportion to each column's
-total size, which apportions it as follows.
+total size, which apportions it as follows. The shares depend only on the uncorrected
+final-demand table, so they do not move with $\phi$; only the euro amounts do.
 
 | Final-demand category | Share of $\Delta$ | M€ |
 |:---|:---|:---|
-| Household final consumption | 50.42 % | 5,803.1 |
-| Gross fixed capital formation | 25.88 % | 2,978.9 |
-| Government final consumption | 16.44 % | 1,892.0 |
-| NPISH final consumption | 5.76 % | 662.5 |
-| Changes in inventories | 1.43 % | 164.5 |
-| Changes in valuables | 0.08 % | 8.7 |
+| Household final consumption | 50.42 % | 6,027.1 |
+| Gross fixed capital formation | 25.88 % | 3,093.9 |
+| Government final consumption | 16.44 % | 1,965.0 |
+| NPISH final consumption | 5.76 % | 688.1 |
+| Changes in inventories | 1.43 % | 170.9 |
+| Changes in valuables | 0.08 % | 9.0 |
 | Exports (fob) | 0.00 % | 0.0 |
 
-The four largest receiving regions are the United States (24.55 %, 2,825.1 M€), China
-(17.74 %, 2,041.9 M€), Japan (5.45 %, 626.8 M€) and rest-of-world Asia and Pacific
-(4.76 %, 547.5 M€). These are consequences of a size-weighted key, not observed purchases
+The four largest receiving regions are the United States (24.55 %, 2,934.1 M€), China
+(17.74 %, 2,120.7 M€), Japan (5.45 %, 651.0 M€) and rest-of-world Asia and Pacific
+(4.76 %, 568.6 M€). These are consequences of a size-weighted key, not observed purchases
 of Danish shipping.
 
 **Balance residuals.** Row balance
-$\sum_j \tilde{\mathbf{Z}}_{rj} + \sum_c \tilde{\mathbf{Y}}_{rc} - x_r = 1.09\times10^{-11}$
+$\sum_j \tilde{\mathbf{Z}}_{rj} + \sum_c \tilde{\mathbf{Y}}_{rc} - x_r = 7.3\times10^{-12}$
 M€. Maximum column-balance residual across the 163 Danish industries,
 $\max_j \bigl| \sum_i \tilde{\mathbf{Z}}_{ij} + \sum_q \tilde{\mathbf{V}}_{qj} - x_j \bigr| = 2.45\times10^{-5}$
 M€. Both are numerical noise on a matrix whose entries run to $10^{4}$ M€.

@@ -55,7 +55,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 00
 
 ### `footprint_bilateral_producer_x_purchase.csv.gz`
 
-- **Rows:** 2,351,620
+- **Rows:** 2,363,624
 - **Format:** csv
 - **Resolution:** 1+ regions x 63+ industries (sampled)
 - **Units:** kt CO2eq

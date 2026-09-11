@@ -60,9 +60,12 @@ untracked file is invisible to every other check in this module, so it is the
 one defect that could otherwise grow without ever being reported.
 
 **C17 Layer boundary.** No new module reads bronze and writes gold in one
-step (medallion rule 4). The eleven names in ``LAYER_SKIPPERS`` are known
+step (medallion rule 4). The twelve names in ``LAYER_SKIPPERS`` are known
 debt, carried until each module is re-plumbed through silver; the check
-exists so that list can shrink and never grow.
+exists so that list can shrink and never grow. The twelfth,
+``dk_shipping_correction``, was added deliberately when its target share
+started being read from the Danish input-output workbook; the reason sits
+beside the list.
 
 Exit status is non-zero if any check fails, so this can gate a release.
 
@@ -377,10 +380,24 @@ def c16_gold_clean(results: list[dict[str, Any]]) -> None:
            + (" ..." if len(offenders) > 8 else "") if offenders else "clean")
 
 
+#: Modules that read bronze and write gold in one step. The list is debt, and
+#: the check below exists so it can shrink and not grow.
+#:
+#: ``dk_shipping_correction`` joined it on 11 September 2026, and the reason is
+#: recorded here rather than left to be rediscovered. The module's target share
+#: phi stopped being the hardcoded 0.09 and is now read, per background year,
+#: from Statistics Denmark's domestic input-output workbook in bronze, while
+#: the module continues to write its own diagnostics to gold. The read is the
+#: point of the change - the share has to come from the Danish table - so the
+#: boundary crossing is deliberate, not an oversight. Re-plumbing it means
+#: publishing phi as a silver artefact from a step that runs before this one;
+#: that is a separate change, because this module runs BEFORE the pipeline
+#: whose concordance stage reads the same workbook.
 LAYER_SKIPPERS = {
     "build_dst_concordance", "capital_endogenised_sodersten", "capital_gfcf",
-    "export_tables", "figaro_recipe_validation", "impact_categories_full",
-    "main", "main_2025", "manuscript_figure_tables", "recipe_validation_2022",
+    "dk_shipping_correction", "export_tables", "figaro_recipe_validation",
+    "impact_categories_full", "main", "main_2025",
+    "manuscript_figure_tables", "recipe_validation_2022",
     "release_defect_audit",
 }
 
@@ -488,19 +505,24 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
 #: Headline numbers that the revision documents quote, and where each is
 #: computed from. ``doc`` is the markdown that must contain ``text`` verbatim.
 DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
-    dict(text="4,712", doc="docs/revision/results_2022.md",
+    # These three moved on 11 September 2026, when the sea-transport
+    # correction's target share stopped being the hardcoded 0.09 and began
+    # being read from Statistics Denmark's domestic input-output table for
+    # each background year. The before-and-after table is in
+    # docs/revision/results_2022.md, "What reading phi per year moved".
+    dict(text="4,675", doc="docs/revision/results_2022.md",
          source=(f"{eriksen_folder()}/hotspot_by_producing_node.csv",
                  "climate_change"),
-         expect=4712.4, tol=0.2, what="health-care climate footprint, kt"),
-    dict(text="3,943", doc="docs/revision/results_2022.md",
+         expect=4675.5, tol=0.2, what="health-care climate footprint, kt"),
+    dict(text="3,906", doc="docs/revision/results_2022.md",
          source=("17_health_subsectors/footprint_by_health_function.csv",
                  "climate_change"),
-         expect=3943.4, tol=1.0,
+         expect=3906.4, tol=1.0,
          what="MRIO supply-chain component (SHA functions), kt"),
-    dict(text="77.5 Mt", doc="docs/revision/results_2022.md",
+    dict(text="77.2 Mt", doc="docs/revision/results_2022.md",
          source=("00_core_footprint/national_totals_summary.csv",
                  "climate_change"),
-         expect=77477.5, tol=50.0, what="Danish national footprint, kt",
+         expect=77240.6, tol=50.0, what="Danish national footprint, kt",
          column="national_footprint"),
 )
 

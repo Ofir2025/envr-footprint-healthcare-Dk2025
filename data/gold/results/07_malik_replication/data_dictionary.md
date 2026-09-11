@@ -61,10 +61,10 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `component` | dimension | str |  | healthcare_services |
-| `footprint` | measure | float64 | varies by row | 2344.885845780632 |
+| `footprint` | measure | float64 | varies by row | 2309.195495682233 |
 | `expenditure_meur` | measure | float64 | varies by row | 37552.28493467391 |
-| `total_intensity_per_meur` | measure | float64 | varies by row | 0.0624432268198807 |
-| `direct_intensity_per_meur` | measure | float64 | varies by row | 0.0117217097512177 |
+| `total_intensity_per_meur` | measure | float64 | varies by row | 0.0614928092844235 |
+| `direct_intensity_per_meur` | measure | float64 | varies by row | 0.0114167977982037 |
 
 ### `malik_domestic_vs_full.csv`
 
@@ -75,11 +75,11 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `full_mrio` | measure | float64 | varies by row | 4061.9511864328815 |
-| `domestic_only` | measure | float64 | varies by row | 839.4965252767034 |
-| `domestic_share_of_full_pct` | measure | float64 | % | 20.66732185459696 |
-| `share_of_national_full_pct` | measure | float64 | % | 5.995012471472214 |
-| `share_of_national_domestic_pct` | measure | float64 | % | 3.983162174492114 |
+| `full_mrio` | measure | float64 | varies by row | 4025.0002397773846 |
+| `domestic_only` | measure | float64 | varies by row | 818.1006438667325 |
+| `domestic_share_of_full_pct` | measure | float64 | % | 20.325480624368364 |
+| `share_of_national_full_pct` | measure | float64 | % | 5.96131831389555 |
+| `share_of_national_domestic_pct` | measure | float64 | % | 3.907003770310427 |
 
 ### `malik_published_reference.csv`
 
@@ -100,9 +100,9 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `indicator` | dimension | str |  | climate_change |
-| `denmark_first_three_layers_pct` | measure | float64 | % | 62.99012726771795 |
+| `denmark_first_three_layers_pct` | measure | float64 | % | 62.999301882277045 |
 | `malik_nsw_first_three_layers_pct` | measure | float64 | % | 67.0 |
-| `denmark_first_layer_pct` | measure | float64 | % | 8.6988278774147 |
+| `denmark_first_layer_pct` | measure | float64 | % | 8.778686379642336 |
 | `malik_nsw_first_layer_pct` | measure | float64 | % | 11.0 |
 | `malik_total` | measure | float64 |  | 7908.0 |
 | `malik_unit` | dimension | str |  | kt CO2e |

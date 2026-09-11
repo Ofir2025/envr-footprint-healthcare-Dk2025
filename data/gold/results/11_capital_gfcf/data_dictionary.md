@@ -88,7 +88,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_code` | dimension | str |  | HWAT |
 | `producing_sector_name` | dimension | str |  | Steam and hot water supply |
 | `producing_sector_group` | dimension | str |  | Steam, hot water supply and water distri |
-| `value` | measure | float64 | kt CO2eq | 106.90340755354045 |
+| `value` | measure | float64 | kt CO2eq | 106.75619006293996 |
 
 ### `capital_endogenised_domestic_vs_imported.csv`
 
@@ -97,8 +97,8 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `origin` | dimension | str |  | domestic |
-| `value` | measure | float64 | kt CO2eq | 816.9225806529726 |
-| `share_of_total_pct` | measure | float64 | % | 17.26914805775572 |
+| `value` | measure | float64 | kt CO2eq | 794.4131073426895 |
+| `share_of_total_pct` | measure | float64 | % | 16.937148388886932 |
 
 ### `capital_endogenised_sodersten.csv`
 
@@ -109,11 +109,11 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `baseline_capital_excluded` | measure | float64 | varies by row | 4061.9511864328815 |
-| `endogenised_sodersten` | measure | float64 | varies by row | 4849.0862023745485 |
-| `change` | measure | float64 | varies by row | 787.135015941667 |
-| `change_pct` | measure | float64 | % | 19.37824901911025 |
-| `per_capita_endogenised` | measure | float64 | varies by row | 0.8255984081462843 |
+| `baseline_capital_excluded` | measure | float64 | varies by row | 4025.0002397773846 |
+| `endogenised_sodersten` | measure | float64 | varies by row | 4808.913426712221 |
+| `change` | measure | float64 | varies by row | 783.9131869348362 |
+| `change_pct` | measure | float64 | % | 19.47610286299493 |
+| `per_capita_endogenised` | measure | float64 | varies by row | 0.818758649426096 |
 | `method` | dimension | str |  | Södersten, Wood & Hertwich (2018) Enviro |
 | `kbar_year` | measure | int64 |  | 2020 |
 | `structure_assumption` | dimension | str |  | 2020 capital structure applied to 2022 l |
@@ -127,11 +127,11 @@ units and are labelled as such wherever they are quoted.
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
 | `scenario` | dimension | str |  | baseline_capital_excluded |
 | `indicator` | dimension | str |  | climate_change |
-| `value` | measure | float64 | varies by row | 4061.9511864328815 |
+| `value` | measure | float64 | varies by row | 4025.0002397773846 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `delta_vs_baseline` | measure | float64 | varies by row | 0.0 |
 | `pct_vs_baseline` | measure | float64 | varies by row | 0.0 |
-| `per_capita` | measure | float64 | varies by row | 691.5819380246741 |
+| `per_capita` | measure | float64 | varies by row | 685.2907232544896 |
 | `per_capita_unit` | dimension | str |  | kg per capita |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `analysis_year` | measure | int64 |  | 2022 |

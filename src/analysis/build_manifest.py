@@ -29,9 +29,12 @@ APPROACHES = {
         approach="Danish sea-transport reallocation (simplified SNAC step)",
         reference="Rørmose Jensen & Iliev 2022, pp. 11-12; Palm et al. 2019",
         script="analysis.dk_shipping_correction",
-        equations="Z[row,DK] *= 0.09*x_row / Z[row,DK].sum(); residual to exports; "
+        equations="phi = row 500000 deliveries to the 117 DK industries / row total, "
+                  "read from the DST domestic IO table for the background year; "
+                  "Z[row,DK] *= phi*x_row / Z[row,DK].sum(); residual to exports; "
                   "value added credited to restore column balance",
-        inputs="EXIOBASE v3.8.2 IOT_2022_ixi; DST water-transport allocation"),
+        inputs="EXIOBASE v3.8.2 IOT_2022_ixi; DST domestic input-output table, "
+                  "sheet DIO, row 500000 Water transport"),
     "11_capital_gfcf": dict(
         approach="Capital boundary: excluded, exogenous service flow, endogenised",
         reference="Södersten, Wood & Hertwich 2018 (ES&T 52:13250); Wood & Hertwich 2018; "

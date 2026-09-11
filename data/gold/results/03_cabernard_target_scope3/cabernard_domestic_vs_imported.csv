@@ -1,7 +1,7 @@
 target_set,indicator,unit,origin,value,share_of_total_pct
-T1 Danish health and social work,climate_change,kt CO2eq,domestic,1692.585287632406,39.124088474656496
-T1 Danish health and social work,climate_change,kt CO2eq,imported,2633.6120849372214,60.87591152534349
-"T2 health and social work, all regions",climate_change,kt CO2eq,domestic,2619.522906566331,0.10254362928236008
-"T2 health and social work, all regions",climate_change,kt CO2eq,imported,2551925.235162525,99.89745637071763
-"T3 T2 + chemicals + medical instruments, all regions",climate_change,kt CO2eq,domestic,3739.829177193041,0.06233619820301484
-"T3 T2 + chemicals + medical instruments, all regions",climate_change,kt CO2eq,imported,5995710.385950246,99.93766380179697
+T1 Danish health and social work,climate_change,kt CO2eq,domestic,1698.2148957165712,38.84511562501606
+T1 Danish health and social work,climate_change,kt CO2eq,imported,2673.544251842587,61.15488437498396
+"T2 health and social work, all regions",climate_change,kt CO2eq,domestic,2632.808906366482,0.10173163360672445
+"T2 health and social work, all regions",climate_change,kt CO2eq,imported,2585361.517956044,99.89826836639327
+"T3 T2 + chemicals + medical instruments, all regions",climate_change,kt CO2eq,domestic,3760.2298231548793,0.06181507746424123
+"T3 T2 + chemicals + medical instruments, all regions",climate_change,kt CO2eq,imported,6079269.958612823,99.93818492253575

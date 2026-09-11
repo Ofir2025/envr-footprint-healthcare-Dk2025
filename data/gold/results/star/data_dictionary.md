@@ -135,7 +135,7 @@ units and are labelled as such wherever they are quoted.
 | `scope_boundary` | dimension | str |  | health and eldercare |
 | `capital` | dimension | str |  | excluded from the headline |
 | `is_headline` | dimension | bool |  | True |
-| `source_folder` | dimension | str |  | 01_eriksen_replication/2022 |
+| `source_folder` | dimension | str |  | 01_eriksen_replication/2022_shipping_cor |
 | `note` | dimension | str |  | the configured run; every fact this buil |
 
 ### `dim_production_layer.csv`
@@ -218,7 +218,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator_id` | dimension | int64 |  | 2 |
 | `producing_region_id` | dimension | int64 |  | 1 |
 | `producing_industry_id` | dimension | int64 |  | 2 |
-| `value` | measure | float64 |  | 0.0739461137925476 |
+| `value` | measure | float64 |  | 0.0739229029502013 |
 
 ### `fact_capital_scenario.csv`
 
@@ -227,10 +227,10 @@ units and are labelled as such wherever they are quoted.
 | `model_id` | dimension | int64 |  | 1 |
 | `capital_treatment_id` | dimension | int64 |  | 1 |
 | `indicator_id` | dimension | int64 |  | 2 |
-| `value` | measure | float64 |  | 4061.9511864328815 |
+| `value` | measure | float64 |  | 4025.0002397773846 |
 | `delta_vs_baseline` | measure | float64 |  | 0.0 |
 | `pct_vs_baseline` | measure | float64 |  | 0.0 |
-| `per_capita` | measure | float64 |  | 691.5819380246741 |
+| `per_capita` | measure | float64 |  | 685.2907232544896 |
 
 ### `fact_footprint_bilateral.parquet`
 
@@ -243,7 +243,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_industry_id` | dimension | int64 |  | 2 |
 | `purchased_region_id` | dimension | int64 |  | 1 |
 | `purchased_industry_id` | dimension | int64 |  | 2 |
-| `value` | measure | float64 |  | 1.1479717331398931e-06 |
+| `value` | measure | float64 |  | 1.1479717331393171e-06 |
 
 ### `fact_footprint_node.parquet`
 
@@ -254,7 +254,7 @@ units and are labelled as such wherever they are quoted.
 | `demand_component_id` | dimension | int64 |  | 1 |
 | `producing_region_id` | dimension | int64 |  | 1 |
 | `producing_industry_id` | dimension | int64 |  | 2 |
-| `value` | measure | float64 |  | 8.437715255581849e-05 |
+| `value` | measure | float64 |  | 8.435932061682796e-05 |
 
 ### `fact_footprint_product.csv`
 
@@ -265,7 +265,7 @@ units and are labelled as such wherever they are quoted.
 | `demand_component_id` | dimension | int64 |  | 1 |
 | `purchased_region_id` | dimension | int64 |  | 1 |
 | `purchased_industry_id` | dimension | int64 |  | 2 |
-| `value` | measure | float64 |  | 5.434729087357228e-06 |
+| `value` | measure | float64 |  | 5.434727331351259e-06 |
 
 ### `fact_ghg_species.csv`
 
@@ -273,9 +273,9 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `model_id` | dimension | int64 |  | 1 |
 | `substance_id` | dimension | int64 |  | 3 |
-| `mass_kg` | measure | float64 |  | 2670662773.160374 |
+| `mass_kg` | measure | float64 |  | 2634903852.230004 |
 | `gwp100` | measure | float64 |  | 1.0 |
-| `co2eq_kt` | measure | float64 |  | 2670.662773160375 |
+| `co2eq_kt` | measure | float64 |  | 2634.903852230004 |
 
 ### `fact_gwp_revision.csv`
 
@@ -284,11 +284,11 @@ units and are labelled as such wherever they are quoted.
 | `model_id` | dimension | int64 |  | 1 |
 | `gwp_revision_id` | dimension | int64 |  | 1 |
 | `indicator_id` | dimension | int64 |  | 2 |
-| `healthcare_kt_co2eq` | measure | float64 |  | 3740.212749906714 |
-| `national_kt_co2eq` | measure | float64 |  | 64766.870324631665 |
-| `healthcare_share_pct` | measure | float64 | % | 5.774885726544461 |
-| `healthcare_t_per_capita` | measure | float64 |  | 0.6368032168492488 |
-| `not_restatable_kt_co2eq` | measure | float64 |  | 155.29988960547564 |
+| `healthcare_kt_co2eq` | measure | float64 |  | 3703.462915429646 |
+| `national_kt_co2eq` | measure | float64 |  | 64531.27745079944 |
+| `healthcare_share_pct` | measure | float64 | % | 5.739019994224159 |
+| `healthcare_t_per_capita` | measure | float64 |  | 0.6305462431478842 |
+| `not_restatable_kt_co2eq` | measure | float64 |  | 155.22397294569546 |
 
 ### `fact_health_expenditure.csv`
 
@@ -308,18 +308,18 @@ units and are labelled as such wherever they are quoted.
 | `impact_category_id` | dimension | int64 |  | 1 |
 | `producing_region_id` | dimension | int64 |  | 1 |
 | `producing_industry_id` | dimension | int64 |  | 2 |
-| `value` | measure | float64 |  | 9827.429242261784 |
+| `value` | measure | float64 |  | 9825.576691913731 |
 
 ### `fact_national_total.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `model_id` | dimension | int64 |  | 1 |
-| `national_footprint` | measure | float64 |  | 77477.50333386465 |
-| `national_supply_chain` | measure | float64 |  | 67755.50852916535 |
+| `national_footprint` | measure | float64 |  | 77240.62118630517 |
+| `national_supply_chain` | measure | float64 |  | 67518.62638160588 |
 | `national_direct_households` | measure | float64 |  | 9721.994804699298 |
-| `healthcare_footprint_mrio` | measure | float64 |  | 3943.3970167956713 |
-| `healthcare_share_pct` | measure | float64 | % | 5.089731660302548 |
+| `healthcare_footprint_mrio` | measure | float64 |  | 3906.4460701401745 |
+| `healthcare_share_pct` | measure | float64 | % | 5.05750214089784 |
 | `indicator_id` | dimension | int64 |  | 2 |
 
 ### `fact_production_layer.parquet`
@@ -342,7 +342,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator_id` | dimension | int64 |  | 1 |
 | `producing_region_id` | dimension | int64 |  | 1 |
 | `producing_industry_id` | dimension | int64 |  | 2 |
-| `value` | measure | float64 |  | 9.793619712318792e-05 |
+| `value` | measure | float64 |  | 9.791773535342124e-05 |
 
 ### `fact_scope_component.csv`
 
@@ -372,4 +372,4 @@ units and are labelled as such wherever they are quoted.
 | `indicator_id` | dimension | int64 |  | 2 |
 | `draw_id` | dimension | int64 |  | 1 |
 | `draw_group_id` | dimension | int64 |  | 1 |
-| `value` | measure | float32 |  | 445.2305 |
+| `value` | measure | float32 |  | 444.90103 |

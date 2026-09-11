@@ -76,7 +76,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_code` | dimension | str |  | TWAS |
 | `producing_sector_name` | dimension | str |  | Sea and coastal water transport |
 | `producing_sector_group` | dimension | str |  | Transport |
-| `value` | measure | float64 | kt CO2eq | 851.7322525869282 |
+| `value` | measure | float64 | kt CO2eq | 851.7459273009042 |
 
 ### `lenzen_kpi_domestic_vs_imported.csv`
 
@@ -96,21 +96,21 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `total` | measure | float64 | varies by row | 5349.503093469286 |
-| `direct` | measure | float64 | varies by row | 353.1639159069545 |
-| `supplier_first_order` | measure | float64 | varies by row | 1391.566893648911 |
-| `higher_order` | measure | float64 | varies by row | 3604.77228391342 |
-| `direct_pct` | measure | float64 | % | 6.601807863950947 |
-| `supplier_pct` | measure | float64 | % | 26.01301222440167 |
-| `higher_order_pct` | measure | float64 | % | 67.38517991164738 |
-| `truncation_error_TE0_pct` | measure | float64 | % | 93.39819213604903 |
-| `truncation_error_TE1_pct` | measure | float64 | % | 67.38517991164738 |
-| `per_capita` | measure | float64 | varies by row | 910.7986647420558 |
-| `national_total` | measure | float64 | varies by row | 75538.91699124814 |
-| `share_of_national_pct` | measure | float64 | % | 7.081784206793795 |
-| `intensity_per_meur` | measure | float64 | varies by row | 0.1317709692149907 |
-| `domestic_pct` | measure | float64 | % | 28.399842585266015 |
-| `import_pct` | measure | float64 | % | 71.60015741473399 |
+| `total` | measure | float64 | varies by row | 5436.861904433601 |
+| `direct` | measure | float64 | varies by row | 353.33928659046666 |
+| `supplier_first_order` | measure | float64 | varies by row | 1424.439117159949 |
+| `higher_order` | measure | float64 | varies by row | 3659.083500683185 |
+| `direct_pct` | measure | float64 | % | 6.498956434820036 |
+| `supplier_pct` | measure | float64 | % | 26.1996560184536 |
+| `higher_order_pct` | measure | float64 | % | 67.30138754672636 |
+| `truncation_error_TE0_pct` | measure | float64 | % | 93.50104356517996 |
+| `truncation_error_TE1_pct` | measure | float64 | % | 67.30138754672636 |
+| `per_capita` | measure | float64 | varies by row | 925.6722496320032 |
+| `national_total` | measure | float64 | varies by row | 76569.67523019719 |
+| `share_of_national_pct` | measure | float64 | % | 7.100541941817506 |
+| `intensity_per_meur` | measure | float64 | varies by row | 0.133922824254441 |
+| `domestic_pct` | measure | float64 | % | 28.032121875610574 |
+| `import_pct` | measure | float64 | % | 71.96787812438943 |
 | `lenzen_dk_2015` | measure | float64 | varies by row | 3370.0 |
 | `lenzen_unit` | dimension | str |  | kt CO2eq |
 | `lenzen_note` | dimension | str |  | SI Tab. 10.1/10.2/10.3/10.4; SI Tab. 7.1 |

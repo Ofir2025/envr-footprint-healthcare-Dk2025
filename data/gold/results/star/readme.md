@@ -138,7 +138,7 @@ Schema definition (DDL) these tables satisfy: [`docs/methods/star_schema.sql`](.
 
 ### `fact_footprint_bilateral.parquet`
 
-- **Rows:** 2,351,620
+- **Rows:** 2,363,624
 - **Format:** parquet (pyarrow, snappy)
 - **Dimensions:** `model_id`, `indicator_id`, `demand_component_id`, `producing_region_id`, `producing_industry_id`, `purchased_region_id`, `purchased_industry_id`
 - **Measures:** `value`

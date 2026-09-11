@@ -58,11 +58,11 @@ units and are labelled as such wherever they are quoted.
 | `scenario_id` | dimension | str |  | B1 |
 | `scenario` | dimension | str |  | B1 grid and district heat, Danish, 2030 |
 | `ambition` | dimension | str |  | KF22 to 2030 |
-| `blue_water_consumption` | measure | float64 |  | -1.4879704410679468e-14 |
-| `climate_change` | measure | float64 |  | -3.0476807431981245 |
-| `land_use` | measure | float64 |  | 0.0 |
+| `blue_water_consumption` | measure | float64 |  | 0.0 |
+| `climate_change` | measure | float64 |  | -3.0693390280272723 |
+| `land_use` | measure | float64 |  | -1.8745413420408483e-14 |
 | `material_extraction` | measure | float64 |  | 0.0 |
-| `waste_generation` | measure | float64 |  | -1.2821856898918456 |
+| `waste_generation` | measure | float64 |  | -1.281303018692169 |
 | `shifts_burden` | dimension | bool |  | False |
 | `backfires_on_climate` | dimension | bool |  | False |
 | `non_climate_resolved` | dimension | bool |  | True |
@@ -79,11 +79,11 @@ units and are labelled as such wherever they are quoted.
 | `ambition` | dimension | str |  | KF22 to 2030 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `baseline` | measure | float64 | varies by row | 4712.417605953846 |
-| `scenario_value` | measure | float64 | varies by row | 4568.798162038112 |
-| `change` | measure | float64 | varies by row | -143.61944391573343 |
-| `change_pct` | measure | float64 | % | -3.0476807431981245 |
-| `per_capita_change` | measure | float64 | varies by row | -24.45243893944813 |
+| `baseline` | measure | float64 | varies by row | 4675.466659298348 |
+| `scenario_value` | measure | float64 | varies by row | 4531.960736382101 |
+| `change` | measure | float64 | varies by row | -143.50592291624707 |
+| `change_pct` | measure | float64 | % | -3.0693390280272723 |
+| `per_capita_change` | measure | float64 | varies by row | -24.43311101815417 |
 | `per_capita_unit` | dimension | str |  | kg CO2eq per capita |
 | `k_t` | dimension | str |  | 0.862266 |
 | `k_p` | dimension | str |  | 1 |
@@ -122,7 +122,7 @@ units and are labelled as such wherever they are quoted.
 | `producing_sector_name` | dimension | str |  | Cultivation of wheat |
 | `producing_sector_group` | dimension | str |  | Food and catering |
 | `value_type` | dimension | str |  | supply chain |
-| `value` | measure | float64 | kt CO2eq | 0.068653306187386 |
+| `value` | measure | float64 | kt CO2eq | 0.0686403644807465 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 
 ### `target_consistency.csv`
@@ -130,7 +130,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `quantity` | dimension | str |  | baseline climate footprint |
-| `value` | measure | float64 | varies by row | 4712.417605953846 |
+| `value` | measure | float64 | varies by row | 4675.466659298348 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `target` | dimension | str |  | Danske Regioner, January 2024 |
 | `basis` | dimension | str |  | consumption-based CO2 of hospitals, agai |

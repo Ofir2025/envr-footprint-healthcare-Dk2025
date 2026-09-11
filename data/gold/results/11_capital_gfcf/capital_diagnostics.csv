@@ -5,7 +5,7 @@ quantity,value,unit,source
 ratio national accounts / EXIOBASE CFC,1.7910516741585873,-,derived
 CFC not mapped by the asset bridge,0.0,M.EUR,derived
 capital demand vector total,2273.509328458519,M.EUR,derived
-spectral radius of A (baseline),0.9728905553730886,-,productivity check; must be < 1
-spectral radius of A' (endogenised),0.9728905651597545,-,"productivity check; must be < 1. Note rho barely moves: EXIOBASE's dominant eigenvector is concentrated (|v|=0.997) on 'Cultivation of paddy rice', a near-unit-column industry with no capital coefficient, so rho is not informative about the augmentation. The inverse verification below is."
-"max deviation of (I-A')L' from I, 12 sampled columns",2.0872192862952943e-14,-,inverse verification
+spectral radius of A (baseline),0.9728905553730656,-,productivity check; must be < 1
+spectral radius of A' (endogenised),0.9728905651596592,-,"productivity check; must be < 1. Note rho barely moves: EXIOBASE's dominant eigenvector is concentrated (|v|=0.997) on 'Cultivation of paddy rice', a near-unit-column industry with no capital coefficient, so rho is not informative about the augmentation. The inverse verification below is."
+"max deviation of (I-A')L' from I, 12 sampled columns",2.142730437526552e-14,-,inverse verification
 most negative element of L',-0.0,-,must be >= 0 for an economically meaningful inverse

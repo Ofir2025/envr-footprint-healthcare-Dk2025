@@ -58,10 +58,10 @@ units and are labelled as such wherever they are quoted.
 | `country_consuming` | dimension | str |  | DNK |
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
 | `species` | dimension | str |  | CO2 |
-| `mass_kg` | measure | float64 | varies by row | 2670662773.160374 |
+| `mass_kg` | measure | float64 | varies by row | 2634903852.230004 |
 | `unit` | dimension | str |  | kg |
 | `ar6_gwp100` | measure | float64 | varies by row | 1.0 |
-| `contribution_kt_co2eq` | measure | float64 | varies by row | 2670.662773160375 |
+| `contribution_kt_co2eq` | measure | float64 | varies by row | 2634.903852230004 |
 
 ### `gwp_revision_sensitivity.csv`
 
@@ -71,11 +71,11 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `gwp_revision` | dimension | str |  | IPCC SAR (1995) |
 | `is_study_default` | dimension | bool |  | False |
-| `healthcare_kt_co2eq` | measure | float64 |  | 3740.212749906714 |
-| `national_kt_co2eq` | measure | float64 |  | 64766.870324631665 |
-| `healthcare_share_pct` | measure | float64 | % | 5.774885726544461 |
-| `healthcare_t_per_capita` | measure | float64 |  | 0.6368032168492488 |
-| `not_restatable_kt_co2eq` | measure | float64 |  | 155.29988960547564 |
-| `not_restatable_share_pct` | measure | float64 | % | 4.152167269344478 |
+| `healthcare_kt_co2eq` | measure | float64 |  | 3703.462915429646 |
+| `national_kt_co2eq` | measure | float64 |  | 64531.27745079944 |
+| `healthcare_share_pct` | measure | float64 | % | 5.739019994224159 |
+| `healthcare_t_per_capita` | measure | float64 |  | 0.6305462431478842 |
+| `not_restatable_kt_co2eq` | measure | float64 |  | 155.22397294569546 |
+| `not_restatable_share_pct` | measure | float64 | % | 4.191319759109499 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `note` | dimension | str |  | HFC and PFC are supplied by EXIOBASE alr |

@@ -1,6 +1,6 @@
 analysis_year,quantity,source,value,unit,per_capita_t,ratio_to_figaro_national
 2022,Danish national consumption-based GHG footprint,Eurostat FIGARO (env_ac_ghgfp),57401.691,kt CO2eq,9.773128943613772,1.0
 2022,Danish national consumption-based GHG footprint,Statistics Denmark AFTRYK,62900.0,kt CO2eq,10.709263086923803,1.095786533536094
-2022,Danish national consumption-based GHG footprint,this study (EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)),77477.50333386465,kt CO2eq,13.191207734823092,1.3497425247257027
+2022,Danish national consumption-based GHG footprint,this study (EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)),77240.62118630517,kt CO2eq,13.15087652275934,1.3456157796171053
 2022,Danish general-government final consumption footprint,"Eurostat FIGARO (env_ac_ghgfp, P3_S13)",6373.687,kt CO2eq,1.0851747363546282,0.1110365720758993
-2022,"Danish health-care footprint, MRIO component",this study (EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)),3943.3970167956722,kt CO2eq,0.6713970764555698,0.06869827261353106
+2022,"Danish health-care footprint, MRIO component",this study (EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022)),3906.446070140176,kt CO2eq,0.6651058616853853,0.06805454686239427

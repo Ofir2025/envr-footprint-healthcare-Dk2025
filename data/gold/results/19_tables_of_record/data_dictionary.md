@@ -57,9 +57,9 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
-| `Health care` | measure | float64 |  | 95.5 |
+| `Health care` | measure | float64 |  | 95.4 |
 | `Per person` | measure | float64 |  | 16.3 |
-| `Danish total` | measure | float64 |  | 1276.4 |
+| `Danish total` | measure | float64 |  | 1276.1 |
 | `Share of national (%)` | measure | float64 | % | 7.5 |
 
 ### `table_02.csv`
@@ -69,8 +69,8 @@ units and are labelled as such wherever they are quoted.
 | `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
 | `2019` | measure | float64 |  | 57.5 |
-| `2022` | measure | float64 |  | 95.5 |
-| `Change (%)` | measure | float64 |  | 66.2 |
+| `2022` | measure | float64 |  | 95.4 |
+| `Change (%)` | measure | float64 |  | 66.1 |
 
 ### `table_03.csv`
 
@@ -78,8 +78,8 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `Activity group` | dimension | str |  | Transport |
 | `2019 (kt CO₂-eq)` | measure | float64 |  | 2605.2 |
-| `2022 (kt CO₂-eq)` | measure | float64 |  | 595.8 |
-| `Change (kt)` | measure | float64 |  | -2009.3 |
+| `2022 (kt CO₂-eq)` | measure | float64 |  | 566.5 |
+| `Change (kt)` | measure | float64 |  | -2038.6 |
 | `Driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `table_04.csv`
@@ -90,9 +90,9 @@ units and are labelled as such wherever they are quoted.
 | `Unit` | dimension | str |  | Mm³ |
 | `Scope 1` | measure | float64 |  | 0.0 |
 | `Scope 2` | measure | float64 |  | 0.07 |
-| `Scope 3` | measure | float64 |  | 95.36 |
+| `Scope 3` | measure | float64 |  | 95.3 |
 | `Outside protocol` | measure | float64 |  | 0.08 |
-| `TOTAL` | measure | float64 |  | 95.5 |
+| `TOTAL` | measure | float64 |  | 95.45 |
 
 ### `table_05.csv`
 
@@ -129,7 +129,7 @@ units and are labelled as such wherever they are quoted.
 | `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
 | `Capital excluded (headline)` | measure | float64 |  | 95.3 |
-| `Capital as a service flow` | measure | float64 |  | 102.4 |
+| `Capital as a service flow` | measure | float64 |  | 102.3 |
 | `Capital endogenised` | measure | float64 |  | 105.4 |
 | `Endogenised change (%)` | measure | float64 |  | 10.6 |
 
@@ -138,10 +138,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Impact category` | dimension | str |  | Global warming (ktCO2eq) |
-| `Deterministic` | measure | float64 |  | 4712.4 |
-| `Median` | measure | float64 |  | 4733.7 |
-| `2.5th percentile` | measure | float64 |  | 4063.6 |
-| `97.5th percentile` | measure | float64 |  | 5531.3 |
+| `Deterministic` | measure | float64 |  | 4675.5 |
+| `Median` | measure | float64 |  | 4696.5 |
+| `2.5th percentile` | measure | float64 |  | 4031.6 |
+| `97.5th percentile` | measure | float64 |  | 5488.3 |
 | `CV, Tier 2 (%)` | measure | float64 |  | 7.87 |
 | `CV, Tier 1 (%)` | measure | float64 |  | 7.84 |
 
@@ -150,14 +150,14 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Contributor` | dimension | str |  | Input-output model |
-| `Share of variance (%)` | measure | float64 | % | 78.8 |
+| `Share of variance (%)` | measure | float64 | % | 78.4 |
 
 ### `table_12.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Quantity` | dimension | str |  | baseline climate footprint |
-| `Value` | measure | float64 |  | 4712.4 |
+| `Value` | measure | float64 |  | 4675.5 |
 | `Unit` | dimension | str |  | kt CO₂-eq |
 
 ### `table_13.csv`
@@ -165,7 +165,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Scenario` | dimension | str |  | C3  maximum modelled, KF22 to 2035 |
-| `Climate (%)` | measure | float64 |  | -9.77 |
+| `Climate (%)` | measure | float64 |  | -9.85 |
 | `Material (%)` | dimension | str |  | -4.56 |
 | `Blue water (%)` | dimension | str |  | -1.37 |
 | `Land (%)` | dimension | str |  | -1.42 |
@@ -195,7 +195,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `number` | measure | int64 |  | 1 |
 | `title` | dimension | str |  | The Danish health-care footprint in 2022 |
-| `source` | dimension | str |  | 01_eriksen_replication/2022/figure1_acti |
+| `source` | dimension | str |  | 01_eriksen_replication/2022_shipping_cor |
 | `rows` | measure | int64 |  | 5 |
 | `columns` | measure | int64 |  | 6 |
 | `supersedes` | dimension | bool |  | True |

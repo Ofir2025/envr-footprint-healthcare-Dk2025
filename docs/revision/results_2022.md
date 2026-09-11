@@ -34,7 +34,7 @@ to the Danish health-care footprint, at 38-46 % depending on the run — is
 Statistics Denmark itself documents as broken. The audit subsection below
 confirms the submitted number is reproducible from the uncorrected data (so
 this is not a fix for an analytical error), traces exactly how the correction
-moves the share from 46 % to 15.5 %, and states what the paper should say now
+moves the share from 46 % to 14.9 %, and states what the paper should say now
 that pharmaceuticals, not transport, is the largest contributor.
 
 Denmark operates one of the world's largest merchant fleets. Every
@@ -62,10 +62,19 @@ emissions belong in Denmark's consumption footprint; in the second they do not.
 
 **EXIOBASE gets this badly wrong for Denmark.** It records **74 % of Danish
 water-transport output as being bought by other Danish industries**, when the
-Danish national accounts say the true figure is **9 %**; the rest is exported
-services, i.e. carrying the world's cargo. Statistics Denmark documented this
-(Rørmose Jensen & Iliev, 2022, table 1), and we reproduce their diagnosis on our
-own model at **73.6 %**.
+Danish national accounts say the true figure is **9 %** for 2019; the rest is
+exported services, i.e. carrying the world's cargo. Statistics Denmark documented
+this (Rørmose Jensen & Iliev, 2022, table 1), and we reproduce their diagnosis on
+our own model at **73.6 %**.
+
+Their 9 % is one published year. Since 11 September 2026 we no longer quote it for
+every year: the same share is read out of the same office's domestic input-output
+table for whichever background year the model runs on — **7.7 %** for the 2016
+background and **6.5 %** for 2022 — and their 2019 year is used as the check that
+our reading of the table reproduces what they published, which it does to 0.3
+percentage points (**9.3 %** against 9 %). The 2022 share is lower because the
+row's output grew from 226 to 337 bn DKK in the container-freight boom, almost
+all of it exported, while sales to Danish industries barely moved.
 
 The consequence: emissions from ships serving global trade get charged to Danish
 consumers, and (because every Danish industry appears to buy a lot of shipping)
@@ -80,17 +89,25 @@ sea transport**, which hospitals plainly do not.
 ### What we do
 
 We reallocate one row. The Danish sea-transport row's deliveries to Danish
-industries are scaled down so that its domestic intermediate share equals
-Statistics Denmark's published **9 %**, and the released output is moved to
-exports:
+industries are scaled down so that its domestic intermediate share equals the
+share $\phi$ that Statistics Denmark's own domestic input-output table records
+for that year, and the released output is moved to exports:
 
-```
-target      = 0.09 × x_row
-Z[row, DK] ← Z[row, DK] × target / Z[row, DK].sum()
-Y[row, foreign] ← Y[row, foreign] + released, distributed in proportion to
-                  each foreign region's existing final demand
-V[last, DK]     ← V[last, DK] + removed, restoring column balance
-```
+$$t = \phi \, x_{\text{row}}$$
+$$\mathbf{Z}[\text{row},\mathrm{DK}] \leftarrow \mathbf{Z}[\text{row},\mathrm{DK}] \cdot \frac{t}{\sum \mathbf{Z}[\text{row},\mathrm{DK}]}$$
+$$\mathbf{Y}[\text{row},\text{foreign}] \leftarrow \mathbf{Y}[\text{row},\text{foreign}] + \Delta\,w, \qquad w_c \propto \textstyle\sum_i \mathbf{Y}_{ic}$$
+$$\mathbf{V}[\text{last},\mathrm{DK}] \leftarrow \mathbf{V}[\text{last},\mathrm{DK}] + \bigl(\mathbf{Z}[\text{row},\mathrm{DK}] - \tilde{\mathbf{Z}}[\text{row},\mathrm{DK}]\bigr)$$
+
+with the last line restoring column balance. $\phi$ is **read, not quoted**:
+row 500000 (*Water transport*) of sheet `DIO` of Statistics Denmark's
+`input_output_en_<year>.xlsx`, its deliveries to the 117 Danish industries over
+its own total output. That gives **0.0774** for the 2016 background and
+**0.0651** for 2022; the 2019 table gives **0.0931**, which reproduces Rørmose
+Jensen & Iliev's published 0.09 to 0.3 percentage points and is asserted on every
+run as the check on the parse. Because $\phi$ is a ratio inside the Danish table
+it is dimensionless: the crowns cancel, the share is applied to EXIOBASE's own row
+total in M€, and no exchange rate enters anywhere. `HC_SHIPPING_PHI` pins the
+value by hand, which is how the published 0.09 is recovered with one variable.
 
 **Total industry output is unchanged**: it is not in dispute; it matches the
 national accounts. Only its *allocation* changes. Danish industries that stop
@@ -99,11 +116,11 @@ their own output comes from the national accounts and is also not in dispute.
 
 Verified: row balance to 1×10⁻¹¹, maximum column-balance residual 2×10⁻⁵ M€.
 
-**Effect:** transport falls from 37.5 % to **18.5 %** of the health-care climate
-supply-chain footprint (the 3,943 kt MRIO component; 15.5 % of the 4,712 kt total
+**Effect:** transport falls from 37.5 % to **17.8 %** of the health-care climate
+supply-chain footprint (the 3,906 kt MRIO component; 14.9 % of the 4,675 kt total
 once the domestic bottom-up items are included); the Danish sea-transport node
-falls from 852 kt to **74 kt**; the Danish national footprint falls from 85.2 Mt
-to **77.5 Mt**.
+falls from 852 kt to **53 kt**; the Danish national footprint falls from 85.2 Mt
+to **77.2 Mt**.
 
 The basis is stated because the two denominators differ by the bottom-up
 additions, which are entirely Danish and therefore dilute every supply-chain
@@ -119,18 +136,18 @@ flowchart LR
     subgraph BEFORE["EXIOBASE as published"]
       direction TB
       B1["Danish sea transport<br/><b>row output x</b>"]
-      B2["delivered to<br/><b>Danish industries</b><br/>far above the 9 %<br/>Statistics Denmark reports"]
+      B2["delivered to<br/><b>Danish industries</b><br/>far above the share<br/>Statistics Denmark records"]
       B3["delivered to<br/>foreign final demand"]
       B1 --> B2
       B1 --> B3
     end
 
-    OP["<b>One row is reallocated</b><br/>target = 0.09 × x<sub>row</sub><br/>the excess moves to exports,<br/>the removed purchase becomes value added"]
+    OP["<b>One row is reallocated</b><br/>target = φ × x<sub>row</sub><br/>φ read from the Danish IO table<br/>0.077 for 2016, 0.065 for 2022<br/>the excess moves to exports,<br/>the removed purchase becomes value added"]
 
     subgraph AFTER["After the reallocation"]
       direction TB
       A1["Danish sea transport<br/><b>row output x, unchanged</b>"]
-      A2["delivered to<br/><b>Danish industries, 9 %</b>"]
+      A2["delivered to<br/><b>Danish industries, φ</b>"]
       A3["delivered to<br/>foreign final demand<br/><i>plus the released output</i>"]
       A1 --> A2
       A1 --> A3
@@ -139,7 +156,7 @@ flowchart LR
     BEFORE --> OP --> AFTER
 
     INV["<b>Left untouched</b><br/>total industry output, which matches<br/>the national accounts and is not in dispute<br/>row balance 1×10<sup>−11</sup>, column residual 2×10<sup>−5</sup> M€"]
-    EFF["<b>Effect on the study</b><br/>transport 37.5 % → 18.5 % of the<br/>supply-chain climate footprint<br/>Danish sea-transport node 852 → 74 kt<br/>Danish national footprint 85.2 → 77.5 Mt"]
+    EFF["<b>Effect on the study</b><br/>transport 37.5 % → 17.8 % of the<br/>supply-chain climate footprint<br/>Danish sea-transport node 852 → 53 kt<br/>Danish national footprint 85.2 → 77.2 Mt"]
 
     AFTER --> INV
     AFTER --> EFF
@@ -157,7 +174,54 @@ flowchart LR
 ```
 
 A rendered copy is at `figures/diagrams/shipping_reallocation.png` for readers whose
-viewer does not draw Mermaid; `scripts/render_diagrams.py` produces it.
+viewer does not draw Mermaid; `scripts/render_diagrams.py` produces it. That PNG still
+shows the previous fixed 0.09 target and has to be re-rendered — the renderer needs
+`@mermaid-js/mermaid-cli`, which is not installed in this environment.
+
+<a id="phi-before-after"></a>
+
+#### What reading $\phi$ per year moved
+
+Every headline number the change touched, old against new. The old column is the model
+with $\phi = 0.09$ applied to both background years; the new column is $\phi$ read from
+Statistics Denmark's table, 0.0774 for 2016 and 0.0651 for 2022. Both uncorrected variants
+were re-run and are byte-identical, as they must be.
+
+| Quantity | Old | New | Change | Change, % |
+|:---|---:|---:|---:|---:|
+| $\phi$, 2016 background | 0.0900 | 0.0774 | −0.0126 | −14.1 |
+| $\phi$, 2022 background | 0.0900 | 0.0651 | −0.0249 | −27.7 |
+| Output released, 2016 background, M€ | 9,955.9 | 10,151.0 | +195.1 | +2.0 |
+| Output released, 2022 background, M€ | 11,509.8 | 11,953.9 | +444.2 | +3.9 |
+| **2022 climate footprint, kt CO₂-eq** | **4,712.4** | **4,675.5** | **−37.0** | **−0.78** |
+| 2022 MRIO supply-chain component, kt | 3,943.4 | 3,906.4 | −37.0 | −0.94 |
+| 2022 transport, purchased product, kt | 595.8 | 566.5 | −29.3 | −4.9 |
+| 2022 transport, producing node, kt | 728.2 | 695.1 | −33.1 | −4.5 |
+| 2022 Danish sea transport as a producing node, kt | 74 | 53.0 | −21 | −28 |
+| 2022 Danish national footprint, kt | 77,477.5 | 77,240.6 | −236.9 | −0.31 |
+| 2022 health-care share of the national footprint, % | 5.09 | 5.06 | −0.03 | −0.63 |
+| Monte Carlo median, 2022, kt | 4,734 | 4,697 | −37 | −0.78 |
+| Monte Carlo 95 % interval, kt | 4,064–5,531 | 4,032–5,488 | −32 / −43 | −0.79 / −0.78 |
+| **2019 climate footprint, corrected, kt** | **4,085.4** | **4,054.8** | **−30.6** | **−0.75** |
+| 2019 transport, purchased product, kt | 813.0 | 788.9 | −24.1 | −3.0 |
+| Bridge: correction step, net kt | −2,275.0 | −2,305.6 | −30.6 | +1.3 |
+| Bridge: year step, net kt | +627.0 | +620.7 | −6.3 | −1.0 |
+| 2019 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
+| 2022 uncorrected variant, all 28 files | — | — | **byte-identical** | 0 |
+
+Old values are from `phi-snapshot-before.json`, taken before anything was rebuilt, except
+the two producing-node rows, which are the published figures this document already
+carried; the Danish sea-transport node was reported to the unit, so its change is given to
+the unit too.
+
+The direction is the same everywhere and the magnitude is small: reading the share per
+year lowers the 2022 footprint by 0.8 % and the 2019 one by 0.7 %, and moves no ranking.
+What it removes is an assumption — that a share published for one year holds for every
+year — at the price of one extra bronze read. The full band of $\phi$ values, and what
+each is worth, is in
+[docs/methods/replications.md, section 10](../methods/replications.md#r10-sensitivity) and
+in `10_sea_transport_reallocation/phi_sensitivity_2016.csv` and
+`phi_sensitivity_2022.csv`.
 
 ### How this compares with every alternative
 
@@ -446,8 +510,8 @@ A four-step decomposition, each step measured rather than inferred:
 |:---|:---|:---|
 | 2019, v3.7/2016 background, uncorrected | **47.3 %** | n/a |
 | 2022 demand and v3.8.2 background, still uncorrected | 37.5 % | −9.8 pp |
-| **Danish sea-transport reallocation applied** | 18.5 % | **−19.0 pp** |
-| Bottom-up items included in the denominator | **15.5 %** | −3.0 pp |
+| **Danish sea-transport reallocation applied** | 17.8 % | **−19.7 pp** |
+| Bottom-up items included in the denominator | **14.9 %** | −2.9 pp |
 
 **The reallocation is the whole story.** Year, release, and demand vector together move the
 share by less than half of what the data correction does.
@@ -462,8 +526,8 @@ study?
 
 > **Transport.** The submitted analysis reported transport as the largest single
 > contributor to the Danish health-care climate footprint, at 46 % of sector contributions.
-> On the corrected model it is 18.5 % of the 3,943 kt multi-regional supply-chain
-> component and 15.5 % of the 4,712 kt total that additionally carries the bottom-up
+> On the corrected model it is 17.8 % of the 3,906 kt multi-regional supply-chain
+> component and 14.9 % of the 4,675 kt total that additionally carries the bottom-up
 > Danish items, measured on the producing-node perspective in both cases. The fall of
 > roughly 32 percentage points has three distinct sources, and only one of them is a
 > change of data.
@@ -479,18 +543,22 @@ study?
 > withdrawal is not a correction of an analytical error. Moving to 2022 expenditure and
 > the 2022 background, with no other change, brings the share to 37.5 %: Danish health
 > expenditure grew faster than its transport content, and the health-care footprint as a
-> whole falls from 6,361 kt to 4,712 kt across the two configurations.
+> whole falls from 6,361 kt to 4,675 kt across the two configurations.
 >
 > The second source is the correction to the Danish sea-transport allocation described in
-> the methods, and it accounts for 19.0 of the 32 points — more than the year, the release
+> the methods, and it accounts for 19.7 of the 32 points — more than the year, the release
 > and the demand vector combined. Rescaling one row of the Danish block from EXIOBASE's
-> 73.65 % domestic-intermediate share to the 9 % published in the Danish national accounts
-> releases 11,510 M€ of output from Danish intermediate use. Danish sea transport as a
-> producing node falls from 852 kt to 74 kt of the health-care footprint, a reduction of
-> 91 %, because the great majority of what the uncorrected model recorded as Danish
-> industries buying Danish shipping was the freight of world trade rather than of Danish
-> production. The Danish health-and-social-work industry alone was recorded as buying
-> 394 M€ of sea transport, which no hospital system does.
+> 73.65 % domestic-intermediate share to the 6.51 % that Statistics Denmark's own domestic
+> input-output table records for 2022 releases 11,954 M€ of output from Danish
+> intermediate use. That target share is read from the Danish table for each background
+> year rather than quoted from the single published year: it is 6.51 % for 2022 and 7.74 %
+> for 2016, and reading the 2019 table returns 9.31 % against the 9 % Statistics Denmark
+> report, which is how the reading is validated. Danish sea transport as a producing node
+> falls from 852 kt to 53 kt of the health-care footprint, a reduction of 94 %, because the
+> great majority of what the uncorrected model recorded as Danish industries buying Danish
+> shipping was the freight of world trade rather than of Danish production. The Danish
+> health-and-social-work industry alone loses 409 M€ of sea-transport input, which no
+> hospital system buys.
 >
 > The third source is the denominator, and it accounts for the remaining 3.0 points.
 > Including the bottom-up Danish items — anaesthetic gases, the direct fuel and waste
@@ -500,13 +568,13 @@ study?
 > stated wherever a transport figure appears.
 >
 > What survives the correction is substantial and should not be understated. Transport
-> remains the largest producing-node group in the footprint at 728 kt, and sea and coastal
-> water transport across all regions remains 476 kt, or 10.1 % of the total — genuine
+> remains the largest producing-node group in the footprint at 695 kt, and sea and coastal
+> water transport across all regions remains 443 kt, or 9.5 % of the total — genuine
 > international shipping in Danish health supply chains, now carried overwhelmingly by
 > foreign rather than Danish operators, since no Danish source licenses a correction to
 > another country's block. What changes is the headline: measured by purchased product,
-> the chemical and pharmaceutical group is the largest contributor at 1,738 kt, or 36.9 %,
-> against transport's 596 kt, or 12.6 %. The claim that transport dominates the Danish
+> the chemical and pharmaceutical group is the largest contributor at 1,737 kt, or 37.2 %,
+> against transport's 567 kt, or 12.1 %. The claim that transport dominates the Danish
 > health-care footprint does not survive; the claim that it is one of its three largest
 > components does.
 
@@ -521,22 +589,22 @@ directly, the climate footprint is 6,087.3 kt CO2eq and transport is 32.2 % of
 the total (36.8 % of the MRIO supply-chain component alone). The new
 `2019_shipping_corrected/` folder completes the other missing corner: applying
 the correction alone, holding the 2019 expenditure and 2016 background fixed,
-moves transport from 47.3 % of the total to 22.0 % (27.3 % of the MRIO
+moves transport from 47.3 % of the total to 21.5 % (26.7 % of the MRIO
 component) — by itself a larger share of the full 2019-to-2022 movement than
 the reference-year change contributes on its own, which moves the corrected
-share from 22.0 % to 15.5 %. `analysis.year_comparison.two_step_bridge`
+share from 21.5 % to 14.9 %. `analysis.year_comparison.two_step_bridge`
 computes this two-step decomposition group by group. A reviewer asking for the
 decomposition can now be pointed at the gold layer directly, for every step.
 
 #### What survives, and what should the paper now say?
 
-Transport is **still the third largest** contributor at 15.5 % of the total climate
-footprint, and **sea and coastal water transport alone is 10.1 %**, the single largest
+Transport is **still the third largest** contributor at 14.9 % of the total climate
+footprint, and **sea and coastal water transport alone is 9.5 %**, the single largest
 transport component even after correction, reflecting genuine international shipping in
 Danish health supply chains.
 
 What changes is the ranking. **Pharmaceuticals and chemical products is the largest
-contributor at 36.9 %**, not transport. The paper's central claim has to move accordingly,
+contributor at 37.2 %**, not transport. The paper's central claim has to move accordingly,
 in the abstract, the *Research in context* panel, and the cover letter.
 
 #### What a reviewer will ask, and the answer
@@ -562,16 +630,28 @@ scoped in [docs/methods/methods.md, "Danish SNAC"](../methods/methods.md#danish-
   footprint, and no Danish source can correct another country's allocation.
   This omission is a large part of why our national total remains above the
   official one.
-- **The 9 % benchmark is a single published year.** Rørmose report it for 2019;
-  we apply it to 2022, and to 2016 wherever a 2016 background is corrected. They
-  give no time series for the national-accounts share and assert no stability.
-  What *is* verified across years is the EXIOBASE side: measured on v3.8.2 the
-  Danish intermediate share is 73.51 % in 2016 and 73.65 % in 2022 against their
-  74 % for 2019, and the domestic final-demand and export shares track their 2019
-  values equally closely. The defect is therefore demonstrably structural; the
-  benchmark's constancy is assumed, and a reviewer is entitled to ask for the
-  Danish national-accounts water-transport share for the analysis year itself,
-  which is a single query against Statistics Denmark's published IO tables.
+- **The benchmark is now read per year, which removes the constancy assumption
+  but not every question about the target.** Rørmose report 9 % for 2019 only and
+  assert no stability, so until 11 September 2026 that one figure was applied to
+  every background year. The target is now read from the same office's domestic
+  input-output table for the year the background belongs to — 7.74 % for 2016 and
+  6.51 % for 2022, with the 2019 table returning 9.31 % as the check that the
+  reading reproduces what they published. What remains assumed is that the Danish
+  national-accounts allocation is the right target for a model whose row total is
+  EXIOBASE's, not the national accounts': the share is correct, the level it is
+  applied to is not reconciled. The EXIOBASE side is separately verified across
+  years — measured on v3.8.2 the Danish intermediate share is 73.51 % in 2016 and
+  73.65 % in 2022 against their 74 % for 2019, and the domestic final-demand and
+  export shares track their 2019 values equally closely — so the defect is
+  demonstrably structural.
+- **The 2022 target is lower than the 2019 one, and a reader should know why.**
+  Danish water-transport output rose from 226 to 337 bn DKK between the two
+  tables, almost all of it exported, so the domestic share falls even though
+  deliveries to Danish industries barely moved. Reading the share per year
+  therefore carries the freight boom into the correction rather than freezing a
+  pre-boom ratio. What the choice is worth is measured, not asserted: the band in
+  `10_sea_transport_reallocation/phi_sensitivity_2022.csv` puts it at 37 kt,
+  0.8 % of the 2022 total, against applying the published 0.09.
 - **The correction has now been applied to the 2016 background too.**
   `mrio2016_snacship.pkl` exists alongside `mrio2022_snacship.pkl`
   (`analysis.dk_shipping_correction`, run once per background year); the 2019
@@ -731,11 +811,11 @@ planned per the waste protocol
 
 | Indicator | Health-care footprint | Danish national footprint | Share, full footprint | Share, supply-chain component |
 |:---|:---|:---|:---|:---|
-| Climate change | **4,712.4 kt CO₂e** (802 kg per person) | 77,477.5 kt | 6.1 % | 5.1 % |
-| Material extraction | 4,259.4 kt | 53,939.3 kt | 7.9 % | 7.8 % |
-| Blue water | 95.5 Mm³ | 1,276.4 Mm³ | 7.5 % | 7.5 % |
-| Land use | 4,855.5 km² | 99,466.2 km² | 4.9 % | 4.9 % |
-| Waste generation | 259.4 kt | 10,587.3 kt | 2.5 % | 2.0 % |
+| Climate change | **4,675.5 kt CO₂e** (796 kg per person) | 77,240.6 kt | 6.1 % | 5.1 % |
+| Material extraction | 4,257.2 kt | 53,925.1 kt | 7.9 % | 7.8 % |
+| Blue water | 95.4 Mm³ | 1,276.1 Mm³ | 7.5 % | 7.5 % |
+| Land use | 4,851.8 km² | 99,442.9 km² | 4.9 % | 4.9 % |
+| Waste generation | 259.3 kt | 10,586.4 kt | 2.4 % | 2.0 % |
 
 *Two bases are given because they answer different questions and the study's own
 rule is that a share is meaningless without one. The full footprint adds the
@@ -745,14 +825,14 @@ waste and barely at all for the other three. Source:
 `00_core_footprint/national_totals_summary.csv` and the tables of record.*
 
 **Scopes (GHG Protocol, `analysis.scopes_detail`):**
-**S1 130.1 / S2 75.0 / S3 4,243.5 / outside-protocol 263.6 kt CO₂e.**
+**S1 130.1 / S2 75.0 / S3 4,206.8 / outside-protocol 263.6 kt CO₂e.**
 Partition asserted exact; producing-node detail reconciles. All six IO
 identities pass at ≤10⁻¹⁰ (`analysis.validate_io_identities`).
 
-**By producing sector group (climate, share of the 4,712 kt total):**
-transport 15.4 %, coal and petroleum 13.4 %, private travel 13.3 %, food and
-catering 12.9 %, chemicals 9.4 %, electricity 9.0 %, steam and hot water 6.4 %,
-waste management 4.7 %, services 3.3 %.
+**By producing sector group (climate, share of the 4,675 kt total):**
+transport 14.9 %, coal and petroleum 13.5 %, private travel 13.4 %, food and
+catering 13.0 %, chemicals 9.5 %, electricity 9.0 %, steam and hot water 6.4 %,
+waste management 4.8 %, services 3.3 %.
 
 These figures are producing-node shares, taken from `hotspot_by_sector_group.csv`
 ($\mathbf{B}\,\mathrm{diag}(\mathbf{L}\,y)$). The purchased-product view of the same footprint is a different
@@ -760,10 +840,10 @@ table (`contribution_by_purchased_product.csv`, $\mathbf{B}\,\mathbf{L}\,\mathrm
 different ranking; the two must not be quoted interchangeably.
 
 **Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median
-**4,734 kt**, 95 % interval **4,064 to 5,531 kt**, CV **7.87 %**, alongside
+**4,697 kt**, 95 % interval **4,032 to 5,488 kt**, CV **7.87 %**, alongside
 Lenzen et al.'s published 8.35 % for Denmark. First-order variance shares: MRIO
-parameters 78.8 %, the covariance between commuting and visitor travel 9.3 %,
-visitor travel 6.7 %, commuting 5.1 %; every other bottom-up item below 0.1 %.
+parameters 78.4 %, the covariance between commuting and visitor travel 9.4 %,
+visitor travel 6.8 %, commuting 5.2 %; every other bottom-up item below 0.1 %.
 Full derivation in [docs/revision/uncertainty.md](uncertainty.md).
 
 **Capital boundary.** Capital is excluded in the headline, for comparability with
@@ -1296,7 +1376,7 @@ The uncertainty parameter for the whole anaesthetic item (GSD 1.30, a 95 %
 factor range of 0.60 to 1.67) was set when the component was a transfer. It is
 left unchanged, which is now conservative rather than merely convenient.
 
-**Materiality:** the entire anaesthetic item is 11.6 kt of a 4,712 kt footprint
+**Materiality:** the entire anaesthetic item is 11.6 kt of a 4,675 kt footprint
 (0.25 %), and its exact first-order variance share is **0.007 %**. Even a
 factor-of-three error in the volatile component moves the headline by under
 0.06 %.
@@ -1399,13 +1479,13 @@ business-as-usual trajectory.
 
 | | kt CO₂e |
 |:---|:---|
-| 2022 baseline | 4,712 |
-| Reduction the regional target requires | −2,357 |
+| 2022 baseline | 4,675 |
+| Reduction the regional target requires | −2,338 |
 | Every intervention at maximum ambition, solved together | −361 |
-| …with the Danish grid decarbonising too | −461 |
+| …with the Danish grid decarbonising too | −460 |
 | …with the money saved actually being respent | −281 |
-| Demand growth to 2035 | +848 |
-| **2035 position, grid pathway included** | **5,100, above the 2022 baseline** |
+| Demand growth to 2035 | +842 |
+| **2035 position, grid pathway included** | **5,057, above the 2022 baseline** |
 
 *In words:* pull every lever we can quantify, as hard as the evidence supports,
 let the Danish grid decarbonise on the government's own projection, and the
@@ -1808,7 +1888,7 @@ cover letter all lead on transport (46 % of GHG in the sector view).
 EXIOBASE routes 73.6 % of Danish sea-transport output to Danish intermediate use against
 9 % in the national accounts, a defect Statistics Denmark published (Rørmose Jensen &
 Iliev 2022) and which EXIOBASE's own hybrid build does not reproduce (7.8 % natively).
-Correcting it takes transport from 37.5 % to 18.5 % of the supply-chain footprint. See
+Correcting it takes transport from 37.5 % to 17.8 % of the supply-chain footprint. See
 ["The withdrawn transport finding"](#the-withdrawn-transport-finding) above for the full
 audit.
 
@@ -1852,11 +1932,11 @@ the Danish sea-transport correction), and the demand vector (F1). The last is th
 | | Manuscript 2019 | This study 2022 |
 |:---|:---|:---|
 | Expenditure | 25,857 M€ | 40,597 M€ |
-| Climate change | 4,815 kt (5.6 %) | 4,712 kt (6.1 %) |
-| Material extraction | 2,601 kt (5.5 %) | 4,261 kt (7.9 %) |
-| Blue water | 47 Mm³ (4.3 %) | 95.5 Mm³ (7.5 %) |
-| Land use | 2,753 km² (3.6 %) | 4,856 km² (4.9 %) |
-| Waste generation | 840 kt (3.6 %) | 259 kt (2.5 %) |
+| Climate change | 4,815 kt (5.6 %) | 4,675 kt (6.1 %) |
+| Material extraction | 2,601 kt (5.5 %) | 4,257 kt (7.9 %) |
+| Blue water | 47 Mm³ (4.3 %) | 95.4 Mm³ (7.5 %) |
+| Land use | 2,753 km² (3.6 %) | 4,852 km² (4.9 %) |
+| Waste generation | 840 kt (3.6 %) | 259 kt (2.4 %) |
 
 Climate is nearly flat because two large changes offset: a 57 % larger demand vector
 against the withdrawal of the phantom shipping emissions. The other four rise roughly with
