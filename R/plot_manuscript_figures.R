@@ -53,6 +53,13 @@ ind_only_labeller <- as_labeller(
   setNames(sprintf("atop('%s', (%s))", IND_NAME, IND_UNIT_EXPR), names(IND_NAME)),
   default = label_parsed)
 
+# "Other" is figures 1 and 2's fallback -- the remaining EXIOBASE sectors the
+# nine-group `agg_ind_fig` classification does not name, following Steenmeijer
+# et al.'s own usage ("the remaining sectors combined in the group labelled
+# other"). "Unallocated" is a DIFFERENT bucket, kept for figure 3 / figS1's
+# geographical-origin panels, where it means the bottom-up rows that genuinely
+# have no producing region (ISO3 "GLO") -- see the recode to a fuller label
+# just before those panels are built, below.
 GROUP_COLS <- c(
   "Pharmaceuticals and chemical products" = "#0072B2",
   "Pharmaceutical and chemical industry"  = "#0072B2",
@@ -63,9 +70,19 @@ GROUP_COLS <- c(
   "Operational impacts" = "#8C564B",
   "Heat and electricity" = "#B8860B", "Electricity sector" = "#B8860B",
   "Fossil fuel industry" = "#7F7F7F", "Mining of minerals and metals" = "#B87333",
+  "Other" = "grey80",
   "Denmark" = "#0072B2", "Europe" = "#009E73", "Asia and Pacific" = "#E69F00",
   "Middle East" = "#CC79A7", "America" = "#56B4E9", "Africa" = "#D55E00",
-  "Unallocated" = "grey80")
+  "Unallocated" = "grey80", "No region: bottom-up items" = "grey80")
+
+# Figure 3 / figS1's geographical-origin bucket for the bottom-up rows that
+# have no producing region (ISO3 "GLO"): "Unallocated" is correct but says
+# only that the group is unmapped, not what it is. Recoded here, at display
+# time only -- the published gold CSVs keep "Unallocated", since this is a
+# presentation label, not a data correction.
+no_region_label <- function(x) {
+  dplyr::recode(x, "Unallocated" = "No region: bottom-up items")
+}
 
 gold <- function(f) read_csv(gold_path(f), show_col_types = FALSE)
 strip_key <- function(x) sub("\\|\\|\\|.*$", "", x)
@@ -90,7 +107,8 @@ f2 <- gold("figure2_sector_contributions.csv") %>%
   transmute(indicator, value, share_pct, group = hotspot_group,
             analysis = "B  Sector contribution")
 f3 <- gold("figure3_geographical_origin.csv") %>%
-  transmute(indicator, value, share_pct, group = producing_world_region,
+  transmute(indicator, value, share_pct,
+            group = no_region_label(producing_world_region),
             analysis = "C  Geographical origin")
 
 d1 <- bind_rows(f1, f2, f3) %>%
@@ -341,6 +359,7 @@ dk_save(p6, sprintf("fig6_scope_pairs_stacked_%s", YEAR), w = 21.5, h = 12)
 # ===================== SI  geographical origin on its own ===================
 dS <- gold("figure3_geographical_origin.csv") %>%
   mutate(indicator = ind_factor(indicator),
+         producing_world_region = no_region_label(producing_world_region),
          key = paste0(producing_world_region, "|||", as.integer(indicator))) %>%
   order_key()
 
@@ -381,9 +400,19 @@ bm_path <- tryCatch(gold_path("danish_healthcare_benchmark_boundary_matched.csv"
                     error = function(e) NA_character_)
 bm <- if (is.na(bm_path)) NULL else read_csv(bm_path, show_col_types = FALSE)
 # The benchmark table is not year-scoped, so `gold_path` resolves it for every
-# year. Draw the figure only for the year it was actually built for, or a 2019
-# run silently republishes the 2022 comparison under a 2019 filename.
-if (!is.null(bm) && as.character(unique(bm$year[bm$basis != "Schmidt & Merciai 2023 (published comparator)"])) == YEAR) {
+# variant. Draw the figure only for the (year, correction state) it was
+# actually built for: the year alone is not enough since the 2x2 split
+# introduced two folders per year (uncorrected and shipping-corrected) and the
+# benchmark's own `model` column shows it is built on the shipping-corrected
+# background - drawing it under `..._uncorrected` would mislabel corrected
+# data as uncorrected, and a 2019 run would still silently republish the 2022
+# comparison under a 2019 filename without the year check.
+bm_is_corrected <- !is.null(bm) &&
+  any(grepl("sea-transport reallocation", bm$model, fixed = TRUE))
+this_run_is_corrected <- background_tag == "_snacship"
+if (!is.null(bm) &&
+    as.character(unique(bm$year[bm$basis != "Schmidt & Merciai 2023 (published comparator)"])) == YEAR &&
+    bm_is_corrected == this_run_is_corrected) {
   d7 <- bm %>%
     filter(basis != "Schmidt & Merciai 2023 (published comparator)") %>%
     mutate(step = factor(basis,

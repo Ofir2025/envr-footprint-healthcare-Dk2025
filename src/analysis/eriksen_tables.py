@@ -204,6 +204,65 @@ def standardise(stem: str, prefix: str, description: str) -> pd.DataFrame:
     return long[long["value"].notna() & (long["value"] != 0)]
 
 
+def write_hotspot_by_country_and_sector_group(detail: pd.DataFrame,
+                                              out_dir: str) -> pd.DataFrame:
+    """Write the producing country x sector-group cross-tab of the hotspot table.
+
+    One row per (producing country, producing sector group, indicator), long
+    format, so a reader asking "how much of the transport group is China" or
+    "which country dominates 'Services'" answers it by filtering one column,
+    rather than needing a bespoke table per question. It is the same query
+    the removed ``[DIAG] Transport emissions by region`` console print
+    answered for one group (transport) and one grain (region); this table
+    answers it for every group at both country and region grain, published
+    rather than printed.
+
+    Parameters
+    ----------
+    detail : pandas.DataFrame
+        The standardised hotspot detail table -- the exact object written to
+        ``hotspot_by_producing_node.csv`` -- so this cross-tab is a coarser
+        aggregation of the identical data, not a second computation of it.
+    out_dir : str
+        The Eriksen variant folder to write into.
+
+    Returns
+    -------
+    pandas.DataFrame
+        The written table.
+
+    Raises
+    ------
+    AssertionError
+        If the cross-tab's per-sector-group or per-world-region totals do not
+        reproduce ``hotspot_by_sector_group.csv`` / ``hotspot_by_world_region.csv``
+        (both aggregates of the same ``detail``) to within 1e-9.
+    """
+    keys = ["producing_country_iso3", "producing_country_name",
+           "producing_world_region", "producing_sector_group",
+           "indicator", "unit"]
+    cross = (detail.groupby(keys, dropna=False)["value"].sum()
+             .reset_index().sort_values("value", ascending=False))
+    cross["analysis_year"] = ANALYSIS_YEAR
+    cross["model"] = MODEL_LABEL
+
+    for group_col in ("producing_sector_group", "producing_world_region"):
+        by_group = detail.groupby(["indicator", "unit", group_col],
+                                  dropna=False)["value"].sum()
+        from_cross = cross.groupby(["indicator", "unit", group_col],
+                                   dropna=False)["value"].sum()
+        worst = float((by_group - from_cross).abs().max())
+        assert worst < 1e-9, (
+            f"hotspot_by_producing_country_and_sector_group: totals by "
+            f"{group_col} drift from hotspot_by_producing_node.csv by "
+            f"{worst:.3e} (tolerance 1e-9)")
+
+    cross.to_csv(os.path.join(
+        out_dir, "hotspot_by_producing_country_and_sector_group.csv"),
+        index=False)
+    return cross
+
+
 def main() -> None:
     """Write every replication analysis as a detailed and an aggregate CSV."""
     out_dir = os.path.join(str(OUTPUT_DIR), FOLDER)
@@ -236,6 +295,11 @@ def main() -> None:
                 os.path.join(out_dir,
                              f"{out_stem}_domestic_vs_imported.csv"),
                 index=False)
+        if out_stem == "hotspot":
+            cross = write_hotspot_by_country_and_sector_group(detail, out_dir)
+            print(f"  {'cross-tab':12} {len(cross):>7,} rows  "
+                  f"(producing country x sector group, reconciles to "
+                  f"hotspot_by_producing_node.csv)")
         print(f"  {out_stem:12} {len(detail):>7,} rows  "
               f"({detail[f'{prefix}_country_iso3'].nunique()} regions x "
               f"{detail[f'{prefix}_sector_name'].nunique()} sectors x "

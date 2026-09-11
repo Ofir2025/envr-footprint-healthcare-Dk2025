@@ -56,9 +56,18 @@ which Rørmose Jensen & Iliev report as negative (p. 12) and which measures
 
 The uncorrected model is retained; both are reported.
 
-Run: PYTHONPATH=src .venv/bin/python -m analysis.dk_shipping_correction
-Then: HC_BACKGROUND_TAG=_snacship HC_ANALYSIS_YEAR=2022 \
-      .venv/bin/python -m analysis.main_2025
+Run, once per background year (``HC_ANALYSIS_YEAR`` selects it -- 2022 stays
+2022, anything else, 2019 today, maps to 2016 -- exactly as everywhere else in
+this package; HC_BACKGROUND_TAG must be unset, since this module writes the
+``_snacship`` variant itself)::
+
+    HC_ANALYSIS_YEAR=2022 PYTHONPATH=src .venv/bin/python -m analysis.dk_shipping_correction
+    HC_ANALYSIS_YEAR=2019 PYTHONPATH=src .venv/bin/python -m analysis.dk_shipping_correction
+
+Then, for either year, with the tag now set::
+
+    HC_BACKGROUND_TAG=_snacship HC_ANALYSIS_YEAR=2022 \\
+        .venv/bin/python -m analysis.main_2025
 """
 
 import os
@@ -67,11 +76,25 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from analysis.constants import K_DK, N_FINAL_DEMAND, N_SECTORS
+from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_TAG, BACKGROUND_YEAR,
+                                K_DK, N_FINAL_DEMAND, N_SECTORS, model_label)
 from paths import MRIO_DIR, OUTPUT_DIR
 
 FOLDER = "10_sea_transport_reallocation"
-YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
+
+# This module always writes the "_snacship" variant itself (TAG below), so it
+# must be run with HC_BACKGROUND_TAG unset -- setting it would make
+# BACKGROUND_YEAR point the source read at the very file this run creates.
+if BACKGROUND_TAG:
+    raise SystemExit(
+        "analysis.dk_shipping_correction writes the _snacship background "
+        f"itself; run it with HC_BACKGROUND_TAG unset, not {BACKGROUND_TAG!r}")
+
+#: Background year this run corrects: HC_ANALYSIS_YEAR maps onto it the same
+#: way every other module in this package does (2022 stays 2022; anything
+#: else -- 2019 today -- runs on the 2016 background). A 2019 analysis run
+#: therefore corrects mrio2016.pkl, not a nonexistent mrio2019.pkl.
+BG_YEAR = BACKGROUND_YEAR
 TAG = "_snacship"
 
 # Rørmose Jensen & Iliev (2022), Statistics Denmark, "Coupled models", pp. 11-12
@@ -79,12 +102,54 @@ SHARE_TARGET = 0.09
 SECTOR_NAME = "Sea and coastal water transport"
 
 
-def main():
+def _upsert_by_background_year(new: pd.DataFrame, path: str) -> pd.DataFrame:
+    """Replace this run's rows in an existing table, keeping other years' rows.
+
+    Parameters
+    ----------
+    new : pandas.DataFrame
+        Rows for the background year this run just computed. Must carry a
+        ``background_year`` column.
+    path : str
+        Where the table is, or will be, written.
+
+    Returns
+    -------
+    pandas.DataFrame
+        ``new`` merged with whatever the file on disk holds for OTHER
+        background years, so running this module for 2019 does not erase the
+        2022 rows an earlier run wrote, and running it again for 2022 does
+        not erase 2019's.
+    """
+    if not os.path.exists(path):
+        return new
+    old = pd.read_csv(path)
+    if "background_year" not in old.columns:
+        # A pre-upsert file from a single-year run holds only that run's own
+        # background year, so it is superseded rather than merged.
+        return new
+    this_year = str(new["background_year"].iloc[0])
+    old = old[old["background_year"].astype(str) != this_year]
+    return pd.concat([old, new], ignore_index=True)
+
+
+def main() -> None:
+    """Reallocate Danish sea transport on the configured background year.
+
+    Reads ``mrio<BG_YEAR>.pkl`` and writes ``mrio<BG_YEAR>_snacship.pkl`` /
+    ``leontief<BG_YEAR>_snacship.pkl`` beside it, plus this layer's two gold
+    diagnostics tables. Both tables are upserted by ``background_year`` (see
+    :func:`_upsert_by_background_year`), so a run on one background year does
+    not erase another's rows -- 2016 and 2022 sit side by side, and a reader
+    can see directly whether the 74 % misallocation Rørmose Jensen & Iliev
+    (2022) report for 2019 also holds on the 2016 background this study's
+    2019 replication actually runs on.
+    """
     out_dir = os.path.join(OUTPUT_DIR, FOLDER)
     os.makedirs(out_dir, exist_ok=True)
     mdir = str(MRIO_DIR) + os.sep
 
-    with open(f"{mdir}mrio{YEAR}.pkl", "rb") as fh:
+    with open(f"{mdir}mrio{BG_YEAR}.pkl", "rb") as fh:
         m = pickle.load(fh)
     inds = list(m["label"]["industry"]["Name"])
     sea = inds.index(SECTOR_NAME)
@@ -126,9 +191,9 @@ def main():
     L = np.linalg.inv(np.eye(A.shape[0]) - A)
 
     m["Z"], m["Y"], m["A"], m["V"] = Z, Y, A, V
-    with open(f"{mdir}mrio{YEAR}{TAG}.pkl", "wb") as fh:
+    with open(f"{mdir}mrio{BG_YEAR}{TAG}.pkl", "wb") as fh:
         pickle.dump(m, fh)
-    with open(f"{mdir}leontief{YEAR}{TAG}.pkl", "wb") as fh:
+    with open(f"{mdir}leontief{BG_YEAR}{TAG}.pkl", "wb") as fh:
         pickle.dump(L, fh)
 
     # verification
@@ -137,14 +202,20 @@ def main():
     resid_col = float(np.max(np.abs(col - xs[dk])))
     after = float(Z[row, dk].sum())
 
+    # Year-aware, so a 2019 (2016-background) run does not print "IOT_2022_ixi"
+    # against numbers it never touched. model_label() strips BACKGROUND_TAG,
+    # which is guaranteed empty here (asserted above), so this is exactly
+    # "EXIOBASE v3.8.2 IOT_<BG_YEAR>_ixi" with no variant suffix -- the
+    # UNCORRECTED background this run reads, before its own correction.
+    source_label = model_label(BG_YEAR)
     rows = [
         dict(quantity="DK sea transport total output", value=x_row, unit="M.EUR",
-             source="EXIOBASE v3.8.2 IOT_2022_ixi"),
+             source=source_label),
         dict(quantity="to DK intermediate use, before", value=before,
-             unit="M.EUR", source="EXIOBASE v3.8.2"),
+             unit="M.EUR", source=source_label),
         dict(quantity="share to DK intermediate use, before",
              value=100 * before / x_row, unit="%",
-             source="reproduces Rørmose Jensen & Iliev 2022 (74 %)"),
+             source="reproduces Rørmose Jensen & Iliev 2022 (74 % for 2019)"),
         dict(quantity="share to DK intermediate use, after",
              value=100 * after / x_row, unit="%",
              source="Rørmose Jensen & Iliev 2022 target (9 %)"),
@@ -158,25 +229,38 @@ def main():
     df = pd.DataFrame(rows)
     df.insert(0, "country_producing", "DNK")
     df.insert(1, "sector_producing", SECTOR_NAME)
-    df.to_csv(os.path.join(out_dir, "shipping_reallocation_diagnostics.csv"),
-              index=False)
+    # Which background year (and which analysis year selected it) every row
+    # below describes -- required so a reader comparing this file across runs
+    # can tell the 2016 rows from the 2022 rows without cross-referencing
+    # anything else.
+    df.insert(2, "background_year", BG_YEAR)
+    df.insert(3, "analysis_year", ANALYSIS_YEAR)
+    diag_path = os.path.join(out_dir, "shipping_reallocation_diagnostics.csv")
+    df = _upsert_by_background_year(df, diag_path)
+    df.to_csv(diag_path, index=False)
 
     # which Danish industries lose the phantom shipping input
     top = pd.DataFrame(dict(
         country_producing="DNK", sector_producing=SECTOR_NAME,
+        background_year=BG_YEAR, analysis_year=ANALYSIS_YEAR,
         country_consuming="DNK", sector_consuming=inds,
         value=removed_by_industry, unit="M.EUR"))
     top = top[top.value > 0].sort_values("value", ascending=False)
-    top.to_csv(os.path.join(out_dir,
-               "phantom_shipping_input_removed_by_industry.csv"), index=False)
+    top_path = os.path.join(out_dir,
+                            "phantom_shipping_input_removed_by_industry.csv")
+    top = _upsert_by_background_year(top, top_path)
+    top.to_csv(top_path, index=False)
 
-    print(df.to_string(index=False))
+    this_run = df[df.background_year.astype(str) == str(BG_YEAR)]
+    print(f"background year {BG_YEAR} (analysis year {ANALYSIS_YEAR})")
+    print(this_run.to_string(index=False))
     print(f"\nrow balance residual {resid_row:.3e} | column residual "
           f"{resid_col:.3e} M.EUR")
     print("\nDanish industries losing the largest phantom shipping input:")
-    print(top.head(10)[["sector_consuming", "value"]].to_string(index=False))
+    print(top[top.background_year.astype(str) == str(BG_YEAR)]
+          .head(10)[["sector_consuming", "value"]].to_string(index=False))
     print(f"\nwritten -> {out_dir}")
-    print(f"background -> mrio{YEAR}{TAG}.pkl, leontief{YEAR}{TAG}.pkl")
+    print(f"background -> mrio{BG_YEAR}{TAG}.pkl, leontief{BG_YEAR}{TAG}.pkl")
 
 
 if __name__ == "__main__":

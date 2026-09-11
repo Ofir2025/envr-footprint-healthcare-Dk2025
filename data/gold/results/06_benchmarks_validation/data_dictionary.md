@@ -233,11 +233,11 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
 | `value_2019` | measure | float64 |  | 2605.151771420495 |
-| `share_pct_2019` | measure | float64 | % | 40.952900791806286 |
+| `share_pct_2019` | measure | float64 | % | 40.95901759879052 |
 | `value_2022` | measure | float64 |  | 595.84969141357 |
 | `share_pct_2022` | measure | float64 | % | 12.644246355856732 |
 | `delta_kt` | measure | float64 |  | -2009.3020800069253 |
-| `share_of_total_change_pct` | measure | float64 | % | 121.85573525178977 |
+| `share_of_total_change_pct` | measure | float64 | % | 121.92598109092444 |
 | `driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `year_comparison_run_differences.csv`
@@ -249,3 +249,17 @@ units and are labelled as such wherever they are quoted.
 | `y2022` | dimension | str |  | 2022 |
 | `kind` | dimension | str |  | change in the world |
 | `effect` | dimension | str |  | health-care expenditure rises 15 %, from |
+
+### `year_comparison_two_step_bridge.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `contribution_group` | dimension | str |  | Transport |
+| `value_2019_uncorrected` | measure | float64 |  | 2605.151771420495 |
+| `value_2019_shipping_corrected` | measure | float64 |  | 813.0081239113521 |
+| `value_2022_shipping_corrected` | measure | float64 |  | 595.84969141357 |
+| `delta_correction_kt` | measure | float64 |  | -1792.1436475091432 |
+| `delta_year_kt` | measure | float64 |  | -217.1584324977821 |
+| `share_of_correction_change_pct` | measure | float64 | % | 78.77521660190381 |
+| `share_of_year_change_pct` | measure | float64 | % | -34.6322694995035 |
+| `driver` | dimension | str |  | correction step: sea-transport reallocat |
