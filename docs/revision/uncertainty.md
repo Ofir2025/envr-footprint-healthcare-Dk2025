@@ -424,11 +424,14 @@ EXIOBASE publishes no standard errors for its cells, so we cannot resample them.
 Instead the whole supply-chain part carries one factor calibrated to the only
 published Monte Carlo estimate of *this exact quantity*: Lenzen et al. (2020),
 SI table 7.1, report the Danish health-care greenhouse-gas
-footprint as $2.84 \pm 0.24$ Mt CO₂e, obtained by propagating uncertainty
-through Eora's transaction, satellite, and final-demand matrices. That is a
-relative standard deviation of
+footprint as $2.84 \pm 0.24$ Mt CO₂e with a relative standard deviation of
+**8.35 %**, obtained by propagating uncertainty through Eora's transaction,
+satellite, and final-demand matrices. The 8.35 % is the value printed in their
+table, computed from unrounded figures; dividing the two rounded numbers gives
+$0.24 / 2.84 = 8.45\ \%$, so the calibration uses the published relative
+standard deviation, not that quotient:
 
-$$\mathrm{CV} = \frac{0.24}{2.84} = 8.35\ \%$$
+$$\mathrm{CV} = 8.35\ \%$$
 
 Converting a CV to the lognormal spread:
 
