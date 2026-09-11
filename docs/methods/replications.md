@@ -740,10 +740,16 @@ Each uncertain quantity enters as a **median-1 lognormal multiplier**:
 $$f^{(d)} = \sum_k \lambda_k^{(d)} \, f_k, \qquad
 \lambda_k \sim \mathrm{LogNormal}(0, \sigma_k^2), \quad \mathrm{median}(\lambda_k)=1$$
 
-Median-1 means the simulation median reproduces the deterministic result and the
-distribution adds dispersion without shifting the centre. (The *mean* is inflated by
-$e^{\sigma^2/2}$; this inflation is why the median, not the mean, is reported as the
-central value.)
+Median-1 means the distribution adds dispersion without shifting the centre. It does
+**not** make the agreement exact: the median of a *sum* of lognormals is not the sum
+of the medians, so the simulation median reproduces the deterministic result to within
+0.5 % (+0.45 % for climate, `uncertainty_audit.csv`), and only the MRIO block taken on
+its own has median exactly 1. The *mean* is inflated by every parameter at once,
+
+$$\frac{\mathbb{E}[f]}{f} = \frac{\sum_k f_k\,e^{\sigma_k^2/2}}{\sum_k f_k} = 1.00838$$
+
+i.e. +0.84 % for climate, not the +0.35 % the MRIO factor supplies on its own; this
+inflation is why the median, not the mean, is reported as the central value.
 
 #### Parameters
 
@@ -754,10 +760,18 @@ central value.)
 | `anaesthetic` | GSD 1.3 | Denmark NID 2.G.3.a activity ± 25 % |
 | `pmdi` | GSD 1.15 | register dispensing × producer HFC content |
 | `commute` | GSD 1.25 | ratio method on NL base with DST employment and TU distances |
-| `visitor` | GSD 1.4 | no Danish source; Dutch base is itself a transplanted English figure |
+| `visitor` | GSD 1.4 | patient travel is Danish (Transportvaneundersøgelsen, DTU, table 15, purpose 33 *Social/sundhed*); the **visitor** component alone has no Danish source and carries the NHS England visitor-to-patient ratio 0.236 (Tennison et al. 2021) |
 
 The widest distribution is on the parameter with the weakest provenance, which is the
-correct ordering and is visible in the table rather than asserted in prose.
+correct ordering and is visible in the table rather than asserted in prose. One further
+property of the table should be stated rather than left to be noticed: **only `mrio` is
+a cited uncertainty.** The other five spreads are judgements about what kind of source a
+quantity has — defensible, ordered by provenance, and derived from no published error
+statistic, because none exists for these series. Statistics Denmark publishes no
+uncertainty for DRIVHUS or AFFALD; the NID gives activity and emission-factor ranges for
+2.G.3.a but combining them in quadrature gives GSD 1.18 as 95 % ranges or 1.37 as
+one-sigma CVs, and the 1.30 used sits between and follows from neither, having been set
+when the component was still a transfer and left unchanged since.
 
 #### MRIO uncertainty
 
@@ -768,8 +782,18 @@ Rodrigues et al. report an empirical correlation of 0.63 ± 0.36 (median 0.76); 
 $\rho = 1$ assumption is therefore an upper bound on this component's contribution, and
 `uncertainty_mrio_correlation.csv` reports the interval under alternative $\rho$.
 
-The calibration target, 8.35 %, is the only published Monte Carlo estimate of *this exact
-quantity*. Wood et al. (2019) independently give 8.8 % for Denmark.
+**The calibration is a transfer, and the transfer is stated.** Lenzen et al.'s
+8.35 % belongs to an **Eora** Danish health-care footprint of **2.84 Mt**; this study's
+deterministic total is an **EXIOBASE** footprint of **4.675 Mt**, 65 % larger. The
+borrowed relative standard deviation is therefore carried across a database, a construct
+and a footprint size, and none of the three is neutral. The direction, at least, is
+known: Lenzen's own SI (p. 33, Fig. SI 7.1 and the sentence beneath it) makes the
+relative standard deviation a *decreasing* function of footprint size, so transferring
+8.35 % upward to a larger footprint errs wide rather than narrow. Lenzen et al. also fit
+a **normal** to their draws and report $\sigma_F$; this study reinterprets the same
+number as a lognormal CV. It remains the **closest published** Monte Carlo estimate of
+this quantity for Denmark, which is what the layer claims for it and all it claims; Wood
+et al. (2019) independently give 8.8 % for Denmark from a cross-database comparison.
 
 #### Structural choices are scenarios, not distributions
 
@@ -798,8 +822,39 @@ rather than by inspection of intervals.
 | Deterministic climate | 4,675 kt |
 | Median | 4,697 kt |
 | 95 % interval | 4,032 to 5,488 kt |
-| CV | 7.87 % |
+| CV, Tier 2 simulation | 7.87 % |
+| CV, Tier 1 error propagation | 7.90 % |
 | MRIO share of variance | 78.4 % |
+
+Both tiers now use the same per-term variance, $a_k^2(e^{\sigma_k^2}-1)e^{\sigma_k^2}$,
+so the 0.03 percentage points between them is a matter of what each divides by: Tier 1
+normalises on the deterministic total, the reported Tier 2 CV on the simulated mean,
+which sits 0.84 % above it. Until 11 September 2026 Tier 1 used
+$a_k^2(e^{\sigma_k^2}-1)$, the variance of a lognormal whose *mean* is $a_k$ when $a_k$
+is in fact its *median*, and read 0.06 percentage points lower; the closer agreement
+that produced was fortuitous, not evidence.
+
+### The published sample
+
+`uncertainty_group_draws_gwp.npy` is the full simulated sample, published because
+Schulte et al. (2026, section 4) rank sharing it above sharing any summary of it. It is
+**not** listed in this folder's generated `readme.md` or `data_dictionary.md`, which
+enumerate `.csv` and `.parquet` tables only, so its specification is here:
+
+| Property | Value |
+|:---|:---|
+| Shape | 100,000 × 9, draws × contribution groups |
+| dtype | `float32` |
+| Unit | kt CO₂eq |
+| Column order | the row order of `uncertainty_group_covariance_gwp.csv`, whose key column is named `group` |
+| Indicator | climate change (`Global warming (ktCO2eq)`) |
+| Scenario | pharmaceutical mapping A, price base year `none`, waste reference year `central` |
+| Correlations | $\rho = 0.8$ (travel pair), $\rho_M = 1.0$ (MRIO across groups) |
+| Seed, draws | 42, 100,000 — the same run as row A / climate of `uncertainty_totals.csv` |
+
+Summing the nine columns of a row gives that draw's footprint total;
+`analysis.build_star_schema` asserts that the median, both interval endpoints and the
+coefficient of variation recovered this way reproduce the published summary.
 
 ### Deviations from the source, stated
 
@@ -824,7 +879,21 @@ manuscript; reporting the interval without it would over-claim.
 - Simulation moments are checked against the closed-form mean and variance of a sum of
   lognormals.
 - Variance shares sum to 100.0 % once the covariance of the correlated travel
-  pair is carried as its own row; without it the own-terms reach only 90.6 %.
+  pair is carried as its own row; without it the own-terms reach only 90.6 %. That the
+  shares sum to 100 % is arithmetic, not evidence — each share is its own term over the
+  sum of the same terms. The evidence is the pair of **frozen-input** rows in
+  `uncertainty_audit.csv`, which rebuild two of the shares from the draws: the MRIO share
+  (closed form 78.4 %, frozen-input 78.5 %) and the travel block including its covariance
+  (closed form 21.45 %, frozen-input 21.36 %).
+- `analysis.uncertainty_audit` runs nineteen numerical tests on the drawn samples and
+  writes `uncertainty_audit.csv`. Every check is a test on draws rather than a
+  restatement of the specification; its tolerance is narrower than the effect it
+  measures; and the MRIO factor, which carries 78.4 % of the variance, is included in
+  the median-1 and realised-spread checks rather than skipped.
+- Every table reporting a median or an interval carries `draws` and `seed`. The layer
+  publishes the same central case from runs of 20,000, 40,000 and 100,000 draws, whose
+  medians span about 3 kt — twice the Monte Carlo standard error of the median, and
+  therefore noise rather than disagreement, which these two columns let a reader confirm.
 - A step-by-step derivation of every equation, for a reader who does not want
   to read the code, is in [docs/revision/uncertainty.md](../revision/uncertainty.md), sections 1-9.
 
