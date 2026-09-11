@@ -25,7 +25,7 @@ Health and social work, 2022; the national accounts give 45,321 M.EUR). See
 | Waste generation | 259.3 kt | 2.4 % |
 
 Every cell is read from gold: the footprints from
-[`data/gold/results/01_eriksen_replication/2022_shipping_corrected/figure1_activity_contributions.csv`](data/gold/results/01_eriksen_replication/2022_shipping_corrected/figure1_activity_contributions.csv)
+[`data/gold/results/01_eriksen_replication/2022c/figure1_activity_contributions.csv`](data/gold/results/01_eriksen_replication/2022c/figure1_activity_contributions.csv)
 summed over activity groups, the denominators from `national_footprint` in
 [`data/gold/results/00_core_footprint/national_totals_summary.csv`](data/gold/results/00_core_footprint/national_totals_summary.csv),
 and the per-capita value on the 2022 Danish population of 5,873,420 that
@@ -106,7 +106,13 @@ stops the script rather than draw CO₂, Mm³ and km² as `..`.
 modules on disk without running anything. It defaults to
 `HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship` - the published background.
 
-Scope variants: `HC_SCOPE=health_only | health_eldercare | zorg_en_welzijn`.
+Model variants: `01_eriksen_replication/` and `02_scopes_wood_hertwich/` hold one
+folder per variant, `<year><letter>`, selected by `HC_EXIOBASE_RELEASE`
+(`v3_7 | v3_8_2`), `HC_BACKGROUND_TAG` (`"" | _snacship`), `HC_SCOPE`
+(`health_only | health_eldercare | zorg_en_welzijn`) and `HC_CAPITAL`
+(`excluded | endogenised`). The four letters are defined in
+[`docs/methods/replications.md`, section 01](docs/methods/replications.md#r01)
+and in `data/gold/results/01_eriksen_replication/readme.md`.
 Accounting checks: `PYTHONPATH=src python -m analysis.validate_io_identities`.
 
 ## Documentation
