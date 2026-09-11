@@ -8,6 +8,17 @@
 # Reads the gold CSV facts the Python pipeline writes, so R and Python report
 # the same numbers by construction rather than by coincidence.
 
+# ---- locale guard ------------------------------------------------------------
+# The scripts carry CO₂, Mm³ and km² as UTF-8 literals. Under a C locale R
+# decodes the source as raw bytes and the TIFF device prints "CO..": the
+# figure is written with its subscripts silently lost. Refuse to draw instead.
+if (!isTRUE(l10n_info()[["UTF-8"]])) {
+  stop("Not a UTF-8 locale (LC_CTYPE = ", Sys.getlocale("LC_CTYPE"), "). ",
+       "Run as  LANG=en_US.UTF-8 Rscript r/<script>.r  - in a C locale ",
+       "CO\u2082, Mm\u00b3 and km\u00b2 render as '..' in every figure.",
+       call. = FALSE)
+}
+
 suppressPackageStartupMessages({
   library(readr); library(dplyr); library(tidyr); library(ggplot2)
   library(scales); library(forcats)
