@@ -69,7 +69,12 @@ GROUP_COLS <- c(
   "Medical, electrical equipment and machinery" = "#D55E00",
   "Operational impacts" = "#8C564B",
   "Heat and electricity" = "#B8860B", "Electricity sector" = "#B8860B",
-  "Fossil fuel industry" = "#7F7F7F", "Mining of minerals and metals" = "#B87333",
+  # Fossil fuel industry was #7F7F7F, a grey one step from the grey80 that
+  # "Other" carries in the same row, and mining was a copper that sat on top of
+  # the brown of "Operational impacts", also in the same row. Every category in
+  # a row now has a hue of its own; "Other" keeps the grey, because a residual
+  # should not look like a category.
+  "Fossil fuel industry" = "#6A3D9A", "Mining of minerals and metals" = "#264653",
   "Other" = "grey80",
   "Denmark" = "#0072B2", "Europe" = "#009E73", "Asia and Pacific" = "#E69F00",
   "Middle East" = "#CC79A7", "America" = "#56B4E9", "Africa" = "#D55E00",
@@ -116,8 +121,22 @@ d1 <- bind_rows(f1, f2, f3) %>%
          analysis = factor(analysis, levels = c("A  Activity contribution",
                                                 "B  Sector contribution",
                                                 "C  Geographical origin")),
-         key = paste0(group, "|||", as.integer(analysis))) %>%
-  order_key(by = "share_pct")
+         key = paste0(group, "|||", as.integer(analysis)))
+
+# Ranked on CLIMATE CHANGE, descending from the top of each row.
+#
+# `facet_grid(analysis ~ indicator)` shares one y ordering across the five
+# panels of a row, so exactly one indicator can set it. It used to be set by the
+# sum of shares across all five, which is not a quantity anyone reads: the
+# climate panel - the study's headline, and the first panel a reader meets - came
+# out with 29 %, 7 %, 13 %, 5 %, 28 % down the rows. It is now ordered by the
+# climate share, so the leading panel reads top to bottom in descending order and
+# the other four keep that order for comparison rather than each fighting for it.
+clim_rank <- d1 %>%
+  filter(indicator == "climate_change") %>%
+  group_by(key) %>% summarise(v = sum(share_pct), .groups = "drop") %>%
+  arrange(v)
+d1 <- d1 %>% mutate(key = factor(key, levels = clim_rank$key))
 
 # Absolute values with the share printed on the bar: the magnitude is what a
 # reader comparing health systems needs, and the share is what ranks the groups.
