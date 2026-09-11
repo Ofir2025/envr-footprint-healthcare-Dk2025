@@ -232,9 +232,27 @@ itself following Steenmeijer et al. (2022)
 ### Question this layer answers
 
 This layer reproduces everything the manuscript reports, in the manuscript's own
-table and figure structure, once per reference year and its matching background
-model: 2019 expenditure on the 2016 background (as submitted) in `2019/`, and
-2022 expenditure on the 2022 background (the resubmission) in `2022/`.
+table and figure structure, once per reference year AND per Danish sea-transport
+correction state ([section 10](#r10)), in four self-describing subfolders rather
+than two:
+
+| Folder | Reference year | Background | Correction applied |
+|:---|:---|:---|:---|
+| `2019_uncorrected/` | 2019 (as submitted) | EXIOBASE v3.8.2 `IOT_2016` | no |
+| `2019_shipping_corrected/` | 2019 | EXIOBASE v3.8.2 `IOT_2016` | yes |
+| `2022_uncorrected/` | 2022 (the resubmission) | EXIOBASE v3.8.2 `IOT_2022` | no |
+| `2022_shipping_corrected/` | 2022 | EXIOBASE v3.8.2 `IOT_2022` | yes |
+
+`2019_uncorrected` and `2022_shipping_corrected` are the two folders the earlier,
+two-folder layout held (as `2019/` and `2022/`); the co-author's headline transport
+finding compares them directly, which confounds three things that change at once -
+reference year, background release, AND the sea-transport correction, since the
+submitted 2019 replication was never shipping-corrected while 2022 was. The two new
+folders, `2019_shipping_corrected` and `2022_uncorrected`, complete the 2x2 so each
+effect can be read in isolation: `2019_uncorrected` -> `2019_shipping_corrected`
+is the correction alone (same year, same background); `2019_shipping_corrected` ->
+`2022_shipping_corrected` is the year alone (same correction state on both ends).
+`analysis.year_comparison.two_step_bridge` computes exactly that decomposition.
 
 This folder is the deliverable for the resubmission. It is deliberately kept in the
 submitted paper's shape (the same tables, the same figure numbering) so that the
@@ -328,6 +346,7 @@ workbook, document or image is published in this folder.
 | `contribution_by_purchased_product.csv` (30,499) | $h_j$, indexed by **purchased product** |
 | `intensity_by_purchased_product.csv` (30,487) | $m_j$, indexed by purchased product |
 | `*_by_sector_group.csv`, `*_by_world_region.csv`, `*_domestic_vs_imported.csv` | the aggregations the manuscript prints |
+| `hotspot_by_producing_country_and_sector_group.csv` | $c_i$ by producing country **and** sector group, long format - so "transport by producing country" or any other group's country breakdown is one filter on this table, and every group's country split is answered by it, without a bespoke table per question. Derived from the same detail table as `hotspot_by_producing_node.csv`; per-group and per-region totals are asserted to reconcile to it to 1e-9 |
 | `table_01.csv`, `table_s05_dk.csv`, `steenmeijer_table.csv` | manuscript tables |
 | `scopes_summary.csv` | the GHG-Protocol scope split for this boundary |
 | `full_results_tables_fig1_absolute.csv`, `full_results_tables_fig1_relative_pct.csv`, `full_results_tables_fig2_absolute.csv`, `full_results_tables_fig2_relative_pct.csv`, `full_results_tables_fig3_absolute.csv`, `full_results_tables_fig3_relative_pct.csv` | the tables behind figures 1-3, absolute and as a percentage share |
@@ -1817,7 +1836,11 @@ and aggregate 4.41 × 10⁻¹⁴.
 **Module** `analysis.steenmeijer_replication`
 **Source** Steenmeijer, Rodrigues, Zijp & Waaijers-van der Loop (2022), *The environmental
 impact of the Dutch health-care sector beyond climate change*, Lancet Planet Health
-6:e949-57
+6:e949-57, and its supplementary appendix
+**Archive** the authors' own model and outputs, kept verbatim at
+`archive/rivm_steenmeijer_2022/` (upstream
+<https://github.com/rivm-syso/envr-footprint-healthcare>), which the article's data-sharing
+statement names as the release of record
 
 ### Question this layer answers
 
@@ -1825,12 +1848,280 @@ This layer places Denmark beside every number the Dutch study published, in thei
 table structure, for every impact category, not only climate. That completeness is what
 FAIR replication means here.
 
-Their published values are transcribed into the module as a documented constant with
-provenance, so the comparison is reproducible without re-reading the paper.
+It also publishes the Dutch results themselves as long-format CSVs, because the release of
+record is six Excel workbooks: the sheets are wide, the index columns are blank-filled the
+way a spreadsheet writes a hierarchical index, the units live inside the column headings,
+and no cell says where it came from. `convert_rivm_outputs` turns every sheet of every
+workbook into the same vocabulary the Danish tables use, carries the archived path and the
+upstream repository in a `source` column on every row, and asserts each converted column
+total back against the workbook before writing. Nothing is recomputed: their EXIOBASE v3.7
+background is not in this repository, and a re-run would no longer be their published
+result.
 
-### Method
+### Their method
 
-#### Their core construction, implemented exactly
+#### System boundary
+
+A sectoral footprint is the operational (direct) impact of the sector plus the impacts
+arising in the value chain of everything it buys, given an expenditure vector (p e950).
+Three deliberate boundary choices follow.
+
+The sector is the **broad definition of the expansive scope**: *zorg en welzijn*, health
+care and welfare services together, on the national rather than the internationally
+comparable definition, so it counts care delivered in the Netherlands whoever receives it,
+and it includes childcare and youth care. The choice is pragmatic, made to line up with
+EXIOBASE's own "Health and social work" industry, which aggregates health and social work
+and does not separate resident from non-resident consumption (appendix p 4).
+
+The **household extension is excluded**: at-home consumption of health-care products by
+households carries no share of the footprint, because EXIOBASE reports household stressors
+in one aggregated account whose source cannot be identified (p e955).
+
+**Capital is excluded**, for the same structural reason: EXIOBASE pools the gross fixed
+capital formation of all industries into a single account, so health care's share of it
+cannot be separated (p e955).
+
+#### Expenditure vector
+
+The footprint equation, in this document's notation (appendix p 2), is
+
+$$p = c\,(\mathbf{B}\,\mathbf{L}\,f + d)$$
+
+with $p$ the scalar footprint in one impact dimension, $c$ the $1 \times K$ row vector of
+characterisation factors, $\mathbf{B}$ the $K \times N$ matrix of direct extension
+intensities, $\mathbf{L}$ the Leontief inverse, $f$ the $N \times 1$ expenditure vector and
+$d$ the $K \times 1$ vector of direct extension flows.
+
+$f$ is the sum of three elements. Health-care expenditure is reported in purchaser prices
+and EXIOBASE in basic prices, so each is converted with the 2016 national supply table, by
+subtracting taxes less subsidies and trade and transport margins (appendix p 4):
+
+| Element | Purchaser price, M€ | Conversion | Basic price, M€ | EXIOBASE industry |
+|:---|:---|:---|:---|:---|
+| Health and welfare services | 86,096 | 1.00 (none) | 86,096 | 85 Health and social work |
+| Pharmaceuticals and other medical non-durables | 5,639 | 0.67 | 3,778 | 62 Chemicals n.e.c. |
+| Therapeutic appliances and other medical durables | 3,107 | 0.85 | 2,641 | 33 Medical, precision and optical instruments |
+| **Total** | **94,842** | — | **92,515** | — |
+
+Source: appendix table S2.2, p 5.
+
+The services element is the construction worth stating in full, because decomposing it is
+the only reason the contribution analysis has any product detail at all. Spending 86,096 M€
+on "health and social work" would decompose into exactly one product. Instead the
+**intermediate-input column** of the Dutch health and social work industry is taken from
+the transaction matrix and rescaled to the reported expenditure (appendix p 5):
+
+$$f_{\text{services}} = \mathbf{Z}_{\cdot\,h}\;\frac{y_{\text{services}}}{x_{h}}$$
+
+where $\mathbf{Z}_{\cdot\,h}$ is that column, $x_{h}$ is the industry's **total input**,
+intermediate use *plus* value added, and $y_{\text{services}}$ is the reported expenditure.
+Scaling 86,096 M€ by that ratio leaves 26,283 M€ of intermediate use in $f$ (appendix p 5);
+the remainder is value added, which carries no upstream footprint.
+
+The other two elements enter at their full basic-price value, spread over supplying regions
+in proportion to where Dutch total final demand sources that product:
+
+$$f_{\text{pharma}} = y^{\text{bp}}_{\text{pharma}}\;s_{\text{CHEM}},
+\qquad
+s_{\text{CHEM},\,r} =
+\frac{\sum_{k} \mathbf{Y}_{(r,\,\text{CHEM}),\,(\text{NL},\,k)}}
+     {\sum_{r'}\sum_{k} \mathbf{Y}_{(r',\,\text{CHEM}),\,(\text{NL},\,k)}}$$
+
+The two sourcing distributions are printed in full in appendix table S2.3 (p 6-7): 36.8 %
+of Chemicals n.e.c. is sourced from rest-of-world Asia and Pacific and 15.5 % from the
+United States, while 45.6 % of medical instruments is domestic and 10.6 % German.
+
+The indirect footprint is then split two ways from the same array (appendix p 2). The
+**contribution** analysis indexes it by what was bought,
+
+$$p_{c} = c\,\mathbf{B}\,\mathbf{L}\,\hat{f}$$
+
+and the **hotspot** analysis by where the pressure physically arises,
+
+$$p_{h} = c\,\mathbf{B}\,\widehat{\mathbf{L}f}$$
+
+Both are marginals of one array and therefore reconcile to the same total. Environmental
+intensities are the leading product $c\,\mathbf{B}\,\mathbf{L}$ of the contribution form,
+reported per M€ (appendix p 3).
+
+#### Release, extensions and characterisation
+
+The background is the **EXIOBASE v3.7 industry-by-industry table for 2016**, 163 industries
+by 49 regions (p e951). Four pressures come from its own extensions: climate change,
+abiotic material extraction (used domestic extraction), blue water consumption and land
+use. **Waste generation is not from that table**: it is the supply of waste plus waste from
+stock, taken from the hybrid EXIOBASE v3 supply-use table, whose latest year at the time
+was **2011** (p e951). Characterisation is the **DESIRE FP7** table for the EXIOBASE side
+and **ReCiPe 2016 (H)** for the life-cycle side, with an adjustment step because the two
+could not be used as published (p e952, appendix pp 12-18). The archived workbooks confirm
+the releases: `MR_HSUT_2011_v3_3_17_extensions.xlsb` for the waste extension and
+`characterisation_DESIRE_version3.4_adapted.xlsx` for the characterisation.
+
+Five impact categories were chosen deliberately and the number was capped: they picked
+categories without an obvious link to one another, and limited the set "for practical
+reasons" (p e951). Climate change, freshwater use and land-system change are planetary
+boundaries, with land use standing in for land-system change; waste generation and abiotic
+extraction are the two circularity measures (p e951).
+
+Direct emissions of the sector are **not** taken from the EXIOBASE extension. They are
+replaced with Statistics Netherlands' environmental accounts for the industry that
+corresponds to EXIOBASE's Health and Social Work, covering CO₂, CH₄ and N₂O but not medical
+gases (p e951). No other impact category's direct values were replaced, for want of better
+data.
+
+#### How the bottom-up items enter
+
+Four items are appended as extra rows, outside the input-output system, each with its own
+pseudo-sector code in the archive:
+
+| Item | Archive code | What it is | Reference year | Value, kt CO₂e |
+|:---|:---|:---|:---|:---|
+| Operational emissions | `B_HEAL` | national-accounts direct emissions of the sector | 2016 | see the mismatch table below |
+| Anaesthetic gases | `B_ANAE` | hospital inventory of sevoflurane, desflurane and nitrous oxide, restated on ReCiPe 2016 (H) | 2019 | 14 |
+| pMDI propellants | `B_PMDI` | propellant released from pressurised metered-dose inhalers during at-home use | 2016 | 77 |
+| Private travel | `B_COMM`, `B_VISI`, `B_REST` | employee commuting, and patient and visitor travel, from distances estimated as in the English study and costed against ecoinvent v3.7 | 2016 | 932 |
+
+Sources: p e952 for the three bottom-up estimates and their reference years; appendix pp
+8-11 for the travel calculation.
+
+Two features of the travel item matter for the figures. First, it is a life-cycle result,
+so it already contains both a use phase and a production and disposal chain; the study
+splits it into a **direct** and an **indirect** part. Second, the indirect part was never
+bridged onto EXIOBASE industries or regions, because doing so would have meant mapping the
+ecoinvent classification onto EXIOBASE's, which they judged too laborious (p e952,
+appendix p 8). It is therefore carried as one unallocated row, named "Not distributed
+travel impact" in the archive.
+
+The scope labels follow the Greenhouse Gas Protocol: operational emissions including
+anaesthetic gases are scope 1, electricity and steam and hot water are scope 2, everything
+else indirect is scope 3, and patient and visitor travel is outside the protocol
+(appendix p 22).
+
+#### How the figures group sectors, and what they do with private travel
+
+All three figures are 100 % stacked bars, one bar per impact category, with the axis
+labelled "Contribution (%)". The 163 EXIOBASE industries are first aggregated to 21 groups
+(appendix pp 33-37), then those groups are collapsed again into the seven or eight entries
+each figure's legend carries. Figure 1's seven named groups cover at least 85 % of every
+impact category; figure 2's six named groups each reach at least 9 % of some category; the
+remainder of each is a group labelled *other* (captions, p e954).
+
+The captions state one further step: in figures 2 and 3 "the indirect impact from private
+travel was proportionally distributed among all groups" and "among all regions" (p e954,
+e955). For a 100 % stacked bar, distributing an unallocated component in proportion to
+every other component is arithmetically the same as computing the shares without it, which
+is how `_figure_shares` implements it, by dropping the `B_REST` rows from the base.
+
+The figure groups here are read off the **printed legends**, checked segment by segment
+against the published figures' own vector geometry, rather than off the `agg_ind_fig` sheet
+of the archived classification workbook. The two disagree in one respect that is visible
+rather than arguable: that sheet assigns "Natural gas and gaseous fuels" and "Steam, hot
+water supply and water distribution" to *other*, but figure 1's "Heat and electricity"
+band on the climate bar is 11.76 % of the bar, where electricity alone is 10.51 % and
+electricity with gas and steam is 11.75 %. The same test across the other four bars agrees.
+`FIG1_GROUPS` therefore puts all three with electricity, and the R figure script carries
+the identical rule.
+
+### Their headline numbers, with page references
+
+| Quantity | Published value | Where |
+|:---|:---|:---|
+| Basic-price expenditure in the vector | 92,515 M€ | table, p e953 |
+| Climate change | 17,575 kt CO₂e | table, p e953 |
+| Material extraction | 33,801 kt | table, p e953 |
+| Blue water consumption | 394 Mm³ | table, p e953 |
+| Land use | 23,845 km² | table, p e953 |
+| Waste generation | 4,803 kt | table, p e953 |
+| Health care's share of the national footprint: material extraction | 13.0 % | abstract p e949; appendix table S7, p 21 |
+| ... blue water consumption | 7.5 % | same |
+| ... climate change | 7.3 % | same |
+| ... land use | 7.2 % | same |
+| ... waste generation | 4.2 % | same |
+| Health-care services: share of expenditure, and of impacts | 93.1 % of spend, 43.5-61.4 % of impacts | p e952 |
+| Pharmaceuticals and chemical products: the same | 4.1 % of spend, 27.9-54.0 % of impacts | p e952 |
+| Medical appliances: the same | 2.9 % of spend, 1.5-4.9 % of impacts | p e952 |
+| Anaesthetic gases, share of the climate footprint | 0.1 % | p e952 |
+| pMDI propellants, share of the climate footprint | 0.4 % | p e952 |
+| Private travel, share of the climate footprint | 5.3 %, against under 1.0 % of every other | p e952 |
+| Climate change arising in the Netherlands | 6,009 of 17,575 kt CO₂e, 34.2 % | p e953 |
+| Material extraction arising in Asia-Pacific | 25,243 of 33,801 kt, 74.7 % | p e953 |
+| Mining's share of the climate footprint | 2.6 % | p e953 |
+| Agriculture's share of the climate footprint | 11.8 % | p e953 |
+
+### What the archive holds, and where it differs from the article
+
+The archived workbooks do not reproduce the article's own tables exactly, and the module's
+own warning says why: `main.py` reads the most recent Statistics Netherlands data at run
+time, so the expenditure and the direct emissions move with the vintage of the query rather
+than staying at the values the article was written against. Three consequences, all
+verifiable in the converted CSVs:
+
+| What | Article | Archive | Difference | Why |
+|:---|:---|:---|:---|:---|
+| Climate change, total | 17,575 kt | 17,718.56 kt | +0.8 % | direct emissions and the conversion factors, below |
+| Direct emissions of the sector | 1,573.8 kt (1,588 less the 14.2 kt of anaesthetic gases) | 1,699.0 kt | +125.2 kt | a later Statistics Netherlands vintage; the archived input `CBS_data_2016.csv` carries 1,699.0 |
+| Basic-price expenditure | 92,515 M€ | 92,528.02 M€ | +13.0 M€ | the article applied the conversion factors rounded to two places (0.67, 0.85); the code applies them unrounded (0.67262, 0.84940) |
+| Material extraction, total | 33,801 kt | 33,872.19 kt | +0.2 % | the same expenditure difference |
+| Health care's climate share of the national footprint | 7.3 % | 7.341 % | +0.04 pp | the same |
+
+Two further discrepancies are internal to the archive and are findings in their own right,
+not vintage effects:
+
+- **`ContributionAnalysis.xlsx` is stale relative to the other five workbooks.** Its
+  climate total is 17,694.56 kt where `HotspotAnalysis.xlsx`, `Table1.xlsx` and
+  `TableS5.xlsx` all give 17,718.56 kt. The whole of the 24.0 kt gap sits in the direct
+  emissions row: `B_HEAL` is 1,675.0 kt in the contribution workbook and 1,699.0 kt in the
+  hotspot workbook, although one run of `main.py` writes both from the same value. The
+  converted CSVs carry each workbook as it stands, so the gap is visible rather than
+  smoothed away.
+- **The anaesthetic-gas figure is stated three ways.** The methods text gives 14.6 kt CO₂e
+  after conversion to ReCiPe 2016 (H) (p e952), the article's table gives 14 kt (p e953),
+  and the archive's `bottomup_data.txt` gives 14.2 kt. The archive value is the one every
+  workbook was computed from.
+
+The published figures are a third artefact again, and they do not everywhere reproduce the
+appendix tables they are drawn from. `nl_published_figure_shares.csv` puts both side by
+side: for each figure, category and legend entry it carries the share the article actually
+draws, measured from the vector geometry of the published figure, against the share the
+archived workbooks hold.
+
+| Figure | Largest disagreement | Where it is |
+|:---|:---|:---|
+| 1 | 0.52 pp | the operational-impacts band of the climate bar, which is the direct-emissions vintage above; every other band of every bar is within 0.12 pp |
+| 2 | 3.63 pp | the climate bar only. Its *other* band is drawn 3.6 pp larger and its five named groups correspondingly smaller than any grouping of table S9 gives. The other four bars are within 0.52 pp |
+| 3 | 1.79 pp | the climate bar's Netherlands band only, drawn 1.8 pp larger than table S10 supports. The other four bars are within 0.08 pp |
+
+The article states that its figures were composed in a spreadsheet, and the archive ships
+no figure data file, so the two climate bars cannot be traced further than this. The Dutch
+figures reproduced here are therefore rendered **from the archived workbooks**, in the
+article's groups, order and palette, and the residual against the printed figure is
+published rather than hidden.
+
+### Their stated limitations and recommendations for future work
+
+Every row is their statement, in this document's words, with the page it appears on; the
+last column is what the Danish study does with it. The table is the precedent this study
+advances from, and is written to be quotable as such.
+
+| # | What they state | Page | How the Danish study answers it |
+|:---|:---|:---|:---|
+| 1 | At-home consumption of health-care products by households falls outside the sectoral boundary, because EXIOBASE reports household stressors in one aggregated account. They added a single at-home item, the pMDI propellant, and call for research into the rest | e955 | **Carried, not closed.** The Danish boundary is theirs, and adds the same pMDI item plus anaesthetic gases. The rest of at-home consumption remains outside, and is stated as a limitation rather than claimed as covered |
+| 2 | Capital investment is excluded, because EXIOBASE pools every industry's gross fixed capital formation into one account. Future work should establish whether health care's investments, such as building care facilities, can be added | e955 | **Answered.** [Section 11](#r11) endogenises capital following Södersten et al. (2018) and reports the footprint with and without it; [section 07](#r07) is the capital-boundary comparator, because Malik et al. include capital where the other comparators exclude it |
+| 3 | No uncertainty propagation was attempted. Of the major public EE-MRIO databases only Eora reports ranges, and the one published Dutch estimate found uncertainty rising once a single sector was isolated | e952, e955-e956 | **Answered.** [Section 04](#r04) runs a Monte Carlo over the Danish footprint, calibrated on the only published estimate of this exact quantity, and reports the interval, a Sobol variance decomposition and ranking probabilities |
+| 4 | EXIOBASE aggregates all health and welfare services into one industry, so the result describes the whole sector and nothing inside it. The industry should be disaggregated on the spend of different provider types | e955 | **Answered in part, and extended.** The Danish supply-use disaggregation is set out in [docs/methods/01_danish_sut_and_health_disaggregation.md](01_danish_sut_and_health_disaggregation.md), and the decomposition by System of Health Accounts function is layer 17, a follow-on paper rather than this one. What ships here is the boundary variant: health only, health with eldercare, and the Dutch *zorg en welzijn* definition, each run end to end |
+| 5 | Pharmaceuticals enter through EXIOBASE's Chemicals n.e.c., a heterogeneous category holding products as unlike as soap and medicines, so how representative the intensity is cannot be known. It should be split, with at least one category for pharmaceuticals | e955 | **Carried, and bounded.** The mapping is the same, because the release is the same. It is treated as a structural modelling decision rather than a measurement error and run as an explicit scenario in [section 04](#r04), so its effect on the result is reported instead of assumed away |
+| 6 | Waste generation rests on the 2011 hybrid supply-use extension against a 2016 baseline, and the mismatch compounds with classification mismatches, aggregation bias and EE-MRIO uncertainty | e951, e954 | **Answered.** [Section 05](#r05) replaces the hybrid extension with Statistics Denmark's own waste accounts for the analysis year, and publishes the hybrid-versus-measured comparison that justifies the replacement rather than asserting it |
+| 7 | A national-accounts satellite more accurate than EXIOBASE exists for the Netherlands, but covers only carbon and material | e954 | **Answered for the two pressures the Danish accounts cover.** Direct emissions come from Statistics Denmark DRIVHUS and direct waste from the Danish waste accounts; the remaining pressures stay on EXIOBASE, as theirs do |
+| 8 | Uncertainty should be examined especially for the categories the literature rarely analyses, such as waste generation | e954 | **Answered.** Waste is inside the Monte Carlo of [section 04](#r04) and carries its own validation layer in [section 05](#r05) |
+| 9 | Whether health care's share of national material extraction exceeding its share of national climate change is a real effect of single-use practice or an artefact of the model is unresolved | e954 | **Tested, and it holds.** The same ordering appears in Denmark on a different economy, a different reference year and a later release, which is independent evidence that it is not an artefact of one model run |
+| 10 | Results across health-care footprint studies are hard to compare, because they differ in EE-MRIO database, extensions, definition of health care and reference year | e954, appendix pp 29-31 | **Answered.** [Section 06](#r06) benchmarks the Danish result against the only comparable published Danish study on a matched boundary, and [sections 07](#r07), [08](#r08) and [14](#r14) place the comparators in one table with each study's boundary stated |
+| 11 | The number of impact categories was capped at five for practical reasons | e951 | **Answered.** [Section 12](#r12) computes the full characterisation and reports the same five, so the choice of five is a reporting decision with the remainder available rather than a limit of the model |
+| 12 | The indirect part of private travel could not be bridged from ecoinvent onto EXIOBASE sectors and regions, and is carried unallocated | e952, appendix p 8 | **Carried, and made explicit.** The same component is unallocated in the Danish model. It is published as its own row rather than absorbed, and the figures distribute it proportionally, as theirs do |
+| 13 | The anaesthetic-gas inventory is 2019 data used against a 2016 baseline, for want of 2016 data | e952 | **Answered.** The Danish anaesthetic-gas estimate is built from Danish pharmacy sales for the analysis year, so there is no reference-year mismatch |
+| 14 | Bottom-up and top-down results are laborious to combine: life-cycle studies do not always cover the same stages or the same impact categories, less standardised categories such as material extraction take real effort to align, and waste flows are absent from life-cycle inventories altogether. Future bottom-up estimates should adopt the impact categories, characterisation factors and life-cycle stages used here so they integrate cleanly | e956 | **Answered.** Every bottom-up item is characterised on the study's own basis, climate on IPCC AR6 ([section 15](#r15)); the scope decomposition in [section 02](#r02) and the double-counting audit in [section 03](#r03) keep the bottom-up and top-down components separable, so neither is counted twice |
+| 15 | Dutch initiatives would benefit from wider international collaboration, in particular the inclusion of pharmaceutical-producing countries, and from widening the scope beyond climate change to a fuller environmental footprint | e953-e954 | **This study is an instance of it.** A second national footprint on their method, on all five of their categories, with the supplying countries reported explicitly in the geographical hotspot |
+
+### Their core construction, implemented exactly
 
 The health services component is not footprinted from an expenditure vector but from the
 health industry's own **input column**:
@@ -1849,14 +2140,14 @@ entering the MRIO is much smaller than health expenditure: 13,067 M€ against
 40,597 M€ (32.2 %). Steenmeijer's equivalent is 26,283 against 92,515 M€ (28.4 %). The
 difference is value added, which has no upstream footprint.
 
-#### Whose final demand?
+### Whose final demand?
 
 **All financing regimes, not households only.** Steenmeijer cover the whole health-care
 sector's final demand. The one thing they exclude is the *household extension* (direct
 household emissions), which we also exclude. This boundary was verified against the paper
 rather than inferred, because the distinction changes the boundary substantially.
 
-#### Comparability warnings, carried in the output
+### Comparability warnings, carried in the output
 
 Three differences make a naive side-by-side misleading. Each is a column in the output
 tables, not a footnote:
@@ -1865,12 +2156,13 @@ tables, not a footnote:
 |:---|:---|:---|
 | **Boundary** | *zorg en welzijn*, includes childcare | health + eldercare, excludes childcare |
 | **Year** | 2016 | 2022 |
-| **Background** | EXIOBASE v3.3 | v3.8.2 with sea-transport reallocation |
+| **Background** | EXIOBASE v3.7, waste from the 2011 hybrid supply-use table | v3.8.2 with sea-transport reallocation, waste from the Danish accounts |
+| **Climate characterisation** | the workbook's AR4 factors | IPCC AR6 GWP100, see [section 15](#r15) |
 
 The Danish run with the Dutch boundary (`HC_SCOPE=zorg_en_welzijn`) is available for the
 matched comparison and is used in [section 06](#r06).
 
-#### The comparison that matters
+### The comparison that matters
 
 The decisive comparison is both countries' **health share of the national total**, which
 is unit-free and is what their abstract leads with. Their headline finding, that material
@@ -1880,21 +2172,54 @@ argument for the multi-indicator framing.
 
 ### Data requirements
 
-This layer needs $\mathbf{Z}$, $\mathbf{V}$, $x$, $\mathbf{A}$, $\mathbf{L}$, $\mathbf{S}$, and $\mathbf{C}$; Danish health expenditure; and
-the Dutch published values, transcribed with provenance.
+This layer needs $\mathbf{Z}$, $\mathbf{V}$, $x$, $\mathbf{A}$, $\mathbf{L}$, $\mathbf{S}$, and $\mathbf{C}$; Danish health expenditure;
+the Dutch published values, transcribed with provenance; and the archived RIVM workbooks,
+located by `HC_RIVM_ARCHIVE_DIR` when this working copy does not carry them.
 
 ### Deviations from the source, stated
 
-- Their background is EXIOBASE v3.3 and ours v3.8.2; we do not rebuild on v3.3, so
+- Their background is EXIOBASE v3.7 and ours v3.8.2; we do not rebuild on v3.7, so
   absolute levels carry a release component.
 - Our climate figures are AR6, theirs are the workbook's AR4. Absolute climate values are
   therefore not directly comparable; shares are.
+- The figure groups follow the article's printed legends rather than the `agg_ind_fig`
+  sheet of its classification workbook, for the reason given above. The rule is stated in
+  `FIG1_GROUPS` and `FIG2_GROUPS` and repeated in `R/plot_steenmeijer_replication.R`.
+- The Danish figures fold this study's own `Transport` and `Unallocated` groups into the
+  article's *other*, so the two countries' legends are identical. No value changes; the
+  grouping is the only thing that does.
+- The figures are rendered with the legend on the right, which is the article's placement,
+  rather than at the foot as the house convention has it. Nothing else about the house
+  convention is set aside: neither figure carries a title or a caption.
 
 ### Outputs
 
-This layer writes `template_table_dk_vs_nl.csv` (their table structure, both countries,
-per capita and absolute) and `national_shares_dk_vs_nl.csv` (health share of national by
-indicator, with the comparability note per row).
+| File | Content |
+|:---|:---|
+| `template_table_dk_vs_nl.csv` | their table structure, both countries, absolute and per capita |
+| `national_shares_dk_vs_nl.csv` | health share of the national footprint by indicator, with the comparability note per row |
+| `nl_table_01.csv` | their table of footprints by top-down and bottom-up category, long |
+| `nl_table_s05.csv` | footprint against the national consumption footprint (the workbook named `TableS5.xlsx`; it is appendix table S7, p 21) |
+| `nl_contribution_by_purchased_node.csv`, `..._by_purchased_product.csv`, `..._by_sector_group.csv` | the contribution analysis at three aggregations |
+| `nl_hotspot_by_producing_node.csv`, `..._by_producing_sector.csv`, `..._by_sector_group.csv`, `..._by_sector_group_and_country.csv`, `..._by_producing_country.csv`, `..._by_world_region.csv` | the hotspot analysis at six aggregations |
+| `nl_expenditure_by_*.csv` | the expenditure vector at four aggregations |
+| `nl_intensity_by_*.csv` | the environmental intensities per M€ at four aggregations |
+| `nl_figure1_contribution_groups.csv`, `nl_figure2_hotspot_sector_groups.csv`, `nl_figure3_hotspot_world_regions.csv` | the three figures as data, in the article's groups and legend order |
+| `nl_published_figure_shares.csv` | what the article's figures draw, against what the archive holds |
+
+Figures live in `figures/steenmeijer_replication/`, six of them: the article's figures 1, 2
+and 3 rendered from the Dutch archive and from the Danish 2022 shipping-corrected results,
+in one style, so the two countries can be set side by side. The gold folder's readme links
+them and carries their captions.
+
+### Verification
+
+`convert_rivm_outputs` asserts 120 column totals, one per impact or expenditure column per
+converted sheet, against the workbook the sheet came from, and refuses to write when a
+total has moved by more than 1 part in 10⁹. Each figure table is asserted to sum to 100 %
+within every impact category, and each published bar is asserted to sum to 100 % within the
+tolerance its hairline segments allow. `R/plot_steenmeijer_replication.R` repeats the 100 %
+check on both countries before it reports success.
 
 ---
 
