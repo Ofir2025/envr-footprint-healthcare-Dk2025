@@ -78,7 +78,8 @@ def main():
     col_by_sector = col.reshape(nr, ns).sum(axis=0)  # inputs by sector, all origins
     exio_shares = _group_shares(col_by_sector, ind_names, GROUPS_EXIO)
 
-    io = pd.read_excel(BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx",
+    io = pd.read_excel(BRONZE_DIR / "dst_input_output"
+                       / "input_output_en_2022.xlsx",
                        sheet_name="IO", header=None, engine="openpyxl")
     codes = io.iloc[:, 0].astype(str).str.strip()
     labels = io.iloc[:, 1].astype(str).str.strip()

@@ -150,15 +150,16 @@ from analysis.release_defect_audit import CONCORDANCE as SEED_CONCORDANCE
 from paths import BRONZE_DIR, EXIOBASE_DIR, OUTPUT_DIR
 
 FOLDER = "06_benchmarks_validation"
-CONCORDANCE_CSV = (BRONZE_DIR / "concordances"
+CONCORDANCE_CSV = (BRONZE_DIR / "classification_concordances"
                    / "exiobase_industry_to_dst_db07.csv")
 VALIDATION_CSV = "dst_concordance_validation.csv"
-ISIC_CSV = BRONZE_DIR / "concordances" / "exiobase_industry_to_isic_rev3.csv"
+ISIC_CSV = (BRONZE_DIR / "classification_concordances"
+            / "exiobase_industry_to_isic_rev3.csv")
 CLASSIFICATIONS = EXIOBASE_DIR / "classifications.xlsx"
-DST_IO = (BRONZE_DIR / "input_output" / "2016_2022"
-          / "input_output_en_{year}.xlsx")
+DST_IO = BRONZE_DIR / "dst_input_output" / "input_output_en_{year}.xlsx"
 EXIOBASE_X = EXIOBASE_DIR / "IOT_{year}_ixi" / "x.txt"
-SATELLITE_CSV = BRONZE_DIR / "dst_emission_accounts_by_industry.csv"
+SATELLITE_CSV = (BRONZE_DIR / "dst_emission_accounts"
+                 / "dst_emission_accounts_by_industry.csv")
 SENSITIVITY_CSV = "snac_split_weight_sensitivity.csv"
 
 #: Years the split-weight sensitivity is reported for. Both are years of
@@ -519,7 +520,7 @@ def isic_division(code1: str) -> str:
 
 
 def load_isic_reference() -> dict[str, str]:
-    """ISIC rev.3 divisions from the existing bronze concordance, for checking.
+    """ISIC rev.3 divisions from ``exiobase_industry_to_isic_rev3.csv``.
 
     Returns
     -------
@@ -839,8 +840,8 @@ def build_concordance(year: str) -> tuple[pd.DataFrame, pd.DataFrame]:
             exiobase_name=industry["exiobase_name"],
             exiobase_code1=industry["exiobase_code1"],
             isic_rev3_division=division,
-            isic_rev3_division_bronze_csv=reference,
-            nace_rev2_candidates_developer=DEVELOPER_NACE2.get(code, ""),
+            isic_rev3_division_isic_concordance=reference,
+            nace_rev2_candidates_exiobase_table=DEVELOPER_NACE2.get(code, ""),
             dst_nace_prefix=";".join(prefixes),
             dst_industry_code=";".join(target_list),
             dst_industry_name=";".join(dst_name[t] for t in target_list),
@@ -1293,13 +1294,14 @@ def main() -> None:
     persistent = [k for k, v in counted.items() if len(v) == len(years)]
     print(f"\ngroups flagged in EVERY year ({len(persistent)}): {persistent}")
     mismatch = concordance[
-        (concordance.isic_rev3_division_bronze_csv != "")
-        & (concordance.isic_rev3_division_bronze_csv
+        (concordance.isic_rev3_division_isic_concordance != "")
+        & (concordance.isic_rev3_division_isic_concordance
            != concordance.isic_rev3_division)]
     if len(mismatch):
-        print("\nISIC division disagreements against the bronze CSV:")
+        print("\nISIC division disagreements against "
+                  "exiobase_industry_to_isic_rev3.csv:")
         columns = ["exiobase_code", "exiobase_code1", "isic_rev3_division",
-                   "isic_rev3_division_bronze_csv"]
+                   "isic_rev3_division_isic_concordance"]
         print(mismatch[columns].to_string(index=False))
     latest = sensitivity[sensitivity.reference_year == ANALYSIS_YEAR]
     show_weights = ["exiobase_code", "dst_industries", "q_import_weighted",

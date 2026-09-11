@@ -52,7 +52,7 @@ GOLD_DIR = DATA_DIR / "gold"
 BACKGROUND_DIR = SILVER_DIR / "background"
 MRIO_DIR = BACKGROUND_DIR / "pickled_mrio"
 OUTPUT_DIR = GOLD_DIR / "results"
-EXIOBASE_DIR = BRONZE_DIR / "exiobase_v3_7"
+EXIOBASE_DIR = BRONZE_DIR / "exiobase"
 
 
 def ensure_runtime_directories() -> None:

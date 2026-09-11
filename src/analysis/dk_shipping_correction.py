@@ -421,19 +421,21 @@ def _cbs_expenditure_frame(analysis_year: str) -> pd.DataFrame:
                                           eldercare_share_of_social_work_io)
     from paths import BRONZE_DIR
 
-    io_2022 = BRONZE_DIR / "input_output" / "2016_2022" / "input_output_en_2022.xlsx"
+    io_2022 = (BRONZE_DIR / "dst_input_output"
+               / "input_output_en_2022.xlsx")
     if analysis_year == "2022":
         hc51, hc52, services, _ = calculate_healthcare_totals_2022(io_2022)
         alpha = eldercare_share_of_social_work_io(io_2022)
     else:
         hc51, hc52, services, _ = calculate_healthcare_totals(
-            BRONZE_DIR / "dk_umat_2019.xlsx")
-        alpha = eldercare_share_of_social_work(BRONZE_DIR / "dk_umat_2019.xlsx")
+            BRONZE_DIR / "dst_supply_use" / "dk_umat_2019.xlsx")
+        alpha = eldercare_share_of_social_work(
+            BRONZE_DIR / "dst_supply_use" / "dk_umat_2019.xlsx")
 
     to_meur = 1.0 / (DKK_PER_EUR_BY_YEAR[analysis_year] * 1000.0)
 
-    drivhus = pd.read_csv(BRONZE_DIR / "dk_direct_emissions_drivhus.csv",
-                          comment="#")
+    drivhus = pd.read_csv(BRONZE_DIR / "dst_emission_accounts"
+                          / "dk_direct_emissions_drivhus.csv", comment="#")
     dh = drivhus[drivhus["year"] == int(analysis_year)].set_index(
         ["industry_code", "emtype"])["value_kt_co2e"]
     direct_kt = (dh[("VQA", "GHGEXBIO")] + dh[("V870000", "GHGEXBIO")]

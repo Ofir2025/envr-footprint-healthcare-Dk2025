@@ -87,7 +87,8 @@ def main():
     exio = _shares(col, ind_names, GROUPS_EXIO)
 
     # --- FIGARO (Q86 human health) ---
-    fg = pd.read_csv(os.path.join(str(BRONZE_DIR), "figaro", f"figaro2026_use_DKdest_{year}.csv"))
+    fg = pd.read_csv(os.path.join(str(BRONZE_DIR), "eurostat_figaro",
+                                  f"figaro2026_use_DKdest_{year}.csv"))
     # keep INTERMEDIATE inputs only: the FIGARO use table also carries primary
     # inputs (D1 compensation of employees, D21X31 taxes less subsidies,
     # B2A3G operating surplus), which are not part of an input recipe
@@ -97,7 +98,7 @@ def main():
     figaro = _shares(q.values, q.index, GROUPS_FIGARO)
 
     # --- DST 117-industry IO ---
-    io = pd.read_excel(os.path.join(str(BRONZE_DIR), "input_output", "2016_2022",
+    io = pd.read_excel(os.path.join(str(BRONZE_DIR), "dst_input_output",
                                     f"input_output_en_{year}.xlsx"),
                        sheet_name="IO", header=None, engine="openpyxl")
     codes = io.iloc[:, 0].astype(str).str.strip()
