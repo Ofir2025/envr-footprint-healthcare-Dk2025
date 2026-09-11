@@ -92,7 +92,8 @@ def _read(name: str) -> pd.DataFrame:
     Parameters
     ----------
     name : str
-        File name within this year's ``02_scopes_wood_hertwich`` folder.
+        File name within this run's ``02_scopes_wood_hertwich`` variant
+        folder, i.e. ``<year>_<correction state>``.
 
     Returns
     -------

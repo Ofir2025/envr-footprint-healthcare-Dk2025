@@ -1,4 +1,4 @@
-# 02_scopes_wood_hertwich/2022
+# 02_scopes_wood_hertwich/2022_uncorrected
 
 **GHG-Protocol scope decomposition**
 
@@ -6,18 +6,27 @@ Of the total health-care footprint, this layer asks how much is emitted by the p
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 02](../../../../../docs/methods/replications.md#r02).
 
-## Which model variant this year is built on
+## Which model run this folder is
 
-`01_eriksen_replication` says in its folder names which correction a
-run carries; this layer's folders are named by year alone, so the
-correspondence has to be stated rather than inferred.
+Reference year 2022 on EXIOBASE v3.8.2 `IOT_2022_ixi` with the Danish
+sea-transport reallocation **not** applied - the comparison run, not
+the headline. Its partition closes on
+`01_eriksen_replication/2022_uncorrected` exactly: the climate `TOTAL`
+of 6,085.494934 kt CO2-eq plus the self-supply loop of 1.833390 kt is
+the grand total of 6,087.328324 kt published there.
 
-This folder answers **`01_eriksen_replication/2022_shipping_corrected`**,
-the manuscript's headline run: EXIOBASE v3.8.2 `IOT_2022_ixi` with the
-Danish sea-transport reallocation applied. Its partition closes on
-that run exactly: the climate `TOTAL` of 4,673.633405 kt CO2-eq plus
-the self-supply loop of 1.833254 kt is the grand total of
-4,675.466659 kt published there.
+What the correction is worth, read across this folder and
+`2022_shipping_corrected`: the climate footprint falls from 6,085.49
+to 4,673.63 kt, and the transport industry group falls from 32.20 % of
+it to 14.87 %. The ledger's MRIO decomposition row moves from
+5,318.307735 to 3,906.446070 kt on the same comparison. Nothing in
+this folder is on the headline basis, and no manuscript number is
+taken from it.
+
+Its purpose is figures 3 to 6 of the `2022_uncorrected` figure
+variant. Until this layer carried the correction state in its folder
+name, those four figures were drawn from the shipping-corrected
+tables and were byte-identical to the corrected variant's.
 
 ## Conventions
 
@@ -83,9 +92,9 @@ the self-supply loop of 1.833254 kt is the grand total of
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 117
+- **Rows:** 116
 - **Format:** csv
-- **Resolution:** 11+ regions x 13+ industries (sampled)
+- **Resolution:** 12+ regions x 13+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

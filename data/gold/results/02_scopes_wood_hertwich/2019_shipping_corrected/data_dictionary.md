@@ -1,4 +1,4 @@
-# 02_scopes_wood_hertwich/2019 - data dictionary
+# 02_scopes_wood_hertwich/2019_shipping_corrected - data dictionary
 
 One row per column of every table in this folder. Units are the
 table's own; `varies by row` means the table carries a `unit`
@@ -115,7 +115,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
+| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi with Danish |
 | `analysis_year` | measure | int64 |  | 2019 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
@@ -143,7 +143,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0709 |
-| `rank` | measure | int64 |  | 3 |
+| `rank` | measure | int64 |  | 2 |
 | `is_remainder` | dimension | bool |  | False |
 
 ### `scopes_by_producing_node.csv`

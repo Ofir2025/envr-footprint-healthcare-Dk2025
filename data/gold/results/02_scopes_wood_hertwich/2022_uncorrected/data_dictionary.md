@@ -1,4 +1,4 @@
-# 02_scopes_wood_hertwich/2022 - data dictionary
+# 02_scopes_wood_hertwich/2022_uncorrected - data dictionary
 
 One row per column of every table in this folder. Units are the
 table's own; `varies by row` means the table carries a `unit`
@@ -59,7 +59,7 @@ units and are labelled as such wherever they are quoted.
 | `item` | dimension | str |  | MRIO footprint decomposition by producin |
 | `risk` | dimension | str |  | none |
 | `test` | dimension | str |  | partition of one scalar (sum of cells == |
-| `value` | measure | float64 | varies by row | 3906.446070140176 |
+| `value` | measure | float64 | varies by row | 5318.307734796392 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `verdict` | dimension | str |  | OK - additive by construction (Wood & He |
 
@@ -115,7 +115,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
+| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
@@ -143,7 +143,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0761 |
-| `rank` | measure | int64 |  | 2 |
+| `rank` | measure | int64 |  | 3 |
 | `is_remainder` | dimension | bool |  | False |
 
 ### `scopes_by_producing_node.csv`
@@ -151,7 +151,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
+| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
@@ -169,7 +169,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
+| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |

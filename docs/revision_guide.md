@@ -69,10 +69,15 @@ error, and draft wording for the limitations paragraph are in
 
 ## Scope 1-3 emissions, by origin and by industry
 
-Six figure-ready tables in `data/gold/results/02_scopes_wood_hertwich/` (`scope_by_*`) at
-three resolutions - full detail (scope × producing country × producing industry), the top
-25 origin-industry pairs with the remainder pooled, and aggregations by industry group, by
-continent and the cross. `r/plot_scope_emissions.r` renders four TIFFs from them.
+Six figure-ready tables per model run in
+`data/gold/results/02_scopes_wood_hertwich/<year>_<correction state>/`
+(`scope_by_*`) at three resolutions - full detail (scope × producing country ×
+producing industry), the top 25 origin-industry pairs with the remainder pooled,
+and aggregations by industry group, by continent and the cross. The layer is
+scoped by reference year AND by whether the Danish sea-transport reallocation
+was applied, exactly as `01_eriksen_replication` is, so a figure cannot take the
+wrong correction state's bars. `r/plot_scope_emissions.r` renders four TIFFs
+from them, each naming the run it was drawn from.
 
 Scope 1 and the bottom-up items have no producing node in the model; they are placed at
 their true Danish origin rather than dropped, so the bars add back to the headline.

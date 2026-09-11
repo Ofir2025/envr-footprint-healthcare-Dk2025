@@ -2,7 +2,7 @@ number,title,source,rows,columns,supersedes
 1,"The Danish health-care footprint in 2022, on five impact categories",01_eriksen_replication/2022_shipping_corrected/figure1_activity_contributions.csv and 00_core_footprint/national_totals_summary.csv,5,6,True
 2,"The two reference years differ by three things at once, so the change is not a trend",06_benchmarks_validation/year_comparison_2019_2022.csv,5,5,False
 3,"Two activity groups account for the whole climate movement, in opposite directions",06_benchmarks_validation/year_comparison_climate_bridge.csv,9,5,False
-4,"Almost the whole footprint is Scope 3, in every impact category",02_scopes_wood_hertwich/2022/scopes_summary_detailed.csv,5,7,True
+4,"Almost the whole footprint is Scope 3, in every impact category",02_scopes_wood_hertwich/2022_shipping_corrected/scopes_summary_detailed.csv,5,7,True
 5,"Published Danish national footprints separate by model family, not by year",06_benchmarks_validation/published_danish_footprint_benchmarks.csv,5,6,True
 6,"Matched to their boundary and capital treatment, this study and Schmidt and Merciai agree to 1.8 %",06_benchmarks_validation/danish_healthcare_benchmark_boundary_matched.csv,4,5,False
 7,The choice of global-warming-potential revision moves the climate footprint by 5 %,15_gwp_revision/gwp_revision_sensitivity.csv,5,2,False

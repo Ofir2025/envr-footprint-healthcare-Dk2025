@@ -375,7 +375,7 @@ separately under `figures/manuscript/`.
 
 <a id="r02"></a>
 
-## 02 — GHG-Protocol scope decomposition (`data/gold/results/02_scopes_wood_hertwich/`)
+## 02 — GHG-Protocol scope decomposition (`data/gold/results/02_scopes_wood_hertwich/<year>_<correction state>/`)
 
 **Module** `analysis.scopes_detail`
 **Sources** Hertwich & Wood (2018), *The growing importance of scope 3 greenhouse gas
@@ -499,12 +499,41 @@ what the fourth series is without this section.
   rounded independently, so adding the printed figures gives 4,675.46; the check
   runs on the unrounded values and closes to 1e-9.
 
+### Which model run a folder is
+
+This layer is scoped by reference year **and** by whether the Danish
+sea-transport reallocation was applied, exactly as
+[section 01](#r01)'s folders are, and for the same reason: the
+2019-to-2022 transport swing is three changes at once, and a bare year in the
+folder name cannot say which correction state its tables carry. While it did,
+`gold_path` resolved figures 3 to 6 of the `2019_uncorrected` and
+`2022_uncorrected` figure variants to the shipping-corrected scope tables, and
+those figures came out byte-identical to the corrected ones.
+
+`analysis.constants.scopes_folder` and `analysis.constants.eriksen_folder` are
+now one resolver, `variant_folder`, so the two layers cannot name a run
+differently from one another.
+
+| Folder | Background | Reallocation | Climate `TOTAL` (kt CO₂-eq) | Reconciles with |
+|:---|:---|:---|:---|:---|
+| `2019_shipping_corrected` | v3.8.2 `IOT_2016_ixi` | applied | 4,052.850438 | `01_/2019_shipping_corrected`, 4,054.772061 |
+| `2022_uncorrected` | v3.8.2 `IOT_2022_ixi` | not applied | 6,085.494934 | `01_/2022_uncorrected`, 6,087.328324 |
+| `2022_shipping_corrected` | v3.8.2 `IOT_2022_ixi` | applied | 4,673.633405 | `01_/2022_shipping_corrected`, 4,675.466659 |
+
+Each reconciliation is the folder's climate `TOTAL` plus its self-supply loop,
+and each closes exactly. `2019_uncorrected` is **not published**: the
+uncorrected and shipping-corrected 2016 model objects on disk descend from two
+different extractions of `IOT_2016_ixi`, so a partition built on the
+uncorrected one would miss that run's published grand total by 58.47 kt. The
+reason and the measurement are recorded in
+[docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md).
+
 ### Outputs
 
 | File | Rows | Content |
 |:---|:---|:---|
 | `scopes_summary_detailed.csv` | n/a | every scope and variant, with its `basis` stated |
-| `scopes_by_producing_node.csv` | 23,726 (2022), 23,735 (2019) | each scope resolved to producing node |
+| `scopes_by_producing_node.csv` | 23,726 (2022 corrected), 23,726 (2022 uncorrected), 23,735 (2019 corrected) | each scope resolved to producing node |
 | `double_counting_ledger.csv` | n/a | every overlap risk, its test, and its verdict |
 
 ### Verification
@@ -533,7 +562,7 @@ so labelling them as such is what lets the bars be added back to the headline.
 
 | Table | Grain |
 |:---|:---|
-| `scope_by_origin_and_industry.csv` | scope × producing country × producing industry (7,346 rows) |
+| `scope_by_origin_and_industry.csv` | scope × producing country × producing industry (7,346 rows, 2022 shipping-corrected) |
 | `scope_by_origin_industry_top25.csv` | the 25 largest (country, industry) pairs, remainder pooled and labelled |
 | `scope_by_industry_group.csv` | scope × industry group |
 | `scope_by_continent.csv` | scope × world region of origin |
@@ -546,7 +575,9 @@ Each aggregation asserts that it preserves the total, so no view can silently lo
 conventions (`r/_dk_common.r`): no on-figure title, facet titles the largest text, legend
 at the bottom without a title, bars ranked descending with the remainder re-sorted into the
 ranking by its own value, per-facet axis ceilings so no bar touches the panel edge, and
-ASCII-only labels because the TIFF font renders a middle dot as `..`.
+ASCII-only labels because the TIFF font renders a middle dot as `..`. Each file name ends
+in the run it was drawn from (`..._2022_shipping_corrected.tiff`), so a figure cannot be
+mistaken for the other correction state's.
 
 **A finding visible in the top-origins figure:** the 25 largest origin-industry pairs
 account for 45 % of the footprint; the pooled remainder is the single largest bar. The
@@ -950,9 +981,14 @@ account before persisting the object. Reading it and calling it "hybrid" compare
 Danish account against itself. The inherited value survives in the intensity matrix,
 which the replacement does not touch, as $B_{6,h} E_H$.
 
-It also fails as an allocation key: its 2011 Danish sector structure is statistically
-uncorrelated with the measured 2011 structure (Pearson $r = -0.19$). A key that does not
-correlate with what it is meant to distribute is not a key.
+It was also tested as an allocation key for the domestic tier and rejected. The
+correlation figure that once stood here, between its 2011 Danish sector structure and the
+measured one, was computed by nothing in the pipeline and could not be reconstructed from
+the data these modules read, so it has been withdrawn; see
+[docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md), "Findings of 11
+September 2026". What remains is the ratio the table above publishes: an extension that
+overstates the one Danish sector it can be checked against by 3.09x is not a key for
+distributing that sector's waste either.
 
 #### The Danish route
 
@@ -998,11 +1034,18 @@ indicator, which covers the global chain. Both are reported.
 ### Verification
 
 The hybrid-versus-measured ratio is computed and written out, so the decision to
-report the DST account is evidenced rather than asserted. The composition shares (74 %
-manure, 69 % overburden plus manure) and the $r = -0.19$ correlation against the
-measured 2011 structure come from the exploratory analysis recorded in
-`analysis.waste_domestic_dst`'s own docstring and are **not** recomputed by the
-pipeline; they are the reasoning behind the decision, not an output of it.
+report the DST account is evidenced rather than asserted. Every figure this section states
+is a row of `waste_extension_validation.csv` or `waste_footprint_domestic_dst.csv`.
+
+Three figures that stood here until 11 September 2026 - a manure share of the Danish
+total, a share of the health-care footprint attributed to mining overburden plus manure,
+and a Pearson correlation against the measured 2011 sector structure - were computed by no
+module, and could not be reconstructed from the modules and data of this layer. They have
+been withdrawn rather than carried as reasoning, because a reader cannot tell reasoning
+from a result once both are printed as percentages. The withdrawal and what was tested
+before it are recorded in
+[docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md), "Findings of 11
+September 2026".
 
 ---
 

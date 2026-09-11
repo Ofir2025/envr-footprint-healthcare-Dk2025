@@ -8,7 +8,8 @@ correction all change at once between the submitted 2019 run and the corrected
 2022 headline. Splitting "corrected or not" out as its own axis lets the year
 effect and the correction effect be read separately. All four variants carry
 the same figure set, drawn by the same code from the same tables, so a
-difference between them is a difference in the data and never in the plotting.
+difference between them is a difference in the data and never in the plotting -
+with one stated exception, figures 3 to 6 of `2019_uncorrected`, below.
 
 Every command below carries `LANG=en_US.UTF-8` so it can be copied and pasted
 as it stands. `r/_dk_common.r` stops with that instruction if the locale is not
@@ -39,6 +40,11 @@ LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_unco
 # fig10, the cross-year bridge - not tied to any one variant folder, so it
 # writes straight into comparison/ rather than one of the four above
 LANG=en_US.UTF-8 DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_bridge.r
+
+# the four scope-emission TIFFs, which live in figures/scopes/ rather than here
+# and name their run in the filename; the tag is not optional, because without
+# it the layer resolves to the uncorrected run
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship Rscript r/plot_scope_emissions.r
 ```
 
 The locale matters twice over. R also parses source files in the process
@@ -56,16 +62,35 @@ on-image note, and the term appears in neither the manuscript nor the appendix.
 The mapping is `SCOPE_LABELS` in `r/_dk_common.r`, and the category is defined
 in [`docs/methods/replications.md`, section 02](../../docs/methods/replications.md#r02).
 
-## One caveat on the uncorrected variants
+## Which variants can draw figures 3 to 6
 
-`02_scopes_wood_hertwich` publishes **one folder per year**, not per year and
-correction state, so `gold_path` resolves the scope tables by year alone.
-Figures 3 to 6 in `2019_uncorrected` and `2022_uncorrected` therefore read the
-correction state that layer publishes for that year, which for both years is
-the **shipping-corrected** one. Every other figure in those folders reads
-`01_eriksen_replication`, which is variant-scoped, and is genuinely
-uncorrected. Until layer 02 carries the correction state in its folder name,
-read figures 3 to 6 of the uncorrected variants as corrected.
+`02_scopes_wood_hertwich` now carries the correction state in its folder name,
+as `01_eriksen_replication` does, so `gold_path` resolves the scope tables to
+the run the environment selects and to nothing else. Figures 3 to 6 of
+`2022_uncorrected` are therefore genuinely uncorrected, where before they were
+byte-identical to `2022_shipping_corrected`'s: the transport industry group
+carries 32.20 % of the climate footprint in the uncorrected run against 14.87 %
+in the corrected one, which is the difference the 2x2 exists to show.
+
+| Variant | Figures 1, 2, S1 | Figures 3-6 |
+|:---|:---|:---|
+| `2019_uncorrected` | yes | **not drawn** - layer 02 does not publish this run |
+| `2019_shipping_corrected` | yes | yes |
+| `2022_uncorrected` | yes | yes |
+| `2022_shipping_corrected` | yes | yes |
+
+`2019_uncorrected` is the one gap, and it is a withheld figure rather than a
+wrong one. The uncorrected and shipping-corrected 2016 model objects on disk
+descend from two different extractions of `IOT_2016_ixi`, so a 2019 uncorrected
+scope partition would miss that run's own published grand total by 58.47 kt;
+publishing figures drawn from it would put a number in the paper that no
+reconciliation supports. `plot_manuscript_figures.r` says so and skips those
+four rather than aborting, so the rest of that variant's set still renders, and
+the measurement is recorded in
+[docs/revision/defects_and_fixes.md](../../docs/revision/defects_and_fixes.md).
+Its transport share is readable from `01_eriksen_replication/2019_uncorrected`
+(47.28 % of the climate footprint, against 21.46 % shipping-corrected), which
+is variant-scoped and unaffected.
 
 ## The four variants are not interchangeable
 

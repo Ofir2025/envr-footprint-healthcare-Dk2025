@@ -813,6 +813,76 @@ strings, with this document (and any "as submitted" or "as first implemented"
 historical sentence) as the allowed exception; see the phi-correction task's
 own report for the exact entries.
 
+#### Three waste figures withdrawn: two composition shares and a correlation
+
+**Severity: medium (integrity, not results).** Section 5 of the review response
+below, `docs/methods/replications.md` section 05 and
+`analysis.waste_domestic_dst`'s own docstring each carried three figures about
+the inherited 2011 hybrid waste extension that no module in the pipeline
+computes. Section 05 said so plainly - it called them "the reasoning behind the
+decision, not an output of it" - but a reader cannot tell reasoning from a
+result once both are printed as percentages, and none of the three survives a
+test. They are withdrawn from the two claim-tree documents and from the
+docstring. This ledger keeps them, because it is the record of what was
+believed.
+
+| Figure, as it stood | Where | Verdict |
+|:---|:---|:---|
+| 74 % of the Danish total is livestock manure | docstring; replications.md section 05 | **Wrong at its stated precision.** The account gives **73.14 %**: 9,918,909 t of manure in a Danish all-fraction total of 13,560,931 t, summed over the 164 Danish industry columns of sheet `waste_sup_act` in `data/bronze/exiobase/mr_hsut_2011_v3_3_17_extensions.xlsb`. Measured once, on 11 September 2026, by a read no pipeline module performs; stated here as the evidence for the withdrawal, not as a study figure. |
+| 69 % of the health-care waste footprint is mining overburden plus manure | docstring; replications.md section 05 | **Not reconstructible, and about a boundary the study no longer uses.** The extension's nineteen fractions contain no fraction called overburden; the two mining fractions are **0.20 %** (`Mining waste`) and **0.00 %** (`Unused waste`) of the Danish account. The waste indicator has since excluded manure, sewage, mining waste and unused material by default (`EXCLUDED_WASTE_FRACTIONS` in `pipelines.prep_background.waste`), so on the published boundary the share the sentence quotes is zero by construction. |
+| Pearson $r = -0.19$, $p = 0.56$, against the measured 2011 sector structure | docstring; replications.md section 05 (twice); section 5 below | **Not reconstructible.** At $r = -0.19$, $p = 0.56$ implies $n \approx 12$, so the correlation was taken over about twelve sector groups whose definition is recorded nowhere. Nothing fixes that grouping: the hybrid side's two quoted anchors do not both reproduce under a reasonable reading of it (construction **0.49 %** against the quoted 0.5 %, but agriculture and animal production **74.35 %** against the quoted 74.8 %), and no module retrieves the measured Danish 2011 structure by industry at all - `waste_validation._affald` queries AFFALD01 for four health industry codes only. |
+
+**Why they were not computed instead.** Both composition shares need the
+fraction dimension of the hybrid extension, which exists only in the bronze
+workbook: the silver objects `waste.pkl` and `waste_allfractions.pkl` are
+already summed to one row each, so the two together bound the four excluded
+fractions at **75.97 %** of the Danish total and can say nothing about manure
+alone. Reading bronze from `waste_domestic_dst.py` would make it a
+bronze-to-gold module, which audit check **C17** exists to forbid - its list of
+known offenders "can shrink and never grow". Computing them properly means a
+new silver stage that publishes the extension per fraction, which is a change
+of pipeline shape rather than a fix to a sentence.
+
+**Enforced.** The three strings are in `SUPERSEDED_TEXT`, so **C6b** fails if a
+claim-tree document quotes them again. This document is in `HISTORICAL_DOCS`
+and is exempt, which is what lets the table above state them.
+
+#### Layer 02's 2019 uncorrected run is withheld: two extractions of IOT_2016_ixi
+
+**Severity: medium.** `02_scopes_wood_hertwich` now carries the correction state
+in its folder name, as `01_eriksen_replication` does, so figures 3 to 6 of the
+uncorrected figure variants stop reading the shipping-corrected scope tables.
+Three of the four runs are published; `2019_uncorrected` is not, and the reason
+is in silver rather than in this layer.
+
+The uncorrected and shipping-corrected 2016 model objects on disk descend from
+two different extractions of EXIOBASE v3.8.2 `IOT_2016_ixi`. They agree on the
+sea-transport reallocation and on nothing else they should not: the
+intermediate-coefficient matrix $\mathbf{A}$ differs materially in **138**
+columns, every one of them Danish, which is exactly the reallocation. But the
+climate intensity row $B_{0,j}$ differs on **6,779 of 7,987** nodes, by up to
+**0.4 %** each, in every region - and the reallocation cannot do that, as the
+2022 pair proves: there $B$ is identical cell for cell.
+
+| Consequence | Value |
+|:---|:---|
+| `01_/2019_uncorrected` grand total, as published | 6,360.386367 kt CO₂-eq |
+| The same, rebuilt on the currently resolvable extraction | 6,418.858701 kt CO₂-eq |
+| Gap a 2019 uncorrected scope partition would carry against its own layer 01 run | 58.47 kt (+0.92 %) |
+| `01_/2019_shipping_corrected`, rebuilt | 4,054.772061 kt, byte-identical to published |
+| `01_/2022_shipping_corrected`, rebuilt | 4,675.466659 kt, byte-identical to published |
+
+Only the 2019 **uncorrected** background is affected; the corrected 2019 run and
+both 2022 runs reproduce from the objects on disk exactly. Publishing a 2019
+uncorrected scope partition would therefore mean either a table that misses this
+layer's own reconciliation identity by 58.47 kt, or moving a published corrected
+number and putting the two 2019 runs on different extractions - which would
+re-confound the axis the folder split exists to separate. It is withheld until
+the 2019 pair can be rebuilt together on one extraction, which moves published
+2019 figures and is its own piece of work. `plot_manuscript_figures.r` skips
+figures 3 to 6 for that variant and says so, rather than drawing another run's
+tables.
+
 ---
 
 ## Methods and data soundness: response to the eight review requests
