@@ -147,11 +147,17 @@ import pandas as pd
 
 from analysis.constants import ANALYSIS_YEAR, K_DK, N_SECTORS
 from analysis.release_defect_audit import CONCORDANCE as SEED_CONCORDANCE
-from paths import BRONZE_DIR, EXIOBASE_DIR, OUTPUT_DIR
+from paths import BRONZE_DIR, EXIOBASE_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 
 FOLDER = "06_benchmarks_validation"
-CONCORDANCE_CSV = (BRONZE_DIR / "classification_concordances"
-                   / "exiobase_industry_to_dst_db07.csv")
+#: This module's own output, not a bronze source: a conformed, regenerable
+#: product belongs in silver, so it is written to ``data/silver/inputs/``
+#: rather than beside the bronze concordances it is built from. It used to be
+#: written into ``data/bronze/classification_concordances/``, which broke
+#: medallion rule 1 (bronze is immutable source; nothing generated lives
+#: there) -- ``build_concordance`` still reads its bronze *sources* from that
+#: folder via ``ISIC_CSV``, but this file is this module's product.
+CONCORDANCE_CSV = SILVER_INPUT_DIR / "exiobase_industry_to_dst_db07.csv"
 VALIDATION_CSV = "dst_concordance_validation.csv"
 ISIC_CSV = (BRONZE_DIR / "classification_concordances"
             / "exiobase_industry_to_isic_rev3.csv")
@@ -688,6 +694,18 @@ def load_exiobase_dk_output(year: str) -> np.ndarray:
 # construction
 # ---------------------------------------------------------------------------
 def _split(codes: str) -> list[str]:
+    """Split a semicolon-joined code list, dropping empty tokens.
+
+    Parameters
+    ----------
+    codes : str
+        Semicolon-joined codes, e.g. ``"490010;490020"``, or ``""``.
+
+    Returns
+    -------
+    list of str
+        The non-empty tokens, in order. Empty for ``""``.
+    """
     return [c for c in codes.split(";") if c]
 
 
@@ -744,6 +762,19 @@ def _components(pairs: Iterable[tuple[str, str]]) -> dict[str, int]:
     parent: dict[str, str] = {}
 
     def find(node: str) -> str:
+        """Return ``node``'s component root, path-compressing along the way.
+
+        Parameters
+        ----------
+        node : str
+            Node to look up, inserted as its own root in the closed-over
+            ``parent`` map if unseen.
+
+        Returns
+        -------
+        str
+            The root node of ``node``'s component.
+        """
         parent.setdefault(node, node)
         while parent[node] != node:
             parent[node] = parent[parent[node]]
@@ -751,6 +782,14 @@ def _components(pairs: Iterable[tuple[str, str]]) -> dict[str, int]:
         return node
 
     def union(a: str, b: str) -> None:
+        """Merge the components containing ``a`` and ``b``, in place.
+
+        Parameters
+        ----------
+        a, b : str
+            Nodes whose components are merged via the closed-over ``parent``
+            map.
+        """
         ra, rb = find(a), find(b)
         if ra != rb:
             parent[ra] = rb
@@ -883,7 +922,25 @@ def build_concordance(year: str) -> tuple[pd.DataFrame, pd.DataFrame]:
 # ---------------------------------------------------------------------------
 # validation
 # ---------------------------------------------------------------------------
-def _row(check: str, subject: str, **kwargs) -> dict[str, object]:
+def _row(check: str, subject: str, **kwargs: object) -> dict[str, object]:
+    """Build one validation-report row with every column defaulted.
+
+    Parameters
+    ----------
+    check : str
+        Which validation test the row reports, e.g. ``"group_output"``.
+    subject : str
+        The mapping group, industry or aggregate the row is about.
+    **kwargs : object
+        Overrides for any of the default columns (e.g.
+        ``exiobase_output_meur``, ``flag``, ``detail``).
+
+    Returns
+    -------
+    dict of str to object
+        One row, every column present, ``kwargs`` values taking precedence
+        over the ``numpy.nan``/empty-string defaults.
+    """
     row: dict[str, object] = dict(
         check=check, subject=subject, exiobase_industries="",
         dst_industries="", exiobase_output_meur=np.nan,
