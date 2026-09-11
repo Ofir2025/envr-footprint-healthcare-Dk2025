@@ -77,6 +77,13 @@ columns happened to sit in positions 0 and 1. Every other check in this module
 passed on it: the file existed, was fresh, was tracked, named the current model
 and had a lineage row. Only the cells were wrong, and nothing was reading them.
 
+**C20 Silver is documented.** Every tracked file under ``data/silver/`` sits in
+a folder whose ``readme.md`` names it. Silver mirrors bronze by provenance and
+every file in it is regenerable from a named command; both claims are readable
+only from the folder readmes, so the readmes are part of the layer. The flat
+``inputs/`` folder this replaced had two tracked files its readme never
+mentioned.
+
 Exit status is non-zero if any check fails, so this can gate a release.
 
 Run
@@ -807,6 +814,76 @@ def c19_mrio_climate_component(results: list[dict[str, Any]]) -> None:
            if wrong else detail)
 
 
+def c20_silver_documented(results: list[dict[str, Any]]) -> None:
+    """C20: every tracked silver file sits in a folder whose readme names it.
+
+    Silver's contract is that it mirrors bronze by provenance and that every
+    file in it is regenerable from a named command. Neither claim can be
+    checked by a reader unless each folder carries a ``readme.md`` that names
+    the files in it, so the readme is treated here as part of the layer rather
+    than as commentary on it. This is the same bar bronze meets, and it is
+    checked rather than asserted because the defect it guards against is
+    silent: a new silver product landing in a folder whose readme predates it
+    documents nothing and reads as documented.
+
+    Only *tracked* files are checked. Silver is regenerable by construction, so
+    most of it is git-ignored -- the model-object store under ``background/``,
+    the 78 MB register per year, the handoff workbooks -- and a check that
+    walked the disk would report whatever a given machine happened to have
+    rebuilt. What the repository *carries* is what every clone sees, and that
+    is what has to be documented. The folder readmes are themselves tracked, so
+    a folder documented by an untracked readme fails here too.
+
+    A tracked ``readme.md`` satisfies the rule for itself: it is the
+    documentation, not a thing needing documentation.
+
+    Paths resolve against :data:`PROJECT_ROOT` rather than
+    :data:`paths.SILVER_DIR`, because ``HC_SILVER_DIR`` can point the layer at
+    another checkout's copy while the tracked files this check is about are by
+    definition the ones in this working copy.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdict to.
+    """
+    name = "C20 every tracked silver file is documented by its folder"
+    out = subprocess.run(["git", "ls-files", "--", "data/silver"],
+                         capture_output=True, text=True, cwd=str(PROJECT_ROOT))
+    if out.returncode != 0:
+        _check(results, name, False,
+               f"unavailable: git exited {out.returncode}: {out.stderr.strip()}")
+        return
+    tracked = sorted(line.strip() for line in out.stdout.splitlines()
+                     if line.strip())
+    if not tracked:
+        _check(results, name, False,
+               "unavailable: git tracks no file under data/silver")
+        return
+    readmes = {p for p in tracked if os.path.basename(p) == "readme.md"}
+    texts: dict[str, str] = {}
+    offenders: list[str] = []
+    for rel in tracked:
+        if rel in readmes:
+            continue
+        folder = os.path.dirname(rel)
+        readme = f"{folder}/readme.md"
+        if readme not in readmes:
+            offenders.append(f"{rel}: {folder}/ has no tracked readme.md")
+            continue
+        if readme not in texts:
+            with open(os.path.join(str(PROJECT_ROOT), readme),
+                      encoding="utf-8") as handle:
+                texts[readme] = handle.read()
+        if os.path.basename(rel) not in texts[readme]:
+            offenders.append(f"{rel}: {readme} does not name it")
+    documented = len(tracked) - len(readmes) - len(offenders)
+    _check(results, name, not offenders,
+           f"{documented} tracked file(s) named by {len(readmes)} folder "
+           f"readme(s)" if not offenders else
+           f"{len(offenders)} undocumented: " + "; ".join(offenders[:6])
+           + (" ..." if len(offenders) > 6 else ""))
+
 def c8_citations(results: list[dict[str, Any]]) -> None:
     """C8: every in-text citation resolves to the bibliography.
 
@@ -1357,6 +1434,7 @@ def main() -> None:
                   c14_gold_format, c15_gold_lowercase, c16_gold_clean,
                   c17_layer_boundary, c18_tables_of_record,
                   c19_mrio_climate_component,
+                  c20_silver_documented,
                   c10_repo_profile):
         try:
             check(results)
