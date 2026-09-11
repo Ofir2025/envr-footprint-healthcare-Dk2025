@@ -1,18 +1,24 @@
 #!/usr/bin/env bash
 # Refuse a direct push of the full working branch to the public remote.
 #
-# The public branch is a FILTERED view of 2019-update; see
-# scripts/release/publish_ofir_branch.sh, which pushes refs/heads/ofir-revision
-# to refs/heads/2019-update and is therefore allowed through.
+# The public branch is a FILTERED view of the working branch; see
+# scripts/release/publish_ofir_branch.sh, which builds a throwaway
+# refs/heads/tmp/ofir-publish and pushes that, so it is allowed through.
+#
+# Keyed on the LOCAL ref alone, not on the pair. The working branch must not
+# reach the public remote under ANY name: keying on both would let
+# `git push origin 2022-update:some-other-name` through, and the branch is
+# confidential because of what it CARRIES, not because of where it lands.
 #
 # git feeds pre-push one line per ref:  <local ref> <local sha> <remote ref> <remote sha>
-# Judge the LOCAL ref being pushed, not the branch that happens to be checked out.
+WORKING_BRANCH="refs/heads/2022-update"
+
 while read -r local_ref _local_sha remote_ref _remote_sha; do
-  if [ "$remote_ref" = "refs/heads/2019-update" ] && \
-     [ "$local_ref" = "refs/heads/2019-update" ]; then
-    echo "pre-push: refusing to push 2019-update directly to the public remote." >&2
-    echo "  It carries data/bronze, docs/feedback and the unredacted reviewer" >&2
-    echo "  response, which is confidential while the manuscript is under review." >&2
+  if [ "$local_ref" = "$WORKING_BRANCH" ]; then
+    echo "pre-push: refusing to push the full working branch to the public remote." >&2
+    echo "  ${local_ref#refs/heads/} -> ${remote_ref#refs/heads/} carries data/bronze," >&2
+    echo "  docs/feedback, docs/plans, docs/specs and the unredacted reviewer" >&2
+    echo "  response, which are confidential while the manuscript is under review." >&2
     echo "  Publish with:  scripts/release/publish_ofir_branch.sh" >&2
     exit 1
   fi
