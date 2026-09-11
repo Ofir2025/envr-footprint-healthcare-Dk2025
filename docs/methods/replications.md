@@ -264,8 +264,18 @@ disk are
 | `2022_uncorrected/` | — | `2022` | 6,087.33 | 32.19 % |
 
 **There is no `2022a` or `2022b`, and there cannot be.** EXIOBASE v3.7 (2019)
-publishes no 2022 table; its series ends at 2016. The release axis therefore
-collapses for the 2022 reference year, and the 2022 series runs `c` and `d` only.
+publishes `IOT_<year>_ixi` for 1995-2016 — 22 tables, verified against Zenodo
+record 3583071 — against v3.8.2's 1995-2022 on record 5589597. The release axis
+therefore collapses for the 2022 reference year, and the 2022 series runs `c` and
+`d` only.
+
+The same fact settles a question that could otherwise be asked of variant `a`:
+whether it would be a more faithful replication on a v3.7 **2019** table. There
+is no such table. Variant `a` runs on `IOT_2016_ixi` because that is the newest
+table its release publishes, which is also why the submitted manuscript analysed
+2019 Danish expenditure against a 2016 background. Variant `a` is therefore the
+only v3.7 configuration the submitted design admits, and its disagreement with
+the submitted transport share is not a choice of table year.
 
 **`2019_uncorrected` is NOT variant `a`.** It is EXIOBASE v3.8.2's 2016 table
 without the correction, and it keeps a self-describing name rather than a letter it

@@ -41,6 +41,27 @@ different labels. Results are not interchangeable between them.
 **The reference year.** 2022, and see section 3 before writing the word
 "observed" anywhere near it.
 
+### The data-availability statement
+
+> EXIOBASE version 3.8.2 is openly available from Zenodo
+> (doi:10.5281/zenodo.5589597) under a Creative Commons Attribution-ShareAlike
+> 4.0 International licence. Version 3.7 (doi:10.5281/zenodo.3583071) is
+> available under the same terms. All Danish source data are public Statistics
+> Denmark tables; the Eurostat FIGARO extracts are open Eurostat data reusable
+> with attribution. No confidential or licensed-restricted data underlie the
+> results reported here.
+
+The licence is worth stating explicitly, because it is not the licence of the
+current release. From **version 3.9 onwards EXIOBASE is distributed under a
+customised derivative licence restricted to non-commercial, academic use**, and
+the Zenodo record for those versions notes that the conditions differ
+significantly from those of earlier versions such as v3.8; commercial licences
+are described there as under development. The releases this study uses, v3.8.2
+and v3.7, predate that change and remain CC BY-SA 4.0, so the results can be
+redistributed under share-alike terms and a reader can obtain the background data
+without an institutional agreement. That is a second reason, independent of the
+data defects set out in section 2, to state the release rather than the family.
+
 ---
 
 ## 2. Why the version is not a detail
