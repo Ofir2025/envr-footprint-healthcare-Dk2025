@@ -144,6 +144,35 @@ COUNTRY_NO_ORIGIN = frozenset({"DOM"})
 TOTAL_CODES = frozenset({"TOTAL", "TOT"})
 
 
+def table_family(filename: str) -> str:
+    """Return which FIGARO table one bronze extract belongs to.
+
+    Codes are recorded against the table family rather than the file name
+    because the family is stable and the file name is not: bronze holds one file
+    per dissemination-API query, and a query can only ask for the years inside
+    one of Eurostat's four-year dataset blocks, so adding 2016 to the series
+    adds a file. A dimension table keyed on file names would churn on every such
+    fetch while saying nothing new.
+
+    Parameters
+    ----------
+    filename : str
+        Base name of a bronze extract.
+
+    Returns
+    -------
+    str
+        ``"use"``, ``"supply"``, ``"footprint"`` or ``"other"``.
+    """
+    if filename.startswith("figaro2026_use_"):
+        return "use"
+    if filename.startswith("figaro2026_supply_"):
+        return "supply"
+    if filename.startswith(("env_ac_ghgfp", "env_ac_co2fp")):
+        return "footprint"
+    return "other"
+
+
 def codelist_cache(codelist: str) -> Path:
     """Return the bronze cache path for one codelist.
 
@@ -345,7 +374,7 @@ def build_dimensions(refresh: bool = False) -> pd.DataFrame:
     -------
     pandas.DataFrame
         Columns ``fact_column``, ``code``, ``label``, ``entry_type``,
-        ``nace_level``, ``codelist``, ``bronze_files``.
+        ``nace_level``, ``codelist``, ``fact_tables``.
 
     Raises
     ------
@@ -375,7 +404,8 @@ def build_dimensions(refresh: bool = False) -> pd.DataFrame:
                          "nace_level": (nace_level(code)
                                         if column == "nace_r2" else ""),
                          "codelist": codelist,
-                         "bronze_files": ";".join(files)})
+                         "fact_tables": ";".join(
+                             sorted({table_family(f) for f in files}))})
     if unresolved:
         raise ValueError("codes with no Eurostat label:\n  "
                          + "\n  ".join(unresolved))

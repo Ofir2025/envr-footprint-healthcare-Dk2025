@@ -183,6 +183,13 @@ NOT_STAGES: frozenset[str] = frozenset({
     # clone has it before figaro_benchmarks imports it; it is re-run when a
     # FIGARO extract is added or the codelists are refreshed, not on every build
     "build_figaro_dimensions",
+    # a bronze-layer fetcher, like fetch_dst_accounts: it queries the Eurostat
+    # dissemination API for the FIGARO extracts and is run when a year is added
+    # to the benchmark
+    "fetch_figaro",
+    # the silver consolidation of those extracts into two series with a year
+    # column, run after a fetch rather than on every build
+    "build_figaro_series",
     "__init__", "constants", "functions", "functions_2025", "extra_functions",
     "main",                    # the RIVM original, kept for provenance
     "scenario_engine",         # library behind mitigation_scenarios

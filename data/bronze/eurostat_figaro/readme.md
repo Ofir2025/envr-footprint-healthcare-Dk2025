@@ -13,7 +13,7 @@ by someone other than this study.
 | URL | dissemination API <https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{dataset}>; FIGARO database at <https://ec.europa.eu/eurostat/web/esa-supply-use-input-tables/database> |
 | Metadata | <https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ghgfp_esms.htm> |
 | Licence | Eurostat open data; free reuse with attribution |
-| Retrieved | 2026-09-07 (`55fd8ef`) |
+| Retrieved | 2026-09-07 (`55fd8ef`); the 2016 and 2019 extracts, the two earlier supply blocks and the codelists 2026-09-11 |
 
 ## Download step
 
@@ -22,12 +22,47 @@ encodes the query: dataset, the destination or geography filter, and the years.
 
 | file | dataset | filter | years | rows × cols | size |
 |:---|:---|:---|:---|:---|:---|
-| `env_ac_ghgfp_DKdest_2021-2023.csv` | `env_ac_ghgfp` | `c_dest=DK`, all origins | 2021-2023 | 69,696 × 7 | 2.3 MB |
-| `env_ac_co2fp_DKdest_2021-2023.csv` | `env_ac_co2fp` | `c_dest=DK`, all origins | 2021-2023 | 69,696 × 7 | 2.3 MB |
+| `env_ac_ghgfp_DKdest_2016-2023.csv` | `env_ac_ghgfp` | `c_dest=DK`, all origins | 2016-2023 | 185,856 × 7 | 3.9 MB |
+| `env_ac_co2fp_DKdest_2016-2023.csv` | `env_ac_co2fp` | `c_dest=DK`, all origins | 2016-2023 | 185,856 × 7 | 3.9 MB |
 | `env_ac_ghgfp_WORLDdest_by_origin_2022-2023.csv` | `env_ac_ghgfp` | `c_dest=WORLD`, all origins | 2022-2023 | 46,648 × 7 | 1.8 MB |
-| `figaro2026_use_DKdest_2022.csv` | FIGARO 2026 use table | `c_dest=DK` | 2022 | 221,214 × 7 | 7.8 MB |
-| `figaro2026_use_DKdest_2024.csv` | FIGARO 2026 use table | `c_dest=DK` | 2024 | 221,214 × 7 | 7.8 MB |
-| `figaro2026_supply_DK_2022-2024.csv` | FIGARO 2026 supply table | `geo=DK` | 2022-2024 | 12,288 × 6 | 390 kB |
+| `figaro2026_use_DKdest_2016.csv` | `naio_10_fcp_u2` | `c_dest=DK` | 2016 | 221,214 × 7 | 7.8 MB |
+| `figaro2026_use_DKdest_2019.csv` | `naio_10_fcp_u3` | `c_dest=DK` | 2019 | 221,214 × 7 | 7.8 MB |
+| `figaro2026_use_DKdest_2022.csv` | `naio_10_fcp_u4` | `c_dest=DK` | 2022 | 221,214 × 7 | 7.8 MB |
+| `figaro2026_use_DKdest_2024.csv` | `naio_10_fcp_u4` | `c_dest=DK` | 2024 | 221,214 × 7 | 7.8 MB |
+| `figaro2026_supply_DK_2014-2017.csv` | `naio_10_fcp_s2` | `geo=DK` | 2014-2017 | 16,384 × 6 | 520 kB |
+| `figaro2026_supply_DK_2018-2021.csv` | `naio_10_fcp_s3` | `geo=DK` | 2018-2021 | 16,384 × 6 | 520 kB |
+| `figaro2026_supply_DK_2022-2024.csv` | `naio_10_fcp_s4` | `geo=DK` | 2022-2024 | 12,288 × 6 | 390 kB |
+
+Retrieved by `analysis.fetch_figaro`:
+
+```
+PYTHONPATH=src .venv/bin/python -m analysis.fetch_figaro --years 2016 2019 --tables use supply
+PYTHONPATH=src .venv/bin/python -m analysis.fetch_figaro --years 2016 2017 2018 2019 2020 2021 2022 2023 --tables footprints
+```
+
+The earlier `env_ac_*_DKdest_2021-2023.csv` pair was removed: the 2016-2023
+retrieval reproduces both of them row for row, to the last digit, and holding
+the same observations in two files at the same path is the duplication the layer
+is meant not to have.
+
+### Which dataset holds a year
+
+Eurostat splits the FIGARO supply, use and input-output tables into four-year
+blocks, each its own dataset code, so the dataset to query is a function of the
+year. This is the reason a year looks unavailable when it is not: a query for
+2016 against `naio_10_fcp_u4` returns no observations rather than an error, and
+the four codes read like four editions of one table.
+
+| years | supply | use | industry-by-industry IOT | product-by-product IOT |
+|:---|:---|:---|:---|:---|
+| 2010-2013 | `naio_10_fcp_s1` | `naio_10_fcp_u1` | `naio_10_fcp_ii1` | `naio_10_fcp_ip1` |
+| 2014-2017 | `naio_10_fcp_s2` | `naio_10_fcp_u2` | `naio_10_fcp_ii2` | `naio_10_fcp_ip2` |
+| 2018-2021 | `naio_10_fcp_s3` | `naio_10_fcp_u3` | `naio_10_fcp_ii3` | `naio_10_fcp_ip3` |
+| 2022 onwards | `naio_10_fcp_s4` | `naio_10_fcp_u4` | `naio_10_fcp_ii4` | `naio_10_fcp_ip4` |
+
+`env_ac_ghgfp` and `env_ac_co2fp` are not split: each covers 2010 to 2023 in one
+dataset. `analysis.fetch_figaro.dataset_for` does the block arithmetic so no
+caller repeats it.
 
 `estat_naio_10_fcp_ii4_*.tsv.gz` — the full EU industry-by-industry inter-country
 IOT, 71 MB — is git-ignored. It is not used by the current analysis and is
