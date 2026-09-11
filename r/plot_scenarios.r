@@ -19,11 +19,11 @@
 # to read. Donati et al. (2020) report relative change per pressure for the same
 # reason.
 #
-# Run:  HC_ANALYSIS_YEAR=2022 Rscript R/plot_scenarios.R
+# Run:  HC_ANALYSIS_YEAR=2022 Rscript r/plot_scenarios.r
 
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
-source(file.path(here, "_dk_common.R"))
+source(file.path(here, "_dk_common.r"))
 
 YEAR <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
 

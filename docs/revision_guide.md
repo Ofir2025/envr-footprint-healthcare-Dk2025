@@ -69,7 +69,7 @@ error, and draft wording for the limitations paragraph are in
 Six figure-ready tables in `data/gold/results/02_scopes_wood_hertwich/` (`scope_by_*`) at
 three resolutions - full detail (scope × producing country × producing industry), the top
 25 origin-industry pairs with the remainder pooled, and aggregations by industry group, by
-continent and the cross. `R/plot_scope_emissions.R` renders four TIFFs from them.
+continent and the cross. `r/plot_scope_emissions.r` renders four TIFFs from them.
 
 Scope 1 and the bottom-up items have no producing node in the model; they are placed at
 their true Danish origin rather than dropped, so the bars add back to the headline.
@@ -93,7 +93,7 @@ every regional chart.
 export PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship
 python -m analysis.main_2025
 python -m analysis.audit_consistency   # 8 standing checks, non-zero exit on failure
-Rscript R/plot_scope_emissions.R
+Rscript r/plot_scope_emissions.r
 ```
 
 ## What is deliberately not on this branch

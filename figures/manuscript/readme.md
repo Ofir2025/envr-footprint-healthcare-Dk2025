@@ -13,23 +13,27 @@ difference between them is a difference in the data and never in the plotting.
 ```bash
 # 2022, shipping-corrected - EXIOBASE v3.8.2 IOT_2022 with the Danish
 # sea-transport reallocation applied. The manuscript's headline.
-HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript R/plot_manuscript_figures.R
-HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript R/plot_absolute_and_percapita.R
-HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript R/plot_scenarios.R
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_manuscript_figures.r
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_absolute_and_percapita.r
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_scenarios.r
 
 # 2022, uncorrected - same background, correction NOT applied
-HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript R/plot_manuscript_figures.R
-HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript R/plot_absolute_and_percapita.R
+HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_manuscript_figures.r
+HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_absolute_and_percapita.r
 
 # 2019, shipping-corrected - EXIOBASE v3.8.2 IOT_2016 with the same correction
 # applied, so it is comparable with 2022_shipping_corrected on correction state
-HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript R/plot_manuscript_figures.R
-HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript R/plot_absolute_and_percapita.R
+HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_manuscript_figures.r
+HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_absolute_and_percapita.r
 
 # 2019, uncorrected - EXIOBASE v3.8.2 IOT_2016, the manuscript's own
 # background, exactly as submitted
-HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript R/plot_manuscript_figures.R
-HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript R/plot_absolute_and_percapita.R
+HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_manuscript_figures.r
+HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_absolute_and_percapita.r
+
+# fig10, the cross-year bridge - not tied to any one variant folder, so it
+# writes straight into comparison/ rather than one of the four above
+DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_bridge.r
 ```
 
 Run with a UTF-8 locale (`LANG=en_US.UTF-8`). R parses source files in the
@@ -76,13 +80,13 @@ decomposition alongside them.
 
 `fig7`, `fig8` and `fig9` are each guarded to the year their source table was
 built for, so a 2019 run cannot republish a 2022 result under a 2019 filename.
-`fig8` and `fig9` come from `R/plot_scenarios.R`; the bar version that once
+`fig8` and `fig9` come from `r/plot_scenarios.r`; the bar version that once
 lived in `plot_manuscript_figures.R` was removed, so only one script writes a
 figure eight.
 
 ## Conventions
 
-Set in `R/_dk_common.R` and applied to every figure:
+Set in `r/_dk_common.r` and applied to every figure:
 
 - TIFF, LZW, 300 dpi, white background, written through `ragg` where installed.
 - No title on the image; the caption carries it.
@@ -103,21 +107,37 @@ that the rule is doing what it claims.
 
 ## The cross-year comparison
 
-`comparison/fig10_year_bridge_climate_2019_2022.tiff` is a dumbbell plot of the
-nine activity groups measured in both years, largest movers first.
+`comparison/fig10_year_bridge_climate_2019_2022.tiff` decomposes the
+2019-to-2022 climate footprint change into its two causes, per activity group:
+the Danish sea-transport reallocation (step 1) and the reference year (step
+2). Each group is drawn as three markers - 2019 uncorrected, 2019
+shipping-corrected, 2022 shipping-corrected - joined by two coloured segments,
+one per step, on one shared value axis. Groups are ordered by the size of the
+total change, largest at the top, so transport and pharmaceuticals - between
+them nearly the whole story - are the first two rows.
 
-**Figure-type reasoning.** The question is a paired comparison over categories:
-the same nine groups, measured twice, which moved and by how much. A connected
-dot plot shows the pair and makes the change a property of the connector rather
-than something the reader must difference by eye. Grouped bars were rejected
-because the quantity of interest is the gap between two bars, which is the
-hardest thing to read off a bar chart; a waterfall was rejected because it
-implies a sequence of steps toward a total, which these groups are not; a slope
-graph wastes the horizontal axis on an ordinal year. The house figure library
-carries dumbbells as an exemplar type, and this comparison is the canonical use
-for it.
+**Figure-type reasoning.** A single dumbbell drew this comparison until the
+gold layer carried only the two end points; it could not be honest about a
+change that is actually two changes overlaid (year AND correction move at
+once between the submitted 2019 run and the corrected 2022 headline - see
+"The four variants are not interchangeable" above). With the intermediate
+point (2019, shipping-corrected) now available, the comparison is drawn as a
+connected two-segment dot plot instead: one row per group, two segments per
+row, on a shared scale, so a step-1 segment and a step-2 segment sit directly
+beside each other and are compared by looking. A two-panel dumbbell (one panel
+per step) was rejected because it puts that same comparison across a panel
+boundary; a paired slope graph was rejected for spending the horizontal axis
+on a categorical "which state" variable and for the line crossings a
+direction-changing group (heat and electricity falls in step 1, then rises in
+step 2) produces; grouped bars and a waterfall were rejected for the same
+reasons the single-year version rejected them - see the script header in
+`r/plot_year_bridge.r` for the full argument.
 
-**One deliberate deviation.** This figure carries a note on the image, against
-the rule that captions belong in the manuscript. The single largest risk with
-this figure is that it is read as a trend, and the note prevents that reading
-even when the image travels without its caption. No other figure in the study does this.
+**No note on the image.** Earlier versions of this figure carried a caption on
+the image itself, against the house rule, because the two-way comparison
+seemed too easy to misread without one. The two-step design removes that need:
+the three markers and two connector colours are decoded entirely by the
+legend, and the signed delta printed beside each marker (plus an axis title
+that says the axis is a level, not a change) keeps a level reading from being
+mistaken for a change reading. This is the only figure in the study whose
+design changed specifically to get the note off the image.

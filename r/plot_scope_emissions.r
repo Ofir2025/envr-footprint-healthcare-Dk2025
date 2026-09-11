@@ -8,11 +8,11 @@
 #   scope_emissions_top_origins_2022         top 20 (country, industry) pairs
 #   scope_emissions_continent_by_industry_2022  the cross, faceted by region
 #
-# Run:  Rscript R/plot_scope_emissions.R
+# Run:  Rscript r/plot_scope_emissions.r
 
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
-source(file.path(here, "_dk_common.R"))
+source(file.path(here, "_dk_common.r"))
 
 UNIT_LAB <- expression("Greenhouse gas emissions (kt CO"[2]*"-eq)")
 

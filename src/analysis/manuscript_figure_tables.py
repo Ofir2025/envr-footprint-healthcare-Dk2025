@@ -22,7 +22,7 @@ Two things are corrected relative to the submitted figures:
 * the world-region aggregation singles out Denmark rather than the Netherlands.
 
 This module writes only tabular data. The figures themselves are drawn in
-``R/plot_manuscript_figures.R`` so that every figure in the study comes off one
+``r/plot_manuscript_figures.r`` so that every figure in the study comes off one
 plotting stack.
 
 Run::
