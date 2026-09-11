@@ -1584,7 +1584,7 @@ What we still do not claim, and should say plainly:
 
 ```bash
 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship PYTHONPATH=src python -m analysis.mitigation_scenarios
-HC_ANALYSIS_YEAR=2022 Rscript R/plot_scenarios.R
+HC_ANALYSIS_YEAR=2022 Rscript r/plot_scenarios.r
 ```
 
 ### References for this section

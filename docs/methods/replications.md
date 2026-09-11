@@ -533,8 +533,8 @@ so labelling them as such is what lets the bars be added back to the headline.
 
 Each aggregation asserts that it preserves the total, so no view can silently lose mass.
 
-`R/plot_scope_emissions.R` renders four TIFFs from these tables, in the study's figure
-conventions (`R/_dk_common.R`): no on-figure title, facet titles the largest text, legend
+`r/plot_scope_emissions.r` renders four TIFFs from these tables, in the study's figure
+conventions (`r/_dk_common.r`): no on-figure title, facet titles the largest text, legend
 at the bottom without a title, bars ranked descending with the remainder re-sorted into the
 ranking by its own value, per-facet axis ceilings so no bar touches the panel edge, and
 ASCII-only labels because the TIFF font renders a middle dot as `..`.
@@ -2308,7 +2308,7 @@ located by `HC_RIVM_ARCHIVE_DIR` when this working copy does not carry them.
   therefore not directly comparable; shares are.
 - The figure groups follow the article's printed legends rather than the `agg_ind_fig`
   sheet of its classification workbook, for the reason given above. The rule is stated in
-  `FIG1_GROUPS` and `FIG2_GROUPS` and repeated in `R/plot_steenmeijer_replication.R`.
+  `FIG1_GROUPS` and `FIG2_GROUPS` and repeated in `r/plot_steenmeijer_replication.r`.
 - The Danish figures fold this study's own `Transport` and `Unallocated` groups into the
   article's *other*, so the two countries' legends are identical. No value changes; the
   grouping is the only thing that does.
@@ -2342,7 +2342,7 @@ them and carries their captions.
 converted sheet, against the workbook the sheet came from, and refuses to write when a
 total has moved by more than 1 part in 10⁹. Each figure table is asserted to sum to 100 %
 within every impact category, and each published bar is asserted to sum to 100 % within the
-tolerance its hairline segments allow. `R/plot_steenmeijer_replication.R` repeats the 100 %
+tolerance its hairline segments allow. `r/plot_steenmeijer_replication.r` repeats the 100 %
 check on both countries before it reports success.
 
 ---
