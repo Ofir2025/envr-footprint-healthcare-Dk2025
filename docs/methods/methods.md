@@ -206,7 +206,7 @@ on so a code reads as a classification entry rather than as a string.
 **What it gives us now.** An independent national denominator: Denmark's
 consumption-based GHG footprint 2022 = **57.40 Mt CO₂e**, against Statistics
 Denmark AFTRYK's 62.90 Mt and this model's 77.24 Mt. The healthcare footprint of
-4,675.5 kt is therefore **6.1 % to 8.2 %** of the national total depending on
+4,652.1 kt is therefore **6.0 % to 8.1 %** of the national total depending on
 which denominator is used — 8.15 % of FIGARO, 7.43 % of AFTRYK, 6.05 % of our
 own — and the manuscript quotes the share against our own national total, the
 only one built on the same boundary as the numerator. It also puts emissions

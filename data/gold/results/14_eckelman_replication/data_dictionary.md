@@ -58,8 +58,8 @@ units and are labelled as such wherever they are quoted.
 | `damage_category` | dimension | str |  | Particulate matter |
 | `us_daly` | measure | float64 |  | 435000.0 |
 | `us_daly_per_1000` | measure | float64 |  | 1.3760212493615618 |
-| `dk_daly` | measure | float64 |  | 8480.57431533371 |
-| `dk_daly_per_1000` | measure | float64 |  | 1.4438903254549664 |
+| `dk_daly` | measure | float64 |  | 8334.91186407988 |
+| `dk_daly_per_1000` | measure | float64 |  | 1.419090047039013 |
 | `us_method` | dimension | str |  | IMPACT 2002+ endpoint factors |
 | `dk_method` | dimension | str |  | ILCD recommended endpoint factors |
 
@@ -78,10 +78,10 @@ units and are labelled as such wherever they are quoted.
 | `dk_method` | dimension | str |  | Problem oriented approach: baseline (CML |
 | `dk_indicator` | dimension | str |  | global warming GWP100 |
 | `dk_unit` | dimension | str |  | kg CO2 eq. |
-| `dk_health_care` | measure | float64 |  | 3859168427.4281926 |
-| `dk_national` | measure | float64 |  | 66744817262.27816 |
-| `dk_share_of_national_pct` | measure | float64 | % | 5.7819746696786 |
-| `share_difference_pp` | measure | float64 | % | -4.018025330321401 |
+| `dk_health_care` | measure | float64 |  | 3822301605.981523 |
+| `dk_national` | measure | float64 |  | 66508474417.81992 |
+| `dk_share_of_national_pct` | measure | float64 | % | 5.747089584357384 |
+| `share_difference_pp` | measure | float64 | % | -4.052910415642617 |
 | `comparability` | dimension | str |  | shares only; reference substances differ |
 | `source_us` | dimension | str |  | Eckelman & Sherman 2016, PLoS ONE 11(6): |
 | `source_dk` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |

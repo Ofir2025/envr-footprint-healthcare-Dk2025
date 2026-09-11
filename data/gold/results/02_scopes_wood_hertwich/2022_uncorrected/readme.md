@@ -13,11 +13,11 @@ sea-transport reallocation **not** applied - the comparison run, not
 the headline, and not a lettered variant. Its partition closes on
 `01_eriksen_replication/2022_uncorrected` exactly: the climate `TOTAL`
 of 6,085.494934 kt CO2-eq plus the self-supply loop of 1.833390 kt is
-the grand total of 6,087.328324 kt published there.
+the grand total of 6,063.932424 kt published there.
 
 What the correction is worth, read across this folder and `2022c`: the
-climate footprint falls from 6,085.49 to 4,673.63 kt, and the
-transport industry group falls from 32.19 % of it to 14.87 %. The
+climate footprint falls from 6,062.10 to 4,650.24 kt, and the
+transport industry group falls from 32.31 % of it to 14.94 %. The
 ledger's MRIO decomposition row moves from 5,318.307735 to
 3,906.446070 kt on the same comparison. Nothing in this folder is on
 the headline basis, and no manuscript number is taken from it.

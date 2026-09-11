@@ -639,19 +639,37 @@ def scale_bottomup_all_to_dk(
 SCALING_DK_OVER_NL_BY_YEAR = {
     # 2019: employment 518,889 (NABB69, 86000+87880) / 1,220,750; hours 34.4/29.2;
     #       TU 2019 distance 9.0/7.88 km/person/day
-    # 2016: employment 501,258 (NABB69 2016: 208,577 + 292,681) / 1,220,750 =
-    #       0.41061; hours 34.4/29.2 = 1.17808; TU aarsrapport 2016 Tabel 20
-    #       distance 9.7/7.88 = 1.23096 -> Commute 0.5955;
-    #       Visitor 0.41061 * 1.258097 = 0.5166
-    "2016": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5955, "Visitor travel": 0.5166},
-    # 2019 commuting distance is 9.1 km/person/day, the Table 20 total of the TU
-    # 2019 annual report. It was 9.0 here until 2026-09-11, which is not a figure
-    # that report carries; the factor moves 0.5719 -> 0.5783, commuting +1.1 %.
-    "2019": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5783, "Visitor travel": 0.5348},
-    # 2022: employment 556,999 (NABB69 2022: 244,852 + 312,147) / 1,220,750 = 0.45624;
-    #       hours 34.4/29.2 = 1.17808; TU aarsrapport 2022 Table 20 distance
-    #       9.3/7.88 = 1.18020 -> Commute 0.6343; Visitor 0.45624*1.258097 = 0.5740
-    "2022": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.6343, "Visitor travel": 0.5740},
+    # The commuting-distance ratio is MOTORISED distance on both sides.
+    #
+    # The Dutch denominator, 7.88 km/person/day, is the sum of car, train, bus
+    # and scooter in the CBS modal table that Steenmeijer et al. use. It contains
+    # no walking and no cycling. Denmark's TU Table 20 publishes a total that
+    # does, and in Denmark that matters: 0.6 of the 9.1 km/person/day commuted in
+    # 2019 was walked or cycled. Pairing the Danish total with the Dutch
+    # motorised figure compares two different quantities, and it does so in the
+    # direction that inflates the answer.
+    #
+    # It is also wrong on its own terms. This ratio scales an EMISSION, and
+    # walking and cycling emit essentially nothing, so distance travelled by foot
+    # or bicycle must not enter it at all.
+    #
+    # Denmark, motorised only, from TU Table 20's own modal rows
+    # (car + collective road + train), against the same 7.88:
+    #
+    #   2016  7.6 + 0.2 + 1.2 = 9.0   ratio 1.14213
+    #   2019  7.5 + 0.2 + 0.8 = 8.5   ratio 1.07868
+    #   2022  7.7 + 0.1 + 0.9 = 8.7   ratio 1.10406
+    #
+    # The 8.5 for 2019 is the figure appendix B has carried all along, built from
+    # the same three modal rows; the model had drifted away from its own
+    # appendix. 2016: employment 501,258 (NABB69: 208,577 + 292,681) / 1,220,750
+    # = 0.41061; hours 34.4/29.2 = 1.17808.
+    "2016": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5525, "Visitor travel": 0.5166},
+    "2019": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5402, "Visitor travel": 0.5348},
+    # 2022: employment 556,999 (NABB69 2022: 244,852 + 312,147) / 1,220,750 =
+    #       0.45628; hours 1.17808; motorised distance 8.7/7.88 = 1.10406
+    #       -> Commute 0.5935. It was 0.6343, on the walk-inclusive 9.3.
+    "2022": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5935, "Visitor travel": 0.5740},
 }
 SCALING_DK_OVER_NL = SCALING_DK_OVER_NL_BY_YEAR[ANALYSIS_YEAR]
 

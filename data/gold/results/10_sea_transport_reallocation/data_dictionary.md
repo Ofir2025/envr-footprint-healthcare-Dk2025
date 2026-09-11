@@ -57,11 +57,11 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_producing` | dimension | str |  | DNK |
 | `sector_producing` | dimension | str |  | Sea and coastal water transport |
-| `background_year` | dimension | str |  | 2016 |
+| `background_year` | dimension | str |  | 2016_v3_7 |
 | `analysis_year` | measure | int64 |  | 2019 |
 | `country_consuming` | dimension | str |  | DNK |
 | `sector_consuming` | dimension | str |  | Sea and coastal water transport |
-| `value` | measure | float64 | M.EUR | 4596.613524817225 |
+| `value` | measure | float64 | M.EUR | 3989.8221656499504 |
 | `unit` | dimension | str |  | M.EUR |
 
 ### `phi_sensitivity_2016.csv`
@@ -71,8 +71,8 @@ units and are labelled as such wherever they are quoted.
 | `phi` | measure | float64 |  | 0.05 |
 | `phi_source` | dimension | str |  | sensitivity grid |
 | `released_meur` | measure | float64 |  | 10573.158181268676 |
-| `footprint_climate_kt` | measure | float64 |  | 4044.190969121211 |
-| `transport_share_pct` | measure | float64 | % | 18.45871246687752 |
+| `footprint_climate_kt` | measure | float64 |  | 4026.013269121211 |
+| `transport_share_pct` | measure | float64 | % | 18.542054700293058 |
 | `background_year` | measure | int64 |  | 2016 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
 
@@ -83,8 +83,8 @@ units and are labelled as such wherever they are quoted.
 | `phi` | measure | float64 |  | 0.05 |
 | `phi_source` | dimension | str |  | sensitivity grid |
 | `released_meur` | measure | float64 |  | 12221.956251977515 |
-| `footprint_climate_kt` | measure | float64 |  | 4653.5712732386055 |
-| `transport_share_pct` | measure | float64 | % | 11.800811132913516 |
+| `footprint_climate_kt` | measure | float64 |  | 4630.175373238605 |
+| `transport_share_pct` | measure | float64 | % | 11.860439672856144 |
 | `background_year` | measure | int64 |  | 2022 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi |
 
@@ -94,12 +94,12 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_producing` | dimension | str |  | DNK |
 | `sector_producing` | dimension | str |  | Sea and coastal water transport |
-| `background_year` | dimension | str |  | 2016 |
+| `background_year` | dimension | str |  | 2016_v3_7 |
 | `analysis_year` | measure | int64 |  | 2019 |
 | `quantity` | dimension | str |  | DK sea transport total output |
-| `value` | measure | float64 | varies by row | 15432.100020195892 |
+| `value` | measure | float64 | varies by row | 11232.3024926512 |
 | `unit` | dimension | str |  | M.EUR |
-| `source` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
+| `source` | dimension | str |  | EXIOBASE v3.7 IOT_2016_ixi |
 | `phi_applied` | measure | float64 |  | 0.0773547579047825 |
 | `phi_source` | dimension | str |  | DST DIO 2016 |
 | `rormose_2019_cross_check` | measure | float64 |  | 0.0931189507920632 |
