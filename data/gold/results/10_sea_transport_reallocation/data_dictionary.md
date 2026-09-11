@@ -100,6 +100,6 @@ units and are labelled as such wherever they are quoted.
 | `value` | measure | float64 | varies by row | 15432.100020195892 |
 | `unit` | dimension | str |  | M.EUR |
 | `source` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
-| `phi_applied` | measure | float64 | varies by row | 0.0773547579047825 |
+| `phi_applied` | measure | float64 |  | 0.0773547579047825 |
 | `phi_source` | dimension | str |  | DST DIO 2016 |
-| `rormose_2019_cross_check` | measure | float64 | varies by row | 0.0931189507920632 |
+| `rormose_2019_cross_check` | measure | float64 |  | 0.0931189507920632 |
