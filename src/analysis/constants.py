@@ -208,8 +208,17 @@ def table_year(analysis_year: str | None = None) -> str:
     -------
     str
         ``"2022"`` for the 2022 analysis year; ``"2016"`` for anything else,
-        since the 2019 replication runs on the 2016 table (EXIOBASE has no
-        2019 ixi table in either release this study uses).
+        since the 2019 replication runs on the 2016 table.
+
+        Two different reasons, both established rather than assumed. On v3.7
+        there is no 2019 table at all: that release publishes 1995-2016 (Zenodo
+        record 3583071). On v3.8.2 a 2019 table exists, and it is **defective
+        for this study's industry**: it puts Danish health and social work at
+        18,646 M.EUR against the national accounts' 39,059, a ratio of 0.48,
+        and 2018 is the same. Running 2019 expenditure against the 2016 table
+        is therefore not a limitation inherited from v3.7 but the only correct
+        choice v3.8.2 offers. See
+        ``09_exiobase_release_diagnostics/dk_health_output_by_release.csv``.
 
     Examples
     --------

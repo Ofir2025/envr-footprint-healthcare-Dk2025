@@ -27,6 +27,14 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 09
 - **Dimensions:** `mrio_release`, `country_producing`, `sector_producing`, `exiobase_industry_index`, `dst_nace_prefixes`, `unit`, `exiobase_source`, `source_national_accounts`
 - **Measures:** `mrio_year`, `exiobase_output_meur`, `national_accounts_output_meur`, `ratio_exiobase_over_dst`
 
+### `dk_health_output_by_release.csv`
+
+- **Rows:** 30
+- **Format:** csv
+- **Units:** M.EUR
+- **Dimensions:** `release`, `assessment`, `unit`, `exiobase_industry`, `dst_industries`
+- **Measures:** `table_year`, `exiobase_output_meur`, `national_accounts_output_meur`, `ratio_exiobase_over_dst`
+
 ### `industry33_output_by_region.csv`
 
 - **Rows:** 245

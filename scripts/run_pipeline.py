@@ -190,6 +190,10 @@ NOT_STAGES: frozenset[str] = frozenset({
     # dissemination API for the FIGARO extracts and is run when a year is added
     # to the benchmark
     "fetch_figaro",
+    # the other bronze-layer fetcher: it pulls one total-output vector per
+    # EXIOBASE release by HTTP range request, and is run when a release is
+    # published, not on every build
+    "fetch_release_output_vectors",
     # the silver consolidation of those extracts into two series with a year
     # column, run after a fetch rather than on every build
     "build_figaro_series",

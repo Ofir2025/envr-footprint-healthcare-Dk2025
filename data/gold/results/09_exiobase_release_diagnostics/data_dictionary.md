@@ -68,6 +68,20 @@ units and are labelled as such wherever they are quoted.
 | `exiobase_source` | dimension | str |  | data/bronze/exiobase/v3_10_2/IOT_2016_ix |
 | `source_national_accounts` | dimension | str |  | Statistics Denmark, published 117-indust |
 
+### `dk_health_output_by_release.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `release` | dimension | str |  | v3.8.2 |
+| `table_year` | measure | int64 |  | 2016 |
+| `exiobase_output_meur` | measure | float64 | M.EUR | 37163.1126893 |
+| `national_accounts_output_meur` | measure | float64 | M.EUR | 36639.50881104604 |
+| `ratio_exiobase_over_dst` | measure | float64 | M.EUR | 1.014290690438953 |
+| `assessment` | dimension | str |  | agrees with the national accounts within |
+| `unit` | dimension | str |  | M.EUR |
+| `exiobase_industry` | dimension | str |  | Health and social work |
+| `dst_industries` | dimension | str |  | 86;87;88 |
+
 ### `industry33_output_by_region.csv`
 
 | Column | Role | Type | Unit | Example |
