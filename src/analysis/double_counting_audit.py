@@ -14,7 +14,8 @@ collapses to the intra-sector self-supply term, which is quantified and
 removed. Decomposing the footprint by producing or purchased node is a
 partition of one scalar, not an aggregation of overlapping vectors.
 
-Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 .venv/bin/python -m analysis.double_counting_audit
+Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+     .venv/bin/python -m analysis.double_counting_audit
 """
 
 import os
@@ -94,9 +95,9 @@ def main() -> None:
     partition, and Cabernard target aggregation), each with a numeric test
     value in kt CO2-equivalent or M.EUR and a verdict. Writes the ledger to
     ``double_counting_ledger.csv`` under the scope-decomposition gold folder
-    for the analysis year (``analysis.constants.scopes_folder``) and prints
-    it. The background actually loaded is
-    ``analysis.constants.BACKGROUND_YEAR``, which carries both
+    for this model run (``analysis.constants.scopes_folder``, which resolves
+    the reference year AND the correction state) and prints it. The background
+    actually loaded is ``analysis.constants.BACKGROUND_YEAR``, which carries both
     ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``, so the ledger is written
     on the same background as the headline tables it is the audit trail for.
     """

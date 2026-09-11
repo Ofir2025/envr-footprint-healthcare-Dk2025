@@ -32,25 +32,29 @@ suppressPackageStartupMessages({
 gold_root <- Sys.getenv("DKHC_GOLD_ROOT", "data/gold/results")
 fig_dir   <- Sys.getenv("DKHC_FIG_DIR",   "figures")
 
-# Results are held per analysis year, so the same basename can exist under
-# more than one folder. Some layers (e.g. .../02_scopes_wood_hertwich/2019/
-# and .../2022/) vary only by year; the Eriksen replication varies by year AND
-# by whether the Danish sea-transport correction was applied
+# Results are held per model run, so the same basename can exist under more
+# than one folder. Both variant-scoped layers - the Eriksen replication
 # (.../01_eriksen_replication/2019_uncorrected/, .../2019_shipping_corrected/,
-# .../2022_uncorrected/, .../2022_shipping_corrected/), since the 2019-to-2022
-# swing this study reports is never valid to read as a single change unless
-# the correction state is held fixed. Resolve to the full variant folder
-# first (year AND background tag), fall back to a bare year match for layers
-# that do not vary by correction state, and only then to a unique match - so a
-# figure can never silently take the wrong year's, or the wrong correction
-# state's, data.
+# .../2022_uncorrected/, .../2022_shipping_corrected/) and the scope
+# decomposition (.../02_scopes_wood_hertwich/ with the same names) - vary by
+# reference year AND by whether the Danish sea-transport correction was
+# applied, since the 2019-to-2022 swing this study reports is never valid to
+# read as a single change unless the correction state is held fixed.
+#
+# Resolution is therefore by the full variant folder (year AND background tag)
+# and by nothing else. A bare-year fallback used to sit here for layers named
+# by year alone; layer 02 was the only such layer, and while it existed that
+# fallback resolved figures 3 to 6 of the uncorrected variants to the
+# shipping-corrected scope tables without saying so. With the fallback gone, a
+# variant a layer does not publish is an error naming that variant rather than
+# a silent substitution.
 analysis_year  <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
 background_tag <- Sys.getenv("HC_BACKGROUND_TAG", "")
 
 #: Self-describing "<year>_<state>" folder name for one (year, tag) pair.
-#: Mirrors ``analysis.constants.eriksen_variant`` so the two languages resolve
-#: the same folder from the same environment.
-eriksen_variant <- function(year = analysis_year, tag = background_tag) {
+#: Mirrors ``analysis.constants.variant_name`` so the two languages resolve the
+#: same folder from the same environment.
+variant_name <- function(year = analysis_year, tag = background_tag) {
   suffix <- if (tag == "") "uncorrected"
             else if (tag == "_snacship") "shipping_corrected"
             else sub("^_", "", tag)
@@ -58,26 +62,45 @@ eriksen_variant <- function(year = analysis_year, tag = background_tag) {
 }
 
 .gold_index <- NULL
-gold_path <- function(name, year = analysis_year, tag = background_tag) {
+.gold_hits <- function(name) {
   if (is.null(.gold_index)) {
     .gold_index <<- list.files(gold_root, pattern = "\\.csv(\\.gz)?$",
                                recursive = TRUE, full.names = TRUE)
   }
-  hit <- .gold_index[basename(.gold_index) == name]
+  .gold_index[basename(.gold_index) == name]
+}
+
+gold_path <- function(name, year = analysis_year, tag = background_tag) {
+  hit <- .gold_hits(name)
   if (length(hit) < 1)
     stop(sprintf("gold fact '%s' not found under %s/", name, gold_root))
   if (length(hit) > 1) {
-    variant <- eriksen_variant(year, tag)
+    variant <- variant_name(year, tag)
     invariant <- hit[grepl(sprintf("/%s/", variant), hit, fixed = TRUE)]
     if (length(invariant) == 1) return(invariant[[1]])
-    inyear <- hit[grepl(sprintf("/%s/", year), hit, fixed = TRUE)]
-    if (length(inyear) == 1) return(inyear[[1]])
-    stop(sprintf(paste0("gold fact '%s' is ambiguous for year %s, variant %s ",
+    if (length(invariant) < 1)
+      stop(sprintf(paste0("gold fact '%s' is published for %d model runs but ",
+                          "not for %s. The layer has not been built for that ",
+                          "year and correction state; build it, or pass ",
+                          "year=/tag= for one that exists."),
+                   name, length(hit), variant))
+    stop(sprintf(paste0("gold fact '%s' is ambiguous within variant %s ",
                         "(%d matches). Set HC_ANALYSIS_YEAR/HC_BACKGROUND_TAG ",
                         "or pass year=/tag=."),
-                 name, year, variant, length(hit)))
+                 name, variant, length(invariant)))
   }
   hit[[1]]
+}
+
+#: TRUE when `name` is published for this (year, tag), so a figure that a layer
+#: has not been built for can be skipped out loud instead of aborting the whole
+#: script. Used only by the scope figures, whose layer is variant-scoped and
+#: may legitimately be missing one of the four runs.
+gold_has <- function(name, year = analysis_year, tag = background_tag) {
+  hit <- .gold_hits(name)
+  if (length(hit) == 1) return(TRUE)
+  length(hit[grepl(sprintf("/%s/", variant_name(year, tag)), hit,
+                   fixed = TRUE)]) == 1
 }
 
 # ---- type sizes ------------------------------------------------------------

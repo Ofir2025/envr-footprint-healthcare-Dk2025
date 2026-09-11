@@ -1,4 +1,4 @@
-# 02_scopes_wood_hertwich/2019
+# 02_scopes_wood_hertwich/2022_shipping_corrected
 
 **GHG-Protocol scope decomposition**
 
@@ -6,23 +6,18 @@ Of the total health-care footprint, this layer asks how much is emitted by the p
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 02](../../../../../docs/methods/replications.md#r02).
 
-## Which model variant this year is built on
+## Which model run this folder is
 
-`01_eriksen_replication` says in its folder names which correction a
-run carries; this layer's folders are named by year alone, so the
-correspondence has to be stated rather than inferred.
+The manuscript's headline run: reference year 2022 on EXIOBASE v3.8.2
+`IOT_2022_ixi`, with the Danish sea-transport reallocation applied.
+Its partition closes on
+`01_eriksen_replication/2022_shipping_corrected` exactly: the climate
+`TOTAL` of 4,673.633405 kt CO2-eq plus the self-supply loop of
+1.833254 kt is the grand total of 4,675.466659 kt published there.
 
-This folder answers **`01_eriksen_replication/2019_shipping_corrected`**:
-EXIOBASE v3.8.2 `IOT_2016_ixi` with the Danish sea-transport
-reallocation applied, against 2019 expenditure. Its partition closes
-on that run exactly: the climate `TOTAL` of 4,052.850438 kt CO2-eq
-plus the self-supply loop of 1.921622 kt is the grand total of
-4,054.772061 kt that `scopes_summary.csv` publishes there. The
-uncorrected companion run, `2019_uncorrected`, reaches 6,360.386367
-kt; nothing in this folder is on that basis.
-
-The bottom-up items are 2019's own: anaesthetic gases 12.470055 kt,
-commuting 327.9446 kt, patient and visitor travel 293.475319 kt.
+The double-counting ledger's MRIO decomposition row, 3,906.446070 kt,
+is `00_core_footprint`'s `healthcare_footprint_mrio` to six decimals,
+which is what audit check C19 tests.
 
 ## Conventions
 
@@ -55,7 +50,7 @@ commuting 327.9446 kt, patient and visitor travel 293.475319 kt.
 
 ### `scope_by_continent_and_industry_group.csv`
 
-- **Rows:** 597
+- **Rows:** 596
 - **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_world_region`, `producing_sector_group`, `scope`, `indicator`, `unit`
@@ -63,7 +58,7 @@ commuting 327.9446 kt, patient and visitor travel 293.475319 kt.
 
 ### `scope_by_country.csv`
 
-- **Rows:** 410
+- **Rows:** 407
 - **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `scope`, `indicator`, `unit`
@@ -79,7 +74,7 @@ commuting 327.9446 kt, patient and visitor travel 293.475319 kt.
 
 ### `scope_by_origin_and_industry.csv`
 
-- **Rows:** 23,747
+- **Rows:** 23,738
 - **Format:** csv
 - **Resolution:** 1+ regions x 15+ industries (sampled)
 - **Units:** kt CO2eq
@@ -88,16 +83,16 @@ commuting 327.9446 kt, patient and visitor travel 293.475319 kt.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 89
+- **Rows:** 117
 - **Format:** csv
-- **Resolution:** 13+ regions x 16+ industries (sampled)
+- **Resolution:** 11+ regions x 13+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`
 
 ### `scopes_by_producing_node.csv`
 
-- **Rows:** 23,735
+- **Rows:** 23,726
 - **Format:** csv
 - **Resolution:** 1+ regions x 15+ industries (sampled)
 - **Units:** kt CO2eq

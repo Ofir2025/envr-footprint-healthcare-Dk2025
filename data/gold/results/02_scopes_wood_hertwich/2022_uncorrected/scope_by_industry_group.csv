@@ -1,0 +1,117 @@
+producing_sector_group,scope,indicator,unit,value,share_of_scope_pct
+Private travel,Outside protocol,blue_water_consumption,Mm3,0.0761,100.0
+Electricity,Scope 2,blue_water_consumption,Mm3,0.07086200259359288,99.93257488480809
+"Steam, hot water supply and water distribution",Scope 2,blue_water_consumption,Mm3,4.781102351370279e-05,0.06742511519191
+Food and catering,Scope 3,blue_water_consumption,Mm3,83.12074358118514,85.29991198663467
+Chemical,Scope 3,blue_water_consumption,Mm3,7.418876333475021,7.613376288760617
+Electricity,Scope 3,blue_water_consumption,Mm3,3.692915115315131,3.789731909734705
+Metal Products,Scope 3,blue_water_consumption,Mm3,1.0046095882425023,1.0309473395689386
+Paper Products,Scope 3,blue_water_consumption,Mm3,0.4768952939308611,0.4893980112125787
+Services,Scope 3,blue_water_consumption,Mm3,0.40265712734084946,0.4132135498693994
+Textile,Scope 3,blue_water_consumption,Mm3,0.34210305389447737,0.35107193620153354
+"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.32985345845010833,0.3385011943113818
+General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.15742557748099026,0.16155278844994836
+Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.1279251685494133,0.1312789701824847
+Private travel,Scope 3,blue_water_consumption,Mm3,0.1015,0.1041610155735324
+Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.08843373848443063,0.09075219715765981
+Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.06321281075990595,0.06487005483753025
+Transport,Scope 3,blue_water_consumption,Mm3,0.03945194485522839,0.04048625263518804
+Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.03475077063092716,0.03566182818601237
+Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.016881021013414266,0.017323589090397745
+Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.011950357346205552,0.012263658696033436
+Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.006969026004987127,0.0071517322782050875
+"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,0.00491543728610898,0.005044304824720387
+Construction,Scope 3,blue_water_consumption,Mm3,0.0032170506911210306,0.003301391794469959
+Private travel,Outside protocol,climate_change,kt CO2eq,263.56770753446403,100.0
+Operational impact,Scope 1,climate_change,kt CO2eq,130.1262816237094,100.0
+Electricity,Scope 2,climate_change,kt CO2eq,63.24878686359306,86.23869457431034
+"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,10.092753353127994,13.761305425689654
+Transport,Scope 3,climate_change,kt CO2eq,1959.441482683899,34.875067017528345
+Coal and Petroleum,Scope 3,climate_change,kt CO2eq,655.8017380649288,11.672269760206754
+Food and catering,Scope 3,climate_change,kt CO2eq,621.467127197387,11.061166103573877
+Chemical,Scope 3,climate_change,kt CO2eq,436.52193002705854,7.769423939857666
+Electricity,Scope 3,climate_change,kt CO2eq,381.14882536753277,6.7838672120678485
+Private travel,Scope 3,climate_change,kt CO2eq,363.7266,6.473778198103043
+"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,298.4370619384354,5.311724094644084
+Waste management and disposal,Scope 3,climate_change,kt CO2eq,231.65137742397982,4.123040868410229
+Services,Scope 3,climate_change,kt CO2eq,195.10228674501005,3.47252285186152
+Minerals and Metals,Scope 3,climate_change,kt CO2eq,118.231571212048,2.1043414697743406
+Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,117.3034833766205,2.0878229231656644
+Metal Products,Scope 3,climate_change,kt CO2eq,77.65327114270643,1.3821096772549408
+Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,69.45560692975766,1.2362037691988428
+Paper Products,Scope 3,climate_change,kt CO2eq,22.21833110051919,0.3954523740545121
+"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,17.89811003662548,0.31855903456704915
+Textile,Scope 3,climate_change,kt CO2eq,16.445134213956717,0.2926982831038242
+Furniture and timber,Scope 3,climate_change,kt CO2eq,12.819653235518704,0.2281702565150366
+Operational impact,Scope 3,climate_change,kt CO2eq,11.6,0.20646229090199972
+Construction,Scope 3,climate_change,kt CO2eq,4.458998580991407,0.07936336742760793
+Transport Equipment,Scope 3,climate_change,kt CO2eq,4.041942517683469,0.07194040619785566
+General and special Machinery,Scope 3,climate_change,kt CO2eq,3.034872739462889,0.05401610158495998
+Private travel,Outside protocol,land_use,km2,0.6924,99.99999999999999
+Electricity,Scope 2,land_use,km2,0.05939641823476578,87.80692571375803
+"Steam, hot water supply and water distribution",Scope 2,land_use,km2,0.008247925023979296,12.193074286241965
+Food and catering,Scope 3,land_use,km2,4935.592069520967,98.91064194561986
+Textile,Scope 3,land_use,km2,15.407788155102802,0.3087763729086407
+Services,Scope 3,land_use,km2,10.292364053154092,0.20626184686578025
+Furniture and timber,Scope 3,land_use,km2,7.964642386631178,0.15961365530872243
+Paper Products,Scope 3,land_use,km2,5.515673310570869,0.11053563184038366
+Transport,Scope 3,land_use,km2,4.840815434383609,0.09701129173781557
+Electricity,Scope 3,land_use,km2,2.182756494793712,0.043743049074955555
+Coal and Petroleum,Scope 3,land_use,km2,1.746638070908622,0.035003114197198745
+Construction,Scope 3,land_use,km2,1.2769144295674055,0.025589721386839695
+Waste management and disposal,Scope 3,land_use,km2,1.0880554459615661,0.02180493466975918
+Private travel,Scope 3,land_use,km2,0.9768,0.01957534449597629
+"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.8423424355153241,0.016880777394340865
+Chemical,Scope 3,land_use,km2,0.7645420593233303,0.015321636151635266
+Minerals and Metals,Scope 3,land_use,km2,0.5398618887365484,0.010818982854490535
+General and special Machinery,Scope 3,land_use,km2,0.41801199786760157,0.008377077049252259
+Metal Products,Scope 3,land_use,km2,0.23161326373352087,0.0046415944179167504
+Non-metallic mineral products,Scope 3,land_use,km2,0.12581766016081386,0.002521421008728094
+Natural gas and gaseous fuels,Scope 3,land_use,km2,0.10541502401709354,0.002112546488724632
+Transport Equipment,Scope 3,land_use,km2,0.03212249430447835,0.0006437437470108515
+"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,0.006253045787274012,0.00012531278197686532
+Private travel,Outside protocol,material_extraction,kt,10.6529,99.99999999999999
+"Steam, hot water supply and water distribution",Scope 2,material_extraction,kt,0.14481477081451244,55.31247558004652
+Electricity,Scope 2,material_extraction,kt,0.1169973598049912,44.687524419953476
+Minerals and Metals,Scope 3,material_extraction,kt,3681.724230832736,85.01007218565405
+Chemical,Scope 3,material_extraction,kt,325.7496937337148,7.521477232555897
+Non-metallic mineral products,Scope 3,material_extraction,kt,142.39219510809195,3.2877994183922796
+Food and catering,Scope 3,material_extraction,kt,48.45004513428763,1.1186991681156977
+Services,Scope 3,material_extraction,kt,37.47137518767837,0.8652044829766561
+Transport,Scope 3,material_extraction,kt,25.60779962232818,0.5912775531038361
+Private travel,Scope 3,material_extraction,kt,14.9822,0.3459351715790603
+Natural gas and gaseous fuels,Scope 3,material_extraction,kt,12.492734537128362,0.28845404984535994
+Electricity,Scope 3,material_extraction,kt,9.497493492377567,0.21929469910004148
+"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,7.342309586619758,0.1695320531453248
+Coal and Petroleum,Scope 3,material_extraction,kt,6.697856127084762,0.15465178735665838
+Metal Products,Scope 3,material_extraction,kt,5.601214196092577,0.1293306052499869
+Construction,Scope 3,material_extraction,kt,4.614561422713466,0.10654904470161226
+"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,2.9085351504501373,0.06715733379041103
+Waste management and disposal,Scope 3,material_extraction,kt,2.5769228398872777,0.05950049023256962
+Paper Products,Scope 3,material_extraction,kt,1.4818868770452291,0.03421638952032406
+General and special Machinery,Scope 3,material_extraction,kt,0.5119868257659806,0.01182164504662686
+Furniture and timber,Scope 3,material_extraction,kt,0.45793574619012956,0.010573619423747344
+Transport Equipment,Scope 3,material_extraction,kt,0.22096832624468563,0.005102102218165094
+Textile,Scope 3,material_extraction,kt,0.14512797995085078,0.003350967991698147
+Operational impact,Scope 1,waste_generation,kt,42.75704592555413,100.0
+"Steam, hot water supply and water distribution",Scope 2,waste_generation,kt,0.27683971234228794,59.046869404715316
+Electricity,Scope 2,waste_generation,kt,0.19200768826212122,40.953130595284684
+Chemical,Scope 3,waste_generation,kt,68.24645246397291,31.15790133626077
+Food and catering,Scope 3,waste_generation,kt,48.75753051329838,22.260238741860558
+Waste management and disposal,Scope 3,waste_generation,kt,32.90112601385084,15.021001109656359
+Electricity,Scope 3,waste_generation,kt,14.471626605158646,6.607017620099316
+Coal and Petroleum,Scope 3,waste_generation,kt,13.686737154228794,6.248676531456589
+Paper Products,Scope 3,waste_generation,kt,12.80475123954662,5.846006075814284
+"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,6.136044078794693,2.801409437405684
+Services,Scope 3,waste_generation,kt,5.257243820455337,2.400193392394806
+Metal Products,Scope 3,waste_generation,kt,4.185028921854108,1.91067394023688
+Transport,Scope 3,waste_generation,kt,4.111981177539078,1.8773240102693758
+Construction,Scope 3,waste_generation,kt,3.909599357144375,1.7849266392054395
+"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,1.2193542451375827,0.5566958851671251
+Furniture and timber,Scope 3,waste_generation,kt,0.8878044010528795,0.40532688418502705
+Non-metallic mineral products,Scope 3,waste_generation,kt,0.8607651440640041,0.392982117958388
+Textile,Scope 3,waste_generation,kt,0.44135679602111966,0.20150133828236302
+General and special Machinery,Scope 3,waste_generation,kt,0.4170508015061387,0.190404442375909
+Minerals and Metals,Scope 3,waste_generation,kt,0.3250493632284511,0.1484012080222475
+Transport Equipment,Scope 3,waste_generation,kt,0.2705402095364564,0.12351506711177568
+Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.14413373597815052,0.06580422223711346

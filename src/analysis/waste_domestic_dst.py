@@ -6,15 +6,27 @@ Why this exists
 The waste indicator inherited from Steenmeijer et al. (2022) applies the 2011
 hybrid EXIOBASE waste-supply account to the analysis year's monetary output.
 Testing it against Denmark's own SEEA waste accounts shows it is not merely
-out of date but a DIFFERENT CONCEPT: it is a total-residuals account in which
-livestock manure and mining overburden dominate (74 % of the Danish total is
-manure; 69 % of the healthcare "waste" footprint is mining overburden plus
-manure). At the Danish health sector it overstates direct waste 3.1x against the
-measured NACE Q account and 3.5x against the study's own boundary
-(``analysis.waste_validation``, which computes both), and it
-fails as an allocation key too - its 2011 Danish sector structure is
-statistically uncorrelated with the measured 2011 structure (Pearson
-r = -0.19). See analysis.waste_validation and the revision notes.
+out of date but a DIFFERENT CONCEPT: it is a TOTAL-RESIDUALS account, whose
+nineteen fractions include livestock manure, sewage, mining waste and unused
+mining material - none of which is waste as Eurostat (EWC-Stat, Regulation EC
+2150/2002) or Statistics Denmark (AFFALD01) define it. Which fractions are
+excluded, and why each is, is set out beside the exclusion itself in
+``pipelines.prep_background.waste``; the boundary is the code's, not a
+narrative here.
+
+The quantitative case against it is what ``analysis.waste_validation``
+publishes and nothing else: at the Danish health sector the hybrid extension
+overstates direct waste 3.09x against the measured NACE Q account and 3.54x
+against the study's own boundary, both rows of
+``05_waste_dst_accounts/waste_extension_validation.csv``.
+
+Three further figures once stood here - a manure share of the Danish total, a
+share of the health-care footprint attributed to mining overburden plus manure,
+and a Pearson correlation against the measured 2011 sector structure. No module
+computed any of them and none could be reconstructed from this module and the
+data it reads, so they were withdrawn rather than left standing; the reasoning
+is recorded in ``docs/revision/defects_and_fixes.md`` under "Findings of 11
+September 2026".
 
 Denmark, uniquely, publishes IO-based waste multipliers on the same
 117-industry classification as its IO tables (StatBank AFF1MU1N / AFF3MU1N,

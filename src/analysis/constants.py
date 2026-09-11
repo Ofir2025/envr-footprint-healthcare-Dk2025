@@ -203,8 +203,14 @@ def ar6_gwp_factor(stressor: str) -> float | None:
 #: accident the scope routing already guards against.
 ERIKSEN_ROOT = "01_eriksen_replication"
 
-#: Self-describing suffix appended to the analysis year to name the Eriksen
-#: variant folder, keyed by ``HC_BACKGROUND_TAG``.
+#: Root of the GHG-Protocol scope decomposition. Variant-scoped for the same
+#: reason as the Eriksen folder, and on the same axes: the scope tables are the
+#: source of manuscript figures 3-6, so a run for one year or one correction
+#: state must not overwrite another's.
+SCOPES_ROOT = "02_scopes_wood_hertwich"
+
+#: Self-describing suffix appended to the analysis year to name a result
+#: variant, keyed by ``HC_BACKGROUND_TAG``.
 #:
 #: The 2019-versus-2022 transport-share swing the manuscript reports (roughly
 #: 46 % to 15-18 %) is not one comparison but three confounded ones: reference
@@ -215,14 +221,14 @@ ERIKSEN_ROOT = "01_eriksen_replication"
 #: ``HC_BACKGROUND_TAG`` happened to be set is what lets a reader separate the
 #: two effects: a bare year number never told anyone which correction state it
 #: carried.
-ERIKSEN_VARIANT_SUFFIX: dict[str, str] = {
+VARIANT_SUFFIX: dict[str, str] = {
     "": "uncorrected",
     "_snacship": "shipping_corrected",
 }
 
 
-def eriksen_variant(year: str | None = None, tag: str | None = None) -> str:
-    """Self-describing ``<year>_<state>`` name for one Eriksen run.
+def variant_name(year: str | None = None, tag: str | None = None) -> str:
+    """Self-describing ``<year>_<state>`` name for one model run.
 
     Parameters
     ----------
@@ -239,22 +245,33 @@ def eriksen_variant(year: str | None = None, tag: str | None = None) -> str:
 
     Examples
     --------
-    >>> eriksen_variant("2019", "")
+    >>> variant_name("2019", "")
     '2019_uncorrected'
-    >>> eriksen_variant("2022", "_snacship")
+    >>> variant_name("2022", "_snacship")
     '2022_shipping_corrected'
     """
     y = year or ANALYSIS_YEAR
     t = BACKGROUND_TAG if tag is None else tag
-    suffix = ERIKSEN_VARIANT_SUFFIX.get(t, t.lstrip("_") or "uncorrected")
+    suffix = VARIANT_SUFFIX.get(t, t.lstrip("_") or "uncorrected")
     return f"{y}_{suffix}"
 
 
-def eriksen_folder(year: str | None = None, tag: str | None = None) -> str:
-    """Return the Eriksen output folder for one (analysis year, background tag).
+def variant_folder(root: str, year: str | None = None,
+                   tag: str | None = None) -> str:
+    """Return one layer's output folder for one (analysis year, background tag).
+
+    The single resolver behind :func:`eriksen_folder` and
+    :func:`scopes_folder`. Both layers vary on the same two axes and are read
+    by the same figure scripts, so they name their folders from one rule; a
+    layer that resolved a variant of its own would put figures drawn from two
+    layers on two different backgrounds without saying so, which is exactly
+    what a bare year number did to figures 3-6.
 
     Parameters
     ----------
+    root : str
+        Layer folder under the gold results root, e.g. ``ERIKSEN_ROOT`` or
+        ``SCOPES_ROOT``.
     year : str, optional
         Four-digit analysis year. Defaults to the year this process is
         configured for (``HC_ANALYSIS_YEAR``).
@@ -267,30 +284,49 @@ def eriksen_folder(year: str | None = None, tag: str | None = None) -> str:
     -------
     str
         Path relative to the gold results root, e.g.
-        ``"01_eriksen_replication/2022_shipping_corrected"``.
+        ``"02_scopes_wood_hertwich/2022_shipping_corrected"``.
+
+    Examples
+    --------
+    >>> variant_folder(SCOPES_ROOT, "2019", "")
+    '02_scopes_wood_hertwich/2019_uncorrected'
     """
-    return f"{ERIKSEN_ROOT}/{eriksen_variant(year, tag)}"
+    return f"{root}/{variant_name(year, tag)}"
 
 
-#: Root of the GHG-Protocol scope decomposition, year-scoped for the same reason
-#: as the Eriksen folder: a 2019 run must not overwrite the 2022 tables that the
-#: manuscript figures are drawn from.
-SCOPES_ROOT = "02_scopes_wood_hertwich"
-
-
-def scopes_folder(year: str | None = None) -> str:
-    """Return the scope-decomposition output folder for one analysis year.
+def eriksen_folder(year: str | None = None, tag: str | None = None) -> str:
+    """Return the Eriksen output folder for one (analysis year, background tag).
 
     Parameters
     ----------
     year : str, optional
-        Four-digit analysis year. Defaults to the year this process is
-        configured for (``HC_ANALYSIS_YEAR``).
+        Four-digit analysis year. Defaults to ``HC_ANALYSIS_YEAR``.
+    tag : str, optional
+        Background variant tag. Defaults to ``HC_BACKGROUND_TAG``.
 
     Returns
     -------
     str
         Path relative to the gold results root, e.g.
-        ``"02_scopes_wood_hertwich/2022"``.
+        ``"01_eriksen_replication/2022_shipping_corrected"``.
     """
-    return f"{SCOPES_ROOT}/{year or ANALYSIS_YEAR}"
+    return variant_folder(ERIKSEN_ROOT, year, tag)
+
+
+def scopes_folder(year: str | None = None, tag: str | None = None) -> str:
+    """Return the scope-decomposition folder for one (year, background tag).
+
+    Parameters
+    ----------
+    year : str, optional
+        Four-digit analysis year. Defaults to ``HC_ANALYSIS_YEAR``.
+    tag : str, optional
+        Background variant tag. Defaults to ``HC_BACKGROUND_TAG``.
+
+    Returns
+    -------
+    str
+        Path relative to the gold results root, e.g.
+        ``"02_scopes_wood_hertwich/2022_shipping_corrected"``.
+    """
+    return variant_folder(SCOPES_ROOT, year, tag)

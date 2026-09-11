@@ -193,170 +193,183 @@ p2 <- ggplot(d2, aes(plot_x, key,
 
 dk_save(p2, sprintf("fig2_top_origin_industry_pairs_%s", YEAR), w = 21.5, h = 12.5)
 
-# ================= fig 3  scopes, stacked ===================================
-# Faceting the scopes was tried and dropped: three of five categories have no
-# direct term, so a facet grid draws empty panels. Material extraction, blue
-# water and land use are ZERO in scope 1 by EXIOBASE's accounting rather than by
-# a data gap - extraction, abstraction and land occupation are attributed to
-# extractive and agricultural industries, so a health SERVICE industry has no
-# direct row. A stacked bar shows that cleanly by drawing nothing.
-d3 <- gold("scope_by_continent.csv") %>%
-  group_by(indicator, unit, scope) %>%
-  summarise(value = sum(value), .groups = "drop") %>%
-  group_by(indicator) %>%
-  mutate(share_pct = 100 * value / sum(value), total = sum(value)) %>%
-  ungroup() %>%
-  mutate(indicator = ind_factor(indicator),
-         scope = factor(scope, levels = SCOPE_ORDER),
-         lab = sprintf("%s\n%s %s", IND_NAME[as.character(indicator)],
-                       formatC(total, format = "f", digits = 0, big.mark = ","),
-                       IND_UNIT_TXT[as.character(indicator)]))
-d3 <- d3 %>% mutate(lab = factor(lab, levels = rev(unique(lab[order(indicator)]))))
-
-p3 <- ggplot(d3, aes(share_pct, lab, fill = scope)) +
-  geom_col(width = 0.68, colour = "white", linewidth = 0.2,
-           position = position_stack(reverse = TRUE)) +
-  # Luminance-driven label colour: white on the amber Scope 3 fill is 2.25:1,
-  # below the 4.5:1 floor; black on the same fill is 9.4:1.
-  # `group = scope` is load-bearing. Without it the text layer's grouping comes
-  # from its own `colour` aesthetic - two levels, not four - so position_stack
-  # stacks the labels in a different order from the bars and the label of the
-  # outside-protocol segment was drawn at 5 % instead of 97 %.
-  geom_text(aes(label = if_else(share_pct >= 4, sprintf("%.0f%%", share_pct),
-                                NA_character_),
-                colour = scope %in% c("Scope 3"), group = scope),
-            position = position_stack(vjust = 0.5, reverse = TRUE),
-            fontface = "bold", size = 4.6, na.rm = TRUE, show.legend = FALSE) +
-  scale_colour_manual(values = c(`TRUE` = "#1A1A1A", `FALSE` = "white"),
-                      guide = "none") +
-  scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
-                    name = NULL) +
-  scale_x_continuous(labels = function(x) paste0(smart_labs(x), "%"),
-                     breaks = seq(0, 100, 25),
-                     expand = expansion(mult = c(0, 0.01))) +
-  guides(fill = guide_legend(nrow = 1)) +
-  labs(x = "Share of the impact category", y = NULL) +
-  theme_dkhc() +
-  theme(panel.grid.major.y = element_blank(),
-        axis.text.y = element_text(size = 14, lineheight = 1.15))
-
-dk_save(p3, sprintf("fig3_scopes_stacked_%s", YEAR), w = 14, h = 8.5)
-
-# ========= fig 4 / fig 5  where scope 2 and scope 3 arise, by pair ==========
-pairs_src <- gold("scope_by_origin_and_industry.csv") %>%
-  filter(producing_country_iso3 != "GLO",
-         !grepl("^BU_", producing_sector_code)) %>%
-  mutate(indicator = ind_factor(indicator),
-         pair = paste0(region_code(producing_country_iso3), SEP,
-                       producing_sector_code))
-
-scope_source_plot <- function(which_scope, n = 10) {
-  full <- pairs_src %>% filter(scope == which_scope) %>%
-    group_by(indicator, pair) %>%
+# ============ figs 3-6  the scope decomposition, when it is published ======
+# `02_scopes_wood_hertwich` is variant-scoped like `01_eriksen_replication`,
+# so a (year, correction state) it has not been built for has no scope tables
+# at all. Drawing figures 3 to 6 from another run's tables is what the old
+# bare-year folder name silently did, so these four are skipped out loud
+# instead, and the rest of the figure set still renders.
+if (!gold_has("scope_by_continent.csv")) {
+  cat(sprintf(paste0("  figures 3-6 SKIPPED: 02_scopes_wood_hertwich holds ",
+                     "no tables for %s, so the scope decomposition cannot ",
+                     "be drawn for this run\n"),
+              variant_name()))
+} else {
+  # ================= fig 3  scopes, stacked ===================================
+  # Faceting the scopes was tried and dropped: three of five categories have no
+  # direct term, so a facet grid draws empty panels. Material extraction, blue
+  # water and land use are ZERO in scope 1 by EXIOBASE's accounting rather than by
+  # a data gap - extraction, abstraction and land occupation are attributed to
+  # extractive and agricultural industries, so a health SERVICE industry has no
+  # direct row. A stacked bar shows that cleanly by drawing nothing.
+  d3 <- gold("scope_by_continent.csv") %>%
+    group_by(indicator, unit, scope) %>%
     summarise(value = sum(value), .groups = "drop") %>%
     group_by(indicator) %>%
+    mutate(share_pct = 100 * value / sum(value), total = sum(value)) %>%
+    ungroup() %>%
+    mutate(indicator = ind_factor(indicator),
+           scope = factor(scope, levels = SCOPE_ORDER),
+           lab = sprintf("%s\n%s %s", IND_NAME[as.character(indicator)],
+                         formatC(total, format = "f", digits = 0, big.mark = ","),
+                         IND_UNIT_TXT[as.character(indicator)]))
+  d3 <- d3 %>% mutate(lab = factor(lab, levels = rev(unique(lab[order(indicator)]))))
+
+  p3 <- ggplot(d3, aes(share_pct, lab, fill = scope)) +
+    geom_col(width = 0.68, colour = "white", linewidth = 0.2,
+             position = position_stack(reverse = TRUE)) +
+    # Luminance-driven label colour: white on the amber Scope 3 fill is 2.25:1,
+    # below the 4.5:1 floor; black on the same fill is 9.4:1.
+    # `group = scope` is load-bearing. Without it the text layer's grouping comes
+    # from its own `colour` aesthetic - two levels, not four - so position_stack
+    # stacks the labels in a different order from the bars and the label of the
+    # outside-protocol segment was drawn at 5 % instead of 97 %.
+    geom_text(aes(label = if_else(share_pct >= 4, sprintf("%.0f%%", share_pct),
+                                  NA_character_),
+                  colour = scope %in% c("Scope 3"), group = scope),
+              position = position_stack(vjust = 0.5, reverse = TRUE),
+              fontface = "bold", size = 4.6, na.rm = TRUE, show.legend = FALSE) +
+    scale_colour_manual(values = c(`TRUE` = "#1A1A1A", `FALSE` = "white"),
+                        guide = "none") +
+    scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
+                      name = NULL) +
+    scale_x_continuous(labels = function(x) paste0(smart_labs(x), "%"),
+                       breaks = seq(0, 100, 25),
+                       expand = expansion(mult = c(0, 0.01))) +
+    guides(fill = guide_legend(nrow = 1)) +
+    labs(x = "Share of the impact category", y = NULL) +
+    theme_dkhc() +
+    theme(panel.grid.major.y = element_blank(),
+          axis.text.y = element_text(size = 14, lineheight = 1.15))
+
+  dk_save(p3, sprintf("fig3_scopes_stacked_%s", YEAR), w = 14, h = 8.5)
+
+  # ========= fig 4 / fig 5  where scope 2 and scope 3 arise, by pair ==========
+  pairs_src <- gold("scope_by_origin_and_industry.csv") %>%
+    filter(producing_country_iso3 != "GLO",
+           !grepl("^BU_", producing_sector_code)) %>%
+    mutate(indicator = ind_factor(indicator),
+           pair = paste0(region_code(producing_country_iso3), SEP,
+                         producing_sector_code))
+
+  scope_source_plot <- function(which_scope, n = 10) {
+    full <- pairs_src %>% filter(scope == which_scope) %>%
+      group_by(indicator, pair) %>%
+      summarise(value = sum(value), .groups = "drop") %>%
+      group_by(indicator) %>%
+      mutate(share_pct = 100 * value / sum(value)) %>% ungroup()
+    keep <- full %>% group_by(indicator) %>%
+      slice_max(value, n = n, with_ties = FALSE) %>% ungroup()
+    # Pool the tail into one labelled bar, so the reader can see what the top n
+    # actually covers rather than having to assume it is most of the category.
+    rest <- full %>% anti_join(keep, by = c("indicator", "pair")) %>%
+      group_by(indicator) %>%
+      summarise(value = sum(value), share_pct = sum(share_pct),
+                pair = REMAINDER_LAB, .groups = "drop")
+    d <- bind_rows(keep, rest) %>%
+      mutate(is_rest = pair == REMAINDER_LAB,
+             key = paste0(pair, "|||", as.integer(indicator))) %>%
+      order_key() %>%
+      prepare_remainder()
+    # Coloured by indicator, as in figure 2: the scope is fixed within the whole
+    # figure and named in the axis title, so a fill legend saying so twice was
+    # redundant, and one flat colour across five panels invited the reader to
+    # compare bar lengths that are shares of five different denominators.
+    ggplot(d, aes(plot_x, key,
+                  fill = if_else(is_rest, "remainder", as.character(indicator)))) +
+      geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
+      remainder_breaks(d) +
+      remainder_label(d, size = 4.4) +
+      scale_fill_manual(values = c(IND_COLS, remainder = REMAINDER_COL),
+                        guide = "none") +
+      facet_ceiling(d %>% group_by(indicator, key) %>%
+                      summarise(value = sum(plot_x), .groups = "drop"),
+                    "indicator", "value", room = 1.26) +
+      facet_wrap(~indicator, ncol = 3, scales = "free",
+                 labeller = ind_only_labeller) +
+      scale_y_discrete(labels = strip_key) +
+      scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
+                         guide = guide_axis(check.overlap = TRUE),
+                         expand = expansion(mult = c(0, 0.05))) +
+      # "Share of Scope 3 within the impact category" reads as the share Scope 3
+      # is OF the category. The denominator here is the category's Scope 3 total.
+      labs(x = sprintf("Share of the category's %s impact (%%). %s",
+                       which_scope, REMAINDER_NOTE), y = NULL) +
+      theme_dkhc() +
+      theme(panel.grid.major.y = element_blank(),
+            axis.text.y = element_text(size = 14, family = "mono", colour = INK),
+            plot.margin = margin(14, 32, 12, 14))
+  }
+
+  dk_save(scope_source_plot("Scope 2"), sprintf("fig4_scope2_sources_%s", YEAR),
+          w = 21.5, h = 12)
+  dk_save(scope_source_plot("Scope 3"), sprintf("fig5_scope3_sources_%s", YEAR),
+          w = 21.5, h = 12)
+
+  # ============ fig 6  the same sources, stacked by scope, per pair ===========
+  d6 <- pairs_src %>%
+    filter(scope %in% c("Scope 1", "Scope 2", "Scope 3")) %>%
+    group_by(indicator, pair, scope) %>%
+    summarise(value = sum(value), .groups = "drop")
+  top6 <- d6 %>% group_by(indicator, pair) %>%
+    summarise(v = sum(value), .groups = "drop") %>%
+    group_by(indicator) %>% slice_max(v, n = 10, with_ties = FALSE) %>% ungroup()
+  # Share must be computed against the WHOLE indicator, before the top-12 filter.
+  # Computing it after made every bar a share of the top 12 while the axis claimed
+  # a share of the category - DNK-HEAL climate was drawn at 14.3 % against a true
+  # 3.5 %.
+  d6_all <- d6 %>% group_by(indicator) %>%
     mutate(share_pct = 100 * value / sum(value)) %>% ungroup()
-  keep <- full %>% group_by(indicator) %>%
-    slice_max(value, n = n, with_ties = FALSE) %>% ungroup()
-  # Pool the tail into one labelled bar, so the reader can see what the top n
-  # actually covers rather than having to assume it is most of the category.
-  rest <- full %>% anti_join(keep, by = c("indicator", "pair")) %>%
-    group_by(indicator) %>%
+  d6 <- d6_all %>% semi_join(top6, by = c("indicator", "pair")) %>%
+    mutate(scope = factor(scope, levels = SCOPE_ORDER))
+  # Pool the tail so the reader can see what the shown pairs actually cover.
+  rest6 <- d6_all %>% anti_join(top6, by = c("indicator", "pair")) %>%
+    group_by(indicator, scope) %>%
     summarise(value = sum(value), share_pct = sum(share_pct),
-              pair = REMAINDER_LAB, .groups = "drop")
-  d <- bind_rows(keep, rest) %>%
+              pair = REMAINDER_LAB, .groups = "drop") %>%
+    mutate(scope = factor(scope, levels = SCOPE_ORDER))
+  d6 <- bind_rows(d6, rest6) %>%
     mutate(is_rest = pair == REMAINDER_LAB,
            key = paste0(pair, "|||", as.integer(indicator))) %>%
     order_key() %>%
     prepare_remainder()
-  # Coloured by indicator, as in figure 2: the scope is fixed within the whole
-  # figure and named in the axis title, so a fill legend saying so twice was
-  # redundant, and one flat colour across five panels invited the reader to
-  # compare bar lengths that are shares of five different denominators.
-  ggplot(d, aes(plot_x, key,
-                fill = if_else(is_rest, "remainder", as.character(indicator)))) +
-    geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
-    remainder_breaks(d) +
-    remainder_label(d, size = 4.4) +
-    scale_fill_manual(values = c(IND_COLS, remainder = REMAINDER_COL),
-                      guide = "none") +
-    facet_ceiling(d %>% group_by(indicator, key) %>%
+
+  p6 <- ggplot(d6, aes(plot_x, key, fill = scope)) +
+    geom_col(width = 0.72, colour = "white", linewidth = 0.15,
+             position = position_stack(reverse = TRUE)) +
+    remainder_breaks(d6) +
+    remainder_label(d6, size = 4.4) +
+    facet_ceiling(d6 %>% group_by(indicator, key) %>%
                     summarise(value = sum(plot_x), .groups = "drop"),
                   "indicator", "value", room = 1.26) +
     facet_wrap(~indicator, ncol = 3, scales = "free",
                labeller = ind_only_labeller) +
     scale_y_discrete(labels = strip_key) +
+    scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
+                      name = NULL, drop = TRUE) +
     scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
                        guide = guide_axis(check.overlap = TRUE),
                        expand = expansion(mult = c(0, 0.05))) +
-    # "Share of Scope 3 within the impact category" reads as the share Scope 3
-    # is OF the category. The denominator here is the category's Scope 3 total.
-    labs(x = sprintf("Share of the category's %s impact (%%). %s",
-                     which_scope, REMAINDER_NOTE), y = NULL) +
+    guides(fill = guide_legend(nrow = 1)) +
+    labs(x = paste0("Share of the impact category (%). ", REMAINDER_NOTE),
+         y = NULL) +
     theme_dkhc() +
     theme(panel.grid.major.y = element_blank(),
           axis.text.y = element_text(size = 14, family = "mono", colour = INK),
           plot.margin = margin(14, 32, 12, 14))
+
+  dk_save(p6, sprintf("fig6_scope_pairs_stacked_%s", YEAR), w = 21.5, h = 12)
 }
-
-dk_save(scope_source_plot("Scope 2"), sprintf("fig4_scope2_sources_%s", YEAR),
-        w = 21.5, h = 12)
-dk_save(scope_source_plot("Scope 3"), sprintf("fig5_scope3_sources_%s", YEAR),
-        w = 21.5, h = 12)
-
-# ============ fig 6  the same sources, stacked by scope, per pair ===========
-d6 <- pairs_src %>%
-  filter(scope %in% c("Scope 1", "Scope 2", "Scope 3")) %>%
-  group_by(indicator, pair, scope) %>%
-  summarise(value = sum(value), .groups = "drop")
-top6 <- d6 %>% group_by(indicator, pair) %>%
-  summarise(v = sum(value), .groups = "drop") %>%
-  group_by(indicator) %>% slice_max(v, n = 10, with_ties = FALSE) %>% ungroup()
-# Share must be computed against the WHOLE indicator, before the top-12 filter.
-# Computing it after made every bar a share of the top 12 while the axis claimed
-# a share of the category - DNK-HEAL climate was drawn at 14.3 % against a true
-# 3.5 %.
-d6_all <- d6 %>% group_by(indicator) %>%
-  mutate(share_pct = 100 * value / sum(value)) %>% ungroup()
-d6 <- d6_all %>% semi_join(top6, by = c("indicator", "pair")) %>%
-  mutate(scope = factor(scope, levels = SCOPE_ORDER))
-# Pool the tail so the reader can see what the shown pairs actually cover.
-rest6 <- d6_all %>% anti_join(top6, by = c("indicator", "pair")) %>%
-  group_by(indicator, scope) %>%
-  summarise(value = sum(value), share_pct = sum(share_pct),
-            pair = REMAINDER_LAB, .groups = "drop") %>%
-  mutate(scope = factor(scope, levels = SCOPE_ORDER))
-d6 <- bind_rows(d6, rest6) %>%
-  mutate(is_rest = pair == REMAINDER_LAB,
-         key = paste0(pair, "|||", as.integer(indicator))) %>%
-  order_key() %>%
-  prepare_remainder()
-
-p6 <- ggplot(d6, aes(plot_x, key, fill = scope)) +
-  geom_col(width = 0.72, colour = "white", linewidth = 0.15,
-           position = position_stack(reverse = TRUE)) +
-  remainder_breaks(d6) +
-  remainder_label(d6, size = 4.4) +
-  facet_ceiling(d6 %>% group_by(indicator, key) %>%
-                  summarise(value = sum(plot_x), .groups = "drop"),
-                "indicator", "value", room = 1.26) +
-  facet_wrap(~indicator, ncol = 3, scales = "free",
-             labeller = ind_only_labeller) +
-  scale_y_discrete(labels = strip_key) +
-  scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
-                    name = NULL, drop = TRUE) +
-  scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
-                     guide = guide_axis(check.overlap = TRUE),
-                     expand = expansion(mult = c(0, 0.05))) +
-  guides(fill = guide_legend(nrow = 1)) +
-  labs(x = paste0("Share of the impact category (%). ", REMAINDER_NOTE),
-       y = NULL) +
-  theme_dkhc() +
-  theme(panel.grid.major.y = element_blank(),
-        axis.text.y = element_text(size = 14, family = "mono", colour = INK),
-        plot.margin = margin(14, 32, 12, 14))
-
-dk_save(p6, sprintf("fig6_scope_pairs_stacked_%s", YEAR), w = 21.5, h = 12)
 
 # ===================== SI  geographical origin on its own ===================
 dS <- gold("figure3_geographical_origin.csv") %>%

@@ -79,7 +79,14 @@ footprint array from which S2 is taken (Wood et al. 2018: allocating
 production emissions to final demand is additive; it is the *embodied-flow*
 table E_Z that double counts, and we never sum that).
 
-Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 .venv/bin/python -m analysis.scopes_detail
+Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+     .venv/bin/python -m analysis.scopes_detail
+
+The output folder carries BOTH the reference year and the correction state
+(``02_scopes_wood_hertwich/2022_shipping_corrected``), resolved by
+``analysis.constants.scopes_folder`` from the same environment that selects the
+background, so the partition and the Eriksen run it reconciles with can never
+be a different pair than the folder names claim.
 """
 
 import os
@@ -112,9 +119,9 @@ def main() -> None:
     and Outside-protocol patient/visitor travel, after removing the health
     sector's self-supply loop that would otherwise double-count against
     national-accounts Scope 1. Writes ``scopes_summary_detailed.csv`` and
-    ``scopes_by_producing_node.csv`` to the analysis year's scope-decomposition
-    gold folder (``analysis.constants.scopes_folder``), and prints the
-    partition per indicator.
+    ``scopes_by_producing_node.csv`` to this model run's scope-decomposition
+    gold variant folder (``analysis.constants.scopes_folder``, which resolves
+    year AND correction state), and prints the partition per indicator.
 
     Raises
     ------
