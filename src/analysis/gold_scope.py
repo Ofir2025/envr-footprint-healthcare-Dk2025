@@ -31,6 +31,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+from analysis.constants import (ERIKSEN_ROOT, SCOPES_ROOT,
+                                UNLETTERED_VARIANTS, variant_description)
+
 REPO = Path(__file__).resolve().parents[2]
 GOLD = REPO / "data" / "gold" / "results"
 # The tracked filename is lowercase; macOS is case-insensitive, so a case-only
@@ -129,6 +132,49 @@ PRIVATE_COMPANIONS: dict[str, tuple[str, ...]] = {
 #: than inferred from the git remote, because a clone can be re-pointed and the
 #: consequence of guessing wrong is publishing private work.
 PROFILE_FILE = REPO / ".repo_scope"
+
+
+#: Layers whose results differ by model run and are therefore held in variant
+#: subfolders rather than flat. Both are read by the same figure scripts, so
+#: they carry the SAME variant names (see :func:`variant_folders`).
+VARIANT_LAYERS: tuple[str, ...] = (ERIKSEN_ROOT, SCOPES_ROOT)
+
+def variant_folders() -> dict[str, str]:
+    """Variant subfolders on disk under the variant-scoped layers, classified.
+
+    Returns
+    -------
+    dict of str to str
+        ``"<layer>/<variant>"`` mapped to what that variant is: the
+        :func:`analysis.constants.variant_description` of the variant - the
+        lettered variant's summary, or its
+        :data:`analysis.constants.UNLETTERED_VARIANTS` entry. A variant folder
+        that is neither is reported as unclassified, which is the case a bare
+        year name used to hide.
+    """
+    out: dict[str, str] = {}
+    for layer in VARIANT_LAYERS:
+        base = GOLD / layer
+        if not base.is_dir():
+            continue
+        for sub in sorted(p.name for p in base.iterdir() if p.is_dir()):
+            out[f"{layer}/{sub}"] = (
+                variant_description(sub)
+                or "UNCLASSIFIED - not one of the four variants and not a "
+                   "declared exception")
+    return out
+
+
+def unclassified_variants() -> list[str]:
+    """Variant folders that are neither lettered nor a declared exception.
+
+    Returns
+    -------
+    list of str
+        Empty when every variant folder on disk is accounted for.
+    """
+    return sorted(k for k, v in variant_folders().items()
+                  if v.startswith("UNCLASSIFIED"))
 
 
 def profile() -> str:
@@ -271,6 +317,7 @@ def render() -> str:
     """Write the gold README from the classification and return its text."""
     paper = [(k, v[1]) for k, v in sorted(SCOPE.items()) if v[0] == "paper"]
     private = [(k, v[1]) for k, v in sorted(SCOPE.items()) if v[0] == "private"]
+    variants = variant_folders()
     lines = [
         "# Gold results",
         "",
@@ -315,13 +362,28 @@ def render() -> str:
         "Use lowercase `snake_case`, add the analysis year where a table is",
         "year-specific, and keep out editor lock files and temporary",
         "artefacts. A layer whose results differ by model run is stored under a",
-        "subdirectory naming BOTH the reference year and the background",
-        "correction state (`01_eriksen_replication/2022_shipping_corrected`,",
-        "`02_scopes_wood_hertwich/2022_uncorrected`), so a run for one year or",
-        "correction state cannot overwrite another, and no reader has to infer",
-        "which correction a folder carries. A bare year in the name cannot say",
-        "it: while layer 02 used one, the scope figures of the uncorrected",
-        "variants were drawn from the shipping-corrected tables.",
+        "variant subdirectory named `<year><letter>`, where the letter fixes",
+        "all four axes that change the numbers - EXIOBASE release, Danish",
+        "sea-transport correction, care boundary, capital treatment - and is",
+        "resolved by `analysis.constants.variant_folder` in Python and",
+        "`variant_name()` in R, never re-derived. A run for one configuration",
+        "therefore cannot overwrite another's, and no reader has to infer which",
+        "release or correction a folder carries. A bare year could not say it:",
+        "while layer 02 used one, the scope figures of one variant were drawn",
+        "from another's tables.",
+        "",
+        f"### Variant folders on disk ({len(variants)})",
+        "",
+        "| folder | configuration |",
+        "|:---|:---|",
+    ]
+    lines += [f"| `{k}` | {v} |" for k, v in variants.items()]
+    lines += [
+        "",
+        "Two configurations carry a self-describing name instead of a letter",
+        "rather than being given one they were not assigned; both are v3.8.2",
+        "without the shipping correction, and neither is variant a, which is on",
+        "v3.7.",
         "",
     ]
     text = "\n".join(lines)

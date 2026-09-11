@@ -91,21 +91,21 @@ STEP_COLS  <- setNames(c("#0072B2", "#D55E00"), STEP_ORDER)
 # Largest total movers at the top: transport and pharmaceuticals are the
 # whole story between them, and this puts them first.
 d <- br %>%
-  mutate(total_change = value_2022_shipping_corrected - value_2019_uncorrected) %>%
+  mutate(total_change = value_2022c - value_2019_uncorrected) %>%
   arrange(abs(total_change)) %>%
   mutate(group = factor(contribution_group, levels = contribution_group))
 
 pts <- bind_rows(
   d %>% transmute(group, state = STATE1, value = value_2019_uncorrected),
-  d %>% transmute(group, state = STATE2, value = value_2019_shipping_corrected),
-  d %>% transmute(group, state = STATE3, value = value_2022_shipping_corrected)
+  d %>% transmute(group, state = STATE2, value = value_2019c),
+  d %>% transmute(group, state = STATE3, value = value_2022c)
 ) %>% mutate(state = factor(state, levels = STATE_ORDER))
 
 seg1 <- d %>% transmute(group, x = value_2019_uncorrected,
-                        xend = value_2019_shipping_corrected,
+                        xend = value_2019c,
                         step = STEP1, delta = delta_correction_kt)
-seg2 <- d %>% transmute(group, x = value_2019_shipping_corrected,
-                        xend = value_2022_shipping_corrected,
+seg2 <- d %>% transmute(group, x = value_2019c,
+                        xend = value_2022c,
                         step = STEP2, delta = delta_year_kt)
 segs <- bind_rows(seg1, seg2) %>% mutate(step = factor(step, levels = STEP_ORDER))
 
@@ -158,8 +158,8 @@ dk_save(p, "fig10_year_bridge_climate_2019_2022", w = 16, h = 9.5,
 
 cat(sprintf(
   "\n2019 uncorrected %.0f kt -> 2019 corrected %.0f kt -> 2022 corrected %.0f kt\n",
-  sum(d$value_2019_uncorrected), sum(d$value_2019_shipping_corrected),
-  sum(d$value_2022_shipping_corrected)))
+  sum(d$value_2019_uncorrected), sum(d$value_2019c),
+  sum(d$value_2022c)))
 cat(sprintf("correction step %+.0f kt, year step %+.0f kt\n",
             sum(d$delta_correction_kt), sum(d$delta_year_kt)))
 cat("two-step year bridge figure written to ", fig_dir, "\n", sep = "")

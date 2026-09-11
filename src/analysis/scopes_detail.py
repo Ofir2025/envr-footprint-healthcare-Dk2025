@@ -83,7 +83,7 @@ Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
      .venv/bin/python -m analysis.scopes_detail
 
 The output folder carries BOTH the reference year and the correction state
-(``02_scopes_wood_hertwich/2022_shipping_corrected``), resolved by
+(``02_scopes_wood_hertwich/2022c``), resolved by
 ``analysis.constants.scopes_folder`` from the same environment that selects the
 background, so the partition and the Eriksen run it reconciles with can never
 be a different pair than the folder names claim.
