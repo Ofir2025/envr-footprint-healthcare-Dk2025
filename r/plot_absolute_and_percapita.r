@@ -4,11 +4,11 @@
 # answer "how much" - a reader comparing Denmark with another health system
 # needs the magnitude, and per capita is the only comparable form of it.
 #
-# Run:  Rscript R/plot_absolute_and_percapita.R
+# Run:  Rscript r/plot_absolute_and_percapita.r
 
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
-source(file.path(here, "_dk_common.R"))
+source(file.path(here, "_dk_common.r"))
 
 YEAR <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
 POP  <- c(`2019` = 5814422, `2022` = 5873420)[[YEAR]]   # analysis.constants.DK_POPULATION

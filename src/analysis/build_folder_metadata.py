@@ -236,7 +236,7 @@ README_NOTES: dict[str, str] = {
         "Denmark, 2022, shipping-corrected, with Denmark in the home-country "
         "slot the Netherlands occupies above. |\n"
         "\n"
-        "All six are produced by `R/plot_steenmeijer_replication.R` from the\n"
+        "All six are produced by `r/plot_steenmeijer_replication.r` from the\n"
         "tables in this folder and in `01_eriksen_replication/`. None carries a\n"
         "title or a caption on the image: the captions are the table above."
     ),
