@@ -6,6 +6,18 @@ Is the result right? Two independent tests answer it: agreement with published D
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 06](../../../../docs/methods/replications.md#r06).
 
+## Reading `figaro_dk_footprint_by_origin.csv` without double counting
+
+`is_aggregate` marks only the three `c_orig` codes that overlap their
+own members - `WORLD`, `EU27_2020` and `EXT_EU27_2020` - read from
+`data/silver/eurostat_figaro/figaro_dimensions.csv`. `WRL_REST`, the
+residual for the countries FIGARO does not resolve individually, is
+**not** an aggregate and belongs in a sum over origins: the 49
+countries plus `WRL_REST` reproduce the `WORLD` row to every published
+digit in 2021, 2022 and 2023, and summing every row returns exactly
+three times it. Dropping every code without an ISO alpha-2 spelling
+would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint.
+
 ## Conventions
 
 | Item | Convention |
@@ -21,7 +33,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 06
 
 ### `consistency_audit.csv`
 
-- **Rows:** 22
+- **Rows:** 21
 - **Format:** csv
 - **Dimensions:** `check`, `status`, `detail`, `known_conventions`
 - **Measures:** none
@@ -62,7 +74,6 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 06
 - **Units:** kt CO2eq
 - **Dimensions:** `country_consuming`, `country_producing`, `country_producing_label`, `is_aggregate`, `unit`, `source`
 - **Measures:** `value`
-- **`is_aggregate` marks only the three codes that overlap their own members** — `WORLD`, `EU27_2020`, `EXT_EU27_2020` — read from `data/silver/eurostat_figaro/figaro_dimensions.csv`. `WRL_REST`, the residual for the countries FIGARO does not resolve individually, is **not** an aggregate and belongs in a sum over origins: the 49 countries plus `WRL_REST` reproduce the `WORLD` row to every published digit, and summing every row returns exactly three times it.
 
 ### `figaro_eu27_material_footprint_health.csv`
 

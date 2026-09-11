@@ -750,6 +750,32 @@ silently.
 
 ### Findings of 11 September 2026
 
+#### A banned value survived inside the module that generates gold readmes
+
+**Severity: medium.** `2019_uncorrected`'s pre-AR6 transport share of 47.28 % was
+added to `audit_consistency.SUPERSEDED_TEXT` when the 2016 backgrounds were
+republished on AR6, and the check still passed while the value was being printed
+into `02_scopes_wood_hertwich/2019a/readme.md` on every build. Both halves of the
+gap were real:
+
+- The note lives in `build_folder_metadata.README_NOTES`, because those readmes
+  are regenerated in full and a hand edit does not survive. The check read
+  documents, not the module, and not the documents the module writes.
+- `CLAIM_TREES` covered `docs/revision`, `docs/methods/replications.md` and
+  `figures/manuscript` — five documents. A gold folder's `readme.md` is a
+  published deliverable and was outside it, as was the repository `readme.md`.
+
+`CLAIM_TREES` now covers `data/gold/results/**/readme.md`, `readme.md` and
+`docs/methods/methods.md` as well: 45 documents rather than five. Data
+dictionaries are deliberately excluded — they are machine output whose example
+cells come from the live table, and their float literals collide by substring
+(`13.19` matches inside `613.1946464775333`). The note itself now reads 46.87 %,
+layer 02's own value, and `2019a`'s share reads 34.94 % rather than layer 01's
+34.93 %, so a layer-02 readme quotes layer-02 numbers throughout.
+
+Verified by planting `47.28 %` in `readme.md` and confirming the check fails on
+it, then removing it.
+
 #### Three stale numbers in the FIGARO passage of the methods text
 
 **Severity: medium.** `docs/methods/methods.md` compared FIGARO's Danish national

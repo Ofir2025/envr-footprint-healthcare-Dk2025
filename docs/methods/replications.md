@@ -275,8 +275,9 @@ transport at 46 % of sector contributions; `2019_uncorrected` returns 46.85 %,
 while variant `a` — the release the submission actually ran on — returns 34.93 %.
 Whatever produced the submitted 46 % was closer to v3.8.2's 2016 block than to
 v3.7's, and the two v3.7 variants exist so that this can be stated from published
-tables instead of inferred. See [section 09](#r09) on release differences and
-`.superpowers/sdd/gold_layer_organisation/variants-report.md` for the measurement.
+tables instead of inferred. See [section 09](#r09) on release differences, and
+`variant_comparison.csv` at the root of the layer for the measurement across all
+eight configurations and all five indicators.
 
 The variant folder is resolved by `analysis.constants.variant_folder` in Python and
 by `variant_name()` in `r/_dk_common.r`; no module re-derives a folder name of its

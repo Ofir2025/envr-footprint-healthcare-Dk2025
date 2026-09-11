@@ -488,8 +488,9 @@ own outputs: either the submitted run used a v3.8.2-era background despite the
 manuscript's v3.7 citation, or it used v3.7 with a demand vector different enough
 to move the share by eleven points. Either way the finding is reproducible from
 *a* release of the data available, and neither reading makes it an analytical
-error. The measurement is in
-`.superpowers/sdd/gold_layer_organisation/variants-report.md`.
+error. The measurement is published, for all eight configurations and all five
+indicators, in
+`data/gold/results/01_eriksen_replication/variant_comparison.csv`.
 
 #### Where does 46 % go?
 
