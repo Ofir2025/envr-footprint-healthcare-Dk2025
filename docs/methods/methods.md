@@ -196,7 +196,7 @@ That decision, and the evidence for it, is in
 
 ### FIGARO: what it can and cannot do for us
 
-Downloaded to `data/bronze/figaro/`: the 2022 and 2024 use tables with Denmark
+Downloaded to `data/bronze/eurostat_figaro/`: the 2022 and 2024 use tables with Denmark
 as destination, the DK supply table 2022-2024, and the official GHG/CO₂
 footprint datasets 2021-2023.
 
@@ -680,7 +680,7 @@ above); the innovation is entirely in the data plumbing.
 
 | Ingredient | Status | Where |
 |:---|:---|:---|
-| National IOT, **117 industries**, basic prices, current + previous-year prices, with an explicit **117-row import matrix** (imports by industry of origin × using industry) and tax/VAT rows | ✅ in repo, 2006-2022 | `data/bronze/input_output/` (DST English workbooks; also via StatBank/API) |
+| National IOT, **117 industries**, basic prices, current + previous-year prices, with an explicit **117-row import matrix** (imports by industry of origin × using industry) and tax/VAT rows | ✅ in repo, 2006-2022 | `data/bronze/dst_input_output/` (DST English workbooks; also via StatBank/API) |
 | Detailed SUT (2,362 products × 117 industries, basic prices, domestic/import split `Ubas_dk`/`Ubas_imp`, margins and taxes sheets) | ✅ 2019 in repo; 2022 obtainable via DST (coarser preliminary commodity system for 2021-22) | `data/bronze/dk_umat_2019.xlsx` |
 | National SEEA extensions on the **same DB07/117 classification**: DRIVHUS greenhouse gases (used already for Scope 1), plus energy accounts, and air-emission accounts for other pollutants | ✅ public API, t+9 months, through 2023+ | api.statbank.dk (DRIVHUS et al.) |
 | EXIOBASE multipliers for the import side | ✅ local | see note below |
