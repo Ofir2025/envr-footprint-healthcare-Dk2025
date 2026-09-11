@@ -34,31 +34,64 @@ fig_dir   <- Sys.getenv("DKHC_FIG_DIR",   "figures")
 
 # Results are held per model run, so the same basename can exist under more
 # than one folder. Both variant-scoped layers - the Eriksen replication
-# (.../01_eriksen_replication/2019_uncorrected/, .../2019_shipping_corrected/,
-# .../2022_uncorrected/, .../2022_shipping_corrected/) and the scope
-# decomposition (.../02_scopes_wood_hertwich/ with the same names) - vary by
-# reference year AND by whether the Danish sea-transport correction was
-# applied, since the 2019-to-2022 swing this study reports is never valid to
-# read as a single change unless the correction state is held fixed.
+# (.../01_eriksen_replication/2019a/ .. /2019d/, /2022c/, /2022d/) and the scope
+# decomposition (.../02_scopes_wood_hertwich/ with the same names) - vary on
+# FOUR axes, not one: EXIOBASE release, the Danish sea-transport correction, the
+# care boundary, and the capital treatment. The 2019-to-2022 swing this study
+# reports is never valid to read as a single change unless the other three are
+# held fixed, and a folder named only by year and correction state could not say
+# which release produced it - which is how the submitted estimate, computed on
+# v3.7, came to be compared against a v3.8.2 run.
 #
-# Resolution is therefore by the full variant folder (year AND background tag)
-# and by nothing else. A bare-year fallback used to sit here for layers named
-# by year alone; layer 02 was the only such layer, and while it existed that
-# fallback resolved figures 3 to 6 of the uncorrected variants to the
-# shipping-corrected scope tables without saying so. With the fallback gone, a
-# variant a layer does not publish is an error naming that variant rather than
-# a silent substitution.
-analysis_year  <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
-background_tag <- Sys.getenv("HC_BACKGROUND_TAG", "")
+# Resolution is therefore by the full variant folder and by nothing else. A
+# bare-year fallback used to sit here for layers named by year alone; while it
+# existed it resolved figures 3 to 6 of one variant to another variant's scope
+# tables without saying so. With the fallback gone, a variant a layer does not
+# publish is an error naming that variant rather than a silent substitution.
+analysis_year   <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
+background_tag  <- Sys.getenv("HC_BACKGROUND_TAG", "")
+exiobase_release <- Sys.getenv("HC_EXIOBASE_RELEASE", "v3_8_2")
+hc_scope        <- Sys.getenv("HC_SCOPE", "health_eldercare")
+hc_capital      <- Sys.getenv("HC_CAPITAL", "excluded")
 
-#: Self-describing "<year>_<state>" folder name for one (year, tag) pair.
-#: Mirrors ``analysis.constants.variant_name`` so the two languages resolve the
-#: same folder from the same environment.
-variant_name <- function(year = analysis_year, tag = background_tag) {
-  suffix <- if (tag == "") "uncorrected"
-            else if (tag == "_snacship") "shipping_corrected"
-            else sub("^_", "", tag)
-  paste0(year, "_", suffix)
+#: The author's four variants, keyed by the letter that names their folder.
+#: Mirrors ``analysis.constants.VARIANTS``; the two languages must resolve the
+#: same folder from the same environment, so the table is written out here in
+#: the same order and with the same four axes rather than inferred.
+VARIANTS <- list(
+  a = list(release = "v3_7",   tag = "",          scope = "health_eldercare", capital = "excluded"),
+  b = list(release = "v3_7",   tag = "_snacship", scope = "health_eldercare", capital = "excluded"),
+  c = list(release = "v3_8_2", tag = "_snacship", scope = "health_eldercare", capital = "excluded"),
+  d = list(release = "v3_8_2", tag = "_snacship", scope = "zorg_en_welzijn",  capital = "endogenised")
+)
+
+#: Letter naming one of the four variants, or NA when the configuration is not
+#: one of them (v3.8.2 without the correction is published as
+#: `<year>_uncorrected` and is deliberately NOT variant a, which is on v3.7).
+variant_letter <- function(release = exiobase_release, tag = background_tag,
+                           scope = hc_scope, capital = hc_capital) {
+  for (letter in names(VARIANTS)) {
+    v <- VARIANTS[[letter]]
+    if (v$release == release && v$tag == tag &&
+        v$scope == scope && v$capital == capital) return(letter)
+  }
+  NA_character_
+}
+
+#: Folder name for one model run. Mirrors ``analysis.constants.variant_name``.
+variant_name <- function(year = analysis_year, tag = background_tag,
+                         release = exiobase_release, scope = hc_scope,
+                         capital = hc_capital) {
+  letter <- variant_letter(release, tag, scope, capital)
+  if (!is.na(letter)) return(paste0(year, letter))
+  parts <- year
+  if (release != "v3_8_2") parts <- c(parts, release)
+  parts <- c(parts, if (tag == "") "uncorrected"
+                    else if (tag == "_snacship") "shipping_corrected"
+                    else sub("^_", "", tag))
+  if (scope != "health_eldercare") parts <- c(parts, scope)
+  if (capital != "excluded") parts <- c(parts, "capital")
+  paste(parts, collapse = "_")
 }
 
 .gold_index <- NULL
@@ -70,23 +103,26 @@ variant_name <- function(year = analysis_year, tag = background_tag) {
   .gold_index[basename(.gold_index) == name]
 }
 
-gold_path <- function(name, year = analysis_year, tag = background_tag) {
+gold_path <- function(name, year = analysis_year, tag = background_tag,
+                      release = exiobase_release, scope = hc_scope,
+                      capital = hc_capital) {
   hit <- .gold_hits(name)
   if (length(hit) < 1)
     stop(sprintf("gold fact '%s' not found under %s/", name, gold_root))
   if (length(hit) > 1) {
-    variant <- variant_name(year, tag)
+    variant <- variant_name(year, tag, release, scope, capital)
     invariant <- hit[grepl(sprintf("/%s/", variant), hit, fixed = TRUE)]
     if (length(invariant) == 1) return(invariant[[1]])
     if (length(invariant) < 1)
       stop(sprintf(paste0("gold fact '%s' is published for %d model runs but ",
                           "not for %s. The layer has not been built for that ",
-                          "year and correction state; build it, or pass ",
-                          "year=/tag= for one that exists."),
+                          "configuration; build it, or pass ",
+                          "year=/tag=/release= for one that exists."),
                    name, length(hit), variant))
     stop(sprintf(paste0("gold fact '%s' is ambiguous within variant %s ",
-                        "(%d matches). Set HC_ANALYSIS_YEAR/HC_BACKGROUND_TAG ",
-                        "or pass year=/tag=."),
+                        "(%d matches). Set HC_ANALYSIS_YEAR / ",
+                        "HC_BACKGROUND_TAG / HC_EXIOBASE_RELEASE, or pass ",
+                        "year=/tag=/release=."),
                  name, variant, length(invariant)))
   }
   hit[[1]]
@@ -96,11 +132,14 @@ gold_path <- function(name, year = analysis_year, tag = background_tag) {
 #: has not been built for can be skipped out loud instead of aborting the whole
 #: script. Used only by the scope figures, whose layer is variant-scoped and
 #: may legitimately be missing one of the four runs.
-gold_has <- function(name, year = analysis_year, tag = background_tag) {
+gold_has <- function(name, year = analysis_year, tag = background_tag,
+                     release = exiobase_release, scope = hc_scope,
+                     capital = hc_capital) {
   hit <- .gold_hits(name)
   if (length(hit) == 1) return(TRUE)
-  length(hit[grepl(sprintf("/%s/", variant_name(year, tag)), hit,
-                   fixed = TRUE)]) == 1
+  length(hit[grepl(sprintf("/%s/", variant_name(year, tag, release, scope,
+                                                capital)),
+                   hit, fixed = TRUE)]) == 1
 }
 
 # ---- type sizes ------------------------------------------------------------

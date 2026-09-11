@@ -24,10 +24,45 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from analysis.constants import BACKGROUND_YEAR, scopes_folder
-from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
+from analysis.constants import BACKGROUND_YEAR, eriksen_folder, scopes_folder
+from paths import BACKGROUND_DIR, OUTPUT_DIR
 
 NS, K_DK, K_HEALTH, K_CHEM, K_INSTR = 163, 6, 137, 62, 89
+
+
+def health_services_expenditure() -> float:
+    """Danish health-care services expenditure of THIS variant, M.EUR.
+
+    Read from this variant's own ``table_01.csv``, not from
+    ``dk_data_2025.csv``. That file is one file for every reference year and
+    every care boundary: :mod:`analysis.main_2025` overwrites it on each run,
+    so it holds whichever configuration ran last, and the identity test below -
+    which compares the variant's own background against this expenditure -
+    silently measured two different runs against each other whenever the two
+    disagreed. The gold table is variant-scoped and carries the same float, so
+    the test now compares a variant with itself.
+
+    Returns
+    -------
+    float
+        The ``Healthcare services`` row of the ``Expenditure (MEUR)`` column.
+
+    Raises
+    ------
+    FileNotFoundError
+        If this variant's ``table_01.csv`` has not been written, naming the
+        path, since running the ledger before the replication layer would
+        otherwise fall back to another variant's expenditure.
+    """
+    path = os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+                        "table_01.csv")
+    if not os.path.exists(path):
+        raise FileNotFoundError(
+            f"{path} is missing; run analysis.main_2025 for this variant "
+            f"before the double-counting ledger, so the ledger tests the "
+            f"variant's own expenditure rather than the last run's")
+    table = pd.read_csv(path, index_col=0)
+    return float(table.loc["Healthcare services", "Expenditure (MEUR)"])
 
 
 def _t3_overestimate_pct(year: str) -> float:
@@ -112,8 +147,7 @@ def main() -> None:
     x_H = L @ Y[:, 0]
     chem = [r * NS + K_CHEM for r in range(49)]
     instr = [r * NS + K_INSTR for r in range(49)]
-    dk = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR), "dk_data_2025.csv"))
-    E_H = float(dk[dk["Index"] == "Expenditure"].iloc[0]["HC service"])
+    E_H = health_services_expenditure()
     m = d @ L
     t3_pct = _t3_overestimate_pct(year)
 

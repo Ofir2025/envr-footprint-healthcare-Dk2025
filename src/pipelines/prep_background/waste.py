@@ -22,7 +22,7 @@ import pickle as pkl
 np.set_printoptions(precision=2)
 #import pyxlsb
 import sys
-from paths import EXIOBASE_DIR, MRIO_DIR
+from paths import EXIOBASE_BASE_DIR, MRIO_DIR
 tstart = time.time()
 
 year = '2016'
@@ -34,7 +34,7 @@ year = '2016'
 # Folder settings: Change to reflect the location in your computer relative to the current working directory (run os.getcwd() to find out whatthat is)
 # Set working directory to envr-footprint-healthcare folder
 print("Starting to read files..\n")
-exio_dir = str(EXIOBASE_DIR) + os.sep
+exio_dir = str(EXIOBASE_BASE_DIR) + os.sep
 pkl_dir = str(MRIO_DIR) + os.sep
 
 ##############################################

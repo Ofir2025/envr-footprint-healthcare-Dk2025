@@ -41,13 +41,14 @@ import io
 import os
 import sys
 from .functions_2025 import *
-from analysis.constants import AR6_GWP100, eriksen_folder
+from analysis.constants import (AR6_GWP100, EXIOBASE_RELEASE, background_stem,
+                                eriksen_folder, model_label, variant_letter)
 from paths import (
     BRONZE_DIR,
     BACKGROUND_DIR,
     MRIO_DIR,
     OUTPUT_DIR,
-    EXIOBASE_DIR,
+    EXIOBASE_BASE_DIR,
     SILVER_INPUT_DIR,
     ensure_runtime_directories,
 )
@@ -77,18 +78,29 @@ mrio_dir = str(MRIO_DIR) + os.sep
 # recorded in the folder so a stale scenario cannot be mistaken for a current
 # one.
 _SCOPE = os.environ.get("HC_SCOPE", "health_eldercare")
-if _SCOPE == "health_eldercare":
+# Which of the author's four variants (a-d) this configuration is, if any. It is
+# resolved from all four axes at once - release, sea-transport correction,
+# boundary, capital - by analysis.constants.variant_letter, and nothing here
+# re-derives a folder name of its own.
+_LETTER = variant_letter()
+# A lettered variant always writes its own variant folder, even when its
+# boundary is not the manuscript one: variant d IS the wide-boundary,
+# capital-endogenised run, and routing it to scenarios/ would hide it from the
+# variant enumeration. A boundary change that is NOT part of a lettered variant
+# stays a scenario, so the published scenario folders do not move.
+_VARIANT_RUN = _LETTER is not None or _SCOPE == "health_eldercare"
+if _VARIANT_RUN:
     output_dir = os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"))
 else:
     output_dir = os.path.join(str(OUTPUT_DIR), "scenarios", _SCOPE)
 os.makedirs(output_dir, exist_ok=True)
-print(f"scope boundary '{_SCOPE}' -> {output_dir}")
-os.makedirs(output_dir, exist_ok=True)
+print(f"variant {_LETTER or '(unlettered)'} | release {EXIOBASE_RELEASE} | "
+      f"scope boundary '{_SCOPE}' -> {output_dir}")
 
 # Intermediate workbooks that only eriksen_tables.py reads back. They are a
 # handoff between two scripts, not a deliverable, so by the medallion
 # contract they belong in silver rather than in gold's output_dir above.
-if _SCOPE == "health_eldercare":
+if _VARIANT_RUN:
     interim_dir = os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
                                *eriksen_folder().split("/"))
 else:
@@ -128,10 +140,14 @@ ANALYSIS_YEAR = os.environ.get("HC_ANALYSIS_YEAR", "2022")
 SCOPE_SCENARIO = os.environ.get("HC_SCOPE", "health_eldercare")
 INCLUDE_CHILDCARE = SCOPE_SCENARIO == "zorg_en_welzijn"
 INCLUDE_ELDERCARE = SCOPE_SCENARIO != "health_only"
-BACKGROUND_YEAR = "2022" if ANALYSIS_YEAR == "2022" else "2016"
-# Optional model variant, e.g. HC_BACKGROUND_TAG=_snacship selects the
-# background with the Danish shipping reallocation applied. Empty = as published.
-BACKGROUND_YEAR = BACKGROUND_YEAR + os.environ.get("HC_BACKGROUND_TAG", "")
+# The background this run loads, named by analysis.constants.background_stem so
+# that the EXIOBASE release (HC_EXIOBASE_RELEASE), the Danish sea-transport
+# correction (HC_BACKGROUND_TAG), the capital treatment (HC_CAPITAL) and the
+# sector boundary (HC_SCOPE) are all in the file name. Derived there rather than
+# here: this module used to build the stem itself from two of the four axes, so a
+# run on another release loaded - and a gold row then claimed - the wrong one.
+BACKGROUND_YEAR = background_stem()
+print(f"background {BACKGROUND_YEAR} -> {model_label(BACKGROUND_YEAR)}")
 # Danmarks Nationalbank annual average DKK/EUR
 DKK_PER_EUR_BY_YEAR = {"2019": 7.4661, "2022": 7.4396}
 # Direct healthcare waste components from Statistics Denmark AFFALD01 (total
@@ -376,7 +392,7 @@ print(f"Direct waste replaced in background: hybrid {_hybrid_direct_waste:.1f} k
 # a gold file's mtime with this file's, so re-running the pipeline to rebuild
 # one table used to mark all the others stale even though the background had
 # not changed by a single byte. Only write when the content actually differs.
-if _SCOPE == "health_eldercare":
+if _VARIANT_RUN:
     _bg_path = os.path.join(bg_dir, f"gddz_background_information_{year}.pkl")
     _payload = pkl.dumps(bg)
     _same = False
@@ -392,6 +408,9 @@ if _SCOPE == "health_eldercare":
 else:
     print(f"scenario boundary '{_SCOPE}': background NOT persisted, so "
           f"downstream modules keep the default boundary")
+# The boundary is part of the persisted background's name (constants.SCOPE_TAG),
+# so a lettered variant on the wider boundary writes its own file and cannot
+# overwrite the manuscript boundary's.
 #bg_tmp = open(excel_dir + 'gddz_background_information.pkl',"rb")
 #bg = pkl.load(bg_tmp)
 #bg_tmp.close()
@@ -427,10 +446,10 @@ cols_impcat = [x for x in char_labels if x not in ['Value added (M.EUR)', 'Emplo
 # 3C) Labels industry aggregation
 excel_str = 'classifications.xlsx'
 sheet_str = 'disagg_ind'  
-sec_labels = pd.read_excel(EXIOBASE_DIR / excel_str, sheet_name = sheet_str, skiprows = 5)
+sec_labels = pd.read_excel(EXIOBASE_BASE_DIR / excel_str, sheet_name = sheet_str, skiprows = 5)
 sec_labels = sec_labels[['Code', 'Description', 'AggPos', 'AggDescription', 'AggCode', 'Scope', 'Scope_hotspot']]
 sec_labels.rename(columns={'Code':'SecTxtCode', 'Description':'SecName', 'AggPos':'SAggPos', 'AggDescription':'SAggDescription', 'AggCode':'SAggCode'}, inplace = True)
-fig_labels = pd.read_excel(EXIOBASE_DIR / excel_str, sheet_name = 'agg_ind_fig', skiprows = 5)
+fig_labels = pd.read_excel(EXIOBASE_BASE_DIR / excel_str, sheet_name = 'agg_ind_fig', skiprows = 5)
 
 
 # 3D) Create multi-index for 163 sectors and 49 regions
