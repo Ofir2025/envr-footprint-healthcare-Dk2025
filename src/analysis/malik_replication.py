@@ -34,7 +34,7 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from paths import BACKGROUND_DIR, OUTPUT_DIR
+from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_DK_DATA_CSV
 from analysis.constants import (BACKGROUND_YEAR, DK_BLOCK, INDICATORS, K_DK,
                                 MODEL_LABEL, N_SECTORS, DK_POPULATION)
 
@@ -80,7 +80,7 @@ def main() -> None:
     L_dom = np.linalg.inv(np.eye(N_SECTORS) - A_dom)
     y_nat = Y[:, K_DK * 7:(K_DK + 1) * 7].sum(axis=1)
 
-    dk = pd.read_csv(os.path.join(str(BACKGROUND_DIR), "..", "inputs", "dk_data_2025.csv"))
+    dk = pd.read_csv(SILVER_DK_DATA_CSV)
     exp = dk.query("Index == 'Expenditure'")[["HC service", "Pharm", "MedAppl"]].iloc[0]
     comp_exp = {"healthcare_services": float(exp["HC service"]),
                 "pharmaceuticals": float(exp["Pharm"]),

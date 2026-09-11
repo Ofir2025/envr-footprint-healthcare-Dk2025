@@ -58,7 +58,7 @@ from scipy.stats import truncnorm
 
 from analysis.constants import eriksen_folder
 from analysis.extra_functions import write_sheets_as_csv
-from paths import OUTPUT_DIR, SILVER_INPUT_DIR
+from paths import ERIKSEN_INTERIM_DIR, OUTPUT_DIR
 
 N_DRAWS = int(os.environ.get("HC_MC_DRAWS", 100_000))
 SEED = 42
@@ -174,9 +174,9 @@ def load_groups() -> tuple[pd.DataFrame, dict[str, pd.DataFrame], pd.Series]:
     fig1 = pd.read_csv(os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
                                     "full_results_tables_fig1_absolute.csv"),
                        index_col=0)[INDICATORS].astype(float)
-    # Intermediate workbook, not a deliverable: it lives in silver's
-    # eriksen_interim handoff (see main_2025's interim_dir), not in gold.
-    contrib = pd.read_excel(os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+    # Intermediate workbook, not a deliverable: it lives in silver's handoff
+    # tree (see main_2025's interim_dir), not in gold.
+    contrib = pd.read_excel(os.path.join(str(ERIKSEN_INTERIM_DIR),
                                          *eriksen_folder().split("/"),
                                          "contribution_analysis.xlsx"),
                             sheet_name="full")

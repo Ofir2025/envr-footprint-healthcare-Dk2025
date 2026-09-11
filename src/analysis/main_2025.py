@@ -46,11 +46,14 @@ from analysis.constants import (AR6_GWP100, EXIOBASE_RELEASE, background_stem,
 from paths import (
     BRONZE_DIR,
     BACKGROUND_DIR,
+    ERIKSEN_INTERIM_DIR,
     MRIO_DIR,
     OUTPUT_DIR,
     EXIOBASE_BASE_DIR,
-    SILVER_INPUT_DIR,
+    SILVER_DK_BOTTOMUP_TXT,
+    SILVER_DK_DATA_CSV,
     ensure_runtime_directories,
+    silver_dk_expenditure_breakdown_csv,
 )
 import warnings
 warnings.filterwarnings('ignore', category=FutureWarning)
@@ -97,14 +100,17 @@ os.makedirs(output_dir, exist_ok=True)
 print(f"variant {_LETTER or '(unlettered)'} | release {EXIOBASE_RELEASE} | "
       f"scope boundary '{_SCOPE}' -> {output_dir}")
 
-# Intermediate workbooks that only eriksen_tables.py reads back. They are a
-# handoff between two scripts, not a deliverable, so by the medallion
-# contract they belong in silver rather than in gold's output_dir above.
+# Intermediate workbooks that only eriksen_tables.py, scopes_detail.py and
+# uncertainty_2025.py read back. They are a handoff between scripts, not a
+# deliverable, so by the medallion contract they belong in silver rather than in
+# gold's output_dir above - and inside silver they sit under handoff/ rather than
+# in the bronze mirror, because a message between two scripts is not a
+# transformed source table and has no bronze folder to be named for.
 if _VARIANT_RUN:
-    interim_dir = os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+    interim_dir = os.path.join(str(ERIKSEN_INTERIM_DIR),
                                *eriksen_folder().split("/"))
 else:
-    interim_dir = os.path.join(str(SILVER_INPUT_DIR), "eriksen_interim",
+    interim_dir = os.path.join(str(ERIKSEN_INTERIM_DIR),
                                "scenarios", _SCOPE)
 os.makedirs(interim_dir, exist_ok=True)
 
@@ -185,7 +191,7 @@ else:
 # file, contradicting the health_eldercare numbers actually published.
 if _SCOPE == "health_eldercare":
     expenditure_breakdown.to_csv(
-        SILVER_INPUT_DIR / f"dk_expenditure_breakdown_{ANALYSIS_YEAR}.csv", index=False
+        silver_dk_expenditure_breakdown_csv(ANALYSIS_YEAR), index=False
     )
 else:
     print(f"scope boundary '{_SCOPE}': dk_expenditure_breakdown_{ANALYSIS_YEAR}.csv "
@@ -220,7 +226,7 @@ else:
     healthcare_services_meur = float(healthcare_services) * KDKK_TO_MEUR  # HC services
 
     # Overwrite the derived Silver input with these MEUR values and Conversion=1.0.
-    dk_csv_path = str(SILVER_INPUT_DIR / 'dk_data_2025.csv')
+    dk_csv_path = str(SILVER_DK_DATA_CSV)
     df = pd.read_csv(dk_csv_path)
 
     # Ensure required columns exist
@@ -614,7 +620,7 @@ SCALING_DK_OVER_NL = SCALING_DK_OVER_NL_BY_YEAR[ANALYSIS_YEAR]
 
 BOTTOMUP_BASE = os.path.join(data_dir, "netherlands_reference",
                              "nl_bottomup_data.txt")
-BOTTOMUP_2025 = str(SILVER_INPUT_DIR / "dk_bottomup_data_2025.txt")
+BOTTOMUP_2025 = str(SILVER_DK_BOTTOMUP_TXT)
 # ---------------------------------------------------------------------------
 
 # Apply DK scaling and write dk_bottomup_data_2025.txt

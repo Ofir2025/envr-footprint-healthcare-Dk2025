@@ -2,7 +2,7 @@
 
 Bronze is immutable. No modelling script writes here, and a generated file in
 this tree is a defect regardless of its content: prepared inputs belong in
-`data/silver/inputs/`, published tables in `data/gold/results/`.
+`data/silver/`, published tables in `data/gold/results/`.
 
 Folders are grouped by **who published the data**, because provenance is what
 this layer exists to carry. Each folder's `readme.md` gives the provider, the
@@ -50,8 +50,8 @@ recorded with the evidence that established it as dead.
 |:---|:---|
 | `bottomup_data.txt` | pre-`ISO2` copy of `netherlands_reference/nl_bottomup_data.txt`; identical to it in every value, differing only by the absent `ISO2` column, and read by nothing (`analysis.main` and `analysis.main_2025` both read the `nl_` file) |
 | `cbs_data_2016.csv` | pre-`ISO2` copy of `netherlands_reference/nl_cbs_data_2016.csv`, same evidence: identical values, no `ISO2` column, no reader |
-| `bottomup_data_2025.txt` | a pipeline product, not a source. Its values are `nl_bottomup_data.txt` multiplied by a superseded scaling set (Commute 0.544, Visitor 0.636); `analysis.main_2025` now writes the live file to `data/silver/inputs/dk_bottomup_data_2025.txt` on the 2026-09 factors, and every reader points there |
-| `dk_data_2025.csv` | a pipeline product. `analysis.main_2025` writes the live copy to `data/silver/inputs/dk_data_2025.csv`, which has ten readers; the bronze copy had none |
+| `bottomup_data_2025.txt` | a pipeline product, not a source. Its values are `nl_bottomup_data.txt` multiplied by a superseded scaling set (Commute 0.544, Visitor 0.636); `analysis.main_2025` now writes the live file to `data/silver/netherlands_reference/dk_bottomup_data_2025.txt` on the 2026-09 factors, and every reader points there |
+| `dk_data_2025.csv` | a pipeline product. `analysis.main_2025` writes the live copy to `data/silver/dst_supply_use/dk_data_2025.csv`, which has five readers; the bronze copy had none |
 | `dk_data_2025_raw.csv` | referenced by no module, no script, no document; an intermediate of the expenditure conversion that predates the silver layer |
 | `commuting_private_travel_calculations_2025.xlsx` | superseded by `dk_travel_survey/commuting_private_travel_calculations_2026.xlsx`, which is the workbook `analysis.main_2025` cites for the 2026-09 commute and visitor factors. The 2025 workbook has a single undocumented sheet and no reader |
 
@@ -65,13 +65,15 @@ survey quantities and written to silver. Bronze has no bottom-up source to hold.
 supply table, and it now carries the `nl_` prefix its readers expect, at
 `netherlands_reference/nl_supply_tables_2015_2018.xlsx`.
 
-## Known defect
+## Fixed defect
 
-`analysis.build_dst_concordance` writes
+`analysis.build_dst_concordance` used to write
 `classification_concordances/exiobase_industry_to_dst_db07.csv` into this layer.
-A generated file in bronze breaks medallion rule 1. It is recorded here rather
-than fixed in passing, because moving it means moving what
-`analysis.build_star_schema` reads as well.
+A generated file in bronze breaks medallion rule 1, and it is now written to
+`data/silver/classification_concordances/` instead, beside the bronze
+concordance it is built from and under the silver folder mirroring it. Its column
+dictionary moved with it. `analysis.build_star_schema` still reads the
+hand-maintained concordances in this folder, which are sources.
 
 ## Moving an existing working copy
 
