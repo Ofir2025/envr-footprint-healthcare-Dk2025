@@ -9,10 +9,23 @@ DIRECT waste of the Danish health industries can be checked against measurement
 - something the original study could not do for the Netherlands.
 
 Result (2022): the hybrid-derived direct waste of the Danish health sector is
-an order of magnitude above the measured national account. This is reported as
-a model limitation and motivates rebuilding the extension.
+159.99 kt against a measured 51.80 kt for the whole of NACE Q and 45.14 kt on
+the study's own boundary, i.e. **3.1 times** the measured national account.
+This is reported as a model limitation and motivates rebuilding the extension.
 
-Run: PYTHONPATH=src .venv/bin/python -m analysis.waste_validation
+WHERE THE HYBRID FIGURE COMES FROM, AND WHY IT IS RECOMPUTED HERE.
+``analysis.main_2025`` overwrites ``Hstim[6, 0]`` with the AFFALD01 figure
+before it persists the background, so the row a module reads from the
+background is the *replacement*, not the inherited extension. Reading it and
+labelling it "hybrid" made this table compare the Danish account against
+itself, and publish a ratio of 0.83 that meant nothing. The inherited value is
+still recoverable exactly, because ``B`` is not overwritten: the background
+construction sets ``Hstim[6, 0] = B[6, h] * x_h * scale`` with
+``x_h * scale = E_H``, so the hybrid figure is ``B[6, h] * E_H``. Both are now
+published, each under its own name.
+
+Run: PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+         .venv/bin/python -m analysis.waste_validation
 """
 
 import json
@@ -23,8 +36,8 @@ import subprocess
 import numpy as np
 import pandas as pd
 
-from analysis.constants import BACKGROUND_YEAR
-from paths import BACKGROUND_DIR, OUTPUT_DIR
+from analysis.constants import BACKGROUND_YEAR, NODE_DK_HEALTH
+from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 
 API = "https://api.statbank.dk/v1/data"
 ALPHA_ELDERCARE = 0.4914  # 12401 share of industry 880000's individually consumed output
@@ -79,7 +92,15 @@ def main() -> None:
                            f"gddz_background_information_{BACKGROUND_YEAR}.pkl"),
               "rb") as fh:
         bg = pickle.load(fh)
-    hybrid_direct_kt = float(bg["Hstim"][6, 0])
+    # The row the model carries, after main_2025's AFFALD01 replacement.
+    modelled_direct_kt = float(bg["Hstim"][6, 0])
+    # The inherited hybrid value, recomputed from the intensity matrix, which
+    # the replacement does not touch. See the module docstring.
+    expenditure = pd.read_csv(os.path.join(str(SILVER_INPUT_DIR),
+                                           "dk_data_2025.csv"))
+    e_h = float(expenditure[expenditure["Index"] == "Expenditure"]
+                .iloc[0]["HC service"])
+    hybrid_direct_kt = float(bg["B"][6, NODE_DK_HEALTH]) * e_h
 
     a = _affald(year)
     qa = a.get("QA", np.nan) / 1e3            # tonnes -> kt
@@ -91,7 +112,15 @@ def main() -> None:
     rows = [
         dict(source="EXIOBASE hybrid 2011 waste extension (as inherited)",
              quantity="direct waste of the Danish health sector", value_kt=hybrid_direct_kt,
-             basis="absolute 2011 tonnes / analysis-year monetary output"),
+             basis="absolute 2011 tonnes / analysis-year monetary output; "
+                   "recomputed as B[6, DK health] x healthcare-services "
+                   "expenditure, because main_2025 overwrites the background's "
+                   "own Hstim row with the Danish account"),
+        dict(source="This study's model, after the AFFALD01 replacement",
+             quantity="direct waste of the Danish health sector, as modelled",
+             value_kt=modelled_direct_kt,
+             basis="Hstim[6, 0] of the persisted background, set by "
+                   "analysis.main_2025 from AFFALD01"),
         dict(source="Statistics Denmark AFFALD01 (SEEA waste accounts)",
              quantity="Q human health and social work, total waste excl. soil",
              value_kt=q_tot, basis=f"measured, {year}"),
@@ -99,7 +128,17 @@ def main() -> None:
              quantity="study boundary: QA + 870000 + alpha x 880000",
              value_kt=measured_scope, basis=f"measured, {year}, alpha={ALPHA_ELDERCARE}"),
         dict(source="ratio", quantity="hybrid / measured (Q total)",
-             value_kt=hybrid_direct_kt / q_tot if q_tot else np.nan, basis="dimensionless"),
+             value_kt=hybrid_direct_kt / q_tot if q_tot else np.nan,
+             basis="dimensionless; the size of the defect the replacement removes"),
+        dict(source="ratio", quantity="hybrid / measured (study boundary)",
+             value_kt=hybrid_direct_kt / measured_scope if measured_scope else np.nan,
+             basis="dimensionless"),
+        dict(source="ratio", quantity="modelled / measured (study boundary)",
+             value_kt=modelled_direct_kt / measured_scope if measured_scope else np.nan,
+             basis="dimensionless; a conformance check on the replacement, not "
+                   "on the extension. It is not 1.000 because the model takes "
+                   "AFFALD01 at the vintage main_2025 records, while this row "
+                   "queries StatBank live"),
     ]
     df = pd.DataFrame(rows)
     df["analysis_year"] = year
@@ -108,11 +147,14 @@ def main() -> None:
     df.to_csv(out, index=False)
     print(df.to_string(index=False))
     print(f"\nwritten -> {out}")
-    print("\nInterpretation: the inherited hybrid-2011 extension overstates the DIRECT "
-          "waste of Danish health care by roughly an order of magnitude against "
-          "Denmark's own measured SEEA waste accounts. The direct row is therefore "
-          "replaced by AFFALD01 in the model, and the supply-chain waste result is "
-          "reported with a scenario band rather than a confidence interval.")
+    print(f"\nInterpretation: the inherited hybrid-2011 extension overstates the "
+          f"DIRECT waste of Danish health care by a factor of "
+          f"{hybrid_direct_kt / q_tot:.1f} against Denmark's own measured SEEA "
+          f"waste accounts for NACE Q, and "
+          f"{hybrid_direct_kt / measured_scope:.1f} against the study's own "
+          f"boundary. The direct row is therefore replaced by AFFALD01 in the "
+          f"model, and the supply-chain waste result is reported with a "
+          f"scenario band rather than a confidence interval.")
 
 
 if __name__ == "__main__":

@@ -97,6 +97,16 @@ SCOPE_ORDER <- c("Scope 1", "Scope 2", "Scope 3", "Outside protocol")
 SCOPE_COLS  <- c(`Scope 1` = "#0072B2", `Scope 2` = "#009E73",
                  `Scope 3` = "#E69F00", `Outside protocol` = "#4D4D4D")
 
+# Legend text for those keys. "Outside protocol" is the study's own term for a
+# category the GHG Protocol has no scope for, and it appears in no published
+# manuscript or appendix: a reader with the figure alone has no way to learn
+# what is in it. The figures carry no title and no on-image note, by the house
+# rule, so the legend is the only place the content can be said, and it says
+# it. The term itself is kept, and defined, in replications.md section 02.
+SCOPE_LABELS <- c(`Scope 1` = "Scope 1", `Scope 2` = "Scope 2",
+                  `Scope 3` = "Scope 3",
+                  `Outside protocol` = "Patient and visitor travel")
+
 # World regions as the study aggregates them. Denmark is singled out because
 # the domestic/imported split is the paper's subject; the remainder bucket is
 # the house grey.
