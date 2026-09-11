@@ -142,8 +142,11 @@ from analysis.build_shipping_inputs import (DST_SHEET, EXPENDITURE_CSV,
                                             RORMOSE_CROSS_CHECK_YEAR,
                                             RORMOSE_TOLERANCE,
                                             SECTOR_GROUP_CSV, SHARE_CSV)
-from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_TAG, BACKGROUND_YEAR,
-                                K_DK, N_FINAL_DEMAND, N_SECTORS, model_label)
+from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_TAG, CAPITAL,
+                                EXIOBASE_RELEASE, K_DK, N_FINAL_DEMAND,
+                                N_SECTORS, RELEASE_LABEL, background_stem,
+                                eriksen_folder, model_label, table_year,
+                                write_release_sidecar)
 from paths import MRIO_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 
 FOLDER = "10_sea_transport_reallocation"
@@ -155,12 +158,27 @@ if BACKGROUND_TAG:
     raise SystemExit(
         "analysis.dk_shipping_correction writes the _snacship background "
         f"itself; run it with HC_BACKGROUND_TAG unset, not {BACKGROUND_TAG!r}")
+if CAPITAL != "excluded":
+    raise SystemExit(
+        "analysis.dk_shipping_correction corrects the EXIOBASE table, which is "
+        "prior to any capital treatment; run it with HC_CAPITAL unset, not "
+        f"{CAPITAL!r}, and endogenise capital on the corrected table afterwards")
 
-#: Background year this run corrects: HC_ANALYSIS_YEAR maps onto it the same
-#: way every other module in this package does (2022 stays 2022; anything
-#: else -- 2019 today -- runs on the 2016 background). A 2019 analysis run
-#: therefore corrects mrio2016.pkl, not a nonexistent mrio2019.pkl.
-BG_YEAR = BACKGROUND_YEAR
+#: Background stem this run corrects.
+#:
+#: HC_ANALYSIS_YEAR maps onto the table year the same way every other module in
+#: this package does (2022 stays 2022; anything else -- 2019 today -- runs on
+#: the 2016 table), and HC_EXIOBASE_RELEASE decides WHICH release's table that
+#: is. A 2019 run on v3.7 therefore corrects mrio2016_v3_7.pkl and a 2019 run on
+#: v3.8.2 corrects mrio2016.pkl: the misallocation Rørmose Jensen & Iliev
+#: diagnose is a property of a particular release's Danish block, so correcting
+#: one release's table and labelling it with another's would be meaningless.
+BG_YEAR = background_stem(tag="", capital="excluded",
+                          scope="health_eldercare")
+
+#: The DST table year behind BG_YEAR, which is what phi is keyed on. The
+#: release tag is not a year and must not reach the share lookup.
+DST_YEAR = table_year()
 TAG = "_snacship"
 
 SECTOR_NAME = "Sea and coastal water transport"
@@ -473,8 +491,12 @@ def _published_non_mrio_additions(analysis_year: str) -> tuple[float, float]:
         The bottom-up total in kt CO2-eq, and the published grand total of the
         same table, which :func:`phi_sensitivity` uses to verify itself.
     """
-    path = os.path.join(str(OUTPUT_DIR), "01_eriksen_replication",
-                        f"{analysis_year}_shipping_corrected", "table_01.csv")
+    # Through the vocabulary, never re-derived: the shipping-corrected run on
+    # the current release IS variant c, and spelling its folder name here is how
+    # a rename of the scheme would silently start reading the wrong variant.
+    path = os.path.join(str(OUTPUT_DIR),
+                        *eriksen_folder(analysis_year, tag=TAG).split("/"),
+                        "table_01.csv")
     table = pd.read_csv(path, index_col=0)
     column = "Global warming (ktCO2eq)"
     bottom_up = float(sum(
@@ -746,7 +768,7 @@ def main() -> None:
     dk = slice(K_DK * N_SECTORS, (K_DK + 1) * N_SECTORS)
     dk_fd = slice(K_DK * N_FINAL_DEMAND, (K_DK + 1) * N_FINAL_DEMAND)
 
-    phi, phi_source = applied_target_share(BG_YEAR)
+    phi, phi_source = applied_target_share(DST_YEAR)
     rormose_check = dst_domestic_intermediate_share(RORMOSE_CROSS_CHECK_YEAR)
     print(f"phi = {phi:.5f} ({phi_source}); DST {DST_SHEET} "
           f"{RORMOSE_CROSS_CHECK_YEAR} cross-check {rormose_check:.5f} against "
@@ -784,10 +806,20 @@ def main() -> None:
     L = np.linalg.inv(np.eye(A.shape[0]) - A)
 
     m["Z"], m["Y"], m["A"], m["V"] = Z, Y, A, V
+    # The corrected table keeps the release it was corrected from in its own
+    # "source" field, extended with what this module did to it, so a gold row
+    # built on it still states the release that actually produced it.
+    m["release"] = EXIOBASE_RELEASE
+    m["source"] = (f"{m.get('source', 'EXIOBASE ' + RELEASE_LABEL.get(EXIOBASE_RELEASE, EXIOBASE_RELEASE) + f' IOT_{DST_YEAR}_ixi')}"
+                   f"; Danish sea-transport reallocation applied by "
+                   f"analysis.dk_shipping_correction at phi={phi:.5f} "
+                   f"({phi_source})")
     with open(f"{mdir}mrio{BG_YEAR}{TAG}.pkl", "wb") as fh:
         pickle.dump(m, fh)
     with open(f"{mdir}leontief{BG_YEAR}{TAG}.pkl", "wb") as fh:
         pickle.dump(L, fh)
+    write_release_sidecar(mdir, f"{BG_YEAR}{TAG}", EXIOBASE_RELEASE,
+                          str(m["source"]))
 
     # verification
     resid_row = float(abs(Z[row, :].sum() + Y[row, :].sum() - x_row))
@@ -846,6 +878,8 @@ def main() -> None:
     # below describes -- required so a reader comparing this file across runs
     # can tell the 2016 rows from the 2022 rows without cross-referencing
     # anything else.
+    # The stem, not a bare year: it names the release as well, so a reader can
+    # tell a v3.7 correction from a v3.8.2 one in the same file.
     df.insert(2, "background_year", BG_YEAR)
     df.insert(3, "analysis_year", ANALYSIS_YEAR)
     diag_path = os.path.join(out_dir, "shipping_reallocation_diagnostics.csv")

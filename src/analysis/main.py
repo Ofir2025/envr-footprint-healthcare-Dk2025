@@ -28,7 +28,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 from .functions import *
-from paths import BRONZE_DIR, BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR, EXIOBASE_DIR, ensure_runtime_directories
+from paths import BRONZE_DIR, BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR, EXIOBASE_BASE_DIR, ensure_runtime_directories
 
 # Hard guard: this is the superseded Netherlands entry point. It is kept for
 # provenance (its history is referenced elsewhere) but is not supported to run:
@@ -127,10 +127,10 @@ cols_impcat = [x for x in char_labels if x not in ['Value added (M.EUR)', 'Emplo
 # 3C) Labels industry aggregation
 excel_str = 'classifications.xlsx'
 sheet_str = 'disagg_ind'  
-sec_labels = pd.read_excel(EXIOBASE_DIR / excel_str, sheet_name = sheet_str, skiprows = 5)
+sec_labels = pd.read_excel(EXIOBASE_BASE_DIR / excel_str, sheet_name = sheet_str, skiprows = 5)
 sec_labels = sec_labels[['Code', 'Description', 'AggPos', 'AggDescription', 'AggCode', 'Scope', 'Scope_hotspot']]
 sec_labels.rename(columns={'Code':'SecTxtCode', 'Description':'SecName', 'AggPos':'SAggPos', 'AggDescription':'SAggDescription', 'AggCode':'SAggCode'}, inplace = True)
-fig_labels = pd.read_excel(EXIOBASE_DIR / excel_str, sheet_name = 'agg_ind_fig', skiprows = 5)
+fig_labels = pd.read_excel(EXIOBASE_BASE_DIR / excel_str, sheet_name = 'agg_ind_fig', skiprows = 5)
 
 
 # 3D) Create multi-index for 163 sectors and 49 regions

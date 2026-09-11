@@ -52,7 +52,7 @@ import pandas as pd
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, DK_POPULATION,
                                 K_DK, MODEL_LABEL, N_FINAL_DEMAND)
 from analysis.detail_tables import detail_rows, domestic_import_split
-from paths import BACKGROUND_DIR, EXIOBASE_DIR, MRIO_DIR, OUTPUT_DIR
+from paths import BACKGROUND_DIR, EXIOBASE_BASE_DIR, MRIO_DIR, OUTPUT_DIR
 
 FOLDER = "12_impact_categories_full"
 CHAR_WORKBOOK = "characterisation_desire_version3_4_adapted.xlsx"
@@ -102,7 +102,7 @@ def build_full_characterisation(n_stressors: int) -> tuple[np.ndarray,
     reported in ``meta`` with ``n_nonzero_factors == 0`` and produce zero, so a
     silent zero can always be distinguished from a genuine one.
     """
-    path = os.path.join(str(EXIOBASE_DIR), CHAR_WORKBOOK)
+    path = os.path.join(str(EXIOBASE_BASE_DIR), CHAR_WORKBOOK)
     rows: list[np.ndarray] = []
     meta: list[dict[str, Any]] = []
     for sheet, (index_cols, name_level, unit_level) in SHEET_INDEX.items():

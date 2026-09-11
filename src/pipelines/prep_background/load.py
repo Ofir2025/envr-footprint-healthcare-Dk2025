@@ -20,7 +20,7 @@ import os
 import time
 import pickle as pkl
 import sys
-from paths import EXIOBASE_DIR, BACKGROUND_DIR, MRIO_DIR
+from paths import EXIOBASE_BASE_DIR, BACKGROUND_DIR, MRIO_DIR, exiobase_iot_dir
 np.set_printoptions(precision=2)
 tstart = time.time()
 
@@ -49,10 +49,10 @@ Adapted characterization factors are stored in the bronze Exiobase directory.
 # Set working directory to envr-footprint-healthcare folder
 # or change to your folder structure
 print("Starting to read files..\n")
-exio_dir = str(EXIOBASE_DIR) + os.sep
+exio_dir = str(EXIOBASE_BASE_DIR) + os.sep
 # Folder settings: Change to reflect the location in your computer relative to the current working directory (run os.getcwd() to find out whatthat is)
 # Exiobase 2011 folder
-iot_dir = exio_dir + 'IOT_' + year + '_ixi' + os.sep
+iot_dir = str(exiobase_iot_dir(year)) + os.sep
 # Auxiliary files folder (regions and characterization)
 # Folder to store MRIO
 

@@ -204,8 +204,11 @@ def createBackground(
     bg_dir : str
         Directory the background pickle is written to, when absent.
     year : str
-        Four-digit background year, used to select the MRIO/Leontief
-        pickles and name the output file.
+        Background stem (see ``analysis.constants.background_stem``): a
+        four-digit table year carrying the EXIOBASE release, sea-transport
+        correction, capital and sector-boundary suffixes. The MRIO/Leontief
+        pickles are selected by ``analysis.constants.mrio_stem`` of it, which
+        drops the boundary suffix; the output file keeps the full stem.
 
     Returns
     -------
@@ -225,14 +228,20 @@ def createBackground(
     waste = pkl.load(pkl_in)
     pkl_in.close()
 
-    # Load Leontief inverse
-    mrio_str = 'leontief'+ year +'.pkl'  
+    # Load Leontief inverse and the rest of the system.
+    #
+    # The EXIOBASE pickles are addressed by the stem WITHOUT the sector-boundary
+    # suffix: the boundary changes the demand vector this function builds, not
+    # the table it reads, so one table serves every boundary while the prepared
+    # background written below keeps the boundary in its own name.
+    from analysis.constants import mrio_stem
+    table_stem = mrio_stem(year)
+    mrio_str = 'leontief'+ table_stem +'.pkl'
     pkl_in = open(mrio_dir + mrio_str,"rb")
     L = pkl.load(pkl_in)
     pkl_in.close()
 
-    # Load rest of the system
-    mrio_str = 'mrio'+ year +'.pkl'  
+    mrio_str = 'mrio'+ table_stem +'.pkl'
     pkl_in = open(mrio_dir + mrio_str,"rb")
     mrio = pkl.load(pkl_in)
     pkl_in.close()

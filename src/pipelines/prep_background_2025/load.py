@@ -20,14 +20,34 @@ import os
 import time
 import pickle as pkl
 import sys
-from paths import EXIOBASE_DIR, BACKGROUND_DIR, MRIO_DIR
+from paths import (EXIOBASE_BASE_DIR, BACKGROUND_DIR, MRIO_DIR,
+                   exiobase_iot_dir)
+from analysis.constants import (EXIOBASE_RELEASE, RELEASE_LABEL, RELEASE_TAG,
+                                table_year)
 np.set_printoptions(precision=2)
 tstart = time.time()
 
-year = os.environ.get('HC_BACKGROUND_YEAR', '2016')  # IOT_<year>_ixi must exist
-# under data/bronze/exiobase/. v3.8.2 is used for every year: its 2022 table
-# reproduces Danish national accounts, whereas v3.10.2's 2022 nowcast does not
-# (see docs/methods/exiobase_release_and_classification.md).
+# The EXIOBASE table year, and the RELEASE it is read from, are both inputs.
+#
+# The release used to be decided by a single symlink and reported by a hardcoded
+# string, so a build on v3.7 produced a pickle indistinguishable from a v3.8.2
+# one and gold rows that claimed v3.8.2 regardless. Now:
+#   * HC_EXIOBASE_RELEASE selects the bronze tree (data/bronze/exiobase/<release>);
+#   * the pickle's name carries the release, so two releases coexist - the same
+#     VERSION_TAG convention pipelines.prep_background_2022 uses for v3.10.2;
+#   * the release is written into the pickle's "source" field and mirrored into
+#     a sidecar, which is where constants.model_label() reads it from.
+# v3.8.2 remains the default: its 2022 table reproduces Danish national
+# accounts, whereas v3.10.2's 2022 nowcast does not (see
+# docs/methods/exiobase_release_and_classification.md).
+year = os.environ.get('HC_BACKGROUND_YEAR', '') or table_year()
+release = EXIOBASE_RELEASE
+stem = year + RELEASE_TAG.get(release, f'_{release}')
+iot_dir_path = exiobase_iot_dir(year, release)
+source = (f"EXIOBASE {RELEASE_LABEL.get(release, release)} IOT_{year}_ixi, "
+          f"official txt distribution, read from "
+          f"data/bronze/exiobase/{release}/IOT_{year}_ixi")
+print(f"release {release} | table year {year} | background stem {stem}")
 
 ##############################################
 ##############################################
@@ -52,10 +72,10 @@ Adapted characterization factors are stored in the bronze Exiobase directory.
 # Set working directory to envr-footprint-healthcare2025 folder
 # or change to your folder structure
 print("Starting to read files..\n")
-exio_dir = str(EXIOBASE_DIR) + os.sep
-# Folder settings: Change to reflect the location in your computer relative to the current working directory (run os.getcwd() to find out whatthat is)
-# Exiobase 2011 folder
-iot_dir = exio_dir + 'IOT_' + year + '_ixi' + os.sep
+exio_dir = str(EXIOBASE_BASE_DIR) + os.sep
+# Release-independent auxiliary workbooks (characterisation, regions) sit in
+# exio_dir; the release-resolved table sits in iot_dir.
+iot_dir = str(iot_dir_path) + os.sep
 # Auxiliary files folder (regions and characterization)
 # Folder to store MRIO
 
@@ -86,7 +106,7 @@ n_ind = label_ind.count().iloc[0]
 # Netherlands region file is the canonical source; Denmark's one-row
 # adaptation is derived in memory rather than stored as a duplicate Bronze
 # file.
-regions_file = EXIOBASE_DIR / "regions_nl.txt"
+regions_file = EXIOBASE_BASE_DIR / "regions_nl.txt"
 df = pd.read_csv(regions_file, sep="\t")
 
 # Make Denmark its own region while keeping the Netherlands as its own region.
@@ -326,12 +346,17 @@ tstart = time.time()
 # merge elements in MRIO dictionary
 label = {'region': label_reg, 'industry': label_ind, 'final': label_fin, 'primary': label_pri, 'extension': label_ext, 'characterization': label_char}
 
-mrio = {'Y': Y, 'A': A, 'V': V, 'R': R, 'H': H, 'Q': Q, 'label': label}
+# 'source' states which release actually produced these arrays. It travels
+# with the pickle through leontief.py and process.py into mrio<stem>.pkl, and
+# is mirrored into a sidecar so constants.model_label() can read the release
+# without unpickling a gigabyte.
+mrio = {'Y': Y, 'A': A, 'V': V, 'R': R, 'H': H, 'Q': Q, 'label': label,
+        'release': release, 'source': source}
 
 #############################################
 # save to pickle
 
-mrio_str = 'exio' + year + '.pkl'  
+mrio_str = 'exio' + stem + '.pkl'  
 pkl_out = open(mrio_dir + mrio_str,"wb")
 pkl.dump(mrio, pkl_out)
 pkl_out.close()

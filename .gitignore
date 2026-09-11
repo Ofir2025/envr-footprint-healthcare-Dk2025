@@ -7,6 +7,13 @@ scripts/notebooks/.ipynb_checkpoints/
 *.pyc
 .pylint.d
 data/bronze/exiobase/IOT_2016_ixi
+# Per-release EXIOBASE symlink trees (data/bronze/exiobase/<release>/IOT_<year>_ixi).
+# Same reasoning as the top-level symlink above: a quarter of a gigabyte of
+# third-party data per release, held once outside the working copy and pointed
+# at from here. A directory pattern, because the release folder is a real
+# directory holding symlinks rather than a symlink itself.
+data/bronze/exiobase/v3_7/
+data/bronze/exiobase/v3_8_2/
 
 # Large external MRIO downloads: reproducible from the documented URLs
 data/bronze/eurostat_figaro/estat_naio_10_fcp_ii4_*.tsv.gz
