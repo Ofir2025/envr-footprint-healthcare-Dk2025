@@ -100,7 +100,7 @@ every regional chart.
 ```bash
 export PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship
 python -m analysis.main_2025
-python -m analysis.audit_consistency   # every check the module defines (C1-C10, C14-C18), non-zero exit on failure
+python -m analysis.audit_consistency   # every check the module defines (C1, C2, C4-C10, C14-C21), non-zero exit on failure
 LANG=en_US.UTF-8 Rscript r/plot_scope_emissions.r
 ```
 
