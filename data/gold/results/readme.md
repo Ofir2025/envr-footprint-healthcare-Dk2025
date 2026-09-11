@@ -68,10 +68,15 @@ release or correction a folder carries. A bare year could not say it:
 while layer 02 used one, the scope figures of one variant were drawn
 from another's tables.
 
-### Variant folders on disk (16)
+### Variant folders on disk (26)
 
 | folder | configuration |
 |:---|:---|
+| `01_eriksen_replication/2016_uncorrected` | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - the 2016 counterpart of 2019_uncorrected and 2022_uncorrected |
+| `01_eriksen_replication/2016a` | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
+| `01_eriksen_replication/2016b` | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
+| `01_eriksen_replication/2016c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
+| `01_eriksen_replication/2016d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
 | `01_eriksen_replication/2019_uncorrected` | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - not variant a, which is on v3.7 |
 | `01_eriksen_replication/2019a` | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
 | `01_eriksen_replication/2019b` | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
@@ -80,6 +85,11 @@ from another's tables.
 | `01_eriksen_replication/2022_uncorrected` | EXIOBASE v3.8.2 IOT_2022_ixi, no Danish shipping correction, health-care boundary, capital excluded |
 | `01_eriksen_replication/2022c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
 | `01_eriksen_replication/2022d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
+| `02_scopes_wood_hertwich/2016_uncorrected` | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - the 2016 counterpart of 2019_uncorrected and 2022_uncorrected |
+| `02_scopes_wood_hertwich/2016a` | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
+| `02_scopes_wood_hertwich/2016b` | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
+| `02_scopes_wood_hertwich/2016c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
+| `02_scopes_wood_hertwich/2016d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
 | `02_scopes_wood_hertwich/2019_uncorrected` | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - not variant a, which is on v3.7 |
 | `02_scopes_wood_hertwich/2019a` | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
 | `02_scopes_wood_hertwich/2019b` | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |

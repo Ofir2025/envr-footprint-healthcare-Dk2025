@@ -14,8 +14,8 @@ submitted manuscript. v3.10.2 is rejected on evidence set out in
 
 | Indicator | Health care footprint | Share of the national consumption footprint |
 |:---|:---|:---|
-| Climate change | 4,675.5 kt CO₂-eq (≈ 0.80 t per capita) | 6.1 % |
-| Material extraction | 4,257.2 kt | 7.9 % |
+| Climate change | 4,652.1 kt CO₂-eq (≈ 0.79 t per capita) | 6.0 % |
+| Material extraction | 4,256.2 kt | 7.9 % |
 | Blue water | 95.4 Mm³ | 7.5 % |
 | Land use | 4,851.8 km² | 4.9 % |
 | Waste generation | 259.3 kt | 2.4 % |

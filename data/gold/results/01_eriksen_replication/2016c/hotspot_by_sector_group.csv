@@ -2,7 +2,7 @@ indicator,unit,producing_sector_group,value
 land_use,km2,Food and catering,3111.075822047188
 material_extraction,kt,Minerals and Metals,2596.0207922384134
 climate_change,kt CO2eq,Transport,824.0928535969337
-climate_change,kt CO2eq,Private travel,565.7151101256928
+climate_change,kt CO2eq,Private travel,541.0577101256928
 climate_change,kt CO2eq,Food and catering,419.07865537633114
 climate_change,kt CO2eq,Coal and Petroleum,345.07328860528173
 climate_change,kt CO2eq,Waste management and disposal,321.4761319506369
@@ -23,7 +23,7 @@ waste_generation,kt,Food and catering,40.32177646192795
 waste_generation,kt,Waste management and disposal,38.96147013887258
 material_extraction,kt,Food and catering,32.81060572943817
 material_extraction,kt,Chemical,32.12728796991563
-material_extraction,kt,Private travel,23.6533
+material_extraction,kt,Private travel,22.6376
 climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",22.16802785758873
 material_extraction,kt,Services,20.949471670427073
 waste_generation,kt,Electricity,19.464007764310637
@@ -56,7 +56,7 @@ material_extraction,kt,"Electrical, electronic and measuring equipment",2.078483
 material_extraction,kt,"Steam, hot water supply and water distribution",2.031840065316778
 material_extraction,kt,Waste management and disposal,1.817759856109316
 blue_water_consumption,Mm3,Chemical,1.7148298996057185
-land_use,km2,Private travel,1.5402
+land_use,km2,Private travel,1.4739
 waste_generation,kt,"Electrical, electronic and measuring equipment",1.3577826379743698
 land_use,km2,Electricity,1.2479038303572823
 land_use,km2,Waste management and disposal,0.9757050205794032
@@ -81,7 +81,7 @@ waste_generation,kt,Natural gas and gaseous fuels,0.20282612287924418
 blue_water_consumption,Mm3,Textile,0.20105840183189658
 land_use,km2,Construction,0.19207743661027432
 land_use,km2,Metal Products,0.18190277038205788
-blue_water_consumption,Mm3,Private travel,0.1637
+blue_water_consumption,Mm3,Private travel,0.1568
 material_extraction,kt,Transport Equipment,0.15271066520982737
 land_use,km2,"Steam, hot water supply and water distribution",0.14666848243010755
 blue_water_consumption,Mm3,General and special Machinery,0.10975985409625165

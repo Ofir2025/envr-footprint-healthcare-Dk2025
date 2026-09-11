@@ -1,37 +1,37 @@
 indicator,unit,contribution_group,value,share_pct
-blue_water_consumption,Mm3,Pharmaceuticals and chemical products,41.913953527564985,48.44338938649479
-blue_water_consumption,Mm3,Food and food services,20.321880183379363,23.487661552654576
-blue_water_consumption,Mm3,Services,11.275012241935169,13.031455217278639
-blue_water_consumption,Mm3,Heat and electricity,5.426687310224577,6.272067040277406
-blue_water_consumption,Mm3,Transport,2.8862696466839406,3.335898253472484
-blue_water_consumption,Mm3,Other,2.3141115237938243,2.674608243700836
-blue_water_consumption,Mm3,"Medical, electrical equipment and machinery",2.220198735457235,2.5660655415487024
-blue_water_consumption,Mm3,Individual travel,0.1634,0.1888547645725539
-climate_change,kt CO2eq,Pharmaceuticals and chemical products,1796.4049363368335,27.09835110005739
-climate_change,kt CO2eq,Other,1745.428928775385,26.32938986941406
-climate_change,kt CO2eq,Services,821.9218050133597,12.39849946886847
-climate_change,kt CO2eq,Transport,786.6603462793432,11.866588556274875
-climate_change,kt CO2eq,Individual travel,625.0899186512447,9.429336193686357
-climate_change,kt CO2eq,Food and food services,405.7313521725985,6.120363182643004
-climate_change,kt CO2eq,"Medical, electrical equipment and machinery",241.1424786548737,3.637578265094793
-climate_change,kt CO2eq,Operational impacts,163.39469914555332,2.464771074590408
-climate_change,kt CO2eq,Heat and electricity,43.4293920757127,0.6551222893706442
-land_use,km2,Pharmaceuticals and chemical products,2566.3968490206084,47.29111712617979
-land_use,km2,Food and food services,1471.73522004201,27.119735085511635
-land_use,km2,Services,713.932594013267,13.155669956719022
-land_use,km2,Other,288.5488093915151,5.317102671304087
-land_use,km2,Transport,235.44231760039077,4.338506814465736
-land_use,km2,"Medical, electrical equipment and machinery",135.09445798493368,2.4893920198278625
-land_use,km2,Heat and electricity,14.119348538338015,0.26017790885564507
-land_use,km2,Individual travel,1.5356999999999998,0.028298417136223317
-material_extraction,kt,Pharmaceuticals and chemical products,5233.716175708494,65.17980757902195
-material_extraction,kt,Other,1526.0867090300737,19.005623290226985
-material_extraction,kt,Services,584.3825814490615,7.277800884230347
-material_extraction,kt,"Medical, electrical equipment and machinery",284.0919154103133,3.5380322049453365
-material_extraction,kt,Food and food services,189.70046807809427,2.3624972375019486
-material_extraction,kt,Transport,176.05670360095982,2.1925801244187704
-material_extraction,kt,Individual travel,23.5848,0.29372107202233166
-material_extraction,kt,Heat and electricity,12.039478353184574,0.14993760763233224
+blue_water_consumption,Mm3,Pharmaceuticals and chemical products,41.913953527564985,48.44680501689444
+blue_water_consumption,Mm3,Food and food services,20.321880183379363,23.489317612889664
+blue_water_consumption,Mm3,Services,11.275012241935169,13.032374034792346
+blue_water_consumption,Mm3,Heat and electricity,5.426687310224577,6.272509269095883
+blue_water_consumption,Mm3,Transport,2.8862696466839406,3.336133459877919
+blue_water_consumption,Mm3,Other,2.3141115237938243,2.674796824090029
+blue_water_consumption,Mm3,"Medical, electrical equipment and machinery",2.220198735457235,2.566246468845124
+blue_water_consumption,Mm3,Individual travel,0.1573,0.18181731351459615
+climate_change,kt CO2eq,Pharmaceuticals and chemical products,1796.4049363368335,27.18795375371366
+climate_change,kt CO2eq,Other,1745.428928775385,26.416449897263693
+climate_change,kt CO2eq,Services,821.9218050133597,12.439496002187582
+climate_change,kt CO2eq,Transport,786.6603462793432,11.905826287772388
+climate_change,kt CO2eq,Individual travel,603.2422186512448,9.12985775713902
+climate_change,kt CO2eq,Food and food services,405.7313521725985,6.140600605225657
+climate_change,kt CO2eq,"Medical, electrical equipment and machinery",241.1424786548737,3.649606180159861
+climate_change,kt CO2eq,Operational impacts,163.39469914555332,2.472921018036157
+climate_change,kt CO2eq,Heat and electricity,43.4293920757127,0.657288498501976
+land_use,km2,Pharmaceuticals and chemical products,2566.3968490206084,47.29162866445155
+land_use,km2,Food and food services,1471.73522004201,27.12002843409926
+land_use,km2,Services,713.932594013267,13.155812258890814
+land_use,km2,Other,288.5488093915151,5.317160185308334
+land_use,km2,Transport,235.44231760039077,4.338553743200196
+land_use,km2,"Medical, electrical equipment and machinery",135.09445798493368,2.4894189470685144
+land_use,km2,Heat and electricity,14.119348538338015,0.26018072314648727
+land_use,km2,Individual travel,1.4769999999999999,0.027217043834842254
+material_extraction,kt,Pharmaceuticals and chemical products,5233.716175708494,65.18711322978812
+material_extraction,kt,Other,1526.0867090300737,19.00775352735884
+material_extraction,kt,Services,584.3825814490615,7.278616613419812
+material_extraction,kt,"Medical, electrical equipment and machinery",284.0919154103133,3.5384287637669853
+material_extraction,kt,Food and food services,189.70046807809427,2.362762036991151
+material_extraction,kt,Transport,176.05670360095982,2.1928258788212585
+material_extraction,kt,Individual travel,22.6849,0.2825455365290684
+material_extraction,kt,Heat and electricity,12.039478353184574,0.14995441332475087
 waste_generation,kt,Other,119.6651571354209,32.4046859658182
 waste_generation,kt,Pharmaceuticals and chemical products,112.99958650918508,30.599685010680364
 waste_generation,kt,Operational impacts,42.71652604695465,11.567407299150497

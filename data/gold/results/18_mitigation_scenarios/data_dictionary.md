@@ -59,8 +59,8 @@ units and are labelled as such wherever they are quoted.
 | `scenario` | dimension | str |  | B1 grid and district heat, Danish, 2030 |
 | `ambition` | dimension | str |  | KF22 to 2030 |
 | `blue_water_consumption` | measure | float64 |  | 0.0 |
-| `climate_change` | measure | float64 |  | -3.0693390280272723 |
-| `land_use` | measure | float64 |  | -1.8745413420408483e-14 |
+| `climate_change` | measure | float64 |  | -3.0847751537186543 |
+| `land_use` | measure | float64 |  | -1.8745656056352568e-14 |
 | `material_extraction` | measure | float64 |  | 0.0 |
 | `waste_generation` | measure | float64 |  | -1.281303018692169 |
 | `shifts_burden` | dimension | bool |  | False |
@@ -79,11 +79,11 @@ units and are labelled as such wherever they are quoted.
 | `ambition` | dimension | str |  | KF22 to 2030 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `baseline` | measure | float64 | varies by row | 4675.466659298348 |
-| `scenario_value` | measure | float64 | varies by row | 4531.960736382101 |
-| `change` | measure | float64 | varies by row | -143.50592291624707 |
-| `change_pct` | measure | float64 | % | -3.0693390280272723 |
-| `per_capita_change` | measure | float64 | varies by row | -24.43311101815417 |
+| `baseline` | measure | float64 | varies by row | 4652.070759298347 |
+| `scenario_value` | measure | float64 | varies by row | 4508.564836382101 |
+| `change` | measure | float64 | varies by row | -143.50592291624616 |
+| `change_pct` | measure | float64 | % | -3.0847751537186543 |
+| `per_capita_change` | measure | float64 | varies by row | -24.43311101815402 |
 | `per_capita_unit` | dimension | str |  | kg CO2eq per capita |
 | `k_t` | dimension | str |  | 0.862266 |
 | `k_p` | dimension | str |  | 1 |
@@ -130,7 +130,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `quantity` | dimension | str |  | baseline climate footprint |
-| `value` | measure | float64 | varies by row | 4675.466659298348 |
+| `value` | measure | float64 | varies by row | 4652.070759298347 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `target` | dimension | str |  | Danske Regioner, January 2024 |
 | `basis` | dimension | str |  | consumption-based CO2 of hospitals, agai |

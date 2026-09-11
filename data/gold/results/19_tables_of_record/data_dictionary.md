@@ -58,7 +58,7 @@ units and are labelled as such wherever they are quoted.
 | `Impact category` | dimension | str |  | Blue water consumption |
 | `Unit` | dimension | str |  | Mm³ |
 | `Health care` | measure | float64 |  | 95.4 |
-| `Per person` | measure | float64 |  | 16.3 |
+| `Per person` | measure | float64 |  | 16.2 |
 | `Danish total` | measure | float64 |  | 1276.1 |
 | `Share of national (%)` | measure | float64 | % | 7.5 |
 
@@ -92,7 +92,7 @@ units and are labelled as such wherever they are quoted.
 | `Scope 2` | measure | float64 |  | 0.07 |
 | `Scope 3` | measure | float64 |  | 95.3 |
 | `Outside protocol` | measure | float64 |  | 0.08 |
-| `TOTAL` | measure | float64 |  | 95.45 |
+| `TOTAL` | measure | float64 |  | 95.44 |
 
 ### `table_05.csv`
 
@@ -138,26 +138,26 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Impact category` | dimension | str |  | Global warming (ktCO2eq) |
-| `Deterministic` | measure | float64 |  | 4675.5 |
-| `Median` | measure | float64 |  | 4696.5 |
-| `2.5th percentile` | measure | float64 |  | 4031.6 |
-| `97.5th percentile` | measure | float64 |  | 5488.3 |
-| `CV, Tier 2 (%)` | measure | float64 |  | 7.87 |
-| `CV, Tier 1 (%)` | measure | float64 |  | 7.9 |
+| `Deterministic` | measure | float64 |  | 4652.1 |
+| `Median` | measure | float64 |  | 4672.7 |
+| `2.5th percentile` | measure | float64 |  | 4011.6 |
+| `97.5th percentile` | measure | float64 |  | 5460.0 |
+| `CV, Tier 2 (%)` | measure | float64 |  | 7.86 |
+| `CV, Tier 1 (%)` | measure | float64 |  | 7.89 |
 
 ### `table_11.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Contributor` | dimension | str |  | Input-output model |
-| `Share of variance (%)` | measure | float64 | % | 78.4 |
+| `Share of variance (%)` | measure | float64 | % | 79.4 |
 
 ### `table_12.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Quantity` | dimension | str |  | baseline climate footprint |
-| `Value` | measure | float64 |  | 4675.5 |
+| `Value` | measure | float64 |  | 4652.1 |
 | `Unit` | dimension | str |  | kt CO₂-eq |
 
 ### `table_13.csv`
@@ -165,8 +165,8 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Scenario` | dimension | str |  | C3  maximum modelled, KF22 to 2035 |
-| `Climate (%)` | measure | float64 |  | -9.85 |
-| `Material (%)` | dimension | str |  | -4.56 |
+| `Climate (%)` | measure | float64 |  | -9.75 |
+| `Material (%)` | dimension | str |  | -4.55 |
 | `Blue water (%)` | dimension | str |  | -1.37 |
 | `Land (%)` | dimension | str |  | -1.42 |
 | `Waste (%)` | dimension | str |  | -2.58 |

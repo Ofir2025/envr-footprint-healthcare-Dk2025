@@ -102,7 +102,7 @@ is a withheld figure rather than a missing one:
   result: the file in `2022c/` and the file in `2022d/` are byte-identical by
   construction, and the bars name their own boundary and capital treatment.
 - **Figures 8 and 9, everything but `2022c`.** `18_mitigation_scenarios`
-  publishes ONE scenario layer, whose baseline climate footprint is 4,675.47 kt
+  publishes ONE scenario layer, whose baseline climate footprint is 4,652.07 kt
   - variant 2022c exactly. `plot_scenarios.r` stops unless the run is 2022, and
   running it under `2022d` would put variant c's baseline and levers in variant
   d's folder. It is therefore run for `2022c` and for nothing else.
@@ -317,7 +317,7 @@ Its transport share is readable from `01_eriksen_replication/2019_uncorrected`
 | Danish sea-transport reallocation | not applied | applied | applied | applied | not applied | applied | applied | not applied |
 | Boundary | health care | health care | health care | + child and elder care | health care | health care | + child and elder care | health care |
 | Capital | excluded | excluded | excluded | endogenised | excluded | excluded | endogenised | excluded |
-| Climate total, kt CO₂e | 8,694.66 | 6,625.53 | 4,109.26 | 5,977.78 | 6,418.86 | 4,675.47 | 6,495.66 | 6,087.33 |
+| Climate total, kt CO₂e | 8,676.48 | 6,607.36 | 4,091.08 | 5,959.60 | 6,400.68 | 4,652.07 | 6,472.27 | 6,063.93 |
 | Transport share | 34.93 % | 16.56 % | 21.17 % | 19.83 % | 46.85 % | 14.87 % | 14.50 % | 32.19 % |
 
 `2019a` runs the release and correction state the submitted manuscript used, and

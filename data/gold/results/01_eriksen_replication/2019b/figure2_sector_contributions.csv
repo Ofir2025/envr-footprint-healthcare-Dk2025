@@ -1,33 +1,33 @@
 indicator,unit,hotspot_group,value,share_pct
-blue_water_consumption,Mm3,Agricultural sector,72.54913040256982,83.85097271799773
-blue_water_consumption,Mm3,Electricity sector,6.459016168455894,7.465214062815524
-blue_water_consumption,Mm3,Other,3.51265563811822,4.059863852884151
-blue_water_consumption,Mm3,Pharmaceutical and chemical industry,3.3617653030198453,3.8854675327416954
-blue_water_consumption,Mm3,Mining of minerals and metals,0.5195307281856458,0.6004642188476598
-blue_water_consumption,Mm3,Fossil fuel industry,0.07199350790196422,0.08320879428138156
-blue_water_consumption,Mm3,Transport,0.047421420787733606,0.054808820431844804
-climate_change,kt CO2eq,Other,2925.2340074975364,44.12647537399822
-climate_change,kt CO2eq,Transport,1097.0454747534682,16.548676106523715
-climate_change,kt CO2eq,Fossil fuel industry,689.3308668689364,10.398395972242431
-climate_change,kt CO2eq,Electricity sector,577.7230943714294,8.714818654313213
-climate_change,kt CO2eq,Agricultural sector,547.3673051514407,8.256908626588624
-climate_change,kt CO2eq,Pharmaceutical and chemical industry,520.5848262590016,7.852901154956342
-climate_change,kt CO2eq,Operational impacts,163.39469914555332,2.464771074590407
-climate_change,kt CO2eq,Mining of minerals and metals,108.52358305753997,1.6370530367870477
-land_use,km2,Agricultural sector,5318.423266312466,98.0028391594097
-land_use,km2,Other,76.30652782710337,1.4061040272632697
-land_use,km2,Transport,25.33942310457734,0.46693075796352446
-land_use,km2,Mining of minerals and metals,4.5987909287539654,0.08474213975656676
-land_use,km2,Electricity sector,1.483501280567762,0.027336548843933058
-land_use,km2,Pharmaceutical and chemical industry,0.39290561968098103,0.007240090591195361
-land_use,km2,Fossil fuel industry,0.2608815179134905,0.004807276171808993
-material_extraction,kt,Mining of minerals and metals,7891.894036648867,98.28430076706827
-material_extraction,kt,Other,59.8794021434527,0.7457278497011308
-material_extraction,kt,Pharmaceutical and chemical industry,42.81047672978794,0.5331543671712458
-material_extraction,kt,Agricultural sector,21.527913311465745,0.26810495642310056
-material_extraction,kt,Fossil fuel industry,6.844867553615253,0.08524481173038342
-material_extraction,kt,Transport,6.323749177721434,0.07875489245957898
-material_extraction,kt,Electricity sector,0.37838606527142904,0.004712355446297449
+blue_water_consumption,Mm3,Agricultural sector,72.54913040256982,83.8568848545159
+blue_water_consumption,Mm3,Electricity sector,6.459016168455894,7.465740417647745
+blue_water_consumption,Mm3,Other,3.50655563811822,4.053099337648537
+blue_water_consumption,Mm3,Pharmaceutical and chemical industry,3.3617653030198453,3.885741487995234
+blue_water_consumption,Mm3,Mining of minerals and metals,0.5195307281856458,0.6005065561792496
+blue_water_consumption,Mm3,Fossil fuel industry,0.07199350790196422,0.08321466113939592
+blue_water_consumption,Mm3,Transport,0.047421420787733606,0.05481268487394116
+climate_change,kt CO2eq,Other,2903.3863074975366,43.94172553231474
+climate_change,kt CO2eq,Transport,1097.0454747534682,16.60339549842205
+climate_change,kt CO2eq,Fossil fuel industry,689.3308668689364,10.432779018998351
+climate_change,kt CO2eq,Electricity sector,577.7230943714294,8.74363483116015
+climate_change,kt CO2eq,Agricultural sector,547.3673051514407,8.284210690880577
+climate_change,kt CO2eq,Pharmaceutical and chemical industry,520.5848262590016,7.878867339385291
+climate_change,kt CO2eq,Operational impacts,163.39469914555332,2.4729210180361565
+climate_change,kt CO2eq,Mining of minerals and metals,108.52358305753997,1.6424660708026808
+land_use,km2,Agricultural sector,5318.423266312466,98.00389923593185
+land_use,km2,Other,76.24782782710336,1.4050375574013392
+land_use,km2,Transport,25.33942310457734,0.46693580865734347
+land_use,km2,Mining of minerals and metals,4.5987909287539654,0.08474305639483523
+land_use,km2,Electricity sector,1.483501280567762,0.027336844537750447
+land_use,km2,Pharmaceutical and chemical industry,0.39290561968098103,0.007240168905763794
+land_use,km2,Fossil fuel industry,0.2608815179134905,0.004807328171125023
+material_extraction,kt,Mining of minerals and metals,7891.894036648867,98.29531692074949
+material_extraction,kt,Other,58.979502143452706,0.7346029771936041
+material_extraction,kt,Pharmaceutical and chemical industry,42.81047672978794,0.5332141255497328
+material_extraction,kt,Agricultural sector,21.527913311465745,0.26813500685210706
+material_extraction,kt,Fossil fuel industry,6.844867553615253,0.08525436635853074
+material_extraction,kt,Transport,6.323749177721434,0.07876371966790942
+material_extraction,kt,Electricity sector,0.37838606527142904,0.004712883628635746
 waste_generation,kt,Other,157.21716776302335,42.573570049557325
 waste_generation,kt,Pharmaceutical and chemical industry,73.78008563865932,19.979253467626496
 waste_generation,kt,Agricultural sector,59.015946294012814,15.98120332110447

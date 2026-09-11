@@ -254,19 +254,19 @@ disk are
 
 | Folder | Variant | Background stem | Climate total, kt CO2e | Transport share of climate |
 |:---|:---|:---|:---|:---|
-| `2016a/` | a | `2016_v3_7` | 8,240.97 | 34.95 % |
-| `2016b/` | b | `2016_v3_7_snacship` | 6,277.87 | 16.55 % |
-| `2016c/` | c | `2016_snacship` | 3,901.22 | 21.12 % |
-| `2016d/` | d | `2016_snacship_capital_zorg_en_welzijn` | 5,681.42 | 19.81 % |
-| `2016_uncorrected/` | - | `2016` | 6,092.21 | 46.81 % |
-| `2019a/` | a | `2016_y2019_v3_7` | 8,698.33 | 34.92 % |
-| `2019b/` | b | `2016_y2019_v3_7_snacship` | 6,629.20 | 16.55 % |
-| `2019c/` | c | `2016_y2019_snacship` | 4,112.93 | 21.16 % |
-| `2019d/` | d | `2016_y2019_snacship_capital_zorg_en_welzijn` | 5,981.45 | 19.82 % |
-| `2019_uncorrected/` | - | `2016_y2019` | 6,422.53 | 46.83 % |
-| `2022c/` | c | `2022_snacship` | 4,675.47 | 14.87 % |
-| `2022d/` | d | `2022_snacship_capital_zorg_en_welzijn` | 6,495.66 | 14.50 % |
-| `2022_uncorrected/` | - | `2022` | 6,087.33 | 32.19 % |
+| `2016a/` | a | `2016_v3_7` | 8,216.32 | 35.05 % |
+| `2016b/` | b | `2016_v3_7_snacship` | 6,253.21 | 16.61 % |
+| `2016c/` | c | `2016_snacship` | 3,876.56 | 21.26 % |
+| `2016d/` | d | `2016_snacship_capital_zorg_en_welzijn` | 5,656.76 | 19.90 % |
+| `2016_uncorrected/` | - | `2016` | 6,067.55 | 47.00 % |
+| `2019a/` | a | `2016_y2019_v3_7` | 8,676.48 | 35.01 % |
+| `2019b/` | b | `2016_y2019_v3_7_snacship` | 6,607.36 | 16.60 % |
+| `2019c/` | c | `2016_y2019_snacship` | 4,091.08 | 21.27 % |
+| `2019d/` | d | `2016_y2019_snacship_capital_zorg_en_welzijn` | 5,959.60 | 19.89 % |
+| `2019_uncorrected/` | - | `2016_y2019` | 6,400.68 | 46.99 % |
+| `2022c/` | c | `2022_snacship` | 4,652.07 | 14.94 % |
+| `2022d/` | d | `2022_snacship_capital_zorg_en_welzijn` | 6,472.27 | 14.55 % |
+| `2022_uncorrected/` | - | `2022` | 6,063.93 | 32.31 % |
 
 **Thirteen folders, not eight.** 2016 and 2019 each carry the full grid - a, b, c,
 d and the uncorrected configuration - because every one of those five is
@@ -607,11 +607,11 @@ what the fourth series is without this section.
 - Hertwich & Wood define the scopes for *gross production* of whole sectors; the
   application to one sector's **final demand** is ours, and the self-supply subtraction is
   a consequence of that application which their paper does not need.
-- The manuscript layer ([section 01](#r01)) totals 4,675.47 kt using the
-  Hertwich & Wood Scope 2; this folder totals 4,673.63 kt using the strict-protocol
+- The manuscript layer ([section 01](#r01)) totals 4,652.07 kt using the
+  Hertwich & Wood Scope 2; this folder totals 4,650.24 kt using the strict-protocol
   Scope 2 and removing the self-supply loop. Both are correct on their stated basis, and
-  audit check C1 reconciles them: 4,673.63 + 1.83 = 4,675.47. The two terms are
-  rounded independently, so adding the printed figures gives 4,675.46; the check
+  audit check C1 reconciles them: 4,650.24 + 1.83 = 4,652.07. The two terms are
+  rounded independently, so adding the printed figures gives 4,652.07; the check
   runs on the unrounded values and closes to 1e-9.
 
 ### Which model run a folder is
@@ -635,7 +635,7 @@ from one another.
 | `2019b` | v3.7 `IOT_2016_ixi` | applied | 6,624.712564 | `01_/2019b`, 6,625.533857 |
 | `2019c` | v3.8.2 `IOT_2016_ixi` | applied | 4,107.334735 | `01_/2019c`, 4,109.262335 |
 | `2019d` | v3.8.2 `IOT_2016_ixi` + capital | applied | 5,975.382775 | `01_/2019d`, 5,977.780596 |
-| `2022c` | v3.8.2 `IOT_2022_ixi` | applied | 4,673.633405 | `01_/2022c`, 4,675.466659 |
+| `2022c` | v3.8.2 `IOT_2022_ixi` | applied | 4,650.237500 | `01_/2022c`, 4,652.070833 |
 | `2022d` | v3.8.2 `IOT_2022_ixi` + capital | applied | 6,493.389134 | `01_/2022d`, 6,495.663580 |
 | `2019_uncorrected` | v3.8.2 `IOT_2016_ixi` | not applied | 6,416.930810 | `01_/2019_uncorrected`, 6,418.858701 |
 | `2022_uncorrected` | v3.8.2 `IOT_2022_ixi` | not applied | 6,085.494934 | `01_/2022_uncorrected`, 6,087.328324 |
@@ -661,8 +661,8 @@ the folder is published. The measurement is recorded in
 
 ### Verification
 
-- `analysis.audit_consistency` C1: partition total 4,673.63 + self-supply loop 1.83
-  = 4,675.47, which equals the manuscript grand total. **PASS.**
+- `analysis.audit_consistency` C1: partition total 4,650.24 + self-supply loop 1.83
+  = 4,652.07, which equals the manuscript grand total. **PASS.**
 - The double-counting ledger tests each bottom-up item against the MRIO for overlap and
   records the numerical result, so "we checked for double counting" is a table, not a
   claim.
@@ -984,7 +984,7 @@ rather than by inspection of intervals.
 
 | Quantity | Value |
 |:---|:---|
-| Deterministic climate | 4,675 kt |
+| Deterministic climate | 4,652 kt |
 | Median | 4,697 kt |
 | 95 % interval | 4,032 to 5,488 kt |
 | CV, Tier 2 simulation | 7.87 % |
@@ -1678,7 +1678,7 @@ choice is worth is in [the sensitivity band](#r10-sensitivity) below.
 | DK sea transport as a producing node | 852 kt | **53 kt** |
 | Danish national footprint | 85.2 Mt | **77.2 Mt** |
 
-The 17.8 % is on the 3,906 kt MRIO supply-chain basis; on the 4,675 kt total, which
+The 17.8 % is on the 3,906 kt MRIO supply-chain basis; on the 4,652 kt total, which
 includes the entirely-Danish bottom-up items, transport is 14.9 %. **Quote the basis with
 the share**: six figures in the revision documents drifted precisely because it was
 omitted. Both figures are on the **producing-node (hotspot)** perspective; the
@@ -1837,7 +1837,7 @@ transport's share is on the purchased-product perspective):
 | $\phi$ | Released, M€ | Footprint, kt CO₂-eq | Transport, % of total |
 |---:|---:|---:|---:|
 | 0.050 | 12,222.0 | 4,653.57 | 11.80 |
-| **0.0651** | **11,953.9** | **4,675.47** | **12.12** |
+| **0.0651** | **11,953.9** | **4,652.07** | **12.18** |
 | 0.077 | 11,741.2 | 4,693.06 | 12.37 |
 | 0.090 | 11,509.8 | 4,712.42 | 12.64 |
 | 0.100 | 11,331.7 | 4,727.47 | 12.86 |
@@ -3245,7 +3245,7 @@ rather than a layout.
 The history this replaces was a set of screenshots. A screenshot preserves the
 arithmetic of the moment: the running record carried a Danish national total of
 76.5 Mt against a current 77.2, a climate footprint of 4,629 kt against a
-current 4,675.5, and a cumulative production-layer share computed on a model
+current 4,652.1, and a cumulative production-layer share computed on a model
 that was later withdrawn. Rebuilding from the facts means the record moves when
 the study does.
 

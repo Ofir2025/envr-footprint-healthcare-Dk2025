@@ -6,11 +6,11 @@ RoW Europe,RoW Europe,Europe,Food and catering,land_use,km2,603.4503335090643,20
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Food and catering,land_use,km2,566.8505657990984,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 CHN,China,Asia and Pacific,Minerals and Metals,material_extraction,kt,426.16519881892424,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 DNK,Denmark,Denmark,Food and catering,land_use,km2,372.91607894483593,2022,EXIOBASE v3.8.2 IOT_2022_ixi
-DNK,Denmark,Denmark,Private travel,climate_change,kt CO2eq,372.06529712071267,2022,EXIOBASE v3.8.2 IOT_2022_ixi
+DNK,Denmark,Denmark,Private travel,climate_change,kt CO2eq,358.1692971207127,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RUS,Russia,Europe,Food and catering,land_use,km2,324.3154214986022,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW Middle East,RoW Middle East,Middle East,Minerals and Metals,material_extraction,kt,261.7452141153303,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW Middle East,RoW Middle East,Middle East,Food and catering,land_use,km2,260.6601901839306,2022,EXIOBASE v3.8.2 IOT_2022_ixi
-GLO,Unallocated,Unallocated,Private travel,climate_change,kt CO2eq,255.22901041375133,2022,EXIOBASE v3.8.2 IOT_2022_ixi
+GLO,Unallocated,Unallocated,Private travel,climate_change,kt CO2eq,245.7291104137513,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW Europe,RoW Europe,Europe,Chemical,material_extraction,kt,234.59734149761775,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW America,RoW America,America,Food and catering,land_use,km2,211.36171107965006,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Transport,climate_change,kt CO2eq,209.61176015643235,2022,EXIOBASE v3.8.2 IOT_2022_ixi
@@ -96,9 +96,9 @@ RoW Europe,RoW Europe,Europe,Electricity,climate_change,kt CO2eq,26.369834278808
 RUS,Russia,Europe,Chemical,climate_change,kt CO2eq,26.230352552528682,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 NLD,Netherlands,Europe,Chemical,climate_change,kt CO2eq,26.22073470484619,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 DNK,Denmark,Denmark,Minerals and Metals,climate_change,kt CO2eq,26.069372493312432,2022,EXIOBASE v3.8.2 IOT_2022_ixi
-GLO,Unallocated,Unallocated,Private travel,material_extraction,kt,25.6351,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 BRA,Brazil,America,Minerals and Metals,material_extraction,kt,25.389000176128985,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 TUR,Turkey,Middle East,Food and catering,land_use,km2,24.7560233177235,2022,EXIOBASE v3.8.2 IOT_2022_ixi
+GLO,Unallocated,Unallocated,Private travel,material_extraction,kt,24.6714,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 IRL,Ireland,Europe,Food and catering,land_use,km2,24.18286376076266,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 EST,Estonia,Europe,Food and catering,land_use,km2,23.80831186987869,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 USA,United States,America,Electricity,climate_change,kt CO2eq,22.903145030702852,2022,EXIOBASE v3.8.2 IOT_2022_ixi
@@ -412,7 +412,6 @@ DEU,Germany,Europe,Paper Products,climate_change,kt CO2eq,1.7104300683198186,202
 USA,United States,America,Natural gas and gaseous fuels,climate_change,kt CO2eq,1.7011183061864596,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 CHN,China,Asia and Pacific,Chemical,waste_generation,kt,1.6814388598757972,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 TUR,Turkey,Middle East,Coal and Petroleum,climate_change,kt CO2eq,1.6733881577681622,2022,EXIOBASE v3.8.2 IOT_2022_ixi
-GLO,Unallocated,Unallocated,Private travel,land_use,km2,1.6692,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 EST,Estonia,Europe,Transport,climate_change,kt CO2eq,1.667325226115885,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 HUN,Hungary,Europe,Waste management and disposal,climate_change,kt CO2eq,1.6594630426131025,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 EST,Estonia,Europe,Electricity,climate_change,kt CO2eq,1.6440151346994536,2022,EXIOBASE v3.8.2 IOT_2022_ixi
@@ -420,6 +419,7 @@ RoW America,RoW America,America,Services,material_extraction,kt,1.63535277465289
 KOR,South Korea,Asia and Pacific,Food and catering,land_use,km2,1.634410684155926,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 HUN,Hungary,Europe,Coal and Petroleum,climate_change,kt CO2eq,1.6225547612838755,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 ZAF,South Africa,Africa,Food and catering,climate_change,kt CO2eq,1.613420932970633,2022,EXIOBASE v3.8.2 IOT_2022_ixi
+GLO,Unallocated,Unallocated,Private travel,land_use,km2,1.6064,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 POL,Poland,Europe,Transport,climate_change,kt CO2eq,1.605087668155737,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 LTU,Lithuania,Europe,Food and catering,climate_change,kt CO2eq,1.60274441204971,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 CZE,Czech Republic,Europe,Electricity,climate_change,kt CO2eq,1.6015639948810123,2022,EXIOBASE v3.8.2 IOT_2022_ixi
@@ -970,7 +970,6 @@ LTU,Lithuania,Europe,Coal and Petroleum,waste_generation,kt,0.180425503505724,20
 NLD,Netherlands,Europe,Paper Products,waste_generation,kt,0.17994823819799788,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 BGR,Bulgaria,Europe,Construction,material_extraction,kt,0.1795762565793069,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 LTU,Lithuania,Europe,Waste management and disposal,climate_change,kt CO2eq,0.1786706360467587,2022,EXIOBASE v3.8.2 IOT_2022_ixi
-GLO,Unallocated,Unallocated,Private travel,blue_water_consumption,Mm3,0.1776,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 GRC,Greece,Europe,Chemical,climate_change,kt CO2eq,0.17753535232214243,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW Africa,RoW Africa,Africa,Natural gas and gaseous fuels,material_extraction,kt,0.1773932587176058,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 ITA,Italy,Europe,Metal Products,material_extraction,kt,0.177371402511985,2022,EXIOBASE v3.8.2 IOT_2022_ixi
@@ -981,6 +980,7 @@ CHN,China,Asia and Pacific,Services,waste_generation,kt,0.17380692510741666,2022
 RUS,Russia,Europe,Furniture and timber,climate_change,kt CO2eq,0.17292202377318022,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW America,RoW America,America,Non-metallic mineral products,material_extraction,kt,0.17259319915113783,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Waste management and disposal,waste_generation,kt,0.17233803311686421,2022,EXIOBASE v3.8.2 IOT_2022_ixi
+GLO,Unallocated,Unallocated,Private travel,blue_water_consumption,Mm3,0.1711,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 HRV,Croatia,Europe,Non-metallic mineral products,climate_change,kt CO2eq,0.17070794722362315,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 RoW Africa,RoW Africa,Africa,Waste management and disposal,land_use,km2,0.16974066188462414,2022,EXIOBASE v3.8.2 IOT_2022_ixi
 DNK,Denmark,Denmark,Coal and Petroleum,waste_generation,kt,0.16949471204625596,2022,EXIOBASE v3.8.2 IOT_2022_ixi

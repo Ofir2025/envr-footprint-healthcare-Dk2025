@@ -2,7 +2,7 @@ indicator,unit,producing_sector_group,value
 land_use,km2,Food and catering,3470.586529513414
 climate_change,kt CO2eq,Transport,3007.4573091005705
 material_extraction,kt,Minerals and Metals,2823.738515028876
-climate_change,kt CO2eq,Private travel,625.0899186512448
+climate_change,kt CO2eq,Private travel,603.2422186512448
 climate_change,kt CO2eq,Food and catering,462.3067147054528
 climate_change,kt CO2eq,Coal and Petroleum,400.2970224144237
 climate_change,kt CO2eq,Waste management and disposal,348.2101990222105
@@ -25,7 +25,7 @@ material_extraction,kt,Food and catering,35.538410509327875
 material_extraction,kt,Chemical,34.63234277280917
 material_extraction,kt,Services,26.109144527598463
 climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",24.241656063165628
-material_extraction,kt,Private travel,23.5848
+material_extraction,kt,Private travel,22.6849
 waste_generation,kt,Electricity,21.627521269702033
 material_extraction,kt,Transport,20.95826533339547
 climate_change,kt CO2eq,Paper Products,18.155458844391863
@@ -56,8 +56,8 @@ material_extraction,kt,"Electrical, electronic and measuring equipment",2.259299
 material_extraction,kt,"Steam, hot water supply and water distribution",2.1985640230082137
 material_extraction,kt,Waste management and disposal,2.0010199895878196
 blue_water_consumption,Mm3,Chemical,1.9138159359000724
-land_use,km2,Private travel,1.5356999999999998
 waste_generation,kt,"Electrical, electronic and measuring equipment",1.4906790170055286
+land_use,km2,Private travel,1.4769999999999999
 land_use,km2,Electricity,1.4378576789367563
 land_use,km2,Coal and Petroleum,1.0939529592212889
 land_use,km2,Waste management and disposal,1.0930060687434158
@@ -83,7 +83,7 @@ waste_generation,kt,Natural gas and gaseous fuels,0.2285455179498726
 blue_water_consumption,Mm3,Textile,0.22597308139791458
 land_use,km2,Metal Products,0.21664114435519707
 land_use,km2,"Steam, hot water supply and water distribution",0.16715022069502491
-blue_water_consumption,Mm3,Private travel,0.1634
+blue_water_consumption,Mm3,Private travel,0.1573
 blue_water_consumption,Mm3,General and special Machinery,0.12770046211354846
 material_extraction,kt,Textile,0.11484409934731407
 land_use,km2,Non-metallic mineral products,0.10091287342318517

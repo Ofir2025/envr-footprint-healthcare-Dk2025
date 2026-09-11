@@ -1,13 +1,13 @@
 pharma_scenario,indicator,group,P_rank_1,P_rank_2,P_rank_3
 A,Global warming (ktCO2eq),Food and food services,0.0,0.0,0.0
 A,Global warming (ktCO2eq),Heat and electricity,0.0,0.0,0.0
-A,Global warming (ktCO2eq),Individual travel,0.00011,0.53722,0.11457
+A,Global warming (ktCO2eq),Individual travel,7e-05,0.482,0.11496
 A,Global warming (ktCO2eq),"Medical, electrical equipment and machinery",0.0,0.0,0.0
 A,Global warming (ktCO2eq),Operational impacts,0.0,0.0,0.0
 A,Global warming (ktCO2eq),Other,0.0,0.0,0.0
-A,Global warming (ktCO2eq),Pharmaceuticals and chemical products,0.99989,0.00011,0.0
-A,Global warming (ktCO2eq),Services,0.0,0.46267,0.53733
-A,Global warming (ktCO2eq),Transport,0.0,0.0,0.3481
+A,Global warming (ktCO2eq),Pharmaceuticals and chemical products,0.99993,7e-05,0.0
+A,Global warming (ktCO2eq),Services,0.0,0.51793,0.48207
+A,Global warming (ktCO2eq),Transport,0.0,0.0,0.40297
 A,Material extraction (kt),Food and food services,0.0,0.0,0.0
 A,Material extraction (kt),Heat and electricity,0.0,0.0,0.0
 A,Material extraction (kt),Individual travel,0.0,0.0,0.0
@@ -44,15 +44,15 @@ A,Waste generation (kt),Other,0.0,0.08593,0.91407
 A,Waste generation (kt),Pharmaceuticals and chemical products,1.0,0.0,0.0
 A,Waste generation (kt),Services,0.0,0.0,0.0
 A,Waste generation (kt),Transport,0.0,0.0,0.0
-B,Global warming (ktCO2eq),Food and food services,0.0,0.0,0.01922
+B,Global warming (ktCO2eq),Food and food services,0.0,0.0,0.02513
 B,Global warming (ktCO2eq),Heat and electricity,0.0,0.0,0.0
-B,Global warming (ktCO2eq),Individual travel,0.39565,0.19961,0.15154
+B,Global warming (ktCO2eq),Individual travel,0.35,0.19015,0.1617
 B,Global warming (ktCO2eq),"Medical, electrical equipment and machinery",0.0,0.0,0.0
 B,Global warming (ktCO2eq),Operational impacts,0.0,0.0,0.0
 B,Global warming (ktCO2eq),Other,0.0,0.0,0.0
-B,Global warming (ktCO2eq),Pharmaceuticals and chemical products,0.35123,0.13442,0.09708
-B,Global warming (ktCO2eq),Services,0.25312,0.50276,0.24412
-B,Global warming (ktCO2eq),Transport,0.0,0.16321,0.48804
+B,Global warming (ktCO2eq),Pharmaceuticals and chemical products,0.36652,0.12377,0.10218
+B,Global warming (ktCO2eq),Services,0.28348,0.4973,0.21922
+B,Global warming (ktCO2eq),Transport,0.0,0.18878,0.49177
 B,Material extraction (kt),Food and food services,0.0,0.0,0.0
 B,Material extraction (kt),Heat and electricity,0.0,0.0,0.0
 B,Material extraction (kt),Individual travel,0.0,0.0,0.0

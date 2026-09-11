@@ -808,7 +808,7 @@ planned per the waste protocol
 
 | Indicator | Health-care footprint | Danish national footprint | Share, full footprint | Share, supply-chain component |
 |:---|:---|:---|:---|:---|
-| Climate change | **4,675.5 kt CO₂e** (796 kg per person) | 77,240.6 kt | 6.1 % | 5.1 % |
+| Climate change | **4,652.1 kt CO₂e** (792 kg per person) | 77,240.6 kt | 6.0 % | 5.1 % |
 | Material extraction | 4,257.2 kt | 53,925.1 kt | 7.9 % | 7.8 % |
 | Blue water | 95.4 Mm³ | 1,276.1 Mm³ | 7.5 % | 7.5 % |
 | Land use | 4,851.8 km² | 99,442.9 km² | 4.9 % | 4.9 % |
