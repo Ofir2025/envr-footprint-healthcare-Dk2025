@@ -9,7 +9,7 @@ by someone other than this study.
 | item | value |
 |:---|:---|
 | Provider | Eurostat |
-| Datasets | `env_ac_ghgfp`, `env_ac_co2fp` (FIGARO-based footprints); FIGARO 2026 edition supply and use tables |
+| Datasets | `env_ac_ghgfp`, `env_ac_co2fp` (FIGARO-based footprints); FIGARO 2026 edition supply and use tables; nine SDMX codelists |
 | URL | dissemination API <https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{dataset}>; FIGARO database at <https://ec.europa.eu/eurostat/web/esa-supply-use-input-tables/database> |
 | Metadata | <https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ghgfp_esms.htm> |
 | Licence | Eurostat open data; free reuse with attribution |
@@ -32,6 +32,42 @@ encodes the query: dataset, the destination or geography filter, and the years.
 `estat_naio_10_fcp_ii4_*.tsv.gz` — the full EU industry-by-industry inter-country
 IOT, 71 MB — is git-ignored. It is not used by the current analysis and is
 reproducible from the same API.
+
+### The codelists
+
+The fact tables above are keys and a `value`. Nothing in them says that `Q86` is
+human health activities or that `CPA_C21` is pharmaceutical products, so the
+codelists are retrieved as well, one per code column, from the SDMX 2.1 endpoint:
+
+```
+https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/codelist/ESTAT/{codelist}?format=TSV&compressed=false
+```
+
+| file | codelist | codes in the register | codes used here |
+|:---|:---|---:|---:|
+| `codelist_c_dest.tsv` | `C_DEST` | 4,292 | 2 |
+| `codelist_c_orig.tsv` | `C_ORIG` | 4,093 | 54 |
+| `codelist_cpa2_1.tsv` | `CPA2_1` | 5,580 | 64 |
+| `codelist_geo.tsv` | `GEO` | 4,292 | 1 |
+| `codelist_ind_use.tsv` | `IND_USE` | 168 | 69 |
+| `codelist_na_item.tsv` | `NA_ITEM` | 643 | 6 |
+| `codelist_nace_r2.tsv` | `NACE_R2` | 1,342 | 83 |
+| `codelist_prd_ava.tsv` | `PRD_AVA` | 166 | 70 |
+| `codelist_unit.tsv` | `UNIT` | 759 | 2 |
+
+Two columns, tab-separated, no header: code, then Eurostat's English label. They
+are kept as retrieved — whole registers, not filtered to the codes used — because
+that is what bronze is for. The filtered join is the silver product,
+`data/silver/eurostat_figaro/figaro_dimensions.csv`, built by
+`analysis.build_figaro_dimensions`, and that readme records which levels of each
+classification add up to what.
+
+**Each column must be resolved against the codelist of its own name.** Eurostat
+publishes one codelist per dimension, not per classification, and the spellings
+differ between dimensions of the same classification: `nace_r2` writes food
+manufacturing `C10-C12`, `ind_use` writes it `C10-12`. Sixteen of the 69
+`ind_use` codes are absent from `NACE_R2` for that reason, and `P3_S14`,
+`P3_S15` and `P5M` are absent from every Eurostat codelist except `IND_USE`.
 
 ## Column dictionaries
 
@@ -87,3 +123,8 @@ benchmark here, not a replacement for the Danish table.
 
 **Years.** The 2026 FIGARO edition covers 2010-2024. 2023 and 2024 are the
 newest and least settled releases; the study's published numbers rest on 2022.
+**There is no 2025 FIGARO table and cannot be**: the edition released in year
+$n$ ends at $n-2$, so 2025 first appears in the 2027 edition. 2016 and 2019 are
+published and are not held here yet; they are one query each on the same API,
+and they are what a 2016/2019/2022 FIGARO benchmark of the time series would
+need.

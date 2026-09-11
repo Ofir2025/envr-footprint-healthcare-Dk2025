@@ -45,7 +45,9 @@ from typing import Any, Iterator
 
 import pandas as pd
 
-from analysis.constants import ANALYSIS_YEAR, DK_POPULATION, MODEL_LABEL
+from analysis.constants import ANALYSIS_YEAR, DK_POPULATION
+from analysis.build_figaro_dimensions import (aggregate_codes,
+                                             code_labels)
 from paths import OUTPUT_DIR
 
 FOLDER = "06_benchmarks_validation"
@@ -147,27 +149,48 @@ def records(cube: dict[str, Any]) -> Iterator[dict[str, Any]]:
         yield rec
 
 
-def _our_results() -> dict[str, float]:
-    """Read this study's own headline totals from the gold tables.
+def _our_results() -> dict[str, Any]:
+    """Read this study's own headline totals, and their label, from gold.
+
+    The label comes out of the file with the numbers, never from
+    :data:`constants.MODEL_LABEL`. ``MODEL_LABEL`` describes the background the
+    *current process* would load, and this function loads no background at all:
+    it reads CSVs that some earlier run wrote. Those two disagree whenever this
+    module runs in a different environment from the run that produced the gold
+    tables, and the disagreement is silent and in the worst direction -- with no
+    ``HC_BACKGROUND_TAG`` set, corrected numbers get stamped
+    ``EXIOBASE v3.8.2 IOT_2022_ixi``, asserting in a published benchmark table
+    that the Danish sea-transport reallocation was not applied when it was.
 
     Returns
     -------
     dict
-        Mapping of ``"healthcare_climate_kt"`` and ``"national_climate_kt"`` to
-        values in kt CO2-equivalent.
+        ``"healthcare_climate_kt"``, ``"national_climate_kt"`` and
+        ``"healthcare_share_pct"`` as floats, and ``"model"``, the provenance
+        string the gold table carries.
+
+    Raises
+    ------
+    RuntimeError
+        If the summary lacks the climate row, the ``national_footprint`` column
+        or the ``model`` column that carries the provenance.
     """
     core = os.path.join(str(OUTPUT_DIR), "00_core_footprint")
     hc = pd.read_csv(os.path.join(core, "footprint_by_producing_node.csv"))
     nat = pd.read_csv(os.path.join(core, "national_totals_summary.csv"))
-    out = {"healthcare_climate_kt":
-           float(hc.loc[hc.indicator == "climate_change", "value"].sum())}
+    out: dict[str, Any] = {
+        "healthcare_climate_kt":
+        float(hc.loc[hc.indicator == "climate_change", "value"].sum())}
     row = nat[nat.indicator == "climate_change"]
-    if row.empty or "national_footprint" not in nat.columns:
+    missing = [c for c in ("national_footprint", "model")
+               if c not in nat.columns]
+    if row.empty or missing:
         raise RuntimeError(
             "national_totals_summary.csv lacks a climate_change row or the "
-            "'national_footprint' column; run analysis.national_totals first")
+            f"column(s) {missing}; run analysis.national_totals first")
     out["national_climate_kt"] = float(row["national_footprint"].iloc[0])
     out["healthcare_share_pct"] = float(row["healthcare_share_pct"].iloc[0])
+    out["model"] = str(row["model"].iloc[0])
     return out
 
 
@@ -194,8 +217,16 @@ def main() -> None:
     # ---- bilateral origin structure -------------------------------------
     cube = fetch("env_ac_ghgfp", time=year, c_dest="DK", na_item="TOTAL",
                  nace_r2="TOTAL")
-    aggregates = {"WORLD", "EU27_2020", "EXT_EU27_2020", "WRL_REST"}
+    # The aggregate set is read from the silver dimension table rather than
+    # written here, because the four codes it used to hold were not four of a
+    # kind: WORLD, EU27_2020 and EXT_EU27_2020 each overlap their members and
+    # must come out of a sum, while WRL_REST is the residual for the countries
+    # FIGARO does not resolve and must stay in. Flagging the residual as an
+    # aggregate invites a consumer of this file to drop the rest of the world.
+    aggregates = aggregate_codes("c_orig")
+    origin_labels = code_labels("c_orig")
     origin = [dict(country_consuming="DNK", country_producing=r["c_orig"],
+                   country_producing_label=origin_labels.get(r["c_orig"], ""),
                    is_aggregate=r["c_orig"] in aggregates,
                    value=r["value"], unit="kt CO2eq",
                    source=f"Eurostat env_ac_ghgfp (FIGARO), {year}")
@@ -243,7 +274,7 @@ def main() -> None:
              source="Statistics Denmark AFTRYK", value=62_900.0,
              unit="kt CO2eq", per_capita_t=62_900.0 * 1e3 / pop),
         dict(quantity="Danish national consumption-based GHG footprint",
-             source=f"this study ({MODEL_LABEL})",
+             source=f"this study ({ours['model']})",
              value=ours["national_climate_kt"], unit="kt CO2eq",
              per_capita_t=ours["national_climate_kt"] * 1e3 / pop),
         dict(quantity="Danish general-government final consumption footprint",
@@ -251,7 +282,7 @@ def main() -> None:
              value=figaro_government, unit="kt CO2eq",
              per_capita_t=figaro_government * 1e3 / pop),
         dict(quantity="Danish health-care footprint, MRIO component",
-             source=f"this study ({MODEL_LABEL})",
+             source=f"this study ({ours['model']})",
              value=ours["healthcare_climate_kt"], unit="kt CO2eq",
              per_capita_t=ours["healthcare_climate_kt"] * 1e3 / pop),
     ])
@@ -260,7 +291,7 @@ def main() -> None:
 
     published = pd.DataFrame(PUBLISHED_BENCHMARKS)
     published.loc[len(published)] = dict(
-        source=f"this study ({MODEL_LABEL})", year=int(year),
+        source=f"this study ({ours['model']})", year=int(year),
         model_family="EXIOBASE (v3.8.2, sea-transport reallocation)",
         total_mt=ours["national_climate_kt"] / 1e3,
         per_capita_t=ours["national_climate_kt"] * 1e3 / pop,

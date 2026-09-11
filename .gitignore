@@ -93,3 +93,11 @@ data/silver/dk_medicines_register/dk_atc_sales_*.csv
 # analysis.build_shipping_inputs stay ignored; data/silver/readme.md says why,
 # file by file.
 !data/silver/dst_input_output/dst_water_transport_domestic_share.csv
+# The FIGARO dimension table. Tracked because it is the only thing in the
+# repository that says what a FIGARO code means: the fact tables are keys and a
+# value, so without it a reader of layer 06 cannot tell Q86 from Q87_88. 58 kB.
+# The nine Eurostat codelists it is built from are tracked too, in bronze, as
+# retrieved -- they are Eurostat open data, 920 kB, and tracking them is what
+# makes a rebuild offline and the label on every row checkable against the
+# register it was read from.
+!data/silver/eurostat_figaro/figaro_dimensions.csv
