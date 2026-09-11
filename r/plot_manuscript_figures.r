@@ -12,11 +12,11 @@
 #   fig6  the same sources as one stacked bar per pair, scope as fill
 #   figS1 geographical origin on its own, for the SI
 #
-# Run:  Rscript R/plot_manuscript_figures.R
+# Run:  Rscript r/plot_manuscript_figures.r
 
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
-source(file.path(here, "_dk_common.R"))
+source(file.path(here, "_dk_common.r"))
 
 YEAR <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
 
@@ -457,11 +457,11 @@ if (!is.null(bm) &&
 }
 
 
-# fig 8 is produced by R/plot_scenarios.R, not here.
+# fig 8 is produced by r/plot_scenarios.r, not here.
 #
 # An earlier bar version of the mitigation figure lived at this point and
 # wrote fig8_mitigation_scenarios_<year>. It was replaced by the waterfall in
-# plot_scenarios.R, which shows the path from the baseline to the 2035 outcome
+# plot_scenarios.r, which shows the path from the baseline to the 2035 outcome
 # rather than a set of independent bars, and the reasoning for that choice is
 # in that script's header. Two producers writing two differently named figure
 # eights is how a superseded figure returns, so the old block is removed rather

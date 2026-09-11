@@ -20,11 +20,11 @@
 # the one that carries a policy consequence for Denmark, because leverage moves
 # offshore as depth increases.
 #
-# Run:  Rscript R/plot_production_layers.R
+# Run:  Rscript r/plot_production_layers.r
 
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
-source(file.path(here, "_dk_common.R"))
+source(file.path(here, "_dk_common.r"))
 
 SUB <- "production_layers"
 

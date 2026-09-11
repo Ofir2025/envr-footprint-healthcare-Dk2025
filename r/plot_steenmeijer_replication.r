@@ -15,7 +15,7 @@
 #                               because the two disagree in two places and the
 #                               printed figure is the thing being replicated.
 #                               See docs/methods/replications.md, section 13.
-#   Palette                     STEENMEIJER_COLS in R/_dk_common.R, read out of
+#   Palette                     STEENMEIJER_COLS in r/_dk_common.r, read out of
 #                               the article PDF's own drawing operators.
 #   Axis title                  "Contribution (%)" on all three, as printed.
 #   Category labels             their wording and their units, in their order.
@@ -29,11 +29,11 @@
 #   No title, no caption        the house rule that is NOT set aside. The
 #                               captions live in the gold folder's readme.
 #
-# Run:  Rscript R/plot_steenmeijer_replication.R
+# Run:  Rscript r/plot_steenmeijer_replication.r
 
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
-source(file.path(here, "_dk_common.R"))
+source(file.path(here, "_dk_common.r"))
 
 SUB <- "steenmeijer_replication"
 
