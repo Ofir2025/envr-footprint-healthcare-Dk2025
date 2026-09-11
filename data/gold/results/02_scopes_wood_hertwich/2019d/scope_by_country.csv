@@ -1,0 +1,411 @@
+producing_country_iso3,producing_country_name,producing_world_region,scope,indicator,unit,value,share_of_scope_pct
+DNK,Denmark,Denmark,Outside protocol,blue_water_consumption,Mm3,0.0709,100.0
+DNK,Denmark,Denmark,Scope 2,blue_water_consumption,Mm3,0.0162429973183452,36.504090098716894
+HRV,Croatia,Europe,Scope 2,blue_water_consumption,Mm3,0.014810655425615818,33.285082148422724
+DEU,Germany,Europe,Scope 2,blue_water_consumption,Mm3,0.0026818581133994574,6.027138235930116
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,blue_water_consumption,Mm3,0.0023485378998615116,5.27804304935575
+BEL,Belgium,Europe,Scope 2,blue_water_consumption,Mm3,0.001611287863968705,3.621166476143641
+RoW Europe,RoW Europe,Europe,Scope 2,blue_water_consumption,Mm3,0.0014725631324052047,3.3094001191920874
+RUS,Russia,Europe,Scope 2,blue_water_consumption,Mm3,0.0014139070669062258,3.177578001768436
+RoW Middle East,RoW Middle East,Middle East,Scope 2,blue_water_consumption,Mm3,0.0005921749013256887,1.3308384855655444
+GBR,United Kingdom,Europe,Scope 2,blue_water_consumption,Mm3,0.0005076234111064889,1.140819663518673
+GRC,Greece,Europe,Scope 2,blue_water_consumption,Mm3,0.0004344422897877152,0.9763543130794101
+TUR,Turkey,Middle East,Scope 2,blue_water_consumption,Mm3,0.0002729959920380635,0.613524098701343
+ESP,Spain,Europe,Scope 2,blue_water_consumption,Mm3,0.00025814218782074094,0.5801420450796605
+HUN,Hungary,Europe,Scope 2,blue_water_consumption,Mm3,0.0002261216526797759,0.5081799264579477
+CAN,Canada,America,Scope 2,blue_water_consumption,Mm3,0.00022070980572333774,0.4960174822349741
+SVK,Slovakia,Europe,Scope 2,blue_water_consumption,Mm3,0.00020785678341235284,0.4671319338792467
+RoW America,RoW America,America,Scope 2,blue_water_consumption,Mm3,0.00019719980052028275,0.4431817074494707
+POL,Poland,Europe,Scope 2,blue_water_consumption,Mm3,0.0001853733158610831,0.41660317313776896
+SVN,Slovenia,Europe,Scope 2,blue_water_consumption,Mm3,0.00017568096000260744,0.39482082443744504
+NLD,Netherlands,Europe,Scope 2,blue_water_consumption,Mm3,0.00015841423330239466,0.35601603152754246
+AUT,Austria,Europe,Scope 2,blue_water_consumption,Mm3,7.676443480284672e-05,0.17251839605091301
+LTU,Lithuania,Europe,Scope 2,blue_water_consumption,Mm3,6.819579866617926e-05,0.15326146585350678
+ITA,Italy,Europe,Scope 2,blue_water_consumption,Mm3,6.008301778685807e-05,0.13502901291605474
+AUS,Australia,Asia and Pacific,Scope 2,blue_water_consumption,Mm3,5.7340692101154575e-05,0.12886598142937933
+CHE,Switzerland,Europe,Scope 2,blue_water_consumption,Mm3,4.753794036150752e-05,0.10683553189434943
+EST,Estonia,Europe,Scope 2,blue_water_consumption,Mm3,3.812293732346221e-05,0.0856764987156434
+FIN,Finland,Europe,Scope 2,blue_water_consumption,Mm3,3.3586402661773655e-05,0.07548120859888664
+BGR,Bulgaria,Europe,Scope 2,blue_water_consumption,Mm3,2.7486866611551066e-05,0.061773269776153335
+RoW Africa,RoW Africa,Africa,Scope 2,blue_water_consumption,Mm3,2.3977979436185138e-05,0.053887487916722515
+SWE,Sweden,Europe,Scope 2,blue_water_consumption,Mm3,1.67777066692519e-05,0.037705781999514
+PRT,Portugal,Europe,Scope 2,blue_water_consumption,Mm3,1.1037701700798625e-05,0.02480584398752843
+ZAF,South Africa,Africa,Scope 2,blue_water_consumption,Mm3,1.0160142173113412e-05,0.022833639508406344
+BRA,Brazil,America,Scope 2,blue_water_consumption,Mm3,5.564280443236828e-06,0.012505019280218585
+CZE,Czech Republic,Europe,Scope 2,blue_water_consumption,Mm3,7.674255726231309e-07,0.0017246922903480595
+LUX,Luxembourg,Europe,Scope 2,blue_water_consumption,Mm3,2.9560941515702226e-07,0.0006643449182087475
+NOR,Norway,Europe,Scope 2,blue_water_consumption,Mm3,7.14124899943489e-08,0.00016049057435866217
+IRL,Ireland,Europe,Scope 2,blue_water_consumption,Mm3,3.282814518227386e-08,7.377712044279092e-05
+LVA,Latvia,Europe,Scope 2,blue_water_consumption,Mm3,1.7119355595166883e-08,3.8473594917862805e-05
+MEX,Mexico,America,Scope 2,blue_water_consumption,Mm3,9.07452196881956e-09,2.039384487113384e-05
+MLT,Malta,Europe,Scope 2,blue_water_consumption,Mm3,4.281012674468875e-09,9.621036642421958e-06
+FRA,France,Europe,Scope 2,blue_water_consumption,Mm3,4.733200881812436e-10,1.0637272669488439e-06
+USA,United States,America,Scope 2,blue_water_consumption,Mm3,8.064815189548842e-11,1.8124656092646833e-07
+IND,India,Asia and Pacific,Scope 2,blue_water_consumption,Mm3,3.012478795643199e-12,6.77016656602125e-09
+CHN,China,Asia and Pacific,Scope 2,blue_water_consumption,Mm3,9.619025951561495e-13,2.1617548973003805e-09
+TWN,Taiwan,Asia and Pacific,Scope 2,blue_water_consumption,Mm3,7.8506049065259e-14,1.7643245468838533e-10
+JPN,Japan,Asia and Pacific,Scope 2,blue_water_consumption,Mm3,5.371017793764612e-15,1.2070685823727611e-11
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,16.411523811897986,21.386652036438242
+RoW Middle East,RoW Middle East,Middle East,Scope 3,blue_water_consumption,Mm3,14.254221467780082,18.575366801754946
+IND,India,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,11.861885974685702,15.457798480150485
+CHN,China,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,7.512094222507457,9.789374042478082
+DNK,Denmark,Denmark,Scope 3,blue_water_consumption,Mm3,6.947287766522117,9.053347377279868
+RoW Africa,RoW Africa,Africa,Scope 3,blue_water_consumption,Mm3,3.3469911016144183,4.361626310860183
+USA,United States,America,Scope 3,blue_water_consumption,Mm3,3.0598073841934017,3.987383290808545
+RoW America,RoW America,America,Scope 3,blue_water_consumption,Mm3,1.5112540572141144,1.9693884023652968
+AUS,Australia,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,1.273999421020233,1.660210387790459
+ESP,Spain,Europe,Scope 3,blue_water_consumption,Mm3,1.1714419598214199,1.5265627898258265
+TUR,Turkey,Middle East,Scope 3,blue_water_consumption,Mm3,1.1033612783185311,1.4378435543426307
+RoW Europe,RoW Europe,Europe,Scope 3,blue_water_consumption,Mm3,1.0714523639802547,1.3962615016560609
+RUS,Russia,Europe,Scope 3,blue_water_consumption,Mm3,0.722203936030231,0.9411389494512993
+DEU,Germany,Europe,Scope 3,blue_water_consumption,Mm3,0.6043662561640337,0.7875789580108634
+GRC,Greece,Europe,Scope 3,blue_water_consumption,Mm3,0.5879191201314384,0.7661458979637475
+MEX,Mexico,America,Scope 3,blue_water_consumption,Mm3,0.5293006191596404,0.6897572884994277
+POL,Poland,Europe,Scope 3,blue_water_consumption,Mm3,0.44544512691947985,0.5804811326445768
+FRA,France,Europe,Scope 3,blue_water_consumption,Mm3,0.4236812136487361,0.5521195225096805
+ITA,Italy,Europe,Scope 3,blue_water_consumption,Mm3,0.4196147297523378,0.5468202902689181
+NLD,Netherlands,Europe,Scope 3,blue_water_consumption,Mm3,0.36416964177204425,0.4745671090680003
+BRA,Brazil,America,Scope 3,blue_water_consumption,Mm3,0.3075420189955601,0.40077290946458816
+BEL,Belgium,Europe,Scope 3,blue_water_consumption,Mm3,0.3019338934794348,0.39346468931606726
+NOR,Norway,Europe,Scope 3,blue_water_consumption,Mm3,0.30088659397249135,0.39209990257294386
+PRT,Portugal,Europe,Scope 3,blue_water_consumption,Mm3,0.2733854166352002,0.3562617855859871
+SWE,Sweden,Europe,Scope 3,blue_water_consumption,Mm3,0.2636608758247334,0.34358926517220206
+GBR,United Kingdom,Europe,Scope 3,blue_water_consumption,Mm3,0.2479073007206559,0.3230600179833124
+ROU,Romania,Europe,Scope 3,blue_water_consumption,Mm3,0.16138633795018575,0.21031035830282746
+ZAF,South Africa,Africa,Scope 3,blue_water_consumption,Mm3,0.12667214261467713,0.16507260799549572
+IRL,Ireland,Europe,Scope 3,blue_water_consumption,Mm3,0.10555146650277952,0.13754923137570893
+BGR,Bulgaria,Europe,Scope 3,blue_water_consumption,Mm3,0.09689065720941485,0.12626291105383508
+SVK,Slovakia,Europe,Scope 3,blue_water_consumption,Mm3,0.09679613206336911,0.12613973075501916
+IDN,Indonesia,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,0.09119873619811165,0.11884549293453889
+CAN,Canada,America,Scope 3,blue_water_consumption,Mm3,0.08998911960371384,0.1172691829283265
+KOR,South Korea,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,0.08666622765240041,0.11293896138814868
+FIN,Finland,Europe,Scope 3,blue_water_consumption,Mm3,0.07050923569773294,0.09188400215032987
+AUT,Austria,Europe,Scope 3,blue_water_consumption,Mm3,0.06973288574645768,0.09087230290431636
+HUN,Hungary,Europe,Scope 3,blue_water_consumption,Mm3,0.0658306211884778,0.08578707284206356
+CZE,Czech Republic,Europe,Scope 3,blue_water_consumption,Mm3,0.06351585171520861,0.08277058456000122
+JPN,Japan,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,0.05557093139323365,0.07241717385111136
+LVA,Latvia,Europe,Scope 3,blue_water_consumption,Mm3,0.05188442050733174,0.06761310285508557
+HRV,Croatia,Europe,Scope 3,blue_water_consumption,Mm3,0.041622441177439906,0.054240220260575484
+CHE,Switzerland,Europe,Scope 3,blue_water_consumption,Mm3,0.039532092465794276,0.051516185549163034
+CYP,Cyprus,Middle East,Scope 3,blue_water_consumption,Mm3,0.03343477466045325,0.04357047522067606
+TWN,Taiwan,Asia and Pacific,Scope 3,blue_water_consumption,Mm3,0.03160466309814059,0.04118556815051919
+LTU,Lithuania,Europe,Scope 3,blue_water_consumption,Mm3,0.017405108771531296,0.022681440749775805
+SVN,Slovenia,Europe,Scope 3,blue_water_consumption,Mm3,0.009022252387450488,0.011757334334514334
+EST,Estonia,Europe,Scope 3,blue_water_consumption,Mm3,0.009000291551611922,0.011728716105037786
+LUX,Luxembourg,Europe,Scope 3,blue_water_consumption,Mm3,0.0034632726362640626,0.0045131584140529445
+MLT,Malta,Europe,Scope 3,blue_water_consumption,Mm3,0.002610209927988568,0.003401491056636504
+DNK,Denmark,Denmark,Outside protocol,climate_change,kt CO2eq,293.4753186512448,100.0
+DNK,Denmark,Denmark,Scope 1,climate_change,kt CO2eq,163.39469914555332,100.0
+DNK,Denmark,Denmark,Scope 2,climate_change,kt CO2eq,6.130033304619998,24.841951559735225
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,climate_change,kt CO2eq,3.9675820939267097,16.078620994166048
+RoW Europe,RoW Europe,Europe,Scope 2,climate_change,kt CO2eq,1.765396753647864,7.154267922946088
+RUS,Russia,Europe,Scope 2,climate_change,kt CO2eq,1.650153149860461,6.6872433766522965
+DEU,Germany,Europe,Scope 2,climate_change,kt CO2eq,1.6342760177587565,6.622901320585358
+CZE,Czech Republic,Europe,Scope 2,climate_change,kt CO2eq,1.54370638146805,6.255867993731999
+RoW Middle East,RoW Middle East,Middle East,Scope 2,climate_change,kt CO2eq,1.0661588634336543,4.32060733184598
+NLD,Netherlands,Europe,Scope 2,climate_change,kt CO2eq,0.9482469775815108,3.8427695761443315
+ITA,Italy,Europe,Scope 2,climate_change,kt CO2eq,0.890763950578587,3.6098196880519855
+POL,Poland,Europe,Scope 2,climate_change,kt CO2eq,0.7553694346399917,3.0611335979021237
+HRV,Croatia,Europe,Scope 2,climate_change,kt CO2eq,0.7065970135907934,2.8634834284908
+GRC,Greece,Europe,Scope 2,climate_change,kt CO2eq,0.5515470467832533,2.235143650651659
+HUN,Hungary,Europe,Scope 2,climate_change,kt CO2eq,0.3160343652187412,1.2807288316131455
+FIN,Finland,Europe,Scope 2,climate_change,kt CO2eq,0.3071723323318608,1.2448154554931916
+GBR,United Kingdom,Europe,Scope 2,climate_change,kt CO2eq,0.2736226854635422,1.1088555575721053
+BEL,Belgium,Europe,Scope 2,climate_change,kt CO2eq,0.2641307021178951,1.0703893080819653
+TUR,Turkey,Middle East,Scope 2,climate_change,kt CO2eq,0.2599142098020385,1.0533019787548048
+RoW America,RoW America,America,Scope 2,climate_change,kt CO2eq,0.2445888817253061,0.9911961077422758
+SVN,Slovenia,Europe,Scope 2,climate_change,kt CO2eq,0.20800050009549603,0.842921741367819
+RoW Africa,RoW Africa,Africa,Scope 2,climate_change,kt CO2eq,0.2052292230777873,0.831691145054314
+CAN,Canada,America,Scope 2,climate_change,kt CO2eq,0.1854113123483706,0.7513790890032833
+ESP,Spain,Europe,Scope 2,climate_change,kt CO2eq,0.17199598712424125,0.6970135019313913
+SWE,Sweden,Europe,Scope 2,climate_change,kt CO2eq,0.16225990242445928,0.657558032038401
+SVK,Slovakia,Europe,Scope 2,climate_change,kt CO2eq,0.11830216333615584,0.4794193546703493
+EST,Estonia,Europe,Scope 2,climate_change,kt CO2eq,0.10640529978021489,0.43120733142624634
+AUT,Austria,Europe,Scope 2,climate_change,kt CO2eq,0.05095521846041459,0.2064959529266072
+AUS,Australia,Asia and Pacific,Scope 2,climate_change,kt CO2eq,0.04793664255918024,0.19426317822678094
+BGR,Bulgaria,Europe,Scope 2,climate_change,kt CO2eq,0.042740805529833274,0.17320705579135523
+LVA,Latvia,Europe,Scope 2,climate_change,kt CO2eq,0.033142402295660386,0.1343095398489178
+PRT,Portugal,Europe,Scope 2,climate_change,kt CO2eq,0.015520898670356489,0.06289842057496885
+ZAF,South Africa,Africa,Scope 2,climate_change,kt CO2eq,0.013082704116781599,0.05301764049054932
+BRA,Brazil,America,Scope 2,climate_change,kt CO2eq,0.009573028407109732,0.03879468449056514
+MLT,Malta,Europe,Scope 2,climate_change,kt CO2eq,0.00888376969563411,0.03600146450761689
+LTU,Lithuania,Europe,Scope 2,climate_change,kt CO2eq,0.007341442293124402,0.02975118482422232
+LUX,Luxembourg,Europe,Scope 2,climate_change,kt CO2eq,0.0055737121418577,0.022587460810626105
+CHE,Switzerland,Europe,Scope 2,climate_change,kt CO2eq,0.004690858500437014,0.01900969763958766
+NOR,Norway,Europe,Scope 2,climate_change,kt CO2eq,0.00240028721228513,0.00972716063583205
+IRL,Ireland,Europe,Scope 2,climate_change,kt CO2eq,0.0013635613166954883,0.005525830365807112
+MEX,Mexico,America,Scope 2,climate_change,kt CO2eq,2.789604319467213e-05,0.00011304867678745594
+CYP,Cyprus,Middle East,Scope 2,climate_change,kt CO2eq,1.2540922664433537e-06,5.082207189795294e-06
+FRA,France,Europe,Scope 2,climate_change,kt CO2eq,1.1080326516337367e-06,4.4903008010976196e-06
+USA,United States,America,Scope 2,climate_change,kt CO2eq,4.7661836908374015e-08,1.9314952870378002e-07
+CHN,China,Asia and Pacific,Scope 2,climate_change,kt CO2eq,3.2875796066366605e-09,1.3322911847035069e-08
+TWN,Taiwan,Asia and Pacific,Scope 2,climate_change,kt CO2eq,3.032094731242719e-09,1.2287559739894321e-08
+IND,India,Asia and Pacific,Scope 2,climate_change,kt CO2eq,2.212160979220479e-09,8.964779334349507e-09
+JPN,Japan,Asia and Pacific,Scope 2,climate_change,kt CO2eq,1.0620169364785559e-09,4.303822178541026e-09
+DNK,Denmark,Denmark,Scope 3,climate_change,kt CO2eq,1795.5856939232028,33.16619104971134
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 3,climate_change,kt CO2eq,471.479803100717,8.708684458023681
+CHN,China,Asia and Pacific,Scope 3,climate_change,kt CO2eq,363.71993500689024,6.718256273622915
+RoW Middle East,RoW Middle East,Middle East,Scope 3,climate_change,kt CO2eq,301.63437991439076,5.571476485504774
+RUS,Russia,Europe,Scope 3,climate_change,kt CO2eq,285.7905670118692,5.278826055364186
+DEU,Germany,Europe,Scope 3,climate_change,kt CO2eq,280.7320693165093,5.185390748123424
+IND,India,Asia and Pacific,Scope 3,climate_change,kt CO2eq,144.87991255172588,2.6760710308719617
+RoW Africa,RoW Africa,Africa,Scope 3,climate_change,kt CO2eq,122.2607717739537,2.258273792369351
+RoW Europe,RoW Europe,Europe,Scope 3,climate_change,kt CO2eq,107.01792756221404,1.976723830717024
+USA,United States,America,Scope 3,climate_change,kt CO2eq,96.02092290479537,1.7735986005055873
+JPN,Japan,Asia and Pacific,Scope 3,climate_change,kt CO2eq,93.8362451830802,1.7332455062780763
+NLD,Netherlands,Europe,Scope 3,climate_change,kt CO2eq,93.4611711527434,1.7263175289668096
+POL,Poland,Europe,Scope 3,climate_change,kt CO2eq,91.39870023947739,1.6882217117772687
+NOR,Norway,Europe,Scope 3,climate_change,kt CO2eq,87.10537734148379,1.608919917407411
+GBR,United Kingdom,Europe,Scope 3,climate_change,kt CO2eq,83.04421468180553,1.5339063454510933
+RoW America,RoW America,America,Scope 3,climate_change,kt CO2eq,78.86378054432838,1.4566897148310496
+FRA,France,Europe,Scope 3,climate_change,kt CO2eq,65.98578606886322,1.2188207974321832
+AUS,Australia,Asia and Pacific,Scope 3,climate_change,kt CO2eq,59.9562420985927,1.107449333548611
+KOR,South Korea,Asia and Pacific,Scope 3,climate_change,kt CO2eq,52.91399650222556,0.9773722987078051
+ITA,Italy,Europe,Scope 3,climate_change,kt CO2eq,52.23285497646269,0.9647909610129252
+CAN,Canada,America,Scope 3,climate_change,kt CO2eq,51.34542948750426,0.9483993605402844
+GRC,Greece,Europe,Scope 3,climate_change,kt CO2eq,48.83230517621225,0.9019795425822393
+SWE,Sweden,Europe,Scope 3,climate_change,kt CO2eq,46.5794268110792,0.8603667170163882
+BEL,Belgium,Europe,Scope 3,climate_change,kt CO2eq,43.89444358743303,0.8107725000084823
+ZAF,South Africa,Africa,Scope 3,climate_change,kt CO2eq,42.8662630539934,0.7917810187770042
+ESP,Spain,Europe,Scope 3,climate_change,kt CO2eq,40.43641754876825,0.7468994402924374
+TUR,Turkey,Middle East,Scope 3,climate_change,kt CO2eq,38.51723424831475,0.7114502828294025
+CZE,Czech Republic,Europe,Scope 3,climate_change,kt CO2eq,38.25772941144635,0.7066569794370724
+BRA,Brazil,America,Scope 3,climate_change,kt CO2eq,34.52730082164879,0.6377523831678715
+TWN,Taiwan,Asia and Pacific,Scope 3,climate_change,kt CO2eq,32.39671460243817,0.598398410905023
+IRL,Ireland,Europe,Scope 3,climate_change,kt CO2eq,26.71843734456618,0.49351518032172764
+IDN,Indonesia,Asia and Pacific,Scope 3,climate_change,kt CO2eq,24.07055063905761,0.444606171606578
+MEX,Mexico,America,Scope 3,climate_change,kt CO2eq,21.606766393645874,0.39909771201863403
+FIN,Finland,Europe,Scope 3,climate_change,kt CO2eq,21.576026418764727,0.3985299151804091
+PRT,Portugal,Europe,Scope 3,climate_change,kt CO2eq,20.029980721749286,0.36997296736536855
+BGR,Bulgaria,Europe,Scope 3,climate_change,kt CO2eq,19.890494832134774,0.36739652911496906
+CHE,Switzerland,Europe,Scope 3,climate_change,kt CO2eq,17.428912976715456,0.32192874978389147
+AUT,Austria,Europe,Scope 3,climate_change,kt CO2eq,16.549593242025026,0.30568687037194087
+HUN,Hungary,Europe,Scope 3,climate_change,kt CO2eq,15.2630264790508,0.2819227474991526
+SVK,Slovakia,Europe,Scope 3,climate_change,kt CO2eq,11.889092294820596,0.219602945040247
+ROU,Romania,Europe,Scope 3,climate_change,kt CO2eq,11.577500189279204,0.21384753980565302
+LVA,Latvia,Europe,Scope 3,climate_change,kt CO2eq,11.384231688758119,0.21027768511485948
+EST,Estonia,Europe,Scope 3,climate_change,kt CO2eq,11.332042539599966,0.20931370144225664
+HRV,Croatia,Europe,Scope 3,climate_change,kt CO2eq,9.337708533979828,0.17247643833017787
+LUX,Luxembourg,Europe,Scope 3,climate_change,kt CO2eq,8.431054806854382,0.1557296738446164
+CYP,Cyprus,Middle East,Scope 3,climate_change,kt CO2eq,7.085499494993678,0.13087597586063437
+LTU,Lithuania,Europe,Scope 3,climate_change,kt CO2eq,6.239792054228127,0.11525494777630595
+SVN,Slovenia,Europe,Scope 3,climate_change,kt CO2eq,6.202917731010484,0.11457384363696908
+MLT,Malta,Europe,Scope 3,climate_change,kt CO2eq,1.716604364914957,0.03170733010193658
+DNK,Denmark,Denmark,Outside protocol,land_use,km2,0.6451,100.0
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,land_use,km2,0.07258566815210335,62.17264545682724
+RoW Europe,RoW Europe,Europe,Scope 2,land_use,km2,0.0205545589921082,17.60583516376645
+RoW Africa,RoW Africa,Africa,Scope 2,land_use,km2,0.011051031931708859,9.465668743069935
+CAN,Canada,America,Scope 2,land_use,km2,0.004952670324767304,4.242168240720179
+RoW America,RoW America,America,Scope 2,land_use,km2,0.0047960589263491,4.108024060522662
+RUS,Russia,Europe,Scope 2,land_use,km2,0.002488256297575838,2.1312950687554886
+CZE,Czech Republic,Europe,Scope 2,land_use,km2,0.00016018888181194984,0.13720844360280732
+RoW Middle East,RoW Middle East,Middle East,Scope 2,land_use,km2,9.069020525940154e-05,0.07767993491751407
+BGR,Bulgaria,Europe,Scope 2,land_use,km2,3.678322050248786e-05,0.03150635911030334
+LUX,Luxembourg,Europe,Scope 2,land_use,km2,1.8762619421906837e-05,0.0160709643495345
+SVK,Slovakia,Europe,Scope 2,land_use,km2,1.0915179279903856e-05,0.00934930529323101
+POL,Poland,Europe,Scope 2,land_use,km2,1.6814931261746726e-06,0.0014402688386456715
+HUN,Hungary,Europe,Scope 2,land_use,km2,1.293562631441423e-06,0.0011079902260082398
+RoW Africa,RoW Africa,Africa,Scope 3,land_use,km2,779.1807104281309,14.327352573011561
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 3,land_use,km2,713.0962686816782,13.112210714620545
+DNK,Denmark,Denmark,Scope 3,land_use,km2,458.6546419150334,8.433610683655607
+AUS,Australia,Asia and Pacific,Scope 3,land_use,km2,373.93835924392295,6.875871850725576
+RoW America,RoW America,America,Scope 3,land_use,km2,320.79416131050385,5.898671503217437
+SWE,Sweden,Europe,Scope 3,land_use,km2,297.18263921401984,5.464509572186186
+RUS,Russia,Europe,Scope 3,land_use,km2,265.79272907280637,4.887320861262882
+CHN,China,Asia and Pacific,Scope 3,land_use,km2,249.17006368492298,4.58166803319872
+NOR,Norway,Europe,Scope 3,land_use,km2,215.22861178006858,3.9575623003789677
+RoW Europe,RoW Europe,Europe,Scope 3,land_use,km2,186.90809942034332,3.436812800043973
+USA,United States,America,Scope 3,land_use,km2,177.2664304407918,3.2595245419884056
+BRA,Brazil,America,Scope 3,land_use,km2,156.7648794553673,2.882547872352482
+CAN,Canada,America,Scope 3,land_use,km2,143.4417208473053,2.637565433478997
+RoW Middle East,RoW Middle East,Middle East,Scope 3,land_use,km2,126.78960012407286,2.331370989113181
+IND,India,Asia and Pacific,Scope 3,land_use,km2,96.97410085080021,1.7831320959893644
+FIN,Finland,Europe,Scope 3,land_use,km2,83.12408582961098,1.5284619717237724
+DEU,Germany,Europe,Scope 3,land_use,km2,75.66871402856823,1.3913747223516257
+POL,Poland,Europe,Scope 3,land_use,km2,74.21059529002989,1.3645632510449568
+LVA,Latvia,Europe,Scope 3,land_use,km2,73.37552916417117,1.3492082933992744
+EST,Estonia,Europe,Scope 3,land_use,km2,54.69803333773754,1.0057718295535116
+IRL,Ireland,Europe,Scope 3,land_use,km2,45.59792887443413,0.8384417052934475
+FRA,France,Europe,Scope 3,land_use,km2,41.58686631279227,0.7646874314209932
+IDN,Indonesia,Asia and Pacific,Scope 3,land_use,km2,41.155116705967515,0.7567485428455324
+ESP,Spain,Europe,Scope 3,land_use,km2,39.75318969703518,0.7309703090291888
+MEX,Mexico,America,Scope 3,land_use,km2,34.78543329220354,0.6396246217498524
+LTU,Lithuania,Europe,Scope 3,land_use,km2,30.5755922551893,0.5622152659914246
+ZAF,South Africa,Africa,Scope 3,land_use,km2,26.79593238371763,0.49271595875769786
+GRC,Greece,Europe,Scope 3,land_use,km2,26.544595770624216,0.48809445283217595
+TUR,Turkey,Middle East,Scope 3,land_use,km2,25.17489196919024,0.46290873016078693
+GBR,United Kingdom,Europe,Scope 3,land_use,km2,24.93837983648666,0.45855981255067674
+ITA,Italy,Europe,Scope 3,land_use,km2,23.896754269531662,0.4394066988414997
+SVK,Slovakia,Europe,Scope 3,land_use,km2,19.793555643319223,0.36395825330369824
+ROU,Romania,Europe,Scope 3,land_use,km2,18.621875637135712,0.34241373567554023
+HUN,Hungary,Europe,Scope 3,land_use,km2,16.28416098581086,0.29942850570722823
+BGR,Bulgaria,Europe,Scope 3,land_use,km2,14.65216773364131,0.2694198794570208
+CZE,Czech Republic,Europe,Scope 3,land_use,km2,13.6954062207153,0.25182722175833755
+PRT,Portugal,Europe,Scope 3,land_use,km2,12.38747349623569,0.22777732802431216
+NLD,Netherlands,Europe,Scope 3,land_use,km2,11.738416845277229,0.2158426595274106
+AUT,Austria,Europe,Scope 3,land_use,km2,8.539708110681026,0.15702571603076
+CHE,Switzerland,Europe,Scope 3,land_use,km2,8.355211530369315,0.15363324555598604
+HRV,Croatia,Europe,Scope 3,land_use,km2,6.592111081490722,0.12121385758263796
+BEL,Belgium,Europe,Scope 3,land_use,km2,5.032311340856229,0.09253270502294089
+CYP,Cyprus,Middle East,Scope 3,land_use,km2,4.073534030632823,0.07490298141873797
+TWN,Taiwan,Asia and Pacific,Scope 3,land_use,km2,4.005401698053027,0.07365018352804575
+KOR,South Korea,Asia and Pacific,Scope 3,land_use,km2,3.9235311773089214,0.07214477175342374
+JPN,Japan,Asia and Pacific,Scope 3,land_use,km2,3.528724558267226,0.06488518029605697
+SVN,Slovenia,Europe,Scope 3,land_use,km2,3.18568760344979,0.05857751465256185
+LUX,Luxembourg,Europe,Scope 3,land_use,km2,0.8896606759024815,0.016358826653954134
+MLT,Malta,Europe,Scope 3,land_use,km2,0.050142788161879295,0.0009220112810471573
+DNK,Denmark,Denmark,Outside protocol,material_extraction,kt,9.9254,100.0
+POL,Poland,Europe,Scope 2,material_extraction,kt,0.2041729265458965,73.6540337156267
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,material_extraction,kt,0.03450209805100668,12.44640382101521
+RoW Europe,RoW Europe,Europe,Scope 2,material_extraction,kt,0.02308808713723957,8.328874827845032
+RoW America,RoW America,America,Scope 2,material_extraction,kt,0.008164991638861575,2.9454667650136948
+RoW Middle East,RoW Middle East,Middle East,Scope 2,material_extraction,kt,0.003393372372982529,1.224136654147178
+CZE,Czech Republic,Europe,Scope 2,material_extraction,kt,0.002353434957610038,0.8489861052972598
+RUS,Russia,Europe,Scope 2,material_extraction,kt,0.0006925203574406269,0.24982214154737023
+AUT,Austria,Europe,Scope 2,material_extraction,kt,0.00034849457012602655,0.12571711270448588
+HUN,Hungary,Europe,Scope 2,material_extraction,kt,0.0003311097097422994,0.11944563923096115
+CAN,Canada,America,Scope 2,material_extraction,kt,0.00010283211255241028,0.03709600490681005
+RoW Africa,RoW Africa,Africa,Scope 2,material_extraction,kt,5.548878567802327e-05,0.020017212665311868
+DNK,Denmark,Denmark,Scope 3,material_extraction,kt,3032.7339977614097,51.566838252317105
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 3,material_extraction,kt,294.51549252351805,5.0077694835656885
+CHN,China,Asia and Pacific,Scope 3,material_extraction,kt,287.17165260073085,4.882899117180504
+DEU,Germany,Europe,Scope 3,material_extraction,kt,208.9801239547293,3.553376015792106
+IND,India,Asia and Pacific,Scope 3,material_extraction,kt,197.8046150426674,3.363354187012858
+RoW Middle East,RoW Middle East,Middle East,Scope 3,material_extraction,kt,195.70104744418973,3.3275863517251
+POL,Poland,Europe,Scope 3,material_extraction,kt,145.51845158487316,2.474310790575026
+RUS,Russia,Europe,Scope 3,material_extraction,kt,120.58966226542522,2.050436211528217
+SWE,Sweden,Europe,Scope 3,material_extraction,kt,113.44480285518283,1.928949193604629
+RoW America,RoW America,America,Scope 3,material_extraction,kt,111.70143915051945,1.8993060550241616
+USA,United States,America,Scope 3,material_extraction,kt,86.07479048056379,1.4635654830227907
+TUR,Turkey,Middle East,Scope 3,material_extraction,kt,75.0886097347171,1.2767628798436226
+AUS,Australia,Asia and Pacific,Scope 3,material_extraction,kt,69.98628250971683,1.1900058866763366
+RoW Africa,RoW Africa,Africa,Scope 3,material_extraction,kt,60.602982616964695,1.0304577336897256
+FIN,Finland,Europe,Scope 3,material_extraction,kt,56.598934271477326,0.9623752333653932
+NOR,Norway,Europe,Scope 3,material_extraction,kt,54.25806141157747,0.9225723979618277
+RoW Europe,RoW Europe,Europe,Scope 3,material_extraction,kt,53.198285674410656,0.9045525900714718
+ITA,Italy,Europe,Scope 3,material_extraction,kt,49.60987045947826,0.8435372728339031
+GRC,Greece,Europe,Scope 3,material_extraction,kt,49.3847954295766,0.8397102284343145
+FRA,France,Europe,Scope 3,material_extraction,kt,47.27077589129187,0.803764674464387
+GBR,United Kingdom,Europe,Scope 3,material_extraction,kt,45.91848696735036,0.7807711431283831
+PRT,Portugal,Europe,Scope 3,material_extraction,kt,36.34325719849986,0.6179595265858331
+BRA,Brazil,America,Scope 3,material_extraction,kt,33.07303292154312,0.5623545422835151
+BEL,Belgium,Europe,Scope 3,material_extraction,kt,32.148043898236594,0.5466265689811336
+IDN,Indonesia,Asia and Pacific,Scope 3,material_extraction,kt,29.913568932937135,0.5086328612575082
+CAN,Canada,America,Scope 3,material_extraction,kt,29.29381777634417,0.49809497442921863
+ESP,Spain,Europe,Scope 3,material_extraction,kt,29.191002041489025,0.49634675570216175
+CZE,Czech Republic,Europe,Scope 3,material_extraction,kt,29.099343446171442,0.4947882464617651
+ZAF,South Africa,Africa,Scope 3,material_extraction,kt,29.07919285442396,0.4944456175645068
+BGR,Bulgaria,Europe,Scope 3,material_extraction,kt,27.47451473969131,0.46716060778437707
+AUT,Austria,Europe,Scope 3,material_extraction,kt,25.010254257092114,0.42525976128363935
+HUN,Hungary,Europe,Scope 3,material_extraction,kt,23.829265226667236,0.40517891332446015
+ROU,Romania,Europe,Scope 3,material_extraction,kt,22.892396031142148,0.38924893650984954
+CHE,Switzerland,Europe,Scope 3,material_extraction,kt,22.813266596278257,0.38790346579872376
+NLD,Netherlands,Europe,Scope 3,material_extraction,kt,22.771006178619018,0.3871848943303661
+MEX,Mexico,America,Scope 3,material_extraction,kt,20.319660401818638,0.3455036419468491
+JPN,Japan,Asia and Pacific,Scope 3,material_extraction,kt,19.072361816979665,0.3242953050388934
+TWN,Taiwan,Asia and Pacific,Scope 3,material_extraction,kt,16.111236850648684,0.2739460649484671
+IRL,Ireland,Europe,Scope 3,material_extraction,kt,12.94064554609739,0.22003518153875032
+SVK,Slovakia,Europe,Scope 3,material_extraction,kt,11.887068177230848,0.20212076708408805
+KOR,South Korea,Asia and Pacific,Scope 3,material_extraction,kt,10.670451943759641,0.1814341349650621
+LTU,Lithuania,Europe,Scope 3,material_extraction,kt,9.098371478837155,0.15470339659034002
+EST,Estonia,Europe,Scope 3,material_extraction,kt,8.764761243025244,0.1490308829171565
+HRV,Croatia,Europe,Scope 3,material_extraction,kt,7.167244183961028,0.12186763554666863
+LVA,Latvia,Europe,Scope 3,material_extraction,kt,5.971115039918045,0.10152935393500202
+SVN,Slovenia,Europe,Scope 3,material_extraction,kt,5.373088173488091,0.09136085425303302
+CYP,Cyprus,Middle East,Scope 3,material_extraction,kt,3.3646669584621485,0.057210832518778426
+MLT,Malta,Europe,Scope 3,material_extraction,kt,0.936621031044071,0.01592575717066493
+LUX,Luxembourg,Europe,Scope 3,material_extraction,kt,0.4087024259220046,0.006949337431639684
+DNK,Denmark,Denmark,Scope 1,waste_generation,kt,42.71652604695465,100.0
+DNK,Denmark,Denmark,Scope 2,waste_generation,kt,10.413632296719197,96.98889968708251
+DEU,Germany,Europe,Scope 2,waste_generation,kt,0.08757731850204718,0.8156642674751213
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 2,waste_generation,kt,0.04483317510057791,0.41756038609633733
+RoW Europe,RoW Europe,Europe,Scope 2,waste_generation,kt,0.023196610636886897,0.21604505306473473
+CZE,Czech Republic,Europe,Scope 2,waste_generation,kt,0.01911766372963228,0.17805517968104606
+RUS,Russia,Europe,Scope 2,waste_generation,kt,0.017433154957768572,0.16236625888558337
+HRV,Croatia,Europe,Scope 2,waste_generation,kt,0.016768607627508533,0.15617689935036955
+CAN,Canada,America,Scope 2,waste_generation,kt,0.012898072581369477,0.12012810056153704
+FIN,Finland,Europe,Scope 2,waste_generation,kt,0.01216932225232571,0.11334077693164257
+NLD,Netherlands,Europe,Scope 2,waste_generation,kt,0.012107662929930773,0.11276650374202553
+POL,Poland,Europe,Scope 2,waste_generation,kt,0.0110704434682398,0.10310620736732744
+GBR,United Kingdom,Europe,Scope 2,waste_generation,kt,0.010829317791338278,0.10086044782612014
+BEL,Belgium,Europe,Scope 2,waste_generation,kt,0.010469735106256725,0.09751142147500018
+SWE,Sweden,Europe,Scope 2,waste_generation,kt,0.01046213542293705,0.09744064070397393
+AUT,Austria,Europe,Scope 2,waste_generation,kt,0.00713933496687722,0.06649324877286923
+HUN,Hungary,Europe,Scope 2,waste_generation,kt,0.004008192921743623,0.037330895708305514
+TUR,Turkey,Middle East,Scope 2,waste_generation,kt,0.00393068700059479,0.03660903288491513
+SVN,Slovenia,Europe,Scope 2,waste_generation,kt,0.00335193748858299,0.031218763979209203
+EST,Estonia,Europe,Scope 2,waste_generation,kt,0.003076271122107292,0.02865130463328652
+ESP,Spain,Europe,Scope 2,waste_generation,kt,0.002631937765431918,0.024512940407406408
+SVK,Slovakia,Europe,Scope 2,waste_generation,kt,0.00211806980646865,0.01972695541156628
+RoW Africa,RoW Africa,Africa,Scope 2,waste_generation,kt,0.0018070245944031094,0.01682998997130617
+AUS,Australia,Asia and Pacific,Scope 2,waste_generation,kt,0.001422651830415594,0.01325007756547091
+BGR,Bulgaria,Europe,Scope 2,waste_generation,kt,0.001353971969633449,0.012610417556540037
+GRC,Greece,Europe,Scope 2,waste_generation,kt,0.0011059630893760597,0.010300550286080736
+ITA,Italy,Europe,Scope 2,waste_generation,kt,0.0006709190900312714,0.006248703859237706
+RoW America,RoW America,America,Scope 2,waste_generation,kt,0.0005472115963467482,0.005096535878494939
+ZAF,South Africa,Africa,Scope 2,waste_generation,kt,0.0004464294682495279,0.004157886670057695
+PRT,Portugal,Europe,Scope 2,waste_generation,kt,0.00033423503849055715,0.003112947307567387
+CHE,Switzerland,Europe,Scope 2,waste_generation,kt,0.00026659192677302345,0.002482943213898657
+LVA,Latvia,Europe,Scope 2,waste_generation,kt,8.35223384829198e-05,0.0007778976132374664
+RoW Middle East,RoW Middle East,Middle East,Scope 2,waste_generation,kt,3.565904364392648e-05,0.0003321157602239988
+LTU,Lithuania,Europe,Scope 2,waste_generation,kt,1.5855267185722152e-05,0.0001476703684911531
+NOR,Norway,Europe,Scope 2,waste_generation,kt,1.0052100870031433e-05,9.362172344370829e-05
+BRA,Brazil,America,Scope 2,waste_generation,kt,4.987340143171132e-06,4.6450327711664924e-05
+LUX,Luxembourg,Europe,Scope 2,waste_generation,kt,4.083332764678346e-06,3.803072171341566e-05
+MLT,Malta,Europe,Scope 2,waste_generation,kt,5.503309515840147e-07,5.125588453386693e-06
+FRA,France,Europe,Scope 2,waste_generation,kt,2.1940604333010822e-07,2.0434705317939608e-06
+IRL,Ireland,Europe,Scope 2,waste_generation,kt,1.608460835335198e-07,1.4980637126785718e-06
+MEX,Mexico,America,Scope 2,waste_generation,kt,5.3714776240699867e-08,5.002804877376593e-07
+USA,United States,America,Scope 2,waste_generation,kt,2.0427684266339095e-09,1.9025624908722284e-08
+CHN,China,Asia and Pacific,Scope 2,waste_generation,kt,1.0583430407637585e-10,9.857033942661586e-10
+IND,India,Asia and Pacific,Scope 2,waste_generation,kt,1.0418268861436708e-10,9.703208301615215e-10
+CYP,Cyprus,Middle East,Scope 2,waste_generation,kt,6.584381581631809e-11,6.132460860208739e-10
+JPN,Japan,Asia and Pacific,Scope 2,waste_generation,kt,1.4769024276510358e-11,1.3755348501039693e-10
+DNK,Denmark,Denmark,Scope 3,waste_generation,kt,130.13838995064876,41.610941837379656
+CHN,China,Asia and Pacific,Scope 3,waste_generation,kt,18.459731851465946,5.902384597629217
+DEU,Germany,Europe,Scope 3,waste_generation,kt,14.661158483805734,4.6878143580045455
+SWE,Sweden,Europe,Scope 3,waste_generation,kt,14.457036617575676,4.622547659172192
+RoW Africa,RoW Africa,Africa,Scope 3,waste_generation,kt,14.430285026949141,4.61399400423578
+RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Scope 3,waste_generation,kt,12.307160483462512,3.935138119158073
+POL,Poland,Europe,Scope 3,waste_generation,kt,8.37414123273143,2.67757964352665
+IND,India,Asia and Pacific,Scope 3,waste_generation,kt,7.957260135782006,2.544284502217127
+BEL,Belgium,Europe,Scope 3,waste_generation,kt,6.555336487607432,2.0960281237052882
+RoW Europe,RoW Europe,Europe,Scope 3,waste_generation,kt,6.45380342773613,2.06356355847993
+USA,United States,America,Scope 3,waste_generation,kt,6.44640666229946,2.0611984886762644
+NLD,Netherlands,Europe,Scope 3,waste_generation,kt,6.4060413196940456,2.048291921105874
+GBR,United Kingdom,Europe,Scope 3,waste_generation,kt,4.8587567203238775,1.553557281352907
+RUS,Russia,Europe,Scope 3,waste_generation,kt,4.600579487039295,1.4710067146675936
+GRC,Greece,Europe,Scope 3,waste_generation,kt,4.547607957496506,1.4540693971267982
+FIN,Finland,Europe,Scope 3,waste_generation,kt,4.448776234258015,1.4224685675105382
+ITA,Italy,Europe,Scope 3,waste_generation,kt,3.5087998701378282,1.1219169637082376
+CAN,Canada,America,Scope 3,waste_generation,kt,2.746057264094438,0.8780347531706797
+RoW Middle East,RoW Middle East,Middle East,Scope 3,waste_generation,kt,2.624733662092539,0.8392422850272144
+FRA,France,Europe,Scope 3,waste_generation,kt,2.5732857105509126,0.8227921220886475
+ESP,Spain,Europe,Scope 3,waste_generation,kt,2.4761299674146593,0.7917271766997954
+JPN,Japan,Asia and Pacific,Scope 3,waste_generation,kt,2.259732984220456,0.7225355854645487
+NOR,Norway,Europe,Scope 3,waste_generation,kt,2.20716377952971,0.7057269087961693
+ZAF,South Africa,Africa,Scope 3,waste_generation,kt,2.097324215045351,0.6706063903163031
+AUT,Austria,Europe,Scope 3,waste_generation,kt,2.071171007624532,0.6622440646930855
+PRT,Portugal,Europe,Scope 3,waste_generation,kt,2.038828404596278,0.6519027182695705
+CZE,Czech Republic,Europe,Scope 3,waste_generation,kt,2.0184417873082463,0.6453842240223702
+KOR,South Korea,Asia and Pacific,Scope 3,waste_generation,kt,1.8306488270855643,0.5853385914595369
+HUN,Hungary,Europe,Scope 3,waste_generation,kt,1.8028747241931111,0.5764579945773907
+IDN,Indonesia,Asia and Pacific,Scope 3,waste_generation,kt,1.6534632741526245,0.5286846114901178
+LVA,Latvia,Europe,Scope 3,waste_generation,kt,1.495068508103568,0.4780388689086084
+IRL,Ireland,Europe,Scope 3,waste_generation,kt,1.4546554028500096,0.4651170295281502
+TUR,Turkey,Middle East,Scope 3,waste_generation,kt,1.4463752084873684,0.46246948881278765
+AUS,Australia,Asia and Pacific,Scope 3,waste_generation,kt,1.3478792050173758,0.4309760035071953
+BRA,Brazil,America,Scope 3,waste_generation,kt,1.2756009223962241,0.4078654715927082
+RoW America,RoW America,America,Scope 3,waste_generation,kt,1.2639947340567126,0.4041544649625184
+CHE,Switzerland,Europe,Scope 3,waste_generation,kt,1.2021820287973386,0.3843902364029497
+SVK,Slovakia,Europe,Scope 3,waste_generation,kt,1.0611131091527528,0.33928432559047633
+BGR,Bulgaria,Europe,Scope 3,waste_generation,kt,0.9105764527836169,0.2911511647687914
+SVN,Slovenia,Europe,Scope 3,waste_generation,kt,0.5719725297892351,0.18288466361589648
+CYP,Cyprus,Middle East,Scope 3,waste_generation,kt,0.556694652423622,0.17799965722615843
+ROU,Romania,Europe,Scope 3,waste_generation,kt,0.5457575484921278,0.1745025861794414
+EST,Estonia,Europe,Scope 3,waste_generation,kt,0.5097645349980378,0.16299404368385217
+LUX,Luxembourg,Europe,Scope 3,waste_generation,kt,0.4918217710875804,0.15725695637423504
+HRV,Croatia,Europe,Scope 3,waste_generation,kt,0.479434749198163,0.15329628306657875
+MEX,Mexico,America,Scope 3,waste_generation,kt,0.4791957705078771,0.15321987111476632
+MLT,Malta,Europe,Scope 3,waste_generation,kt,0.3643630463079514,0.11650282083065723
+LTU,Lithuania,Europe,Scope 3,waste_generation,kt,0.2828292631263376,0.0904329001021294

@@ -57,7 +57,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_producing` | dimension | str |  | DNK |
 | `sector_producing` | dimension | str |  | Sea and coastal water transport |
-| `background_year` | measure | int64 |  | 2016 |
+| `background_year` | dimension | str |  | 2016 |
 | `analysis_year` | measure | int64 |  | 2019 |
 | `country_consuming` | dimension | str |  | DNK |
 | `sector_consuming` | dimension | str |  | Sea and coastal water transport |
@@ -94,7 +94,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `country_producing` | dimension | str |  | DNK |
 | `sector_producing` | dimension | str |  | Sea and coastal water transport |
-| `background_year` | measure | int64 |  | 2016 |
+| `background_year` | dimension | str |  | 2016 |
 | `analysis_year` | measure | int64 |  | 2019 |
 | `quantity` | dimension | str |  | DK sea transport total output |
 | `value` | measure | float64 | varies by row | 15432.100020195892 |

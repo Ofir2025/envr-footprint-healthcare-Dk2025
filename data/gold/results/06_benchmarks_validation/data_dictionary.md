@@ -256,8 +256,8 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
 | `value_2019_uncorrected` | measure | float64 |  | 2605.151771420495 |
-| `value_2019_shipping_corrected` | measure | float64 |  | 788.899107574229 |
-| `value_2022_shipping_corrected` | measure | float64 |  | 566.5316460762235 |
+| `value_2019c` | measure | float64 |  | 788.899107574229 |
+| `value_2022c` | measure | float64 |  | 566.5316460762235 |
 | `delta_correction_kt` | measure | float64 |  | -1816.2526638462664 |
 | `delta_year_kt` | measure | float64 |  | -222.36746149800547 |
 | `share_of_correction_change_pct` | measure | float64 | % | 78.77521660190364 |
