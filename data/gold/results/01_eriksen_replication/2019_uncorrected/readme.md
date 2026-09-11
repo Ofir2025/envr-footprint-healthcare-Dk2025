@@ -2,7 +2,7 @@
 
 **Eriksen replication, the manuscript layer**
 
-This layer reproduces everything the manuscript reports, in the manuscript's own table and figure structure, once per reference year AND per Danish sea-transport correction state ([section 10](#r10)), in four self-describing subfolders rather than two:
+This layer reproduces everything the manuscript reports, in the manuscript's own table and figure structure, once per model VARIANT. A variant fixes all four axes that change the numbers — EXIOBASE release, Danish sea-transport correction ([section 10](#r10)), care boundary, and capital treatment — and is named `<year><letter>`:
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 01](../../../../../docs/methods/replications.md#r01).
 
@@ -72,7 +72,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 01
 
 - **Rows:** 105
 - **Format:** csv
-- **Resolution:** 21+ regions x 41+ industries (sampled)
+- **Resolution:** 21+ regions x 39+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `indicator`, `unit`
 - **Measures:** `value`, `rank`, `share_pct`, `mrio_coverage_pct`

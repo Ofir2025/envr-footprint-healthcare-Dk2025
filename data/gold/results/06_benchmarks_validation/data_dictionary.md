@@ -232,12 +232,12 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
-| `value_2019` | measure | float64 |  | 2605.151771420495 |
-| `share_pct_2019` | measure | float64 | % | 40.95901759879052 |
+| `value_2019` | measure | float64 |  | 2617.155232125088 |
+| `share_pct_2019` | measure | float64 | % | 40.77290611856394 |
 | `value_2022` | measure | float64 |  | 566.5316460762235 |
 | `share_pct_2022` | measure | float64 | % | 12.11711444780666 |
-| `delta_kt` | measure | float64 |  | -2038.6201253442716 |
-| `share_of_total_change_pct` | measure | float64 | % | 120.9921230072067 |
+| `delta_kt` | measure | float64 |  | -2050.623586048864 |
+| `share_of_total_change_pct` | measure | float64 | % | 117.62263086893824 |
 | `driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `year_comparison_run_differences.csv`
@@ -255,11 +255,11 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
-| `value_2019_uncorrected` | measure | float64 |  | 2605.151771420495 |
-| `value_2019c` | measure | float64 |  | 788.899107574229 |
+| `value_2019_uncorrected` | measure | float64 |  | 2617.155232125088 |
+| `value_2019c` | measure | float64 |  | 797.7656919199594 |
 | `value_2022c` | measure | float64 |  | 566.5316460762235 |
-| `delta_correction_kt` | measure | float64 |  | -1816.2526638462664 |
-| `delta_year_kt` | measure | float64 |  | -222.36746149800547 |
-| `share_of_correction_change_pct` | measure | float64 | % | 78.77521660190364 |
-| `share_of_year_change_pct` | measure | float64 | % | -35.82558346476132 |
+| `delta_correction_kt` | measure | float64 |  | -1819.3895402051285 |
+| `delta_year_kt` | measure | float64 |  | -231.23404584373588 |
+| `share_of_correction_change_pct` | measure | float64 | % | 78.77521660190361 |
+| `share_of_year_change_pct` | measure | float64 | % | -40.83932881990388 |
 | `driver` | dimension | str |  | correction step: sea-transport reallocat |

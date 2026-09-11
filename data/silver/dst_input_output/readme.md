@@ -11,7 +11,7 @@ division rather than trust it.
 | Produced by | `analysis.build_shipping_inputs` |
 | Read by | `analysis.dk_shipping_correction` |
 | Rebuild | `PYTHONPATH=src .venv/bin/python -m analysis.build_shipping_inputs` |
-| In version control | **no** — regenerable from the tracked bronze workbooks |
+| In version control | **yes** — the one silver product of `analysis.build_shipping_inputs` that is. $\phi$ is a published number: the methods text quotes it, every row of `10_sea_transport_reallocation/shipping_reallocation_diagnostics.csv` carries it, and it is read to the last bit (see the caveat below). At 401 bytes it is cheaper to track than to make a reader rebuild the layer to check a quoted share. |
 
 ## Files
 

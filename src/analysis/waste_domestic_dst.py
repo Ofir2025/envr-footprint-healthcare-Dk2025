@@ -57,6 +57,7 @@ import subprocess
 
 import pandas as pd
 
+from analysis.constants import require_manuscript_boundary
 from paths import OUTPUT_DIR, silver_dk_expenditure_breakdown_csv
 
 API = "https://api.statbank.dk/v1/data"
@@ -159,7 +160,9 @@ def main() -> None:
         ``PURPOSE_TO_INDUSTRY``.
     """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    exp = pd.read_csv(silver_dk_expenditure_breakdown_csv(year))
+    _exp_path = silver_dk_expenditure_breakdown_csv(year)
+    require_manuscript_boundary(_exp_path, "analysis.waste_domestic_dst")
+    exp = pd.read_csv(_exp_path)
     exp["purpose_code"] = exp["purpose_code"].astype(str).str.zfill(5)
     exp["industry"] = exp["purpose_code"].map(PURPOSE_TO_INDUSTRY)
     missing = exp[exp["industry"].isna()]["purpose_code"].unique()

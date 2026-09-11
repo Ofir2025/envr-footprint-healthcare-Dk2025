@@ -11,7 +11,7 @@ carries are the same labels, read from the same place.
 | Produced by | `analysis.build_shipping_inputs` |
 | Read by | `analysis.dk_shipping_correction` |
 | Rebuild | `PYTHONPATH=src .venv/bin/python -m analysis.build_shipping_inputs` |
-| In version control | **no** — regenerable from the workbook, which is itself untracked and restored from the URL in the bronze folder's readme |
+| In version control | **no** — `classifications.xlsx` is tracked, so one command rebuilds this table in any clone, and no document quotes a number from it: the group labels it assigns travel into gold in the published tables' own `sector_group` columns, where a reader reads them |
 
 `classifications.xlsx` is one copy for every EXIOBASE release, so it sits in the
 bronze `exiobase/` root rather than under a release subfolder, and this product is

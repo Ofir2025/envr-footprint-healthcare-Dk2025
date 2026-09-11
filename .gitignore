@@ -85,3 +85,11 @@ data/silver/dk_medicines_register/dk_atc_sales_*.csv
 # un-ignoring them cannot drag the 78 MB register in with them.
 !data/silver/dst_supply_use/dk_data_*.csv
 !data/silver/dst_supply_use/dk_expenditure_breakdown_*.csv
+# phi, the sea-transport reallocation's target share. It is a PUBLISHED number:
+# the methods text quotes it, layer 10's diagnostics carry it on every row, and
+# it multiplies a row block of A before a Leontief inversion, so it is quoted to
+# the last bit. Tracked at 401 bytes so a reader can check the published share
+# against the workbook without rebuilding the layer. The other three products of
+# analysis.build_shipping_inputs stay ignored; data/silver/readme.md says why,
+# file by file.
+!data/silver/dst_input_output/dst_water_transport_domestic_share.csv

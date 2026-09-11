@@ -36,7 +36,8 @@ import subprocess
 import numpy as np
 import pandas as pd
 
-from analysis.constants import BACKGROUND_YEAR, NODE_DK_HEALTH
+from analysis.constants import (BACKGROUND_YEAR, NODE_DK_HEALTH,
+                                require_manuscript_boundary)
 from paths import BACKGROUND_DIR, OUTPUT_DIR, silver_dk_data_csv
 
 API = "https://api.statbank.dk/v1/data"
@@ -96,7 +97,9 @@ def main() -> None:
     modelled_direct_kt = float(bg["Hstim"][6, 0])
     # The inherited hybrid value, recomputed from the intensity matrix, which
     # the replacement does not touch. See the module docstring.
-    expenditure = pd.read_csv(silver_dk_data_csv(str(year)))
+    _dk_path = silver_dk_data_csv(str(year))
+    require_manuscript_boundary(_dk_path, "analysis.waste_validation")
+    expenditure = pd.read_csv(_dk_path)
     e_h = float(expenditure[expenditure["Index"] == "Expenditure"]
                 .iloc[0]["HC service"])
     hybrid_direct_kt = float(bg["B"][6, NODE_DK_HEALTH]) * e_h

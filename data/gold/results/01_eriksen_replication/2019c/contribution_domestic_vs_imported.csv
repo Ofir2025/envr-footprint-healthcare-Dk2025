@@ -1,8 +1,8 @@
 indicator,unit,origin,value,share_of_total_pct
 blue_water_consumption,Mm3,domestic,24.015188957550347,43.74560781310852
 blue_water_consumption,Mm3,imported,30.882182820089255,56.254392186891465
-climate_change,kt CO2eq,domestic,3225.893707742161,79.55795441730797
-climate_change,kt CO2eq,imported,828.8783529134884,20.442045582692018
+climate_change,kt CO2eq,domestic,3263.8006891111672,79.42546430807002
+climate_change,kt CO2eq,imported,845.461645763908,20.57453569192999
 land_use,km2,domestic,1705.4214065907481,51.155951477343734
 land_use,km2,imported,1628.3478955911414,48.844048522656266
 material_extraction,kt,domestic,2435.3323943757323,79.99027367689398

@@ -24,29 +24,29 @@ Construction,Scope 3,blue_water_consumption,Mm3,0.0071764295993090865,0.00935195
 "Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,0.0032542591503755647,0.004240782811101342
 Private travel,Outside protocol,climate_change,kt CO2eq,293.4753186512448,100.0
 Operational impact,Scope 1,climate_change,kt CO2eq,163.39469914555332,100.0
-"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,14.795365886739859,59.958199964418434
-Electricity,Scope 2,climate_change,kt CO2eq,9.880768312619052,40.041800035581566
-Transport,Scope 3,climate_change,kt CO2eq,1185.2066108857694,21.891903585025748
-Food and catering,Scope 3,climate_change,kt CO2eq,596.9488781076743,11.026218690221283
-Electricity,Scope 3,climate_change,kt CO2eq,519.4250843830052,9.59427981797899
-Coal and Petroleum,Scope 3,climate_change,kt CO2eq,496.59871885871195,9.172654939527694
-Waste management and disposal,Scope 3,climate_change,kt CO2eq,455.4029152704849,8.411728910278567
-"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,366.8732660160547,6.776501323718196
-Private travel,Scope 3,climate_change,kt CO2eq,327.9446,6.057451501273968
-Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,305.3173987524777,5.639505378159172
-Chemical,Scope 3,climate_change,kt CO2eq,285.93102411942084,5.281420432941993
-Metal Products,Scope 3,climate_change,kt CO2eq,215.61656082753694,3.982644812825988
-Services,Scope 3,climate_change,kt CO2eq,214.74760520190605,3.966594368455145
-Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,125.48487329648378,2.3178260417672965
-Minerals and Metals,Scope 3,climate_change,kt CO2eq,122.18212648244327,2.256821138356667
-Construction,Scope 3,climate_change,kt CO2eq,48.5416171210397,0.896610255220266
-"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,35.46417529607606,0.6550573538599479
-Furniture and timber,Scope 3,climate_change,kt CO2eq,27.191327275805634,0.5022499111998204
-Paper Products,Scope 3,climate_change,kt CO2eq,25.695229063305707,0.4746155413600335
-Textile,Scope 3,climate_change,kt CO2eq,20.68691575920013,0.38210718798935833
-General and special Machinery,Scope 3,climate_change,kt CO2eq,14.555505851477763,0.2688541624769427
-Operational impact,Scope 3,climate_change,kt CO2eq,12.8,0.23642828458314846
-Transport Equipment,Scope 3,climate_change,kt CO2eq,11.289416781444555,0.20852636277977696
+"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,14.7898229028541,59.055419379962686
+Electricity,Scope 2,climate_change,kt CO2eq,10.254149450802979,40.944580620037314
+Transport,Scope 3,climate_change,kt CO2eq,1185.2700327851164,21.575985576770268
+Food and catering,Scope 3,climate_change,kt CO2eq,601.9474618342185,10.957511280354087
+Coal and Petroleum,Scope 3,climate_change,kt CO2eq,545.7338506078736,9.934230482317007
+Electricity,Scope 3,climate_change,kt CO2eq,519.4875396080854,9.456457475397897
+Waste management and disposal,Scope 3,climate_change,kt CO2eq,472.03464830723857,8.592651869955127
+"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,366.57646003507153,6.672950632114827
+Private travel,Scope 3,climate_change,kt CO2eq,327.9446,5.96971809280737
+Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,306.04858280927425,5.5711353749217984
+Chemical,Scope 3,climate_change,kt CO2eq,286.0314929661831,5.206755588208885
+Metal Products,Scope 3,climate_change,kt CO2eq,216.0261323217612,3.932417581019528
+Services,Scope 3,climate_change,kt CO2eq,215.0389309188788,3.9144471248021313
+Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,133.51462474386693,2.4304247454839905
+Minerals and Metals,Scope 3,climate_change,kt CO2eq,121.80543139324811,2.2172772095972313
+Construction,Scope 3,climate_change,kt CO2eq,48.577148799750304,0.8842709533465872
+"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,35.4714926060604,0.6457029973638281
+Furniture and timber,Scope 3,climate_change,kt CO2eq,27.11013234236396,0.49349752227239724
+Paper Products,Scope 3,climate_change,kt CO2eq,25.582127141666447,0.46568257946648517
+Textile,Scope 3,climate_change,kt CO2eq,20.600106448085672,0.3749926913780401
+General and special Machinery,Scope 3,climate_change,kt CO2eq,14.563188391919358,0.26510004809410875
+Operational impact,Scope 3,climate_change,kt CO2eq,12.8,0.23300396343752677
+Transport Equipment,Scope 3,climate_change,kt CO2eq,11.304801259784172,0.2057862108908795
 Private travel,Outside protocol,land_use,km2,0.6451,100.0
 Electricity,Scope 2,land_use,km2,0.10312772877769816,88.33319140395447
 "Steam, hot water supply and water distribution",Scope 2,land_use,km2,0.013620831008947756,11.666808596045525

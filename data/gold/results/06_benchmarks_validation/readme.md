@@ -21,7 +21,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 06
 
 ### `consistency_audit.csv`
 
-- **Rows:** 20
+- **Rows:** 22
 - **Format:** csv
 - **Dimensions:** `check`, `status`, `detail`, `known_conventions`
 - **Measures:** none

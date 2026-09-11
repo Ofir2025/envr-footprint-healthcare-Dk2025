@@ -36,7 +36,8 @@ import pandas as pd
 
 from paths import BACKGROUND_DIR, OUTPUT_DIR, silver_dk_data_csv
 from analysis.constants import (BACKGROUND_YEAR, DK_BLOCK, INDICATORS, K_DK,
-                                MODEL_LABEL, N_SECTORS, DK_POPULATION)
+                                MODEL_LABEL, N_SECTORS, DK_POPULATION,
+                                require_manuscript_boundary)
 
 MALIK_REFERENCE = [
     dict(study="Malik et al. 2018 (Australia, 2014-15)", indicator="climate_change",
@@ -80,7 +81,9 @@ def main() -> None:
     L_dom = np.linalg.inv(np.eye(N_SECTORS) - A_dom)
     y_nat = Y[:, K_DK * 7:(K_DK + 1) * 7].sum(axis=1)
 
-    dk = pd.read_csv(silver_dk_data_csv(year))
+    _dk_path = silver_dk_data_csv(year)
+    require_manuscript_boundary(_dk_path, "analysis.malik_replication")
+    dk = pd.read_csv(_dk_path)
     exp = dk.query("Index == 'Expenditure'")[["HC service", "Pharm", "MedAppl"]].iloc[0]
     comp_exp = {"healthcare_services": float(exp["HC service"]),
                 "pharmaceuticals": float(exp["Pharm"]),

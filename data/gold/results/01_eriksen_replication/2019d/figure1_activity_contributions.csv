@@ -7,15 +7,15 @@ blue_water_consumption,Mm3,Transport,5.806930060056149,7.5559294826792245
 blue_water_consumption,Mm3,"Medical, electrical equipment and machinery",3.6661254187431336,4.770332146623635
 blue_water_consumption,Mm3,Heat and electricity,0.7032162560015733,0.9150191902552743
 blue_water_consumption,Mm3,Individual travel,0.1624,0.21131354007994388
-climate_change,kt CO2eq,Transport,1168.98139349836,19.820498977520277
-climate_change,kt CO2eq,Services,1123.0780908017591,19.04219200939995
-climate_change,kt CO2eq,Other,953.3901872996875,16.165072718565753
-climate_change,kt CO2eq,Pharmaceuticals and chemical products,897.4163842543837,15.216016803563358
-climate_change,kt CO2eq,Individual travel,621.4199186512448,10.5363976969536
-climate_change,kt CO2eq,Food and food services,569.389739102839,9.65420733338147
-climate_change,kt CO2eq,"Medical, electrical equipment and machinery",290.52226463739146,4.925909241343601
-climate_change,kt CO2eq,Operational impacts,163.39469914555332,2.7704157528587867
-climate_change,kt CO2eq,Heat and electricity,110.24770909036435,1.8692894664132096
+climate_change,kt CO2eq,Transport,1182.5353852057515,19.782181131701122
+climate_change,kt CO2eq,Services,1137.328703811852,19.025935888738157
+climate_change,kt CO2eq,Other,971.1933566055395,16.246721353655555
+climate_change,kt CO2eq,Pharmaceuticals and chemical products,917.2275564312233,15.343948170441454
+climate_change,kt CO2eq,Individual travel,621.4199186512448,10.395495596494992
+climate_change,kt CO2eq,Food and food services,577.7044898982973,9.664196947287708
+climate_change,kt CO2eq,"Medical, electrical equipment and machinery",294.3250247497188,4.923650508926043
+climate_change,kt CO2eq,Operational impacts,163.39469914555332,2.733367284307312
+climate_change,kt CO2eq,Heat and electricity,112.65146175028018,1.8845031184476595
 land_use,km2,Food and food services,1796.676401179563,33.032145644772875
 land_use,km2,Services,1182.6278560647645,21.742777697447252
 land_use,km2,Pharmaceuticals and chemical products,970.9359486612252,17.85079252271983

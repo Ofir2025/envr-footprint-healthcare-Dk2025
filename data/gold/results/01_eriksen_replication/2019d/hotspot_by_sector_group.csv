@@ -1,48 +1,48 @@
 indicator,unit,producing_sector_group,value
 land_use,km2,Food and catering,5332.868462327973
 material_extraction,kt,Minerals and Metals,4978.753463640985
-climate_change,kt CO2eq,Transport,1185.2066108857694
+climate_change,kt CO2eq,Transport,1185.2700327851164
 material_extraction,kt,Non-metallic mineral products,645.5524934661119
 climate_change,kt CO2eq,Private travel,621.4199186512448
-climate_change,kt CO2eq,Food and catering,596.9488781076744
-climate_change,kt CO2eq,Electricity,529.3058526956244
-climate_change,kt CO2eq,Coal and Petroleum,496.59871885871195
-climate_change,kt CO2eq,Waste management and disposal,455.4029152704849
-climate_change,kt CO2eq,"Steam, hot water supply and water distribution",381.66863190279446
-climate_change,kt CO2eq,Non-metallic mineral products,305.3173987524777
-climate_change,kt CO2eq,Chemical,298.7310241194209
-climate_change,kt CO2eq,Services,217.13799033701696
-climate_change,kt CO2eq,Metal Products,215.61656082753697
+climate_change,kt CO2eq,Food and catering,601.9474618342185
+climate_change,kt CO2eq,Coal and Petroleum,545.7338506078736
+climate_change,kt CO2eq,Electricity,529.7416890588885
+climate_change,kt CO2eq,Waste management and disposal,472.0346483072386
+climate_change,kt CO2eq,"Steam, hot water supply and water distribution",381.36628293792563
+climate_change,kt CO2eq,Non-metallic mineral products,306.04858280927425
+climate_change,kt CO2eq,Chemical,298.83149296618313
+climate_change,kt CO2eq,Services,217.43675169743355
+climate_change,kt CO2eq,Metal Products,216.0261323217612
 climate_change,kt CO2eq,Operational impact,163.39469914555332
-climate_change,kt CO2eq,Natural gas and gaseous fuels,125.48487329648378
-climate_change,kt CO2eq,Minerals and Metals,122.18212648244327
+climate_change,kt CO2eq,Natural gas and gaseous fuels,133.5146247438669
+climate_change,kt CO2eq,Minerals and Metals,121.80543139324811
 waste_generation,kt,Chemical,68.71150167583578
 blue_water_consumption,Mm3,Food and catering,62.95486522562341
 waste_generation,kt,Food and catering,55.90257724483239
 waste_generation,kt,Waste management and disposal,54.32224601448672
 land_use,km2,Furniture and timber,53.842074963650724
 material_extraction,kt,Food and catering,50.02097105927924
-climate_change,kt CO2eq,Construction,48.5416171210397
+climate_change,kt CO2eq,Construction,48.577148799750304
 material_extraction,kt,Construction,43.624044267796464
 material_extraction,kt,Chemical,43.235263787536866
 waste_generation,kt,Operational impact,42.71652604695465
-climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",35.464175296076064
+climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",35.47149260606041
 material_extraction,kt,Services,33.36291021961124
 waste_generation,kt,Electricity,31.726747556600586
-climate_change,kt CO2eq,Furniture and timber,27.19132727580564
-climate_change,kt CO2eq,Paper Products,25.695229063305714
+climate_change,kt CO2eq,Furniture and timber,27.11013234236397
+climate_change,kt CO2eq,Paper Products,25.582127141666454
 waste_generation,kt,Construction,24.87882691944105
 material_extraction,kt,Private travel,23.4337
 material_extraction,kt,Transport,23.356389256028933
-climate_change,kt CO2eq,Textile,20.686915759200136
+climate_change,kt CO2eq,Textile,20.60010644808568
 waste_generation,kt,Paper Products,19.89319589489937
 waste_generation,kt,Coal and Petroleum,15.816465577420377
-climate_change,kt CO2eq,General and special Machinery,14.555505851477767
+climate_change,kt CO2eq,General and special Machinery,14.563188391919361
 waste_generation,kt,Metal Products,13.530367747592647
 land_use,km2,Textile,13.122355990574558
 land_use,km2,Services,12.66755752032762
 waste_generation,kt,Services,11.471059203363376
-climate_change,kt CO2eq,Transport Equipment,11.289416781444558
+climate_change,kt CO2eq,Transport Equipment,11.304801259784176
 material_extraction,kt,Electricity,10.803916391467794
 material_extraction,kt,Metal Products,10.614621803784258
 waste_generation,kt,"Steam, hot water supply and water distribution",9.986078993579836
