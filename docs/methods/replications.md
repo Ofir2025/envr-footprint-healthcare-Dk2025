@@ -1417,8 +1417,8 @@ footprint, and the two must not be mixed in one ranking — see
 
 **The "before" figure is the published `2022_uncorrected/` variant.** Measured from
 `hotspot_by_producing_node.csv` there, transport is 1,959.4 kt of a 5,318.3 kt MRIO
-component, 36.8 %. A pre-publication estimate of 37.5 % circulated during drafting;
-it was never backed by a published table and is superseded by this one.
+component, 36.8 %. A slightly higher pre-publication estimate circulated during
+drafting; it was never backed by a published table and is superseded by this one.
 
 <a id="r10-methods-paragraph"></a>
 
