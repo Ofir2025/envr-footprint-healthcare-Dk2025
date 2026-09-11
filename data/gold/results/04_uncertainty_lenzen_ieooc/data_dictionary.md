@@ -60,6 +60,29 @@ units and are labelled as such wherever they are quoted.
 | `detail` | dimension | str |  | largest deviation 7.50e-04 (mrio) over 6 |
 | `tolerance` | dimension | str |  | < 5e-3 |
 
+### `uncertainty_by_group.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `pharma_scenario` | dimension | str |  | A |
+| `indicator` | dimension | str |  | Global warming (ktCO2eq) |
+| `unit` | dimension | str |  | ktCO2eq |
+| `group` | dimension | str |  | Food and food services |
+| `deterministic` | measure | float64 | varies by row | 433.74297726496013 |
+| `median` | measure | float64 | varies by row | 433.41757290022554 |
+| `mean` | measure | float64 | varies by row | 435.11041303383314 |
+| `sd` | measure | float64 | varies by row | 36.47906149741982 |
+| `cv_pct` | measure | float64 | % | 8.383863130984938 |
+| `p2_5` | measure | float64 | varies by row | 368.1241102574662 |
+| `p16` | measure | float64 | varies by row | 399.0758524033876 |
+| `p84` | measure | float64 | varies by row | 471.16399809704774 |
+| `p97_5` | measure | float64 | varies by row | 511.1307684313873 |
+| `share_pct` | measure | float64 | % | 9.268870886690998 |
+| `share_p2_5` | measure | float64 | % | 8.44998807847428 |
+| `share_p97_5` | measure | float64 | % | 9.82847009868631 |
+| `draws` | measure | int64 |  | 100000 |
+| `seed` | measure | int64 | varies by row | 42 |
+
 ### `uncertainty_convergence.csv`
 
 | Column | Role | Type | Unit | Example |

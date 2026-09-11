@@ -743,6 +743,55 @@ Two independent checks run on every execution:
   reported per indicator; for the climate median it is **0.035 %**, so the
   reported digits are stable.
 
+#### The interval on each reported estimate
+
+The total is not what the paper mostly reports. It reports contribution groups,
+and until 2026-09-11 none of them carried an interval.
+`uncertainty_by_group.csv` now gives, for all five indicators and all nine
+groups, the mean, standard deviation, coefficient of variation and 95 % interval
+of the level, and separately the 95 % interval of the group's **share** of the
+footprint. The two are different quantities and the second does not follow from
+the first.
+
+Why the shares are so much tighter than the levels is the structure of the model,
+not a property of the data. Write the footprint as
+
+$$F = \sum_g a_g, \qquad a_g = \lambda_M\,m_g + \sum_k \lambda_k b_{g,k}$$
+
+where $m_g$ is group $g$'s MRIO amount, $b_{g,k}$ its bottom-up components, and
+$\lambda$ the median-1 multipliers. Under the study's default of perfect MRIO
+correlation a single $\lambda_M$ multiplies every $m_g$. For a group that is
+entirely MRIO-driven, $b_{g,k} = 0$, so
+
+$$\frac{a_g}{F}\bigg|_{\text{MRIO only}}
+  = \frac{\lambda_M m_g}{\lambda_M \sum_h m_h + \sum_k \lambda_k B_k}$$
+
+and $\lambda_M$ cancels from numerator and denominator except through the
+bottom-up terms in the denominator. The level of such a group moves with the
+whole block; its share barely moves at all. That is why seven of the nine climate
+groups carry a coefficient of variation of exactly the MRIO block's 8.4 %, and
+why their share intervals are one to two percentage points wide.
+
+The two groups that carry bottom-up terms behave differently, and this is the
+result a reader should take from the table:
+
+| Group | CV of the level | 95 % interval of the share |
+|:---|---:|:---|
+| Individual travel | **26.3 %** | **8.4 % to 20.9 %** |
+| Operational impacts | 9.1 % | 2.2 % to 3.5 % |
+| Pharmaceuticals and chemical products | 8.3 % | 33.9 % to 39.4 % |
+| the six other MRIO-driven groups | 8.4 % | one to two points wide |
+
+Individual travel is the most uncertain line in the study by a factor of three.
+It is also the line whose rank is not determined: its share overlaps Services,
+Transport and Food and food services, which is what
+`uncertainty_ranking_probabilities.csv` quantifies. Pharmaceuticals lead in every
+draw.
+
+This is also why the variance decomposition reports commuting, visitor travel and
+their covariance as 21.5 % of the total variance while they are 13.5 % of the
+footprint: they are small but loose, and the rest is large but shared.
+
 ### 2.7 Answers to the five questions a referee will ask
 
 **"Why 100,000 draws?"** Because the Monte Carlo standard error at that size is
