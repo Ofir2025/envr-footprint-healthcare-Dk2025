@@ -325,10 +325,13 @@ HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
 Each `main_2025` run is followed, in the same environment, by
 `analysis.eriksen_tables`, `analysis.manuscript_figure_tables` and the three
 layer-02 modules ([section 02](#r02)), so that both layers publish the same eight
-folders. Two silver files — `dk_data_2025.csv` and `dk_bottomup_data_2025.txt` —
-are year-scoped state that `main_2025` overwrites in place, so the modules that
-read them must run in the same variant sequence as the `main_2025` that wrote
-them, and the 2022 variants are run last when the tracked content is to hold 2022.
+folders. Two silver files — `dk_data_<year>.csv` and
+`dk_bottomup_data_<year>.txt` — are per-year state that `main_2025` overwrites in
+place. They now carry the year in the name, so a run of one year no longer leaves
+its values in the file another year's modules read, and the tracked content of
+both years stands at once. The modules that read them must still run in the same
+variant sequence as the `main_2025` that wrote them, because the *boundary* is
+not in the name the way the year is.
 
 This folder is the deliverable for the resubmission. It is deliberately kept in the
 submitted paper's shape (the same tables, the same figure numbering) so that the

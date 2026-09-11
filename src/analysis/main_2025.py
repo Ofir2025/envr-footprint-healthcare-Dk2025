@@ -50,9 +50,9 @@ from paths import (
     MRIO_DIR,
     OUTPUT_DIR,
     EXIOBASE_BASE_DIR,
-    SILVER_DK_BOTTOMUP_TXT,
-    SILVER_DK_DATA_CSV,
     ensure_runtime_directories,
+    silver_dk_bottomup_txt,
+    silver_dk_data_csv,
     silver_dk_expenditure_breakdown_csv,
 )
 import warnings
@@ -226,19 +226,21 @@ else:
     healthcare_services_meur = float(healthcare_services) * KDKK_TO_MEUR  # HC services
 
     # Overwrite the derived Silver input with these MEUR values and Conversion=1.0.
-    dk_csv_path = str(SILVER_DK_DATA_CSV)
+    dk_csv_path = str(silver_dk_data_csv(ANALYSIS_YEAR))
     df = pd.read_csv(dk_csv_path)
 
     # Ensure required columns exist
     if 'Index' not in df.columns:
-        raise KeyError("Expected column 'Index' in dk_data_2025.csv")
+        raise KeyError(f"Expected column 'Index' in {os.path.basename(dk_csv_path)}")
     if 'Unit' not in df.columns:
         # Insert Unit as 2nd column if missing
         df.insert(1, 'Unit', '')
     if 'ISO2' not in df.columns:
-        raise KeyError("Expected ISO2 country column in dk_data_2025.csv")
+        raise KeyError(
+            f"Expected ISO2 country column in {os.path.basename(dk_csv_path)}")
     if not (df['ISO2'] == 'DK').all():
-        raise ValueError("Expected Denmark (ISO2=DK) data in dk_data_2025.csv")
+        raise ValueError(
+            f"Expected Denmark (ISO2=DK) data in {os.path.basename(dk_csv_path)}")
 
     # Ensure required rows exist; create if absent
     required_rows = ['Expenditure', 'Conversion', 'DirectEm']
@@ -247,7 +249,8 @@ else:
             new_row = {'Index': r, 'Unit': 'na', 'ISO2': 'DK'}
             for col in ['HC service', 'Pharm', 'MedAppl']:
                 if col not in df.columns:
-                    raise KeyError(f"Missing expected column '{col}' in dk_data_2025.csv")
+                    raise KeyError(f"Missing expected column '{col}' in "
+                                   f"{os.path.basename(dk_csv_path)}")
                 new_row[col] = 0.0
             df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
@@ -346,7 +349,8 @@ print("Expenditure data loaded from DK SUT CSV (MEUR).")
 
 # Assert Conversion row exists and equals 1.0 for used columns
 if ('Conversion', 'na') not in cbs_data.index:
-    raise KeyError("Expected ('Conversion','na') row not found in dk_data_2025.csv")
+    raise KeyError("Expected ('Conversion','na') row not found in "
+                   f"dk_data_{ANALYSIS_YEAR}.csv")
 conv_row = cbs_data.loc[('Conversion', 'na')]
 for col in ['HC service', 'Pharm', 'MedAppl']:
     if col in conv_row.index:
@@ -490,7 +494,8 @@ df_hotspot = df_fromarray(array_hotspot, char_labels, multiindex, cols_impcat)
 
 # ===================== DK scaling of direct bottom-up emissions =====================
 # This step reads the NL base bottom-up file, scales *direct* emissions to DK,
-# recomputes totals, and writes dk_bottomup_data_2025.txt for the rest of the pipeline.
+# recomputes totals, and writes dk_bottomup_data_<year>.txt for the rest of the
+# pipeline.
 
 
 
@@ -620,10 +625,10 @@ SCALING_DK_OVER_NL = SCALING_DK_OVER_NL_BY_YEAR[ANALYSIS_YEAR]
 
 BOTTOMUP_BASE = os.path.join(data_dir, "netherlands_reference",
                              "nl_bottomup_data.txt")
-BOTTOMUP_2025 = str(SILVER_DK_BOTTOMUP_TXT)
+BOTTOMUP_2025 = str(silver_dk_bottomup_txt(ANALYSIS_YEAR))
 # ---------------------------------------------------------------------------
 
-# Apply DK scaling and write dk_bottomup_data_2025.txt
+# Apply DK scaling and write dk_bottomup_data_<year>.txt
 scale_bottomup_all_to_dk(
     base_path=BOTTOMUP_BASE,
     target_path=BOTTOMUP_2025,
@@ -772,7 +777,7 @@ cols_df = df_contrib[0].columns  # same for all
 # Adding the direct healthcare emissions from bg['Hstim']
 # (Steenmeijer design restored: the GWP entry of Hstim is the national-accounts
 # direct emission of the sector - here the DRIVHUS-based figure written to
-# dk_data_2025.csv above, excluding medical N2O which enters via B_ANAE - while
+# dk_data_<year>.csv above, excluding medical N2O which enters via B_ANAE - while
 # the other four impact categories keep the EXIOBASE-based direct estimates.
 # The previous revision computed this row as B x (L·Ystim) over the DK health
 # rows, i.e. the MRIO-induced intra-health emissions (~1.4 kt CO2e): that value
@@ -1102,7 +1107,7 @@ def find_positions_in_region(names_series: pd.Series,
 # --- GHG Protocol scopes, corrected construction -----------------------------------
 # Scope 1 = direct emissions of the reporting scope (health + eldercare providers):
 #           the DRIVHUS national-accounts figure (excl. medical N2O) computed above
-#           and stored in dk_data_2025.csv / bg['Hstim'], plus the medical-gas
+#           and stored in dk_data_<year>.csv / bg['Hstim'], plus the medical-gas
 #           bottom-up items (anaesthetic gases; pMDIs are released at patients'
 #           homes and are booked to Scope 3, following Steenmeijer et al. Table S8).
 # Scope 2 = generation emissions of the electricity/steam/hot water purchased
@@ -1188,7 +1193,7 @@ scopes_df.to_csv(scopes_csv, index=False)
 print(f"Scopes summary written → {scopes_csv}")
 
 
-print("\n[CHECK] dk_data_2025 DirectEm (kt CO2e) for HC service:",
+print(f"\n[CHECK] dk_data_{ANALYSIS_YEAR} DirectEm (kt CO2e) for HC service:",
       cbs_data.loc[('DirectEm', 'kt CO2e'), 'HC service'])
 
 # 7G) plot figures (figures in manuscript are composed in MS Excel)

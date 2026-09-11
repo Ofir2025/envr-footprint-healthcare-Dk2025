@@ -78,7 +78,7 @@ directly.
 
 **Caveat: this file is a base, not a result.** `analysis.main_2025` reads it,
 applies the Danish scaling factors and the Danish primary values, and writes
-`data/silver/netherlands_reference/dk_bottomup_data_2025.txt`. Nothing downstream reads the
+`data/silver/netherlands_reference/dk_bottomup_data_<year>.txt`. Nothing downstream reads the
 Dutch file. Two pre-`ISO2` copies of it and of `nl_cbs_data_2016.csv` used to sit
 beside them in the bronze root; they were removed, and the reasons are in
 `../readme.md`.

@@ -67,7 +67,7 @@ by default and is available via `include_childcare=True` for a scope sensitivity
 $\mathbf{B}\,(\mathbf{L}\,y_{\text{stim}})$ over the DK health rows = **1.39 kt CO₂e**, the MRIO-induced intra-health
 emissions, which (a) are already inside the contribution totals (a double count) and
 (b) are not the sector's direct emissions. An unsourced `DirectEm = 1,699 kt` sat unused
-in `dk_data_2025.csv`.
+in `dk_data_<year>.csv` (then a single un-year-scoped `dk_data_2025.csv`).
 
 **Fix:** Statistics Denmark **DRIVHUS** greenhouse-gas accounts by industry (national-
 accounts-consistent, kt CO₂e excl. biogenic CO₂; `data/bronze/dk_direct_emissions_drivhus.csv`).

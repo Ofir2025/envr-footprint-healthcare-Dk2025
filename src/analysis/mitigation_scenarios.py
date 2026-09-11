@@ -110,7 +110,7 @@ from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_YEAR, DK_POPULATION,
 from analysis.detail_tables import node_labels
 from analysis.scenario_engine import (Edit, Scenario, apply_edits,
                                       column_imbalance, rebound_rescale, solve)
-from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_DK_BOTTOMUP_TXT
+from paths import BACKGROUND_DIR, OUTPUT_DIR, silver_dk_bottomup_txt
 
 FOLDER = "18_mitigation_scenarios"
 
@@ -527,7 +527,8 @@ def main() -> None:
     names = list(np.tile(sec["sector_name"].values, n_regions))
     population = DK_POPULATION[ANALYSIS_YEAR]
 
-    bu = pd.read_csv(SILVER_DK_BOTTOMUP_TXT, sep="\t").set_index("Source")
+    bu = pd.read_csv(silver_dk_bottomup_txt(ANALYSIS_YEAR),
+                     sep="\t").set_index("Source")
 
     def bottom_up_items(indicator: str, scale: dict[str, float] | None = None
                         ) -> dict[str, float]:
