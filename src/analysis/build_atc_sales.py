@@ -37,13 +37,20 @@ import sys
 
 import pandas as pd
 
-from paths import BRONZE_DIR, SILVER_INPUT_DIR
+from paths import BRONZE_DIR, SILVER_DK_MEDICINES_REGISTER_DIR
 
 #: Where the register is cached, and the name pattern it is cached under.
 REGISTER_DIR = BRONZE_DIR / "dk_medicines_register"
 REGISTER_NAME = "{year}_atc_code_data.txt"
 
-#: The silver product this module writes.
+#: The silver product this module writes. Silver mirrors bronze by provenance,
+#: so the named-column form of the register sits under the silver folder named
+#: for the bronze folder it derives from:
+#: :data:`paths.SILVER_DK_MEDICINES_REGISTER_DIR`. That constant is spelled out
+#: at both use sites rather than aliased to a short local name, because the
+#: short name a silver writer would reach for is the one this code base reserves
+#: for the gold results root, and audit check C17 reads that name to decide
+#: whether a module writes gold.
 OUTPUT_NAME = "dk_atc_sales_{year}.csv"
 
 #: Years the study reads.
@@ -125,9 +132,11 @@ def output_path(year: str) -> str:
     Returns
     -------
     str
-        Absolute path to ``dk_atc_sales_<year>.csv`` under silver.
+        Absolute path to ``dk_atc_sales_<year>.csv`` under
+        ``data/silver/dk_medicines_register/``.
     """
-    return str(SILVER_INPUT_DIR / OUTPUT_NAME.format(year=year))
+    return str(SILVER_DK_MEDICINES_REGISTER_DIR
+               / OUTPUT_NAME.format(year=year))
 
 
 def read_register(year: str) -> pd.DataFrame:
@@ -247,7 +256,7 @@ def build(year: str) -> tuple[str, int]:
     frame = read_register(year)
     for line in verify_anaesthetic_volumes(frame, year):
         print(line)
-    SILVER_INPUT_DIR.mkdir(parents=True, exist_ok=True)
+    SILVER_DK_MEDICINES_REGISTER_DIR.mkdir(parents=True, exist_ok=True)
     path = output_path(year)
     frame.to_csv(path, index=False, encoding="utf-8")
     return path, len(frame)

@@ -30,7 +30,7 @@ bronze (raw, never modified)
 silver (prepared model objects)
   mrio2022.pkl, leontief2022.pkl, waste.pkl ....... data/silver/background/
   dk_data_2025.csv, dk_bottomup_data_2025.txt,
-  dk_expenditure_breakdown_2022.csv ............... data/silver/inputs/
+  dk_expenditure_breakdown_2022.csv ............... data/silver/dst_supply_use/
         |
         v  analysis.main_2025  (+ the approach modules)
 gold (published results, one folder per approach, all indexed by manifest_lineage.csv)

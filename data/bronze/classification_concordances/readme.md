@@ -11,57 +11,26 @@ is a one-file edit followed by a rebuild.
 | Provider | this study, derived from the EXIOBASE developers' own concordance set and Statistics Denmark's published tables |
 | Upstream source | `ISIC REV. 3 - EXIOBASE2.0.xlsx` and `NACE2full_EXIOBASEp.xlsx` from the EXIOBASE developer concordance set (`mrio/classifications/concordances/exiobase/developers_concordances`), byte-identical to the copies mirrored by the BONSAI project at <https://github.com/BONSAMURAIS/correspondence_tables> |
 | Licence | EXIOBASE terms, CC BY-SA 4.0 |
-| Retrieved | tracked from 2026-09-08 (`7bee333`); `exiobase_industry_to_dst_db07.csv` last rebuilt 2026-09-09 (`c95fa7f`) |
+| Retrieved | tracked from 2026-09-08 (`7bee333`) |
 
 ## Files
 
 | file | size | shape | built by |
 |:---|:---|:---|:---|
-| `exiobase_industry_to_dst_db07.csv` | 50 kB | 163 × 18 | `analysis.build_dst_concordance` |
 | `exiobase_industry_to_isic_rev3.csv` | 15 kB | 138 × 6 | hand-derived from the EXIOBASE developers' ISIC table |
 | `exiobase_industry_to_group.csv` | 11 kB | 163 × 3 | hand-maintained |
 | `exiobase_region_to_world_region.csv` | 1.4 kB | 49 × 4 | hand-maintained |
 
-**Known defect.** `exiobase_industry_to_dst_db07.csv` is *written* by
-`analysis.build_dst_concordance` into this folder. A generated file in bronze
-breaks medallion rule 1 — bronze is immutable source. It is recorded here and in
-`../readme.md` rather than moved in passing, because
-`analysis.build_star_schema` reads this folder too.
+Every file here is a source. `exiobase_industry_to_dst_db07.csv`, the
+EXIOBASE-to-DB07 bridge `analysis.build_dst_concordance` *writes*, used to sit in
+this folder as well, which broke medallion rule 1 — bronze is immutable source,
+and nothing generated belongs in it. It is now a silver product, at
+`data/silver/classification_concordances/exiobase_industry_to_dst_db07.csv`,
+where its column dictionary and its split-weight guidance now live too. Its
+dominant source is `exiobase_industry_to_isic_rev3.csv` below, which is why the
+silver folder mirroring this one is where it went.
 
 ## Column dictionaries
-
-### `exiobase_industry_to_dst_db07.csv`
-
-The EXIOBASE-to-Denmark industry bridge, one row per EXIOBASE industry.
-
-| column | meaning |
-|:---|:---|
-| `exiobase_position` | zero-based position in the EXIOBASE industry vector, 0-162 |
-| `exiobase_code` | EXIOBASE industry code, e.g. `PARI` |
-| `exiobase_name` | industry name |
-| `exiobase_code1` | the ISIC-derived code, e.g. `i01.a` |
-| `isic_rev3_division` | two-digit ISIC rev.3 division parsed from `exiobase_code1`; the value this file uses |
-| `isic_rev3_division_isic_concordance` | the same division as it appears in `exiobase_industry_to_isic_rev3.csv`, carried for cross-checking. Empty for the 25 industries that file does not cover |
-| `nace_rev2_candidates_exiobase_table` | candidate NACE rev.2 divisions from the EXIOBASE developers' `NACE2full_EXIOBASEp.xlsx` Sheet3, inverted and aggregated to the division. **Evidence, not the mapping**: the inversion is many-to-many, so these sets are wider than the industry's principal activity. Empty where the developers' table has no entry |
-| `dst_nace_prefix` | the two-digit NACE prefixes of the DST targets, `;`-separated |
-| `dst_industry_code` | DST DB07 six-digit target code or codes, `;`-separated |
-| `dst_industry_name` | their names, `;`-separated in the same order |
-| `mapping_type` | `one-to-one`, `one-to-many`, `many-to-one` or `unmatched` |
-| `confidence` | `high`, `medium` or `low` |
-| `basis` | prose statement of why this mapping was made |
-| `mapping_group` | connected-component id of the bipartite mapping graph; `-1` when unmatched |
-| `dst_output_share` | share of the group's DST output this row's target carries, 0-1, `;`-separated for one-to-many rows |
-| `dst_import_share` | the same on imports |
-| `mapping_group_label` | human-readable group label, e.g. `NACE 01 (PARI)` |
-| `mapping_group_type` | the group's own mapping type |
-
-**Two columns were renamed in this reorganisation.**
-`isic_rev3_division_bronze_csv` became `isic_rev3_division_isic_concordance`
-and `nace_rev2_candidates_developer` became
-`nace_rev2_candidates_exiobase_table`. The old names described where the value
-sat in *this repository's* internals — "the bronze CSV", "the developer" — rather
-than what the value is. A published schema has to be readable by someone who has
-never seen the repository.
 
 ### `exiobase_industry_to_isic_rev3.csv`
 

@@ -54,7 +54,7 @@ while the manuscript stated eldercare was included.
 
 **Fix:** complete coverage of all individual-consumption transactions (3110/3130/3141/3142)
 for purposes 06112, 06130, 06200, 06300, 12401; every included column is exported to
-`data/silver/inputs/dk_expenditure_breakdown_2019.csv` as a provenance record. Childcare
+`data/silver/dst_supply_use/dk_expenditure_breakdown_2019.csv` as a provenance record. Childcare
 (12402, DKK 60.4 bn, inside Steenmeijer's wider "zorg en welzijn" scope) remains excluded
 by default and is available via `include_childcare=True` for a scope sensitivity.
 

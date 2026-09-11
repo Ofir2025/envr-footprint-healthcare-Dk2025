@@ -429,7 +429,8 @@ workbook, document or image is published in this folder.
 | `figure1_activity_contributions.csv`, `figure2_sector_contributions.csv`, `figure2b_top_origin_industry_pairs.csv`, `figure3_geographical_origin.csv` | the plotted data behind figures 1, 2, 2b and 3 |
 
 `contribution_full_detail.xlsx` and `hotspot_full_detail.xlsx`, the wide
-raw-detail copies of $h_j$ and $c_i$, are written to silver (`eriksen_interim/`)
+raw-detail copies of $h_j$ and $c_i$, are written to silver
+(`handoff/eriksen_tables/`)
 rather than gold: they are a redundant wide copy of the same two frames already
 published above in long format, so nothing is lost by not publishing them here.
 Manuscript figures are not published from this folder either; they are produced

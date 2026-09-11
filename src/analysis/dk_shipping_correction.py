@@ -31,7 +31,8 @@ transport) of the ``DIO`` sheet to Danish industry :math:`j` and
 
 **The workbook is not opened here.** :mod:`analysis.build_shipping_inputs` is
 the silver stage that reads it and writes
-``data/silver/inputs/dst_water_transport_domestic_share.csv``, carrying both
+``data/silver/dst_input_output/dst_water_transport_domestic_share.csv``,
+carrying both
 quantities of the quotient beside the share itself; this module reads that file
 with :func:`dst_domestic_intermediate_share`. Before the routing, this module
 read bronze and wrote gold in one step, which is medallion rule 4 broken and no
@@ -132,22 +133,25 @@ from __future__ import annotations
 import os
 import pickle
 import tempfile
+from pathlib import Path
 from typing import Sequence
 
 import numpy as np
 import pandas as pd
 
 from analysis.build_shipping_inputs import (DST_SHEET, EXPENDITURE_CSV,
+                                            EXPENDITURE_PATH,
                                             RORMOSE_2019_SHARE,
                                             RORMOSE_CROSS_CHECK_YEAR,
                                             RORMOSE_TOLERANCE,
-                                            SECTOR_GROUP_CSV, SHARE_CSV)
+                                            SECTOR_GROUP_PATH, SHARE_CSV,
+                                            SHARE_PATH)
 from analysis.constants import (ANALYSIS_YEAR, BACKGROUND_TAG, CAPITAL,
                                 EXIOBASE_RELEASE, K_DK, N_FINAL_DEMAND,
                                 N_SECTORS, RELEASE_LABEL, background_stem,
                                 eriksen_folder, model_label, table_year,
                                 write_release_sidecar)
-from paths import MRIO_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
+from paths import MRIO_DIR, OUTPUT_DIR
 
 FOLDER = "10_sea_transport_reallocation"
 
@@ -200,18 +204,24 @@ PHI_ENV = "HC_SHIPPING_PHI"
 PHI_GRID: tuple[float, ...] = (0.05, 0.065, 0.077, 0.09, 0.10, 0.125, 0.15)
 
 
-def _silver(name: str) -> str:
+def _silver(path: Path) -> str:
     """Path of a silver product, checked to exist.
+
+    Takes the resolved path rather than a bare file name: the three products
+    this module reads sit in three different silver folders, because silver
+    mirrors bronze by provenance and they come from three providers. A helper
+    that joined a name onto one folder would have to pick one of the three.
 
     Parameters
     ----------
-    name : str
-        File name under ``data/silver/inputs/``.
+    path : Path
+        One of :data:`analysis.build_shipping_inputs.SHARE_PATH`,
+        ``EXPENDITURE_PATH`` or ``SECTOR_GROUP_PATH``.
 
     Returns
     -------
     str
-        Absolute path to the file.
+        The path, as text, once it is known to exist.
 
     Raises
     ------
@@ -221,7 +231,6 @@ def _silver(name: str) -> str:
         something to fall back from: falling back to the workbook is exactly
         the layer skip this routing removed.
     """
-    path = SILVER_INPUT_DIR / name
     if not path.exists():
         raise FileNotFoundError(
             f"{path} is missing. It is written by the silver stage, which "
@@ -257,7 +266,7 @@ def domestic_share_rows() -> pd.DataFrame:
     # 0.0773547579047825. phi multiplies a row block of A before a Leontief
     # inversion, so a one-bit difference here is a difference in a published
     # number, and routing this read through silver would have moved one.
-    table = pd.read_csv(_silver(SHARE_CSV),
+    table = pd.read_csv(_silver(SHARE_PATH),
                         dtype={"dst_table_year": str, "background_year": str},
                         float_precision="round_trip")
     cross = table.loc[table.dst_table_year == RORMOSE_CROSS_CHECK_YEAR, "phi"]
@@ -435,7 +444,7 @@ def _cbs_expenditure_frame(analysis_year: str) -> pd.DataFrame:
     KeyError
         If the silver table has no block for the analysis year asked for.
     """
-    table = pd.read_csv(_silver(EXPENDITURE_CSV),
+    table = pd.read_csv(_silver(EXPENDITURE_PATH),
                         dtype={"analysis_year": str},
                         float_precision="round_trip")
     block = table[table.analysis_year == str(analysis_year)]
@@ -465,7 +474,7 @@ def _sector_group_by_code() -> dict[str, str]:
         EXIOBASE industry code as the background labels carry it, e.g.
         ``"A_PARI"``, to its aggregate group name, e.g. ``"Transport"``.
     """
-    table = pd.read_csv(_silver(SECTOR_GROUP_CSV))
+    table = pd.read_csv(_silver(SECTOR_GROUP_PATH))
     return dict(zip(table["exiobase_industry_code"], table["sector_group"]))
 
 
