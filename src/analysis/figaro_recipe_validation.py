@@ -62,7 +62,33 @@ GROUPS_DST = [
 ]
 
 
-def _shares(values, keys, groups):
+def _shares(
+    values: np.ndarray,
+    keys: list,
+    groups: list[tuple[str, str]],
+) -> dict[str, float]:
+    """Aggregate a value vector into named groups by regex-matched key.
+
+    Parameters
+    ----------
+    values : numpy.ndarray
+        Values to sum, aligned one-to-one with ``keys``.
+    keys : list
+        Row labels (product or industry codes/names) tested against each
+        group's pattern.
+    groups : list of (str, str)
+        ``(group_name, regex_pattern)`` pairs; a key is assigned to a group
+        when its pattern matches (case-insensitively), and may match more
+        than one group since group patterns are not mutually exclusive by
+        construction here.
+
+    Returns
+    -------
+    dict of str to float
+        Each group's share of ``sum(values)`` as a percentage (0-100), plus
+        an ``"Other"`` entry making the shares sum to 100. Zero when
+        ``sum(values)`` is zero.
+    """
     tot = float(np.sum(values))
     out = {}
     for name, pat in groups:
@@ -73,7 +99,20 @@ def _shares(values, keys, groups):
     return out
 
 
-def main():
+def main() -> None:
+    """Compare the Danish health input recipe across EXIOBASE, FIGARO and DST.
+
+    Aggregates the Danish health industry's intermediate-input structure into
+    the ten common groups of the module docstring for three sources: the
+    EXIOBASE Z-matrix column for Danish health and social work, Eurostat
+    FIGARO's Q86 (human health) use-table rows, and Statistics Denmark's
+    117-industry IO table columns 860010/860020, each as a percentage share.
+    Writes
+    ``data/gold/results/06_benchmarks_validation/recipe_validation_three_way.csv``
+    and prints the comparison table. Reads ``HC_ANALYSIS_YEAR`` from the
+    environment (default ``"2022"``) to select the FIGARO and DST source
+    files.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     # --- EXIOBASE ---
     with open(os.path.join(str(BACKGROUND_DIR),

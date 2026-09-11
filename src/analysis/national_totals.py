@@ -37,7 +37,27 @@ INDICATORS = [(0, "climate_change", "kt CO2eq"), (1, "material_extraction", "kt"
               (6, "waste_generation", "kt")]
 
 
-def main():
+def main() -> None:
+    """Build the Danish national footprint and healthcare's share of it.
+
+    For each of the five ``INDICATORS``, computes the national
+    consumption-based footprint by purchased product and by producing node
+    (asserting the two decompositions sum to the same total within relative
+    tolerance ``1e-9``), the per-163-sector healthcare-vs-national ratio, and
+    the aggregate healthcare share of the national total. Writes
+    ``national_footprint_by_purchased_product.csv``,
+    ``national_footprint_by_producing_node.csv``,
+    ``national_vs_healthcare_by_product_group.csv`` and
+    ``national_totals_summary.csv`` to
+    ``data/gold/results/00_core_footprint/``, and prints a one-line summary
+    per indicator.
+
+    Raises
+    ------
+    AssertionError
+        If the purchased-product and producing-node totals disagree by more
+        than a relative ``1e-9`` for any indicator.
+    """
     out_dir = os.path.join(str(OUTPUT_DIR), "00_core_footprint")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(str(BACKGROUND_DIR),

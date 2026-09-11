@@ -164,6 +164,14 @@ class Edit:
         return float(self.k_t) * float(self.k_p)
 
     def __post_init__(self) -> None:
+        """Validate the coefficients and evidence fields after construction.
+
+        Raises
+        ------
+        ValueError
+            If ``k_t`` or ``k_p`` is not a fraction in ``[0, 1]``, or if
+            ``source`` is empty (an edit without evidence is an opinion).
+        """
         if not 0.0 <= self.k_t <= 1.0:
             raise ValueError(f"k_t must be a fraction in [0, 1], got {self.k_t}")
         if not 0.0 <= self.k_p <= 1.0:

@@ -49,7 +49,18 @@ from paths import BACKGROUND_DIR, OUTPUT_DIR
 NS, NY, K_DK, K_HEALTH, K_CHEM, K_INSTR = 163, 7, 6, 137, 62, 89
 
 
-def main():
+def main() -> None:
+    """Compare the healthcare demand vector against EXIOBASE's own DK column.
+
+    For pharmaceuticals, medical appliances and healthcare services, computes
+    ``y_H`` (the study's superimposed demand, M.EUR) against EXIOBASE's native
+    Danish final-demand entry for the mapped sector, and their ratio. Writes
+    the table to
+    ``data/gold/results/06_benchmarks_validation/demand_vector_consistency.csv``
+    and prints it alongside the total Danish final demand EXIOBASE records.
+    Reads ``HC_ANALYSIS_YEAR`` from the environment (default ``"2022"``) to
+    select the background year's pickled background information.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     bgy = "2022" if year == "2022" else "2016"
     with open(os.path.join(str(BACKGROUND_DIR),
