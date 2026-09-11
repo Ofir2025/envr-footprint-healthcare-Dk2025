@@ -1,4 +1,4 @@
-# 01_eriksen_replication/2022_uncorrected
+# 01_eriksen_replication/2022_uncorrected — EXIOBASE v3.8.2 IOT_2022_ixi, no Danish shipping correction, health-care boundary, capital excluded
 
 **Eriksen replication, the manuscript layer**
 

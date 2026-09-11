@@ -134,4 +134,4 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 06
 - **Rows:** 9
 - **Format:** csv
 - **Dimensions:** `contribution_group`, `driver`
-- **Measures:** `value_2019_uncorrected`, `value_2019_shipping_corrected`, `value_2022_shipping_corrected`, `delta_correction_kt`, `delta_year_kt`, `share_of_correction_change_pct`, `share_of_year_change_pct`
+- **Measures:** `value_2019_uncorrected`, `value_2019c`, `value_2022c`, `delta_correction_kt`, `delta_year_kt`, `share_of_correction_change_pct`, `share_of_year_change_pct`

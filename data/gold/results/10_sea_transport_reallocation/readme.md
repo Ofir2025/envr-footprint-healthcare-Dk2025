@@ -21,11 +21,11 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 10
 
 ### `phantom_shipping_input_removed_by_industry.csv`
 
-- **Rows:** 275
+- **Rows:** 409
 - **Format:** csv
 - **Units:** M.EUR
-- **Dimensions:** `country_producing`, `sector_producing`, `country_consuming`, `sector_consuming`, `unit`
-- **Measures:** `background_year`, `analysis_year`, `value`
+- **Dimensions:** `country_producing`, `sector_producing`, `background_year`, `country_consuming`, `sector_consuming`, `unit`
+- **Measures:** `analysis_year`, `value`
 
 ### `phi_sensitivity_2016.csv`
 
@@ -43,8 +43,8 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 10
 
 ### `shipping_reallocation_diagnostics.csv`
 
-- **Rows:** 22
+- **Rows:** 33
 - **Format:** csv
 - **Units:** %, M.EUR, share (dimensionless)
-- **Dimensions:** `country_producing`, `sector_producing`, `quantity`, `unit`, `source`, `phi_source`
-- **Measures:** `background_year`, `analysis_year`, `value`, `phi_applied`, `rormose_2019_cross_check`
+- **Dimensions:** `country_producing`, `sector_producing`, `background_year`, `quantity`, `unit`, `source`, `phi_source`
+- **Measures:** `analysis_year`, `value`, `phi_applied`, `rormose_2019_cross_check`

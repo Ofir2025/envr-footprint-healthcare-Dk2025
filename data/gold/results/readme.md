@@ -58,10 +58,37 @@ that nothing in the current revision cites.
 Use lowercase `snake_case`, add the analysis year where a table is
 year-specific, and keep out editor lock files and temporary
 artefacts. A layer whose results differ by model run is stored under a
-subdirectory naming BOTH the reference year and the background
-correction state (`01_eriksen_replication/2022_shipping_corrected`,
-`02_scopes_wood_hertwich/2022_uncorrected`), so a run for one year or
-correction state cannot overwrite another, and no reader has to infer
-which correction a folder carries. A bare year in the name cannot say
-it: while layer 02 used one, the scope figures of the uncorrected
-variants were drawn from the shipping-corrected tables.
+variant subdirectory named `<year><letter>`, where the letter fixes
+all four axes that change the numbers - EXIOBASE release, Danish
+sea-transport correction, care boundary, capital treatment - and is
+resolved by `analysis.constants.variant_folder` in Python and
+`variant_name()` in R, never re-derived. A run for one configuration
+therefore cannot overwrite another's, and no reader has to infer which
+release or correction a folder carries. A bare year could not say it:
+while layer 02 used one, the scope figures of one variant were drawn
+from another's tables.
+
+### Variant folders on disk (15)
+
+| folder | configuration |
+|:---|:---|
+| `01_eriksen_replication/2019_uncorrected` | EXIOBASE v3.8.2 IOT_2016_ixi, no Danish shipping correction, health-care boundary, capital excluded - not variant a, which is on v3.7 |
+| `01_eriksen_replication/2019a` | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
+| `01_eriksen_replication/2019b` | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
+| `01_eriksen_replication/2019c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
+| `01_eriksen_replication/2019d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
+| `01_eriksen_replication/2022_uncorrected` | EXIOBASE v3.8.2 IOT_2022_ixi, no Danish shipping correction, health-care boundary, capital excluded |
+| `01_eriksen_replication/2022c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
+| `01_eriksen_replication/2022d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
+| `02_scopes_wood_hertwich/2019a` | EXIOBASE v3.7, no Danish shipping correction, health-care boundary, capital excluded - the submitted configuration |
+| `02_scopes_wood_hertwich/2019b` | EXIOBASE v3.7, Danish shipping correction, health-care boundary, capital excluded |
+| `02_scopes_wood_hertwich/2019c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
+| `02_scopes_wood_hertwich/2019d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
+| `02_scopes_wood_hertwich/2022_uncorrected` | EXIOBASE v3.8.2 IOT_2022_ixi, no Danish shipping correction, health-care boundary, capital excluded |
+| `02_scopes_wood_hertwich/2022c` | EXIOBASE v3.8.2, Danish shipping correction, health-care boundary, capital excluded - the headline configuration |
+| `02_scopes_wood_hertwich/2022d` | EXIOBASE v3.8.2, Danish shipping correction, health care plus child and elder care, capital endogenised |
+
+Two configurations carry a self-describing name instead of a letter
+rather than being given one they were not assigned; both are v3.8.2
+without the shipping correction, and neither is variant a, which is on
+v3.7.

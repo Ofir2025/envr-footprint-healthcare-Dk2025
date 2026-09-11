@@ -1,4 +1,4 @@
-contribution_group,value_2019_uncorrected,value_2019_shipping_corrected,value_2022_shipping_corrected,delta_correction_kt,delta_year_kt,share_of_correction_change_pct,share_of_year_change_pct,driver
+contribution_group,value_2019_uncorrected,value_2019c,value_2022c,delta_correction_kt,delta_year_kt,share_of_correction_change_pct,share_of_year_change_pct,driver
 Transport,2605.151771420495,788.899107574229,566.5316460762235,-1816.2526638462662,-222.36746149800547,78.77521660190364,-35.82558346476132,"correction step: sea-transport reallocation; year step: expenditure and background growth, transport unaffected once both ends are corrected"
 Other,487.61434958467675,453.5422058191981,292.9539024596476,-34.07214376547864,-160.58830335955048,1.4777902648923338,-25.87235392586244,"background model and expenditure growth, no single dominant cause in either step"
 Operational impacts,163.39469914555332,163.39469914555332,130.1262816237094,0.0,-33.26841752184393,-0.0,-5.359869023283508,"background model and expenditure growth, no single dominant cause in either step"
