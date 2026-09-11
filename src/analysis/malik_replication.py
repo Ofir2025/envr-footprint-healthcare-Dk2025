@@ -54,7 +54,20 @@ MALIK_REFERENCE = [
 ]
 
 
-def main():
+def main() -> None:
+    """Apply Malik et al.'s domestic-only boundary to the Danish model.
+
+    For each of the five headline indicators, computes the full-MRIO footprint
+    and a domestic-only variant on the Danish block's own Leontief inverse,
+    each with the national denominator it is a share of, and the three
+    expenditure components' total and direct intensities. Writes
+    ``malik_domestic_vs_full.csv``, ``malik_component_intensities.csv`` and
+    ``malik_published_reference.csv`` to
+    ``data/gold/results/07_malik_replication/``.
+
+    The background is ``analysis.constants.BACKGROUND_YEAR``, which carries
+    both ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     bgy = BACKGROUND_YEAR  # honours HC_BACKGROUND_TAG
     with open(os.path.join(str(BACKGROUND_DIR),
