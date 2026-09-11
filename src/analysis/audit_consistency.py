@@ -926,6 +926,39 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
     ("4,711.53", "scope partition total before the same change; it is 4,710.58"),
     ("4,065 to 5,532", "95 % interval before the same change; it is 4,032 to 5,488"),
     ("4,735 kt", "Monte Carlo median before the same change; it is 4,697 kt"),
+    # Superseded on 11 September 2026, when eight modules stopped resolving
+    # their background by testing the analysis year and began reading
+    # analysis.constants.BACKGROUND_YEAR, which carries HC_BACKGROUND_TAG. Each
+    # of these was computed on the uncorrected background and published beside
+    # figures that were not.
+    ("5,318.31", "the ledger's MRIO footprint decomposition on the uncorrected "
+                 "background; it is 3,906.45 kt. Section 10 legitimately quotes "
+                 "5,318.3 as the 2022_uncorrected variant's own total, which is "
+                 "a different claim and is deliberately not banned"),
+    ("5,436.86", "Lenzen's climate KPI on the uncorrected background; it is "
+                 "4,025.00 kt, the MRIO component plus the direct row"),
+    ("4,437.6", "Cabernard's T1 naive target scope 3 on the uncorrected "
+                "background; it is 2,841.4 kt"),
+    ("4.71 Mt", "this study's headline in the boundary-matched ladder before "
+                "the target share was read per year; it is 4.68 Mt"),
+    ("13.19", "this study's national per-capita footprint; it is 13.15 t"),
+    # Superseded on the same day, when the capital layer's own tables were read
+    # instead of the pre-revision figures quoted beside them.
+    ("4,062 kt", "capital baseline; it is 4,025.0 kt"),
+    ("4,598 kt", "capital, exogenous service flow; it is 4,559.7 kt"),
+    ("4,849 kt", "capital, endogenised on the published Sodersten matrices; it "
+                 "is 4,808.9 kt"),
+    ("4,914 kt", "capital, endogenised on the simplified construction; it is "
+                 "4,874.7 kt"),
+    # Superseded when the self-supply loop, the waste test and the variance
+    # caption were each read from the file that states them.
+    ("3.2 kt", "the health sector's self-supply loop; it is 1.83 kt"),
+    ("240.4 kt", "the inherited hybrid extension's direct waste; it is "
+                 "159.99 kt, recomputed from the intensity matrix"),
+    ("90.7 %", "the variance shares' own terms without the covariance row; "
+               "they sum to 90.6 %"),
+    ("78.9 %", "the top of the input-output variance share across the "
+               "correlation sweep; the range is 78.4 % to 78.6 %"),
 )
 
 #: Documents that record what a number used to be, and therefore must be

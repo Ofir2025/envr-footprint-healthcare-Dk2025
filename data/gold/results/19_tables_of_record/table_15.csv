@@ -1,7 +1,7 @@
 Parameter,GSD,95 % factor range,Basis
-Input-output model,CV 8.35 %,0.85 to 1.18,"Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish health-care GHG footprint from a full MRIO Monte Carlo (Eora Q, T, y). Applied jointly to all MRIO components."
+Input-output model,CV 8.35 %,0.85 to 1.18,"Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish health-care GHG footprint from an Eora MRIO Monte Carlo, transferred from their 2.84 Mt to this study's 4.675 Mt"
 Direct operations,1.10,0.83 to 1.21,Statistics Denmark DRIVHUS/AFFALD accounts; residual risk is the alpha-proration of industry 880000 and the medical-N2O netting
 Anaesthetic gases,1.30,0.60 to 1.67,"Denmark NID 2.G.3.a activity +/-25 %, EF +/-20 % (DCE 2024); volatile agents are a transferred proxy"
 Inhaler propellants,1.15,0.76 to 1.32,register dispensing x producer HFC content (Danish EPA F-gas inventory / Vestbo & Press-Kristensen 2023)
 Employee commuting,1.25,0.65 to 1.55,ratio method on NL base values with DST employment and TU distances
-Patient and visitor travel,1.40,0.52 to 1.93,no Danish source; Dutch base is itself a transplanted English per-capita figure
+Patient and visitor travel,1.40,0.52 to 1.93,"patient travel from the Danish travel survey (TU Tabel 15, purpose 33); the VISITOR part alone has no Danish source, carrying the NHS England ratio 0.236 (Tennison 2021)"
