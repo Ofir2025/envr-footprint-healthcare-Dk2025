@@ -64,6 +64,84 @@ data defects set out in section 2, to state the release rather than the family.
 
 ---
 
+## 1b. The case for v3.8.2, tested against every later release
+
+The release choice is the single decision that moves this study's numbers most,
+so it is settled by measurement rather than by preference. Every EXIOBASE release
+published since v3.8.2 — v3.9.4, v3.9.5, v3.9.6, v3.10.1 and v3.10.2 — was read
+and its Danish health industry compared against Statistics Denmark's own
+published output for the same year. Danish **health and social work** total
+output, million euro, against the `Total Output` row of the published
+117-industry table (DST industries 86, 87 and 88), converted at each year's
+Nationalbank average:
+
+| Release | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 |
+|:---|---:|---:|---:|---:|---:|---:|---:|
+| v3.8.2 | 37,163 | 38,298 | **17,590** | **18,646** | 42,834 | 42,028 | 43,955 |
+| v3.9.6 | 41,030 | 39,005 | 38,956 | 41,883 | 43,615 | **30,434** | **31,745** |
+| v3.10.2 | 36,756 | 40,229 | 43,969 | 42,868 | 46,953 | **16,336** | **16,326** |
+| Statistics Denmark | 36,640 | — | — | 39,059 | — | — | 45,321 |
+
+As a ratio to the national accounts, in the three years the accounts are held
+for:
+
+| Release | 2016 | 2019 | 2022 |
+|:---|---:|---:|---:|
+| v3.8.2 | 1.014 | **0.477** | **0.970** |
+| v3.9.4 / v3.9.5 / v3.9.6 | 1.120 | 1.072 | 0.700 |
+| v3.10.1 / v3.10.2 | **1.003** | 1.098 | 0.360 |
+
+**Every release has a two-year window in which the Danish health industry is
+roughly half of what the national accounts report, and the window moves with the
+release.** The bolded cells in the first table are those windows: each is
+bracketed on both sides by years that agree with the accounts to within a few per
+cent, so the pattern is neither a trend in the underlying economy nor noise in
+the comparison.
+
+Four conclusions follow, each of them read off the table rather than argued:
+
+**For 2022, v3.8.2 is the only defensible release.** It returns 0.970 of the
+national accounts. v3.9.x returns 0.700 and v3.10.x 0.360 — the latter is the
+defect on which this study's rejection of v3.10.2 rests, and the comparison shows
+that v3.9 fails the same year, less severely. No release published since v3.8.2
+improves on it for the study's primary year, and two make it substantially worse.
+
+**For 2016, any of the three would serve**, with v3.10.x nominally closest at
+1.003 and v3.8.2 at 1.014. The choice of v3.8.2 costs about one percentage point
+of agreement in 2016 and buys the 2022 table, which is the study's headline.
+
+**A 2019 analysis cannot run on v3.8.2's own 2019 table.** That table puts Danish
+health at 0.477 of the national accounts, and 2018 is the same. Running 2019
+Danish expenditure against the **2016** table is therefore not a limitation
+inherited from v3.7's shorter series; on v3.8.2 it is the only correct choice
+available, and this is the evidence for it.
+
+**Patch releases within a generation do not move the Danish block.** v3.9.4,
+v3.9.5 and v3.9.6 return identical Danish health output in every year tested, as
+do v3.10.1 and v3.10.2, even though every archive checksum differs. The choice
+that matters is the generation, not the patch.
+
+The comparison is published as
+`data/gold/results/09_exiobase_release_diagnostics/dk_health_output_by_release.csv`
+and rebuilt by `analysis.release_health_series`. The release side is each
+archive's `x.txt` total-output vector, retrieved by
+`analysis.fetch_release_output_vectors`, which reads the remote zip's central
+directory and fetches only that member — 0.09 MB per release-year instead of a
+0.76 GB archive.
+
+### A note on now-casting
+
+EXIOBASE's own record for v3.9 states that the core model rests on supply-use
+tables to 2020 and that later years are now-cast, and recommends 2020 as the
+latest year for most analysis. This study's 2022 table is therefore a now-cast on
+every release that publishes one, which is recorded as an accepted limitation in
+`docs/revision/defects_and_fixes.md` (anomaly A8b). The table above shows that
+the now-cast is not uniformly unreliable — v3.8.2's 2020 to 2022 agree with the
+accounts — but that where a release's now-cast fails for Danish health, it fails
+by a factor of two to three rather than by a margin.
+
+---
+
 ## 2. Why the version is not a detail
 
 Reproduce this section's diagnostics with:
