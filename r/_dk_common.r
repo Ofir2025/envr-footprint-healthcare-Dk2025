@@ -233,6 +233,111 @@ STEENMEIJER_COLS <- list(
     Netherlands                          = "#D0C3E0")
 )
 
+# ---- Steenmeijer et al. (2022) figures 1-3: the article's own grouping -------
+# The groups, their ORDER and their legend wording are the thing being
+# replicated, so they are stated ONCE, here, and read by every script that
+# draws these three figures - r/plot_steenmeijer_replication.r (the article's
+# palette, NL beside DK) and r/plot_steenmeijer_variant_a.r (variant a, a new
+# palette, share labels). Held in common rather than copied, because two
+# copies of a legend order drift and a drifted copy is no longer a replication.
+#
+# Read off the printed legends (p e954, e955) and checked segment by segment
+# against the published vector geometry, NOT off the archived classification
+# workbook: the two disagree in two places and the printed figure is the thing
+# being replicated. See docs/methods/replications.md, section 13.
+
+# The five impact categories in the article's order, with its axis wording and
+# units. The axis text is a factor level rather than a plotmath expression, so
+# the sub/superscripts are carried as Unicode escapes in the string itself:
+# expressions would also refuse to wrap onto the multiple lines these need.
+STEEN_IND_ORDER <- c("climate_change", "material_extraction",
+                     "blue_water_consumption", "land_use", "waste_generation")
+STEEN_IND_LABEL <- c(
+  climate_change         = "Climate change\n(kilotonnes of\nCO₂ equivalent)",
+  material_extraction    = "Material extraction\n(kilotonnes)",
+  blue_water_consumption = "Blue water\nconsumption\n(Mm³)",
+  land_use               = "Land use\n(km²)",
+  waste_generation       = "Waste generation\n(kilotonnes)")
+
+# Figure 1, the contribution side. Anything unlisted falls into the figure's
+# own "Other (scope 3)".
+STEEN_FIG1_GROUP <- c(
+  "Chemical" = "Pharmaceuticals and chemical products (scope 3)",
+  "Electricity" = "Heat and electricity (scope 2)",
+  "Natural gas and gaseous fuels" = "Heat and electricity (scope 2)",
+  "Steam, hot water supply and water distribution" =
+    "Heat and electricity (scope 2)",
+  "Operational impact" = "Operational impacts (scope 1)",
+  "Electrical, electronic and measuring equipment" =
+    "Medical and electrical equipment and machinery (scope 3)",
+  "Services" = "Services (scope 3)",
+  "Food and catering" = "Food and food services (scope 3)",
+  "Private travel" = "Individual travel (scope 3 and out-of-scope)")
+STEEN_FIG1_OTHER <- "Other (scope 3)"
+
+# Figure 2, the sector hotspot side, with its own "Other".
+STEEN_FIG2_GROUP <- c(
+  "Electricity" = "Electricity sector",
+  "Chemical" = "Pharmaceutical and chemical industry",
+  "Coal and Petroleum" = "Fossil fuel industry",
+  "Natural gas and gaseous fuels" = "Fossil fuel industry",
+  "Food and catering" = "Agricultural sector",
+  "Minerals and Metals" = "Mining of minerals and metals",
+  "Operational impact" = "Operational (direct) impacts")
+STEEN_FIG2_OTHER <- "Other"
+
+# Figure 3, the world regions, keyed by the EXIOBASE aggregate the gold tables
+# carry. The home country and "Europe excluding it" are named per country.
+#
+# `home` is always the bare country name ("Netherlands", "Denmark"): that is
+# how the article's own legend prints the standalone entry. English needs the
+# definite article only inside the "Europe (excluding ...)" phrase - "the
+# Netherlands" there, but "Denmark" unchanged - so that phrasing is applied
+# locally rather than folded into `home` itself.
+steen_with_article <- function(home)
+  if (home == "Netherlands") paste("the", home) else home
+
+steen_fig3_group <- function(region, home) {
+  out <- unname(c("Asia and Pacific" = "Asia-Pacific",
+                  "Middle East" = "Middle East", "America" = "Americas",
+                  "Africa" = "Africa")[region])
+  out[region == "Europe"] <- sprintf("Europe (excluding %s)",
+                                     steen_with_article(home))
+  out[region %in% c("Netherlands", "Denmark")] <- home
+  if (any(is.na(out)))
+    stop(sprintf("no figure-3 region for: %s",
+                 paste(unique(region[is.na(out)]), collapse = ", ")))
+  out
+}
+
+#: Legend order of figure 3, top to bottom, which is also the stacking order
+#: from the top of the bar down.
+steen_fig3_levels <- function(home)
+  c("Africa", "Americas", "Middle East",
+    sprintf("Europe (excluding %s)", steen_with_article(home)),
+    "Asia-Pacific", home)
+
+# The part of the private-travel life-cycle result that was never bridged to an
+# EXIOBASE node. The captions of figures 2 and 3 say this component was
+# distributed proportionally among all groups and all regions, which for a
+# 100 % stacked bar is the same as computing the shares without it.
+STEEN_UNDISTRIBUTED_CODE <- "B_REST"
+
+#: Map a grouping column onto a figure's legend entries, with everything
+#: unlisted falling into that figure's own "Other".
+steen_to_group <- function(x, map, other)
+  unname(ifelse(x %in% names(map), map[x], other))
+
+#: Shares within each impact category, from a table already carrying
+#: `figure_group`.
+steen_shares_of <- function(d) {
+  d %>%
+    group_by(indicator, figure_group) %>%
+    summarise(value = sum(value), .groups = "drop_last") %>%
+    mutate(share_pct = 100 * value / sum(value)) %>%
+    ungroup()
+}
+
 # One hue per impact category, so a faceted sheet is not five identical blue
 # panels. Semantically ordered (warming red, materials brown, water blue, land
 # green, waste purple) and drawn from the Okabe-Ito safe set where possible.
