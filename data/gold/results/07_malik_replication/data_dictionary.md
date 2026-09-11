@@ -78,8 +78,11 @@ units and are labelled as such wherever they are quoted.
 | `full_mrio` | measure | float64 | varies by row | 4025.0002397773846 |
 | `domestic_only` | measure | float64 | varies by row | 818.1006438667325 |
 | `domestic_share_of_full_pct` | measure | float64 | % | 20.325480624368364 |
+| `national_full_mrio` | measure | float64 | varies by row | 67518.62638160589 |
+| `national_domestic_only` | measure | float64 | varies by row | 20939.33591985582 |
 | `share_of_national_full_pct` | measure | float64 | % | 5.96131831389555 |
 | `share_of_national_domestic_pct` | measure | float64 | % | 3.907003770310427 |
+| `denominator_note` | dimension | str |  | share_of_national_full_pct is over natio |
 
 ### `malik_published_reference.csv`
 

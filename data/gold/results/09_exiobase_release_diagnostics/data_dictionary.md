@@ -56,15 +56,16 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `mrio_release` | dimension | str |  | v3.10.2 |
-| `mrio_year` | measure | int64 |  | 2022 |
+| `mrio_year` | measure | int64 |  | 2016 |
 | `country_producing` | dimension | str |  | DNK |
 | `sector_producing` | dimension | str |  | Health and social work |
 | `exiobase_industry_index` | dimension | str |  | 137 |
 | `dst_nace_prefixes` | dimension | str |  | 86;87;88 |
-| `exiobase_output_meur` | measure | float64 | M.EUR | 16326.113359 |
-| `national_accounts_output_meur` | measure | float64 | M.EUR | 45320.98661218329 |
-| `ratio_exiobase_over_dst` | measure | float64 | M.EUR | 0.3602329644476711 |
+| `exiobase_output_meur` | measure | float64 | M.EUR | 36755.9612004 |
+| `national_accounts_output_meur` | measure | float64 | M.EUR | 36639.50881104604 |
+| `ratio_exiobase_over_dst` | measure | float64 | M.EUR | 1.0031783283437157 |
 | `unit` | dimension | str |  | M.EUR |
+| `exiobase_source` | dimension | str |  | data/bronze/exiobase/v3_10_2/IOT_2016_ix |
 | `source_national_accounts` | dimension | str |  | Statistics Denmark, published 117-indust |
 
 ### `industry33_output_by_region.csv`
@@ -72,7 +73,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `mrio_release` | dimension | str |  | v3.10.2 |
-| `mrio_year` | measure | int64 |  | 2022 |
+| `mrio_year` | measure | int64 |  | 2016 |
 | `country_producing` | dimension | str |  | AUT |
 | `sector_producing` | dimension | str |  | Manufacture of medical, precision and op |
 | `exiobase_industry_index` | measure | int64 | M.EUR | 89 |

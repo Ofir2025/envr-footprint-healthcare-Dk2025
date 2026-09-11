@@ -21,7 +21,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 05
 
 ### `waste_extension_validation.csv`
 
-- **Rows:** 4
+- **Rows:** 7
 - **Format:** csv
 - **Dimensions:** `source`, `quantity`, `basis`
 - **Measures:** `value_kt`, `analysis_year`

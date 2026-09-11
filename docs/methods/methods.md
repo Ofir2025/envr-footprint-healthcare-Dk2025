@@ -87,7 +87,7 @@ its effect on the result.
   producing-node detail reconciles.
 
 The **double-counting ledger** (`double_counting_ledger.csv`) tests each overlap
-risk numerically, including the intra-sector self-supply term (3.2 kt CO₂e,
+risk numerically, including the intra-sector self-supply term (1.83 kt CO₂e,
 removed) and the pharma-component-vs-procurement question (cleared: different
 channels).
 

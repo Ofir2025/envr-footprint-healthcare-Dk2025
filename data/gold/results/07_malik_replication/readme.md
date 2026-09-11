@@ -32,8 +32,8 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 07
 - **Rows:** 5
 - **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
-- **Dimensions:** `model`, `consuming_country_iso3`, `indicator`, `unit`
-- **Measures:** `analysis_year`, `full_mrio`, `domestic_only`, `domestic_share_of_full_pct`, `share_of_national_full_pct`, `share_of_national_domestic_pct`
+- **Dimensions:** `model`, `consuming_country_iso3`, `indicator`, `unit`, `denominator_note`
+- **Measures:** `analysis_year`, `full_mrio`, `domestic_only`, `domestic_share_of_full_pct`, `national_full_mrio`, `national_domestic_only`, `share_of_national_full_pct`, `share_of_national_domestic_pct`
 
 ### `malik_published_reference.csv`
 
