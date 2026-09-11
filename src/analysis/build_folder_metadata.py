@@ -38,6 +38,7 @@ from __future__ import annotations
 import gzip
 import os
 import re
+from typing import Any
 
 import pandas as pd
 
@@ -64,13 +65,23 @@ ROW_REGIONS = ("RoW Asia and Pacific", "RoW America", "RoW Europe",
                "RoW Africa", "RoW Middle East")
 
 
-def _is_measure_dtype(dtype) -> bool:
+def _is_measure_dtype(dtype: Any) -> bool:
     """Whether a column of this dtype can carry a numeric measure.
 
     ``pandas.api.types.is_numeric_dtype`` returns ``True`` for boolean
     columns (bool is a numpy integer subtype), which would otherwise call
     every ``is_*`` / ``has_*`` flag a measure. A measure is a quantity, and a
     boolean is not one, so it is excluded here explicitly.
+
+    Parameters
+    ----------
+    dtype : Any
+        A pandas or numpy column dtype, as returned by ``Series.dtype``.
+
+    Returns
+    -------
+    bool
+        ``True`` if numeric and not boolean.
     """
     return (pd.api.types.is_numeric_dtype(dtype)
             and not pd.api.types.is_bool_dtype(dtype))
@@ -545,6 +556,20 @@ _PCT_SUFFIXES = ("_pct", "_percent", "_share")
 
 
 def _is_percentage_name(col: str) -> bool:
+    """Whether a numeric column's name marks it as a percentage.
+
+    Parameters
+    ----------
+    col : str
+        Column name.
+
+    Returns
+    -------
+    bool
+        ``True`` if the (lower-cased) name ends in one of ``_PCT_SUFFIXES``
+        or contains ``"share"``. Meaningful only for numeric columns; see
+        ``_column_unit``.
+    """
     lc = col.lower()
     return lc.endswith(_PCT_SUFFIXES) or "share" in lc
 
@@ -571,13 +596,28 @@ _NO_UNIT_PREFIXES = ("n_",)
 
 
 def _is_no_unit_name(col: str) -> bool:
+    """Whether a column's name marks it as inherently dimensionless.
+
+    Parameters
+    ----------
+    col : str
+        Column name.
+
+    Returns
+    -------
+    bool
+        ``True`` if the (lower-cased) name is in ``_NO_UNIT_NAMES``, ends in
+        one of ``_NO_UNIT_SUFFIXES``, or starts with one of
+        ``_NO_UNIT_PREFIXES`` (identifiers, codes, years, counts, ranks,
+        flags, and ratios).
+    """
     lc = col.lower()
     return (lc in _NO_UNIT_NAMES
             or lc.endswith(_NO_UNIT_SUFFIXES)
             or lc.startswith(_NO_UNIT_PREFIXES))
 
 
-def _column_unit(col: str, dtype, dims: set[str], unit_of: str) -> str:
+def _column_unit(col: str, dtype: Any, dims: set[str], unit_of: str) -> str:
     """The unit for one column - only ever the unit that column itself
     carries, never the table's shared unit borrowed for an unrelated column.
 
@@ -585,8 +625,8 @@ def _column_unit(col: str, dtype, dims: set[str], unit_of: str) -> str:
     ----------
     col : str
         Column name.
-    dtype
-        The column's pandas dtype.
+    dtype : Any
+        The column's pandas dtype, as returned by ``Series.dtype``.
     dims : set of str
         Columns this table classifies as dimensions (see `describe_table`).
     unit_of : str

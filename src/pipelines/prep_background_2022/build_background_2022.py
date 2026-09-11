@@ -31,9 +31,12 @@ Design decisions (documented for the methods section):
 Run:  PYTHONPATH=src .venv/bin/python -m pipelines.prep_background_2022.build_background_2022
 """
 
+from __future__ import annotations
+
 import os
 import pickle
 import time
+from typing import Callable
 
 import numpy as np
 import pandas as pd
@@ -59,7 +62,30 @@ SATELLITE_DOMAINS = [
 ]
 
 
-def main():
+def main() -> None:
+    """Build the v3.10.2 EE-MRIO pickles for 2022 and write them, version-tagged.
+
+    Reads the official v3.10.2 txt distribution (``Z``, ``Y``, ``x``, and the
+    per-domain satellite accounts), derives ``A = Z @ diag(1/x)`` and inverts
+    ``(I - A)``, screens air-emissions intensities for cross-region outliers
+    (see the module docstring), rebuilds the characterisation matrix ``Q`` by
+    name-matching against the 2016 background with three rows (abiotic
+    extraction, land use, employment) reconstructed from the restructured
+    v3.10.2 names, and reuses the 2011 hybrid waste extension after an
+    ordering check. Writes ``mrio2022_v3_10_2.pkl`` and
+    ``leontief2022_v3_10_2.pkl`` to ``MRIO_DIR`` -- version-tagged so this
+    build cannot overwrite the v3.8.2 background the study's published
+    numbers rest on.
+
+    Raises
+    ------
+    AssertionError
+        If the v3.10.2 region or industry ordering differs from the 2016
+        reference background, if the array shapes are not
+        ``49 * 163`` nodes by ``49 * 7`` final-demand columns, if any GWP
+        stressor fails to match by name, or if the reused waste extension's
+        node/final-demand layout disagrees with the new background.
+    """
     t0 = time.time()
     mrio_dir = str(MRIO_DIR) + os.sep
 
@@ -186,7 +212,19 @@ def main():
     #    fallowed, forest, permanent pastures) - v3.7's "Other land Use: Total"
     #    category no longer exists;
     #  - employment = the six "Employment people" rows (head counts, not hours).
-    def _rebuild_row(row, predicate, what):
+    def _rebuild_row(row: int, predicate: Callable[[str], bool], what: str) -> None:
+        """Rebuild one characterisation row as a 0/1 indicator over ``names``.
+
+        Parameters
+        ----------
+        row : int
+            Row index into the closed-over ``Q`` matrix to overwrite.
+        predicate : callable
+            Function returning ``True`` for a stressor name that belongs in
+            this row's concept.
+        what : str
+            Short description of the concept, for the progress line.
+        """
         Q[row, :] = 0.0
         hits = [i for i, nm in enumerate(names) if predicate(nm)]
         Q[row, hits] = 1.0

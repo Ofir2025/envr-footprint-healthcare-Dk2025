@@ -55,6 +55,8 @@ neither is an error.
 Run: PYTHONPATH=src .venv/bin/python -m analysis.capital_gfcf
 """
 
+from __future__ import annotations
+
 import csv
 import os
 import pickle
@@ -102,13 +104,29 @@ ASSET_BRIDGE = {
 }
 
 
-def _spectral_radius(M, iters=5000, tol=1e-12):
+def _spectral_radius(M: np.ndarray, iters: int = 5000, tol: float = 1e-12) -> float:
     """Largest eigenvalue modulus by power iteration (M is non-negative).
 
     Reported to enough digits to distinguish A from A': the capital
     augmentation shifts rho only in the fourth decimal, so a loose tolerance
     would print the two as identical and hide whether the model stayed
     productive.
+
+    Parameters
+    ----------
+    M : numpy.ndarray
+        Non-negative square matrix, shape ``(n, n)``.
+    iters : int, optional
+        Maximum power-iteration steps. Defaults to 5000.
+    tol : float, optional
+        Convergence tolerance on the estimate's relative change. Defaults to
+        ``1e-12``.
+
+    Returns
+    -------
+    float
+        Estimated spectral radius (dominant eigenvalue modulus), or ``0.0``
+        if the iterate norm collapses to zero.
     """
     v = np.random.default_rng(0).random(M.shape[0])
     v /= np.linalg.norm(v)
@@ -125,8 +143,18 @@ def _spectral_radius(M, iters=5000, tol=1e-12):
     return float(nw)
 
 
-def _read_nabk():
-    """CFC and GFCF of DK health + residential care by asset, M.EUR."""
+def _read_nabk() -> tuple[dict[str, float], dict[str, float]]:
+    """CFC and GFCF of DK health + residential care by asset, M.EUR.
+
+    Reads ``NABK`` (DST NABK69), converting DKK to M.EUR at ``DKK_PER_EUR``.
+
+    Returns
+    -------
+    cfc : dict of str to float
+        Consumption of fixed capital (P.51c) by asset name, M.EUR.
+    gfcf : dict of str to float
+        Gross fixed capital formation (P.51g) by asset name, M.EUR.
+    """
     cfc, gfcf = {}, {}
     with open(NABK, encoding="utf-8-sig") as fh:
         for row in csv.reader(fh, delimiter=";"):
@@ -137,8 +165,34 @@ def _read_nabk():
     return cfc, gfcf
 
 
-def _capital_demand_vector(Y, inds, asset_cfc):
-    """Spread the health CFC over EXIOBASE products, M.EUR."""
+def _capital_demand_vector(
+    Y: np.ndarray, inds: list[str], asset_cfc: dict[str, float]
+) -> tuple[np.ndarray, float]:
+    """Spread the health CFC over EXIOBASE products, M.EUR.
+
+    Each asset's CFC is distributed across its ``ASSET_BRIDGE`` product
+    group in proportion to Denmark's own GFCF column, so only the group
+    weights come from the Danish asset mix.
+
+    Parameters
+    ----------
+    Y : numpy.ndarray
+        Final-demand matrix, shape ``(n_nodes, n_regions * N_FINAL_DEMAND)``.
+    inds : list of str
+        EXIOBASE industry names, in node order within a region.
+    asset_cfc : dict of str to float
+        Consumption of fixed capital by asset name, M.EUR (as returned by
+        ``_read_nabk``).
+
+    Returns
+    -------
+    y : numpy.ndarray
+        Capital demand vector, shape ``(n_nodes,)``, M.EUR.
+    unmapped : float
+        CFC, in M.EUR, that could not be placed (asset missing from
+        ``ASSET_BRIDGE``, non-positive amount, or a zero-weight product
+        group in Denmark's GFCF column).
+    """
     gfcf_dk = Y[:, K_DK * N_FINAL_DEMAND + COL_GFCF].astype(float).copy()
     gfcf_dk[gfcf_dk < 0] = 0.0            # inventory-like negatives
     y = np.zeros(Y.shape[0])
@@ -161,7 +215,26 @@ def _capital_demand_vector(Y, inds, asset_cfc):
     return y, unmapped
 
 
-def main():
+def main() -> None:
+    """Compute the three capital-boundary scenarios and write them to gold.
+
+    Builds baseline (capital excluded), scenario A (exogenous capital
+    service flow from DST NABK69 CFC) and scenario D (full endogenisation,
+    Södersten/Wood & Hertwich 2018, with a productivity check on the
+    augmented technical matrix) for every indicator in ``INDICATORS``, plus a
+    diagnostics table (NABK69 vs. EXIOBASE CFC, spectral radii, inverse
+    verification) and the Danish capital asset mix. Writes
+    ``capital_scenarios_by_indicator.csv``, ``capital_diagnostics.csv`` and
+    ``capital_asset_mix.csv`` to ``data/gold/results/11_capital_gfcf/``, and
+    prints the diagnostics and a scenario pivot table. Reads
+    ``HC_ANALYSIS_YEAR`` from the environment (default ``"2022"``).
+
+    Raises
+    ------
+    SystemExit
+        If the endogenised technical matrix ``A'`` is not productive
+        (spectral radius >= 1).
+    """
     out_dir = os.path.join(OUTPUT_DIR, FOLDER)
     os.makedirs(out_dir, exist_ok=True)
     mdir = str(MRIO_DIR) + os.sep

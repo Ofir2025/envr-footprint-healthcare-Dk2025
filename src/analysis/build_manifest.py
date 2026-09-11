@@ -218,7 +218,15 @@ APPROACHES = {
 }
 
 
-def main():
+def main() -> None:
+    """Walk every known gold subfolder and write the lineage manifest.
+
+    For each ``APPROACHES`` entry whose folder exists under ``OUTPUT_DIR``,
+    records one row per file: its relative path, size in bytes, a 16-hex-digit
+    SHA-256 prefix, and the approach's method/reference/input metadata. Writes
+    the combined table to ``manifest_lineage.csv`` in ``OUTPUT_DIR`` and prints
+    a per-approach file count.
+    """
     root = str(OUTPUT_DIR)
     rows = []
     for sub, meta in APPROACHES.items():

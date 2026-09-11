@@ -100,7 +100,29 @@ INDICATORS = [(0, "climate_change", "kt CO2eq"), (1, "material_extraction", "kt"
               (6, "waste_generation", "kt")]
 
 
-def main():
+def main() -> None:
+    """Partition the footprint into GHG-Protocol scopes with node lineage.
+
+    For each of the five ``INDICATORS``, computes Scope 1 (national-accounts
+    direct plus anaesthetic gases), Scope 2 under all three published
+    conventions (OECD first-tier, GHG Protocol strict energy-block inverse -
+    the study's basis, and Hertwich & Wood full-multiplier - the manuscript's
+    reported figure), Scope 3 as the MRIO residual plus pMDI and commuting,
+    and Outside-protocol patient/visitor travel, after removing the health
+    sector's self-supply loop that would otherwise double-count against
+    national-accounts Scope 1. Writes ``scopes_summary_detailed.csv`` and
+    ``scopes_by_producing_node.csv`` to the analysis year's scope-decomposition
+    gold folder (``analysis.constants.scopes_folder``), and prints the
+    partition per indicator.
+
+    Raises
+    ------
+    AssertionError
+        If the bottom-up items file is missing a required row or column, if
+        Scope 1 + 2 + 3 + Outside does not reproduce the reported total to
+        within ``1e-9``, or if the producing-node detail does not reconcile
+        with the Scope 2 + Scope 3 summary to within ``1e-6``.
+    """
     out_dir = os.path.join(str(OUTPUT_DIR), *scopes_folder().split("/"))
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(str(BACKGROUND_DIR),

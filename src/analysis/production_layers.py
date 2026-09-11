@@ -73,8 +73,44 @@ from analysis.export_tables import _labels
 MAX_LAYER = int(os.environ.get("HC_MAX_LAYER", 20))
 
 
-def layer_decomposition(A, s, y, max_layer=MAX_LAYER, L=None):
-    """Return (layers [max_layer+1 x n] by node, residual scalar)."""
+def layer_decomposition(
+    A: np.ndarray,
+    s: np.ndarray,
+    y: np.ndarray,
+    max_layer: int = MAX_LAYER,
+    L: np.ndarray | None = None,
+) -> tuple[np.ndarray, float]:
+    """Decompose a footprint into production layers ``diag(s) A^n y``.
+
+    Iterates ``v <- A v`` rather than forming powers of ``A``, so each layer's
+    node-level pressure is exact and no dense matrix power is ever computed.
+
+    Parameters
+    ----------
+    A : numpy.ndarray
+        Technical coefficient matrix, shape ``(n, n)``.
+    s : numpy.ndarray
+        Per-node stressor intensity row for one indicator, shape ``(n,)``, in
+        the indicator's native unit per M.EUR of output.
+    y : numpy.ndarray
+        Final-demand vector, shape ``(n,)``, in M.EUR.
+    max_layer : int, optional
+        Highest layer index to compute explicitly (layers ``0..max_layer``).
+        Defaults to ``MAX_LAYER`` (``HC_MAX_LAYER``, default 20).
+    L : numpy.ndarray or None, optional
+        Leontief inverse, shape ``(n, n)``. When given, the residual beyond
+        ``max_layer`` is closed exactly as ``s @ (L @ v)``; when ``None`` the
+        residual is only ``s @ v`` for the final iterate.
+
+    Returns
+    -------
+    layers : numpy.ndarray
+        Array of shape ``(max_layer + 1, n)``, layer ``m`` by producing node,
+        in the indicator's native unit.
+    residual : float
+        Pressure beyond ``max_layer``, in the same unit, so that
+        ``layers.sum() + residual`` equals the full footprint.
+    """
     n = len(y)
     out = np.zeros((max_layer + 1, n))
     v = y.astype(float).copy()
@@ -85,7 +121,24 @@ def layer_decomposition(A, s, y, max_layer=MAX_LAYER, L=None):
     return out, residual
 
 
-def main():
+def main() -> None:
+    """Decompose the footprint by production layer and compare against Malik.
+
+    For each of the five ``INDICATORS``, splits the healthcare footprint into
+    layers 0..``MAX_LAYER`` plus an exact residual (accounting for the
+    services-vs-goods layer offset described in the module docstring, and the
+    health sector's own direct impact from ``Hstim``), by producing node and
+    by sector group. Writes ``production_layers.csv``,
+    ``production_layers_by_producing_node.csv.gz``,
+    ``production_layers_domestic_vs_imported.csv`` and
+    ``production_layers_by_sector_group.csv`` to
+    ``data/gold/results/20_production_layers/``, and
+    ``production_layers_vs_malik.csv`` (cumulative first-three/first-layer
+    shares against ``MALIK_LAYER_REFERENCE``) to
+    ``data/gold/results/07_malik_replication/``. Reads ``HC_ANALYSIS_YEAR``
+    from the environment (default ``"2022"``) and ``HC_BACKGROUND_TAG`` via
+    ``BACKGROUND_YEAR`` to select the background pickle.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     bgy = BACKGROUND_YEAR  # honours HC_BACKGROUND_TAG
     with open(os.path.join(str(BACKGROUND_DIR),

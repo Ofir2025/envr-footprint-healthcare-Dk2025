@@ -104,6 +104,19 @@ def main() -> None:
     uplift = _capital_uplift()
 
     def per_capita(kt: float) -> float:
+        """Convert a kt CO2-equivalent total to kg CO2-equivalent per capita.
+
+        Parameters
+        ----------
+        kt : float
+            Total in kt CO2-equivalent.
+
+        Returns
+        -------
+        float
+            Per-capita footprint in kg CO2-equivalent, dividing by the
+            closed-over ``population`` for ``ANALYSIS_YEAR``.
+        """
         return kt * 1e3 / population
 
     default = _scope_total("health_eldercare")

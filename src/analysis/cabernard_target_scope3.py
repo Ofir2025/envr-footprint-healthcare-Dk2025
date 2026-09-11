@@ -50,7 +50,22 @@ from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR
 NS, NR, K_DK, K_HEALTH, K_CHEM, K_INSTR = 163, 49, 6, 137, 62, 89
 
 
-def main():
+def main() -> None:
+    """Quantify Cabernard target-sector scope 3 double counting for T1/T2/T3.
+
+    For each of the three nested target definitions (module docstring),
+    computes the naive target scope 3 (eq. 8), the double-counting-corrected
+    version (eq. 9), the double-counting factor ``f_T`` (eq. 12) and the SI
+    complement-identity relative deviation, in kt/Mt CO2-equivalent. Writes
+    the summary to
+    ``data/gold/results/03_cabernard_target_scope3/cabernard_target_scope3.csv``,
+    the producing-node decomposition to
+    ``cabernard_target_scope3_by_producing_node.csv.gz``, and the
+    domestic/imported split to ``cabernard_domestic_vs_imported.csv``, all
+    under the same folder. Reads ``HC_ANALYSIS_YEAR`` from the environment
+    (default ``"2022"``) to select the background year's MRIO and background
+    pickles.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     bgy = "2022" if year == "2022" else "2016"
     with open(os.path.join(str(MRIO_DIR), f"mrio{bgy}.pkl"), "rb") as fh:

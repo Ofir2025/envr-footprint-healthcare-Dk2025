@@ -28,12 +28,42 @@ YEAR = os.environ.get("HC_BACKGROUND_YEAR", "2022")
 TOL = 1e-6
 
 
-def _rel(a, b):
+def _rel(a: float, b: float) -> float:
+    """Relative deviation of ``a`` from reference ``b``.
+
+    Parameters
+    ----------
+    a : float
+        Value under test.
+    b : float
+        Reference value. Its absolute value is floored at ``1e-12`` before
+        dividing, so a near-zero reference does not blow up the ratio.
+
+    Returns
+    -------
+    float
+        ``abs(a - b) / max(abs(b), 1e-12)``.
+    """
     denom = max(abs(float(b)), 1e-12)
     return abs(float(a) - float(b)) / denom
 
 
-def main():
+def main() -> int:
+    """Run the seven EE-MRIO accounting-identity tests and print the results.
+
+    Checks row balance, technical-coefficient construction, the Leontief
+    inverse identity, output reproduction, the footprint identity, and the
+    producer/purchaser perspective identity (T1-T6; see module docstring) on
+    the pickled MRIO and Leontief inverse for ``YEAR``, each against
+    tolerance ``TOL`` (``1e-6``). T5/T6 are skipped if the healthcare
+    background pickle is absent. Prints one PASS/FAIL line per test.
+
+    Returns
+    -------
+    int
+        ``0`` if every identity passes, ``1`` otherwise (for use as a process
+        exit code).
+    """
     with open(os.path.join(str(MRIO_DIR), f"mrio{YEAR}.pkl"), "rb") as fh:
         m = pickle.load(fh)
     with open(os.path.join(str(MRIO_DIR), f"leontief{YEAR}.pkl"), "rb") as fh:

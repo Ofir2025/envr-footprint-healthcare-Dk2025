@@ -49,7 +49,7 @@ BILATERAL_TARGET_COVERAGE = 0.995  # keep the largest cells up to this share;
 # sums EXACTLY to the reported total (no silent truncation).
 
 
-def _labels():
+def _labels() -> tuple[pd.DataFrame, pd.DataFrame]:
     """Region and sector label frames, from the single source of truth.
 
     This used to be a second, independent reader of ``classifications.xlsx``.
@@ -69,7 +69,26 @@ def _labels():
     return node_labels()
 
 
-def _node_frame(reg, sec, prefix):
+def _node_frame(reg: pd.DataFrame, sec: pd.DataFrame, prefix: str) -> pd.DataFrame:
+    """Expand region and sector labels into a full 49x163-node label frame.
+
+    Parameters
+    ----------
+    reg : pandas.DataFrame
+        Region labels (``iso3``, ``country_name``, ``world_region``), one row
+        per region, in node order.
+    sec : pandas.DataFrame
+        Sector labels (``sector_code``, ``sector_name``, ``sector_group``),
+        one row per sector, in node order.
+    prefix : str
+        Column-name prefix, e.g. ``"producing"`` or ``"purchased"``.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per (region, sector) node, in EXIOBASE node order, with six
+        ``f"{prefix}_*"`` label columns.
+    """
     nr, ns = len(reg), len(sec)
     return pd.DataFrame({
         f"{prefix}_country_iso3": np.repeat(reg["iso3"].values, ns),
@@ -81,7 +100,23 @@ def _node_frame(reg, sec, prefix):
     })
 
 
-def main():
+def main() -> None:
+    """Write the full-detail expenditure and footprint tables to gold.
+
+    Builds the expenditure vector (``y_H``) at full region-sector detail and
+    its basic-price summary, then for each of the five core indicators and
+    each non-total demand component computes the bilateral array
+    ``E[i,j] = s_k(i) L(i,j) y(j)`` and exports it by producing node, by
+    purchased product, and as a coverage-thresholded bilateral table (largest
+    cells covering ``BILATERAL_TARGET_COVERAGE``, with an explicit remainder
+    row so totals reconcile exactly). Writes
+    ``expenditure_vector_detail.csv``, ``expenditure_summary.csv``,
+    ``footprint_by_producing_node.csv``, ``footprint_by_purchased_product.csv``,
+    ``footprint_bilateral_producer_x_purchase.csv.gz`` and
+    ``_bilateral_coverage.csv`` to
+    ``data/gold/results/00_core_footprint/``. Reads ``HC_ANALYSIS_YEAR`` and
+    ``HC_SCENARIO`` from the environment (defaults ``"2022"``/``"baseline"``).
+    """
     out_dir = os.path.join(str(OUTPUT_DIR), "00_core_footprint")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(str(BACKGROUND_DIR),
@@ -197,7 +232,22 @@ def main():
                           "coverage_pct": 100 * float(vals.sum()) / tot})
             del E
 
-    def _write(frames, name):
+    def _write(frames: list[pd.DataFrame], name: str) -> pd.DataFrame:
+        """Concatenate frames, prepend run metadata, and write one gold CSV.
+
+        Parameters
+        ----------
+        frames : list of pandas.DataFrame
+            Row blocks to concatenate, one per indicator/demand-component
+            pair.
+        name : str
+            Output filename, written under the closed-over ``out_dir``.
+
+        Returns
+        -------
+        pandas.DataFrame
+            The concatenated, metadata-prefixed frame that was written.
+        """
         df = pd.concat(frames, ignore_index=True)
         for k, v in meta.items():
             df.insert(0, k, v)

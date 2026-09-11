@@ -51,7 +51,26 @@ FAMILIES = [
 ]
 
 
-def main():
+def main() -> None:
+    """Compute the extended stressor families and write detail and summary.
+
+    For each ``FAMILIES`` pattern (air pollutants, energy use, nutrients to
+    water), sums the matching EXIOBASE stressor rows, derives an intensity per
+    M.EUR output, and evaluates ``s * (L @ y)`` for every non-baseline demand
+    component in ``DEMAND_COMPONENTS``, in the family's reporting unit (kt for
+    mass pollutants and nutrients, TJ for energy). Writes the by-producing-node
+    detail to
+    ``data/gold/results/00_core_footprint/extended_indicators_by_producing_node.csv``
+    and the demand-component summary to
+    ``extended_indicators_summary.csv`` in the same folder, and prints the
+    per-indicator totals.
+
+    Raises
+    ------
+    AssertionError
+        If a matched stressor's unit differs from the family's declared
+        native unit.
+    """
     out_dir = os.path.join(str(OUTPUT_DIR), "00_core_footprint")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(str(MRIO_DIR), f"mrio{BACKGROUND_YEAR}.pkl"), "rb") as fh:

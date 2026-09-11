@@ -29,7 +29,18 @@ from paths import BACKGROUND_DIR, OUTPUT_DIR, SILVER_INPUT_DIR
 NS, K_DK, K_HEALTH, K_CHEM, K_INSTR = 163, 6, 137, 62, 89
 
 
-def main():
+def main() -> None:
+    """Test every overlap risk in the double-counting ledger numerically.
+
+    Runs the ten checks described in the module docstring (self-supply loop,
+    Z-column identity, component-vs-recipe overlaps, bottom-up items, scope
+    partition, and Cabernard target aggregation), each with a numeric test
+    value in kt CO2-equivalent or M.EUR and a verdict. Writes the ledger to
+    ``double_counting_ledger.csv`` under the scope-decomposition gold folder
+    for the analysis year (``analysis.constants.scopes_folder``) and prints
+    it. Reads ``HC_ANALYSIS_YEAR`` from the environment (default ``"2022"``)
+    to select the background year's pickled background information.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
     bgy = "2022" if year == "2022" else "2016"
     with open(os.path.join(str(BACKGROUND_DIR),

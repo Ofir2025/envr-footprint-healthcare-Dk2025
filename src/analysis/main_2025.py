@@ -1026,11 +1026,29 @@ start_DK, end_DK = k_DK * ns, (k_DK + 1) * ns
 def find_positions_in_region(names_series: pd.Series,
                              region_start: int,
                              n_sectors: int,
-                             exact_names=None,
-                             regex_patterns=None):
-    """
-    Returns a list of integer positions (global index) in region block
-    that match any exact_names OR any regex_patterns (case-insensitive).
+                             exact_names: list[str] | None = None,
+                             regex_patterns: list[str] | None = None) -> list[int]:
+    """Find sector positions within one region block by name or pattern.
+
+    Parameters
+    ----------
+    names_series : pandas.Series
+        Full-length sector-name series, indexed by global node position.
+    region_start : int
+        Global index of the region block's first sector.
+    n_sectors : int
+        Number of sectors per region (163).
+    exact_names : list of str, optional
+        Sector names to match exactly (case-insensitive), checked first.
+    regex_patterns : list of str, optional
+        Case-insensitive regex patterns tried as a fallback/addition.
+
+    Returns
+    -------
+    list of int
+        Sorted, deduplicated global index positions in
+        ``[region_start, region_start + n_sectors)`` matching any exact name
+        or any pattern.
     """
     exact_names = exact_names or []
     regex_patterns = regex_patterns or []
@@ -1200,7 +1218,19 @@ fig_3 = fig_3.loc[order]
 # EXPORT FULL RESULTS (Absolute values and percentages)
 # ===============================
 
-def create_relative(df):
+def create_relative(df: pd.DataFrame) -> pd.DataFrame:
+    """Convert each column to a percentage share of its own column total.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Absolute-value table, one indicator or figure column per column.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Same shape, each column rescaled to sum to 100 (percent).
+    """
     return df.apply(lambda col: 100 * col / col.sum(), axis=0)
 
 # --- Absolute tables (raw results behind figures)
@@ -1278,7 +1308,24 @@ for col in t1_formatted.columns:
 totals = t1_formatted.iloc[0]
 
 # --- Formatting function  ---
-def format_val(val, total):
+def format_val(val: float, total: float) -> str:
+    """Format a value with its percentage share of a column total.
+
+    Parameters
+    ----------
+    val : float
+        Value to format, in the table's native unit.
+    total : float
+        Column total ``val`` is a share of, in the same unit.
+
+    Returns
+    -------
+    str
+        ``"NA"`` if ``val`` is missing; ``"{val:,.0f} (0.0%)"`` if ``total``
+        is zero or missing; otherwise ``"{val:,.0f} ({pct:.1f}%)"`` with
+        ``"<0.1%"`` below 0.1 %, decimal points rendered as ``"·"`` to match
+        the manuscript's typography.
+    """
     if pd.isna(val):
         return "NA"
     if total == 0 or pd.isna(total):
