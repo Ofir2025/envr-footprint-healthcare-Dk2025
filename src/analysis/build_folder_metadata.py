@@ -185,6 +185,39 @@ NOTES: dict[str, str] = {
 #: Rendered after the layer's question and its link into the methods document,
 #: and before the conventions table.
 README_NOTES: dict[str, str] = {
+    "02_scopes_wood_hertwich/2019": (
+        "## Which model variant this year is built on\n"
+        "\n"
+        "`01_eriksen_replication` says in its folder names which correction a\n"
+        "run carries; this layer's folders are named by year alone, so the\n"
+        "correspondence has to be stated rather than inferred.\n"
+        "\n"
+        "This folder answers **`01_eriksen_replication/2019_shipping_corrected`**:\n"
+        "EXIOBASE v3.8.2 `IOT_2016_ixi` with the Danish sea-transport\n"
+        "reallocation applied, against 2019 expenditure. Its partition closes\n"
+        "on that run exactly: the climate `TOTAL` of 4,052.850438 kt CO2-eq\n"
+        "plus the self-supply loop of 1.921622 kt is the grand total of\n"
+        "4,054.772061 kt that `scopes_summary.csv` publishes there. The\n"
+        "uncorrected companion run, `2019_uncorrected`, reaches 6,360.386367\n"
+        "kt; nothing in this folder is on that basis.\n"
+        "\n"
+        "The bottom-up items are 2019's own: anaesthetic gases 12.470055 kt,\n"
+        "commuting 327.9446 kt, patient and visitor travel 293.475319 kt."
+    ),
+    "02_scopes_wood_hertwich/2022": (
+        "## Which model variant this year is built on\n"
+        "\n"
+        "`01_eriksen_replication` says in its folder names which correction a\n"
+        "run carries; this layer's folders are named by year alone, so the\n"
+        "correspondence has to be stated rather than inferred.\n"
+        "\n"
+        "This folder answers **`01_eriksen_replication/2022_shipping_corrected`**,\n"
+        "the manuscript's headline run: EXIOBASE v3.8.2 `IOT_2022_ixi` with the\n"
+        "Danish sea-transport reallocation applied. Its partition closes on\n"
+        "that run exactly: the climate `TOTAL` of 4,673.633405 kt CO2-eq plus\n"
+        "the self-supply loop of 1.833254 kt is the grand total of\n"
+        "4,675.466659 kt published there."
+    ),
     "13_steenmeijer_replication": (
         "## Where the Dutch numbers come from\n"
         "\n"
@@ -254,21 +287,49 @@ README_NOTES: dict[str, str] = {
 }
 
 
+def _note_for(notes: dict[str, str], folder: str) -> str:
+    """Look a hand-written note up by folder, most specific key first.
+
+    Layers that publish one folder per analysis year need a note per year --
+    which variant of the background that year was built on, above all -- and a
+    layer that publishes a single folder needs one note for the layer. Trying
+    the full relative path before its top-level component serves both without
+    a second dictionary.
+
+    Parameters
+    ----------
+    notes : dict of str to str
+        Either :data:`NOTES` or :data:`README_NOTES`.
+    folder : str
+        Gold folder name, relative to the gold root.
+
+    Returns
+    -------
+    str
+        The note, or the empty string when neither key is present.
+    """
+    key = folder.replace(os.sep, "/")
+    if key in notes:
+        return notes[key]
+    return notes.get(key.split("/")[0], "")
+
+
 def _folder_readme_note(folder: str) -> str:
     """Hand-written readme note for one folder, or ``""`` when it has none.
 
     Parameters
     ----------
     folder : str
-        Gold folder name, relative to the gold root - looked up by its
-        top-level component, exactly like :func:`_folder_notes`.
+        Gold folder name, relative to the gold root. The whole path is looked
+        up first, so a year-scoped subfolder can carry its own note, and the
+        top-level component second, exactly like :func:`_folder_notes`.
 
     Returns
     -------
     str
         The note, or the empty string.
     """
-    return README_NOTES.get(folder.split(os.sep)[0], "")
+    return _note_for(README_NOTES, folder)
 
 
 #: Folders whose tables are defined by an explicit DDL rather than (or beside)
@@ -288,10 +349,11 @@ def _folder_notes(folder: str) -> str:
     Parameters
     ----------
     folder : str
-        Gold folder name, relative to the gold root - looked up by its
-        top-level component, exactly like :func:`_methods_summary`.
+        Gold folder name, relative to the gold root. The whole path is looked
+        up first, then the top-level component, exactly like
+        :func:`_folder_readme_note`.
     """
-    return NOTES.get(folder.split(os.sep)[0], "")
+    return _note_for(NOTES, folder)
 
 
 def _read_head(path: str, n: int = 400) -> tuple[pd.DataFrame, int]:

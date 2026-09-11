@@ -6,6 +6,24 @@ Of the total health-care footprint, this layer asks how much is emitted by the p
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 02](../../../../../docs/methods/replications.md#r02).
 
+## Which model variant this year is built on
+
+`01_eriksen_replication` says in its folder names which correction a
+run carries; this layer's folders are named by year alone, so the
+correspondence has to be stated rather than inferred.
+
+This folder answers **`01_eriksen_replication/2019_shipping_corrected`**:
+EXIOBASE v3.8.2 `IOT_2016_ixi` with the Danish sea-transport
+reallocation applied, against 2019 expenditure. Its partition closes
+on that run exactly: the climate `TOTAL` of 4,052.850438 kt CO2-eq
+plus the self-supply loop of 1.921622 kt is the grand total of
+4,054.772061 kt that `scopes_summary.csv` publishes there. The
+uncorrected companion run, `2019_uncorrected`, reaches 6,360.386367
+kt; nothing in this folder is on that basis.
+
+The bottom-up items are 2019's own: anaesthetic gases 12.470055 kt,
+commuting 327.9446 kt, patient and visitor travel 293.475319 kt.
+
 ## Conventions
 
 | Item | Convention |
@@ -18,6 +36,14 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 | Provenance | one row per file in `../../manifest_lineage.csv` |
 
 ## Tables
+
+### `double_counting_ledger.csv`
+
+- **Rows:** 10
+- **Format:** csv
+- **Units:** % overestimate, broadest target set (T3), -, M.EUR (in services column), kt CO2eq, kt CO2eq (deviation)
+- **Dimensions:** `item`, `risk`, `test`, `unit`, `verdict`
+- **Measures:** `analysis_year`, `value`
 
 ### `scope_by_continent.csv`
 

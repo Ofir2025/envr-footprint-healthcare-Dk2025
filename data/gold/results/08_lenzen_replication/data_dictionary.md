@@ -70,13 +70,13 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | kt CO2eq |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `quantity` | dimension | str |  | Lenzen KPI, supply-chain component by pr |
-| `producing_country_iso3` | dimension | str |  | DNK |
-| `producing_country_name` | dimension | str |  | Denmark |
-| `producing_world_region` | dimension | str |  | Denmark |
-| `producing_sector_code` | dimension | str |  | TWAS |
-| `producing_sector_name` | dimension | str |  | Sea and coastal water transport |
-| `producing_sector_group` | dimension | str |  | Transport |
-| `value` | measure | float64 | kt CO2eq | 851.7459273009042 |
+| `producing_country_iso3` | dimension | str |  | RUS |
+| `producing_country_name` | dimension | str |  | Russia |
+| `producing_world_region` | dimension | str |  | Europe |
+| `producing_sector_code` | dimension | str |  | COIL |
+| `producing_sector_name` | dimension | str |  | Extraction of crude petroleum and servic |
+| `producing_sector_group` | dimension | str |  | Coal and Petroleum |
+| `value` | measure | float64 | kt CO2eq | 100.6514597829438 |
 
 ### `lenzen_kpi_domestic_vs_imported.csv`
 
@@ -85,8 +85,8 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `origin` | dimension | str |  | domestic |
-| `value` | measure | float64 | varies by row | 4.583314708588655 |
-| `share_of_total_pct` | measure | float64 | % | 4.704952008425214 |
+| `value` | measure | float64 | varies by row | 4.432603751212643 |
+| `share_of_total_pct` | measure | float64 | % | 4.652613984138589 |
 
 ### `lenzen_kpi_set.csv`
 
@@ -96,21 +96,21 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `total` | measure | float64 | varies by row | 5436.861904433601 |
+| `total` | measure | float64 | varies by row | 4025.0002397773846 |
 | `direct` | measure | float64 | varies by row | 353.33928659046666 |
-| `supplier_first_order` | measure | float64 | varies by row | 1424.439117159949 |
-| `higher_order` | measure | float64 | varies by row | 3659.083500683185 |
-| `direct_pct` | measure | float64 | % | 6.498956434820036 |
-| `supplier_pct` | measure | float64 | % | 26.1996560184536 |
-| `higher_order_pct` | measure | float64 | % | 67.30138754672636 |
-| `truncation_error_TE0_pct` | measure | float64 | % | 93.50104356517996 |
-| `truncation_error_TE1_pct` | measure | float64 | % | 67.30138754672636 |
-| `per_capita` | measure | float64 | varies by row | 925.6722496320032 |
-| `national_total` | measure | float64 | varies by row | 76569.67523019719 |
-| `share_of_national_pct` | measure | float64 | % | 7.100541941817506 |
-| `intensity_per_meur` | measure | float64 | varies by row | 0.133922824254441 |
-| `domestic_pct` | measure | float64 | % | 28.032121875610574 |
-| `import_pct` | measure | float64 | % | 71.96787812438943 |
+| `supplier_first_order` | measure | float64 | varies by row | 1114.9707785732494 |
+| `higher_order` | measure | float64 | varies by row | 2556.6901746136687 |
+| `direct_pct` | measure | float64 | % | 8.77861529295236 |
+| `supplier_pct` | measure | float64 | % | 27.70113570564449 |
+| `higher_order_pct` | measure | float64 | % | 63.52024900140315 |
+| `truncation_error_TE0_pct` | measure | float64 | % | 91.22138470704763 |
+| `truncation_error_TE1_pct` | measure | float64 | % | 63.52024900140315 |
+| `per_capita` | measure | float64 | varies by row | 685.2907232544896 |
+| `national_total` | measure | float64 | varies by row | 67518.62638160589 |
+| `share_of_national_pct` | measure | float64 | % | 5.96131831389555 |
+| `intensity_per_meur` | measure | float64 | varies by row | 0.0991453175031388 |
+| `domestic_pct` | measure | float64 | % | 17.511612231334944 |
+| `import_pct` | measure | float64 | % | 82.48838776866506 |
 | `lenzen_dk_2015` | measure | float64 | varies by row | 3370.0 |
 | `lenzen_unit` | dimension | str |  | kt CO2eq |
 | `lenzen_note` | dimension | str |  | SI Tab. 10.1/10.2/10.3/10.4; SI Tab. 7.1 |

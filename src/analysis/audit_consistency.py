@@ -610,6 +610,176 @@ def c18_tables_of_record(results: list[dict[str, Any]]) -> None:
                                            if len(problems) > 2 else ""))
 
 
+def _dim_id(dim: str, key: str, value: Any, id_col: str) -> Any:
+    """Resolve one star-schema dimension key to its surrogate id.
+
+    Parameters
+    ----------
+    dim : str
+        Dimension file name under ``data/gold/results/star/``.
+    key : str
+        Column of the dimension holding the natural key.
+    value : Any
+        The natural-key value to look up.
+    id_col : str
+        Column holding the surrogate id to return.
+
+    Returns
+    -------
+    Any
+        The surrogate id, or ``None`` when the dimension or the row is absent.
+    """
+    path = os.path.join(str(OUTPUT_DIR), "star", dim)
+    if not os.path.exists(path):
+        return None
+    d = pd.read_csv(path)
+    hit = d[d[key].astype(str) == str(value)]
+    return None if hit.empty else hit[id_col].iloc[0]
+
+
+def _mrio_climate_specs() -> list[dict[str, Any]]:
+    """Where each gold table publishes the MRIO climate component.
+
+    The headline scope has two parts that are never added by the same module:
+    the MRIO supply-chain component :math:`f = s\\,L\\,y_H`, and the bottom-up
+    complements (direct operations, anaesthetic gases, pMDI, commuting,
+    patient and visitor travel). Eight layers republish the first part, each
+    computing it from the background rather than reading a neighbour's file,
+    and on 11 September 2026 three of them were found to be publishing it on
+    the *uncorrected* background while the headline was on the corrected one.
+    Nothing detected it, because no check compared the same quantity across
+    the tables that carry it.
+
+    This enumerates those tables, and how the number is addressed in each.
+    ``where`` selects by exact string equality, ``where_prefix`` by leading
+    substring; ``reduce`` is ``"one"`` for a single cell and ``"sum"`` for a
+    node- or component-detail column that partitions the same scalar.
+
+    Returns
+    -------
+    list of dict
+        One specification per table. Star-schema entries resolve their
+        surrogate keys here, and are omitted when the dimension is absent.
+    """
+    specs: list[dict[str, Any]] = [
+        dict(label="00_core_footprint national totals",
+             path="00_core_footprint/national_totals_summary.csv",
+             where={"indicator": "climate_change"},
+             column="healthcare_footprint_mrio", reduce="one"),
+        dict(label="00_core_footprint producing-node detail",
+             path="00_core_footprint/footprint_by_producing_node.csv",
+             where={"indicator": "climate_change"},
+             column="value", reduce="sum"),
+        dict(label="00_core_footprint purchased-product detail",
+             path="00_core_footprint/footprint_by_purchased_product.csv",
+             where={"indicator": "climate_change"},
+             column="value", reduce="sum"),
+        dict(label="02_ double-counting ledger",
+             path=f"{scopes_folder()}/double_counting_ledger.csv",
+             where_prefix={"item": "MRIO footprint decomposition"},
+             column="value", reduce="one"),
+        dict(label="06_ FIGARO comparison",
+             path="06_benchmarks_validation/figaro_vs_this_study_climate.csv",
+             where={"quantity": "Danish health-care footprint, MRIO component"},
+             column="value", reduce="one"),
+        dict(label="07_ Malik component intensities",
+             path="07_malik_replication/malik_component_intensities.csv",
+             where={"indicator": "climate_change"},
+             column="footprint", reduce="sum"),
+        dict(label="08_ Lenzen KPI producing-node detail",
+             path="08_lenzen_replication/lenzen_kpi_by_producing_node.csv.gz",
+             where={"indicator": "climate_change"},
+             column="value", reduce="sum"),
+        dict(label="15_ GWP revision, study default",
+             path="15_gwp_revision/gwp_revision_sensitivity.csv",
+             where={"is_study_default": "True"},
+             column="healthcare_kt_co2eq", reduce="one"),
+    ]
+    climate_id = _dim_id("dim_indicator.csv", "indicator_code",
+                         "climate_change", "indicator_id")
+    if climate_id is not None:
+        specs.append(dict(label="star fact_national_total",
+                          path="star/fact_national_total.csv",
+                          where={"indicator_id": climate_id},
+                          column="healthcare_footprint_mrio", reduce="one"))
+        ar6_id = _dim_id("dim_gwp_revision.csv", "is_study_default", "True",
+                         "gwp_revision_id")
+        if ar6_id is not None:
+            specs.append(dict(label="star fact_gwp_revision",
+                              path="star/fact_gwp_revision.csv",
+                              where={"indicator_id": climate_id,
+                                     "gwp_revision_id": ar6_id},
+                              column="healthcare_kt_co2eq", reduce="one"))
+    return specs
+
+
+def c19_mrio_climate_component(results: list[dict[str, Any]]) -> None:
+    """C19: every layer republishing the MRIO climate component agrees with 00_.
+
+    Each of the tables in :func:`_mrio_climate_specs` computes the healthcare
+    supply-chain climate footprint from the background itself. They must
+    therefore all be the same number, and the number ``00_core_footprint``
+    publishes as ``healthcare_footprint_mrio`` is the one the manuscript
+    quotes, so it is the reference. A layer left on a superseded background
+    shows up here as a disagreement in the fourth significant figure or worse,
+    which is what the shipping correction produced and what nothing else
+    caught.
+
+    The comparison is absolute, at ``1e-6`` kt CO2-equivalent: these are the
+    same arithmetic over the same arrays, so anything above floating-point
+    noise is a different model, not a rounding difference.
+
+    Parameters
+    ----------
+    results : list of dict
+        Accumulator the check appends its verdict to.
+    """
+    tol = 1e-6
+    specs = _mrio_climate_specs()
+    reference: float | None = None
+    checked, missing, wrong = 0, [], []
+    for spec in specs:
+        path = os.path.join(str(OUTPUT_DIR), *spec["path"].split("/"))
+        if not os.path.exists(path):
+            missing.append(spec["label"])
+            continue
+        d = pd.read_csv(path, low_memory=False)
+        for col, val in spec.get("where", {}).items():
+            d = d[d[col].astype(str) == str(val)]
+        for col, val in spec.get("where_prefix", {}).items():
+            d = d[d[col].astype(str).str.startswith(str(val))]
+        series = pd.to_numeric(d[spec["column"]], errors="coerce")
+        if spec["reduce"] == "one":
+            if len(series) != 1:
+                wrong.append(f"{spec['label']} selects {len(series)} rows, not 1")
+                continue
+            value = float(series.iloc[0])
+        else:
+            if series.empty:
+                wrong.append(f"{spec['label']} selects no rows")
+                continue
+            value = float(series.sum())
+        if reference is None:
+            reference = value
+            checked += 1
+            continue
+        checked += 1
+        if abs(value - reference) > tol:
+            wrong.append(f"{spec['label']} publishes {value:,.6f} kt, "
+                         f"{value - reference:+,.6f} against "
+                         f"00_core_footprint's {reference:,.6f}")
+    detail = (f"{checked} tables carry the MRIO climate component, all equal to "
+              f"{reference:,.6f} kt within {tol:g}"
+              if reference is not None else "no table could be read")
+    if missing:
+        detail += f"; not in this working copy: {', '.join(missing)}"
+    _check(results, "C19 MRIO climate component agrees across layers",
+           not wrong and reference is not None,
+           "; ".join(wrong[:3]) + (f"; and {len(wrong) - 3} more"
+                                   if len(wrong) > 3 else "")
+           if wrong else detail)
+
+
 def c8_citations(results: list[dict[str, Any]]) -> None:
     """C8: every in-text citation resolves to the bibliography.
 
@@ -1092,6 +1262,7 @@ def main() -> None:
                   c8_citations, c9_gold_scope,
                   c14_gold_format, c15_gold_lowercase, c16_gold_clean,
                   c17_layer_boundary, c18_tables_of_record,
+                  c19_mrio_climate_component,
                   c10_repo_profile):
         try:
             check(results)

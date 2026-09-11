@@ -23,6 +23,7 @@ import subprocess
 import numpy as np
 import pandas as pd
 
+from analysis.constants import BACKGROUND_YEAR
 from paths import BACKGROUND_DIR, OUTPUT_DIR
 
 API = "https://api.statbank.dk/v1/data"
@@ -65,11 +66,17 @@ def main() -> None:
     880000``) and their ratio. Writes
     ``data/gold/results/05_waste_dst_accounts/waste_extension_validation.csv``
     and prints the comparison. Reads ``HC_ANALYSIS_YEAR`` from the
-    environment (default ``"2022"``).
+    environment (default ``"2022"``) for the AFFALD01 query, and the
+    background from ``analysis.constants.BACKGROUND_YEAR``, which carries
+    both that variable and ``HC_BACKGROUND_TAG``. The hybrid direct-waste row
+    happens to be identical in the corrected and uncorrected backgrounds, so
+    no published value depends on this today; it is read through the shared
+    constant anyway, because a future background revision could make the
+    difference real without warning.
     """
     year = int(os.environ.get("HC_ANALYSIS_YEAR", "2022"))
     with open(os.path.join(str(BACKGROUND_DIR),
-                           f"gddz_background_information_{'2022' if year == 2022 else '2016'}.pkl"),
+                           f"gddz_background_information_{BACKGROUND_YEAR}.pkl"),
               "rb") as fh:
         bg = pickle.load(fh)
     hybrid_direct_kt = float(bg["Hstim"][6, 0])

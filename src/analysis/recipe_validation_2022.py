@@ -5,19 +5,34 @@ The healthcare-services footprint rests on the intermediate-input column of
 EXIOBASE's DK "Health and social work" industry (the Steenmeijer Z-column
 construction). Statistics Denmark's coupled-models report (Rormose Jensen &
 Iliev 2022, pp. 11-12) documents that EXIOBASE's Danish block misallocates
-water transport massively (74% of output to Danish intermediate use vs 9%
+water transport massively (74 % of output to Danish intermediate use vs 9 %
 actual), which leaks shipping emissions into every Danish final-demand
-footprint. This script quantifies the discrepancy for healthcare:
+footprint. This script reports what the recipe looks like in the background
+the study actually runs on:
 
-1. input composition of the EXIOBASE 2022 DK health column (grouped), vs
+1. input composition of the DK health column of that background (grouped), vs
 2. the aggregate input composition of the four health/care industries
-   (860010, 860020, 870000, 880000) in the public DST 117-industry IOT 2022
+   (860010, 860020, 870000, 880000) in the public DST 117-industry IOT
    (domestic + import rows, basic prices), grouped the same way;
 3. the share of the healthcare GWP footprint occurring in Danish
    water-transport and Danish land-transport industries (hotspot side).
 
-Run after the 2022 background exists:
-    PYTHONPATH=src .venv/bin/python -m analysis.recipe_validation_2022
+WHICH BACKGROUND THIS READS, AND WHY IT MATTERS. Both the MRIO and the
+background are read at ``analysis.constants.BACKGROUND_YEAR``, so the recipe
+and the hotspot shares printed beside it come from one model. Under
+``HC_BACKGROUND_TAG=_snacship`` that is the reallocated model, and the water
+transport row is then the *residual* after the correction rather than the
+defect it was built to expose: 0.6 % against Statistics Denmark's 0.4 %,
+where the uncorrected release gave 3.9 %. The size of the defect itself, and
+what was moved to remove it, are layer 10's subject
+(``10_sea_transport_reallocation/phantom_shipping_input_removed_by_industry.csv``).
+What this table still shows on the corrected model is the part the
+reallocation does not touch: land transport overstated roughly fivefold, and
+chemicals and pharmaceuticals understated roughly threefold.
+
+Run after the background exists:
+    PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+        .venv/bin/python -m analysis.recipe_validation_2022
 """
 
 from __future__ import annotations
@@ -99,6 +114,10 @@ def main() -> None:
     of the healthcare GWP footprint occurring in Danish and worldwide
     transport industries (the hotspot side of the same discrepancy). Writes
     ``data/gold/results/06_benchmarks_validation/recipe_validation_2022.csv``.
+    Both the MRIO and the background are read at
+    ``analysis.constants.BACKGROUND_YEAR``, which carries both
+    ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``, so the recipe and the
+    hotspot shares beside it come from one and the same model variant.
 
     Raises
     ------
@@ -106,7 +125,7 @@ def main() -> None:
         If the DST workbook does not resolve to exactly four health-industry
         columns.
     """
-    with open(str(MRIO_DIR) + "/mrio2022.pkl", "rb") as fh:
+    with open(os.path.join(str(MRIO_DIR), f"mrio{BACKGROUND_YEAR}.pkl"), "rb") as fh:
         m = pickle.load(fh)
     Z, x = m["Z"], m["x"][:, 0]
     ind_names = list(m["label"]["industry"]["Name"])

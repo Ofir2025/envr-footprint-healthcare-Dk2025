@@ -37,7 +37,7 @@ import re
 import numpy as np
 import pandas as pd
 
-from analysis.constants import MODEL_LABEL
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL
 from analysis.detail_tables import detail_rows, domestic_import_split
 from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR
 from analysis.constants import DK_POPULATION, K_DK, N_SECTORS
@@ -97,9 +97,28 @@ EXTRA = [("particulate_matter", r"^PM10 .*- air$", "kg", 1e-6, "kt"),
          ("reactive_nitrogen_water", r"^N - .* - water$", "kg", 1e-6, "kt")]
 
 
-def main():
+def main() -> None:
+    """Reproduce Lenzen et al.'s health-care KPI set on the Danish model.
+
+    For each of the five headline indicators and the four Lenzen-family
+    extras (particulate matter, NOx, SO2 and reactive nitrogen to water),
+    computes the total footprint, its direct, first-order-supplier and
+    higher-order layers, both truncation errors, the per-capita value, the
+    national total, the share of it, the expenditure intensity and the
+    domestic/imported split, and carries Lenzen's own published Danish row
+    beside each. Writes ``lenzen_kpi_set.csv``,
+    ``lenzen_kpi_by_producing_node.csv.gz``,
+    ``lenzen_kpi_domestic_vs_imported.csv`` and
+    ``lenzen_expenditure_base_check.csv`` to
+    ``data/gold/results/08_lenzen_replication/``.
+
+    The background actually loaded is ``analysis.constants.BACKGROUND_YEAR``,
+    which carries both ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``, so the
+    KPI totals are computed on the same background as the headline tables
+    they are meant to be comparable with.
+    """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    bgy = "2022" if year == "2022" else "2016"
+    bgy = BACKGROUND_YEAR
     with open(os.path.join(str(BACKGROUND_DIR),
                            f"gddz_background_information_{bgy}.pkl"), "rb") as fh:
         bg = pickle.load(fh)

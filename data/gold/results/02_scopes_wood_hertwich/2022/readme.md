@@ -6,6 +6,19 @@ Of the total health-care footprint, this layer asks how much is emitted by the p
 
 Method, equations, and verification: [`docs/methods/replications.md`, section 02](../../../../../docs/methods/replications.md#r02).
 
+## Which model variant this year is built on
+
+`01_eriksen_replication` says in its folder names which correction a
+run carries; this layer's folders are named by year alone, so the
+correspondence has to be stated rather than inferred.
+
+This folder answers **`01_eriksen_replication/2022_shipping_corrected`**,
+the manuscript's headline run: EXIOBASE v3.8.2 `IOT_2022_ixi` with the
+Danish sea-transport reallocation applied. Its partition closes on
+that run exactly: the climate `TOTAL` of 4,673.633405 kt CO2-eq plus
+the self-supply loop of 1.833254 kt is the grand total of
+4,675.466659 kt published there.
+
 ## Conventions
 
 | Item | Convention |

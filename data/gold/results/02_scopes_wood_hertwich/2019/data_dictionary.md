@@ -51,6 +51,18 @@ units and are labelled as such wherever they are quoted.
 
 ## Tables
 
+### `double_counting_ledger.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `analysis_year` | measure | int64 |  | 2019 |
+| `item` | dimension | str |  | MRIO footprint decomposition by producin |
+| `risk` | dimension | str |  | none |
+| `test` | dimension | str |  | partition of one scalar (sum of cells == |
+| `value` | measure | float64 | varies by row | 3257.1574428588515 |
+| `unit` | dimension | str |  | kt CO2eq |
+| `verdict` | dimension | str |  | OK - additive by construction (Wood & He |
+
 ### `scope_by_continent.csv`
 
 | Column | Role | Type | Unit | Example |
@@ -139,7 +151,7 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
+| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi with Danish |
 | `analysis_year` | measure | int64 |  | 2019 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
@@ -157,10 +169,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `consuming_country_iso3` | dimension | str |  | DNK |
-| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
+| `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi with Danish |
 | `analysis_year` | measure | int64 |  | 2019 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `scope` | dimension | str |  | Scope 1 |
-| `value` | measure | float64 | varies by row | 164.3446991455533 |
+| `value` | measure | float64 | varies by row | 163.39469914555332 |
 | `basis` | dimension | str |  | national accounts (DRIVHUS/AFFALD) + med |

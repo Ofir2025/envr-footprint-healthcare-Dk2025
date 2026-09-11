@@ -94,8 +94,11 @@ STAGES: tuple[tuple[str, str], ...] = (
 
     # --- accounting layers ------------------------------------------------
     ("scopes_detail", "the GHG Protocol partition"),
-    ("double_counting_audit", "the ledger that scopes_detail's partition needs"),
     ("cabernard_target_scope3", "target-perspective scope 3 and its correction"),
+    ("double_counting_audit",
+     "the ledger that scopes_detail's partition needs; it runs after the "
+     "target-set correction because its last row quotes that layer's "
+     "published overestimate rather than a literal"),
     ("waste_validation", "the waste accounts against Eurostat and DST"),
     ("waste_domestic_dst", "the domestic waste figure from AFFALD01"),
 

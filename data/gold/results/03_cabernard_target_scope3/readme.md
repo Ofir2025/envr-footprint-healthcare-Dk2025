@@ -38,7 +38,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 03
 
 - **Rows:** 20,610
 - **Format:** csv
-- **Resolution:** 44+ regions x 89+ industries (sampled)
+- **Resolution:** 41+ regions x 86+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `country_consuming`, `target_set`, `indicator`, `unit`, `model`, `quantity`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
 - **Measures:** `n_target_nodes`, `value`
