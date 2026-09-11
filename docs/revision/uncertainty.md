@@ -792,6 +792,145 @@ This is also why the variance decomposition reports commuting, visitor travel an
 their covariance as 21.5 % of the total variance while they are 13.5 % of the
 footprint: they are small but loose, and the rest is large but shared.
 
+### 2.6b The four figures, and what each one says
+
+Every figure the uncertainty analysis produces is interpreted here, because a
+figure a reader has to interpret unaided is a figure the author has not finished.
+All four are in `figures/uncertainty/` and are rebuilt by
+`analysis.uncertainty_figures`.
+
+#### `uncertainty_distributions.png` — the shape of the answer
+
+Violins of the simulated total for each indicator, normalised on its own
+deterministic estimate, with the 2.5th, 50th and 97.5th percentiles marked.
+
+**What it says.** All five distributions are centred on 1.0 and are close to
+symmetric, slightly right-skewed — the signature of lognormal multipliers with a
+median of one. Climate change spans **−14.2 % to +16.9 %** around the median, and
+the other four sit within a percentage point of that. The skew is why the study
+reports the **median** as the central value and not the mean: the mean of a
+lognormal sits above its median, and reporting it would move the headline up by
+0.35 % for no reason a reader could act on.
+
+**What it does not say.** The width is parametric uncertainty conditional on one
+model. It is not a confidence interval on the Danish health-care footprint;
+section 2.7 sets out what is excluded.
+
+#### `uncertainty_variance_shares.png` — where the width comes from
+
+First-order variance shares per indicator, stacked to 100 %.
+
+**What it says.** The MRIO block dominates every indicator: 78 % of the variance
+for climate change and effectively 100 % for material extraction, blue water and
+land use. Those three have no meaningful bottom-up term, so there is nothing else
+for the variance to come from. Waste generation is 95 % MRIO and 5 % direct
+operational, because the Danish AFFALD01 account contributes a real, and
+relatively tight, direct term.
+
+Climate change is the one indicator with a bottom-up story: employee commuting
+5 %, patient and visitor travel 7 %, and — **9 % in their covariance**. That last
+band is not a rounding error and is the reason the bar sums to 100 % only when it
+is drawn. First-order Sobol indices sum to one for *independent* inputs; these
+two are drawn at $\rho = 0.8$, because the same modal split, the same Danish
+mileage and the same emission intensity sit under both, so the variance of their
+sum carries a $2\rho\sigma_1\sigma_2$ term belonging to neither alone. That band was
+omitted until 11 September 2026, and the climate bar stopped at 90.6 % on an axis
+running to 100.
+
+**What to take from it.** Improving the Danish bottom-up parameters can move at
+most a fifth of the climate variance and essentially none of the other four. The
+width of this study's interval is a property of EXIOBASE, not of the Danish data
+collection, and no amount of further Danish primary data will narrow it.
+
+#### `uncertainty_tornado_climate.png` — one parameter at a time
+
+Two blocks. Above the dotted rule, each parameter is swung across its own 95 %
+range with the others held at their medians. Below it, the reviewer's own
+prescribed ±20 % and ±50 % swings, kept separate because they are a different
+question: the first asks what the calibrated uncertainty implies, the second what
+the reviewer asked to see.
+
+**What it says.** The MRIO swing (≈ −590 to +690 kt) is three times the next
+largest and larger than every other parameter combined. Patient and visitor
+travel and employee commuting follow at roughly ±130 to ±250 kt. Direct
+operational, anaesthetic gases and pMDI propellants are visually flat: at ±50 %
+the anaesthetic and pMDI bars are under 6 kt on a 4,675 kt total, which is the
+honest answer to a reviewer asking whether the medical-gas terms could matter.
+They cannot, at any plausible error.
+
+**Why both blocks are drawn.** The reviewer asked for ±20 % and ±50 % on the
+scaling factors. Those swings are *smaller* than the calibrated 95 % range for
+commuting and travel, so answering only the reviewer's question would have
+understated the uncertainty the study actually carries. Both are shown rather
+than one chosen.
+
+#### `uncertainty_ranking_probabilities.png` — what survives the uncertainty
+
+The probability that each contribution group holds first, second and third place,
+over the draws, for both pharmaceutical-mapping scenarios.
+
+**What it says.** Pharmaceuticals and chemical products lead in **99.99 %** of
+draws. Nothing else is close, and the paper's leading claim is therefore not at
+risk from parametric uncertainty. Second place is genuinely contested: individual
+travel takes it in **53.7 %** of draws and services in **46.3 %**, which is a coin
+toss. Third place is shared between services (53.7 %), transport (34.8 %) and
+individual travel (11.5 %).
+
+**What to take from it.** State the leader as a finding and the second and third
+places as a group. A sentence ranking travel above services, or services above
+travel, is not supported: the data cannot distinguish them, and this figure is
+what shows it.
+
+### 2.6c Is the MRIO uncertainty the right size? A check against the literature
+
+The MRIO relative standard deviation of **8.35 %** is taken from Lenzen et al.
+(2020), an Eora-based Monte Carlo of the Danish health-care footprint. Because it
+carries three-quarters of this study's variance, it deserves an independent
+check, and one exists on the same EXIOBASE release this study uses.
+
+Schulte et al. (2024, *Earth Syst. Sci. Data* 16: 2669-2700) propagate UNFCCC and
+EDGAR inventory uncertainty through EXIOBASE v3.8.2 and report coefficients of
+variation at both the country and the sector level:
+
+| Level | Quantity | Median CV |
+|:---|:---|---:|
+| Country | GHG emission accounts, CO₂ | 4 % |
+| Country | GHG **footprints**, CO₂ | 3 % |
+| Sector | GHG emission accounts, CO₂ | 94 % |
+| Sector | GHG **footprints**, CO₂ | a factor of 5 to 10 lower, i.e. ≈ 9-19 % |
+
+Two of their findings bear directly on this study. First, **uncertainty falls as
+it propagates from emission accounts to footprints**, because emissions and their
+errors are distributed across international supply chains where they partly
+cancel — so a footprint CV is properly smaller than the account CV behind it.
+Second, **sector-level uncertainty is far above country-level**: a single
+industry's footprint does not enjoy the cancelling that a whole country's does.
+
+This study estimates a *single sector's* footprint *within* a country, so the
+relevant benchmark is the sector-level footprint row: **≈ 9 % to 19 %**. The
+8.35 % used here sits just below the bottom of that range. Two readings follow
+and both are stated rather than one chosen:
+
+- The calibration is **not** an overstatement. A reviewer asking whether the
+  interval is padded has a published, EXIOBASE-specific answer that it is not.
+- It may be mildly **optimistic**. Danish health care is a services industry
+  buying from a long and diverse supply chain, which is the configuration in
+  which cancelling works best, so the low end of Schulte's range is defensible
+  for it. But a study wanting to be conservative would use 10 % rather than
+  8.35 %, which would widen the climate interval from −14.2/+16.9 % to roughly
+  −17/+20 %. `uncertainty_noncarbon_bound.csv` already reports the effect of
+  multiplying the MRIO spread by three, which brackets this comfortably.
+
+The correlation assumption is checked the same way.
+`uncertainty_mrio_correlation.csv` reports the footprint under
+$\rho_{\text{MRIO}} \in \{0, 0.5, 1\}$; the study uses 1, following Rodrigues
+et al. (2018), on the grounds that it is the only value consistent with holding a
+known aggregate uncertainty while decomposing it into parts. Schulte et al.
+(2026) reach the same conclusion from the other direction, showing that
+disaggregating a published aggregate *induces* correlation between the parts,
+so treating disaggregated components as independent understates the aggregate's
+uncertainty.
+
 ### 2.7 Answers to the five questions a referee will ask
 
 **"Why 100,000 draws?"** Because the Monte Carlo standard error at that size is
