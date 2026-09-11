@@ -5,4 +5,4 @@ Statistics Denmark AFFALD01 (SEEA waste accounts),"Q human health and social wor
 Statistics Denmark AFFALD01 (SEEA waste accounts),study boundary: QA + 870000 + alpha x 880000,45.1404776,"measured, 2022, alpha=0.4914",2022
 ratio,hybrid / measured (Q total),3.0889551189402846,dimensionless; the size of the defect the replacement removes,2022
 ratio,hybrid / measured (study boundary),3.5443229423321845,dimensionless,2022
-ratio,modelled / measured (study boundary),0.9471996797294439,"dimensionless; a conformance check on the replacement, not on the extension. It is not 1.000 because the model takes AFFALD01 at the vintage main_2025 records, while this row queries StatBank live",2022
+ratio,modelled / measured (study boundary),0.9471996797294439,"dimensionless; a conformance check on the replacement, not on the extension. It is not 1.000 because the model takes AFFALD01 at the release main_2025 records, while this row queries StatBank live",2022

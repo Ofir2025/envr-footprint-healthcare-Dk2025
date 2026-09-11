@@ -86,4 +86,4 @@ shares `C26`, and individual clinical services are not resolved. FIGARO is a
 benchmark here, not a replacement for the Danish table.
 
 **Years.** The 2026 FIGARO edition covers 2010-2024. 2023 and 2024 are the
-newest and least settled vintages; the study's published numbers rest on 2022.
+newest and least settled releases; the study's published numbers rest on 2022.
