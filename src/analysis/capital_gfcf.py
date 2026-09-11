@@ -309,7 +309,12 @@ def main() -> None:
                 ("A_exogenous_capital_service_flow", base + cap_a,
                  "baseline + CFC of DK health & residential care (DST NABK69)"),
                 ("D_full_endogenisation", end,
-                 "A' = A + K, Sodersten et al. 2018; upper bound")):
+                 "A' = A + K, K built in this module from each region's own "
+                 "GFCF commodity mix and CFC, after the Lenzen-Treloar "
+                 "augmentation Sodersten, Wood & Hertwich (2018) use; NOT "
+                 "their published capital matrices, which are applied "
+                 "separately in capital_endogenised_sodersten.csv. Upper "
+                 "bound")):
             rows.append(dict(
                 country_consuming="DNK", sector_consuming="health_and_eldercare",
                 scenario=scen, indicator=name, value=val, unit=unit,

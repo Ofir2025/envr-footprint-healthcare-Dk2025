@@ -3,7 +3,10 @@
 
 Why this module exists
 ----------------------
-The study's own headline uses six indicators. The studies it is benchmarked
+The study's own headline uses five indicators -- climate change, material
+extraction, blue water consumption, land use and waste generation, the five
+rows of ``00_core_footprint/national_totals_summary.csv``. The studies it is
+benchmarked
 against use different and wider sets: Eckelman & Sherman (2016) report nine
 TRACI categories plus DALYs, Malik et al. (2021) report several environmental
 impacts, and Lenzen et al. (2020) report a long KPI list. Comparing on one
@@ -13,7 +16,7 @@ The characterisation workbook shipped with the background
 (``characterisation_desire_version3_4_adapted.xlsx``) already contains **121
 emission categories** across CML 1999, USEtox, EcoIndicator 99 and the ILCD
 recommended factors, plus resource and material categories. The pipeline only
-ever used six of them. This module computes them all, once, so that every
+ever used five of them. This module computes them all, once, so that every
 study-replication layer can select the subset it needs from a single consistent
 calculation rather than each rebuilding its own characterisation.
 

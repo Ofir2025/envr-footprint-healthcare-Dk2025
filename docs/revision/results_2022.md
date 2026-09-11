@@ -816,10 +816,10 @@ visitor travel 6.8 %, commuting 5.2 %; every other bottom-up item below 0.1 %.
 Full derivation in [docs/revision/uncertainty.md](uncertainty.md).
 
 **Capital boundary.** Capital is excluded in the headline, for comparability with
-Steenmeijer, Eckelman, Lenzen, and Pichler. Including it adds **13.2 %**
-(exogenous CFC from Danish national accounts) or **19.4 %** (endogenised on the
+Steenmeijer, Eckelman, Lenzen, and Pichler. Including it adds **13.3 %**
+(exogenous CFC from Danish national accounts) or **19.5 %** (endogenised on the
 published Södersten et al. 2018 capital matrices; our own simplified
-endogenisation gave 21.0 %, which the published route reproduces to within 1.6
+endogenisation gave 21.1 %, which the published route reproduces to within 1.6
 percentage points). See ["Capital (GFCF) treatment"](#capital-gfcf-treatment) below.
 
 Scope 2 is 1.6 % of the total, against Arup's 8.3 % for Denmark in 2014. The
@@ -1050,11 +1050,11 @@ the chain, not just the first, and is an upper bound.
 
 | Indicator | Baseline (excluded) | A (exogenous CFC) | D (endogenised, simplified construction) |
 |:---|:---|:---|:---|
-| Climate change (kt CO₂e) | **4,062** | 4,598 (**+13.2 %**) | 4,914 (**+21.0 %**) |
-| Material extraction (kt) | **4,234** | 5,028 (**+18.8 %**) | 5,547 (**+31.0 %**) |
-| Blue water (Mm³) | **95.3** | 102.4 (**+7.4 %**) | 105.4 (**+10.6 %**) |
-| Land use (km²) | **4,854** | 5,362 (**+10.5 %**) | 5,767 (**+18.8 %**) |
-| Waste generation (kt) | **259.4** | 283.2 (**+9.2 %**) | 301.0 (**+16.0 %**) |
+| Climate change (kt CO₂e) | **4,025.0** | 4,559.7 (**+13.3 %**) | 4,874.7 (**+21.1 %**) |
+| Material extraction (kt) | **4,231.5** | 5,025.4 (**+18.8 %**) | 5,542.3 (**+31.0 %**) |
+| Blue water (Mm³) | **95.3** | 102.3 (**+7.4 %**) | 105.4 (**+10.6 %**) |
+| Land use (km²) | **4,850.2** | 5,358.3 (**+10.5 %**) | 5,761.9 (**+18.8 %**) |
+| Waste generation (kt) | **259.3** | 283.0 (**+9.2 %**) | 300.8 (**+16.0 %**) |
 
 *MRIO components; the bottom-up items are unaffected by the capital boundary.
 Source: `11_capital_gfcf/capital_scenarios_by_indicator.csv`. The waste row
@@ -1197,14 +1197,14 @@ code at 1.2×10⁻¹⁴. The augmented inverse verifies at 1.6×10⁻¹⁴.
 
 | Indicator | Baseline | Endogenised | Change |
 |:---|:---|:---|:---|
-| Climate change (kt CO₂e) | 4,062 | **4,849** | **+19.4 %** |
-| Material extraction (kt) | 4,234 | 5,639 | +33.2 % |
-| Blue water (Mm³) | 95.3 | 105.1 | +10.2 % |
-| Land use (km²) | 4,854 | 5,823 | +20.0 % |
-| Waste generation (kt) | 259.4 | 304.3 | +17.3 % |
+| Climate change (kt CO₂e) | 4,025.0 | **4,808.9** | **+19.5 %** |
+| Material extraction (kt) | 4,231.5 | 5,633.6 | +33.1 % |
+| Blue water (Mm³) | 95.3 | 105.0 | +10.2 % |
+| Land use (km²) | 4,850.2 | 5,817.5 | +19.9 % |
+| Waste generation (kt) | 259.3 | 304.0 | +17.3 % |
 
 This result **validates the simplified construction** reported above, which gave
-+21.0 % on climate against the published method's +19.4 %. The two agree to
++21.1 % on climate against the published method's +19.5 %. The two agree to
 1.6 percentage points, so the simplified version was adequate for the magnitude
 while the published matrices give the asset composition.
 

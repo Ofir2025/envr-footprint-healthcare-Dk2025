@@ -1,53 +1,4 @@
 mrio_release,mrio_year,country_producing,sector_producing,exiobase_industry_index,value,unit,variable
-v3.10.2,2022,AUT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,BEL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,BGR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,CYP,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,CZE,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,DEU,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,DNK,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,EST,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,ESP,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,FIN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,FRA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,GRC,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,275.025169957,M.EUR,total_industry_output
-v3.10.2,2022,HRV,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,HUN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,IRL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,ITA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,LTU,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,LUX,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,6.6806863216,M.EUR,total_industry_output
-v3.10.2,2022,LVA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,MLT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,NLD,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,POL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,PRT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,ROU,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,SWE,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,SVN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,SVK,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,GBR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,1.21656830102e-05,M.EUR,total_industry_output
-v3.10.2,2022,USA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2195.25732279,M.EUR,total_industry_output
-v3.10.2,2022,JPN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,14874.4362397,M.EUR,total_industry_output
-v3.10.2,2022,CHN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,71194.6861115,M.EUR,total_industry_output
-v3.10.2,2022,CAN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,7553.86746432,M.EUR,total_industry_output
-v3.10.2,2022,KOR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,6053.43779747,M.EUR,total_industry_output
-v3.10.2,2022,BRA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,5717.45566344,M.EUR,total_industry_output
-v3.10.2,2022,IND,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,3745.64962721,M.EUR,total_industry_output
-v3.10.2,2022,MEX,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,6645.27879967,M.EUR,total_industry_output
-v3.10.2,2022,RUS,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,7434.38969293,M.EUR,total_industry_output
-v3.10.2,2022,AUS,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2120.21377673,M.EUR,total_industry_output
-v3.10.2,2022,CHE,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,TUR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,38.5860673144,M.EUR,total_industry_output
-v3.10.2,2022,TWN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,8866.70030946,M.EUR,total_industry_output
-v3.10.2,2022,NOR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
-v3.10.2,2022,IDN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,1827.76787189,M.EUR,total_industry_output
-v3.10.2,2022,ZAF,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,541.43182152,M.EUR,total_industry_output
-v3.10.2,2022,RoW Asia and Pacific,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,15140.409293,M.EUR,total_industry_output
-v3.10.2,2022,RoW America,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,13418.5905495,M.EUR,total_industry_output
-v3.10.2,2022,RoW Europe,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2521.97482023,M.EUR,total_industry_output
-v3.10.2,2022,RoW Africa,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,3804.22435909,M.EUR,total_industry_output
-v3.10.2,2022,RoW Middle East,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,12097.5363655,M.EUR,total_industry_output
 v3.10.2,2016,AUT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
 v3.10.2,2016,BEL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
 v3.10.2,2016,BGR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
@@ -146,6 +97,55 @@ v3.10.2,2019,RoW America,"Manufacture of medical, precision and optical instrume
 v3.10.2,2019,RoW Europe,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2549.30952284,M.EUR,total_industry_output
 v3.10.2,2019,RoW Africa,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,5295.06724222,M.EUR,total_industry_output
 v3.10.2,2019,RoW Middle East,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,10354.5824859,M.EUR,total_industry_output
+v3.10.2,2022,AUT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,BEL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,BGR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,CYP,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,CZE,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,DEU,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,DNK,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,EST,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,ESP,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,FIN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,FRA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,GRC,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,275.025169957,M.EUR,total_industry_output
+v3.10.2,2022,HRV,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,HUN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,IRL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,ITA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,LTU,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,LUX,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,6.6806863216,M.EUR,total_industry_output
+v3.10.2,2022,LVA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,MLT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,NLD,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,POL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,PRT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,ROU,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,SWE,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,SVN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,SVK,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,GBR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,1.21656830102e-05,M.EUR,total_industry_output
+v3.10.2,2022,USA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2195.25732279,M.EUR,total_industry_output
+v3.10.2,2022,JPN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,14874.4362397,M.EUR,total_industry_output
+v3.10.2,2022,CHN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,71194.6861115,M.EUR,total_industry_output
+v3.10.2,2022,CAN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,7553.86746432,M.EUR,total_industry_output
+v3.10.2,2022,KOR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,6053.43779747,M.EUR,total_industry_output
+v3.10.2,2022,BRA,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,5717.45566344,M.EUR,total_industry_output
+v3.10.2,2022,IND,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,3745.64962721,M.EUR,total_industry_output
+v3.10.2,2022,MEX,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,6645.27879967,M.EUR,total_industry_output
+v3.10.2,2022,RUS,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,7434.38969293,M.EUR,total_industry_output
+v3.10.2,2022,AUS,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2120.21377673,M.EUR,total_industry_output
+v3.10.2,2022,CHE,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,TUR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,38.5860673144,M.EUR,total_industry_output
+v3.10.2,2022,TWN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,8866.70030946,M.EUR,total_industry_output
+v3.10.2,2022,NOR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,0.0,M.EUR,total_industry_output
+v3.10.2,2022,IDN,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,1827.76787189,M.EUR,total_industry_output
+v3.10.2,2022,ZAF,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,541.43182152,M.EUR,total_industry_output
+v3.10.2,2022,RoW Asia and Pacific,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,15140.409293,M.EUR,total_industry_output
+v3.10.2,2022,RoW America,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,13418.5905495,M.EUR,total_industry_output
+v3.10.2,2022,RoW Europe,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2521.97482023,M.EUR,total_industry_output
+v3.10.2,2022,RoW Africa,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,3804.22435909,M.EUR,total_industry_output
+v3.10.2,2022,RoW Middle East,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,12097.5363655,M.EUR,total_industry_output
 v3.8.2,2016,AUT,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,4709.59084358,M.EUR,total_industry_output
 v3.8.2,2016,BEL,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,2420.95498292,M.EUR,total_industry_output
 v3.8.2,2016,BGR,"Manufacture of medical, precision and optical instruments, watches and clocks (33)",89,330.580883486,M.EUR,total_industry_output

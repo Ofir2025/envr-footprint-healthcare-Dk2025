@@ -1897,16 +1897,21 @@ output.
 
 #### Effect of endogenisation
 
+Every figure is a row of `11_capital_gfcf/capital_endogenised_sodersten.csv`,
+`baseline_capital_excluded` against `endogenised_sodersten` and its own
+`change_pct`.
+
 | Indicator | Change |
 |:---|:---|
-| Climate change | 4,062 → 4,849 kt, **+19.4 %** |
-| Material extraction | +33.2 % |
+| Climate change | 4,025.0 → 4,808.9 kt, **+19.5 %** |
+| Material extraction | +33.1 % |
 | Blue water | +10.2 % |
-| Land use | +20.0 % |
+| Land use | +19.9 % |
 | Waste generation | +17.3 % |
 
-The simplified construction used earlier gave +21.0 %, so the published method validates it
-to within 1.6 percentage points.
+The simplified construction used earlier gave +21.1 % (4,874.7 kt,
+`capital_scenarios_by_indicator.csv`, `D_full_endogenisation`), so the published
+method validates it to within 1.6 percentage points.
 
 ### Data requirements
 
@@ -1960,7 +1965,8 @@ EcoIndicator 99, and the ILCD recommended factors
 
 ### Question this layer answers
 
-The study's headline uses six indicators. The studies it is benchmarked against use
+The study's headline uses five indicators, the five rows of
+`00_core_footprint/national_totals_summary.csv`. The studies it is benchmarked against use
 different and wider sets: Eckelman & Sherman report nine TRACI categories plus DALYs,
 Malik et al. several environmental impacts, Lenzen et al. a long KPI list. Comparing one
 stressor at a time is not a replication.
@@ -1984,11 +1990,11 @@ possible at all.
 Three workbook rows were tested and found unusable, and are flagged rather than dropped
 silently:
 
-| Row | Defect |
-|:---|:---|
-| an ILCD endpoint | numerically identical to its own midpoint |
-| photochemical ozone endpoint | two orders of magnitude from its published damage factor |
-| SF₆ factor | matches no IPCC assessment |
+| Row | `quality_flag` | Defect |
+|:---|:---|:---|
+| ILCD, ecotoxicity freshwater endpoint | `DUPLICATE_OF_MIDPOINT` | numerically identical to its own midpoint |
+| ILCD, photochemical ozone formation endpoint, human health | `ENDPOINT_MIDPOINT_RATIO_IMPLAUSIBLE` | two orders of magnitude from its published damage factor |
+| CML 1999, ozone layer depletion ODP steady state | `WRONG_STRESSOR_CLASS` | characterises only NMVOC, which drives tropospheric ozone *formation*, not stratospheric *depletion*; EXIOBASE carries no CFC, halon or HCFC stressor, so the category is not computable from this account at all |
 
 Each carries a `quality_flag` in the output. **Ozone depletion was retracted** from the
 study's reported set on this basis.
@@ -2014,16 +2020,19 @@ workbook; and the EXIOBASE stressor list, whose order the workbook columns must 
 
 ### Outputs
 
-This layer writes `impact_categories_all_methods.csv` (97 usable categories,
-health-care and national, with the health share of each),
+This layer writes `impact_categories_all_methods.csv` (99 characterised
+categories, 96 of them usable, health-care and national, with the health share
+of each),
 `impact_categories_by_producing_node.csv.gz`, `impact_categories_by_sector_group.csv`,
 `impact_categories_domestic_vs_imported.csv` (carrying `quality_flag`), and
 `stressor_totals_uncharacterised.csv`.
 
 ### Verification
 
-`analysis.audit_consistency` C2: 97 categories, maximum relative deviation between detail
-and aggregate 4.41 × 10⁻¹⁴.
+`analysis.audit_consistency` C2 rejoins the producing-node detail against this
+table, category by category, and requires the two to agree to 10⁻⁸ relative.
+They agree to better than 10⁻¹³; the check's own report carries the achieved
+figure, so it is not restated here where it would drift.
 
 ---
 

@@ -6,9 +6,11 @@ Motivation
 Rørmose Jensen & Iliev (2022) showed that EXIOBASE's Danish block misallocates
 output between industries, and used that to argue for a national-accounts-based
 coupling (the SNAC route of Palm et al. 2019). This module turns that argument
-into a reproducible test: every EXIOBASE release on disk is compared, industry
-group by industry group, against Statistics Denmark's own 117-industry
-input-output table for the same year.
+into a reproducible test: every EXIOBASE release under this repository's own
+bronze layer is compared, industry group by industry group, against Statistics
+Denmark's own 117-industry input-output table for the same year. A release the
+comparison is about but cannot find there is published as rows that say so
+rather than left out, so the table's coverage is always visible in the table.
 
 Two defects are detected and separated:
 
@@ -25,10 +27,15 @@ Two defects are detected and separated:
       so the defect enters with the nowcast years.
 
 Run: PYTHONPATH=src .venv/bin/python -m analysis.release_defect_audit
+
+Releases are read from ``paths.EXIOBASE_DIR`` (``data/bronze/exiobase``,
+redirectable with ``HC_BRONZE_DIR``), in the two layouts ``discover_releases``
+documents. ``data/bronze/exiobase/readme.md`` says how to link one.
 """
 
 from __future__ import annotations
 
+import json
 import os
 import re
 
@@ -37,18 +44,37 @@ import pandas as pd
 import scipy.io as sio
 
 from analysis.constants import K_DK, N_SECTORS
-from paths import BRONZE_DIR, OUTPUT_DIR
+from paths import BRONZE_DIR, EXIOBASE_DIR, OUTPUT_DIR
 
 FOLDER = "09_exiobase_release_diagnostics"
 DKK_PER_EUR_2022 = 7.4396
 DKK_PER_EUR_2016 = 7.4452
 
-EXIO_ROOT = os.path.expanduser(
-    "~/Library/CloudStorage/OneDrive-Personal/Data/lca/input_output/mrio/"
-    "exiobase/versions")
 DST_IO = str(BRONZE_DIR / "dst_input_output"
              / "input_output_en_{year}.xlsx")
 KEEP_YEARS = {"2016", "2019", "2022"}
+
+#: The release/year pairs this diagnostic is an argument about: the study's own
+#: background release against the one it rejected, at the years both publish.
+#: Declaring them is what lets an absence be reported. A pair listed here and
+#: not found under ``data/bronze/exiobase`` is published as a row that says
+#: "not on disk" rather than silently disappearing, and a pair found there but
+#: not listed is reported too, so the list cannot quietly narrow the table.
+COVERAGE: tuple[tuple[str, str], ...] = (
+    ("v3.8.2", "2016"), ("v3.8.2", "2022"),
+    ("v3.10.2", "2016"), ("v3.10.2", "2019"), ("v3.10.2", "2022"),
+)
+
+#: What a flat ``IOT_<year>_ixi`` distribution's ``metadata.json`` calls itself,
+#: and the release that is. The archive writes its own label (``version:
+#: v3.81``) which is not the release string anyone cites, so the ``name`` field
+#: is the one mapped here. An unmapped name is reported verbatim rather than
+#: guessed at.
+RELEASE_BY_METADATA_NAME: dict[str, str] = {"exio382_ntnu": "v3.8.2"}
+
+#: Text published in ``exiobase_source`` when a declared release/year is not
+#: under ``data/bronze/exiobase``. The row is kept, and carries no number.
+NOT_ON_DISK = "not on disk under data/bronze/exiobase"
 
 # EXIOBASE regions in file order; DK is index 6 (constants.K_DK).
 REGIONS = [
@@ -161,39 +187,83 @@ def _dst_group(dst: dict[str, float], prefixes: list[str]) -> float:
     return sum(v for c, v in dst.items() if any(c.startswith(p) for p in prefixes))
 
 
+def _flat_release(path: str) -> str:
+    """Which release a flat ``IOT_<year>_ixi`` distribution belongs to.
+
+    The folder name carries the year but not the release, so the archive's own
+    ``metadata.json`` is read and its ``name`` mapped through
+    :data:`RELEASE_BY_METADATA_NAME`.
+
+    Parameters
+    ----------
+    path : str
+        Directory of a txt distribution under ``data/bronze/exiobase``.
+
+    Returns
+    -------
+    str
+        The release string, or the metadata name in parentheses when the name
+        is not one this module knows. Nothing is guessed: an unrecognised
+        archive is reported under the label it gives itself.
+    """
+    meta = os.path.join(path, "metadata.json")
+    if not os.path.exists(meta):
+        return "unrecognised release (no metadata.json)"
+    with open(meta, encoding="utf-8") as fh:
+        name = str(json.load(fh).get("name", "")).strip()
+    return RELEASE_BY_METADATA_NAME.get(name, f"unrecognised release ({name})")
+
+
 def discover_releases() -> list[tuple[str, str, str]]:
-    """Every (release, year, path) triple present on this machine.
+    """Every (release, year, path) triple under this repository's bronze layer.
+
+    Two layouts are read, both under ``paths.EXIOBASE_DIR`` (``HC_BRONZE_DIR``
+    honoured), because the bronze folder holds one release flat and any others
+    beside it:
+
+    ``IOT_<year>_ixi/``
+        A txt distribution of the study's own background release. The release
+        comes from its ``metadata.json``, via :func:`_flat_release`.
+    ``v<major>_<minor>_<patch>/IOT_<year>_ixi[.mat]``
+        A release-qualified folder, holding either txt distributions or the
+        MATLAB year-files. The release is the folder name with underscores
+        read as dots, so it is stated rather than inferred.
+
+    Reading anywhere else is what made four fifths of this layer
+    unreproducible from a clone: the releases were taken from an absolute path
+    on one machine, which no ``HC_BRONZE_DIR`` could redirect and no reader
+    could supply.
 
     Returns
     -------
     list of (str, str, str)
         ``(release_version, year, path)`` triples, e.g.
-        ``("v3.8.2", "2022", "/.../IOT_2022_ixi")``, deduplicated so a year
-        found in both a ``.mat`` file and a txt distribution of the same
+        ``("v3.8.2", "2022", ".../IOT_2022_ixi")``, deduplicated so a year
+        found as both a ``.mat`` file and a txt distribution of the same
         release keeps only its first discovery.
     """
-    found = []
-    txt = os.path.join(EXIO_ROOT, "v3_10_2", "txt")
-    if os.path.exists(os.path.join(txt, "x.txt")):
-        found.append(("v3.10.2", "2022", txt))
-    # v3.6 is superseded and its 20 year-files are large; the comparison that
-    # matters is between the releases this study could actually use.
-    for v, sub in (("v3.10.2", "v3_10_2/industry"), ("v3.8.2", "v3_8_2"),
-                   ("v3.7", "v3_7")):
-        d = os.path.join(EXIO_ROOT, sub)
-        if not os.path.isdir(d):
+    root = str(EXIOBASE_DIR)
+    found: list[tuple[str, str, str]] = []
+    if not os.path.isdir(root):
+        return found
+    for entry in sorted(os.listdir(root)):
+        sub = os.path.join(root, entry)
+        if not (os.path.isdir(sub) and re.fullmatch(r"v\d+(?:_\d+)*", entry)):
             continue
-        for f in sorted(os.listdir(d)):
-            m = re.fullmatch(r"IOT_(\d{4})_ixi\.mat", f)
-            if m and m.group(1) in KEEP_YEARS:
-                found.append((v, m.group(1), os.path.join(d, f)))
-        for f in sorted(os.listdir(d)):
-            m = re.fullmatch(r"IOT_(\d{4})_ixi", f)
-            if m and m.group(1) in KEEP_YEARS \
-                    and os.path.exists(os.path.join(d, f, "x.txt")):
-                found.append((v, m.group(1), os.path.join(d, f)))
-    # a year can be discovered twice (txt distribution and .mat of the same
-    # release); keep the first occurrence only
+        release = "v" + entry[1:].replace("_", ".")
+        for f in sorted(os.listdir(sub)):
+            m = re.fullmatch(r"IOT_(\d{4})_ixi(\.mat)?", f)
+            if not (m and m.group(1) in KEEP_YEARS):
+                continue
+            path = os.path.join(sub, f)
+            if m.group(2) or os.path.exists(os.path.join(path, "x.txt")):
+                found.append((release, m.group(1), path))
+    for f in sorted(os.listdir(root)):
+        m = re.fullmatch(r"IOT_(\d{4})_ixi", f)
+        path = os.path.join(root, f)
+        if m and m.group(1) in KEEP_YEARS \
+                and os.path.exists(os.path.join(path, "x.txt")):
+            found.append((_flat_release(path), m.group(1), path))
     seen, unique = set(), []
     for v, y, path in found:
         if (v, y) not in seen:
@@ -243,13 +313,21 @@ def main() -> None:
     (industry 33 emptied across Europe, more than 80 % of regions below 1
     M.EUR) and D2 (four or more concordance groups off by more than a factor
     of 2 from the DST total) per release/year as ``"DEFECT"`` or ``"ok"``.
+
+    Every declared pair in :data:`COVERAGE` reaches the published table. A
+    pair whose release is not under ``data/bronze/exiobase`` is written as a
+    full set of rows carrying :data:`NOT_ON_DISK` in ``exiobase_source`` and
+    no number at all, because a diagnostic that silently drops the release it
+    rejects leaves the reader unable to tell an absent comparison from a
+    passing one.
     """
     out_dir = os.path.join(OUTPUT_DIR, FOLDER)
     os.makedirs(out_dir, exist_ok=True)
     releases = discover_releases()
-    print(f"releases found: {[(v, y) for v, y, _ in releases]}")
+    print(f"releases found under {EXIOBASE_DIR}: "
+          f"{[(v, y) for v, y, _ in releases]}")
 
-    dst_cache, rows, i33 = {}, [], []
+    dst_cache, rows, i33, read_pairs = {}, [], [], set()
     for release, year, path in releases:
         x = None
         for attempt in range(3):
@@ -267,6 +345,8 @@ def main() -> None:
             print(f"  skip {release} {year}: unexpected length {x.size}")
             continue
         dk = x[K_DK * N_SECTORS:(K_DK + 1) * N_SECTORS]
+        read_pairs.add((release, year))
+        source = os.path.relpath(path, str(BRONZE_DIR.parent.parent))
 
         for r, code in enumerate(REGIONS):
             i33.append(dict(
@@ -292,7 +372,7 @@ def main() -> None:
                     dst_nace_prefixes=";".join(prefixes),
                     exiobase_output_meur=e, national_accounts_output_meur=d,
                     ratio_exiobase_over_dst=(e / d if d else np.nan),
-                    unit="M.EUR",
+                    unit="M.EUR", exiobase_source=source,
                     source_national_accounts=f"Statistics Denmark, published "
                                              f"117-industry IO table {year}, "
                                              f"'Total Output' row"))
@@ -303,7 +383,34 @@ def main() -> None:
                 exiobase_output_meur=float(dk.sum()),
                 national_accounts_output_meur=sum(dst.values()),
                 ratio_exiobase_over_dst=float(dk.sum()) / sum(dst.values()),
-                unit="M.EUR",
+                unit="M.EUR", exiobase_source=source,
+                source_national_accounts=f"Statistics Denmark {year}"))
+
+    # Declared pairs that no bronze folder supplied. They are published, with
+    # no number, so the table states what it could not compare rather than
+    # narrowing to what happened to be linked on the machine that ran it.
+    for release, year in COVERAGE:
+        if (release, year) in read_pairs:
+            continue
+        dst = dst_cache.get(year)
+        if dst is None and os.path.exists(DST_IO.format(year=year)):
+            dst = dst_cache.setdefault(year, _dst_output(year))
+        for label, idx, prefixes in list(CONCORDANCE) + [
+                ("TOTAL (all 163 industries)", None, None)]:
+            total = label == "TOTAL (all 163 industries)"
+            rows.append(dict(
+                mrio_release=release, mrio_year=year,
+                country_producing="DNK", sector_producing=label,
+                exiobase_industry_index="all" if total
+                else ";".join(str(i) for i in idx),
+                dst_nace_prefixes="all" if total else ";".join(prefixes),
+                exiobase_output_meur=np.nan,
+                national_accounts_output_meur=(
+                    np.nan if dst is None
+                    else (sum(dst.values()) if total
+                          else _dst_group(dst, prefixes))),
+                ratio_exiobase_over_dst=np.nan,
+                unit="M.EUR", exiobase_source=NOT_ON_DISK,
                 source_national_accounts=f"Statistics Denmark {year}"))
 
     blk = pd.DataFrame(rows)
@@ -330,6 +437,8 @@ def main() -> None:
     if not blk.empty:
         for (v, y), g in blk.groupby(["mrio_release", "mrio_year"]):
             s = g[g.sector_producing != "TOTAL (all 163 industries)"]
+            if (g.exiobase_source == NOT_ON_DISK).all():
+                continue
             bad = s[(s.ratio_exiobase_over_dst < 0.5)
                     | (s.ratio_exiobase_over_dst > 2.0)]
             verdicts.append(dict(
@@ -339,7 +448,24 @@ def main() -> None:
                 value=int(len(bad)), of=int(len(s)),
                 world_total_meur=np.nan,
                 verdict="DEFECT" if len(bad) >= 4 else "ok"))
-    ver = pd.DataFrame(verdicts)
+    # A declared release that is not on disk gets a verdict of its own for
+    # both defects. Leaving it out would read as untested; letting an empty
+    # comparison fall through the thresholds above would read as "ok", which
+    # is worse.
+    for release, year in COVERAGE:
+        if (release, year) in read_pairs:
+            continue
+        for defect, metric in (
+                ("D1 industry 33 emptied in Europe",
+                 "European regions with i33 output < 1 M.EUR"),
+                ("D2 Danish block misallocation",
+                 "concordance groups off by more than 2x vs DST")):
+            verdicts.append(dict(
+                defect=defect, mrio_release=release, mrio_year=year,
+                metric=metric, value=np.nan, of=np.nan,
+                world_total_meur=np.nan, verdict=NOT_ON_DISK))
+    ver = pd.DataFrame(verdicts).sort_values(
+        ["defect", "mrio_release", "mrio_year"], kind="stable")
     ver.to_csv(os.path.join(out_dir, "release_defect_verdicts.csv"), index=False)
 
     pd.set_option("display.width", 200)
