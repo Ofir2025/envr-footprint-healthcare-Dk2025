@@ -1,15 +1,25 @@
 # Manuscript figures
 
-One directory per (reference year, Danish sea-transport correction state)
-variant - a 2x2, not two folders - because the transport-share swing the
-co-author asked about (roughly 46 % in 2019 down to 15-18 % in 2022) is never
-one comparison: reference year, background release, AND the sea-transport
-correction all change at once between the submitted 2019 run and the corrected
-2022 headline. Splitting "corrected or not" out as its own axis lets the year
-effect and the correction effect be read separately. All four variants carry
-the same figure set, drawn by the same code from the same tables, so a
-difference between them is a difference in the data and never in the plotting -
-with one stated exception, figures 3 to 6 of `2019_uncorrected`, below.
+One directory per model VARIANT, because the transport-share swing the co-author
+asked about (roughly 46 % in 2019 down to 15-18 % in 2022) is never one
+comparison: reference year, EXIOBASE release, the Danish sea-transport
+correction, the care boundary and the capital treatment can all change at once
+between the submitted 2019 run and the corrected 2022 headline. A variant fixes
+all four of those axes and is named `<year><letter>`
+([`docs/methods/replications.md`, section 01](../../docs/methods/replications.md#r01)):
+
+| Variant | EXIOBASE release | Danish shipping correction | Boundary | Capital |
+|:---|:---|:---|:---|:---|
+| a | v3.7 | no | health care (the submitted boundary) | excluded |
+| b | v3.7 | yes | health care | excluded |
+| c | v3.8.2 | yes | health care | excluded |
+| d | v3.8.2 | yes | health care + child and elder care | endogenised |
+
+Every variant carries the same figure set, drawn by the same code from the same
+tables, so a difference between them is a difference in the data and never in
+the plotting - with one stated exception, figures 3 to 6 of `2019_uncorrected`,
+below. There is no `2022a` or `2022b`: EXIOBASE v3.7's series ends at 2016, so
+it has no 2022 table and the release axis collapses for that year.
 
 Every command below carries `LANG=en_US.UTF-8` so it can be copied and pasted
 as it stands. `r/_dk_common.r` stops with that instruction if the locale is not
@@ -17,33 +27,53 @@ UTF-8, because a C locale drops CO₂, Mm³ and km² to `..` in every figure, an
 prose above a code block is not a prefix.
 
 ```bash
-# 2022, shipping-corrected - EXIOBASE v3.8.2 IOT_2022 with the Danish
-# sea-transport reallocation applied. The manuscript's headline.
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_absolute_and_percapita.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022_shipping_corrected Rscript r/plot_scenarios.r
+# 2022c - EXIOBASE v3.8.2 IOT_2022 with the Danish sea-transport reallocation
+# applied. The manuscript's headline.
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_absolute_and_percapita.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_scenarios.r
 
-# 2022, uncorrected - same background, correction NOT applied
+# 2022d - the same year and correction, child care inside the boundary and
+# consumption of fixed capital inside the Leontief inverse
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2022d Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2022d Rscript r/plot_absolute_and_percapita.r
+
+# 2022_uncorrected - same background, correction NOT applied. Not a lettered
+# variant: it is v3.8.2 without the correction.
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_manuscript_figures.r
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 DKHC_FIG_DIR=figures/manuscript/2022_uncorrected Rscript r/plot_absolute_and_percapita.r
 
-# 2019, shipping-corrected - EXIOBASE v3.8.2 IOT_2016 with the same correction
-# applied, so it is comparable with 2022_shipping_corrected on correction state
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_manuscript_figures.r
-LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019_shipping_corrected Rscript r/plot_absolute_and_percapita.r
+# 2019a - EXIOBASE v3.7 IOT_2016, uncorrected: the release and correction state
+# the manuscript was submitted on. HC_EXIOBASE_RELEASE is what selects it, and
+# without it the run is v3.8.2 and is NOT variant a.
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 DKHC_FIG_DIR=figures/manuscript/2019a Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 DKHC_FIG_DIR=figures/manuscript/2019a Rscript r/plot_absolute_and_percapita.r
 
-# 2019, uncorrected - EXIOBASE v3.8.2 IOT_2016, the manuscript's own
-# background, exactly as submitted
+# 2019b - the same release, shipping-corrected
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019b Rscript r/plot_absolute_and_percapita.r
+
+# 2019c - v3.8.2 IOT_2016 with the same correction applied, so it is comparable
+# with 2022c on release, correction, boundary and capital alike
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019c Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship DKHC_FIG_DIR=figures/manuscript/2019c Rscript r/plot_absolute_and_percapita.r
+
+# 2019d - the widest boundary on the 2016 table
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2019d Rscript r/plot_manuscript_figures.r
+LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised DKHC_FIG_DIR=figures/manuscript/2019d Rscript r/plot_absolute_and_percapita.r
+
+# 2019_uncorrected - v3.8.2 IOT_2016 with no correction. NOT variant a: the
+# submitted estimate was computed on v3.7, which 2019a runs.
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_manuscript_figures.r
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2019 DKHC_FIG_DIR=figures/manuscript/2019_uncorrected Rscript r/plot_absolute_and_percapita.r
 
 # fig10, the cross-year bridge - not tied to any one variant folder, so it
-# writes straight into comparison/ rather than one of the four above
+# writes straight into comparison/ rather than one of the variant folders above
 LANG=en_US.UTF-8 DKHC_FIG_DIR=figures/manuscript Rscript r/plot_year_bridge.r
 
 # the four scope-emission TIFFs, which live in figures/scopes/ rather than here
-# and name their run in the filename; the tag is not optional, because without
-# it the layer resolves to the uncorrected run
+# and name their variant in the filename; the tag is not optional, because
+# without it the layer resolves to the uncorrected run
 LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship Rscript r/plot_scope_emissions.r
 ```
 
@@ -64,20 +94,24 @@ in [`docs/methods/replications.md`, section 02](../../docs/methods/replications.
 
 ## Which variants can draw figures 3 to 6
 
-`02_scopes_wood_hertwich` now carries the correction state in its folder name,
-as `01_eriksen_replication` does, so `gold_path` resolves the scope tables to
-the run the environment selects and to nothing else. Figures 3 to 6 of
+`02_scopes_wood_hertwich` carries the same variant folders as
+`01_eriksen_replication`, so `gold_path` resolves the scope tables to the
+variant the environment selects and to nothing else. Figures 3 to 6 of
 `2022_uncorrected` are therefore genuinely uncorrected, where before they were
-byte-identical to `2022_shipping_corrected`'s: the transport industry group
-carries 32.20 % of the climate footprint in the uncorrected run against 14.87 %
-in the corrected one, which is the difference the 2x2 exists to show.
+byte-identical to `2022c`'s: the transport industry group carries 32.19 % of the
+climate footprint in the uncorrected run against 14.87 % in the corrected one,
+which is the difference the variant scheme exists to show.
 
 | Variant | Figures 1, 2, S1 | Figures 3-6 |
 |:---|:---|:---|
-| `2019_uncorrected` | yes | **not drawn** - layer 02 does not publish this run |
-| `2019_shipping_corrected` | yes | yes |
+| `2019a` | yes | yes |
+| `2019b` | yes | yes |
+| `2019c` | yes | yes |
+| `2019d` | yes | yes |
+| `2022c` | yes | yes |
+| `2022d` | yes | yes |
 | `2022_uncorrected` | yes | yes |
-| `2022_shipping_corrected` | yes | yes |
+| `2019_uncorrected` | yes | **not drawn** - layer 02 does not publish this run |
 
 `2019_uncorrected` is the one gap, and it is a withheld figure rather than a
 wrong one. The uncorrected and shipping-corrected 2016 model objects on disk
@@ -89,29 +123,34 @@ four rather than aborting, so the rest of that variant's set still renders, and
 the measurement is recorded in
 [docs/revision/defects_and_fixes.md](../../docs/revision/defects_and_fixes.md).
 Its transport share is readable from `01_eriksen_replication/2019_uncorrected`
-(47.28 % of the climate footprint, against 21.46 % shipping-corrected), which
-is variant-scoped and unaffected.
+(47.28 % of the climate footprint, against 21.46 % at variant c), which is
+variant-scoped and unaffected.
 
-## The four variants are not interchangeable
+## The variants are not interchangeable
 
-| | 2019_uncorrected | 2019_shipping_corrected | 2022_uncorrected | 2022_shipping_corrected |
-|:---|:---|:---|:---|:---|
-| Background | EXIOBASE v3.8.2 IOT_2016 | EXIOBASE v3.8.2 IOT_2016 | EXIOBASE v3.8.2 IOT_2022 | EXIOBASE v3.8.2 IOT_2022 |
-| Danish sea-transport reallocation | not applied | applied | not applied | applied |
-| Reproduces | the submitted manuscript | — | — | the resubmission's headline |
+| | 2019a | 2019b | 2019c | 2019d | 2019_uncorrected | 2022c | 2022d | 2022_uncorrected |
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+| Background | v3.7 IOT_2016 | v3.7 IOT_2016 | v3.8.2 IOT_2016 | v3.8.2 IOT_2016 | v3.8.2 IOT_2016 | v3.8.2 IOT_2022 | v3.8.2 IOT_2022 | v3.8.2 IOT_2022 |
+| Danish sea-transport reallocation | not applied | applied | applied | applied | not applied | applied | applied | not applied |
+| Boundary | health care | health care | health care | + child and elder care | health care | health care | + child and elder care | health care |
+| Capital | excluded | excluded | excluded | endogenised | excluded | excluded | endogenised | excluded |
+| Climate total, kt CO₂e | 8,694.66 | 6,625.53 | 4,054.77 | 5,897.84 | 6,360.39 | 4,675.47 | 6,495.66 | 6,087.33 |
+| Transport share | 34.93 % | 16.56 % | 21.46 % | 20.10 % | 47.28 % | 14.87 % | 14.50 % | 32.19 % |
 
-`2019_uncorrected` runs on the background and correction state the submitted
-manuscript used, so it reproduces the manuscript's transport finding rather
-than correcting it. `2022_shipping_corrected` is the manuscript's headline.
-Comparing those two directly - the only pair the figure set drew before this
-2x2 existed - mixes the year, the background release, AND the correction; see
+`2019a` runs the release and correction state the submitted manuscript used, and
+it does **not** reproduce the submitted 46 % transport share: it returns 34.93 %.
+`2019_uncorrected`, which is the same year and correction state on v3.8.2 rather
+than v3.7, returns 47.28 % and is the run that reproduces the submitted finding.
+`2022c` is the manuscript's headline. Comparing `2019_uncorrected` with `2022c`
+directly - the only pair the figure set drew before the variant scheme existed -
+mixes the year with the correction; see
 `comparison/fig10_year_bridge_climate_2019_2022.tiff` and
 `analysis.year_comparison.two_step_bridge` for the two-step decomposition that
-separates them: `2019_uncorrected` -> `2019_shipping_corrected` isolates the
-correction alone, `2019_shipping_corrected` -> `2022_shipping_corrected`
-isolates the year alone. **Do not present `2019_uncorrected` and
-`2022_shipping_corrected` side by side as a time series** without that
-decomposition alongside them.
+separates them: `2019_uncorrected` -> `2019c` isolates the correction alone,
+`2019c` -> `2022c` isolates the year alone. **Do not present `2019_uncorrected`
+and `2022c` side by side as a time series** without that decomposition alongside
+them, and do not present `2019a` or `2019b` in such a series at all: they change
+the release as well.
 
 ## The set
 

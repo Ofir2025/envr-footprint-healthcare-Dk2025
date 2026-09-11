@@ -226,7 +226,7 @@ both retained.
 
 ## 01 — Eriksen replication, the manuscript layer (`data/gold/results/01_eriksen_replication/`)
 
-**Modules** `analysis.main_2025`, `analysis.eriksen_tables`
+**Modules** `analysis.main_2025`, `analysis.eriksen_tables`, `analysis.manuscript_figure_tables`; backgrounds from `pipelines.prep_background_2025`, `analysis.dk_shipping_correction` and `analysis.capital_endogenised_background`
 **Source** Eriksen et al., *The environmental impacts of the Danish health care system:
 supply-chain origins and geographical displacement of impacts*, NXSUST-D-26-01589,
 itself following Steenmeijer et al. (2022)
@@ -234,27 +234,101 @@ itself following Steenmeijer et al. (2022)
 ### Question this layer answers
 
 This layer reproduces everything the manuscript reports, in the manuscript's own
-table and figure structure, once per reference year AND per Danish sea-transport
-correction state ([section 10](#r10)), in four self-describing subfolders rather
-than two:
+table and figure structure, once per model VARIANT. A variant fixes all four axes
+that change the numbers — EXIOBASE release, Danish sea-transport correction
+([section 10](#r10)), care boundary, and capital treatment — and is named
+`<year><letter>`:
 
-| Folder | Reference year | Background | Correction applied |
-|:---|:---|:---|:---|
-| `2019_uncorrected/` | 2019 (as submitted) | EXIOBASE v3.8.2 `IOT_2016` | no |
-| `2019_shipping_corrected/` | 2019 | EXIOBASE v3.8.2 `IOT_2016` | yes |
-| `2022_uncorrected/` | 2022 (the resubmission) | EXIOBASE v3.8.2 `IOT_2022` | no |
-| `2022_shipping_corrected/` | 2022 | EXIOBASE v3.8.2 `IOT_2022` | yes |
+| Variant | EXIOBASE release | Danish shipping correction | Boundary | Capital |
+|:---|:---|:---|:---|:---|
+| a | v3.7 | no | health care (the submitted boundary) | excluded |
+| b | v3.7 | yes | health care | excluded |
+| c | v3.8.2 | yes | health care | excluded |
+| d | v3.8.2 | yes | health care + child and elder care | endogenised |
 
-`2019_uncorrected` and `2022_shipping_corrected` are the two folders the earlier,
-two-folder layout held (as `2019/` and `2022/`); the co-author's headline transport
-finding compares them directly, which confounds three things that change at once -
-reference year, background release, AND the sea-transport correction, since the
-submitted 2019 replication was never shipping-corrected while 2022 was. The two new
-folders, `2019_shipping_corrected` and `2022_uncorrected`, complete the 2x2 so each
-effect can be read in isolation: `2019_uncorrected` -> `2019_shipping_corrected`
-is the correction alone (same year, same background); `2019_shipping_corrected` ->
-`2022_shipping_corrected` is the year alone (same correction state on both ends).
-`analysis.year_comparison.two_step_bridge` computes exactly that decomposition.
+Variant `a` is the configuration the manuscript was submitted on; `b` adds the
+Danish correction to it; `c` is the headline of the resubmission; `d` widens the
+care boundary and brings consumption of fixed capital inside the Leontief inverse,
+which is what makes it comparable with Schmidt & Merciai (2023). The folders on
+disk are
+
+| Folder | Variant | Background stem | Climate total, kt CO2e | Transport share of climate |
+|:---|:---|:---|:---|:---|
+| `2019a/` | a | `2016_v3_7` | 8,694.66 | 34.93 % |
+| `2019b/` | b | `2016_v3_7_snacship` | 6,625.53 | 16.56 % |
+| `2019c/` | c | `2016_snacship` | 4,054.77 | 21.46 % |
+| `2019d/` | d | `2016_snacship_capital_zorg_en_welzijn` | 5,897.84 | 20.10 % |
+| `2022c/` | c | `2022_snacship` | 4,675.47 | 14.87 % |
+| `2022d/` | d | `2022_snacship_capital_zorg_en_welzijn` | 6,495.66 | 14.50 % |
+| `2019_uncorrected/` | — | `2016` | 6,360.39 | 47.28 % |
+| `2022_uncorrected/` | — | `2022` | 6,087.33 | 32.19 % |
+
+**There is no `2022a` or `2022b`, and there cannot be.** EXIOBASE v3.7 (2019)
+publishes no 2022 table; its series ends at 2016. The release axis therefore
+collapses for the 2022 reference year, and the 2022 series runs `c` and `d` only.
+
+**`2019_uncorrected` is NOT variant `a`.** It is EXIOBASE v3.8.2's 2016 table
+without the correction, and it keeps a self-describing name rather than a letter it
+was not assigned. The distinction is not cosmetic: it is the only configuration
+that reproduces the submitted transport finding. The submitted manuscript reports
+transport at 46 % of sector contributions; `2019_uncorrected` returns 47.28 %,
+while variant `a` — the release the submission actually ran on — returns 34.93 %.
+Whatever produced the submitted 46 % was closer to v3.8.2's 2016 block than to
+v3.7's, and the two v3.7 variants exist so that this can be stated from published
+tables instead of inferred. See [section 09](#r09) on release differences and
+`.superpowers/sdd/gold_layer_organisation/variants-report.md` for the measurement.
+
+The variant folder is resolved by `analysis.constants.variant_folder` in Python and
+by `variant_name()` in `r/_dk_common.r`; no module re-derives a folder name of its
+own, so the two languages cannot disagree about which variant a figure was drawn
+from. Each variant folder's `readme.md` states its configuration in its first line,
+and `01_eriksen_replication/readme.md` carries the table above.
+
+`analysis.year_comparison.two_step_bridge` decomposes the 2019-to-2022 movement
+using `2019_uncorrected` → `2019c` → `2022c`: the first step is the correction
+alone (same year, same release), the second is the year alone (same correction,
+release, boundary and capital treatment on both ends). All three nodes are on
+v3.8.2, which is what makes the first step the correction and nothing else.
+
+### How each variant is run
+
+```console
+export PYTHONPATH=src
+# a: EXIOBASE v3.7, uncorrected (the submitted configuration)
+HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_YEAR=2016 \
+  .venv/bin/python -m pipelines.prep_background_2025.load
+HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_YEAR=2016 \
+  .venv/bin/python -m pipelines.prep_background_2025.leontief
+HC_EXIOBASE_RELEASE=v3_7 HC_BACKGROUND_YEAR=2016 \
+  .venv/bin/python -m pipelines.prep_background_2025.process
+HC_EXIOBASE_RELEASE=v3_7 HC_ANALYSIS_YEAR=2019 \
+  .venv/bin/python -m analysis.main_2025          # then eriksen_tables etc.
+
+# b: the same release, shipping-corrected
+HC_EXIOBASE_RELEASE=v3_7 HC_ANALYSIS_YEAR=2019 \
+  .venv/bin/python -m analysis.dk_shipping_correction
+HC_EXIOBASE_RELEASE=v3_7 HC_ANALYSIS_YEAR=2019 HC_BACKGROUND_TAG=_snacship \
+  .venv/bin/python -m analysis.main_2025
+
+# c: v3.8.2, shipping-corrected (the headline)
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+  .venv/bin/python -m analysis.main_2025
+
+# d: v3.8.2, shipping-corrected, wider boundary, capital endogenised
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+  .venv/bin/python -m analysis.capital_endogenised_background
+HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+  HC_SCOPE=zorg_en_welzijn HC_CAPITAL=endogenised \
+  .venv/bin/python -m analysis.main_2025
+```
+
+Each `main_2025` run is followed, in the same environment, by
+`analysis.eriksen_tables`, `analysis.manuscript_figure_tables` and the three
+layer-02 modules ([section 02](#r02)), so that both layers publish the same eight
+folders. Two silver files — `dk_data_2025.csv` and `dk_bottomup_data_2025.txt` —
+are year-scoped state that `main_2025` overwrites in place, so the modules that
+read them must run in the same variant sequence as the `main_2025` that wrote
+them, and the 2022 variants are run last when the tracked content is to hold 2022.
 
 This folder is the deliverable for the resubmission. It is deliberately kept in the
 submitted paper's shape (the same tables, the same figure numbering) so that the
@@ -375,7 +449,7 @@ separately under `figures/manuscript/`.
 
 <a id="r02"></a>
 
-## 02 — GHG-Protocol scope decomposition (`data/gold/results/02_scopes_wood_hertwich/<year>_<correction state>/`)
+## 02 — GHG-Protocol scope decomposition (`data/gold/results/02_scopes_wood_hertwich/<year><variant letter>/`)
 
 **Module** `analysis.scopes_detail`
 **Sources** Hertwich & Wood (2018), *The growing importance of scope 3 greenhouse gas
@@ -501,39 +575,45 @@ what the fourth series is without this section.
 
 ### Which model run a folder is
 
-This layer is scoped by reference year **and** by whether the Danish
-sea-transport reallocation was applied, exactly as
-[section 01](#r01)'s folders are, and for the same reason: the
-2019-to-2022 transport swing is three changes at once, and a bare year in the
-folder name cannot say which correction state its tables carry. While it did,
-`gold_path` resolved figures 3 to 6 of the `2019_uncorrected` and
-`2022_uncorrected` figure variants to the shipping-corrected scope tables, and
-those figures came out byte-identical to the corrected ones.
+This layer carries the SAME variant folders as [section 01](#r01), on the same
+four axes and for the same reason: the 2019-to-2022 transport swing is several
+changes at once, and a folder name that says only the year cannot say which
+release, correction, boundary or capital treatment its tables carry. While it
+said only the year, `gold_path` resolved figures 3 to 6 of the
+`2019_uncorrected` and `2022_uncorrected` figure variants to the
+shipping-corrected scope tables, and those figures came out byte-identical to
+the corrected ones.
 
 `analysis.constants.scopes_folder` and `analysis.constants.eriksen_folder` are
-now one resolver, `variant_folder`, so the two layers cannot name a run
-differently from one another.
+one resolver, `variant_folder`, so the two layers cannot name a run differently
+from one another.
 
 | Folder | Background | Reallocation | Climate `TOTAL` (kt CO₂-eq) | Reconciles with |
 |:---|:---|:---|:---|:---|
-| `2019_shipping_corrected` | v3.8.2 `IOT_2016_ixi` | applied | 4,052.850438 | `01_/2019_shipping_corrected`, 4,054.772061 |
+| `2019a` | v3.7 `IOT_2016_ixi` | not applied | 8,693.839001 | `01_/2019a`, 8,694.660295 |
+| `2019b` | v3.7 `IOT_2016_ixi` | applied | 6,624.712564 | `01_/2019b`, 6,625.533857 |
+| `2019c` | v3.8.2 `IOT_2016_ixi` | applied | 4,052.850438 | `01_/2019c`, 4,054.772061 |
+| `2019d` | v3.8.2 `IOT_2016_ixi` + capital | applied | 5,895.450001 | `01_/2019d`, 5,897.840386 |
+| `2022c` | v3.8.2 `IOT_2022_ixi` | applied | 4,673.633405 | `01_/2022c`, 4,675.466659 |
+| `2022d` | v3.8.2 `IOT_2022_ixi` + capital | applied | 6,493.389134 | `01_/2022d`, 6,495.663580 |
 | `2022_uncorrected` | v3.8.2 `IOT_2022_ixi` | not applied | 6,085.494934 | `01_/2022_uncorrected`, 6,087.328324 |
-| `2022_shipping_corrected` | v3.8.2 `IOT_2022_ixi` | applied | 4,673.633405 | `01_/2022_shipping_corrected`, 4,675.466659 |
 
 Each reconciliation is the folder's climate `TOTAL` plus its self-supply loop,
-and each closes exactly. `2019_uncorrected` is **not published**: the
-uncorrected and shipping-corrected 2016 model objects on disk descend from two
-different extractions of `IOT_2016_ixi`, so a partition built on the
-uncorrected one would miss that run's published grand total by 58.47 kt. The
-reason and the measurement are recorded in
-[docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md).
+and each closes exactly. `2019_uncorrected` is **not published here** while
+`01_eriksen_replication` publishes it: the uncorrected and shipping-corrected
+2016 v3.8.2 model objects on disk descend from two different extractions of
+`IOT_2016_ixi`, so a partition built on the uncorrected one would miss that
+run's published grand total by 58.47 kt. The reason and the measurement are
+recorded in [docs/revision/defects_and_fixes.md](../revision/defects_and_fixes.md).
+Variants a and b are unaffected: both were built from one extraction of the v3.7
+table in this wave, backgrounds included.
 
 ### Outputs
 
 | File | Rows | Content |
 |:---|:---|:---|
 | `scopes_summary_detailed.csv` | n/a | every scope and variant, with its `basis` stated |
-| `scopes_by_producing_node.csv` | 23,726 (2022 corrected), 23,726 (2022 uncorrected), 23,735 (2019 corrected) | each scope resolved to producing node |
+| `scopes_by_producing_node.csv` | 23,726 (2022c), 23,726 (2022_uncorrected), 23,735 (2019c) | each scope resolved to producing node |
 | `double_counting_ledger.csv` | n/a | every overlap risk, its test, and its verdict |
 
 ### Verification
@@ -576,8 +656,8 @@ conventions (`r/_dk_common.r`): no on-figure title, facet titles the largest tex
 at the bottom without a title, bars ranked descending with the remainder re-sorted into the
 ranking by its own value, per-facet axis ceilings so no bar touches the panel edge, and
 ASCII-only labels because the TIFF font renders a middle dot as `..`. Each file name ends
-in the run it was drawn from (`..._2022_shipping_corrected.tiff`), so a figure cannot be
-mistaken for the other correction state's.
+in the variant it was drawn from (`..._2022c.tiff`), so a figure cannot be
+mistaken for another variant's.
 
 **A finding visible in the top-origins figure:** the 25 largest origin-industry pairs
 account for 45 % of the footprint; the pooled remainder is the single largest bar. The
@@ -1688,8 +1768,8 @@ differ materially:
 
 | Perspective | Gold table | Transport, climate | Share of 4,675 kt | Share of 3,906 kt MRIO |
 |:---|:---|:---|:---|:---|
-| Producing node (hotspot), summing over $j$ | `01_eriksen_replication/2022_shipping_corrected/hotspot_by_sector_group.csv` | 695.1 kt | 14.87 % | 17.79 % |
-| Purchased product (contribution), summing over $i$ | `01_eriksen_replication/2022_shipping_corrected/contribution_by_sector_group.csv` | 566.5 kt | 12.12 % | 14.50 % |
+| Producing node (hotspot), summing over $j$ | `01_eriksen_replication/2022c/hotspot_by_sector_group.csv` | 695.1 kt | 14.87 % | 17.79 % |
+| Purchased product (contribution), summing over $i$ | `01_eriksen_replication/2022c/contribution_by_sector_group.csv` | 566.5 kt | 12.12 % | 14.50 % |
 
 Transport ranks **first** among producing nodes and **fourth** among purchased products,
 where the chemical group leads at 1,737.4 kt (37.16 %). Any sentence that ranks transport
