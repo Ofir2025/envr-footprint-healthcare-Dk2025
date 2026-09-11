@@ -21,7 +21,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 06
 
 ### `consistency_audit.csv`
 
-- **Rows:** 19
+- **Rows:** 20
 - **Format:** csv
 - **Dimensions:** `check`, `status`, `detail`, `known_conventions`
 - **Measures:** none
@@ -98,7 +98,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 06
 - **Rows:** 11
 - **Format:** csv
 - **Dimensions:** `input_group_share_pct`
-- **Measures:** `EXIOBASE v3.10.2 (modelled)`, `Eurostat FIGARO Q86 (official EU)`, `Statistics Denmark IO 86 (national)`
+- **Measures:** `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022) (modelled)`, `Eurostat FIGARO Q86 (official EU)`, `Statistics Denmark IO 86 (national)`
 
 ### `snac_split_weight_sensitivity.csv`
 

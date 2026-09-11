@@ -43,7 +43,7 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from analysis.constants import MODEL_LABEL
+from analysis.constants import BACKGROUND_YEAR, MODEL_LABEL
 from analysis.detail_tables import detail_rows, domestic_import_split
 from paths import BACKGROUND_DIR, MRIO_DIR, OUTPUT_DIR
 
@@ -62,12 +62,14 @@ def main() -> None:
     the producing-node decomposition to
     ``cabernard_target_scope3_by_producing_node.csv.gz``, and the
     domestic/imported split to ``cabernard_domestic_vs_imported.csv``, all
-    under the same folder. Reads ``HC_ANALYSIS_YEAR`` from the environment
-    (default ``"2022"``) to select the background year's MRIO and background
-    pickles.
+    under the same folder. The background actually loaded is
+    ``analysis.constants.BACKGROUND_YEAR``, which carries both
+    ``HC_ANALYSIS_YEAR`` and ``HC_BACKGROUND_TAG``, so a model variant
+    selected on the command line reaches this layer rather than being
+    silently replaced by the uncorrected background.
     """
     year = os.environ.get("HC_ANALYSIS_YEAR", "2022")
-    bgy = "2022" if year == "2022" else "2016"
+    bgy = BACKGROUND_YEAR
     with open(os.path.join(str(MRIO_DIR), f"mrio{bgy}.pkl"), "rb") as fh:
         m = pickle.load(fh)
     with open(os.path.join(str(BACKGROUND_DIR),

@@ -59,7 +59,7 @@ units and are labelled as such wherever they are quoted.
 | `item` | dimension | str |  | MRIO footprint decomposition by producin |
 | `risk` | dimension | str |  | none |
 | `test` | dimension | str |  | partition of one scalar (sum of cells == |
-| `value` | measure | float64 | varies by row | 5318.307734796392 |
+| `value` | measure | float64 | varies by row | 3906.446070140176 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `verdict` | dimension | str |  | OK - additive by construction (Wood & He |
 
