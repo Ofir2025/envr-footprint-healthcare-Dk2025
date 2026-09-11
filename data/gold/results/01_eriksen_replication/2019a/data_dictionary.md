@@ -88,7 +88,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `purchased_world_region` | dimension | str |  | Denmark |
-| `value` | measure | float64 | varies by row | 6190.531477473938 |
+| `value` | measure | float64 | varies by row | 6194.201477473938 |
 
 ### `contribution_domestic_vs_imported.csv`
 
@@ -97,8 +97,8 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `origin` | dimension | str |  | domestic |
-| `value` | measure | float64 | varies by row | 24.502323640881396 |
-| `share_of_total_pct` | measure | float64 | % | 27.564169862868713 |
+| `value` | measure | float64 | varies by row | 24.5033236408814 |
+| `share_of_total_pct` | measure | float64 | % | 27.564984728876617 |
 
 ### `figure1_activity_contributions.csv`
 
@@ -108,7 +108,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `contribution_group` | dimension | str |  | Pharmaceuticals and chemical products |
 | `value` | measure | float64 | varies by row | 41.95852748976219 |
-| `share_pct` | measure | float64 | % | 47.20172649233889 |
+| `share_pct` | measure | float64 | % | 47.201195497079226 |
 
 ### `figure2_sector_contributions.csv`
 
@@ -118,7 +118,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `hotspot_group` | dimension | str |  | Agricultural sector |
 | `value` | measure | float64 | varies by row | 74.50509745797247 |
-| `share_pct` | measure | float64 | % | 83.8153634765747 |
+| `share_pct` | measure | float64 | % | 83.81442059664212 |
 
 ### `figure2b_top_origin_industry_pairs.csv`
 
@@ -133,7 +133,7 @@ units and are labelled as such wherever they are quoted.
 | `value` | measure | float64 | varies by row | 11.03908262467995 |
 | `rank` | measure | int64 |  | 1 |
 | `share_pct` | measure | float64 | % | 12.44127197073574 |
-| `mrio_coverage_pct` | measure | float64 | % | 99.81730625832314 |
+| `mrio_coverage_pct` | measure | float64 | % | 99.81618336472592 |
 
 ### `figure3_geographical_origin.csv`
 
@@ -143,7 +143,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `producing_world_region` | dimension | str |  | Asia and Pacific |
 | `value` | measure | float64 | varies by row | 38.26897182965677 |
-| `share_pct` | measure | float64 | % | 43.05111855718077 |
+| `share_pct` | measure | float64 | % | 43.05063425413561 |
 
 ### `full_results_tables_fig1_absolute.csv`
 
@@ -161,10 +161,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Contribution` | dimension | str |  | Food and food services |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 5.039456487059518 |
-| `Material extraction (kt)` | measure | float64 |  | 2.3525242326779865 |
-| `Blue water consumption (Mm3)` | measure | float64 |  | 22.903147502718564 |
-| `Land use (km2)` | measure | float64 |  | 26.345122956001752 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 5.037330239299383 |
+| `Material extraction (kt)` | measure | float64 |  | 2.3524805212322364 |
+| `Blue water consumption (Mm3)` | measure | float64 |  | 22.90288985403367 |
+| `Land use (km2)` | measure | float64 |  | 26.345076352221483 |
 | `Waste generation (kt)` | measure | float64 |  | 10.219752193027718 |
 
 ### `full_results_tables_fig2_absolute.csv`
@@ -183,10 +183,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Hotspot` | dimension | str |  | Agricultural sector |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 6.54591666475398 |
-| `Material extraction (kt)` | measure | float64 |  | 0.2723756903310749 |
-| `Blue water consumption (Mm3)` | measure | float64 |  | 83.81536347657466 |
-| `Land use (km2)` | measure | float64 |  | 97.91782410571516 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 6.543154811232235 |
+| `Material extraction (kt)` | measure | float64 |  | 0.2723706294118094 |
+| `Blue water consumption (Mm3)` | measure | float64 |  | 83.81442059664208 |
+| `Land use (km2)` | measure | float64 |  | 97.91765089184304 |
 | `Waste generation (kt)` | measure | float64 |  | 15.877797409407124 |
 
 ### `full_results_tables_fig3_absolute.csv`
@@ -194,10 +194,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Region` | dimension | str |  | Unallocated |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 252.90240567336656 |
-| `Material extraction (kt)` | measure | float64 |  | 23.4337 |
-| `Blue water consumption (Mm3)` | measure | float64 |  | 0.1624 |
-| `Land use (km2)` | measure | float64 |  | 1.5258 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 254.39260567336655 |
+| `Material extraction (kt)` | measure | float64 |  | 23.5848 |
+| `Blue water consumption (Mm3)` | measure | float64 |  | 0.1634 |
+| `Land use (km2)` | measure | float64 |  | 1.5356999999999998 |
 | `Waste generation (kt)` | measure | float64 |  | 0.0 |
 
 ### `full_results_tables_fig3_relative_pct.csv`
@@ -205,10 +205,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Region` | dimension | str |  | Unallocated |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 2.908709450181097 |
-| `Material extraction (kt)` | measure | float64 |  | 0.2881678566171434 |
-| `Blue water consumption (Mm3)` | measure | float64 |  | 0.1826937416768548 |
-| `Land use (km2)` | measure | float64 |  | 0.0272636564361515 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 2.924614230940116 |
+| `Material extraction (kt)` | measure | float64 |  | 0.2900205679647334 |
+| `Blue water consumption (Mm3)` | measure | float64 |  | 0.1838166352740719 |
+| `Land use (km2)` | measure | float64 |  | 0.0274405053901398 |
 | `Waste generation (kt)` | measure | float64 |  | 0.0 |
 
 ### `hotspot_by_producing_country_and_sector_group.csv`
@@ -272,7 +272,7 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `origin` | dimension | str |  | domestic |
 | `value` | measure | float64 | varies by row | 7.599867419062432 |
-| `share_of_total_pct` | measure | float64 | % | 8.549557974362918 |
+| `share_of_total_pct` | measure | float64 | % | 8.54946179621237 |
 
 ### `intensity_by_purchased_product.csv`
 
@@ -326,7 +326,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `Unnamed: 0` | dimension | str |  | Total |
 | `Category group` | dimension | str |  | Total |
-| `Climate change (kt CO2eq)` | dimension | str |  | 8,695 (100·0%) |
+| `Climate change (kt CO2eq)` | dimension | str |  | 8,698 (100·0%) |
 | `Material extraction (kt)` | dimension | str |  | 8,132 (100·0%) |
 | `Blue water consumption (Mm3)` | dimension | str |  | 89 (100·0%) |
 | `Land use (km2)` | dimension | str |  | 5,596 (100·0%) |
@@ -338,10 +338,10 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Unnamed: 0` | dimension | str |  | Total |
-| `Global warming (ktCO2eq)` | measure | float64 |  | 8694.660295397387 |
-| `Material extraction (kt)` | measure | float64 |  | 8131.961793064838 |
-| `Blue water consumption (Mm3)` | measure | float64 |  | 88.89193385028472 |
-| `Land use (km2)` | measure | float64 |  | 5596.461368170701 |
+| `Global warming (ktCO2eq)` | measure | float64 |  | 8698.330295397387 |
+| `Material extraction (kt)` | measure | float64 |  | 8132.112893064837 |
+| `Blue water consumption (Mm3)` | measure | float64 |  | 88.89293385028472 |
+| `Land use (km2)` | measure | float64 |  | 5596.471268170701 |
 | `Waste generation (kt)` | measure | float64 |  | 380.71235915278544 |
 | `Expenditure (MEUR)` | measure | float64 |  | 35271.231705222825 |
 
@@ -350,6 +350,6 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `Unnamed: 0` | dimension | str |  | Global warming (ktCO2eq) |
-| `Healthcare footprint` | measure | float64 |  | 8694.660295397387 |
+| `Healthcare footprint` | measure | float64 |  | 8698.330295397387 |
 | `National consumption footprint` | measure | float64 |  | 79040.33438684596 |
-| `Healthcare share of national consumption footprint (%)` | measure | float64 | % | 11.0002827832727 |
+| `Healthcare share of national consumption footprint (%)` | measure | float64 | % | 11.004925982252647 |

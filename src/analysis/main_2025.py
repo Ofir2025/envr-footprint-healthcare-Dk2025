@@ -155,12 +155,13 @@ INCLUDE_ELDERCARE = SCOPE_SCENARIO != "health_only"
 BACKGROUND_YEAR = background_stem()
 print(f"background {BACKGROUND_YEAR} -> {model_label(BACKGROUND_YEAR)}")
 # Danmarks Nationalbank annual average DKK/EUR
-DKK_PER_EUR_BY_YEAR = {"2019": 7.4661, "2022": 7.4396}
+DKK_PER_EUR_BY_YEAR = {"2016": 7.4452, "2019": 7.4661, "2022": 7.4396}
 # Direct healthcare waste components from Statistics Denmark AFFALD01 (total
 # waste excl. soil, tonnes): QA human health, 870000 residential care, 880000
 # social work. Combined below with the SAME year-specific eldercare share that
 # DRIVHUS uses, so the two direct accounts stay consistent.
-_AFFALD_T = {"2019": dict(qa=28763, res=7460, soc=13214),
+_AFFALD_T = {"2016": dict(qa=35614, res=7184, soc=12830),
+             "2019": dict(qa=28763, res=7460, soc=13214),
              "2022": dict(qa=30289, res=8422, soc=13084)}[ANALYSIS_YEAR]
 year = BACKGROUND_YEAR  # background pickle year (also used by the Dutch mode)
 
@@ -174,9 +175,16 @@ from .extra_functions import (
     eldercare_share_of_social_work_io,
     write_sheets_as_csv,
 )
-if ANALYSIS_YEAR == "2022":
+# Years whose expenditure vector is read from Statistics Denmark's PUBLISHED
+# 117-industry input-output workbook (sheets CP and IO) rather than from the
+# detailed supply-use table. 2019 keeps the supply-use route because that is what
+# the submitted manuscript used and the two are not interchangeable to the digit;
+# 2016 and 2022 use the published workbook, which is the reproducible source and
+# needs no confidential extract. All three workbooks carry the same sheets.
+IO_WORKBOOK_YEARS = {"2016", "2022"}
+if ANALYSIS_YEAR in IO_WORKBOOK_YEARS:
     hc51, hc52, healthcare_services, expenditure_breakdown = calculate_healthcare_totals_2022(
-        BRONZE_DIR / "dst_input_output" / "input_output_en_2022.xlsx",
+        BRONZE_DIR / "dst_input_output" / f"input_output_en_{ANALYSIS_YEAR}.xlsx",
         include_childcare=INCLUDE_CHILDCARE, include_eldercare=INCLUDE_ELDERCARE,
     )
 else:
@@ -227,6 +235,22 @@ else:
 
     # Overwrite the derived Silver input with these MEUR values and Conversion=1.0.
     dk_csv_path = str(silver_dk_data_csv(ANALYSIS_YEAR))
+    # The file is a TEMPLATE this block rewrites in full: every value below is
+    # recomputed from the Danish source workbook, and only the frame is read. A
+    # year being analysed for the first time therefore has nothing to read, and
+    # had to be seeded by hand - which is a step that goes undocumented and then
+    # looks like data. The frame is built here instead when it is absent.
+    if not os.path.exists(dk_csv_path):
+        print(f"    {os.path.basename(dk_csv_path)} absent; creating the frame")
+        os.makedirs(os.path.dirname(dk_csv_path), exist_ok=True)
+        pd.DataFrame({
+            "Index": ["Expenditure", "Conversion", "DirectEm"],
+            "Unit": ["MEUR", "na", "kt CO2e"],
+            "HC service": [0.0, 1.0, 0.0],
+            "Pharm": [0.0, 1.0, 0.0],
+            "MedAppl": [0.0, 1.0, 0.0],
+            "ISO2": ["DK", "DK", "DK"],
+        }).to_csv(dk_csv_path, index=False)
     df = pd.read_csv(dk_csv_path)
 
     # Ensure required columns exist
@@ -615,7 +639,15 @@ def scale_bottomup_all_to_dk(
 SCALING_DK_OVER_NL_BY_YEAR = {
     # 2019: employment 518,889 (NABB69, 86000+87880) / 1,220,750; hours 34.4/29.2;
     #       TU 2019 distance 9.0/7.88 km/person/day
-    "2019": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5719, "Visitor travel": 0.5348},
+    # 2016: employment 501,258 (NABB69 2016: 208,577 + 292,681) / 1,220,750 =
+    #       0.41061; hours 34.4/29.2 = 1.17808; TU aarsrapport 2016 Tabel 20
+    #       distance 9.7/7.88 = 1.23096 -> Commute 0.5955;
+    #       Visitor 0.41061 * 1.258097 = 0.5166
+    "2016": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5955, "Visitor travel": 0.5166},
+    # 2019 commuting distance is 9.1 km/person/day, the Table 20 total of the TU
+    # 2019 annual report. It was 9.0 here until 2026-09-11, which is not a figure
+    # that report carries; the factor moves 0.5719 -> 0.5783, commuting +1.1 %.
+    "2019": {"Anaesthetic": 0.67, "pMDI": 0.45, "Commute": 0.5783, "Visitor travel": 0.5348},
     # 2022: employment 556,999 (NABB69 2022: 244,852 + 312,147) / 1,220,750 = 0.45624;
     #       hours 34.4/29.2 = 1.17808; TU aarsrapport 2022 Table 20 distance
     #       9.3/7.88 = 1.18020 -> Commute 0.6343; Visitor 0.45624*1.258097 = 0.5740
@@ -686,6 +718,7 @@ scale_bottomup_all_to_dk(
 # Hospital N2O was subtracted from the DRIVHUS direct figure, so there is no
 # double counting.
 DK_ANAESTHETIC_LITRES = {
+    "2016": {"sevoflurane": 3228.0, "desflurane": 478.0, "isoflurane": 30.0},
     "2019": {"sevoflurane": 2714.0, "desflurane": 400.0, "isoflurane": 17.0},
     "2022": {"sevoflurane": 2400.0, "desflurane": 181.0, "isoflurane": 15.0},
 }[ANALYSIS_YEAR]
@@ -701,7 +734,15 @@ DK_VOLATILE_KT_CO2E = sum(
     for a in DK_ANAESTHETIC_LITRES) / 1e6           # kg -> kt
 DK_N2O_KT_CO2E = 38.0 * AR6_GWP100["N2O"] / 1e3
 DK_ANAESTHETIC_KT_CO2E = DK_N2O_KT_CO2E + DK_VOLATILE_KT_CO2E
-DK_PMDI_KT_CO2E = {"2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
+# 2016: the Danish EPA F-gas report for 2016 (Miljoestyrelsen, Environmental
+# Project 1979, 2018) estimates 5.5 t of HFC-134a consumed in metered-dose
+# inhalers. That report separates no HFC-227ea for MDI, so the 227ea share is
+# imputed at 2019's 90/10 split, giving 6.11 t total, characterised on the same
+# ReCiPe 2016 GWP100 factors as 2019: 5.5 x 1,549 + 0.61 x 3,860 = 10.88 kt.
+# This is the weakest of the 2016 parameters and is flagged as such: the EPA's
+# own 5.5 t is an estimate carried forward from 2015 by a 10 % reduction, because
+# the Danish Medicines Agency changed its database format that year.
+DK_PMDI_KT_CO2E = {"2016": 10.88, "2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
 # Direct healthcare waste (Statistics Denmark AFFALD01, total waste excl. soil,
 # QA + 870000 + alpha x 880000 with the 2019-derived eldercare share 0.4914):
 # 2019: 28,763 + 7,460 + 0.4914*13,214 = 42.7 kt; 2022: 30,289 + 8,422 +
@@ -731,8 +772,10 @@ _bu = pd.read_csv(BOTTOMUP_2025, sep="\t").set_index("Source")
 # The emission intensity is the Dutch composite implied by Steenmeijer et al.
 # (358.6386 kt over 2.7 bn person-km = 0.1328 kg CO2e/person-km), retained so
 # the item stays methodologically comparable with the template.
-DK_TRAVEL_KM_PER_PERSON_DAY = {"2019": 0.9, "2022": 0.8}[ANALYSIS_YEAR]
-DK_POPULATION_6PLUS = {"2019": 5_442_766, "2022": 5_499_115}[ANALYSIS_YEAR]
+DK_TRAVEL_KM_PER_PERSON_DAY = {"2016": 0.7, "2019": 0.9,
+                               "2022": 0.8}[ANALYSIS_YEAR]
+DK_POPULATION_6PLUS = {"2016": 5_346_887, "2019": 5_442_766,
+                       "2022": 5_499_115}[ANALYSIS_YEAR]
 DK_TRAVEL_INTENSITY_KG_PER_PKM = 0.1328
 DK_VISITOR_TO_PATIENT_RATIO = 0.236
 _pkm = DK_TRAVEL_KM_PER_PERSON_DAY * 365.0 * DK_POPULATION_6PLUS

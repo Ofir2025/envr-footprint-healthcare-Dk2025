@@ -79,3 +79,43 @@ read could be harmless in. The two years now sit in two files, resolved by
 `paths.silver_dk_bottomup_txt(year)`. Verified by a 2022 → 2019 → 2022 round
 trip, which left the 2022 file untouched by the 2019 run and the 2022 gold tables
 byte-identical.
+
+## `dk_bottomup_data_2016.txt`
+
+The 2016 row of the bottom-up inventory, built by the same scaling as 2019 and
+2022 and from Denmark's own sources throughout. Every parameter was retrieved
+rather than assumed, and each reproduces the published value for 2019 and 2022
+before being applied to 2016:
+
+| parameter | 2016 | source |
+|:---|:---|:---|
+| Health and social care employment | 501,258 | Statistics Denmark NABB69, `Employment (number)`, industries 86000 + 87880 |
+| Employment ratio against the Dutch base | 0.41061 | ÷ 1,220,750, the CBS figure Steenmeijer et al. use |
+| Actual weekly hours | 34.4 / 29.2 | the study's constant, as for 2019 and 2022 |
+| Commuting distance | 9.7 km/person/day | TU årsrapport Danmark 2016, Tabel 20, `Arbejdspl.` column |
+| **Commute factor** | **0.5955** | the product of the three |
+| **Patient and visitor factor** | **0.5166** | employment ratio × the 1.258097 distance uplift |
+| Travel, purpose `Social/sundhed` | 0.7 km/person/day | TU årsrapport Danmark 2016, Tabel 15 |
+| Population aged 6 and over | 5,346,887 | Statistics Denmark FOLK1A, total less ages 0-5 |
+| Sevoflurane / desflurane / isoflurane | 3,228 / 478 / 30 L | medstat.dk `2016_atc_code_data.txt`, ATC N01AB08 / 07 / 06 |
+| Nitrous oxide | 38 t | Denmark's National Inventory Document 2024, constant 2013-2022, so 2016 is covered directly |
+| pMDI propellant | 5.5 t HFC-134a | Miljøstyrelsen, *Danish consumption and emission of F-gases*, Environmental Project 1979 (2018) |
+
+Three of these deserve a reader's attention.
+
+**The TU 2016 annual report is not linked from DTU's publication page**, which
+lists 2017 onwards. It exists at the same URL pattern as its successors
+(`tu_danmark_2016_n.pdf`) and is cached here as `tu_danmark_2016.pdf`.
+
+**The commuting distance for 2019 was 9.0 km/person/day in this study until
+2026-09-11 and is now 9.1**, the figure the TU 2019 report's Table 20 and Table
+15 both carry; 9.0 appears in neither. The commute factor moves 0.5719 to 0.5783
+and commuting rises 1.1 %. 2022's 9.3 reproduces exactly.
+
+**The pMDI figure is the weakest of the 2016 parameters.** The Danish EPA reports
+5.5 t of HFC-134a and separates no HFC-227ea for MDI that year, so the 227ea
+share is imputed at 2019's 90/10 split, giving 6.11 t and 10.88 kt CO₂-eq on the
+same ReCiPe 2016 factors. The EPA's own 5.5 t is itself an estimate carried
+forward from 2015 by a 10 % reduction, because the Danish Medicines Agency
+changed its database format that year. The same method applied to 2019's 7.2 t
+returns 12.82 kt against the 12.8 kt published, which is the check on it.

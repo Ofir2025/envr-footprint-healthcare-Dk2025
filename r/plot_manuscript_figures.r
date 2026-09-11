@@ -169,6 +169,7 @@ p2 <- ggplot(d2, aes(plot_x, key,
   geom_col(width = 0.74, colour = "white", linewidth = 0.15) +
   remainder_breaks(d2) +
   remainder_label(d2) +
+  ranked_labels(d2) +
   # Strips name the category only. They used to carry a total, but this figure
   # covers the MRIO supply chain alone (~84 % of each indicator), so printing a
   # total here understated the study figure by 16 %.
@@ -184,7 +185,7 @@ p2 <- ggplot(d2, aes(plot_x, key,
                     guide = "none") +
   scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
                      expand = expansion(mult = c(0, 0.05))) +
-  labs(x = paste0("Share of the impact category (%). ", REMAINDER_NOTE),
+  labs(x = "Share of the impact category (%)",
        y = NULL) +
   theme_dkhc() +
   theme(panel.grid.major.y = element_blank(),
@@ -290,6 +291,7 @@ if (!gold_has("scope_by_continent.csv")) {
       geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
       remainder_breaks(d) +
       remainder_label(d, size = 4.4) +
+      ranked_labels(d, size = 3.8) +
       scale_fill_manual(values = c(IND_COLS, remainder = REMAINDER_COL),
                         guide = "none") +
       facet_ceiling(d %>% group_by(indicator, key) %>%
@@ -303,8 +305,8 @@ if (!gold_has("scope_by_continent.csv")) {
                          expand = expansion(mult = c(0, 0.05))) +
       # "Share of Scope 3 within the impact category" reads as the share Scope 3
       # is OF the category. The denominator here is the category's Scope 3 total.
-      labs(x = sprintf("Share of the category's %s impact (%%). %s",
-                       which_scope, REMAINDER_NOTE), y = NULL) +
+      labs(x = sprintf("Share of the category's %s impact (%%)",
+                       which_scope), y = NULL) +
       theme_dkhc() +
       theme(panel.grid.major.y = element_blank(),
             axis.text.y = element_text(size = 14, family = "mono", colour = INK),
@@ -349,6 +351,7 @@ if (!gold_has("scope_by_continent.csv")) {
              position = position_stack(reverse = TRUE)) +
     remainder_breaks(d6) +
     remainder_label(d6, size = 4.4) +
+    ranked_labels(d6, size = 3.8) +
     facet_ceiling(d6 %>% group_by(indicator, key) %>%
                     summarise(value = sum(plot_x), .groups = "drop"),
                   "indicator", "value", room = 1.26) +
@@ -361,7 +364,7 @@ if (!gold_has("scope_by_continent.csv")) {
                        guide = guide_axis(check.overlap = TRUE),
                        expand = expansion(mult = c(0, 0.05))) +
     guides(fill = guide_legend(nrow = 1)) +
-    labs(x = paste0("Share of the impact category (%). ", REMAINDER_NOTE),
+    labs(x = "Share of the impact category (%)",
          y = NULL) +
     theme_dkhc() +
     theme(panel.grid.major.y = element_blank(),
