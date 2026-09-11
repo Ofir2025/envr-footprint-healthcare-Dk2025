@@ -229,7 +229,8 @@ p3 <- ggplot(d3, aes(share_pct, lab, fill = scope)) +
             fontface = "bold", size = 4.6, na.rm = TRUE, show.legend = FALSE) +
   scale_colour_manual(values = c(`TRUE` = "#1A1A1A", `FALSE` = "white"),
                       guide = "none") +
-  scale_fill_manual(values = SCOPE_COLS, name = NULL) +
+  scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
+                    name = NULL) +
   scale_x_continuous(labels = function(x) paste0(smart_labs(x), "%"),
                      breaks = seq(0, 100, 25),
                      expand = expansion(mult = c(0, 0.01))) +
@@ -342,7 +343,8 @@ p6 <- ggplot(d6, aes(plot_x, key, fill = scope)) +
   facet_wrap(~indicator, ncol = 3, scales = "free",
              labeller = ind_only_labeller) +
   scale_y_discrete(labels = strip_key) +
-  scale_fill_manual(values = SCOPE_COLS, name = NULL, drop = TRUE) +
+  scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
+                    name = NULL, drop = TRUE) +
   scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
                      guide = guide_axis(check.overlap = TRUE),
                      expand = expansion(mult = c(0, 0.05))) +

@@ -624,7 +624,7 @@ discrete scenarios instead:
 |:---|:---|
 | Mapping pharmaceuticals to *Chemicals nec* | No "true value with measurement error" exists here. Either you accept the proxy or you apply Hagenaars' correction. Both are run; the answer differs by a third. |
 | Price base year | A convention about which year's prices to use. |
-| Waste-account reference year | The 2011 hybrid extension against Denmark's own SEEA account: a change of *concept*, 4.6× at the health sector. |
+| Waste-account reference year | The 2011 hybrid extension against Denmark's own SEEA account: a change of *concept*, 3.1× at the health sector's direct row. |
 
 Dressing a decision up as measurement error would tell the reader that the truth
 lies somewhere in between. It does not; it lies at one of them.
@@ -1475,7 +1475,7 @@ studies. Report the interval and this sentence together, or not at all.
 | Capital | excluded from the headline | +19.5 % (Södersten endogenisation) |
 | Sector boundary | health + eldercare | +12 % on NACE Q incl. childcare |
 | Scope 2 | Hertwich & Wood full-multiplier | −2.2 % on the GHG-Protocol strict form |
-| Waste | MRIO extension retained for comparability | the Danish account is 4.6× lower |
+| Waste | MRIO extension retained for comparability | the Danish account is 3.1× lower on the direct row |
 
 None of these is wrong; each is a convention that must be stated with the
 number. Full detail in
