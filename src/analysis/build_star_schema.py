@@ -272,7 +272,8 @@ def build_dim_industry() -> tuple[pd.DataFrame, pd.DataFrame]:
     # 15-37 only, the technology-intensity group. Five industries have no ISIC
     # row because the hybrid release renumbers them (i24.x, i26.w.1, i40.2,
     # i90.x); they are left blank rather than guessed.
-    isic_path = os.path.join(REPO, "data", "bronze", "concordances",
+    isic_path = os.path.join(REPO, "data", "bronze",
+                             "classification_concordances",
                              "exiobase_industry_to_isic_rev3.csv")
     if os.path.exists(isic_path):
         isic = pd.read_csv(isic_path, dtype={"isic_rev3_division": str})

@@ -172,6 +172,9 @@ NOT_STAGES: frozenset[str] = frozenset({
     # a bronze-layer fetcher: it downloads register data from Statistics
     # Denmark and is run when the accounts are refreshed, not on every build
     "fetch_dst_accounts",
+    # a bronze-to-silver conformance step: it gives the medstat register named
+    # columns and is run when the register is refreshed, not on every build
+    "build_atc_sales",
     "__init__", "constants", "functions", "functions_2025", "extra_functions",
     "main",                    # the RIVM original, kept for provenance
     "scenario_engine",         # library behind mitigation_scenarios

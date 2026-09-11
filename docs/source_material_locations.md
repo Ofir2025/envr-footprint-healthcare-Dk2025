@@ -174,8 +174,8 @@ data for individual countries changes."*
 | Store | Path |
 |:---|:---|
 | EXIOBASE releases (v3.6, v3.7, v3.8.2, v3.10.2, hybrid v3.3.18) | `~/Library/CloudStorage/OneDrive-Personal/Data/lca/input_output/mrio/exiobase/versions/` |
-| Characterisation factors (IMPACT World+ v2.2.1, IPCC AR6 chapter 7 + SM) | `data/bronze/characterisation/` - provenance and licence in `SOURCES.txt` |
-| Danish registers cached in-repo | `data/bronze/medstat/` (medicine sales), `data/bronze/tu_travel/` (national travel survey), `data/bronze/dst_capital/` (NABK69), `data/bronze/input_output/` (117-industry IO tables) |
+| Characterisation factors (IMPACT World+ v2.2.1, IPCC AR6 chapter 7 + SM) | `data/bronze/exiobase_characterisation/` - provenance and licence in `readme.md` |
+| Danish registers cached in-repo | `data/bronze/dk_medicines_register/` (medicine sales), `data/bronze/dk_travel_survey/` (national travel survey), `data/bronze/dst_capital_stock/` (NABK69), `data/bronze/dst_input_output/` (117-industry IO tables) |
 
 ---
 
@@ -223,7 +223,8 @@ Inspected 8 September 2026.
   copy mirrored by the BONSAI project at
   `github.com/BONSAMURAIS/correspondence_tables`, and originally from the EXIOBASE
   developer set linked from exiobase.eu; EXIOBASE terms, CC BY-SA 4.0).
-  `data/bronze/concordances/exiobase_industry_to_isic_rev3.csv` derives from it:
+  `data/bronze/classification_concordances/exiobase_industry_to_isic_rev3.csv`
+  derives from it:
   **138 of 163 EXIOBASE industries** carry an ISIC Rev. 3 division, of which 44 fall in
   manufacturing divisions 15-37 and so carry your Low / Mid / High technology group.
   `HEAL` maps one-to-one to division 85, *Health and social work*.
@@ -252,8 +253,8 @@ Both are exported as editable concordances rather than left implicit in a workbo
 
 | File | Rows | Content |
 |:---|:---|:---|
-| `data/bronze/concordances/exiobase_industry_to_group.csv` | 163 | EXIOBASE industry code and name → one of 19 industry groups |
-| `data/bronze/concordances/exiobase_region_to_world_region.csv` | 49 | region code and name → one of 6 world regions |
+| `data/bronze/classification_concordances/exiobase_industry_to_group.csv` | 163 | EXIOBASE industry code and name → one of 19 industry groups |
+| `data/bronze/classification_concordances/exiobase_region_to_world_region.csv` | 49 | region code and name → one of 6 world regions |
 
 They are the source of `dim_industry_group` and `dim_region.world_region` in the star
 schema, so correcting a grouping is a one-file edit followed by a rebuild.

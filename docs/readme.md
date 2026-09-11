@@ -41,12 +41,14 @@ Medallion layout: **bronze** (raw, never modified) → **silver** (prepared
 intermediates) → **gold** (published results).
 
 ```
-data/bronze/          raw inputs, exactly as obtained
-  exiobase_v3_7/        symlinks to the EXIOBASE store (v3.8.2 tables)
-  input_output/         Statistics Denmark 117-industry IO tables
-  medstat/              Danish Medicines Agency ATC sales register
-  tu_travel/            Danish national travel survey reports
-  dst_capital/          Statistics Denmark capital accounts (NABK69)
+data/bronze/          raw inputs, exactly as obtained; one folder per provider,
+                      each with a readme carrying URL, licence and a column
+                      dictionary (see data/bronze/readme.md for the index)
+  exiobase/             symlinks to the EXIOBASE store (v3.8.2 tables)
+  dst_input_output/     Statistics Denmark 117-industry IO tables
+  dk_medicines_register/  Danish Medicines Agency ATC sales register
+  dk_travel_survey/     Danish national travel survey reports
+  dst_capital_stock/    Statistics Denmark capital accounts (NABK69)
 
 data/silver/          prepared model objects
   background/pickled_mrio/    A, L, Z, Y, x, V, Q per release and variant

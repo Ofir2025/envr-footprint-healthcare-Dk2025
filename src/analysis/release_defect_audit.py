@@ -44,7 +44,7 @@ DKK_PER_EUR_2016 = 7.4452
 EXIO_ROOT = os.path.expanduser(
     "~/Library/CloudStorage/OneDrive-Personal/Data/lca/input_output/mrio/"
     "exiobase/versions")
-DST_IO = str(BRONZE_DIR / "input_output" / "2016_2022"
+DST_IO = str(BRONZE_DIR / "dst_input_output"
              / "input_output_en_{year}.xlsx")
 KEEP_YEARS = {"2016", "2019", "2022"}
 

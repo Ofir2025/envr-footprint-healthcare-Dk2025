@@ -111,7 +111,8 @@ def get_cbsdata(data_dir):
     # Purchaser price > basic price conversion with NL Supply Use tables 
     #_________________________________
     
-    sut_file = os.path.join(data_dir, 'nl_supply_tables_2015_2018.xlsx')
+    sut_file = os.path.join(data_dir, 'netherlands_reference',
+                            'nl_supply_tables_2015_2018.xlsx')
     sut = pd.read_excel(sut_file, sheet_name = "Supply 2016 current prices", skiprows = 1, header=[0], index_col = [1], nrows=98)
     sut = sut[['Supply at basic prices (columns 82-85)  ','Total']]
     sut['conversion'] = sut['Supply at basic prices (columns 82-85)  '] / sut['Total'] 
@@ -139,7 +140,8 @@ def get_cbsdata(data_dir):
         'ISO2': 'NL',
     }).set_index(['Index', 'Unit'])
     
-    cbs_data.to_csv(os.path.join(data_dir, 'nl_cbs_data_2016.csv'))
+    cbs_data.to_csv(os.path.join(data_dir, 'netherlands_reference',
+                                 'nl_cbs_data_2016.csv'))
     return cbs_data
 
 
