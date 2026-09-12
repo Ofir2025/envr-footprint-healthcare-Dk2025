@@ -1117,6 +1117,36 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
                  "climate_change"),
          expect=3906.4, tol=1.0,
          what="MRIO supply-chain component (SHA functions), kt"),
+    # The simulation's own headline figures. These drifted once already, on
+    # 2026-09-12, and nothing caught it: the documents quoted the previous
+    # run for a day. Registering them makes the next drift a failing check.
+    dict(text="4,673", doc="docs/revision/uncertainty.md",
+         source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
+                 "Global warming"),
+         expect=4672.7, tol=2.0, column="median",
+         what="Monte Carlo median of the climate footprint, kt"),
+    dict(text="4,012 to 5,460 kt", doc="docs/revision/uncertainty.md",
+         source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
+                 "Global warming"),
+         expect=4011.6, tol=2.0, column="p2_5",
+         what="lower bound of the 95 % interval, kt"),
+    dict(text="7.86 %", doc="docs/revision/uncertainty.md",
+         source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
+                 "Global warming"),
+         expect=7.863, tol=0.02, column="cv_pct",
+         what="coefficient of variation of the climate footprint, %"),
+    dict(text="79.4 %", doc="docs/revision/uncertainty.md",
+         source=("04_uncertainty_lenzen_ieooc/uncertainty_variance_shares.csv",
+                 "Global warming"),
+         where=("parameter", "mrio"), column="variance_share_pct",
+         expect=79.44, tol=0.2,
+         what="input-output share of the climate variance, %"),
+    dict(text="4,809 kt", doc="docs/revision/response_to_reviewers.md",
+         source=("11_capital_gfcf/capital_endogenised_sodersten.csv",
+                 "climate_change"),
+         expect=4808.9, tol=2.0, column="endogenised_sodersten",
+         what="climate footprint with capital endogenised on the published "
+              "Sodersten matrices, kt"),
     dict(text="77.2 Mt", doc="docs/revision/results_2022.md",
          source=("00_core_footprint/national_totals_summary.csv",
                  "climate_change"),
@@ -1182,8 +1212,29 @@ SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
     ("4,713.4", "the same, to one decimal"),
     ("4,713.37", "the same, to two decimals"),
     ("4,711.53", "scope partition total before the same change; it is 4,710.58"),
-    ("4,065 to 5,532", "95 % interval before the same change; it is 4,032 to 5,488"),
-    ("4,735 kt", "Monte Carlo median before the same change; it is 4,697 kt"),
+    ("4,065 to 5,532", "95 % interval before the same change; it is 4,012 to 5,460"),
+    ("4,735 kt", "Monte Carlo median before the same change; it is 4,673 kt"),
+    # The simulation moved with the commuting-distance basis too: the amount
+    # attached to commuting changed, so both the interval and every variance
+    # share changed with it. These are the forms the documents used to carry.
+    ("4,032 to 5,488", "95 % interval on the walk-inclusive commuting "
+                       "distance; it is 4,012 to 5,460 kt"),
+    ("4,032-5,488", "the same, written as a span"),
+    ("median 4,697", "Monte Carlo median on the same basis; it is 4,673 kt"),
+    ("4,696.5", "the same, to one decimal; it is 4,672.7"),
+    ("78.4 % of the output variance", "the input-output share on the same "
+                                      "basis; it is 79.4 %"),
+    ("78.4 % of variance", "the same claim, worded without the article"),
+    ("travel accounts for 21.5 %", "the travel block on the same basis; it "
+                                   "is 20.5 %"),
+    ("sum to 90.6 %", "the own-variance terms on the same basis; they sum "
+                      "to 91.1 %"),
+    ("4.675 Mt", "the footprint the MRIO spread is transferred onto; it is "
+                 "4.652 Mt"),
+    ("from 4,652 to 6,472 kt", "conflates endogenising capital with adding "
+                              "child and elder care: variant d does both. "
+                              "Capital alone moves the input-output component "
+                              "from 4,025 to 4,809 kt"),
     # Superseded on 11 September 2026, when eight modules stopped resolving
     # their background by testing the analysis year and began reading
     # analysis.constants.BACKGROUND_YEAR, which carries HC_BACKGROUND_TAG. Each
@@ -1385,6 +1436,11 @@ def c6_documentation(results: list[dict[str, Any]]) -> None:
             continue
         frame = pd.read_csv(path)
         rows = frame[frame["indicator"].astype(str).str.contains(indicator)]
+        if "where" in entry:
+            # A long table needs a second key: uncertainty_variance_shares.csv
+            # carries one row per parameter within each indicator.
+            col, value = entry["where"]
+            rows = rows[rows[col].astype(str) == value]
         if "column" in entry:
             got = float(rows[entry["column"]].iloc[0])
         else:
