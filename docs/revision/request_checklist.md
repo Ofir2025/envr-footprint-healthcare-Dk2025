@@ -217,6 +217,85 @@ that reading, now supports the finding that replaced it.
 | The citation `[19,37]` in the discussion | It replaces a placeholder that read `(18, 35)`, numbers from an earlier reference list that point at EXIOBASE and ReCiPe rather than at anything about pharmaceutical intensity. Hagenaars and Steenmeijer are the sources the claim actually rests on, but the pair should be confirmed by the authors |
 | The visitor-travel uplift of 1.2581 | Its commuting leg is the 2019 Danish distance in every reference year. Recomputing it per year gives 1.2666 for 2022, which moves the patient and visitor term by 1.8 kt, 0.04 % of the headline, and would require republishing all thirteen variants. Stated in Appendix B rather than changed |
 
+## Round of 2026-09-12, second pass: the audit, the Introduction, and the figure plan
+
+### What the line-by-line audit found
+
+Every quantitative sentence in the manuscript and in Appendix A was checked against
+the gold tables, and every equation was recomputed. Five things were wrong.
+
+| Found | Where | Corrected to |
+|:---|:---|:---|
+| "EXIOBASE allocates 74% of Danish sea-transport output to Danish intermediate use **against 9% in the national accounts**" | abstract and discussion | 9% is the **2019** reading and Rørmose Jensen and Iliev's published figure. Statistics Denmark's 2022 table gives **6.5%**, which is the value the correction actually targets |
+| Appendix A stated that the pMDI term was obtained by scaling the Dutch figure | "Direct emissions", introductory paragraph | Only private travel is still scaled. pMDIs come from the Danish EPA F-gas inventory and nitrous oxide from the National Inventory Document |
+| The 2016 pMDI figure was attributed to "the 5.5 tonnes of HFC-134a that inventory reports" | pMDI note | The 10.88 kt is 5.5 t of HFC-134a **plus 0.61 t of HFC-227ea imputed at 2019's 90:10 split**: 5.5 x 1,549 + 0.61 x 3,860 |
+| "The system boundary includes some, but not all, direct emissions" | Appendix A, scope definition | No longer true once direct emissions come from DRIVHUS; the qualifier is removed |
+| A paragraph arguing against a time series on the grounds that "the same anchor would be used for all the datasets, namely the 2016 EXIOBASE dataset", with a digression on central-bank money printing | Appendix A | Replaced by the actual reference-year treatment. The 2022 run does not use the 2016 anchor, and the reason 2019 does is EXIOBASE's defective Danish health block for 2018 and 2019 |
+
+Two further statements were imprecise rather than wrong and are now stated: the
+commuting leg of the visitor-travel uplift is deliberately held at the 2019 Danish
+distance, and the gold provenance note for the input-output spread still named the
+superseded 4.675 Mt headline (the uncertainty layer was re-run; every number is
+byte-identical, only the note changed).
+
+Everything else reproduces. The headline, all thirty-six Table 1 cells, the five
+national shares, the activity and sector shares, the seven geographical shares, the
+scope partition, the capital bound, the variance decomposition, the ranking
+probability, the anaesthetic and inhaler arithmetic, and the commuting and visitor
+scaling factors were each recomputed from the gold tables or from first principles
+and each matched.
+
+### The Introduction
+
+Rewritten in full on the external review, as seven paragraphs whose opening
+sentences carry the argument on their own. The changes the review asked for are all
+made: the gap is stated once and with a consequence rather than twice as an
+absence; "simplified system models" is gone and the three method families are
+described as complementary with their own limitations; "hybrid" is replaced by
+EE-MRIO supplemented with bottom-up estimates; capital is named as a boundary
+choice rather than hidden behind "comprehensive"; geographical displacement is
+presented as the evidence a distributional question needs rather than as a measure
+of injustice; and the contribution is called diagnostic, not a demonstration of
+mitigation effectiveness. The Danish health-spending figure the reviewer flagged is
+removed, as recommended.
+
+The review's own draft was written against the submitted 2019 results and says
+transport leads the climate footprint. That has been carried over onto the 2022
+results, where pharmaceutical and chemical supply chains lead every category.
+
+Five references are added for the claims the rewrite makes: Doucet et al. (2025),
+Kouwenberg et al. (2024), Södersten et al. (2018), Malik et al. (2021) and Hagenaars
+et al. (2025), numbered 42 to 46 and highlighted yellow like the converted
+citations. Södersten was previously cited in the text with no entry at all. They are
+appended as static paragraphs, so the EndNote library needs them adding before the
+bibliography is next updated.
+
+### Figures
+
+The submitted Figures 1, 2 and 3 are replaced by one panelled figure, which is how
+`fig1_ofir_panels` was drawn, and the two freed slots carry cuts the submission did
+not have: the twenty largest producing region by industry pairs, and the GHG
+Protocol scope partition. Appendix A now carries nineteen figures. The mapping is in
+`figures/manuscript/readme.md`.
+
+A figure cannot carry a revision mark in Word, so the three images in the manuscript
+were swapped in place; the tracked captions beside them are what signal the change.
+
+### Scopes, trends and word budget
+
+Scope results are now reported in the Results, discussed in the Discussion, and set
+out in full in Appendix A with their own figures. The reference-year comparison is
+reported as a comparison and not as a trend, with the two-step decomposition in
+Appendix A: 2016 to 2019 is demand alone on one background and moves every category
+by about 6%; 2019 to 2022 changes the background as well, and 953 kt of the 561 kt
+net climate increase is a larger chemicals block in the 2022 table.
+
+The body ran to 6,240 words after the additions, against the guide's typical 3,000
+to 6,000. It is now 5,955. The Lancet-style "Research in context" box, which is not
+a Next Sustainability device, became the "What's Next" section the guide invites,
+and roughly 290 words of methods detail and duplicated discussion moved to Appendix
+A or were cut. The abstract is 246 words against a 250-word cap.
+
 ### Standing audits, and their current state
 
 | Audit | Scope | State |

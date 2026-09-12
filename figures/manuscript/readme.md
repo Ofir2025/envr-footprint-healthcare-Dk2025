@@ -116,18 +116,27 @@ of a single figure. Dropping the current images in is therefore a decision about
 the revision's figure plan, not a substitution, and the table below is what that
 decision is between.
 
-| Submitted | What it shows | Current file, variant `2022c` |
-|:---|:---|:---|
-| Figure 1 | activity contribution, five categories | `fig1_ofir_panels_2022.tiff`, panel a |
-| Figure 2 | sector of origin | `fig1_ofir_panels_2022.tiff`, panel b |
-| Figure 3 | producing world region | `fig1_ofir_panels_2022.tiff`, panel c, or `figS1_geographical_origin_2022.tiff` on its own |
-| Appendix A, Figure A2 | scope 1 to 3 split | `fig3_scopes_stacked_2022.tiff` |
+The decision, taken on 2026-09-12, was to collapse the submitted three into one
+panelled figure and spend the two freed slots on cuts the submission did not have.
+The journal's guide asks for three to five figures in a Research Article, so the
+revision carries three.
 
-Two options, and the trade-off between them. Keeping three figures means cropping
-the panels out of `fig1_ofir_panels`, which loses the shared legend and the common
-axis that make the three readable together. Replacing the three with one panelled
-figure costs a figure slot the journal counts and gains that shared reading, and
-the captions in the manuscript would then have to be merged into one.
+| Revised manuscript | File, variant `2022c` | Was |
+|:---|:---|:---|
+| Figure 1, panels A, B, C | `fig1_ofir_panels_2022.tiff` | the submitted Figures 1, 2 and 3 |
+| Figure 2 | `fig2_top_origin_industry_pairs_2022.tiff` | new: producing region by industry |
+| Figure 3 | `fig3_scopes_stacked_2022.tiff` | new: the GHG Protocol scope partition |
+
+Everything else moved into Appendix A, which now carries nineteen figures: the
+scope sources, the geography panel on its own, absolute and per-person
+contributions, the three reference years and the climate bridge between them, the
+boundary-matched benchmark ladder, five uncertainty figures, and the two mitigation
+figures. `figures/uncertainty/*.png` and `figures/manuscript/comparison/*.tiff` are
+the sources for those.
+
+Collapsing the three costs the shared legend nothing, because `fig1_ofir_panels`
+was drawn as one figure from the start; what it costs is vertical space, so the
+panel figure needs a full page in the typeset article.
 
 `r/plot_steenmeijer_variant_a.r`, which draws the submitted three-figure form, is
 scoped to variant `a` on purpose: variant `a` is the configuration the manuscript
