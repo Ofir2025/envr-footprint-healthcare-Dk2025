@@ -662,7 +662,7 @@ These change results and are the author's call, not the analyst's.
 4. Three bottom-up items are now **Danish primary data** rather than scaled Dutch
    proxies: anaesthetics (medstat register), patient travel (national travel
    survey), pMDI (Danish EPA). One of them was carrying a unit error.
-5. The **uncertainty is essentially all MRIO** (78.4 % of variance, current
+5. The **uncertainty is essentially all MRIO** (79.4 % of variance, current
    figure; see [docs/revision/uncertainty.md](uncertainty.md)). The bottom-up
    items the reviewers questioned contribute under 0.5 % each. That is a more
    useful answer to the review than the tornado alone.
@@ -1283,14 +1283,14 @@ and the published literature, then rebuilt it. Findings and fixes:
 8.35 % for Denmark.** Scenario A median 4,897 [4,206-5,721]; Scenario B
 (pharma-specific intensity) 3,844 [3,206-4,741]. **These figures are superseded**
 by the current Monte Carlo run; see
-[docs/revision/uncertainty.md](uncertainty.md) for the current median (4,697 kt),
-interval (4,032-5,488 kt), and CV (7.87 %).
+[docs/revision/uncertainty.md](uncertainty.md) for the current median (4,673 kt),
+interval (4,012-5,460 kt), and CV (7.86 %).
 
 **Exact first-order variance shares (as of this snapshot)** (free for an additive independent model,
 better than a tornado): **MRIO 88.7 %**, visitor travel 5.9 %, commuting 5.3 %,
 direct 0.12 %, anaesthetics 0.01 %, pMDI 0.004 %. **Superseded**; the current
-shares (MRIO 78.4 %, the correlated travel pair 9.4 %, visitor travel 6.8 %,
-commuting 5.2 %) are in
+shares (MRIO 79.4 %, the correlated travel pair 8.9 %, visitor travel 6.9 %,
+commuting 4.6 %) are in
 [docs/revision/uncertainty.md](uncertainty.md#2-the-monte-carlo-explained-from-first-principles).
 The honest message for the reviewers was, and remains: the bottom-up items they questioned contribute
 **under 0.02-0.1 %** of the variance; the uncertainty is essentially all MRIO.
@@ -1468,8 +1468,8 @@ inventory. That is the recommended next data step, and it is what the 2022
 re-analysis does; see
 [docs/revision/results_2022.md, "Bottom-up anaesthetic gases"](results_2022.md#bottom-up-anaesthetic-gases).
 
-**Materiality, stated plainly:** the whole anaesthetic item is 12.7 kt of
-4,875 kt (0.26 %), and its exact variance share is **0.01 %**. A factor-of-three
+**Materiality, stated plainly:** the whole anaesthetic item is 11.6 kt of
+4,652 kt (0.25 %), and its exact variance share is **0.01 %**. A factor-of-three
 error moves the headline by under 0.06 %. Double counting checked: DRIVHUS
 F-gases for hospitals (9 kt, refrigeration) do not include anaesthetics, and
 hospital N₂O is netted out before the bottom-up item is added.

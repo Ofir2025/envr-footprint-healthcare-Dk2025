@@ -949,7 +949,7 @@ $\rho = 1$ assumption is therefore an upper bound on this component's contributi
 
 **The calibration is a transfer, and the transfer is stated.** Lenzen et al.'s
 8.35 % belongs to an **Eora** Danish health-care footprint of **2.84 Mt**; this study's
-deterministic total is an **EXIOBASE** footprint of **4.675 Mt**, 65 % larger. The
+deterministic total is an **EXIOBASE** footprint of **4.652 Mt**, 64 % larger. The
 borrowed relative standard deviation is therefore carried across a database, a construct
 and a footprint size, and none of the three is neutral. The direction, at least, is
 known: Lenzen's own SI (p. 33, Fig. SI 7.1 and the sentence beneath it) makes the
@@ -985,11 +985,11 @@ rather than by inspection of intervals.
 | Quantity | Value |
 |:---|:---|
 | Deterministic climate | 4,652 kt |
-| Median | 4,697 kt |
-| 95 % interval | 4,032 to 5,488 kt |
-| CV, Tier 2 simulation | 7.87 % |
-| CV, Tier 1 error propagation | 7.90 % |
-| MRIO share of variance | 78.4 % |
+| Median | 4,673 kt |
+| 95 % interval | 4,012 to 5,460 kt |
+| CV, Tier 2 simulation | 7.86 % |
+| CV, Tier 1 error propagation | 7.89 % |
+| MRIO share of variance | 79.4 % |
 
 Both tiers now use the same per-term variance, $a_k^2(e^{\sigma_k^2}-1)e^{\sigma_k^2}$,
 so the 0.03 percentage points between them is a matter of what each divides by: Tier 1
@@ -1044,16 +1044,16 @@ manuscript; reporting the interval without it would over-claim.
 - Simulation moments are checked against the closed-form mean and variance of a sum of
   lognormals.
 - Variance shares sum to 100.0 % once the covariance of the correlated travel
-  pair is carried as its own row; without it the own-terms reach only 90.6 %. That the
+  pair is carried as its own row; without it the own-terms reach only 91.1 %. That the
   shares sum to 100 % is arithmetic, not evidence — each share is its own term over the
   sum of the same terms. The evidence is the pair of **frozen-input** rows in
   `uncertainty_audit.csv`, which rebuild two of the shares from the draws: the MRIO share
-  (closed form 78.4 %, frozen-input 78.5 %) and the travel block including its covariance
-  (closed form 21.45 %, frozen-input 21.36 %).
+  (closed form 79.4 %, frozen-input 79.5 %) and the travel block including its covariance
+  (closed form 20.46 %, frozen-input 20.37 %).
 - `analysis.uncertainty_audit` runs nineteen numerical tests on the drawn samples and
   writes `uncertainty_audit.csv`. Every check is a test on draws rather than a
   restatement of the specification; its tolerance is narrower than the effect it
-  measures; and the MRIO factor, which carries 78.4 % of the variance, is included in
+  measures; and the MRIO factor, which carries 79.4 % of the variance, is included in
   the median-1 and realised-spread checks rather than skipped.
 - Every table reporting a median or an interval carries `draws` and `seed`. The layer
   publishes the same central case from runs of 20,000, 40,000 and 100,000 draws, whose

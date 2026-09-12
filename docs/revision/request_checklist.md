@@ -139,6 +139,84 @@ been recorded as agreeing with Malik when it is four points below, and the
 post-correction transport share, which is 18.5 % of the supply-chain component
 and 15.5 % of the total.
 
+## Round of 2026-09-12: the submission files themselves
+
+The three files the journal will receive were brought onto the 2022 results and
+copy-edited, as tracked changes authored in Albert's name so that Ofir can accept
+or reject each one. Nothing in the documents was changed silently; the only
+untracked edits are the digits inside the Word equation objects, which carry no
+revision markup in OOXML and are marked with a yellow highlight instead, and one
+note added to a worksheet.
+
+### Citations
+
+| Asked | Done |
+|:---|:---|
+| Square-bracket numbers, the style the guide for authors requires | All 52 in-text citations converted from superscript to `[n]`. Each converted citation is highlighted yellow so the change is visible without opening the revision pane |
+| Show where the citations changed | The highlight is the marker. Rejecting the tracked change restores the superscript form exactly |
+
+The EndNote field codes are intact, so the citations remain live. Two consequences
+follow and both are Ofir's to settle before submission. Pressing *Update Citations
+and Bibliography* in EndNote would redraw the field results in the current output
+style and undo the bracket form, so the durable fix is to select a numeric
+bracketed Elsevier style in EndNote and update once; and Elsevier itself asks that
+field codes be removed before submission, which is the last step rather than this
+one. Reference 22 still names the *DK Umat 2019 supply-use table*, and references
+40 and 41 are in the bibliography with no citation in the manuscript body; both
+need a pass in the EndNote library rather than in the document.
+
+### Numbers
+
+The body of the manuscript was still the submitted 2019 analysis on EXIOBASE
+v3.7, while the abstract had already been rewritten on 2022 and v3.8.2. Every
+statement of a result now comes from the same run.
+
+| Where | Was | Is |
+|:---|:---|:---|
+| Table 1, all 36 value cells | 2019 on v3.7 | 2022 on v3.8.2, from `01_eriksen_replication/2022c/table_01.csv` |
+| Results, headline paragraph | 4,815 kt, 5.6 %, 0.83 t per person | 4,652 kt with its 95 % interval, 6.0 %, 0.79 t |
+| Results, share range across the five categories | 3.6 % to 5.6 % | 2.4 % to 7.9 % |
+| Results, contribution analysis | pharmaceuticals led three of five categories | pharmaceuticals lead all five |
+| Results, sector of origin | pharmaceutical and chemical industry named the largest | fossil fuel industry 15.9 %, transport 14.9 %, agriculture 13.1 %, pharmaceutical and chemical 9.6 % |
+| Results, geography | 45 % domestic climate, 59 % domestic material | 25.9 % and 45.7 %, with the rest of Europe given separately |
+| Results, scopes | "not interpreted due to methodological limitations" | the partition is reported: Scope 3 90.0 %, Scope 1 2.8 %, Scope 2 1.6 %, household travel outside the protocol 5.7 % |
+| Methods, uncertainty | "not propagated quantitatively" | the Monte Carlo, its correlation assumption and its Sobol decomposition |
+| Methods, nitrous oxide | scaled from one region's purchases by birth rate | the National Inventory Document line, AR6 GWP100 |
+| Discussion, transport | "approximately half of total greenhouse gas emissions" | a quarter, 25.2 %, with the uncorrected 32.3 % and the reason for the difference |
+| Limitations, capital | 4,652 to 6,472 kt, "about 39 %" | 4,025 to 4,809 kt, 19 %. The 6,472 figure is variant d, which endogenises capital **and** adds child and elder care, so it never bounded capital alone |
+| Limitations, variance split | 21.5 % bottom-up against 78.4 % input-output | 20.6 % against 79.4 % |
+| Appendix A, equations A.11, A.13, A.15 | 524,000 employees, 8.5 km, 0.545, 0.429, 0.541 | 556,999, 8.7 km, 0.5935, 0.4563, 0.5740 |
+| Appendix A, Table A5 | transport read as the more intensive sector and the dominant source | the two intensities are 1.47 and 1.45 kt CO₂e per M€; the difference is purchase volume, three to one |
+| Appendix B, working sheet | 2019 employment and distance | 2022, with a note on the one cell deliberately left on 2019 |
+
+The 2019 figures were not merely restated. Where the earlier text drew a
+conclusion from them, the conclusion was restated too: transport is no longer
+described as a dominant driver, and Table A5's framing, which existed to support
+that reading, now supports the finding that replaced it.
+
+### Journal compliance and copy-editing
+
+| Asked | Done |
+|:---|:---|
+| Equations numbered as the guide asks | (A1) to (A15) renumbered (A.1) to (A.15); each already sits in its own paragraph |
+| Variables properly denoted | Equation A.10's distance symbols now say *motorised daily distance* on both sides, which is what the ratio is; a spelling slip in A.15's label was corrected |
+| Appendices identified as A, B | Every cross-reference capitalised, and the page numbers, which do not survive typesetting, replaced by section names |
+| Consistent terminology | 36 instances of *healthcare* in Appendix A changed to *health care*, the manuscript's own form; three of *health-care* in the manuscript changed the same way |
+| No em-dashes or en-dashes | One connector dash in the limitations and one en-dash in a figure caption removed; the manuscript body now carries none |
+| Vague quantifiers replaced by figures | *a significant share*, *a substantial share* and *substantially lower* replaced with the numbers they stand for, in eleven places |
+| Forbidden words | *robust* and *leverage* removed |
+| Ranges written one way | *4,012 to 5,460* throughout, not a mixture of spans and hyphens |
+| Title | *The environmental footprint of the Danish health care system: supply-chain origins and geographical displacement*, which drops the repetition of *impacts* and matches the appendix |
+
+### Still open, and why
+
+| Item | Why it is not done here |
+|:---|:---|
+| Figures 1 to 3 in the manuscript are still the 2019 images | The post-submission figure set does not map onto three separate figures. `figures/manuscript/2022c/fig1_ofir_panels_2022.tiff` carries activity contribution, sector contribution and geographical origin as three panels of one figure, and `figS1_geographical_origin_2022.tiff` carries the third on its own. Whether the revision keeps three figures or one panelled figure is an authorial decision, and `r/plot_steenmeijer_variant_a.r` is deliberately scoped to variant a so that the submitted record stays what it was |
+| Figure A2 in Appendix A is still the 2019 scope image | Same decision; `2022c/fig3_scopes_stacked_2022.tiff` is the current version |
+| The citation `[19,37]` in the discussion | It replaces a placeholder that read `(18, 35)`, numbers from an earlier reference list that point at EXIOBASE and ReCiPe rather than at anything about pharmaceutical intensity. Hagenaars and Steenmeijer are the sources the claim actually rests on, but the pair should be confirmed by the authors |
+| The visitor-travel uplift of 1.2581 | Its commuting leg is the 2019 Danish distance in every reference year. Recomputing it per year gives 1.2666 for 2022, which moves the patient and visitor term by 1.8 kt, 0.04 % of the headline, and would require republishing all thirteen variants. Stated in Appendix B rather than changed |
+
 ### Standing audits, and their current state
 
 | Audit | Scope | State |

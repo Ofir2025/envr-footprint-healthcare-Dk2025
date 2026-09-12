@@ -107,6 +107,34 @@ is a withheld figure rather than a missing one:
   running it under `2022d` would put variant c's baseline and levers in variant
   d's folder. It is therefore run for `2022c` and for nothing else.
 
+## Which file replaces which figure in the submitted manuscript
+
+The submitted manuscript carries three separate figures and Appendix A carries one.
+The post-submission set does not map onto them one for one, because
+`fig1_ofir_panels` deliberately draws all three of the submitted figures as panels
+of a single figure. Dropping the current images in is therefore a decision about
+the revision's figure plan, not a substitution, and the table below is what that
+decision is between.
+
+| Submitted | What it shows | Current file, variant `2022c` |
+|:---|:---|:---|
+| Figure 1 | activity contribution, five categories | `fig1_ofir_panels_2022.tiff`, panel a |
+| Figure 2 | sector of origin | `fig1_ofir_panels_2022.tiff`, panel b |
+| Figure 3 | producing world region | `fig1_ofir_panels_2022.tiff`, panel c, or `figS1_geographical_origin_2022.tiff` on its own |
+| Appendix A, Figure A2 | scope 1 to 3 split | `fig3_scopes_stacked_2022.tiff` |
+
+Two options, and the trade-off between them. Keeping three figures means cropping
+the panels out of `fig1_ofir_panels`, which loses the shared legend and the common
+axis that make the three readable together. Replacing the three with one panelled
+figure costs a figure slot the journal counts and gains that shared reading, and
+the captions in the manuscript would then have to be merged into one.
+
+`r/plot_steenmeijer_variant_a.r`, which draws the submitted three-figure form, is
+scoped to variant `a` on purpose: variant `a` is the configuration the manuscript
+was submitted on, and drawing the post-submission set under it would put figures
+beside an estimate the submission never made. It is not the route to a 2022
+three-figure set.
+
 ## Captions the figures do not carry
 
 No figure in this study carries a title, a note or a caption. Two sentences that

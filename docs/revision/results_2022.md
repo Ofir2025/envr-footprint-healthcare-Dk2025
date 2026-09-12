@@ -837,10 +837,10 @@ table (`contribution_by_purchased_product.csv`, $\mathbf{B}\,\mathbf{L}\,\mathrm
 different ranking; the two must not be quoted interchangeably.
 
 **Monte Carlo** (100,000 draws, `analysis.uncertainty_2025`): median
-**4,697 kt**, 95 % interval **4,032 to 5,488 kt**, CV **7.87 %**, alongside
+**4,673 kt**, 95 % interval **4,012 to 5,460 kt**, CV **7.86 %**, alongside
 Lenzen et al.'s published 8.35 % for Denmark. First-order variance shares: MRIO
-parameters 78.4 %, the covariance between commuting and visitor travel 9.4 %,
-visitor travel 6.8 %, commuting 5.2 %; every other bottom-up item below 0.1 %.
+parameters 79.4 %, the covariance between commuting and visitor travel 8.9 %,
+visitor travel 6.9 %, commuting 4.6 %; every other bottom-up item below 0.1 %.
 Full derivation in [docs/revision/uncertainty.md](uncertainty.md).
 
 **Capital boundary.** Capital is excluded in the headline, for comparability with
