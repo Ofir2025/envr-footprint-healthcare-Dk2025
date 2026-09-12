@@ -296,6 +296,63 @@ a Next Sustainability device, became the "What's Next" section the guide invites
 and roughly 290 words of methods detail and duplicated discussion moved to Appendix
 A or were cut. The abstract is 246 words against a 250-word cap.
 
+## Round of 2026-09-12, third pass: the submission blockers
+
+### A confidentiality failure, found and closed
+
+`eriksen_et_al_2026_reviewer_responses.docx` reproduces both referee reports in
+full, and it had been on the public branch since 2026-09-09. The leak scan missed
+it because it greps a list of text extensions and a `.docx` is a zip: the referee
+wording was there in plain sight and unreachable to `grep`. Three changes close it.
+The scan now unzips `.docx`, `.xlsx` and `.pptx` and reads their XML parts, and
+re-run against the leaked file it raises all five phrases. The letter is excluded
+from publication outright. And the branch was rebuilt, so the file is absent from
+the published history and not only from its tip: 1,042 files against 1,043.
+
+Two residual exposures are not ours to close. Anyone who cloned the public branch
+between 9 and 12 September holds a copy, and GitHub keeps unreachable objects
+addressable by their SHA until it garbage-collects. If that matters, GitHub support
+can be asked to purge them.
+
+### The three blockers
+
+| Was | Is |
+|:---|:---|
+| The response letter was the pre-revision one: 2,212 words, dated 8 September, no mention of 2022, 4,652 kt, v3.8.2 or the Monte Carlo | Rebuilt from `response_to_reviewers.md`: 8,759 words, 13 tables, the point-by-point answers, the data-integrity section and the withdrawn transport finding. The summary table now opens with the headline result, which it never stated |
+| The cover letter was addressed to *Cell Reports Sustainability*, four times, and carried the submitted title | Rewritten for *Next Sustainability* as a revision letter, 612 words, naming the withdrawn finding in the second paragraph rather than burying it. The file no longer carries the wrong journal in its name |
+| No CRediT statement, which the guide for authors asks for | Added before the competing-interests declaration. **The role assignment is a first draft and both authors must confirm it**: the repository evidences who wrote the code and who wrote the original draft, but not supervision, funding or project administration |
+
+### Two further corrections
+
+The data availability statement still cited EXIOBASE v3.7 and "the Danish
+supply-use tables". It now names version 3.8.2, the input-output, emission and
+waste accounts actually used, and the per-file lineage record.
+
+"EXIOBASE version 3.8.2's Danish health block is not usable for 2018 and 2019" was
+a label rather than a reason, and Albert challenged it. It now carries the
+measurement. The Danish health and social work industry runs at 37,163 M.EUR in
+2016 and 38,298 in 2017, falls to 17,590 in 2018 and 18,646 in 2019, and returns to
+42,834 in 2020 and 43,955 in 2022. Where a Danish national-accounts figure exists
+to compare against, the table agrees within 3 % in 2016 and 2022 and reaches 48 %
+of it in 2019. The consequence for this study is the part that was missing: because
+health-care demand is scaled onto that industry's own intermediate structure, a
+2019 run on the 2019 table would scale a demand vector roughly twice the size of
+the industry it is supposed to come from. Appendix A adds that the defect follows
+the release rather than the year: 3.9.x and 3.10.x report 2019 within 15 % of the
+national accounts and put 2022 at 70 % and 36 % of it, which is why 3.8.2 is the
+release used here.
+
+### Still open
+
+The EndNote endgame, in order: add references 42 to 46 to the library, correct
+entry 22 from the 2019 supply-use table to the 2022 input-output table, switch the
+output style to a bracketed numeric Elsevier style, update once so the numbering
+regenerates in order of appearance, then remove the field codes. Acknowledgements
+and ORCIDs are absent. Figures need exporting as separate files at submission; the
+300 dpi TIFFs are in `figures/manuscript/2022c/` and `figures/manuscript/comparison/`.
+Appendix A's own reference list does not carry the sources the new supplementary
+sections name in prose.
+
 ### Standing audits, and their current state
 
 | Audit | Scope | State |
