@@ -17,7 +17,7 @@ implementation. Design decisions, each defensible in the SI:
    the Danish health-care GHG footprint as 2.84 +/- 0.24 Mt CO2e, i.e. a
    relative SD of 8.35 % obtained by propagating Eora's Q, T and y. This is a
    TRANSFER, not a reproduction. The calibration target is an Eora footprint
-   39 % smaller than this study's EXIOBASE 4.675 Mt, and Lenzen's own Fig. SI
+   39 % smaller than this study's EXIOBASE 4.652 Mt, and Lenzen's own Fig. SI
    7.1 makes the relative SD a decreasing function of footprint size, so
    carrying 8.35 % up to a larger footprint errs wide rather than narrow.
    Lenzen also fit a normal to their draws and report sigma_F; this study
@@ -88,13 +88,13 @@ PARAMS = {
     # Each `why` is the gold table's own provenance cell and is carried verbatim
     # into the tables of record, which allow 180 characters; keep them inside it
     # so nothing is cut mid-word. The fuller argument - in particular that the
-    # mrio calibration is a transfer from Eora's 2.84 Mt to EXIOBASE's 4.675 Mt,
+    # mrio calibration is a transfer from Eora's 2.84 Mt to EXIOBASE's 4.652 Mt,
     # and that Lenzen's own Fig. SI 7.1 makes it err wide - is in section 04 of
     # docs/methods/replications.md and in docs/revision/uncertainty.md.
     "mrio": dict(gsd=None, cv=0.0835,
                  why="Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish "
                      "health-care GHG footprint from an Eora MRIO Monte Carlo, "
-                     "transferred from their 2.84 Mt to this study's 4.675 Mt"),
+                     "transferred from their 2.84 Mt to this study's 4.652 Mt"),
     "direct": dict(gsd=1.10,
                    why="Statistics Denmark DRIVHUS/AFFALD accounts; residual risk is the "
                        "alpha-proration of industry 880000 and the medical-N2O netting"),
