@@ -41,7 +41,7 @@ import io
 import os
 import sys
 from .functions_2025 import *
-from analysis.constants import (AR6_GWP100, EXIOBASE_RELEASE, background_stem,
+from analysis.constants import (AR6_GWP100, AR6_GWP100_HALOGENATED, EXIOBASE_RELEASE, background_stem,
                                 eriksen_folder, model_label, variant_letter)
 from paths import (
     BRONZE_DIR,
@@ -169,12 +169,16 @@ year = BACKGROUND_YEAR  # background pickle year (also used by the Dutch mode)
 ## This is where another country can be added, if the data is available in a similar format as the Danish data
 
 from .extra_functions import (
+    TRADE_MARGIN_DIVISIONS,
     calculate_healthcare_totals,
     calculate_healthcare_totals_2022,
     eldercare_share_of_social_work,
     eldercare_share_of_social_work_io,
+    trade_margins_meur,
     write_sheets_as_csv,
 )
+#: Rows of dk_data_<year>.csv carrying the distribution margins, in M.EUR.
+MARGIN_ROWS = [f"Margin_{name}" for name in TRADE_MARGIN_DIVISIONS.values()]
 # Years whose expenditure vector is read from Statistics Denmark's PUBLISHED
 # 117-industry input-output workbook (sheets CP and IO) rather than from the
 # detailed supply-use table. 2019 keeps the supply-use route because that is what
@@ -219,11 +223,22 @@ if mode == "Dutch":
 else:
         
       
-# === Source values (kDKK) → MEUR and overwrite Silver DK input; set Conversion=1.0 ===
-    # Conversion=1.0 because both expenditure sources are at BASIC prices, matching
-    # EXIOBASE's valuation: the 2019 route reads sheet 'Ubas' of the detailed use
-    # table; the 2022 route sums only the industry-coded (basic-price) rows of the
-    # public IO workbook, excluding its separate product-tax/VAT rows.
+# === Source values (kDKK) → MEUR and overwrite Silver DK input ===
+    # Both expenditure sources are at BASIC prices, matching EXIOBASE's
+    # valuation: the 2019 route reads sheet 'Ubas' of the detailed use table;
+    # the 2016 and 2022 routes sum only the industry-coded rows of the public IO
+    # workbook, which excludes its separate product-tax and VAT rows.
+    #
+    # A basic-price purchase column still contains the DISTRIBUTION MARGINS on
+    # the good, recorded as deliveries from the trade industries. Until
+    # 2026-09-13 the whole column was mapped to the manufacturing sector, which
+    # charged the wholesale and pharmacy margins at a chemicals intensity:
+    # 40.5 % of the 2022 pharmaceutical column and 54.4 % of the appliance
+    # column. The margins are now written as their own rows and reallocated to
+    # the Danish EXIOBASE trade industries in functions_2025.createBackground,
+    # and the Conversion row carries the share of each column that is the good
+    # itself. The expenditure total is unchanged; only its sectoral address
+    # moves. Services columns carry no trade rows (asserted below).
     # Currency: Danmarks Nationalbank annual average DKK/EUR for the analysis year;
     # source values are in 1000 DKK (kDKK), so MEUR = kDKK / (rate * 1000).
 
@@ -232,8 +247,17 @@ else:
     hc51_meur = float(hc51) * KDKK_TO_MEUR            # Pharm (HC.51)
     hc52_meur = float(hc52) * KDKK_TO_MEUR            # MedAppl (HC.52)
     healthcare_services_meur = float(healthcare_services) * KDKK_TO_MEUR  # HC services
+    MARGINS_MEUR = {
+        "Pharm": trade_margins_meur(expenditure_breakdown, "HC.5.1 Pharmaceuticals", KDKK_TO_MEUR),
+        "MedAppl": trade_margins_meur(expenditure_breakdown, "HC.5.2 Appliances", KDKK_TO_MEUR),
+        "HC service": trade_margins_meur(expenditure_breakdown, "Healthcare services", KDKK_TO_MEUR),
+    }
+    assert sum(MARGINS_MEUR["HC service"].values()) < 1e-6 * healthcare_services_meur, (
+        "services columns carry trade-margin rows; the Z-column construction "
+        "would not reallocate them")
 
-    # Overwrite the derived Silver input with these MEUR values and Conversion=1.0.
+    # Overwrite the derived Silver input with these MEUR values, the margin rows
+    # and the Conversion row (the share of each column that is the good itself).
     dk_csv_path = str(silver_dk_data_csv(ANALYSIS_YEAR))
     # The file is a TEMPLATE this block rewrites in full: every value below is
     # recomputed from the Danish source workbook, and only the frame is read. A
@@ -266,8 +290,9 @@ else:
         raise ValueError(
             f"Expected Denmark (ISO2=DK) data in {os.path.basename(dk_csv_path)}")
 
-    # Ensure required rows exist; create if absent
-    required_rows = ['Expenditure', 'Conversion', 'DirectEm']
+    # Ensure required rows exist; create if absent. The three positional rows
+    # come first (createBackground reads them by position), margins after.
+    required_rows = ['Expenditure', 'Conversion', 'DirectEm'] + MARGIN_ROWS
     for r in required_rows:
         if r not in df['Index'].values:
             new_row = {'Index': r, 'Unit': 'na', 'ISO2': 'DK'}
@@ -284,10 +309,18 @@ else:
     df.loc[df['Index'] == 'Expenditure', 'Pharm']      = hc51_meur
     df.loc[df['Index'] == 'Expenditure', 'MedAppl']    = hc52_meur
 
-    # Set Conversion row to 1.0 for all used columns
+    # Margin rows (MEUR) and the Conversion row: the share of each basic-price
+    # column that is the good itself, i.e. 1 - margins / expenditure.
+    _expenditure = {'HC service': healthcare_services_meur, 'Pharm': hc51_meur,
+                    'MedAppl': hc52_meur}
     df.loc[df['Index'] == 'Conversion', 'Unit'] = 'na'
     for col in ['HC service', 'Pharm', 'MedAppl']:
-        df.loc[df['Index'] == 'Conversion', col] = 1.0
+        _m = MARGINS_MEUR[col]
+        for name in TRADE_MARGIN_DIVISIONS.values():
+            df.loc[df['Index'] == f'Margin_{name}', 'Unit'] = 'MEUR'
+            df.loc[df['Index'] == f'Margin_{name}', col] = _m[name]
+        df.loc[df['Index'] == 'Conversion', col] = (
+            1.0 - sum(_m.values()) / _expenditure[col] if _expenditure[col] else 1.0)
 
     # === Direct (operational, Scope 1) emissions of the Danish healthcare scope ===
     # Statistics Denmark DRIVHUS greenhouse-gas accounts by industry (kt CO2e, excl. CO2
@@ -346,7 +379,7 @@ else:
     if _SCOPE == "health_eldercare":
         with open(dk_csv_path, "w") as _fh:
             _fh.write(_dk_csv_text)
-        print(f"DK SUT overwrite: MEUR totals written, Conversion=1.0, DirectEm={float(direct_em_kt):.1f} kt → {dk_csv_path}")
+        print(f"DK SUT overwrite: MEUR totals, margins and Conversion written, DirectEm={float(direct_em_kt):.1f} kt → {dk_csv_path}")
     else:
         print(f"scope boundary '{_SCOPE}': {os.path.basename(dk_csv_path)} NOT persisted "
               f"(manuscript-boundary file only; this run's MEUR totals stay in-memory)")
@@ -371,20 +404,25 @@ if mode != "Dutch":
     cbs_data = pd.read_csv(io.StringIO(_dk_csv_text), index_col=['Index', 'Unit'])
 print("Expenditure data loaded from DK SUT CSV (MEUR).")
 
-# Assert Conversion row exists and equals 1.0 for used columns
+# Assert the Conversion row and the margin rows close on the expenditure: the
+# good itself plus its distribution margins must return the basic-price column.
 if ('Conversion', 'na') not in cbs_data.index:
     raise KeyError("Expected ('Conversion','na') row not found in "
                    f"dk_data_{ANALYSIS_YEAR}.csv")
 conv_row = cbs_data.loc[('Conversion', 'na')]
-for col in ['HC service', 'Pharm', 'MedAppl']:
-    if col in conv_row.index:
-        assert float(conv_row[col]) == 1.0, f"Conversion factor for '{col}' must be 1.0"
+if mode != "Dutch":
+    for col in ['HC service', 'Pharm', 'MedAppl']:
+        _e = float(cbs_data.loc[('Expenditure', 'MEUR'), col])
+        _m = sum(float(cbs_data.loc[(r, 'MEUR'), col]) for r in MARGIN_ROWS)
+        assert 0.0 < float(conv_row[col]) <= 1.0, f"Conversion for '{col}' outside (0, 1]"
+        assert abs(_e * float(conv_row[col]) + _m - _e) <= 1e-9 * max(_e, 1.0), (
+            f"good + margins does not return the expenditure for '{col}'")
 
 
 bp_HCserv = cbs_data.iloc[0, 0].item()
-bp_phar   = cbs_data.iloc[0, 1].item() * cbs_data.iloc[1, 1].item()  # == ×1.0
-bp_appl   = cbs_data.iloc[0, 2].item() * cbs_data.iloc[1, 2].item()  # == ×1.0
-print("Using SUT MEUR (Conversion=1.0):",
+bp_phar   = cbs_data.iloc[0, 1].item() * cbs_data.iloc[1, 1].item()  # the good itself
+bp_appl   = cbs_data.iloc[0, 2].item() * cbs_data.iloc[1, 2].item()  # the good itself
+print("Using SUT MEUR (good itself, margins reallocated to trade):",
       "HC services =", bp_HCserv,
       "Pharm =", bp_phar,
       "MedAppl =", bp_appl)
@@ -716,12 +754,14 @@ scale_bottomup_all_to_dk(
 #   2022  sevoflurane 2,400  desflurane 181  isoflurane 15
 #   2019  sevoflurane 2,714  desflurane 400  isoflurane 17
 #
-# Converted with densities at 20 C from Laster, Fang & Eger (1994, Anesth Analg
-# 78:1152) and the GWP100 values recommended by Sulbaek Andersen, Nielsen &
-# Sherman (2023, Lancet Planet Health 7:e622) - the same set used by Talbot et
-# al. (2025) and by Caviglia et al. (2025), whose study covers Denmark from this
-# same register. A 5% downward correction is applied to sevoflurane for the
-# fraction metabolised rather than exhaled (MacNeill et al. 2017; Schuster 2020).
+# Converted with specific gravities at 20 C from Laster, Fang & Eger (1994,
+# Anesth Analg 78:1152) and IPCC AR6 GWP100 (Smith et al. 2021, Table 7.SM.7):
+# sevoflurane 195, desflurane 2,590, isoflurane 539. Until 2026-09-13 sevoflurane
+# carried the 144 of Sulbaek Andersen, Nielsen & Sherman (2023, Lancet Planet
+# Health 7:e622), which could not be checked against the paper and left the one
+# agent off the AR6 basis the rest of the climate total uses (+0.18 kt on AR6).
+# A 5% downward correction is applied to sevoflurane for the fraction
+# metabolised rather than exhaled (MacNeill et al. 2017; Schuster 2020).
 #
 # The N2O term: Denmark's National Inventory Document 2024 (DCE report 622)
 # category 2.G.3.a, a constant 38 t N2O/yr for 2013-2022, characterised on the
@@ -742,8 +782,8 @@ DK_ANAESTHETIC_LITRES = {
 }[ANALYSIS_YEAR]
 DK_ANAESTHETIC_DENSITY_KG_PER_L = {"sevoflurane": 1.5203, "desflurane": 1.4651,
                                    "isoflurane": 1.5019}
-DK_ANAESTHETIC_GWP100 = {"sevoflurane": 144.0, "desflurane": 2590.0,
-                         "isoflurane": 539.0}
+DK_ANAESTHETIC_GWP100 = {a: AR6_GWP100_HALOGENATED[a]
+                         for a in ("sevoflurane", "desflurane", "isoflurane")}
 DK_ANAESTHETIC_EXHALED = {"sevoflurane": 0.95, "desflurane": 1.0,
                           "isoflurane": 1.0}
 DK_VOLATILE_KT_CO2E = sum(
@@ -755,12 +795,30 @@ DK_ANAESTHETIC_KT_CO2E = DK_N2O_KT_CO2E + DK_VOLATILE_KT_CO2E
 # 2016: the Danish EPA F-gas report for 2016 (Miljoestyrelsen, Environmental
 # Project 1979, 2018) estimates 5.5 t of HFC-134a consumed in metered-dose
 # inhalers. That report separates no HFC-227ea for MDI, so the 227ea share is
-# imputed at 2019's 90/10 split, giving 6.11 t total, characterised on the same
-# ReCiPe 2016 GWP100 factors as 2019: 5.5 x 1,549 + 0.61 x 3,860 = 10.88 kt.
-# This is the weakest of the 2016 parameters and is flagged as such: the EPA's
-# own 5.5 t is an estimate carried forward from 2015 by a 10 % reduction, because
-# the Danish Medicines Agency changed its database format that year.
-DK_PMDI_KT_CO2E = {"2016": 10.88, "2019": 12.8, "2022": 11.6}[ANALYSIS_YEAR]
+# imputed at 2019's 90/10 split, giving 0.61 t. This is the weakest of the 2016
+# parameters and is flagged as such: the EPA's own 5.5 t is an estimate carried
+# forward from 2015 by a 10 % reduction, because the Danish Medicines Agency
+# changed its database format that year.
+#
+# 2022: Danish EPA, "Danish consumption and emission of F-gases in 2022",
+# Environmental Project no. 2255 (January 2024), Table 15 (p. 30): actual MDI
+# emissions of 9.1 kt (HFC-134a) and 2.5 kt (HFC-227ea), 11,619 t CO2e in total,
+# on the AR4 GWPs of its Appendix 1 (HFC-134a 1,430, HFC-227ea 3,220). The
+# tonnes behind them are recovered from those AR4 contributions and restated on
+# AR6. Until 2026-09-13 the 11.6 kt was added as printed, which put the one
+# term on AR4 inside an AR6 total (-0.93 kt).
+#
+# 2019: 7.2 t of HFC dispensed, about 90 % HFC-134a and 10 % HFC-227ea (Vestbo
+# & Press-Kristensen 2023). Earlier this term used ReCiPe 2016's feedback-
+# inclusive AR5 factors (1,549 and 3,860); all three years are now on AR6.
+DK_PMDI_TONNES = {
+    "2016": {"HFC-134a": 5.5, "HFC-227ea": 0.61},
+    "2019": {"HFC-134a": 0.9 * 7.2, "HFC-227ea": 0.1 * 7.2},
+    "2022": {"HFC-134a": 11.619 * (9.1 / 11.6) / 1.430,
+             "HFC-227ea": 11.619 * (2.5 / 11.6) / 3.220},
+}[ANALYSIS_YEAR]
+DK_PMDI_KT_CO2E = sum(t * AR6_GWP100_HALOGENATED[g]
+                      for g, t in DK_PMDI_TONNES.items()) / 1e3
 # Direct healthcare waste (Statistics Denmark AFFALD01, total waste excl. soil,
 # QA + 870000 + alpha x 880000 with the 2019-derived eldercare share 0.4914):
 # 2019: 28,763 + 7,460 + 0.4914*13,214 = 42.7 kt; 2022: 30,289 + 8,422 +
@@ -815,12 +873,28 @@ if _vt_old.sum() > 0:
 if "Visitor travel (total)" in _bu.index:
     _bu.loc["Visitor travel (total)", "Global warming (ktCO2eq)"] = \
         DK_PATIENT_VISITOR_TRAVEL_KT_CO2E
+# The four non-climate columns of the same item. The climate value above is
+# Danish person-kilometres at the Dutch composite intensity, so the item's
+# activity is DK_PATIENT_VISITOR_TRAVEL_KT_CO2E / (Dutch total) times the
+# Dutch activity. Until 2026-09-13 the non-climate columns stayed on the
+# superseded employment-and-distance factor (0.5740) while climate moved to
+# the survey basis (0.7349), so one item carried two activity levels. Both
+# now scale on the survey basis, from the untouched Dutch source rows.
+_nl_bu = pd.read_csv(BOTTOMUP_BASE, sep="\t").set_index("Source")
+_pv_ratio = (DK_PATIENT_VISITOR_TRAVEL_KT_CO2E
+             / float(_nl_bu.loc["Visitor travel (total)", "Global warming (ktCO2eq)"]))
+_non_climate = [c for c in _bu.columns
+                if c not in ("Global warming (ktCO2eq)", "ISO2")]
+for _row in ("Visitor travel (direct)", "Visitor travel (indirect)",
+             "Visitor travel (total)"):
+    _bu.loc[_row, _non_climate] = (
+        _nl_bu.loc[_row, _non_climate].astype(float) * _pv_ratio).values
 _safe_atomic_write(BOTTOMUP_2025, _bu.reset_index().to_csv(sep="\t", index=False))
 print(f"Danish primary bottom-up values written:")
 print(f"  anaesthetic {DK_ANAESTHETIC_KT_CO2E:.2f} kt CO2e "
       f"(N2O {DK_N2O_KT_CO2E:.2f} + volatiles {DK_VOLATILE_KT_CO2E:.2f}, "
       f"medstat N01AB {ANALYSIS_YEAR})")
-print(f"  pMDI {DK_PMDI_KT_CO2E} kt CO2e")
+print(f"  pMDI {DK_PMDI_KT_CO2E:.3f} kt CO2e (AR6)")
 print(f"  patient travel {DK_PATIENT_TRAVEL_KT_CO2E:.1f} + visitor "
       f"{DK_VISITOR_TRAVEL_KT_CO2E:.1f} = "
       f"{DK_PATIENT_VISITOR_TRAVEL_KT_CO2E:.1f} kt CO2e "
@@ -1006,9 +1080,13 @@ t1.columns = ['Total', 'Healthcare services', 'Pharmaceuticals and chemical prod
                'Release of pMDI propellants', 'Private travel']
 t1 = t1.T
 
+# Table 1 reports what health care SPENDS, so each component carries its full
+# basic-price expenditure: the good itself plus the distribution margins that
+# the demand vector places at the trade industries. The footprint in the same
+# row already includes the impact of those margins.
 bp_HCserv = cbs_data.iloc[0, 0].item()
-bp_phar = cbs_data.iloc[0, 1].item() * cbs_data.iloc[1, 1].item()
-bp_appl = cbs_data.iloc[0, 2].item() * cbs_data.iloc[1, 2].item()
+bp_phar = cbs_data.iloc[0, 1].item()
+bp_appl = cbs_data.iloc[0, 2].item()
 
 t1['Expenditure (MEUR)'] = [(bp_HCserv + bp_phar + bp_appl), bp_HCserv, bp_phar, bp_appl, 'NA', 'NA', 'NA']
 

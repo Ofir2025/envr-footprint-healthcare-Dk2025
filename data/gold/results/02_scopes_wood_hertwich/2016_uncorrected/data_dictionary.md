@@ -51,6 +51,18 @@ units and are labelled as such wherever they are quoted.
 
 ## Tables
 
+### `double_counting_ledger.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `analysis_year` | measure | int64 |  | 2016 |
+| `item` | dimension | str |  | MRIO footprint decomposition by producin |
+| `risk` | dimension | str |  | none |
+| `test` | dimension | str |  | partition of one scalar (sum of cells == |
+| `value` | measure | float64 | varies by row | 5135.287905505123 |
+| `unit` | dimension | str |  | kt CO2eq |
+| `verdict` | dimension | str |  | OK - additive by construction (Wood & He |
+
 ### `scope_by_continent.csv`
 
 | Column | Role | Type | Unit | Example |
@@ -59,7 +71,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | Outside protocol |
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
-| `value` | measure | float64 | varies by row | 0.0684 |
+| `value` | measure | float64 | varies by row | 0.0828451910688205 |
 | `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_continent_and_industry_group.csv`
@@ -71,7 +83,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | Outside protocol |
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
-| `value` | measure | float64 | varies by row | 0.0684 |
+| `value` | measure | float64 | varies by row | 0.0828451910688205 |
 | `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_country.csv`
@@ -84,7 +96,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | Outside protocol |
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
-| `value` | measure | float64 | varies by row | 0.0684 |
+| `value` | measure | float64 | varies by row | 0.0828451910688205 |
 | `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_industry_group.csv`
@@ -95,7 +107,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | Outside protocol |
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
-| `value` | measure | float64 | varies by row | 0.0684 |
+| `value` | measure | float64 | varies by row | 0.0828451910688205 |
 | `share_of_scope_pct` | measure | float64 | % | 100.0 |
 
 ### `scope_by_origin_and_industry.csv`
@@ -130,7 +142,7 @@ units and are labelled as such wherever they are quoted.
 | `scope` | dimension | str |  | Outside protocol |
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
-| `value` | measure | float64 | varies by row | 0.0684 |
+| `value` | measure | float64 | varies by row | 0.0828451910688205 |
 | `rank` | measure | int64 |  | 4 |
 | `is_remainder` | dimension | bool |  | False |
 
@@ -162,5 +174,5 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `scope` | dimension | str |  | Scope 1 |
-| `value` | measure | float64 | varies by row | 195.7222286219944 |
+| `value` | measure | float64 | varies by row | 195.9599983729744 |
 | `basis` | dimension | str |  | national accounts (DRIVHUS/AFFALD) + med |

@@ -31,7 +31,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 12
 
 - **Rows:** 600,866
 - **Format:** csv
-- **Resolution:** 41+ regions x 79+ industries (sampled)
+- **Resolution:** 41+ regions x 80+ industries (sampled)
 - **Units:** M.EUR
 - **Dimensions:** `country_consuming`, `sector_consuming`, `method`, `indicator`, `unit`, `quality_flag`, `model`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
 - **Measures:** `analysis_year`, `value`

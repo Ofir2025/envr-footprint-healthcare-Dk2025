@@ -78,15 +78,18 @@ GROUP_COLS <- c(
   "Other" = "grey80",
   "Denmark" = "#0072B2", "Europe" = "#009E73", "Asia and Pacific" = "#E69F00",
   "Middle East" = "#CC79A7", "America" = "#56B4E9", "Africa" = "#D55E00",
-  "Unallocated" = "grey80", "No region: bottom-up items" = "grey80")
+  "Unallocated" = "grey80", "Travel supply chains, no region" = "grey80")
 
 # Figure 3 / figS1's geographical-origin bucket for the bottom-up rows that
-# have no producing region (ISO3 "GLO"): "Unallocated" is correct but says
-# only that the group is unmapped, not what it is. Recoded here, at display
-# time only -- the published gold CSVs keep "Unallocated", since this is a
-# presentation label, not a data correction.
+# have no producing region (ISO3 "GLO"). Those rows are the INDIRECT parts of
+# employee commuting and patient and visitor travel - fuel supply and vehicle
+# manufacture - which the Dutch inventory quantifies without a place. The gas
+# terms and the direct travel emissions are Danish and sit in "Denmark". Until
+# 2026-09-14 the label read "No region: bottom-up items", which invited the
+# reading that every bottom-up term was in it. Recoded at display time only -
+# the published gold CSVs keep "Unallocated".
 no_region_label <- function(x) {
-  dplyr::recode(x, "Unallocated" = "No region: bottom-up items")
+  dplyr::recode(x, "Unallocated" = "Travel supply chains, no region")
 }
 
 gold <- function(f) read_csv(gold_path(f), show_col_types = FALSE)

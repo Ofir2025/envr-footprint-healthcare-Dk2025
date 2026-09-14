@@ -293,20 +293,32 @@ def expenditure_frame(analysis_year: str) -> pd.DataFrame:
         Indexed by ``(Index, Unit)``, columns ``HC service``, ``Pharm``,
         ``MedAppl``, in the positional order ``createBackground`` reads.
     """
-    from analysis.extra_functions import (calculate_healthcare_totals,
+    from analysis.extra_functions import (TRADE_MARGIN_DIVISIONS,
+                                          calculate_healthcare_totals,
                                           calculate_healthcare_totals_2022,
                                           eldercare_share_of_social_work,
-                                          eldercare_share_of_social_work_io)
+                                          eldercare_share_of_social_work_io,
+                                          trade_margins_meur)
 
     io_2022 = str(DST_IO).format(year="2022")
     if analysis_year == "2022":
-        hc51, hc52, services, _ = calculate_healthcare_totals_2022(io_2022)
+        hc51, hc52, services, breakdown = calculate_healthcare_totals_2022(io_2022)
         alpha = eldercare_share_of_social_work_io(io_2022)
     else:
-        hc51, hc52, services, _ = calculate_healthcare_totals(DK_UMAT)
+        hc51, hc52, services, breakdown = calculate_healthcare_totals(DK_UMAT)
         alpha = eldercare_share_of_social_work(DK_UMAT)
 
     to_meur = 1.0 / (DKK_PER_EUR_BY_YEAR[analysis_year] * 1000.0)
+    # The same distribution-margin split analysis.main_2025 writes: the
+    # Conversion row is the share of each column that is the good itself, and
+    # the Margin_* rows are reallocated to the Danish trade industries by
+    # functions_2025.createBackground.
+    expenditure = {"HC service": float(services) * to_meur,
+                   "Pharm": float(hc51) * to_meur,
+                   "MedAppl": float(hc52) * to_meur}
+    margins = {"HC service": trade_margins_meur(breakdown, "Healthcare services", to_meur),
+               "Pharm": trade_margins_meur(breakdown, "HC.5.1 Pharmaceuticals", to_meur),
+               "MedAppl": trade_margins_meur(breakdown, "HC.5.2 Appliances", to_meur)}
 
     drivhus = pd.read_csv(DRIVHUS, comment="#")
     dh = drivhus[drivhus["year"] == int(analysis_year)].set_index(
@@ -315,17 +327,17 @@ def expenditure_frame(analysis_year: str) -> pd.DataFrame:
                  + alpha * dh[("V880000", "GHGEXBIO")]
                  - dh[("V860010", "N2O")])
 
-    return pd.DataFrame(
-        [dict(Index="Expenditure", Unit="MEUR",
-              **{"HC service": float(services) * to_meur,
-                 "Pharm": float(hc51) * to_meur,
-                 "MedAppl": float(hc52) * to_meur}),
-         dict(Index="Conversion", Unit="na",
-              **{"HC service": 1.0, "Pharm": 1.0, "MedAppl": 1.0}),
-         dict(Index="DirectEm", Unit="kt CO2e",
-              **{"HC service": float(direct_kt), "Pharm": 0.0,
-                 "MedAppl": 0.0})]
-    ).set_index(["Index", "Unit"])
+    rows = [dict(Index="Expenditure", Unit="MEUR", **expenditure),
+            dict(Index="Conversion", Unit="na",
+                 **{c: (1.0 - sum(margins[c].values()) / expenditure[c]
+                        if expenditure[c] else 1.0) for c in expenditure}),
+            dict(Index="DirectEm", Unit="kt CO2e",
+                 **{"HC service": float(direct_kt), "Pharm": 0.0,
+                    "MedAppl": 0.0})]
+    for name in TRADE_MARGIN_DIVISIONS.values():
+        rows.append(dict(Index=f"Margin_{name}", Unit="MEUR",
+                         **{c: margins[c][name] for c in expenditure}))
+    return pd.DataFrame(rows).set_index(["Index", "Unit"])
 
 
 def expenditure_frame_table(

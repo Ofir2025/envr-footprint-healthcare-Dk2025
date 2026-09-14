@@ -14,11 +14,11 @@ submitted manuscript. v3.10.2 is rejected on evidence set out in
 
 | Indicator | Health care footprint | Share of the national consumption footprint |
 |:---|:---|:---|
-| Climate change | 4,652.1 kt CO₂-eq (≈ 0.79 t per capita) | 6.0 % |
-| Material extraction | 4,256.2 kt | 7.9 % |
-| Blue water | 95.4 Mm³ | 7.5 % |
-| Land use | 4,851.8 km² | 4.9 % |
-| Waste generation | 259.3 kt | 2.4 % |
+| Climate change | 4,162.1 kt CO₂-eq (≈ 0.71 t per capita) | 5.4 % |
+| Material extraction | 3,494.0 kt | 6.5 % |
+| Blue water | 74.8 Mm³ | 5.9 % |
+| Land use | 4,117.4 km² | 4.1 % |
+| Waste generation | 221.1 kt | 2.1 % |
 
 Every cell above is read from
 [`19_tables_of_record/`](data/gold/results/19_tables_of_record/) table 1, which
@@ -39,16 +39,21 @@ configuration the manuscript was submitted on.
 
 | Variant | EXIOBASE background | Shipping correction | Care boundary | Capital | Climate footprint, kt CO₂-eq | Share of national | Arising in transport |
 |:---|:---|:---|:---|:---|---:|---:|---:|
-| `2019a` | v3.7, `IOT_2016_ixi` | no | health care | excluded | 8,695 | 11.0 % | 34.9 % |
-| `2019b` | v3.7, `IOT_2016_ixi` | yes | health care | excluded | 6,626 | 10.0 % | 16.6 % |
-| `2019c` | v3.8.2, `IOT_2016_ixi` | yes | health care | excluded | 4,109 | 5.5 % | 21.2 % |
-| `2019d` | v3.8.2, `IOT_2016_ixi` | yes | + child and elder care | endogenised | 5,978 | 6.6 % | 19.8 % |
-| `2022c` | v3.8.2, `IOT_2022_ixi` | yes | health care | excluded | 4,675 | 6.1 % | 14.9 % |
-| `2022d` | v3.8.2, `IOT_2022_ixi` | yes | + child and elder care | endogenised | 6,496 | 6.8 % | 14.5 % |
-| `2019_uncorrected` | v3.8.2, `IOT_2016_ixi` | no | health care | excluded | 6,419 | 7.4 % | 46.9 % |
-| `2022_uncorrected` | v3.8.2, `IOT_2022_ixi` | no | health care | excluded | 6,087 | 7.1 % | 32.2 % |
+| `2016a` | v3.7, `IOT_2016_ixi` | no | health care | excluded | 7,625 | 9.6 % | 37.3 % |
+| `2016b` | v3.7, `IOT_2016_ixi` | yes | health care | excluded | 5,665 | 8.6 % | 17.8 % |
+| `2016c` | v3.8.2, `IOT_2016_ixi` | yes | health care | excluded | 3,687 | 5.0 % | 21.9 % |
+| `2016d` | v3.8.2, `IOT_2016_ixi` | yes | + child and elder care | endogenised | 5,449 | 6.0 % | 20.3 % |
+| `2019a` | v3.7, `IOT_2016_ixi` | no | health care | excluded | 8,047 | 10.2 % | 37.3 % |
+| `2019b` | v3.7, `IOT_2016_ixi` | yes | health care | excluded | 5,983 | 9.0 % | 17.8 % |
+| `2019c` | v3.8.2, `IOT_2016_ixi` | yes | health care | excluded | 3,890 | 5.2 % | 21.9 % |
+| `2019d` | v3.8.2, `IOT_2016_ixi` | yes | + child and elder care | endogenised | 5,739 | 6.3 % | 20.3 % |
+| `2022c` | v3.8.2, `IOT_2022_ixi` | yes | health care | excluded | 4,162 | 5.4 % | 16.0 % |
+| `2022d` | v3.8.2, `IOT_2022_ixi` | yes | + child and elder care | endogenised | 5,949 | 6.3 % | 15.3 % |
+| `2016_uncorrected` | v3.8.2, `IOT_2016_ixi` | no | health care | excluded | 5,883 | 6.8 % | 48.3 % |
+| `2019_uncorrected` | v3.8.2, `IOT_2016_ixi` | no | health care | excluded | 6,204 | 7.2 % | 48.2 % |
+| `2022_uncorrected` | v3.8.2, `IOT_2022_ixi` | no | health care | excluded | 5,583 | 6.5 % | 34.7 % |
 
-The same eight configurations for **all five indicators**, with the national
+The same thirteen configurations for **all five indicators**, with the national
 footprint and the expenditure behind each, are published as
 [`01_eriksen_replication/variant_comparison.csv`](data/gold/results/01_eriksen_replication/variant_comparison.csv).
 Every cell is read from the variant's own tables, so the summary and the folders
@@ -59,10 +64,13 @@ Three properties of that table matter for reading the manuscript:
 - **There is no `2022a` or `2022b`, and there cannot be.** EXIOBASE v3.7 publishes
   `IOT_*_ixi` for 1995-2016 only, so the release axis collapses for 2022.
 - **`2019_uncorrected` is not variant `a`.** It is v3.8.2's 2016 table without the
-  correction, and it is the only configuration that reproduces the submitted
-  transport share (46.9 % against the submitted 46 %), where variant `a` — the
-  release the submission cites — returns 34.9 %.
-- **All eight run on IPCC AR6 GWP100.** The 2016 backgrounds were republished on
+  correction, and it is the configuration that reproduced the submitted
+  transport share (47.0 % against the submitted 46 %) while pharmaceutical and
+  appliance spending was still mapped whole to the good, as the submission did.
+  With the distribution margins moved to the Danish trade industries
+  (13 September 2026) it returns 48.2 %; variant `a`, the release the
+  submission cites, returns 37.3 % (35.0 % before).
+- **All thirteen run on IPCC AR6 GWP100.** The 2016 backgrounds were republished on
   AR6 on 11 September 2026; before that the study reported a 2019 answer on AR4
   beside a 2022 answer on AR6. See
   [`docs/revision/defects_and_fixes.md`](docs/revision/defects_and_fixes.md).

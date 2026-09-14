@@ -65,8 +65,8 @@ units and are labelled as such wherever they are quoted.
 | `role` | dimension | str |  | the only configuration reproducing the s |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2-eq |
-| `healthcare_footprint` | measure | float64 | varies by row | 6067.553809713715 |
+| `healthcare_footprint` | measure | float64 | varies by row | 5882.9166140037705 |
 | `national_footprint` | measure | float64 | varies by row | 86614.13373867093 |
-| `healthcare_share_pct` | measure | float64 | % | 7.005269865101372 |
-| `transport_share_pct` | measure | float64 | % | 46.99917751011433 |
+| `healthcare_share_pct` | measure | float64 | % | 6.792097732863664 |
+| `transport_share_pct` | measure | float64 | % | 48.26403108271826 |
 | `expenditure_meur` | measure | float64 | varies by row | 33429.843657658625 |

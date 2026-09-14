@@ -19,6 +19,14 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 
 ## Tables
 
+### `double_counting_ledger.csv`
+
+- **Rows:** 10
+- **Format:** csv
+- **Units:** % overestimate, broadest target set (T3), -, M.EUR (in services column), kt CO2eq, kt CO2eq (deviation)
+- **Dimensions:** `item`, `risk`, `test`, `unit`, `verdict`
+- **Measures:** `analysis_year`, `value`
+
 ### `scope_by_continent.csv`
 
 - **Rows:** 64
@@ -62,9 +70,9 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 106
+- **Rows:** 107
 - **Format:** csv
-- **Resolution:** 9+ regions x 17+ industries (sampled)
+- **Resolution:** 8+ regions x 19+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

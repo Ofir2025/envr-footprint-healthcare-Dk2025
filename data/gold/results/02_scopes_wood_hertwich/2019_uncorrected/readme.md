@@ -12,8 +12,8 @@ Reference year 2019 on EXIOBASE v3.8.2 `IOT_2016_ixi` with the Danish
 sea-transport reallocation **not** applied - and therefore **not**
 variant a, which is on v3.7. Its partition closes on
 `01_eriksen_replication/2019_uncorrected` exactly: the climate `TOTAL`
-of 6,416.930810 kt CO2-eq plus the self-supply loop of 1.927891 kt is
-the grand total of 6,418.858701 kt published there.
+of 6,202.235906 kt CO2-eq plus the self-supply loop of 1.901886 kt is
+the grand total of 6,204.137792 kt published there.
 
 This folder was withheld until 11 September 2026 on the grounds that
 the uncorrected and corrected 2016 model objects descended from two
@@ -25,8 +25,8 @@ backgrounds on IPCC AR6 the reconciliation identity closes to the last
 digit, so there is nothing left to withhold.
 
 What the correction is worth, read across this folder and `2019c`: the
-climate footprint falls from 6,416.93 to 4,107.33 kt and the transport
-industry group from 46.85 % of it to 21.17 %.
+climate footprint falls from 6,202.24 to 3,887.97 kt and the transport
+industry group from 48.23 % of it to 21.87 %.
 
 ## Conventions
 
@@ -92,7 +92,7 @@ industry group from 46.85 % of it to 21.17 %.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 91
+- **Rows:** 90
 - **Format:** csv
 - **Resolution:** 12+ regions x 16+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq

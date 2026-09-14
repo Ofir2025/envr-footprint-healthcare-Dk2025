@@ -2,10 +2,15 @@
 
 Source file: ``data/bronze/dst_supply_use/dk_umat_2019.xlsx`` - Statistics Denmark detailed
 supply-use tables 2019. Sheet ``Ubas`` holds the use table at BASIC PRICES in
-1000 DKK (margins and product taxes are carried on the separate ``Umargins``
-and ``Utaxes`` sheets), which is why no purchaser-to-basic price conversion is
-applied downstream (Conversion = 1.0). Reading a different sheet would change
-the price basis and silently break that assumption.
+1000 DKK; product taxes are carried on the separate ``Utaxes`` sheet and are
+therefore already excluded. Distribution margins are NOT excluded: at basic
+prices a final user's purchase of a good is recorded as the good plus a
+delivery of trade services (rows ``T45*``, ``T46*``, ``T47*``), and ``Umargins``
+is only the bridge that moves those rows back onto the goods at purchasers'
+prices. The margin rows are therefore split out column by column (see
+``TRADE_MARGIN_DIVISIONS``) so the downstream model can charge them to the
+trade industries rather than to the manufacturing sector. Reading a different
+sheet would change the price basis and silently break that construction.
 
 Scope definition (aligned with the manuscript's stated boundary - Steenmeijer
 et al. 2022's expansive scope minus childcare):
@@ -53,6 +58,49 @@ _PURPOSES_PHARMA = ("06112",)
 _PURPOSES_APPLIANCES = ("06130",)
 _PURPOSES_SERVICES = ("06200", "06300", "12401")
 _PURPOSE_CHILDCARE = ("12402",)
+
+#: Distribution margins inside a basic-price purchase column. Statistics Denmark
+#: records the trade margin on a good bought by a final user as a delivery from
+#: the trade industry that earned it, so a basic-price column for pharmaceuticals
+#: is the value of the medicine plus the wholesale and pharmacy margins on it.
+#: Mapping that whole column to the manufacturing sector charged the margins at a
+#: chemicals intensity. They are split out here by the NACE division of the row
+#: and reallocated downstream to the matching Danish EXIOBASE trade industry.
+#: 2022: 40.5 % of the pharmaceutical column and 54.4 % of the appliance column.
+#: Keys are two-digit NACE divisions: 45 motor trade, 46 wholesale, 47 retail.
+#: The supply-use route marks trade services with a ``T`` prefix (``T460009``,
+#: ``T470000``); the input-output route uses the bare industry code (``460000``).
+TRADE_MARGIN_DIVISIONS: dict[str, str] = {"45": "motor_trade",
+                                          "46": "wholesale",
+                                          "47": "retail"}
+MARGIN_COLUMNS: tuple[str, ...] = tuple(
+    f"margin_{name}_kdkk" for name in TRADE_MARGIN_DIVISIONS.values())
+
+
+def trade_margins_meur(breakdown: pd.DataFrame, category: str,
+                       kdkk_to_meur: float) -> dict[str, float]:
+    """Distribution margins of one expenditure category, by trade division.
+
+    Parameters
+    ----------
+    breakdown : pandas.DataFrame
+        The provenance frame returned by :func:`calculate_healthcare_totals`
+        or :func:`calculate_healthcare_totals_2022`, carrying the
+        ``margin_<division>_kdkk`` columns.
+    category : str
+        ``"HC.5.1 Pharmaceuticals"``, ``"HC.5.2 Appliances"`` or
+        ``"Healthcare services"``.
+    kdkk_to_meur : float
+        Conversion factor from 1000 DKK to million euro.
+
+    Returns
+    -------
+    dict of str to float
+        ``{"motor_trade": ..., "wholesale": ..., "retail": ...}`` in M.EUR.
+    """
+    rows = breakdown[breakdown["category"] == category]
+    return {name: float(rows[f"margin_{name}_kdkk"].sum()) * kdkk_to_meur
+            for name in TRADE_MARGIN_DIVISIONS.values()}
 
 
 def _load_use_table_basic_prices(file_path: str) -> pd.DataFrame:
@@ -105,19 +153,23 @@ def _sum_purposes(
     """
     total = 0.0
     breakdown = []
+    row_codes = df.iloc[:, 0].astype(str).str.strip()
     for col in df.columns:
         transaction, description, code = col
         if code in purposes and transaction in _INDIVIDUAL_CONSUMPTION_TRANSACTIONS:
-            value = float(df[col].sum())
+            column = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
+            value = float(column.sum())
             total += value
-            breakdown.append(
-                {
-                    "purpose_code": code,
-                    "purpose": description,
-                    "transaction": transaction,
-                    "value_kdkk": value,
-                }
-            )
+            entry = {
+                "purpose_code": code,
+                "purpose": description,
+                "transaction": transaction,
+                "value_kdkk": value,
+            }
+            for division, name in TRADE_MARGIN_DIVISIONS.items():
+                entry[f"margin_{name}_kdkk"] = float(
+                    column[row_codes.str.startswith("T" + division)].sum())
+            breakdown.append(entry)
     return total, breakdown
 
 
@@ -150,8 +202,10 @@ def calculate_healthcare_totals(
     services_total : float
         Healthcare services, 1000 DKK.
     breakdown : pandas.DataFrame
-        Columns ``category``, ``purpose_code``, ``purpose``, ``transaction``
-        and ``value_kdkk``, one row per column summed into the totals.
+        Columns ``category``, ``purpose_code``, ``purpose``, ``transaction``,
+        ``value_kdkk`` and the three ``margin_<division>_kdkk`` columns, one
+        row per column summed into the totals. ``value_kdkk`` includes the
+        margins; they are reported separately, not subtracted.
     """
     df = _load_use_table_basic_prices(file_path)
 
@@ -169,7 +223,8 @@ def calculate_healthcare_totals(
         for entry in row:
             entry["category"] = cat
     breakdown = pd.DataFrame(b1 + b2 + b3)
-    breakdown = breakdown[["category", "purpose_code", "purpose", "transaction", "value_kdkk"]]
+    breakdown = breakdown[["category", "purpose_code", "purpose", "transaction",
+                           "value_kdkk", *MARGIN_COLUMNS]]
 
     return hc51_total, hc52_total, services_total, breakdown
 
@@ -219,8 +274,10 @@ def calculate_healthcare_totals_2022(
         Healthcare services, 1000 DKK.
     breakdown : pandas.DataFrame
         Columns ``category``, ``purpose_code``, ``purpose``, ``transaction``,
-        ``source_sheet`` and ``value_kdkk``, one row per column summed into
-        the totals.
+        ``source_sheet``, ``value_kdkk`` and the three
+        ``margin_<division>_kdkk`` columns (deliveries from the domestic
+        motor-trade, wholesale and retail industries), one row per column
+        summed into the totals. ``value_kdkk`` includes the margins.
     """
     codes_pharma = {"06112"}
     codes_appl = {"06134", "06130"}
@@ -325,12 +382,23 @@ def calculate_healthcare_totals_2022(
             1000 DKK.
         """
         total = 0.0
+        codes = df.iloc[:, 0].astype(str).str.strip()
+        # Margins are deliveries from the DOMESTIC trade industries. The import
+        # block repeats the industry codes below the "Imports" label row, and
+        # an imported trade service is not a margin earned on the good.
+        import_start = int(codes[codes == "Imports"].index[0])
+        domestic = rows & (df.index < import_start)
         for j, block, desc, code in cols:
             v = pd.to_numeric(df.loc[rows, j], errors="coerce").fillna(0).sum()
             total += float(v)
-            breakdown.append({"purpose_code": code, "purpose": desc,
-                              "transaction": block, "source_sheet": source,
-                              "value_kdkk": float(v)})
+            entry = {"purpose_code": code, "purpose": desc,
+                     "transaction": block, "source_sheet": source,
+                     "value_kdkk": float(v)}
+            for division, name in TRADE_MARGIN_DIVISIONS.items():
+                mask = domestic & codes.str.startswith(division)
+                entry[f"margin_{name}_kdkk"] = float(
+                    pd.to_numeric(df.loc[mask, j], errors="coerce").fillna(0).sum())
+            breakdown.append(entry)
         return total
 
     # household consumption: CP sheet columns (block header is on the IO sheet's

@@ -153,8 +153,9 @@ def main() -> None:
     exp["note"] = ("healthcare_services enters as the scaled intermediate-input "
                    "column of DK Health and social work (Steenmeijer construction): "
                    "value added carries no environmental pressure and is therefore "
-                   "not part of y_H; pharmaceuticals/appliances enter at full "
-                   "basic-price value distributed over supplying regions")
+                   "not part of y_H; pharmaceuticals/appliances enter as the "
+                   "good itself distributed over supplying regions, with their "
+                   "distribution margins at the Danish trade industries")
     exp.to_csv(os.path.join(out_dir, "expenditure_vector_detail.csv"), index=False)
     print(f"expenditure_vector_detail.csv: {len(exp):,} rows, "
           f"y_H total {exp['value'].sum():,.1f} M.EUR")
@@ -162,16 +163,35 @@ def main() -> None:
     require_manuscript_boundary(_dk_path, "analysis.export_tables")
     dk = pd.read_csv(_dk_path)
     bp = dk[dk["Index"] == "Expenditure"].iloc[0]
-    conv = dk[dk["Index"] == "Conversion"].iloc[0]
+    margin = dk[dk["Index"].astype(str).str.startswith("Margin_")]
+
+    def _margin(col: str) -> float:
+        """Distribution margins of one component, M.EUR (0 without margin rows).
+
+        Parameters
+        ----------
+        col : str
+            ``"HC service"``, ``"Pharm"`` or ``"MedAppl"``.
+
+        Returns
+        -------
+        float
+            Sum of the ``Margin_*`` rows for that column.
+        """
+        return float(margin[col].astype(float).sum()) if len(margin) else 0.0
+
     esum = pd.DataFrame([
         {"demand_component": "healthcare_services",
-         "basic_price_expenditure_meur": float(bp["HC service"]) * float(conv["HC service"]),
+         "basic_price_expenditure_meur": float(bp["HC service"]),
+         "distribution_margin_meur": _margin("HC service"),
          "y_H_meur": float(Ystim[:, 1].sum())},
         {"demand_component": "pharmaceuticals",
-         "basic_price_expenditure_meur": float(bp["Pharm"]) * float(conv["Pharm"]),
+         "basic_price_expenditure_meur": float(bp["Pharm"]),
+         "distribution_margin_meur": _margin("Pharm"),
          "y_H_meur": float(Ystim[:, 2].sum())},
         {"demand_component": "medical_appliances",
-         "basic_price_expenditure_meur": float(bp["MedAppl"]) * float(conv["MedAppl"]),
+         "basic_price_expenditure_meur": float(bp["MedAppl"]),
+         "distribution_margin_meur": _margin("MedAppl"),
          "y_H_meur": float(Ystim[:, 3].sum())},
     ])
     esum["unit"] = "M.EUR"

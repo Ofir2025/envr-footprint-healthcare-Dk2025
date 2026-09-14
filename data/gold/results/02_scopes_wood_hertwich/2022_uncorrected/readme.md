@@ -12,14 +12,14 @@ Reference year 2022 on EXIOBASE v3.8.2 `IOT_2022_ixi` with the Danish
 sea-transport reallocation **not** applied - the comparison run, not
 the headline, and not a lettered variant. Its partition closes on
 `01_eriksen_replication/2022_uncorrected` exactly: the climate `TOTAL`
-of 6,085.494934 kt CO2-eq plus the self-supply loop of 1.833390 kt is
-the grand total of 6,063.932424 kt published there.
+of 5,581.506218 kt CO2-eq plus the self-supply loop of 1.812536 kt is
+the grand total of 5,583.318753 kt published there.
 
 What the correction is worth, read across this folder and `2022c`: the
-climate footprint falls from 6,062.10 to 4,650.24 kt, and the
-transport industry group falls from 32.31 % of it to 14.94 %. The
-ledger's MRIO decomposition row moves from 5,318.307735 to
-3,906.446070 kt on the same comparison. Nothing in this folder is on
+climate footprint falls from 5,581.51 to 4,160.31 kt, and the
+transport industry group falls from 34.70 % of it to 15.97 %. The
+ledger's MRIO decomposition row moves from 4,836.565363 to
+3,415.367269 kt on the same comparison. Nothing in this folder is on
 the headline basis, and no manuscript number is taken from it.
 
 Its purpose is figures 3 to 6 of the `2022_uncorrected` figure
@@ -91,9 +91,9 @@ tables and were byte-identical to the corrected variant's.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 116
+- **Rows:** 111
 - **Format:** csv
-- **Resolution:** 12+ regions x 13+ industries (sampled)
+- **Resolution:** 14+ regions x 14+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

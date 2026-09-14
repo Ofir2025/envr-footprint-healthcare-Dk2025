@@ -176,6 +176,18 @@ def get_val_GWP_health(cbs_data: pd.DataFrame) -> float:
 #   
 #
 ##############################################
+#: dk_data margin row -> the Danish EXIOBASE industry that earned the margin.
+MARGIN_SECTORS: dict[str, str] = {
+    "Margin_motor_trade": ("Sale, maintenance, repair of motor vehicles, motor "
+                           "vehicles parts, motorcycles, motor cycles parts and "
+                           "accessoiries"),
+    "Margin_wholesale": ("Wholesale trade and commission trade, except of motor "
+                         "vehicles and motorcycles (51)"),
+    "Margin_retail": ("Retail trade, except of motor vehicles and motorcycles; "
+                      "repair of personal and household goods (52)"),
+}
+
+
 def createBackground(
     mrio_dir: str, cbs_data: pd.DataFrame, bg_dir: str, year: str
 ) -> dict[str, object]:
@@ -188,8 +200,12 @@ def createBackground(
     constructs the healthcare stimulus (``Ystim``: services, pharmaceuticals,
     appliances plus total; ``Hstim``: direct impacts, with the DRIVHUS
     climate figure substituted for the EXIOBASE row; ``Vstim``: primary
-    inputs), scaled from ``cbs_data`` expenditure. This is the single
-    construction every analysis module shares.
+    inputs), scaled from ``cbs_data`` expenditure. The pharmaceutical and
+    appliance columns place the good itself at the manufacturing sector,
+    distributed over supplying regions, and their distribution margins at the
+    Danish trade industries (``MARGIN_SECTORS``), when ``cbs_data`` carries
+    ``Margin_*`` rows. This is the single construction every analysis module
+    shares.
 
     Parameters
     ----------
@@ -360,11 +376,26 @@ def createBackground(
     # What must not be double counted is only the health sector's own DIRECT
     # emissions arising on that internal output, s_h * (L y)_h, which the
     # separately added national-accounts Scope 1 already reports; that single
-    # term is removed in analysis.scopes_detail (Denmark 2022: 3.2 kt CO2e).
+    # term is removed in analysis.scopes_detail (Denmark 2022: 1.8 kt CO2e).
     # Zeroing the element here would also delete the legitimate upstream chain
     # of internally traded health services (a 27 kt over-correction).
     Ystim[:,1] = val_pharm_bp * valloc_pharm
     Ystim[:,2] = val_appl_bp * valloc_appl
+    # Distribution margins. The Conversion row has already removed them from
+    # the good itself; here they are added back as purchases from the Danish
+    # trade industries that earned them (NACE 45 motor trade, 46 wholesale,
+    # 47 retail), so the expenditure total is preserved and the margin is
+    # charged at a trade intensity rather than at a manufacturing one. A frame
+    # without margin rows (the Dutch mode) adds nothing.
+    for (col, k_col) in (("Pharm", 1), ("MedAppl", 2)):
+        for (row, sector_name) in MARGIN_SECTORS.items():
+            key = (row, 'MEUR')
+            if key not in cbs_data.index:
+                continue
+            k_trade = int(np.flatnonzero(
+                label['industry']['Name'].astype(str).str.strip().values
+                == sector_name)[0])
+            Ystim[k_DK * ns + k_trade, k_col] += float(cbs_data.loc[key, col])
     Hstim[:,0] = B[:, k_DK*ns + k_health] * (x[k_DK*ns + k_health] * scale_factor) 
     Hstim[k_GWP,0] = val_GWP_health 
     Vstim[:,0] = V[:, k_DK*ns + k_health] * scale_factor

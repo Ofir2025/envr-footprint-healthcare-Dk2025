@@ -60,8 +60,8 @@ units and are labelled as such wherever they are quoted.
 | `netherlands_national` | measure | int64 | varies by row | 241358 |
 | `netherlands_health_share_pct` | measure | float64 | % | 7.3 |
 | `denmark_national` | measure | float64 | varies by row | 77240.62118630517 |
-| `denmark_health_share_pct` | measure | float64 | % | 5.05750214089784 |
-| `share_difference_pp` | measure | float64 | % | -2.2424978591021603 |
+| `denmark_health_share_pct` | measure | float64 | % | 4.421724239125561 |
+| `share_difference_pp` | measure | float64 | % | -2.8782757608744385 |
 | `comparability_note` | dimension | str |  | NOT on the same boundary: the Dutch figu |
 | `source_netherlands` | dimension | str |  | Steenmeijer et al. 2022 table S7 (= RIVM |
 | `source_denmark` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
@@ -437,10 +437,10 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `netherlands_2016` | measure | float64 | varies by row | 17575.0 |
-| `denmark_2022` | measure | float64 | varies by row | 4652.070759298349 |
+| `denmark_2022` | measure | float64 | varies by row | 4162.120659340719 |
 | `netherlands_per_capita` | measure | float64 | varies by row | 1031.9833210356544 |
-| `denmark_per_capita` | measure | float64 | varies by row | 792.0548435661589 |
+| `denmark_per_capita` | measure | float64 | varies by row | 708.6366477011212 |
 | `per_capita_unit` | dimension | str |  | kt CO2eq per million population |
-| `dk_as_pct_of_nl_per_capita` | measure | float64 | varies by row | 76.75074077469455 |
+| `dk_as_pct_of_nl_per_capita` | measure | float64 | varies by row | 68.66745162024166 |
 | `source_netherlands` | dimension | str |  | Steenmeijer et al. 2022, Lancet Planet H |
 | `source_denmark` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |

@@ -262,6 +262,47 @@ def write_hotspot_by_country_and_sector_group(detail: pd.DataFrame,
     return cross
 
 
+def aggregate(detail: pd.DataFrame, out_stem: str,
+              keys: list[str]) -> pd.DataFrame:
+    """Aggregate a node-level analysis to a group, correctly for its kind.
+
+    Footprints add, so a contribution or hotspot group is the sum of its
+    nodes. An intensity does not: until 2026-09-13 the intensity group files
+    were also sums, so a "sector group intensity" was the sum of every member
+    node's multiplier - 1,470.9 for chemicals in 2022, a number with no
+    meaning - and Appendix A's Table A5 was built on it. The group intensity is
+    the expenditure-weighted mean, the group's footprint over the group's
+    purchases, which is what a reader of "kt CO2e per M.EUR" assumes.
+
+    Parameters
+    ----------
+    detail : pandas.DataFrame
+        Output of :func:`standardise`; an intensity frame carries
+        ``Total (MEUR)``, the expenditure at each node.
+    out_stem : str
+        ``"contribution"``, ``"hotspot"`` or ``"intensity"``.
+    keys : list of str
+        Grouping columns besides ``indicator`` and ``unit``.
+
+    Returns
+    -------
+    pandas.DataFrame
+        ``indicator``, ``unit``, the keys and ``value``; intensities also carry
+        ``expenditure_meur`` and ``footprint``, the two terms of the ratio.
+    """
+    by = ["indicator", "unit", *keys]
+    if out_stem != "intensity":
+        return detail.groupby(by, dropna=False)["value"].sum().reset_index()
+    weighted = detail.assign(
+        footprint=detail["value"] * detail["Total (MEUR)"],
+        expenditure_meur=detail["Total (MEUR)"])
+    out = weighted.groupby(by, dropna=False)[
+        ["footprint", "expenditure_meur"]].sum().reset_index()
+    out["value"] = out["footprint"] / out["expenditure_meur"].where(
+        out["expenditure_meur"] != 0)
+    return out[[*by, "value", "expenditure_meur", "footprint"]]
+
+
 def main() -> None:
     """Write every replication analysis as a detailed and an aggregate CSV."""
     out_dir = os.path.join(str(OUTPUT_DIR), FOLDER)
@@ -275,18 +316,11 @@ def main() -> None:
         detail.to_csv(
             os.path.join(out_dir, f"{out_stem}_by_{prefix}_{noun}.csv"),
             index=False)
-        detail.groupby(
-            ["indicator", "unit", f"{prefix}_sector_group"],
-            dropna=False)["value"].sum().reset_index().sort_values(
-            "value", ascending=False).to_csv(
-            os.path.join(out_dir, f"{out_stem}_by_sector_group.csv"),
-            index=False)
-        detail.groupby(
-            ["indicator", "unit", f"{prefix}_world_region"],
-            dropna=False)["value"].sum().reset_index().sort_values(
-            "value", ascending=False).to_csv(
-            os.path.join(out_dir, f"{out_stem}_by_world_region.csv"),
-            index=False)
+        for level in ("sector_group", "world_region"):
+            aggregate(detail, out_stem, [f"{prefix}_{level}"]).sort_values(
+                "value", ascending=False).to_csv(
+                os.path.join(out_dir, f"{out_stem}_by_{level}.csv"),
+                index=False)
         if out_stem != "intensity":
             domestic_import_split(
                 detail,

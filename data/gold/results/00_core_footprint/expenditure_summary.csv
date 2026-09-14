@@ -1,4 +1,4 @@
-consuming_country_iso3,model,scenario,analysis_year,demand_component,basic_price_expenditure_meur,y_H_meur,unit
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,healthcare_services,37552.28493467391,10009.058855373154,M.EUR
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pharmaceuticals,1950.3076778321415,1950.3076778321415,M.EUR
-DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,medical_appliances,1094.3850475832037,1094.3850475832037,M.EUR
+consuming_country_iso3,model,scenario,analysis_year,demand_component,basic_price_expenditure_meur,distribution_margin_meur,y_H_meur,unit
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,healthcare_services,37552.28493467391,0.0,10009.058855373154,M.EUR
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,pharmaceuticals,1950.3076778321415,790.7348513360932,1950.3076778321415,M.EUR
+DNK,EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022),baseline,2022,medical_appliances,1094.3850475832037,595.7964137856875,1094.385047583204,M.EUR

@@ -16,9 +16,9 @@ The record of what each round of revision changed is in
 
 | File | Purpose |
 |:---|:---|
-| `eriksen_et_al_2026_manuscript.docx` | The manuscript, revision tracked. Three figures, 46 references. |
+| `eriksen_et_al_2026_manuscript.docx` | The manuscript, revision tracked. Three figures, 52 references. |
 | `eriksen_et_al_2026_supplementary_appendix_a.docx` | Supplementary appendix A: derivations, validation, nineteen figures. |
-| `eriksen_et_al_2026_supplementary_appendix_b_private_travel_scaling.xlsx` | Supplementary appendix B: the private-travel scaling workbook. |
+| `eriksen_et_al_2026_supplementary_appendix_b_private_travel_scaling.xlsx` | Supplementary appendix B: the private-travel workbook, with the survey-based patient and visitor travel sheet and the superseded scaling rows marked. |
 | `eriksen_et_al_2026_supplementary_figures_si.pdf` | Supplementary figures as submitted. |
 | `eriksen_et_al_2026_reviewer_responses.docx` | Point-by-point response to the reviewers. Built from `../revision/response_to_reviewers.md`, which is the source of truth. |
 | `eriksen_et_al_2026_cover_letter.docx` | The cover letter to *Next Sustainability*. |

@@ -10,8 +10,8 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 
 Variant b isolates the Danish sea-transport correction on the
 submitted release: everything is variant a except the correction. The
-transport share falls from 34.94 % to 16.56 % and this folder's
-climate total from 8,693.84 to 6,624.71 kt CO2-eq, so on v3.7 as on
+transport share falls from 37.26 % to 17.76 % and the climate grand
+total from 8,046.97 to 5,982.66 kt CO2-eq, so on v3.7 as on
 v3.8.2 the correction is the larger of the two effects on the
 transport finding.
 
@@ -79,9 +79,9 @@ transport finding.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 110
+- **Rows:** 102
 - **Format:** csv
-- **Resolution:** 10+ regions x 17+ industries (sampled)
+- **Resolution:** 9+ regions x 18+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

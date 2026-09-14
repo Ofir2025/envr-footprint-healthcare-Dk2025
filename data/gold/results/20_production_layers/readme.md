@@ -23,9 +23,9 @@
 
 ### `production_layers_by_producing_node.csv.gz`
 
-- **Rows:** 444,389
+- **Rows:** 444,397
 - **Format:** csv
-- **Resolution:** 49+ regions x 89+ industries (sampled)
+- **Resolution:** 49+ regions x 97+ industries (sampled)
 - **Units:** kt CO2eq
 - **Dimensions:** `country_consuming`, `sector_consuming`, `indicator`, `unit`, `model`, `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`
 - **Measures:** `analysis_year`, `layer`, `value`

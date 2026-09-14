@@ -80,6 +80,7 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `demand_component` | dimension | str |  | healthcare_services |
 | `basic_price_expenditure_meur` | measure | float64 | M.EUR | 37552.28493467391 |
+| `distribution_margin_meur` | measure | float64 | M.EUR | 0.0 |
 | `y_H_meur` | measure | float64 | M.EUR | 10009.058855373154 |
 | `unit` | dimension | str |  | M.EUR |
 
@@ -247,8 +248,8 @@ and `footprint_by_purchased_product.csv` - are complete.
 | `national_footprint` | measure | float64 | varies by row | 77240.62118630517 |
 | `national_supply_chain` | measure | float64 | varies by row | 67518.62638160588 |
 | `national_direct_households` | measure | float64 | varies by row | 9721.994804699298 |
-| `healthcare_footprint_mrio` | measure | float64 | varies by row | 3906.4460701401745 |
-| `healthcare_share_pct` | measure | float64 | % | 5.05750214089784 |
+| `healthcare_footprint_mrio` | measure | float64 | varies by row | 3415.3672694460092 |
+| `healthcare_share_pct` | measure | float64 | % | 4.421724239125561 |
 
 ### `national_vs_healthcare_by_product_group.csv`
 
