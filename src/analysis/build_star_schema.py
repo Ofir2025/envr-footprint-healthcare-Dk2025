@@ -99,7 +99,10 @@ Two gold layers are classified private in :mod:`analysis.gold_scope` and are
 absent from the working copy that feeds the co-author's branch. Every source is
 therefore guarded by ``gold_scope.is_present``: the fact is built when its layer
 is there and simply not built when it is not, so the same module runs in both
-copies and produces the model each is entitled to.
+copies and produces the model each is entitled to. The mitigation scenarios are
+withheld rather than private: present in this copy but not reported by the
+revision, so ``dim_scenario`` and ``fact_scenario_node`` are guarded by
+``gold_scope.reported`` instead.
 
 Referential integrity is asserted before anything is written: every foreign key
 in every fact must resolve to exactly one dimension row, and every fact must
@@ -1097,41 +1100,46 @@ def main() -> None:
         "purchased_industry_id"]
 
     # ---- mitigation scenarios ---------------------------------------------
-    scen_agg = _read("18_mitigation_scenarios/mitigation_scenarios.csv")
-    dim_scenario = build_dim_scenario(
-        scen_agg, _read("18_mitigation_scenarios/scenario_selection.csv"))
-    dims["dim_scenario"] = dim_scenario
+    # Withheld from the revision (see gold_scope.SCOPE), so built only where the
+    # layer is reported: a full copy builds it, this copy does not.
+    has_scenarios = gold_scope.reported("18_mitigation_scenarios")
+    scen_agg = dim_scenario = None
+    if has_scenarios:
+        scen_agg = _read("18_mitigation_scenarios/mitigation_scenarios.csv")
+        dim_scenario = build_dim_scenario(
+            scen_agg, _read("18_mitigation_scenarios/scenario_selection.csv"))
+        dims["dim_scenario"] = dim_scenario
 
-    scen = _read("18_mitigation_scenarios/scenarios_by_producing_node.csv.gz",
-                 usecols=["scenario_id", "scenario", "ambition", "indicator",
-                          "unit", "producing_country_iso3",
-                          "producing_sector_code", "value_type", "value"])
-    _assert_indicator_subset(scen, dim_indicator, "scenarios")
-    # value_type restates what the industry member already says. Asserting the
-    # equivalence and dropping the column keeps one statement of the fact
-    # instead of two that can disagree.
-    bottom_up = set(dim_industry.loc[
-        dim_industry["industry_type"] == "bottom-up item", "industry_code"])
-    flagged = scen["value_type"].eq("bottom-up item")
-    assert (scen["producing_sector_code"].isin(bottom_up) == flagged).all(), \
-        ("fact_scenario_node: value_type disagrees with "
-         "dim_industry.industry_type, so it cannot be dropped as redundant")
-    sc = scen.drop(columns=["unit", "value_type"])
-    sc = _multi_key(sc, dim_scenario, ["scenario_id", "scenario", "ambition"],
-                    ["scenario_code", "scenario_label", "ambition"],
-                    "scenario_id", "scenario_node.scenario")
-    sc = _key(sc, dim_indicator, "indicator", "indicator_code", "indicator_id", "scenario_node.indicator")
-    sc = _key(sc, dim_region, "producing_country_iso3", "region_code", "region_id", "scenario_node.region")
-    sc = _key(sc, dim_industry, "producing_sector_code", "industry_code", "industry_id", "scenario_node.industry")
-    sc = sc.rename(columns={"region_id": "producing_region_id",
-                            "industry_id": "producing_industry_id"})
-    sc.insert(0, "model_id", 1)
-    facts["fact_scenario_node"] = sc[
-        ["model_id", "scenario_id", "indicator_id", "producing_region_id",
-         "producing_industry_id", "value"]]
-    grains["fact_scenario_node"] = [
-        "model_id", "scenario_id", "indicator_id", "producing_region_id",
-        "producing_industry_id"]
+        scen = _read("18_mitigation_scenarios/scenarios_by_producing_node.csv.gz",
+                     usecols=["scenario_id", "scenario", "ambition", "indicator",
+                              "unit", "producing_country_iso3",
+                              "producing_sector_code", "value_type", "value"])
+        _assert_indicator_subset(scen, dim_indicator, "scenarios")
+        # value_type restates what the industry member already says. Asserting the
+        # equivalence and dropping the column keeps one statement of the fact
+        # instead of two that can disagree.
+        bottom_up = set(dim_industry.loc[
+            dim_industry["industry_type"] == "bottom-up item", "industry_code"])
+        flagged = scen["value_type"].eq("bottom-up item")
+        assert (scen["producing_sector_code"].isin(bottom_up) == flagged).all(), \
+            ("fact_scenario_node: value_type disagrees with "
+             "dim_industry.industry_type, so it cannot be dropped as redundant")
+        sc = scen.drop(columns=["unit", "value_type"])
+        sc = _multi_key(sc, dim_scenario, ["scenario_id", "scenario", "ambition"],
+                        ["scenario_code", "scenario_label", "ambition"],
+                        "scenario_id", "scenario_node.scenario")
+        sc = _key(sc, dim_indicator, "indicator", "indicator_code", "indicator_id", "scenario_node.indicator")
+        sc = _key(sc, dim_region, "producing_country_iso3", "region_code", "region_id", "scenario_node.region")
+        sc = _key(sc, dim_industry, "producing_sector_code", "industry_code", "industry_id", "scenario_node.industry")
+        sc = sc.rename(columns={"region_id": "producing_region_id",
+                                "industry_id": "producing_industry_id"})
+        sc.insert(0, "model_id", 1)
+        facts["fact_scenario_node"] = sc[
+            ["model_id", "scenario_id", "indicator_id", "producing_region_id",
+             "producing_industry_id", "value"]]
+        grains["fact_scenario_node"] = [
+            "model_id", "scenario_id", "indicator_id", "producing_region_id",
+            "producing_industry_id"]
 
     # ---- production layers ------------------------------------------------
     layer_detail = _read(
@@ -1424,7 +1432,8 @@ def main() -> None:
         "fact_scope_node does not reproduce its source total"
 
     _assert_bilateral_margins(facts, dim_region, dim_industry)
-    _assert_scenario_totals(facts, dim_scenario, dim_indicator, scen_agg)
+    if has_scenarios:
+        _assert_scenario_totals(facts, dim_scenario, dim_indicator, scen_agg)
     _assert_layer_totals(facts, dim_production_layer, dim_indicator, layer_agg)
     _assert_expenditure_total(facts, dim_component,
                               _read("00_core_footprint/expenditure_summary.csv"))

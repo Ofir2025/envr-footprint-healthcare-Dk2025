@@ -42,7 +42,10 @@ README = GOLD / "readme.md"
 
 #: folder -> (scope, why). ``paper`` folders back a number, figure, or table in
 #: the manuscript or in the response to the reviewers, and ship. ``private``
-#: folders are follow-on work: real analysis, but for the next paper.
+#: folders are follow-on work: real analysis, but for the next paper, and kept
+#: in the full copy only. ``withheld`` folders were built in this copy during the
+#: revision and stay tracked here, but the revision does not report them and the
+#: published branch does not carry them: they are held back for a later paper.
 SCOPE: dict[str, tuple[str, str]] = {
     "00_core_footprint": (
         "paper", "the footprint itself; every headline number"),
@@ -90,7 +93,8 @@ SCOPE: dict[str, tuple[str, str]] = {
     "17_health_subsectors": (
         "private", "health sub-sector decomposition; the follow-on paper"),
     "18_mitigation_scenarios": (
-        "paper", "the counterfactual scenarios; figures 8 and 9"),
+        "withheld", "the counterfactual mitigation scenarios; held back from the "
+                    "revision on 14 September 2026 for the follow-up paper"),
     "19_tables_of_record": (
         "paper", "the verified tables of record, regenerated from the gold "
                  "facts, that supersede the values circulated during drafting"),
@@ -123,6 +127,39 @@ PRIVATE_COMPANIONS: dict[str, tuple[str, ...]] = {
                              "fact_health_function_node.parquet",
                              "data/gold/results/19_tables_of_record/"
                              "table_09.csv"),
+}
+
+
+#: Code, figures and derived tables that travel with a withheld folder. The star
+#: schema and the tables of record no longer build them in this copy (see
+#: :func:`reported`), but earlier commits carry them, so the publish filter still
+#: has to strip them from the published history.
+WITHHELD_COMPANIONS: dict[str, tuple[str, ...]] = {
+    "18_mitigation_scenarios": ("src/analysis/mitigation_scenarios.py",
+                                "src/analysis/scenario_engine.py",
+                                "r/plot_scenarios.r",
+                                "figures/manuscript/2022c/"
+                                "fig8_mitigation_waterfall_2022.tiff",
+                                "figures/manuscript/2022c/"
+                                "fig9_burden_shifting_2022.tiff",
+                                "figures/diagrams/scenario_workflow.png",
+                                "data/gold/results/star/dim_scenario.csv",
+                                "data/gold/results/star/fact_scenario_node.parquet",
+                                "data/gold/results/19_tables_of_record/table_12.csv",
+                                "data/gold/results/19_tables_of_record/table_13.csv",
+                                # the same material under the names it had in
+                                # earlier commits, which the published history
+                                # also carries
+                                "R/plot_scenarios.R",
+                                "docs/methods/replications/18_mitigation_scenarios.md",
+                                "docs/revision/scenarios_answer.md",
+                                "figures/manuscript/2022/fig8_mitigation_scenarios_2022.tiff",
+                                "figures/manuscript/2022/fig8_mitigation_waterfall_2022.tiff",
+                                "figures/manuscript/2022/fig9_burden_shifting_2022.tiff",
+                                "figures/manuscript/2022_shipping_corrected/"
+                                "fig8_mitigation_waterfall_2022.tiff",
+                                "figures/manuscript/2022_shipping_corrected/"
+                                "fig9_burden_shifting_2022.tiff"),
 }
 
 
@@ -263,6 +300,29 @@ def is_present(folder: str) -> bool:
     return (GOLD / folder).is_dir()
 
 
+def reported(folder: str) -> bool:
+    """Whether a layer's results belong in this copy's reported deliverables.
+
+    The star schema and the tables of record are built over what the revision
+    reports. A withheld layer is present in this copy but not reported, so they
+    leave it out here; a full copy reports everything it holds.
+
+    Parameters
+    ----------
+    folder : str
+        Gold folder name, for example ``"18_mitigation_scenarios"``.
+
+    Returns
+    -------
+    bool
+        True when the folder is present and either is not withheld or this copy
+        declares the ``full`` profile.
+    """
+    if not is_present(folder):
+        return False
+    return SCOPE.get(folder, ("paper", ""))[0] != "withheld" or profile() == "full"
+
+
 def folders_on_disk() -> list[str]:
     """Gold folders present in the working copy."""
     if not GOLD.exists():
@@ -301,15 +361,17 @@ def exclude_paths() -> list[str]:
     Returns
     -------
     list of str
-        Gold folders classified ``private``, plus the documentation and source
-        that exists only to serve them.
+        Gold folders classified ``private`` or ``withheld``, plus the
+        documentation, source, figures and derived tables that exist only to
+        serve them.
     """
     out = []
     for name, (scope, _) in sorted(SCOPE.items()):
-        if scope != "private":
+        if scope not in ("private", "withheld"):
             continue
         out.append(f"data/gold/results/{name}")
         out.extend(PRIVATE_COMPANIONS.get(name, ()))
+        out.extend(WITHHELD_COMPANIONS.get(name, ()))
     return out
 
 
@@ -317,6 +379,7 @@ def render() -> str:
     """Write the gold README from the classification and return its text."""
     paper = [(k, v[1]) for k, v in sorted(SCOPE.items()) if v[0] == "paper"]
     private = [(k, v[1]) for k, v in sorted(SCOPE.items()) if v[0] == "private"]
+    withheld = [(k, v[1]) for k, v in sorted(SCOPE.items()) if v[0] == "withheld"]
     variants = variant_folders()
     lines = [
         "# Gold results",
@@ -355,6 +418,18 @@ def render() -> str:
         "|:---|:---|",
     ]
     lines += [f"| `{k}` | {w} |" for k, w in private]
+    lines += [
+        "",
+        f"### Withheld ({len(withheld)} folders)",
+        "",
+        "Built in this copy during the revision and kept here, but not reported",
+        "by the revision and not on the published branch: held back for a later",
+        "paper. The star schema and the tables of record leave them out.",
+        "",
+        "| folder | why it is withheld |",
+        "|:---|:---|",
+    ]
+    lines += [f"| `{k}` | {w} |" for k, w in withheld]
     lines += [
         "",
         "## Naming",
@@ -405,9 +480,11 @@ def main() -> None:
     render()
     missing = unclassified()
     paper = sum(1 for v in SCOPE.values() if v[0] == "paper")
-    private = len(SCOPE) - paper
+    private = sum(1 for v in SCOPE.values() if v[0] == "private")
+    withheld = sum(1 for v in SCOPE.values() if v[0] == "withheld")
     print(f"gold scope -> {README.relative_to(REPO)}")
-    print(f"  {paper} paper deliverables, {private} private extensions")
+    print(f"  {paper} paper deliverables, {private} private extensions, "
+          f"{withheld} withheld")
     if missing:
         print(f"  {len(missing)} folder(s) on disk are not classified: "
               f"{', '.join(missing)}")
