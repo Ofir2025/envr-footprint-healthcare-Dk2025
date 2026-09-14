@@ -97,6 +97,11 @@ Still outstanding before submission, and who holds each:
   working branch but excluded by name from the public branch in
   `scripts/release/publish_ofir_branch.sh`, and its builder lives under
   `scripts/release/`, which is never published.
+- The mitigation scenarios are held back for a follow-up paper. Their layer, modules,
+  script and figures stay committed on the working branch, and
+  `analysis.gold_scope` classifies them as withheld, so the published branch
+  carries none of them in any commit, and the documents that described them are
+  published with those passages removed.
 - Appendix B is force-added despite the user's global `*.xlsx` ignore, because it
   is a deliverable. The journal's guide for authors stays unversioned: it is the
   publisher's.
