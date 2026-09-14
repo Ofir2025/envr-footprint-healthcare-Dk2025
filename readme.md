@@ -132,7 +132,8 @@ draw CO₂, Mm³ and km² as `..`.
 | [`docs/revision/results_2022.md`](docs/revision/results_2022.md) | the 2022 analysis: inputs, method, results, and the withdrawn transport finding |
 | [`docs/revision/defects_and_fixes.md`](docs/revision/defects_and_fixes.md) | defects found and fixed, with their effect on every number that moved |
 | [`docs/revision/uncertainty.md`](docs/revision/uncertainty.md) | the Monte Carlo, the Sobol decomposition and what they do and do not establish |
-| [`docs/revision/response_to_reviewers.md`](docs/revision/response_to_reviewers.md) | the reviewer replies, each tied to the table that answers it |
+| [`docs/revision/response_to_reviewers.md`](docs/revision/response_to_reviewers.md) | technical companion to the formal response letter, each reply tied to the table that answers it |
+| [`docs/eriksen_et_al_2026/readme.md`](docs/eriksen_et_al_2026/readme.md) | the submission package: manuscript, appendices A and B, response and cover letters, what to submit |
 | [`docs/revision/request_checklist.md`](docs/revision/request_checklist.md) | status of all outstanding work |
 
 ## Provenance and reproducibility
