@@ -34,11 +34,16 @@ copy of each file, here.
 | `eriksen_et_al_2026_cover_letter.docx` | The cover letter to *Next Sustainability*. | yes |
 | `eriksen_et_al_2026_declaration_interests.docx` | The declaration of competing interests. | yes |
 | `eriksen_et_al_2026_ethics_declaration.docx` | The ethics declaration. | yes |
-| `eriksen_et_al_2026_supplementary_figures_si.pdf` | Supplementary figures of the July 2026 submission, superseded by appendix A and cited nowhere. | **no** |
+| `eriksen_et_al_2026_supplementary_figures_si.pdf` | The co-author's supplementary figures S1 to S3 in his original form (100 % stacked bars by activity, sector and region), redrawn on the 2022 results; built by `pdfunite` from `figures/manuscript/2022c/figS_ofir*.pdf`. Replaces the July 2026 file. | only if the authors keep this form beside appendix A |
 | `guide_for_authors_next_sustainability.pdf` | The journal's guide for authors, for reference (Elsevier copyright). | no |
 
-The figure files for upload are `figures/manuscript/2022c/fig1_ofir_panels_2022.tiff`,
-`fig2_top_origin_industry_pairs_2022.tiff` and `fig3_scopes_stacked_2022.tiff`.
+Figures, all in `figures/manuscript/2022c/`:
+
+| Set | Files | Use |
+|:---|:---|:---|
+| Manuscript figures 1 to 3 | `fig1_ofir_panels_2022.tiff`, `fig2_top_origin_industry_pairs_2022.tiff`, `fig3_scopes_stacked_2022.tiff` | upload with the manuscript |
+| The co-author's original figures 1 to 3, on the 2022 results | `fig_ofir1_activity_share_2022.tiff`, `fig_ofir2_sector_share_2022.tiff`, `fig_ofir3_region_share_2022.tiff` | for comparison, or to use in place of the panelled figure 1 |
+| The co-author's supplementary figures S1 to S3, on the 2022 results | `figS_ofir1_activity_share_2022.pdf`, `figS_ofir2_sector_share_2022.pdf`, `figS_ofir3_region_share_2022.pdf` | vector versions of the same three, as in his supplementary figures file |
 Still outstanding before submission: the new Zenodo version DOI (appendix A, Data,
 code and software; manuscript, Data availability) and the title page with
 affiliations and the corresponding author's email.
@@ -49,9 +54,10 @@ affiliations and the corresponding author's email.
   working branch but excluded by name from the public branch in
   `scripts/release/publish_ofir_branch.sh`, and its builder lives under
   `scripts/release/`, which is never published.
-- Appendix B is force-added despite the user's global `*.xlsx` ignore, because it is
-  a deliverable of the paper. The two PDFs stay unversioned: one is superseded, the
-  other is the publisher's.
+- Appendix B, the supplementary figures PDF and the `figS_ofir*.pdf` figures are
+  force-added despite the user's global `*.xlsx` and `*.pdf` ignores, because they
+  are deliverables. The journal's guide for authors stays unversioned: it is the
+  publisher's.
 
 ## The response letter is generated
 

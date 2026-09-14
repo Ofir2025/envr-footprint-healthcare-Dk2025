@@ -473,14 +473,16 @@ prepare_remainder <- function(d, room = 1.04) {
   d %>% mutate(plot_x = share_pct, trunc = FALSE)
 }
 
-remainder_label <- function(d, size = 4.6, hjust = -0.22) {
+# Same size, weight and format as `ranked_labels`: the remainder is a bar like
+# the others, and a bold, larger label on it read as a different quantity.
+remainder_label <- function(d, size = 4.0, hjust = -0.22) {
   lab <- d %>% filter(is_rest) %>%
     group_by(indicator, key) %>%
-    summarise(x = sum(plot_x), lab = sprintf("%.0f%%", sum(share_pct)),
+    summarise(x = sum(plot_x), lab = sprintf("%.1f%%", sum(share_pct)),
               .groups = "drop")
   geom_text(data = lab, inherit.aes = FALSE,
             aes(x = x, y = key, label = lab), hjust = hjust, size = size,
-            fontface = "bold", colour = INK)
+            colour = INK)
 }
 
 # Retained as a no-op: nothing is truncated any more, so there is nothing to
@@ -498,15 +500,14 @@ remainder_breaks <- function(d, linewidth = 0.9) NULL
 # tallest bars of figures 2, 4 and 5 with no number on them at all. Outside
 # placement needs headroom, which `facet_ceiling(room = )` reserves.
 #
-# One decimal below 10, none above: 2.6 and 41 read at a glance, 2.6 and 41.3
-# do not, and the axis title already carries the unit.
-ranked_labels <- function(d, size = 3.5, hjust = -0.25, digits_below = 1) {
+# One format for every bar, remainder included: one decimal and a percent sign.
+# Mixing "4.7", "43" and "67%" in one figure read as three different quantities
+# (co-author review, 2026-09-14).
+ranked_labels <- function(d, size = 4.0, hjust = -0.22, digits_below = 1) {
   lab <- d %>% filter(!is_rest) %>%
     group_by(indicator, key) %>%
     summarise(x = sum(plot_x), v = sum(share_pct), .groups = "drop") %>%
-    mutate(lab = if_else(v < 10,
-                         sprintf(paste0("%.", digits_below, "f"), v),
-                         sprintf("%.0f", v)))
+    mutate(lab = sprintf(paste0("%.", digits_below, "f%%"), v))
   geom_text(data = lab, inherit.aes = FALSE,
             aes(x = x, y = key, label = lab), hjust = hjust, size = size,
             colour = INK, na.rm = TRUE)

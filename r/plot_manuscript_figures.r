@@ -76,9 +76,16 @@ GROUP_COLS <- c(
   # should not look like a category.
   "Fossil fuel industry" = "#6A3D9A", "Mining of minerals and metals" = "#264653",
   "Other" = "grey80",
-  "Denmark" = "#0072B2", "Europe" = "#009E73", "Asia and Pacific" = "#E69F00",
-  "Middle East" = "#CC79A7", "America" = "#56B4E9", "Africa" = "#D55E00",
-  "Unallocated" = "grey80", "Travel supply chains, no region" = "grey80")
+  # Regions take hues of their own, none repeated from the activity and sector
+  # rows above them in figure 1. Chosen greedily from an HCL grid to maximise the
+  # smallest CIE Lab distance to the eleven colours of rows A and B and to each
+  # other under normal vision and deuteranopia, protanopia and tritanopia
+  # simulation (colorspace::deutan/protan/tritan): the closest pair is 13.5
+  # Delta E. Denmark takes the deep red of its flag, the residual a darker grey
+  # than row A and B's "Other" so the two residuals cannot be confused.
+  "Denmark" = "#872010", "Europe" = "#536389", "Asia and Pacific" = "#C46D3A",
+  "Middle East" = "#E4C0A4", "America" = "#31D9F1", "Africa" = "#96D77E",
+  "Unallocated" = "#737373", "Travel supply chains, no region" = "#737373")
 
 # Figure 3 / figS1's geographical-origin bucket for the bottom-up rows that
 # have no producing region (ISO3 "GLO"). Those rows are the INDIRECT parts of
@@ -211,7 +218,7 @@ p2 <- ggplot(d2, aes(plot_x, key,
        y = NULL) +
   theme_dkhc() +
   theme(panel.grid.major.y = element_blank(),
-        axis.text.y = element_text(size = 14, family = "mono", colour = INK),
+        axis.text.y = element_text(size = 14, colour = "black"),
         plot.margin = margin(14, 26, 12, 14))
 
 dk_save(p2, sprintf("fig2_top_origin_industry_pairs_%s", YEAR), w = 21.5, h = 12.5)
@@ -312,7 +319,7 @@ if (!gold_has("scope_by_continent.csv")) {
                   fill = if_else(is_rest, "remainder", as.character(indicator)))) +
       geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
       remainder_breaks(d) +
-      remainder_label(d, size = 4.4) +
+      remainder_label(d, size = 3.8) +
       ranked_labels(d, size = 3.8) +
       scale_fill_manual(values = c(IND_COLS, remainder = REMAINDER_COL),
                         guide = "none") +
@@ -331,7 +338,7 @@ if (!gold_has("scope_by_continent.csv")) {
                        which_scope), y = NULL) +
       theme_dkhc() +
       theme(panel.grid.major.y = element_blank(),
-            axis.text.y = element_text(size = 14, family = "mono", colour = INK),
+            axis.text.y = element_text(size = 14, colour = "black"),
             plot.margin = margin(14, 32, 12, 14))
   }
 
@@ -372,7 +379,7 @@ if (!gold_has("scope_by_continent.csv")) {
     geom_col(width = 0.72, colour = "white", linewidth = 0.15,
              position = position_stack(reverse = TRUE)) +
     remainder_breaks(d6) +
-    remainder_label(d6, size = 4.4) +
+    remainder_label(d6, size = 3.8) +
     ranked_labels(d6, size = 3.8) +
     facet_ceiling(d6 %>% group_by(indicator, key) %>%
                     summarise(value = sum(plot_x), .groups = "drop"),
@@ -390,7 +397,7 @@ if (!gold_has("scope_by_continent.csv")) {
          y = NULL) +
     theme_dkhc() +
     theme(panel.grid.major.y = element_blank(),
-          axis.text.y = element_text(size = 14, family = "mono", colour = INK),
+          axis.text.y = element_text(size = 14, colour = "black"),
           plot.margin = margin(14, 32, 12, 14))
 
   dk_save(p6, sprintf("fig6_scope_pairs_stacked_%s", YEAR), w = 21.5, h = 12)
@@ -416,8 +423,11 @@ pS <- ggplot(dS, aes(share_pct, key, fill = producing_world_region)) +
                      expand = expansion(mult = c(0, 0.05))) +
   labs(x = "Share of the impact category (%)", y = NULL) +
   theme_dkhc() +
+  # The right margin keeps the third strip title, "Blue water consumption",
+  # inside the canvas; at the default margin it was cut at the edge.
   theme(panel.grid.major.y = element_blank(),
-        axis.text.y = element_text(size = 14))
+        axis.text.y = element_text(size = 14),
+        plot.margin = margin(14, 70, 12, 14))
 
 dk_save(pS, sprintf("figS1_geographical_origin_%s", YEAR), w = 15, h = 9.5)
 
