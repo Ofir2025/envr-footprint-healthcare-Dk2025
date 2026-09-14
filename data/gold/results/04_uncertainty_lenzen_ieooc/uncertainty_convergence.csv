@@ -1,11 +1,11 @@
 criterion,indicator,pharma_scenario,draws,seed,max_relative_difference_between_halves_pct,passes
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Global warming (ktCO2eq),A,100000,42,0.24261068143898293,True
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Material extraction (kt),A,100000,42,0.09934704005415973,True
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Blue water consumption (Mm3),A,100000,42,0.0821033324476323,True
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Land use (km2),A,100000,42,0.09538896141640228,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Global warming (ktCO2eq),A,100000,42,0.2225965707171537,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Material extraction (kt),A,100000,42,0.10634120481666555,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Blue water consumption (Mm3),A,100000,42,0.09671200080254337,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Land use (km2),A,100000,42,0.09502634364754158,True
 IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Waste generation (kt),A,100000,42,0.022010528226060096,True
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Global warming (ktCO2eq),B,100000,42,0.1512428509562453,True
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Material extraction (kt),B,100000,42,0.16972128911693596,True
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Blue water consumption (Mm3),B,100000,42,0.1277833692344787,True
-IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Land use (km2),B,100000,42,0.27553899609113097,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Global warming (ktCO2eq),B,100000,42,0.15932892433159376,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Material extraction (kt),B,100000,42,0.19847937504139948,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Blue water consumption (Mm3),B,100000,42,0.1338106551013389,True
+IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Land use (km2),B,100000,42,0.2760187929117713,True
 IPCC (2000) 6.4 step 5: 95 % range determined to within 1 %,Waste generation (kt),B,100000,42,0.10851519375972192,True

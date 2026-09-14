@@ -3,18 +3,18 @@ check,status,detail,tolerance
 "realised spread equals declared spread, MRIO factor included",PASS,"largest relative deviation 0.406% (mrio: declared CV 8.35 %, realised 8.3839 %); mrio block CV 8.3839 % against the calibrated 8.35 %",< 2 %
 travel-pair log correlation,PASS,"asked 0.8, realised 0.8015",+/- 0.02
 "MRIO factor correlation across groups, rho = 0.5",PASS,"asked 0.50, realised 0.4979 on two groups with no bottom-up term",+/- 0.06
-simulated moments match the closed form,PASS,largest relative deviation 0.392% (Global warming (ktCO2eq) SD),< 2 %
-"travel block variance share, closed form vs frozen-input estimate",PASS,"closed form 25.17 % (own terms 14.18 % plus covariance 10.99 %), frozen-input 25.06 %",+/- 1.5 pp
-"MRIO variance share, closed form vs frozen-input estimate",PASS,"closed form 74.7 %, frozen-input 74.8 %",+/- 3 pp
-median stable across simulation halves,PASS,"halves 4,180.4 and 4,184.2 kt, 0.091% apart",< 0.5 %
-interval endpoints converged,PASS,bootstrap SD of the 2.5th and 97.5th percentiles is 0.079% of the endpoint,< 0.5 %
-result does not depend on the seed,PASS,median across five seeds varies by 0.084%,< 0.5 %
-every draw is positive,PASS,"minimum draw 2,965.1 kt",> 0
-"distribution is right-skewed, as a product of non-negative quantities must be",PASS,skewness 0.279,> 0
-median reproduces the deterministic estimate to within 0.5 %,PASS,"median 4,182.4 kt against deterministic 4,162.1 kt, 0.486% apart",< 0.5 %
-mean inflation matches the closed form over all six parameters,PASS,"expected 1.00886 (+0.89 %), measured 1.00849 (+0.85 %); the MRIO factor alone would give 1.00348",+/- 0.002 on an effect of 0.008
-structural scenario is not inside the parametric interval,PASS,"pharmaceutical-mapping scenario median 3,440 kt against the central 2.5th percentile 3,587 kt - a modelling choice moves the answer further than the parameters do",median outside the central 95 % interval
-calibrated total CV held across correlations,PASS,"CV at rho = 1.00 / 0.76 / 0.00 is 7.90 / 7.88 / 7.75 %, a spread of 0.15 pp, recomputed on the published run (40,000 draws, seed 13)",< 0.5 pp
+simulated moments match the closed form,PASS,largest relative deviation 0.379% (Global warming (ktCO2eq) SD),< 2 %
+"travel block variance share, closed form vs frozen-input estimate",PASS,"closed form 30.28 % (own terms 16.92 % plus covariance 13.36 %), frozen-input 30.14 %",+/- 1.5 pp
+"MRIO variance share, closed form vs frozen-input estimate",PASS,"closed form 69.6 %, frozen-input 69.7 %",+/- 3 pp
+median stable across simulation halves,PASS,"halves 4,287.1 and 4,290.9 kt, 0.089% apart",< 0.5 %
+interval endpoints converged,PASS,bootstrap SD of the 2.5th and 97.5th percentiles is 0.069% of the endpoint,< 0.5 %
+result does not depend on the seed,PASS,median across five seeds varies by 0.092%,< 0.5 %
+every draw is positive,PASS,"minimum draw 3,034.7 kt",> 0
+"distribution is right-skewed, as a product of non-negative quantities must be",PASS,skewness 0.291,> 0
+median reproduces the deterministic estimate to within 1 %,PASS,"median 4,289.0 kt against deterministic 4,266.9 kt, 0.519% apart",< 1 %
+mean inflation matches the closed form over all six parameters,PASS,"expected 1.00926 (+0.93 %), measured 1.00887 (+0.89 %); the MRIO factor alone would give 1.00348",+/- 0.002 on an effect of 0.008
+structural scenario is not inside the parametric interval,PASS,"pharmaceutical-mapping scenario median 3,547 kt against the central 2.5th percentile 3,675 kt - a modelling choice moves the answer further than the parameters do",median outside the central 95 % interval
+calibrated total CV held across correlations,PASS,"CV at rho = 1.00 / 0.76 / 0.00 is 7.98 / 7.96 / 7.83 %, a spread of 0.15 pp, recomputed on the published run (40,000 draws, seed 13)",< 0.5 pp
 group-level spread widens as correlation falls,PASS,"median group CV 8.4 % at rho = 1 against 17.6 % at rho = 0; the total is unchanged, so rho redistributes variance rather than creating it",rho = 0 wider
-Tier 1 agrees with Tier 2,PASS,Tier 1 error propagation 7.96 % against Tier 2 simulation 7.92 %; IPCC (2000) 6.3.1 requires both to be reported,< 1 pp
-pharmaceutical mapping ratio is bounded above by 1,PASS,"scenario/central median ratio 0.818; the correction can only reduce the mapped intensity, never raise it",< 1
+Tier 1 agrees with Tier 2,PASS,Tier 1 error propagation 8.04 % against Tier 2 simulation 8.00 %; IPCC (2000) 6.3.1 requires both to be reported,< 1 pp
+pharmaceutical mapping ratio is bounded above by 1,PASS,"scenario/central median ratio 0.823; the correction can only reduce the mapped intensity, never raise it",< 1

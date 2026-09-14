@@ -96,21 +96,21 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `total` | measure | float64 | varies by row | 3533.9214390832185 |
-| `direct` | measure | float64 | varies by row | 378.3964368483613 |
+| `total` | measure | float64 | varies by row | 3534.851439083219 |
+| `direct` | measure | float64 | varies by row | 379.3264368483613 |
 | `supplier_first_order` | measure | float64 | varies by row | 846.8249952723966 |
 | `higher_order` | measure | float64 | varies by row | 2308.700006962461 |
-| `direct_pct` | measure | float64 | % | 10.707550899788146 |
-| `supplier_pct` | measure | float64 | % | 23.962756667620848 |
-| `higher_order_pct` | measure | float64 | % | 65.32969243259102 |
-| `truncation_error_TE0_pct` | measure | float64 | % | 89.29244910021185 |
-| `truncation_error_TE1_pct` | measure | float64 | % | 65.329692432591 |
-| `per_capita` | measure | float64 | varies by row | 601.6803564334269 |
+| `direct_pct` | measure | float64 | % | 10.731043252746757 |
+| `supplier_pct` | measure | float64 | % | 23.95645219794654 |
+| `higher_order_pct` | measure | float64 | % | 65.31250454930671 |
+| `truncation_error_TE0_pct` | measure | float64 | % | 89.26895674725324 |
+| `truncation_error_TE1_pct` | measure | float64 | % | 65.31250454930671 |
+| `per_capita` | measure | float64 | varies by row | 601.8386968892432 |
 | `national_total` | measure | float64 | varies by row | 67518.62638160589 |
-| `share_of_national_pct` | measure | float64 | % | 5.2339948670015675 |
-| `intensity_per_meur` | measure | float64 | varies by row | 0.087048880058808 |
-| `domestic_pct` | measure | float64 | % | 21.941338091694163 |
-| `import_pct` | measure | float64 | % | 78.05866190830584 |
+| `share_of_national_pct` | measure | float64 | % | 5.23537226469142 |
+| `intensity_per_meur` | measure | float64 | varies by row | 0.0870717881680714 |
+| `domestic_pct` | measure | float64 | % | 21.93556544614542 |
+| `import_pct` | measure | float64 | % | 78.06443455385458 |
 | `lenzen_dk_2015` | measure | float64 | varies by row | 3370.0 |
 | `lenzen_unit` | dimension | str |  | kt CO2eq |
 | `lenzen_note` | dimension | str |  | SI Tab. 10.1/10.2/10.3/10.4; SI Tab. 7.1 |

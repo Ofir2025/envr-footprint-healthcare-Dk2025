@@ -172,7 +172,6 @@ from .extra_functions import (
     TRADE_MARGIN_DIVISIONS,
     calculate_healthcare_totals,
     calculate_healthcare_totals_2022,
-    eldercare_share_of_social_work,
     eldercare_share_of_social_work_io,
     trade_margins_meur,
     write_sheets_as_csv,
@@ -335,40 +334,60 @@ else:
     #     here because anaesthetic gases enter separately as bottom-up item B_ANAE -
     #     the same medical-gas exclusion Steenmeijer et al. apply to the CBS figure).
     DRIVHUS_YEAR = int(ANALYSIS_YEAR)  # matches the expenditure year
+    DK_MEDICAL_N2O_TONNES = 38.0   # NID category 2.G.3.a, constant 2013-2024
+    DRIVHUS_N2O_GWP_AR5 = 265.0    # the GWP100 the DRIVHUS accounts are published on
     _drivhus = pd.read_csv(BRONZE_DIR / "dst_emission_accounts"
                            / "dk_direct_emissions_drivhus.csv", comment="#")
     _dh = _drivhus[_drivhus["year"] == DRIVHUS_YEAR].set_index(["industry_code", "emtype"])[
         "value_kt_co2e"
     ]
-    if ANALYSIS_YEAR == "2022":
-        # read the share from the analysis year's own IO table (industry 880000's
-        # deliveries to eldercare vs childcare) rather than carrying the 2019
-        # SUT-derived value forward
-        alpha_eldercare = eldercare_share_of_social_work_io(
-            BRONZE_DIR / "dst_input_output" / "input_output_en_2022.xlsx")
-    else:
-        alpha_eldercare = eldercare_share_of_social_work(
-            BRONZE_DIR / "dst_supply_use" / "dk_umat_2019.xlsx")
+    # The share is read from the analysis year's own IO table (industry
+    # 880000's deliveries to eldercare 13302 against childcare 13301) for every
+    # year: 0.3455 (2016), 0.3060 (2019), 0.3092 (2022). Until 2026-09-14 the
+    # 2016 and 2019 runs carried 0.4914 from the 2019 detailed supply-use table,
+    # a different construction that eldercare_share_of_social_work_io's own
+    # docstring calls a method artefact, so the three years were not on one
+    # method (2019 direct term 150.9 kt against 138.5 kt on the IO share).
+    alpha_eldercare = eldercare_share_of_social_work_io(
+        BRONZE_DIR / "dst_input_output" / f"input_output_en_{ANALYSIS_YEAR}.xlsx")
+    # Medical nitrous oxide is netted out like for like. DRIVHUS reports on IPCC
+    # AR5 and rounds to whole kilotonnes: its 11 kt for industry 860010 is about
+    # 40 t N2O, of which the 38 t per year of category 2.G.3.a (NID, Table
+    # 4.8.4) is the medical use the bottom-up anaesthetic term adds back. The
+    # subtraction is therefore 38 t x 265 (AR5), not the rounded 11 kt.
+    medical_n2o_netted_kt = min(DK_MEDICAL_N2O_TONNES * DRIVHUS_N2O_GWP_AR5 / 1e3,
+                                float(_dh[("V860010", "N2O")]))
+    # The industries' weights follow the care boundary of the run, so that the
+    # operational term, the direct waste and the commuting hours cover the same
+    # care the expenditure vector does: health only takes human health (QA)
+    # alone; the default adds residential care and the eldercare share of
+    # 880000; the widest boundary, which adds childcare to the expenditure,
+    # takes all of 880000. Until 2026-09-14 every boundary used the default's
+    # weights, so the childcare runs (variant d, the zorg_en_welzijn scenario)
+    # carried no childcare operations and the health-only run carried eldercare.
+    W_870000, W_880000 = {"health_only": (0.0, 0.0),
+                          "zorg_en_welzijn": (1.0, 1.0)}.get(
+        _SCOPE, (1.0, alpha_eldercare))
     direct_em_kt = (
         _dh[("VQA", "GHGEXBIO")]
-        + _dh[("V870000", "GHGEXBIO")]
-        + alpha_eldercare * _dh[("V880000", "GHGEXBIO")]
-        - _dh[("V860010", "N2O")]
+        + W_870000 * _dh[("V870000", "GHGEXBIO")]
+        + W_880000 * _dh[("V880000", "GHGEXBIO")]
+        - medical_n2o_netted_kt
     )
     print(
-        f"Direct operational emissions (DRIVHUS {DRIVHUS_YEAR}): "
-        f"QA {_dh[('VQA','GHGEXBIO')]} + 87 {_dh[('V870000','GHGEXBIO')]} "
-        f"+ {alpha_eldercare:.4f}*88 {_dh[('V880000','GHGEXBIO')]} - hosp N2O {_dh[('V860010','N2O')]} "
-        f"= {direct_em_kt:.1f} kt CO2e"
+        f"Direct operational emissions (DRIVHUS {DRIVHUS_YEAR}, boundary {_SCOPE}): "
+        f"QA {_dh[('VQA','GHGEXBIO')]} + {W_870000:.0f}*87 {_dh[('V870000','GHGEXBIO')]} "
+        f"+ {W_880000:.4f}*88 {_dh[('V880000','GHGEXBIO')]} "
+        f"- medical N2O {medical_n2o_netted_kt:.2f} = {direct_em_kt:.1f} kt CO2e"
     )
     df.loc[df['Index'] == 'DirectEm', 'Unit'] = 'kt CO2e'
     for col in ['HC service', 'Pharm', 'MedAppl']:
         df.loc[df['Index'] == 'DirectEm', col] = 0.0
     df.loc[df['Index'] == 'DirectEm', 'HC service'] = float(direct_em_kt)
-    DK_DIRECT_WASTE_KT = (_AFFALD_T["qa"] + _AFFALD_T["res"]
-                          + alpha_eldercare * _AFFALD_T["soc"]) / 1e3
-    print(f"Direct healthcare waste (AFFALD01 {DRIVHUS_YEAR}, alpha={alpha_eldercare:.4f}): "
-          f"{DK_DIRECT_WASTE_KT:.1f} kt")
+    DK_DIRECT_WASTE_KT = (_AFFALD_T["qa"] + W_870000 * _AFFALD_T["res"]
+                          + W_880000 * _AFFALD_T["soc"]) / 1e3
+    print(f"Direct healthcare waste (AFFALD01 {DRIVHUS_YEAR}, weights "
+          f"{W_870000:.0f} / {W_880000:.4f}): {DK_DIRECT_WASTE_KT:.1f} kt")
 
     # Persist ONLY for the default boundary - mirrors the output_dir/background-pkl
     # guard above. Without it, a scenario run leaves the WRONG scope's MEUR totals
@@ -654,6 +673,12 @@ def scale_bottomup_all_to_dk(
     print(f"DK scaling (ALL columns) applied; wrote: {target_path}")
 
 # ---- DK scaling constants and paths (These should be defined BEFORE calling the function) ----
+# NOTE (2026-09-14): the "Commute" and "Visitor travel" factors below are applied
+# first and then overwritten. Patient and visitor travel is rebuilt from the TU
+# survey, and employee commuting from TU workplace km and national-accounts
+# hours, further down this module (search DK_COMMUTE_KT_CO2E). The ratio
+# derivation that follows is kept as the record of the superseded method; its
+# Dutch base counts one commuting trip per working day (RIVM 2022-0159, p. 32).
 # Commute and visitor factors re-derived from official sources (2026-09 revision):
 #   employment ratio = 518,889 / 1,220,750 = 0.42506
 #     (DK: DST NABB69 national-accounts employment 2019, industries 86000 + 87880;
@@ -761,7 +786,7 @@ scale_bottomup_all_to_dk(
 # Health 7:e622), which could not be checked against the paper and left the one
 # agent off the AR6 basis the rest of the climate total uses (+0.18 kt on AR6).
 # A 5% downward correction is applied to sevoflurane for the fraction
-# metabolised rather than exhaled (MacNeill et al. 2017; Schuster 2020).
+# metabolised rather than exhaled (Kharasch et al. 1995, Anesthesiology 82: 1369-1378).
 #
 # The N2O term: Denmark's National Inventory Document 2024 (DCE report 622)
 # category 2.G.3.a, a constant 38 t N2O/yr for 2013-2022, characterised on the
@@ -808,12 +833,16 @@ DK_ANAESTHETIC_KT_CO2E = DK_N2O_KT_CO2E + DK_VOLATILE_KT_CO2E
 # AR6. Until 2026-09-13 the 11.6 kt was added as printed, which put the one
 # term on AR4 inside an AR6 total (-0.93 kt).
 #
-# 2019: 7.2 t of HFC dispensed, about 90 % HFC-134a and 10 % HFC-227ea (Vestbo
-# & Press-Kristensen 2023). Earlier this term used ReCiPe 2016's feedback-
-# inclusive AR5 factors (1,549 and 3,860); all three years are now on AR6.
+# 2019: Danish EPA, "Danish consumption and emission of F-gases in 2019",
+# Environmental Project no. 2161 (February 2021), Table 17 (p. 29): 5.0 t of
+# HFC-134a and 0.7 t of HFC-227ea emitted from MDI, the same inventory basis as
+# 2022. Until 2026-09-14 this year used the 7.2 t dispensed that Vestbo &
+# Press-Kristensen (2023) derive from doses times an average HFC content per
+# dose, a different construction (12.51 kt against 10.17 kt on AR6); their
+# figure is kept as a cross-check, not as the value. All years are on AR6.
 DK_PMDI_TONNES = {
     "2016": {"HFC-134a": 5.5, "HFC-227ea": 0.61},
-    "2019": {"HFC-134a": 0.9 * 7.2, "HFC-227ea": 0.1 * 7.2},
+    "2019": {"HFC-134a": 5.0, "HFC-227ea": 0.7},
     "2022": {"HFC-134a": 11.619 * (9.1 / 11.6) / 1.430,
              "HFC-227ea": 11.619 * (2.5 / 11.6) / 3.220},
 }[ANALYSIS_YEAR]
@@ -889,6 +918,70 @@ for _row in ("Visitor travel (direct)", "Visitor travel (indirect)",
              "Visitor travel (total)"):
     _bu.loc[_row, _non_climate] = (
         _nl_bu.loc[_row, _non_climate].astype(float) * _pv_ratio).values
+
+# EMPLOYEE COMMUTING - a direct Danish estimate replaces the Dutch ratio
+# construction (2026-09-14). The term has the same form as patient and visitor
+# travel above:
+#
+#   G_c = delta_w x 365 x P_6+ x s_h x eta_c
+#
+# delta_w  km per person per day on trips whose purpose is the workplace,
+#          "Arbejdsplads (pendling)", TU Tabel 15 (DTU Center for Transport
+#          Analytics): 9.7 (2016, TU0621v1), 9.2 (2019, TU0621v1), 9.3 (2022,
+#          TU0622v1). TU assigns a trip home the purpose of the stay it returns
+#          from, so the figure counts both legs of the day (0.48 trips per
+#          person per day against 0.23 round journeys in Tabel 16, 2022).
+# P_6+     residents aged 6 and over, the TU survey universe (as above).
+# s_h      health care's share of hours worked in Denmark, national accounts
+#          NABB117 EMPH_DC: (860010 + 860020 + 870000 + alpha x 880000) / total,
+#          with the same eldercare share alpha as the direct emissions, so the
+#          commuting boundary matches the expenditure boundary.
+# eta_c    life-cycle intensity of Dutch commuting, 573.43 kt CO2e over 3,080
+#          million person-km (RIVM report 2022-0159, Table 4 and the model input
+#          file) = 0.1862 kg CO2e per person-km, all modes.
+#
+# Why the ratio construction was retired. The Dutch base it scaled counts one
+# commuting trip per working day: RIVM report 2022-0159, p. 32, multiplies 138
+# working days by 1,220,750 employees to get "168 million travel movements" and
+# multiplies each by the CBS distance of ONE trip, while CBS (like TU) counts a
+# return journey as two trips. Scaling that base by Danish ratios carries the
+# half-count into Denmark whatever the ratios are. Two of the ratio inputs were
+# also mislabelled: the 29.2 h was CBS 81431ENG all industries 2019 and the
+# 34.4 h Statistics Denmark AKU420A all industries, neither health care.
+DK_COMMUTE_KM_PER_PERSON_DAY = {"2016": 9.7, "2019": 9.2,
+                                "2022": 9.3}[ANALYSIS_YEAR]
+DK_HOURS_WORKED_1000H = {   # NABB117, EMPH_DC, retrieved 2026-09-14
+    "2016": {"total": 4_057_307, "860010": 176_506, "860020": 111_556,
+             "870000": 152_771, "880000": 221_614},
+    "2019": {"total": 4_122_911, "860010": 179_842, "860020": 115_296,
+             "870000": 157_045, "880000": 222_213},
+    "2022": {"total": 4_379_839, "860010": 192_990, "860020": 137_275,
+             "870000": 158_616, "880000": 229_198},
+}[ANALYSIS_YEAR]
+DK_COMMUTE_NL_PKM_MILLION = 3080.0      # RIVM 2022-0159, Table 4, total
+_alpha_c = globals().get("alpha_eldercare")
+if _alpha_c is None:
+    _alpha_c = eldercare_share_of_social_work_io(
+        BRONZE_DIR / "dst_input_output" / f"input_output_en_{ANALYSIS_YEAR}.xlsx")
+_w870, _w880 = {"health_only": (0.0, 0.0), "zorg_en_welzijn": (1.0, 1.0)}.get(
+    _SCOPE, (1.0, _alpha_c))
+_h = DK_HOURS_WORKED_1000H
+DK_HEALTH_HOURS_SHARE = ((_h["860010"] + _h["860020"] + _w870 * _h["870000"]
+                          + _w880 * _h["880000"]) / _h["total"])
+_nl_commute_kt = float(_nl_bu.loc["Commute (total)", "Global warming (ktCO2eq)"])
+DK_COMMUTE_INTENSITY_KG_PER_PKM = _nl_commute_kt * 1e6 / (DK_COMMUTE_NL_PKM_MILLION * 1e6)
+DK_COMMUTE_PKM = (DK_COMMUTE_KM_PER_PERSON_DAY * 365.0 * DK_POPULATION_6PLUS
+                  * DK_HEALTH_HOURS_SHARE)
+DK_COMMUTE_KT_CO2E = DK_COMMUTE_PKM * DK_COMMUTE_INTENSITY_KG_PER_PKM / 1e6
+_commute_ratio = DK_COMMUTE_KT_CO2E / _nl_commute_kt
+for _row in ("Commute (direct)", "Commute (indirect)", "Commute (total)"):
+    _bu.loc[_row, [c for c in _bu.columns if c != "ISO2"]] = (
+        _nl_bu.loc[_row, [c for c in _bu.columns if c != "ISO2"]].astype(float)
+        * _commute_ratio).values
+print(f"  commuting {DK_COMMUTE_KT_CO2E:.1f} kt CO2e (TU {DK_COMMUTE_KM_PER_PERSON_DAY} "
+      f"km/person/day x health hours share {DK_HEALTH_HOURS_SHARE:.4f}, "
+      f"weights 870000 {_w870:.0f} / 880000 {_w880:.4f}; activity ratio to NL "
+      f"{_commute_ratio:.4f})")
 _safe_atomic_write(BOTTOMUP_2025, _bu.reset_index().to_csv(sep="\t", index=False))
 print(f"Danish primary bottom-up values written:")
 print(f"  anaesthetic {DK_ANAESTHETIC_KT_CO2E:.2f} kt CO2e "

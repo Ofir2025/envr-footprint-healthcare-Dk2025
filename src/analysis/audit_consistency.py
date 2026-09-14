@@ -1103,15 +1103,16 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
 #: Headline numbers that the revision documents quote, and where each is
 #: computed from. ``doc`` is the markdown that must contain ``text`` verbatim.
 DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
-    # These moved on 13 September 2026, when the distribution margins on
-    # medicines and appliances were placed at the Danish trade industries
-    # instead of being mapped to the goods with the rest of the category, and
-    # the bottom-up gases were restated on IPCC AR6. The before-and-after table
-    # is in docs/revision/defects_and_fixes.md, "Findings of 13 September 2026".
-    dict(text="4,162", doc="docs/revision/results_2022.md",
+    # These moved on 14 September 2026, when employee commuting was estimated
+    # directly from the Danish National Travel Survey and hours worked by
+    # industry, the eldercare share was read from each year's input-output
+    # table, and medical nitrous oxide was netted out of the accounts on their
+    # own AR5 basis. The before-and-after table is in
+    # docs/revision/defects_and_fixes.md, "Findings of 14 September 2026".
+    dict(text="4,267", doc="docs/revision/results_2022.md",
          source=(f"{eriksen_folder()}/hotspot_by_producing_node.csv",
                  "climate_change"),
-         expect=4162.1, tol=0.2, what="health-care climate footprint, kt"),
+         expect=4266.9, tol=0.2, what="health-care climate footprint, kt"),
     dict(text="3,415", doc="docs/revision/results_2022.md",
          source=("17_health_subsectors/footprint_by_health_function.csv",
                  "climate_change"),
@@ -1120,31 +1121,31 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
     # The simulation's own headline figures. These drifted once already, on
     # 2026-09-12, and nothing caught it: the documents quoted the previous
     # run for a day. Registering them makes the next drift a failing check.
-    dict(text="4,182", doc="docs/revision/uncertainty.md",
+    dict(text="4,289", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
                  "Global warming"),
-         expect=4182.4, tol=2.0, column="median",
+         expect=4289.0, tol=2.0, column="median",
          what="Monte Carlo median of the climate footprint, kt"),
-    dict(text="3,587 to 4,893 kt", doc="docs/revision/uncertainty.md",
+    dict(text="3,675 to 5,029 kt", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
                  "Global warming"),
-         expect=3587.3, tol=2.0, column="p2_5",
+         expect=3674.8, tol=2.0, column="p2_5",
          what="lower bound of the 95 % interval, kt"),
-    dict(text="7.92 %", doc="docs/revision/uncertainty.md",
+    dict(text="8.00 %", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
                  "Global warming"),
-         expect=7.919, tol=0.02, column="cv_pct",
+         expect=7.999, tol=0.02, column="cv_pct",
          what="coefficient of variation of the climate footprint, %"),
-    dict(text="74.7 %", doc="docs/revision/uncertainty.md",
+    dict(text="69.6 %", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_variance_shares.csv",
                  "Global warming"),
          where=("parameter", "mrio"), column="variance_share_pct",
-         expect=74.70, tol=0.2,
+         expect=69.59, tol=0.2,
          what="input-output share of the climate variance, %"),
-    dict(text="4,285 kt", doc="docs/revision/response_to_reviewers.md",
+    dict(text="4,286 kt", doc="docs/revision/response_to_reviewers.md",
          source=("11_capital_gfcf/capital_endogenised_sodersten.csv",
                  "climate_change"),
-         expect=4284.9, tol=2.0, column="endogenised_sodersten",
+         expect=4285.8, tol=2.0, column="endogenised_sodersten",
          what="climate footprint with capital endogenised on the published "
               "Sodersten matrices, kt"),
     dict(text="77.2 Mt", doc="docs/revision/results_2022.md",
@@ -1162,6 +1163,28 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
 #: state current claims, and any future legitimate use has to be argued for
 #: here rather than appearing silently.
 SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
+    # Superseded on 14 September 2026, when employee commuting was estimated
+    # directly from Danish travel-survey distances and hours worked (the Dutch
+    # base it had been scaled from counts one trip per working day), the
+    # eldercare share came from each year's input-output table, and medical
+    # nitrous oxide was netted on the accounts' AR5 basis.
+    ("4,162.1", "health-care climate footprint before the commuting correction; "
+                "it is 4,266.88 kt"),
+    ("4,160.31", "scope partition total before the commuting correction; it is 4,265.07"),
+    ("4,182 kt", "Monte Carlo median before the commuting correction; it is 4,289 kt"),
+    ("3,587 to 4,893", "95 % interval before the commuting correction; it is 3,675 to 5,029 kt"),
+    ("74.7 %", "input-output share of the climate variance; it is 69.6 %"),
+    ("4,285 kt", "climate footprint with capital endogenised on the Sodersten "
+                 "matrices; it is 4,286 kt"),
+    ("4.162 Mt", "the footprint the MRIO spread is transferred onto; it is 4.267 Mt"),
+    ("340.331", "employee commuting scaled from the Dutch estimate; it is 444.161 kt"),
+    ("340.3 kt", "employee commuting scaled from the Dutch estimate; it is 444.2 kt"),
+    ("0.5935", "the retired commuting scaling ratio; commuting is now estimated directly"),
+    ("5.81 Mt", "this study in the boundary-matched ladder; it is 6.14 Mt"),
+    ("0.989 t", "per person in the boundary-matched ladder; it is 1.046 t"),
+    ("25.1 to 29.5", "interval on the pharmaceutical share; it is 24.2 to 29.0 %"),
+    ("5,948.76", "variant 2022d total; it is 6,220.59 kt"),
+    ("5,583.32", "the 2022 uncorrected total; it is 5,688.08 kt"),
     # Superseded on 13 September 2026, when the distribution margins on
     # medicines and appliances moved from the goods to the Danish trade
     # industries and the bottom-up gases were restated on IPCC AR6. Every value

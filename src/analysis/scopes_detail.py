@@ -8,7 +8,8 @@ application):
 
 THREE PUBLISHED SCOPE-2 CONVENTIONS EXIST, and they differ by which part of the
 purchased-energy chain they count. All three are computed and reported; the
-study's headline follows Hertwich & Wood, whose method this pipeline inherits.
+partition this study reports uses the GHG Protocol strict form, and the other
+two are published beside it.
 
     OECD (Doucet et al. 2025 eq.)   E2 = F A Y restricted to energy sectors
         Direct emissions of the first-tier energy supplier only. On EXIOBASE ixi
@@ -22,7 +23,7 @@ study's headline follows Hertwich & Wood, whose method this pipeline inherits.
         remain in Scope 3 - the corporate standard's boundary, which assigns
         upstream fuel supply to Scope 3 category 3.
 
-    Hertwich & Wood 2018 (HEADLINE)  E_Z = mhat Z, m = s (I-A)^-1, energy rows
+    Hertwich & Wood 2018             E_Z = mhat Z, m = s (I-A)^-1, energy rows
         Cradle-to-gate embodied emissions of the purchased energy: generation
         PLUS the upstream fuel supply behind it. Broader than the corporate
         standard, and the convention of the paper this study follows.
@@ -254,7 +255,7 @@ def main() -> None:
              "basis": "cradle-to-gate embodied emissions of purchased energy "
                       "(E_Z = mhat Z, m = s L). Broader than the corporate "
                       "standard, which puts upstream fuel in Scope 3 cat. 3. "
-                      "THIS IS THE MANUSCRIPT'S REPORTED SCOPE 2. Not added to "
+                      "Reported for comparison. Not added to "
                       "this folder's total"},
             {"indicator": ind, "unit": unit, "scope": "self-supply loop removed",
              "value": loop, "basis": "s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"},

@@ -290,7 +290,7 @@ questioned whether a ±20-50 % band on the scaling factors was the right one.
 
 The underlying worry is fair. Our headline is
 
-$$F = 4{,}675 \text{ kt CO}_2\text{e}$$
+$$F = 4{,}267 \text{ kt CO}_2\text{e}$$
 
 and it is built from quantities that are not all measured with the same
 confidence. Danish direct emissions come from a national account. Patient travel
@@ -302,7 +302,7 @@ as much as we actually believe it might, how much does the answer wobble?"*
 
 ### 2.2 The idea in one paragraph, no symbols
 
-Take the recipe that produced 4,162 kt. Instead of running it once, run it a
+Take the recipe that produced 4,267 kt. Instead of running it once, run it a
 hundred thousand times. On each run, multiply each uncertain ingredient by a
 random number close to 1 (sometimes 0.9, sometimes 1.15), drawn from a spread
 that reflects how well we know that ingredient. Each run gives a slightly
@@ -339,12 +339,12 @@ For 2022, climate:
 | Part | Amount (kt CO₂e) |
 |:---|:---|
 | $\sum_g M_g$, MRIO supply chain | 3,415.367 |
-| $B_{\text{HEAL}}$, direct operations | 118.554 |
-| $B_{\text{COMM}}$, employee commuting | 340.331 |
+| $B_{\text{HEAL}}$, direct operations | 119.484 |
+| $B_{\text{COMM}}$, employee commuting | 444.161 |
 | $B_{\text{VISI}}$, patient and visitor travel | 263.568 |
 | $B_{\text{ANAE}}$, anaesthetic gases | 11.749 |
 | $B_{\text{PMDI}}$, inhaler propellants | 12.552 |
-| **Total** | **4,162.121** |
+| **Total** | **4,266.880** |
 
 Because the model is linear and additive, a draw only has to **recombine these
 fourteen numbers with random multipliers**. The 7,987 × 7,987 matrix
@@ -379,7 +379,7 @@ uncertainty analysis adds dispersion without moving the answer. That property
 belongs to each multiplier separately, and it does **not** carry over exactly to
 their sum: the median of a sum of lognormals is not the sum of the medians. The
 simulation median therefore reproduces the deterministic estimate to within
-0.5 % — +0.49 % for climate — rather than exactly, and only the MRIO block taken
+1 % (+0.52 % for climate) rather than exactly, and only the MRIO block taken
 on its own has median 1 to simulation error.
 
 **(b) The mean is slightly above 1.** For a lognormal,
@@ -394,12 +394,12 @@ The inflation of the **total** is not that number. Every one of the six
 multipliers contributes its own, weighted by the amount it carries:
 
 $$\frac{\mathbb{E}[F]}{F} = \frac{\sum_j a_j e^{\sigma_j^{2}/2}}{\sum_j a_j}
-= \frac{4{,}199.0}{4{,}162.1} = 1.00886$$
+= \frac{4{,}306.4}{4{,}266.9} = 1.00926$$
 
-i.e. **+0.89 %**, of which the MRIO factor supplies +0.29 pp, patient and
+i.e. **+0.93 %**, of which the MRIO factor supplies +0.28 pp, patient and
 visitor travel, on a much smaller amount but a much wider spread, a further
-+0.37 pp, and employee commuting +0.21 pp. That is why the simulated mean
-(4,197.4 kt) sits +0.85 % above the deterministic value (4,162.1 kt); attributing the whole gap to $e^{\sigma_M^2/2}$
++0.36 pp, and employee commuting +0.26 pp. That is why the simulated mean
+(4,304.7 kt) sits +0.89 % above the deterministic value (4,266.9 kt); attributing the whole gap to $e^{\sigma_M^2/2}$
 would account for under half of it. It is arithmetic, not a modelling error, and
 both mean and median are reported
 (`uncertainty_mrio_correlation.csv`, `mean_over_deterministic_closed_form`).
@@ -441,8 +441,8 @@ One property of the table should be said out loud rather than left to be
 inferred: **only one of the six spreads is a citation.** The MRIO CV is a
 published number (section below). The other five are *judgements* about what kind
 of source a quantity has. Statistics Denmark publishes no uncertainty for the
-DRIVHUS and AFFALD series; the ratio method behind commuting and travel describes
-an estimator, not its error; and the anaesthetics GSD of 1.30 does not follow from
+DRIVHUS and AFFALD series; the survey-distance construction behind commuting and
+travel describes an estimator, not its error; and the anaesthetics GSD of 1.30 does not follow from
 the ranges cited for it — combining the NID's ±25 % activity and ±20 % emission
 factor in quadrature gives GSD 1.18 if those are 95 % ranges and about 1.37 if
 they are one-sigma coefficients of variation, and 1.30 sits between the two. It
@@ -479,13 +479,13 @@ transfer crosses three boundaries at once, none of them neutral:
 | Boundary | Lenzen et al. (2020) | This study |
 |:---|:---|:---|
 | Database | Eora | EXIOBASE v3.8.2 |
-| Quantity calibrated on | 2.84 Mt CO₂e | 4.162 Mt CO₂e, 47 % larger |
+| Quantity calibrated on | 2.84 Mt CO₂e | 4.267 Mt CO₂e, 50 % larger |
 | Distribution the number describes | a normal fitted to their draws, reported as $\sigma_F$ | a lognormal CV |
 
 The direction of the size effect is at least known. Lenzen et al.'s own SI
 (p. 33, Fig. SI 7.1 and the sentence beneath it) makes the relative standard
 deviation a *decreasing* function of footprint size, so carrying 8.35 % upward
-from a 2.84 Mt footprint to a 4.162 Mt one errs **wide**, not narrow. The
+from a 2.84 Mt footprint to a 4.267 Mt one errs **wide**, not narrow. The
 database and distributional changes have no such argument attached, and nothing
 here establishes that 8.35 % is the right number for an EXIOBASE Danish
 health-care footprint; it establishes that it is the nearest published one and
@@ -517,8 +517,9 @@ section 4: model choice moves the answer more than the parameters do.
 
 #### Correlated ingredients
 
-Commuting and patient travel are not independent errors. Both are built by the
-same ratio method on the same kind of survey data; if that method is biased, it
+Commuting and patient travel are not independent errors. Both are built the same
+way, a distance from the Danish national travel survey multiplied by the Dutch
+inventory's life-cycle intensity per kilometre; if that construction is biased, it
 is biased for both. Treating them as independent would understate the spread of
 their sum.
 
@@ -544,19 +545,19 @@ We use $\rho = 0.8$ and report $\rho \in \{0,\,0.5,\,0.8\}$ in
 
 | $\rho$ | Median (kt) | 95 % interval (kt) | Total CV |
 |:---|:---|:---|:---|
-| 0.0, independent | 4,188.6 | 3,620.3 to 4,850.5 | 7.46 % |
-| 0.5 | 4,186.7 | 3,598.7 to 4,877.5 | 7.77 % |
-| 0.8, the study default | 4,184.4 | 3,582.9 to 4,897.2 | 7.93 % |
+| 0.0, independent | 4,296.0 | 3,715.3 to 4,971.7 | 7.44 % |
+| 0.5 | 4,291.3 | 3,689.5 to 5,003.1 | 7.81 % |
+| 0.8, the study default | 4,289.5 | 3,672.3 to 5,026.8 | 8.02 % |
 
-Treating the pair as independent would narrow the interval by 37 kt at the lower
-end and 47 kt at the upper, which is the size of the term being argued for.
+Treating the pair as independent would narrow the interval by 43 kt at the lower
+end and 55 kt at the upper, which is the size of the term being argued for.
 
 The $\rho = 0.8$ row *is* the study default, so it and the headline describe the
 same configuration; the sweep runs at 20,000 draws and the headline at 100,000,
-which is why the row reads 4,184.4 / 3,582.9 to 4,897.2 against the headline's
-4,182.4 / 3,587.3 to 4,892.9. The gap is about 2 kt on the median, within two
-Monte Carlo standard errors of the median (1.4 kt), so it is simulation noise
-rather than a second answer. Every table in the folder that reports a median or
+which is why the row reads 4,289.5 / 3,672.3 to 5,026.8 against the headline's
+4,289.0 / 3,674.8 to 5,028.9. The gap is under 1 kt on the median, within one
+Monte Carlo standard error of the headline median (1.6 kt), so it is simulation
+noise rather than a second answer. Every table in the folder that reports a median or
 an interval now carries its own `draws` and `seed` columns, so a reader
 cross-reading two of them can confirm that rather than take it on trust.
 
@@ -585,14 +586,14 @@ half. All three cases are reported:
 
 | $\rho_M$ | $\sigma$ required | Total CV | Median group CV |
 |:---|:---|:---|:---|
-| 1.00, the study default | 0.083 | 7.90 % | 8.4 % |
-| 0.76, Rodrigues et al.'s measured median | 0.092 | 7.88 % | 9.3 % |
-| 0.00, independence | 0.175 | 7.75 % | 17.6 % |
+| 1.00, the study default | 0.083 | 7.98 % | 8.4 % |
+| 0.76, Rodrigues et al.'s measured median | 0.092 | 7.96 % | 9.3 % |
+| 0.00, independence | 0.175 | 7.83 % | 17.6 % |
 
 The three rows come from a sensitivity sweep run separately from the headline
 estimate, at 40,000 draws with an independent seed against the headline's
-100,000 at seed 42. The default row therefore reads 7.90 % where the headline
-reads 7.92 %; the gap is Monte Carlo noise of the expected size, not a
+100,000 at seed 42. The default row therefore reads 7.98 % where the headline
+reads 8.00 %; the gap is Monte Carlo noise of the expected size, not a
 disagreement between the two.
 
 **The spread is re-solved at every correlation so that the calibrated total is
@@ -643,12 +644,12 @@ $3{,}415.367 \times 1.04256 = 3{,}560.72$ kt
 
 **Step 2: direct operations.** $\sigma = 0.09531$.
 $h = e^{0.09531 \times (-0.30)} = 0.9718$
-$118.554 \times 0.9718 = 115.21$ kt
+$119.484 \times 0.9718 = 116.11$ kt
 
 **Step 3: commuting.** $\sigma_C = 0.22314$, $\rho = 0.8$, so
 $\sqrt{\rho} = 0.8944$ and $\sqrt{1-\rho} = 0.4472$.
 $\ln h_C = 0.22314\,(0.8944 \times 0.80 + 0.4472 \times (-0.20)) = 0.1397$
-$h_C = 1.1499$, and $340.331 \times 1.1499 = 391.36$ kt
+$h_C = 1.1499$, and $444.161 \times 1.1499 = 510.74$ kt
 
 **Step 4: patient and visitor travel.** $\sigma_V = 0.33647$, **same**
 $z_0^{\text{travel}} = 0.80$, which is where the correlation acts.
@@ -666,9 +667,9 @@ $12.552 \times e^{0.13976 \times (-0.60)} = 12.552 \times 0.9196 = 11.54$ kt
 
 **Step 6: add up.**
 
-$$3{,}560.72 + 115.21 + 391.36 + 340.40 + 15.68 + 11.54 = 4{,}434.9 \text{ kt}$$
+$$3{,}560.72 + 116.11 + 510.74 + 340.40 + 15.68 + 11.54 = 4{,}555.2 \text{ kt}$$
 
-That total is **one** draw: 4,435 kt against a deterministic 4,162 kt. Repeat
+That total is **one** draw: 4,555 kt against a deterministic 4,267 kt. Repeat
 100,000 times with fresh random numbers and sort the results. Notice in step 4
 that because commuting drew high, travel drew high too; that is the correlation
 doing its work, and it is why the pair together widens the interval more than
@@ -680,19 +681,19 @@ either would alone.
 
 | Quantity | Symbol | 2022 climate |
 |:---|:---|:---|
-| Deterministic estimate | $F$ | 4,162.1 kt |
-| Simulation median | $\tilde{F}$ | 4,182.4 kt |
-| Simulation mean | $\bar{F}$ | 4,197.4 kt |
-| Standard deviation | $s$ | 332.4 kt |
-| Coefficient of variation | $s/\bar{F}$ | 7.92 % |
-| 95 % interval | 2.5th to 97.5th percentile | **3,587 to 4,893 kt** |
+| Deterministic estimate | $F$ | 4,266.9 kt |
+| Simulation median | $\tilde{F}$ | 4,289.0 kt |
+| Simulation mean | $\bar{F}$ | 4,304.7 kt |
+| Standard deviation | $s$ | 344.3 kt |
+| Coefficient of variation | $s/\bar{F}$ | 8.00 % |
+| 95 % interval | 2.5th to 97.5th percentile | **3,675 to 5,029 kt** |
 
-The median reproduces the deterministic estimate to within 0.5 %, at +0.49 % or
-+20.2 kt, as designed. The CV
-of 7.92 % is close to the 8.35 % Lenzen et al. report for the same quantity by a
+The median reproduces the deterministic estimate to within 1 %, at +0.52 % or
++22.1 kt, as designed. The CV
+of 8.00 % is close to the 8.35 % Lenzen et al. report for the same quantity by a
 completely different route: a useful external check, not a coincidence, since
-the MRIO factor dominates. The mean sits +0.85 % above the deterministic value,
-against the closed-form +0.89 % that median-1 multipliers imply.
+the MRIO factor dominates. The mean sits +0.89 % above the deterministic value,
+against the closed-form +0.93 % that median-1 multipliers imply.
 
 #### The variance decomposition: the part that actually answers the reviewer
 
@@ -710,18 +711,18 @@ estimated from the draws, and the shares sum to 100 % by construction:
 
 | Contributor | Share of variance |
 |:---|:---|
-| **MRIO model** | **74.7 %** |
-| Patient and visitor travel | 8.5 % |
-| Employee commuting | 5.7 % |
-| Covariance of the travel pair | 11.0 % |
-| Direct operations | 0.12 % |
-| Anaesthetic gases | 0.010 % |
+| **MRIO model** | **69.6 %** |
+| Patient and visitor travel | 7.9 % |
+| Employee commuting | 9.0 % |
+| Covariance of the travel pair | 13.4 % |
+| Direct operations | 0.11 % |
+| Anaesthetic gases | 0.009 % |
 | Inhaler propellants | 0.003 % |
 
 **This decomposition is the answer to the reviewers.** The proxy assumptions
 that worried them (anaesthetics, inhalers, the scaled bottom-up items) together
-account for less than 0.14 % of the variance. Travel, taken as a block including
-its covariance, accounts for 25.2 %. Everything else is the input-output model.
+account for less than 0.13 % of the variance. Travel, taken as a block including
+its covariance, accounts for 30.3 %. Everything else is the input-output model.
 
 Two consequences follow, and both should be stated in the paper:
 
@@ -741,7 +742,7 @@ Two independent checks run on every execution:
   *"MC means match closed-form moments within 5 MCSE (n = 100,000)"*.
 - **Monte Carlo standard error.** The uncertainty of the *simulation itself*
   (i.e. from having drawn 100,000 rather than infinitely many samples) is
-  reported per indicator; for the climate median it is **0.034 %**, so the
+  reported per indicator; for the climate median it is **0.037 %**, so the
   reported digits are stable.
 
 #### The interval on each reported estimate
@@ -778,19 +779,19 @@ result a reader should take from the table:
 
 | Group | CV of the level | 95 % interval of the share |
 |:---|---:|:---|
-| Individual travel | **26.5 %** | **9.1 % to 22.5 %** |
-| Operational impacts | 9.0 % | 2.5 % to 3.9 % |
-| Pharmaceuticals and chemical products | 8.3 % | 25.1 % to 29.5 % |
+| Individual travel | **25.8 %** | **10.7 % to 25.2 %** |
+| Operational impacts | 9.1 % | 2.4 % to 3.9 % |
+| Pharmaceuticals and chemical products | 8.3 % | 24.2 % to 29.0 % |
 | the six other MRIO-driven groups | 8.4 % | one to two points wide |
 
 Individual travel is the most uncertain line in the study by a factor of three.
 It is also the line whose rank is least determined: its share overlaps Services,
 Transport and Food and food services, which is what
-`uncertainty_ranking_probabilities.csv` quantifies. Pharmaceuticals lead in 99.0 %
+`uncertainty_ranking_probabilities.csv` quantifies. Pharmaceuticals lead in 96.6 %
 of draws.
 
 This is also why the variance decomposition reports commuting, visitor travel and
-their covariance as 25.2 % of the total variance while they are 14.5 % of the
+their covariance as 30.3 % of the total variance while they are 16.6 % of the
 footprint: they are small but loose, and the rest is large but shared.
 
 ### 2.6b The four figures, and what each one says
@@ -811,7 +812,7 @@ bottom-up terms are zero, because EXIOBASE attributes extraction, abstraction an
 land occupation to extractive and agricultural industries, so a health *service*
 industry has no direct row. Normalising each on its own deterministic total
 therefore leaves one lognormal multiplier drawn three times. Climate change
-(75 % MRIO) and waste generation (93 %) differ only slightly, and the whole
+(70 % MRIO) and waste generation (93 %) differ only slightly, and the whole
 spread across the five is 7.0 % to 8.4 %. The CV is printed on each violin so
 that spread is legible; without it a reader sees five identical shapes and cannot
 tell whether the figure is informative or broken. The figure that shows where
@@ -819,11 +820,11 @@ uncertainty genuinely varies is the group-level one below.
 
 **What it says.** All five distributions are centred on 1.0 and are close to
 symmetric, slightly right-skewed — the signature of lognormal multipliers with a
-median of one. Climate change spans **−14.2 % to +17.0 %** around the median, and
+median of one. Climate change spans **−14.3 % to +17.3 %** around the median, and
 the other four sit within a percentage point of that. The skew is why the study
 reports the **median** as the central value and not the mean: the mean of a
 lognormal sits above its median, and reporting it would move the headline up by
-0.36 % for no reason a reader could act on.
+0.37 % for no reason a reader could act on.
 
 **What it does not say.** The width is parametric uncertainty conditional on one
 model. It is not a confidence interval on the Danish health-care footprint;
@@ -833,7 +834,7 @@ section 2.7 sets out what is excluded.
 
 First-order variance shares per indicator, stacked to 100 %.
 
-**What it says.** The MRIO block dominates every indicator: 75 % of the variance
+**What it says.** The MRIO block dominates every indicator: 70 % of the variance
 for climate change and effectively 100 % for material extraction, blue water and
 land use. Those three have no meaningful bottom-up term, so there is nothing else
 for the variance to come from. Waste generation is 93 % MRIO and 7 % direct
@@ -841,7 +842,7 @@ operational, because the Danish AFFALD01 account contributes a real, and
 relatively tight, direct term.
 
 Climate change is the one indicator with a bottom-up story: employee commuting
-6 %, patient and visitor travel 9 %, and — **11 % in their covariance**. That last
+9 %, patient and visitor travel 8 %, and — **13 % in their covariance**. That last
 band is not a rounding error and is the reason the bar sums to 100 % only when it
 is drawn. First-order Sobol indices sum to one for *independent* inputs; these
 two are drawn at $\rho = 0.8$, because the same modal split, the same Danish
@@ -851,7 +852,7 @@ omitted until 11 September 2026, and the climate bar stopped short of 100 % on a
 running to 100.
 
 **What to take from it.** Improving the Danish bottom-up parameters can move at
-most a quarter of the climate variance and essentially none of the other four. The
+most three-tenths of the climate variance and essentially none of the other four. The
 width of this study's interval is a property of EXIOBASE, not of the Danish data
 collection, and no amount of further Danish primary data will narrow it.
 
@@ -871,19 +872,19 @@ the top, and lets the reader see that the largest groups are also the tightest.
 
 **What it says.** Seven of the nine bars are the same width, −15 % to +18 %,
 because those groups are entirely MRIO-driven and share one multiplier. Two are
-not. **Individual travel spans −40 % to +67 %, a CV of 26.5 %**, four times the
-width of any other bar and the single loosest estimate in the study. Operational
-impacts is slightly wider than the MRIO groups at 9.0 %, because the Danish
+not. **Individual travel spans −39 % to +65 %, a CV of 25.8 %**, about three times
+the width of any other bar and the single loosest estimate in the study. Operational
+impacts is slightly wider than the MRIO groups at 9.1 %, because the Danish
 direct-emissions account carries its own error.
 
-**What to take from it.** The three groups that make up 60 % of the footprint —
+**What to take from it.** The three groups that make up 59 % of the footprint —
 pharmaceuticals, services and transport — are the three most precisely estimated.
-The loosest group is 15 % of the total. That combination is what makes the
+The loosest group is 17 % of the total. That combination is what makes the
 headline robust while leaving the middle of the ranking genuinely open, and it is
 also the answer to a reviewer asking where further data collection would pay:
 only individual travel has enough width to be worth narrowing, and narrowing it
-would move the total's interval by little, because it is 15 % of a footprint
-whose variance is three-quarters MRIO.
+would move the total's interval by little, because it is 17 % of a footprint
+whose variance is seven-tenths MRIO.
 
 #### `uncertainty_tornado_climate.png` — one parameter at a time
 
@@ -895,9 +896,10 @@ the reviewer asked to see.
 
 **What it says.** The MRIO swing (≈ −520 to +610 kt) is more than twice the next
 largest and larger than every other parameter combined. Patient and visitor
-travel and employee commuting follow at roughly −130 to +250 kt. Direct
+travel and employee commuting follow, at roughly −130 kt and −160 kt down and
++245 kt up. Direct
 operational, anaesthetic gases and pMDI propellants are visually flat: at ±50 %
-the anaesthetic and pMDI bars are under 7 kt on a 4,162 kt total, which is the
+the anaesthetic and pMDI bars are under 7 kt on a 4,267 kt total, which is the
 honest answer to a reviewer asking whether the medical-gas terms could matter.
 They cannot, at any plausible error.
 
@@ -912,23 +914,25 @@ than one chosen.
 The probability that each contribution group holds first, second and third place,
 over the draws, for both pharmaceutical-mapping scenarios.
 
-**What it says.** Pharmaceuticals and chemical products lead in **99.0 %** of
-draws, and individual travel takes first place in the remaining 1.0 %. The paper's
+**What it says.** Pharmaceuticals and chemical products lead in **96.6 %** of
+draws, and individual travel takes first place in the remaining 3.4 %. The paper's
 leading claim is therefore not at risk from parametric uncertainty. Services hold
-second place in **83.5 %** of draws and individual travel in **15.5 %**. Third place
-is shared between individual travel (43.2 %), transport (40.3 %) and services
-(16.5 %).
+second place in **65.7 %** of draws, individual travel in **30.9 %** and
+pharmaceuticals in 3.4 %. Third place is shared between individual travel (46.0 %),
+services (34.3 %) and transport (19.7 %).
 
-**What to take from it.** State the leader and, with a qualifier, services in
-second place as findings, and third place as a group. A sentence ranking travel
-above transport, or transport above travel, is not supported: the data cannot
-distinguish them, and this figure is what shows it.
+**What to take from it.** State the leader as a finding, and services in second
+place only with a qualifier, since individual travel takes second place in almost a
+third of draws. Third place is a group. Individual travel exceeds transport in
+80.3 % of draws (`uncertainty_group_draws_gwp.npy`), so a sentence ranking travel
+above transport holds with that qualifier, and a sentence ranking transport above
+travel is not supported.
 
 ### 2.6c Is the MRIO uncertainty the right size? A check against the literature
 
 The MRIO relative standard deviation of **8.35 %** is taken from Lenzen et al.
 (2020), an Eora-based Monte Carlo of the Danish health-care footprint. Because it
-carries three-quarters of this study's variance, it deserves an independent
+carries seven-tenths of this study's variance, it deserves an independent
 check, and one exists on the same EXIOBASE release this study uses.
 
 Schulte et al. (2024, *Earth Syst. Sci. Data* 16: 2669-2700) propagate UNFCCC and
@@ -960,7 +964,7 @@ and both are stated rather than one chosen:
   buying from a long and diverse supply chain, which is the configuration in
   which cancelling works best, so the low end of Schulte's range is defensible
   for it. But a study wanting to be conservative would use 10 % rather than
-  8.35 %, which would widen the climate interval from −14.2/+17.0 % to roughly
+  8.35 %, which would widen the climate interval from −14.3/+17.3 % to roughly
   −17/+20 %. `uncertainty_noncarbon_bound.csv` already reports the effect of
   multiplying the MRIO spread by three, which brackets this comfortably.
 
@@ -977,7 +981,7 @@ uncertainty.
 ### 2.7 Answers to the five questions a referee will ask
 
 **"Why 100,000 draws?"** Because the Monte Carlo standard error at that size is
-0.034 % of the median, two orders of magnitude smaller than the quantity being
+0.037 % of the median, two orders of magnitude smaller than the quantity being
 reported. More draws would change no reported digit.
 
 **"Why lognormal rather than normal?"** A normal distribution puts positive
@@ -1012,19 +1016,19 @@ costs hardly any additional effort. Both are now reported.
 
 | | Climate change |
 |:---|:---|
-| Deterministic estimate | 4,162 kt CO₂-eq |
-| Simulation median | 4,182 kt CO₂-eq |
-| Simulation mean | 4,197.4 kt CO₂-eq |
-| Coefficient of variation, Tier 2 | 7.92 % |
-| Coefficient of variation, Tier 1 | 7.96 % |
-| 95 % interval | 3,587 to 4,893 kt CO₂-eq |
+| Deterministic estimate | 4,267 kt CO₂-eq |
+| Simulation median | 4,289 kt CO₂-eq |
+| Simulation mean | 4,304.7 kt CO₂-eq |
+| Coefficient of variation, Tier 2 | 8.00 % |
+| Coefficient of variation, Tier 1 | 8.04 % |
+| 95 % interval | 3,675 to 5,029 kt CO₂-eq |
 
 The two tiers use the **same** per-term variance,
 $a_k^{2}(e^{\sigma_k^{2}}-1)e^{\sigma_k^{2}}$, so the 0.04 percentage points
 between them is not a disagreement about the uncertainty but a difference in
 what each divides by: Tier 1 normalises the standard deviation on the
 deterministic total, while the reported Tier 2 coefficient of variation
-normalises on the simulated mean, which sits 0.85 per cent above it. Sampling
+normalises on the simulated mean, which sits 0.89 per cent above it. Sampling
 noise in the simulated standard deviation (0.4 per cent at 100,000 draws)
 accounts for the rest.
 
@@ -1047,7 +1051,7 @@ halves of the simulation for **all ten** indicator-and-scenario combinations the
 layer reports, not for climate alone as it was until 11 September 2026. Every one
 passes at 100,000 draws. The largest relative difference in the interval
 endpoints is 0.28 per cent, at land use under the alternative pharmaceutical
-mapping; climate under the central mapping, the headline case, gives 0.24 per
+mapping; climate under the central mapping, the headline case, gives 0.22 per
 cent (`uncertainty_convergence.csv`, ten rows, each naming its indicator,
 scenario, draw count and seed).
 
@@ -1157,8 +1161,8 @@ the IPCC (2000, section 6.1) and the GHG Protocol.
 **Uncertainty due to choices is likely the larger term.** Schulte et al. (2024)
 find that at sector level, uncertainty due to choices outweighs parametric
 uncertainty for most sectors. This study's own structural scenarios bear that
-out: the alternative pharmaceutical mapping moves the median to 3,440 kt, which
-lies outside the parametric 95 per cent interval of 3,587 to 4,893 kt entirely.
+out: the alternative pharmaceutical mapping moves the median to 3,547 kt, which
+lies outside the parametric 95 per cent interval of 3,675 to 5,029 kt entirely.
 That divergence is the strongest single argument for reporting the scenarios
 beside the interval rather than in an appendix.
 
@@ -1183,10 +1187,10 @@ Danish measurement exists, a transplanted proxy has been replaced by it:
 
 | Proxy the reviewer questioned | Submitted | Now |
 |:---|:---|:---|
-| Nitrous oxide scaled from one region by births | 9.52 kt, from Region of Southern Denmark × birth ratio | **10.37 kt** from Denmark's National Inventory Document 2024 (DCE 622), category 2.G.3.a, a national measurement: 38 t N₂O/yr × 273 (AR6 GWP₁₀₀, the factor this study's climate row uses). With the volatile agents from the Danish Medicines Agency register (1.38 kt on AR6 factors, 5 % of sevoflurane treated as metabolised) the anaesthetics item is the **11.75 kt** carried as $B_{\text{ANAE}}$ |
+| Nitrous oxide scaled from one region by births | 9.52 kt, from Region of Southern Denmark × birth ratio | **10.37 kt** from Denmark's National Inventory Document 2024 (DCE 622), category 2.G.3.a, a national measurement: 38 t N₂O/yr × 273 (AR6 GWP₁₀₀, the factor this study's climate row uses). With the volatile agents from the medstat.dk register of the Danish Health Data Authority (1.37 kt on AR6 factors, 5 % of sevoflurane treated as metabolised) the anaesthetics item is the **11.75 kt** carried as $B_{\text{ANAE}}$. The medical N₂O already inside the DRIVHUS accounts is netted out on the accounts' own AR5 basis, 38 t × 265 = 10.07 kt |
 | pMDI scaled from Dutch defined daily doses | 34.6 kt | **12.55 kt** from the Danish EPA F-gas inventory's reported MDI emission, restated from the inventory's AR4 factors to AR6 |
 | Patient and visitor travel scaled from Dutch totals | Dutch value × 0.54 | **Danish National Travel Survey** (Transportvaneundersøgelsen, DTU), Table 15, purpose 33 *Social/sundhed*, the category that actually measures travel to doctors and hospitals. The **visitor** part is the one component the survey cannot supply — it folds hospital visits into "visiting family and friends" — so that part alone remains an import, the NHS England visitor-to-patient ratio of 0.236 (Tennison et al. 2021), and it is why this parameter carries the widest spread in the set |
-| Employee commuting | scaled on Dutch commuting | still scaled, but on national-accounts employment (DST NABB69) and the TU distance table |
+| Employee commuting | scaled on Dutch commuting | **estimated directly** since 14 September 2026: the TU workplace distance (9.3 km per person per day in 2022, both legs counted) × 365 × residents aged 6 and over × health care's share of hours worked (Statistics Denmark NABB117, 12.78 %) × the Dutch inventory's life-cycle intensity of 0.186 kg CO₂e per person-km, giving **444.2 kt**. The ratio scaling it replaced carried the Dutch base's count of one trip per working day into a survey that counts both legs |
 
 **Answering a proxy objection by removing the proxy is stronger than quantifying its
 uncertainty.** That argument should lead the response; the Monte Carlo supports it rather
@@ -1217,7 +1221,7 @@ scenarios — Reviewer 2's R2-7, "the paper identifies hotspots; it does not mod
 mitigation" — is answered in full in
 [docs/revision/results_2022.md, "Mitigation scenarios: the answer to the reviewer"](results_2022.md#mitigation-scenarios-the-answer-to-the-reviewer),
 including the honest headline that full Danish grid decarbonisation alone removes under
-7 % of the footprint, because 69.3 % of impacts arise abroad.
+7 % of the footprint, because 68.6 % of impacts arise abroad.
 
 ### 5.4 What the interval does *not* establish
 
@@ -1231,7 +1235,7 @@ repeated in full as the pasteable limitation paragraph in section 6.4 below:
 > at sector level. This study's own change of EXIOBASE release
 > moved the result by more than this interval spans.
 
-Reporting 7.92 % without that sentence would over-claim, and a referee who knows the
+Reporting 8.00 % without that sentence would over-claim, and a referee who knows the
 literature will say so.
 
 ---
@@ -1255,7 +1259,7 @@ uncertainty on the bottom-up parameters.
 > multiplicative factor drawn from a lognormal distribution with **median 1**, so
 > that the analysis adds dispersion without shifting the central value; because
 > the median of a sum of lognormals is not the sum of the medians, the simulation
-> median reproduces the deterministic estimate to within 0.5 % (+0.49 % for
+> median reproduces the deterministic estimate to within 1 % (+0.52 % for
 > climate) rather than exactly. Lognormal
 > multipliers are the standard choice for input-output uncertainty propagation
 > (Lenzen et al., 2010) because impact estimates are products of non-negative
@@ -1286,7 +1290,7 @@ uncertainty on the bottom-up parameters.
 > greenhouse-gas footprint from a full Monte Carlo over the transaction,
 > satellite, and final-demand matrices. That calibration is a transfer: it is
 > derived in Eora on a footprint of 2.84 Mt CO₂e and applied here to an EXIOBASE
-> footprint of 4.162 Mt, and Lenzen et al.'s own analysis makes the relative
+> footprint of 4.267 Mt, and Lenzen et al.'s own analysis makes the relative
 > standard deviation a decreasing function of footprint size, so the transfer is
 > conservative rather than neutral.
 >
@@ -1307,22 +1311,22 @@ uncertainty on the bottom-up parameters.
 ### 6.2 Results text (draft)
 
 > The Monte Carlo median for the Danish health-care climate footprint is
-> **4,182 kt CO₂e** with a 95 % interval of **3,587 to 4,893 kt** and a
-> coefficient of variation of **7.92 %**, closely consistent with the 8.35 % that Lenzen et
+> **4,289 kt CO₂e** with a 95 % interval of **3,675 to 5,029 kt** and a
+> coefficient of variation of **8.00 %**, closely consistent with the 8.35 % that Lenzen et
 > al. (2020) report for the same quantity.
 >
 > Variance attribution is more informative than the interval alone. **The
-> multi-regional input-output model contributes 74.7 % of the output variance**;
-> patient and visitor travel 8.5 %; employee commuting 5.7 %; the covariance of
-> those two, which share a method, a further 11.0 %; and every remaining
-> bottom-up item **less than 0.1 %**. The proxy assumptions that
+> multi-regional input-output model contributes 69.6 % of the output variance**;
+> employee commuting 9.0 %; patient and visitor travel 7.9 %; the covariance of
+> those two, which share a method, a further 13.4 %; and every remaining
+> bottom-up item **0.11 % or less**. The proxy assumptions that
 > motivated the reviewers' concern are therefore not what the estimate rests on:
 > the estimate rests on the input-output model. This attribution also means that
 > improving the bottom-up items further would not materially narrow the
 > interval, whereas a nationally consistent input-output model would.
 >
-> Under the alternative pharmaceutical mapping the median falls to **3,440 kt**
-> with a wider coefficient of variation of 9.4 %, and the identity of the
+> Under the alternative pharmaceutical mapping the median falls to **3,547 kt**
+> with a wider coefficient of variation of 9.5 %, and the identity of the
 > largest contributing group changes (§ pharmaceutical mapping).
 
 ### 6.3 Three properties stated explicitly
@@ -1340,9 +1344,9 @@ uncertainty by roughly half. We report all three:
 
 | Correlation across groups | CV | 95 % interval (kt) |
 |:---|:---|:---|
-| ρ = 1.00, perfect (reported default) | **7.90 %** | 3,593 to 4,887 |
-| ρ = 0.76, Rodrigues et al.'s measured median | 7.88 % | 3,595 to 4,888 |
-| ρ = 0.00, independence | 7.75 % | 3,638 to 4,927 |
+| ρ = 1.00, perfect (reported default) | **7.98 %** | 3,680 to 5,021 |
+| ρ = 0.76, Rodrigues et al.'s measured median | 7.96 % | 3,682 to 5,023 |
+| ρ = 0.00, independence | 7.83 % | 3,726 to 5,064 |
 
 Rodrigues (2016) shows that uncorrelated components and a known aggregate
 uncertainty are mutually exclusive. Holding $\sigma$ fixed while lowering
@@ -1357,13 +1361,13 @@ $\rho = 1$ to 17.6 % at $\rho = 0$. The reported default remains the widest
 total, so it cannot understate the interval. The three rows come from a
 sensitivity sweep run separately from the headline estimate, at 40,000 draws
 with an independent seed against the headline's 100,000 at seed 42, so the
-default row reads 7.90 % where the headline reads 7.92 %.
+default row reads 7.98 % where the headline reads 8.00 %.
 
 **(b) Median-1 lognormal multipliers have mean exp(σ²/2) > 1.** The simulated
 mean sits marginally above the deterministic estimate by construction. The
 inflation is that of the whole sum, $\sum_j a_j e^{\sigma_j^2/2} / \sum_j a_j$ =
-**+0.89 %** — not the input-output factor's own +0.35 %, which would account for
-under half the observed gap. Patient and visitor travel supplies +0.37 pp on a
+**+0.93 %** — not the input-output factor's own +0.35 %, which would account for
+under half the observed gap. Patient and visitor travel supplies +0.36 pp on a
 much smaller amount but a much wider spread. Immaterial here, but
 stated for the right reason.
 
@@ -1371,9 +1375,9 @@ stated for the right reason.
 its own term.** The model is additive, so the variance splits in closed form
 into each parameter's own contribution plus one covariance term for commuting
 and patient travel, which share a method (ρ = 0.8). Reporting the six own-terms
-alone would not be a decomposition: they would sum to 89.0 %, not 100 %. With
+alone would not be a decomposition: they would sum to 86.6 %, not 100 %. With
 the covariance row the shares sum to **100.0 %** exactly and nothing is hidden.
-Read as a block, travel accounts for **25.2 %** of the variance.
+Read as a block, travel accounts for **30.3 %** of the variance.
 
 ### 6.4 The limitation to paste alongside the interval
 
@@ -1402,10 +1406,10 @@ Read as a block, travel accounts for **25.2 %** of the variance.
 
 | Parameter | Distribution | GSD / CV | 95 % factor range | Source and residual risk |
 |:---|:---|:---|:---|:---|
-| Input-output model | lognormal, median 1 | CV 8.35 % | 0.85-1.18 | Lenzen et al. (2020) SI table 7.1, Danish health-care GHG footprint; applied jointly to all MRIO components. Transferred from an Eora 2.84 Mt footprint to this study's EXIOBASE 4.162 Mt, and their own analysis makes the relative SD fall with footprint size, so the transfer errs wide |
+| Input-output model | lognormal, median 1 | CV 8.35 % | 0.85-1.18 | Lenzen et al. (2020) SI table 7.1, Danish health-care GHG footprint; applied jointly to all MRIO components. Transferred from an Eora 2.84 Mt footprint to this study's EXIOBASE 4.267 Mt, and their own analysis makes the relative SD fall with footprint size, so the transfer errs wide |
 | Direct operational | lognormal, median 1 | GSD 1.10 | 0.83-1.21 | Statistics Denmark DRIVHUS and AFFALD01; residual risk is the eldercare proration and the medical-N₂O netting |
 | pMDI propellants | lognormal, median 1 | GSD 1.15 | 0.76-1.32 | Danish EPA F-gas inventory; register dispensing × producer HFC content |
-| Employee commuting | lognormal, median 1 | GSD 1.25 | 0.65-1.55 | Ratio method on Danish employment (DST) and travel-survey distances |
+| Employee commuting | lognormal, median 1 | GSD 1.25 | 0.65-1.55 | Direct estimate: Danish travel-survey workplace distance × residents aged 6 and over × health care's share of hours worked (NABB117) × the Dutch inventory's life-cycle intensity per person-km |
 | Anaesthetic gases | lognormal, median 1 | GSD 1.30 | 0.60-1.67 | Danish NID 2.G.3.a activity ±25 %, emission factor ±20 %; 1.30 does not follow from combining those two and was set when the component was a transfer, then left unchanged |
 | Patient and visitor travel | lognormal, median 1 | GSD 1.40 | 0.52-1.93 | Danish national travel survey (Transportvaneundersøgelsen, table 15, purpose 33); the **visitor** component alone has no Danish source and carries the NHS England visitor-to-patient ratio of 0.236 (Tennison et al., 2021) |
 
@@ -1448,7 +1452,7 @@ numbered S1-S7; the plain-English derivation of each is in sections 2.3-2.4 abov
 > lognormal with median 1, so that the analysis adds dispersion without shifting
 > the central value. Because the median of a *sum* of lognormals is not the sum
 > of the medians, the simulation median reproduces the deterministic estimate to
-> within 0.5 % (+0.49 % for climate change) rather than exactly. Lognormal
+> within 1 % (+0.52 % for climate change) rather than exactly. Lognormal
 > multipliers are standard for input-output
 > uncertainty propagation (Lenzen et al., 2010) because impacts are products of
 > non-negative quantities. The spread is reported as a geometric standard
@@ -1460,7 +1464,7 @@ numbered S1-S7; the plain-English derivation of each is in sections 2.3-2.4 abov
 >
 > Note that a median-1 lognormal has mean $e^{\sigma^{2}/2}>1$, so the sum's
 > mean exceeds the deterministic total by
-> $\sum_j a_j e^{\sigma_j^{2}/2}\big/\sum_j a_j$, which is +0.89 % for climate
+> $\sum_j a_j e^{\sigma_j^{2}/2}\big/\sum_j a_j$, which is +0.93 % for climate
 > change; both the simulation mean and median are reported.
 >
 > #### S*n*.3 The input-output factor
@@ -1475,7 +1479,7 @@ numbered S1-S7; the plain-English derivation of each is in sections 2.3-2.4 abov
 > health-care greenhouse-gas footprint by propagating Eora's transaction,
 > satellite, and final-demand matrices. This calibration is a **transfer**:
 > Lenzen et al. derive it in Eora for a footprint of 2.84 Mt CO₂e, it is applied
-> here to an EXIOBASE footprint of 4.162 Mt, and they fit a normal to their
+> here to an EXIOBASE footprint of 4.267 Mt, and they fit a normal to their
 > draws where (S3) is lognormal. Their own analysis (SI figure 7.1) makes the
 > relative standard deviation a decreasing function of footprint size, so
 > carrying it to a larger footprint is conservative rather than neutral. The
@@ -1511,12 +1515,12 @@ numbered S1-S7; the plain-English derivation of each is in sections 2.3-2.4 abov
 > 100 % exactly once the covariance term is reported as its own contribution.
 > That they sum to 100 % is arithmetic rather than evidence, so two of the
 > shares are additionally rebuilt from the draws by freezing the other inputs:
-> the input-output share (closed form 74.7 %, frozen-input 74.8 %) and the
-> travel block including its covariance (25.17 % against 25.06 %).
+> the input-output share (closed form 69.6 %, frozen-input 69.7 %) and the
+> travel block including its covariance (30.28 % against 30.14 %).
 > The simulation was verified against the closed-form mean
 > $\sum_j a_j e^{\sigma_j^{2}/2}$ and against (S7); agreement is within five
 > Monte Carlo standard errors at $N=10^{5}$ draws, and the Monte Carlo standard
-> error of the reported median is 0.034 %.
+> error of the reported median is 0.037 %.
 >
 > #### S*n*.6 Structural choices
 >
@@ -1528,25 +1532,25 @@ numbered S1-S7; the plain-English derivation of each is in sections 2.3-2.4 abov
 >
 > | | Climate change |
 > |:---|:---|
-> | Deterministic estimate | 4,162 kt CO₂e |
-> | Simulation median | 4,182 kt CO₂e |
-> | Simulation mean | 4,197.4 kt CO₂e |
-> | Coefficient of variation, Tier 2 simulation | 7.92 % |
-> | Coefficient of variation, Tier 1 error propagation | 7.96 % |
-> | 95 % interval | 3,587 to 4,893 kt CO₂e |
+> | Deterministic estimate | 4,267 kt CO₂e |
+> | Simulation median | 4,289 kt CO₂e |
+> | Simulation mean | 4,304.7 kt CO₂e |
+> | Coefficient of variation, Tier 2 simulation | 8.00 % |
+> | Coefficient of variation, Tier 1 error propagation | 8.04 % |
+> | 95 % interval | 3,675 to 5,029 kt CO₂e |
 >
 > | Variance contributor | Share |
 > |:---|:---|
-> | Input-output model | 74.7 % |
-> | Covariance, commuting × patient travel | 11.0 % |
-> | Patient and visitor travel | 8.5 % |
-> | Employee commuting | 5.7 % |
-> | Direct operations | 0.12 % |
-> | Anaesthetic gases | 0.010 % |
+> | Input-output model | 69.6 % |
+> | Covariance, commuting × patient travel | 13.4 % |
+> | Employee commuting | 9.0 % |
+> | Patient and visitor travel | 7.9 % |
+> | Direct operations | 0.11 % |
+> | Anaesthetic gases | 0.009 % |
 > | Inhaler propellants | 0.003 % |
 >
-> Travel as a block, covariance included, accounts for 25.2 % of the variance;
-> every other bottom-up item accounts for less than 0.1 %.
+> Travel as a block, covariance included, accounts for 30.3 % of the variance;
+> every other bottom-up item accounts for 0.11 % or less.
 
 ---
 
@@ -1655,7 +1659,7 @@ whether it buys a generic paracetamol or a patented biologic. Pharmaceutical
 prices are far from cost-reflective.
 
 **How to read the results.** The pharmaceutical footprint (4.8 % of spend,
-27.7 % of the function total) is the number in this study most exposed to
+27.1 % of the climate footprint) is the number in this study most exposed to
 price heterogeneity, and it is **probably an overestimate** if Danish
 pharmaceutical prices carry above-average margins. The Monte Carlo treats the
 mapping as a structural scenario, not a distribution (section 2.4 above),
@@ -1686,13 +1690,13 @@ therefore calibrates MRIO uncertainty to Lenzen et al.'s published 8.35 %, the
 closest published estimate for this quantity in Denmark, and applies it as a
 single joint factor: correlation
 $\rho = 1$, the conservative bound. The calibration is borrowed from a
-*different database* and a footprint 32 % smaller (Eora, 2.84 Mt, against
-EXIOBASE's 4.162 Mt); Lenzen et al.'s own SI makes the relative standard
+*different database* and a footprint 33 % smaller (Eora, 2.84 Mt, against
+EXIOBASE's 4.267 Mt); Lenzen et al.'s own SI makes the relative standard
 deviation fall as the footprint grows, so the transfer errs wide. Full
 derivation in
 [section 2](#2-the-monte-carlo-explained-from-first-principles) above.
 
-**How to read the interval.** The reported 95 % interval, 3,587 to 4,893 kt,
+**How to read the interval.** The reported 95 % interval, 3,675 to 5,029 kt,
 is **parametric uncertainty conditional on one model**. The interval is not a
 confidence interval on "the" Danish health footprint. Our own change of
 EXIOBASE release moved the result by more than this interval spans, and
@@ -1704,7 +1708,7 @@ studies. Report the interval and this sentence together, or not at all.
 | Convention | This study | Effect if changed |
 |:---|:---|:---|
 | Capital | excluded from the headline | +21.2 % (Södersten endogenisation) |
-| Sector boundary | health + eldercare | +13 % on NACE Q incl. childcare |
+| Sector boundary | health + eldercare | +17 % on NACE Q incl. childcare |
 | Scope 2 | Hertwich & Wood full-multiplier | −2.2 % on the GHG-Protocol strict form |
 | Waste | MRIO extension retained for comparability | the Danish account is 3.1× lower on the direct row |
 
@@ -1714,8 +1718,9 @@ number. Full detail in
 and [docs/revision/defects_and_fixes.md, decision D3](defects_and_fixes.md#d-open-decisions).
 The boundary-matched benchmark in
 [docs/methods/replications.md, section 06](../methods/replications.md#r06)
-shows what happens when they are matched to a comparator: agreement with
-Schmidt & Merciai improves from 25 % apart to **1.7 %**.
+shows what happens when they are matched to a comparator: the study moves from
+30 % below Schmidt & Merciai to **0.7 % above** them on the total, and to 2.3 %
+below them per person.
 
 ### 7.8 Import proportionality: who buys the imports is assumed, not observed
 
@@ -1752,8 +1757,8 @@ within-sector coefficient of variation of carbon per unit output above one
 for 17 of 23 Japanese manufacturing sectors. Schulte et al. (2024) state the
 consequence exactly: their uncertainty estimates are on the *mean* emissions
 of a sector, and within-sector variability may be substantially larger.
-Since pharmaceuticals are 37 per cent of this study's climate footprint and
-51 per cent of its material footprint, and since hospitals buy a narrow and
+Since pharmaceuticals are 27 per cent of this study's climate footprint and
+41 per cent of its material footprint, and since hospitals buy a narrow and
 atypical slice of the chemicals sector, **the pharmaceutical figure carries
 more uncertainty than any interval reported here shows, and the direction of
 the bias is unknown.**
@@ -1832,7 +1837,7 @@ the field, not only in this study.
    homogeneous-sector assumption, and three separate limitations above
    (7.1, 7.8, 7.9) converge on the same advice.
 2. **Read every share with its basis.** Transport is 19.5 per cent of the
-   supply chain and 16.0 per cent of the total; both are correct, and they
+   supply chain and 15.6 per cent of the total; both are correct, and they
    are not interchangeable.
 3. **Treat the uncertainty interval as conditional.** Model choice moves the
    answer more than the parameters do. This study's own structural scenario

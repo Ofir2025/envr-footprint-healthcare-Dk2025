@@ -437,10 +437,10 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `netherlands_2016` | measure | float64 | varies by row | 17575.0 |
-| `denmark_2022` | measure | float64 | varies by row | 4162.120659340719 |
+| `denmark_2022` | measure | float64 | varies by row | 4266.880461662369 |
 | `netherlands_per_capita` | measure | float64 | varies by row | 1031.9833210356544 |
-| `denmark_per_capita` | measure | float64 | varies by row | 708.6366477011212 |
+| `denmark_per_capita` | measure | float64 | varies by row | 726.4729002288904 |
 | `per_capita_unit` | dimension | str |  | kt CO2eq per million population |
-| `dk_as_pct_of_nl_per_capita` | measure | float64 | varies by row | 68.66745162024166 |
+| `dk_as_pct_of_nl_per_capita` | measure | float64 | varies by row | 70.39579859680612 |
 | `source_netherlands` | dimension | str |  | Steenmeijer et al. 2022, Lancet Planet H |
 | `source_denmark` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |

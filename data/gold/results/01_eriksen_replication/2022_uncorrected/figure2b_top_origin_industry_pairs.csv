@@ -1,88 +1,88 @@
 producing_country_iso3,producing_world_region,producing_sector_code,producing_sector_name,indicator,unit,value,rank,share_pct,mrio_coverage_pct
-RoW Middle East,Middle East,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,6.406039900576938,1,8.350165866315844,99.74986858600204
-RoW Middle East,Middle East,OCER,Cultivation of cereal grains nec,blue_water_consumption,Mm3,4.070611490912807,2,5.305973995477604,99.74986858600204
-IND,Asia and Pacific,SUGB,"Cultivation of sugar cane, sugar beet",blue_water_consumption,Mm3,3.666864126347527,3,4.779696058634851,99.74986858600204
-RoW Middle East,Middle East,PARI,Cultivation of paddy rice,blue_water_consumption,Mm3,3.209771341090399,4,4.183883258147993,99.74986858600204
-RoW Asia and Pacific,Asia and Pacific,PARI,Cultivation of paddy rice,blue_water_consumption,Mm3,3.016559631839882,5,3.93203502669834,99.74986858600204
-DNK,Denmark,POWB,Production of electricity by biomass and waste,blue_water_consumption,Mm3,2.73464823446316,6,3.5645682353209556,99.74986858600204
-RoW Asia and Pacific,Asia and Pacific,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,2.548548696299106,7,3.3219905999280392,99.74986858600204
-IND,Asia and Pacific,OTCR,Cultivation of crops nec,blue_water_consumption,Mm3,2.247498908589399,8,2.9295772368503554,99.74986858600204
-RoW Middle East,Middle East,FVEG,"Cultivation of vegetables, fruit, nuts",blue_water_consumption,Mm3,2.113539683238615,9,2.7549636271378266,99.74986858600204
-RoW Asia and Pacific,Asia and Pacific,SUGB,"Cultivation of sugar cane, sugar beet",blue_water_consumption,Mm3,2.107898314606104,10,2.7476101974799416,99.74986858600204
-IND,Asia and Pacific,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,2.069144357813728,11,2.6970950629795722,99.74986858600204
-RoW Asia and Pacific,Asia and Pacific,OTCR,Cultivation of crops nec,blue_water_consumption,Mm3,2.007679811343928,12,2.6169770546801727,99.74986858600204
-CHN,Asia and Pacific,PLAS,"Plastics, basic",blue_water_consumption,Mm3,1.876749537970486,13,2.446311633209436,99.74986858600204
-CHN,Asia and Pacific,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,1.603148872535141,14,2.0896777419166637,99.74986858600204
-USA,America,OILS,Cultivation of oil seeds,blue_water_consumption,Mm3,1.30382389162838,15,1.6995126356584,99.74986858600204
-RoW Middle East,Middle East,OTCR,Cultivation of crops nec,blue_water_consumption,Mm3,1.286017969350255,16,1.6763029137814442,99.74986858600204
-IND,Asia and Pacific,OILS,Cultivation of oil seeds,blue_water_consumption,Mm3,1.285475754541949,17,1.6755961458476198,99.74986858600204
-IND,Asia and Pacific,PARI,Cultivation of paddy rice,blue_water_consumption,Mm3,1.135316769983491,18,1.4798664209566212,99.74986858600204
-DEU,Europe,CHEM,Chemicals nec,blue_water_consumption,Mm3,0.9230352034180168,19,1.2031609494494213,99.74986858600204
-RoW Asia and Pacific,Asia and Pacific,FVEG,"Cultivation of vegetables, fruit, nuts",blue_water_consumption,Mm3,0.9077894915633312,20,1.183288419038673,99.74986858600204
-OTH,Other,OTHER,All other pairs,blue_water_consumption,Mm3,30.197354803003883,21,39.361746920490226,99.74986858600204
-DNK,Denmark,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,857.3376084768523,1,17.726166071463197,86.62527749378897
-RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,189.2888731282833,2,3.913704434957924,86.62527749378897
-DNK,Denmark,TDRT,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",climate_change,kt CO2eq,159.159668520099,3,3.290758142616207,86.62527749378897
-DEU,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,132.3948488315285,4,2.737373298674443,86.62527749378897
-RoW Middle East,Middle East,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,125.7584400969504,5,2.6001600443110466,86.62527749378897
-DNK,Denmark,HWAT,Steam and hot water supply,climate_change,kt CO2eq,86.30204045274652,6,1.7843662592725558,86.62527749378897
-RUS,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,76.04188525172577,7,1.5722290414320865,86.62527749378897
-DNK,Denmark,POWT,Transmission of electricity,climate_change,kt CO2eq,67.62431619110271,8,1.3981888201571748,86.62527749378897
-RoW Europe,Europe,HWAT,Steam and hot water supply,climate_change,kt CO2eq,59.49383490559208,9,1.2300843767233534,86.62527749378897
-DNK,Denmark,MILK,Raw milk,climate_change,kt CO2eq,58.98468964130859,10,1.2195573761346095,86.62527749378897
-USA,America,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,53.36994474272004,11,1.103467868877249,86.62527749378897
-RoW Middle East,Middle East,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),climate_change,kt CO2eq,53.10511641934448,12,1.0979923236612608,86.62527749378897
-NOR,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,51.14719768360906,13,1.0575107300382598,86.62527749378897
-CHN,Asia and Pacific,POWC,Production of electricity by coal,climate_change,kt CO2eq,41.15597885579844,14,0.8509339947510399,86.62527749378897
-GBR,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,37.05313602650318,15,0.7661043166427767,86.62527749378897
-RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,36.13743466156596,16,0.7471714315036536,86.62527749378897
-NLD,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,35.64080809206605,17,0.7369032653116953,86.62527749378897
-DNK,Denmark,CHEM,Chemicals nec,climate_change,kt CO2eq,35.47850124138584,18,0.7335474365678647,86.62527749378897
-RoW Africa,Africa,CATL,Cattle farming,climate_change,kt CO2eq,33.31215449782075,19,0.6887564210272871,86.62527749378897
-RoW Asia and Pacific,Asia and Pacific,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,32.21658210002582,20,0.6661045531113021,86.62527749378897
-OTH,Other,OTHER,All other pairs,climate_change,kt CO2eq,2615.5623036151314,21,54.07891979276501,86.62527749378897
-RoW Africa,Africa,CATL,Cattle farming,land_use,km2,385.6739165237967,1,9.063132522677236,99.9577082613078
-RoW Africa,Africa,MILK,Raw milk,land_use,km2,164.2488193240408,2,3.859760156051937,99.9577082613078
-RoW Asia and Pacific,Asia and Pacific,CATL,Cattle farming,land_use,km2,136.9578670589471,3,3.218437249701486,99.9577082613078
-RoW Asia and Pacific,Asia and Pacific,MILK,Raw milk,land_use,km2,135.6160359065538,4,3.1869049291680938,99.9577082613078
-RUS,Europe,WHEA,Cultivation of wheat,land_use,km2,108.5301699853906,5,2.5504014431465736,99.9577082613078
-RoW Africa,Africa,FORE,"Forestry, logging and related service activities (02)",land_use,km2,103.1776281151558,6,2.4246195475484473,99.9577082613078
-RoW Europe,Europe,CATL,Cattle farming,land_use,km2,101.6082315412501,7,2.387739560283181,99.9577082613078
-AUS,Asia and Pacific,CATL,Cattle farming,land_use,km2,95.19921886775995,8,2.2371311610351725,99.9577082613078
-DNK,Denmark,MILK,Raw milk,land_use,km2,92.52902852463396,9,2.1743831039234838,99.9577082613078
-RoW Africa,Africa,OCER,Cultivation of cereal grains nec,land_use,km2,86.40214156789786,10,2.030404509413228,99.9577082613078
-RoW Africa,Africa,OILS,Cultivation of oil seeds,land_use,km2,84.38200398599135,11,1.982932347479431,99.9577082613078
-RoW Middle East,Middle East,CATL,Cattle farming,land_use,km2,79.23120959009199,12,1.8618914105452924,99.9577082613078
-SWE,Europe,FORE,"Forestry, logging and related service activities (02)",land_use,km2,75.93119832700523,13,1.7843428957967267,99.9577082613078
-DNK,Denmark,OCER,Cultivation of cereal grains nec,land_use,km2,75.8761384127254,14,1.7830490170083886,99.9577082613078
-RoW America,America,CATL,Cattle farming,land_use,km2,70.67556897913647,15,1.6608383930833124,99.9577082613078
-DNK,Denmark,FORE,"Forestry, logging and related service activities (02)",land_use,km2,69.70877063401198,16,1.6381191446478853,99.9577082613078
-RoW Asia and Pacific,Asia and Pacific,FORE,"Forestry, logging and related service activities (02)",land_use,km2,68.69196873174538,17,1.6142248391355654,99.9577082613078
-CHN,Asia and Pacific,FORE,"Forestry, logging and related service activities (02)",land_use,km2,66.33441273739291,18,1.5588235234359333,99.9577082613078
-RoW Europe,Europe,OCER,Cultivation of cereal grains nec,land_use,km2,61.44309379711001,19,1.4438801221138222,99.9577082613078
-RoW Europe,Europe,MILK,Raw milk,land_use,km2,60.36585180689987,20,1.4185655065850724,99.9577082613078
-OTH,Other,OTHER,All other pairs,land_use,km2,2132.8318986342324,21,50.12041861721973,99.9577082613078
-DNK,Denmark,SDCL,Quarrying of sand and clay,material_extraction,kt,1509.701438134265,1,42.507907665497974,99.22727077595898
-CHN,Asia and Pacific,SDCL,Quarrying of sand and clay,material_extraction,kt,298.1420864540065,2,8.394637483983583,99.22727077595898
-RoW Middle East,Middle East,SDCL,Quarrying of sand and clay,material_extraction,kt,166.500257231854,3,4.688064395990771,99.22727077595898
-RoW Europe,Europe,CHEM,Chemicals nec,material_extraction,kt,139.1853476515032,4,3.9189721602650773,99.22727077595898
-IND,Asia and Pacific,SDCL,Quarrying of sand and clay,material_extraction,kt,78.73232964029265,5,2.2168267937633552,99.22727077595898
-RoW Asia and Pacific,Asia and Pacific,SDCL,Quarrying of sand and clay,material_extraction,kt,72.59334077542104,6,2.043974357357135,99.22727077595898
-DNK,Denmark,STON,Quarrying of stone,material_extraction,kt,65.66524994321017,7,1.8489035718660958,99.22727077595898
-RoW Asia and Pacific,Asia and Pacific,STON,Quarrying of stone,material_extraction,kt,44.20742747272708,8,1.2447264059456757,99.22727077595898
-POL,Europe,SDCL,Quarrying of sand and clay,material_extraction,kt,42.56975103737019,9,1.1986151703452486,99.22727077595898
-DNK,Denmark,BRIK,"Manufacture of bricks, tiles and construction products, in baked clay",material_extraction,kt,38.0782542874266,10,1.0721503447155956,99.22727077595898
-DEU,Europe,PLAS,"Plastics, basic",material_extraction,kt,33.66870387976034,11,0.9479928412246527,99.22727077595898
-DEU,Europe,SDCL,Quarrying of sand and clay,material_extraction,kt,29.05644819138324,12,0.8181278666151727,99.22727077595898
-RoW Africa,Africa,SDCL,Quarrying of sand and clay,material_extraction,kt,29.01118592699605,13,0.8168534396942579,99.22727077595898
-RoW Africa,Africa,CHMF,"Mining of chemical and fertilizer minerals, production of salt, other mining and quarrying n.e.c.",material_extraction,kt,22.01485680308699,14,0.6198613027826738,99.22727077595898
-GBR,Europe,OFOD,Processing of Food products nec,material_extraction,kt,21.52609513409573,15,0.6060994851337544,99.22727077595898
-TUR,Middle East,STON,Quarrying of stone,material_extraction,kt,21.51154846773114,16,0.6056899019307133,99.22727077595898
-DNK,Denmark,GLAS,Manufacture of glass and glass products,material_extraction,kt,21.46713006468199,17,0.6044392351910726,99.22727077595898
-DEU,Europe,STON,Quarrying of stone,material_extraction,kt,19.88709453787666,18,0.5599509657987809,99.22727077595898
-CHN,Asia and Pacific,CHMF,"Mining of chemical and fertilizer minerals, production of salt, other mining and quarrying n.e.c.",material_extraction,kt,19.87542417139665,19,0.5596223691317684,99.22727077595898
-RUS,Europe,SDCL,Quarrying of sand and clay,material_extraction,kt,19.81757250109556,20,0.5579934686105551,99.22727077595898
-OTH,Other,OTHER,All other pairs,material_extraction,kt,858.3663194280755,21,24.168590774156087,99.22727077595898
+RoW Middle East,Middle East,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,6.406039900576938,1,8.350165866315844,99.71236020432019
+RoW Middle East,Middle East,OCER,Cultivation of cereal grains nec,blue_water_consumption,Mm3,4.070611490912807,2,5.305973995477604,99.71236020432019
+IND,Asia and Pacific,SUGB,"Cultivation of sugar cane, sugar beet",blue_water_consumption,Mm3,3.666864126347527,3,4.779696058634851,99.71236020432019
+RoW Middle East,Middle East,PARI,Cultivation of paddy rice,blue_water_consumption,Mm3,3.209771341090399,4,4.183883258147993,99.71236020432019
+RoW Asia and Pacific,Asia and Pacific,PARI,Cultivation of paddy rice,blue_water_consumption,Mm3,3.016559631839882,5,3.93203502669834,99.71236020432019
+DNK,Denmark,POWB,Production of electricity by biomass and waste,blue_water_consumption,Mm3,2.73464823446316,6,3.5645682353209556,99.71236020432019
+RoW Asia and Pacific,Asia and Pacific,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,2.548548696299106,7,3.3219905999280392,99.71236020432019
+IND,Asia and Pacific,OTCR,Cultivation of crops nec,blue_water_consumption,Mm3,2.247498908589399,8,2.9295772368503554,99.71236020432019
+RoW Middle East,Middle East,FVEG,"Cultivation of vegetables, fruit, nuts",blue_water_consumption,Mm3,2.113539683238615,9,2.7549636271378266,99.71236020432019
+RoW Asia and Pacific,Asia and Pacific,SUGB,"Cultivation of sugar cane, sugar beet",blue_water_consumption,Mm3,2.107898314606104,10,2.7476101974799416,99.71236020432019
+IND,Asia and Pacific,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,2.069144357813728,11,2.6970950629795722,99.71236020432019
+RoW Asia and Pacific,Asia and Pacific,OTCR,Cultivation of crops nec,blue_water_consumption,Mm3,2.007679811343928,12,2.6169770546801727,99.71236020432019
+CHN,Asia and Pacific,PLAS,"Plastics, basic",blue_water_consumption,Mm3,1.876749537970486,13,2.446311633209436,99.71236020432019
+CHN,Asia and Pacific,WHEA,Cultivation of wheat,blue_water_consumption,Mm3,1.603148872535141,14,2.0896777419166637,99.71236020432019
+USA,America,OILS,Cultivation of oil seeds,blue_water_consumption,Mm3,1.30382389162838,15,1.6995126356584,99.71236020432019
+RoW Middle East,Middle East,OTCR,Cultivation of crops nec,blue_water_consumption,Mm3,1.286017969350255,16,1.6763029137814442,99.71236020432019
+IND,Asia and Pacific,OILS,Cultivation of oil seeds,blue_water_consumption,Mm3,1.285475754541949,17,1.6755961458476198,99.71236020432019
+IND,Asia and Pacific,PARI,Cultivation of paddy rice,blue_water_consumption,Mm3,1.135316769983491,18,1.4798664209566212,99.71236020432019
+DEU,Europe,CHEM,Chemicals nec,blue_water_consumption,Mm3,0.9230352034180168,19,1.2031609494494213,99.71236020432019
+RoW Asia and Pacific,Asia and Pacific,FVEG,"Cultivation of vegetables, fruit, nuts",blue_water_consumption,Mm3,0.9077894915633312,20,1.183288419038673,99.71236020432019
+OTH,Other,OTHER,All other pairs,blue_water_consumption,Mm3,30.197354803003883,21,39.361746920490226,99.71236020432019
+DNK,Denmark,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,857.3376084768523,1,17.726166071463197,85.0298623008508
+RoW Asia and Pacific,Asia and Pacific,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,189.2888731282833,2,3.913704434957924,85.0298623008508
+DNK,Denmark,TDRT,"Retail trade, except of motor vehicles and motorcycles; repair of personal and household goods (52)",climate_change,kt CO2eq,159.159668520099,3,3.290758142616207,85.0298623008508
+DEU,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,132.3948488315285,4,2.737373298674443,85.0298623008508
+RoW Middle East,Middle East,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,125.7584400969504,5,2.6001600443110466,85.0298623008508
+DNK,Denmark,HWAT,Steam and hot water supply,climate_change,kt CO2eq,86.30204045274652,6,1.7843662592725558,85.0298623008508
+RUS,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,76.04188525172577,7,1.5722290414320865,85.0298623008508
+DNK,Denmark,POWT,Transmission of electricity,climate_change,kt CO2eq,67.62431619110271,8,1.3981888201571748,85.0298623008508
+RoW Europe,Europe,HWAT,Steam and hot water supply,climate_change,kt CO2eq,59.49383490559208,9,1.2300843767233534,85.0298623008508
+DNK,Denmark,MILK,Raw milk,climate_change,kt CO2eq,58.98468964130859,10,1.2195573761346095,85.0298623008508
+USA,America,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,53.36994474272004,11,1.103467868877249,85.0298623008508
+RoW Middle East,Middle East,TAUX,Supporting and auxiliary transport activities; activities of travel agencies (63),climate_change,kt CO2eq,53.10511641934448,12,1.0979923236612608,85.0298623008508
+NOR,Europe,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,51.14719768360906,13,1.0575107300382598,85.0298623008508
+CHN,Asia and Pacific,POWC,Production of electricity by coal,climate_change,kt CO2eq,41.15597885579844,14,0.8509339947510399,85.0298623008508
+GBR,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,37.05313602650318,15,0.7661043166427767,85.0298623008508
+RoW Middle East,Middle East,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,36.13743466156596,16,0.7471714315036536,85.0298623008508
+NLD,Europe,TWAS,Sea and coastal water transport,climate_change,kt CO2eq,35.64080809206605,17,0.7369032653116953,85.0298623008508
+DNK,Denmark,CHEM,Chemicals nec,climate_change,kt CO2eq,35.47850124138584,18,0.7335474365678647,85.0298623008508
+RoW Africa,Africa,CATL,Cattle farming,climate_change,kt CO2eq,33.31215449782075,19,0.6887564210272871,85.0298623008508
+RoW Asia and Pacific,Asia and Pacific,COIL,"Extraction of crude petroleum and services related to crude oil extraction, excluding surveying",climate_change,kt CO2eq,32.21658210002582,20,0.6661045531113021,85.0298623008508
+OTH,Other,OTHER,All other pairs,climate_change,kt CO2eq,2615.5623036151314,21,54.07891979276501,85.0298623008508
+RoW Africa,Africa,CATL,Cattle farming,land_use,km2,385.6739165237967,1,9.063132522677236,99.95116176479189
+RoW Africa,Africa,MILK,Raw milk,land_use,km2,164.2488193240408,2,3.859760156051937,99.95116176479189
+RoW Asia and Pacific,Asia and Pacific,CATL,Cattle farming,land_use,km2,136.9578670589471,3,3.218437249701486,99.95116176479189
+RoW Asia and Pacific,Asia and Pacific,MILK,Raw milk,land_use,km2,135.6160359065538,4,3.1869049291680938,99.95116176479189
+RUS,Europe,WHEA,Cultivation of wheat,land_use,km2,108.5301699853906,5,2.5504014431465736,99.95116176479189
+RoW Africa,Africa,FORE,"Forestry, logging and related service activities (02)",land_use,km2,103.1776281151558,6,2.4246195475484473,99.95116176479189
+RoW Europe,Europe,CATL,Cattle farming,land_use,km2,101.6082315412501,7,2.387739560283181,99.95116176479189
+AUS,Asia and Pacific,CATL,Cattle farming,land_use,km2,95.19921886775995,8,2.2371311610351725,99.95116176479189
+DNK,Denmark,MILK,Raw milk,land_use,km2,92.52902852463396,9,2.1743831039234838,99.95116176479189
+RoW Africa,Africa,OCER,Cultivation of cereal grains nec,land_use,km2,86.40214156789786,10,2.030404509413228,99.95116176479189
+RoW Africa,Africa,OILS,Cultivation of oil seeds,land_use,km2,84.38200398599135,11,1.982932347479431,99.95116176479189
+RoW Middle East,Middle East,CATL,Cattle farming,land_use,km2,79.23120959009199,12,1.8618914105452924,99.95116176479189
+SWE,Europe,FORE,"Forestry, logging and related service activities (02)",land_use,km2,75.93119832700523,13,1.7843428957967267,99.95116176479189
+DNK,Denmark,OCER,Cultivation of cereal grains nec,land_use,km2,75.8761384127254,14,1.7830490170083886,99.95116176479189
+RoW America,America,CATL,Cattle farming,land_use,km2,70.67556897913647,15,1.6608383930833124,99.95116176479189
+DNK,Denmark,FORE,"Forestry, logging and related service activities (02)",land_use,km2,69.70877063401198,16,1.6381191446478853,99.95116176479189
+RoW Asia and Pacific,Asia and Pacific,FORE,"Forestry, logging and related service activities (02)",land_use,km2,68.69196873174538,17,1.6142248391355654,99.95116176479189
+CHN,Asia and Pacific,FORE,"Forestry, logging and related service activities (02)",land_use,km2,66.33441273739291,18,1.5588235234359333,99.95116176479189
+RoW Europe,Europe,OCER,Cultivation of cereal grains nec,land_use,km2,61.44309379711001,19,1.4438801221138222,99.95116176479189
+RoW Europe,Europe,MILK,Raw milk,land_use,km2,60.36585180689987,20,1.4185655065850724,99.95116176479189
+OTH,Other,OTHER,All other pairs,land_use,km2,2132.8318986342324,21,50.12041861721973,99.95116176479189
+DNK,Denmark,SDCL,Quarrying of sand and clay,material_extraction,kt,1509.701438134265,1,42.507907665497974,99.1088465455969
+CHN,Asia and Pacific,SDCL,Quarrying of sand and clay,material_extraction,kt,298.1420864540065,2,8.394637483983583,99.1088465455969
+RoW Middle East,Middle East,SDCL,Quarrying of sand and clay,material_extraction,kt,166.500257231854,3,4.688064395990771,99.1088465455969
+RoW Europe,Europe,CHEM,Chemicals nec,material_extraction,kt,139.1853476515032,4,3.9189721602650773,99.1088465455969
+IND,Asia and Pacific,SDCL,Quarrying of sand and clay,material_extraction,kt,78.73232964029265,5,2.2168267937633552,99.1088465455969
+RoW Asia and Pacific,Asia and Pacific,SDCL,Quarrying of sand and clay,material_extraction,kt,72.59334077542104,6,2.043974357357135,99.1088465455969
+DNK,Denmark,STON,Quarrying of stone,material_extraction,kt,65.66524994321017,7,1.8489035718660958,99.1088465455969
+RoW Asia and Pacific,Asia and Pacific,STON,Quarrying of stone,material_extraction,kt,44.20742747272708,8,1.2447264059456757,99.1088465455969
+POL,Europe,SDCL,Quarrying of sand and clay,material_extraction,kt,42.56975103737019,9,1.1986151703452486,99.1088465455969
+DNK,Denmark,BRIK,"Manufacture of bricks, tiles and construction products, in baked clay",material_extraction,kt,38.0782542874266,10,1.0721503447155956,99.1088465455969
+DEU,Europe,PLAS,"Plastics, basic",material_extraction,kt,33.66870387976034,11,0.9479928412246527,99.1088465455969
+DEU,Europe,SDCL,Quarrying of sand and clay,material_extraction,kt,29.05644819138324,12,0.8181278666151727,99.1088465455969
+RoW Africa,Africa,SDCL,Quarrying of sand and clay,material_extraction,kt,29.01118592699605,13,0.8168534396942579,99.1088465455969
+RoW Africa,Africa,CHMF,"Mining of chemical and fertilizer minerals, production of salt, other mining and quarrying n.e.c.",material_extraction,kt,22.01485680308699,14,0.6198613027826738,99.1088465455969
+GBR,Europe,OFOD,Processing of Food products nec,material_extraction,kt,21.52609513409573,15,0.6060994851337544,99.1088465455969
+TUR,Middle East,STON,Quarrying of stone,material_extraction,kt,21.51154846773114,16,0.6056899019307133,99.1088465455969
+DNK,Denmark,GLAS,Manufacture of glass and glass products,material_extraction,kt,21.46713006468199,17,0.6044392351910726,99.1088465455969
+DEU,Europe,STON,Quarrying of stone,material_extraction,kt,19.88709453787666,18,0.5599509657987809,99.1088465455969
+CHN,Asia and Pacific,CHMF,"Mining of chemical and fertilizer minerals, production of salt, other mining and quarrying n.e.c.",material_extraction,kt,19.87542417139665,19,0.5596223691317684,99.1088465455969
+RUS,Europe,SDCL,Quarrying of sand and clay,material_extraction,kt,19.81757250109556,20,0.5579934686105551,99.1088465455969
+OTH,Other,OTHER,All other pairs,material_extraction,kt,858.3663194280755,21,24.168590774156087,99.1088465455969
 DNK,Denmark,CHEM,Chemicals nec,waste_generation,kt,22.03378464178222,1,11.985480337326457,81.1305777002328
 DNK,Denmark,INCF,Incineration of waste: Food,waste_generation,kt,12.45830961846984,2,6.776812399506942,81.1305777002328
 DNK,Denmark,HORE,Hotels and restaurants (55),waste_generation,kt,7.37470568450594,3,4.011539161892533,81.1305777002328

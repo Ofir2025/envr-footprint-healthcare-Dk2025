@@ -1,8 +1,8 @@
 indicator,unit,producing_sector_group,value
 land_use,km2,Food and catering,4071.5711765664755
 material_extraction,kt,Minerals and Metals,2983.728074762001
+climate_change,kt CO2eq,Private travel,707.7282098561154
 climate_change,kt CO2eq,Transport,664.851045745032
-climate_change,kt CO2eq,Private travel,603.898407534464
 climate_change,kt CO2eq,Food and catering,528.6398854233189
 climate_change,kt CO2eq,Coal and Petroleum,476.93017643263084
 climate_change,kt CO2eq,Electricity,358.4573032562901
@@ -11,7 +11,7 @@ climate_change,kt CO2eq,Services,266.79056206043686
 climate_change,kt CO2eq,"Steam, hot water supply and water distribution",233.19240848826075
 material_extraction,kt,Chemical,220.73603424887608
 climate_change,kt CO2eq,Waste management and disposal,204.2877635494644
-climate_change,kt CO2eq,Operational impact,130.3030621077094
+climate_change,kt CO2eq,Operational impact,131.2330621077094
 material_extraction,kt,Non-metallic mineral products,127.72357147784399
 climate_change,kt CO2eq,Minerals and Metals,99.67717979172542
 climate_change,kt CO2eq,Natural gas and gaseous fuels,90.63462359196772
@@ -23,8 +23,8 @@ waste_generation,kt,Chemical,42.9661990330265
 waste_generation,kt,Operational impact,42.75704592555413
 material_extraction,kt,Food and catering,40.28640551388153
 waste_generation,kt,Waste management and disposal,32.28535786436362
+material_extraction,kt,Private travel,31.93459504757609
 material_extraction,kt,Services,29.888039107121507
-material_extraction,kt,Private travel,27.65779995517178
 material_extraction,kt,Transport,21.566821506572637
 climate_change,kt CO2eq,Paper Products,17.88089482307918
 climate_change,kt CO2eq,Textile,13.733168176363387
@@ -56,7 +56,7 @@ climate_change,kt CO2eq,General and special Machinery,2.4731394587189177
 material_extraction,kt,"Electrical, electronic and measuring equipment",2.46787850822869
 waste_generation,kt,Transport,2.330717394304028
 material_extraction,kt,Waste management and disposal,2.1966597368814234
-land_use,km2,Private travel,1.8004505070789105
+land_use,km2,Private travel,2.079285157472756
 land_use,km2,Electricity,1.7980113235542587
 land_use,km2,Coal and Petroleum,1.3654484400820022
 land_use,km2,Construction,1.112301567142255
@@ -79,8 +79,8 @@ land_use,km2,General and special Machinery,0.3158767335392637
 blue_water_consumption,Mm3,Textile,0.28982970449835715
 waste_generation,kt,Minerals and Metals,0.2601794442322233
 blue_water_consumption,Mm3,"Electrical, electronic and measuring equipment",0.2336540923022341
+blue_water_consumption,Mm3,Private travel,0.2213066746152781
 waste_generation,kt,Transport Equipment,0.19980731231447502
-blue_water_consumption,Mm3,Private travel,0.19237580184708641
 land_use,km2,Metal Products,0.17551896356242344
 material_extraction,kt,Transport Equipment,0.1411498920597995
 blue_water_consumption,Mm3,General and special Machinery,0.12316623298007702

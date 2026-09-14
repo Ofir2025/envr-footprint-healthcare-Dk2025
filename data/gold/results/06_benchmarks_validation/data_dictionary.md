@@ -57,7 +57,7 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `check` | dimension | str |  | C1 scope partition vs grand total |
 | `status` | dimension | str |  | PASS |
-| `detail` | dimension | str |  | partition total 4,160.31 + self-supply l |
+| `detail` | dimension | str |  | partition total 4,265.07 + self-supply l |
 | `known_conventions` | dimension | str |  | the capital baseline excludes the bottom |
 
 ### `danish_healthcare_benchmark_boundary_matched.csv`
@@ -218,12 +218,12 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
-| `per_capita_2019` | measure | float64 | varies by row | 8.639809360694041 |
-| `per_capita_2022` | measure | float64 | varies by row | 12.72721471699587 |
-| `value_2019` | measure | float64 | varies by row | 50.23549762262537 |
-| `value_2022` | measure | float64 | varies by row | 74.75227746309788 |
-| `ratio_2022_over_2019` | measure | float64 | varies by row | 1.488036965904972 |
-| `change_pct` | measure | float64 | % | 48.80369659049719 |
+| `per_capita_2019` | measure | float64 | varies by row | 8.645551790519882 |
+| `per_capita_2022` | measure | float64 | varies by row | 12.732140445577883 |
+| `value_2019` | measure | float64 | varies by row | 50.26888653293819 |
+| `value_2022` | measure | float64 | varies by row | 74.78120833586607 |
+| `ratio_2022_over_2019` | measure | float64 | varies by row | 1.487624124852386 |
+| `change_pct` | measure | float64 | % | 48.762412485238606 |
 | `per_capita_unit` | dimension | str |  | m3 per person |
 | `comparable_as_a_trend` | dimension | bool |  | False |
 | `why_not` | dimension | str |  | the background model and the sea-transpo |
@@ -234,11 +234,11 @@ units and are labelled as such wherever they are quoted.
 |:---|:---|:---|:---|:---|
 | `contribution_group` | dimension | str |  | Transport |
 | `value_2019` | measure | float64 |  | 2617.155232125088 |
-| `share_pct_2019` | measure | float64 | % | 42.184028143881434 |
+| `share_pct_2019` | measure | float64 | % | 41.477252498257585 |
 | `value_2022` | measure | float64 |  | 566.5316460762235 |
-| `share_pct_2022` | measure | float64 | % | 13.611610341108236 |
+| `share_pct_2022` | measure | float64 | % | 13.277420147259145 |
 | `delta_kt` | measure | float64 |  | -2050.623586048864 |
-| `share_of_total_change_pct` | measure | float64 | % | 100.42146824230645 |
+| `share_of_total_change_pct` | measure | float64 | % | 100.3743195593591 |
 | `driver` | dimension | str |  | sea-transport reallocation, applied in 2 |
 
 ### `year_comparison_run_differences.csv`
@@ -265,7 +265,7 @@ units and are labelled as such wherever they are quoted.
 | `delta_2019_2022_kt` | measure | float64 |  | -231.23404584373588 |
 | `delta_year_kt` | measure | float64 |  | -231.23404584373588 |
 | `share_of_correction_change_pct` | measure | float64 | % | 78.65397423112428 |
-| `share_of_2016_2019_change_pct` | measure | float64 | % | 19.892811221272265 |
-| `share_of_2019_2022_change_pct` | measure | float64 | % | -84.93513528522647 |
-| `share_of_year_change_pct` | measure | float64 | % | -84.93513528522647 |
+| `share_of_2016_2019_change_pct` | measure | float64 | % | 21.664700500348616 |
+| `share_of_2019_2022_change_pct` | measure | float64 | % | -85.235439996198 |
+| `share_of_year_change_pct` | measure | float64 | % | -85.235439996198 |
 | `driver` | dimension | str |  | correction step: sea-transport reallocat |

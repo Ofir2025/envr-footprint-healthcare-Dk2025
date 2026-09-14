@@ -1,13 +1,13 @@
 indicator,unit,purchased_world_region,value
-climate_change,kt CO2eq,Denmark,5184.274443689993
-material_extraction,kt,Denmark,2026.478363514765
-land_use,km2,Denmark,1620.8615621254398
+climate_change,kt CO2eq,Denmark,5306.597337880779
+material_extraction,kt,Denmark,2031.9415223654537
+land_use,km2,Denmark,1621.2178012715049
 land_use,km2,Europe,499.6495368493984
 land_use,km2,Asia and Pacific,415.9474646229037
 climate_change,kt CO2eq,Europe,345.61007908189873
 material_extraction,kt,Europe,260.5744180376955
 land_use,km2,Africa,224.31371635322319
-waste_generation,kt,Denmark,193.3371086130377
+waste_generation,kt,Denmark,191.46481945579256
 climate_change,kt CO2eq,Asia and Pacific,190.68167546814738
 land_use,km2,Middle East,147.67857746422973
 land_use,km2,America,122.70899175278754
@@ -17,7 +17,7 @@ climate_change,kt CO2eq,Middle East,71.7858557409471
 climate_change,kt CO2eq,America,47.95175210302298
 climate_change,kt CO2eq,Africa,42.61280791977334
 waste_generation,kt,Europe,24.79995307354084
-blue_water_consumption,Mm3,Denmark,22.671416024086145
+blue_water_consumption,Mm3,Denmark,22.7084226886124
 material_extraction,kt,America,22.63967639994459
 material_extraction,kt,Africa,13.337920229380686
 blue_water_consumption,Mm3,Asia and Pacific,11.205034435305524

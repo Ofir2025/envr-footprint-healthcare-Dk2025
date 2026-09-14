@@ -6,51 +6,51 @@ Asia and Pacific,Scope 2,blue_water_consumption,Mm3,0.0024058785960209246,5.4069
 Middle East,Scope 2,blue_water_consumption,Mm3,0.0008651708933637522,1.944362584266888
 America,Scope 2,blue_water_consumption,Mm3,0.000423483041856978,0.9517247840560955
 Africa,Scope 2,blue_water_consumption,Mm3,3.413812160929855e-05,0.07672112742512886
-Asia and Pacific,Scope 3,blue_water_consumption,Mm3,34.42345552423169,49.73921261540787
-Middle East,Scope 3,blue_water_consumption,Mm3,12.39769091140148,17.913697936229234
-Europe,Scope 3,blue_water_consumption,Mm3,7.398476532812014,10.69022245708599
-Denmark,Scope 3,blue_water_consumption,Mm3,6.676139434418457,9.646501599611272
-America,Scope 3,blue_water_consumption,Mm3,5.0194241093846195,7.252676966373735
-Africa,Scope 3,blue_water_consumption,Mm3,3.2926953864857538,4.757688425291896
+Asia and Pacific,Scope 3,blue_water_consumption,Mm3,34.42345552423169,49.68974156649568
+Middle East,Scope 3,blue_water_consumption,Mm3,12.39769091140148,17.895880818100448
+Europe,Scope 3,blue_water_consumption,Mm3,7.398476532812014,10.679589869832428
+Denmark,Scope 3,blue_water_consumption,Mm3,6.745042721144945,9.736367966682963
+America,Scope 3,blue_water_consumption,Mm3,5.0194241093846195,7.245463391448009
+Africa,Scope 3,blue_water_consumption,Mm3,3.2926953864857538,4.752956387440463
 Denmark,Outside protocol,climate_change,kt CO2eq,293.4753186512448,100.0
-Denmark,Scope 1,climate_change,kt CO2eq,163.5946084095433,100.0
+Denmark,Scope 1,climate_change,kt CO2eq,198.59996446025002,100.0
 Europe,Scope 2,climate_change,kt CO2eq,12.545617331775684,50.09435865290632
 Denmark,Scope 2,climate_change,kt CO2eq,6.496692523916687,25.94114237220038
 Asia and Pacific,Scope 2,climate_change,kt CO2eq,4.0168820580623095,16.039316771868815
 Middle East,Scope 2,climate_change,kt CO2eq,1.3263439621365716,5.296060638490884
 America,Scope 2,climate_change,kt CO2eq,0.4396108227534309,1.7553558059619727
 Africa,Scope 2,climate_change,kt CO2eq,0.21882565501239803,0.8737657585716178
-Denmark,Scope 3,climate_change,kt CO2eq,1818.9434214225766,34.61976647424412
-Europe,Scope 3,climate_change,kt CO2eq,1494.338936713689,28.44160209333934
-Asia and Pacific,Scope 3,climate_change,kt CO2eq,1190.695350364913,22.66238437442029
-Middle East,Scope 3,climate_change,kt CO2eq,322.9460004228052,6.146598616951292
-America,Scope 3,climate_change,kt CO2eq,267.59131444460877,5.093038468103173
-Africa,Scope 3,climate_change,kt CO2eq,159.5453203827319,3.03660997294178
+Denmark,Scope 3,climate_change,kt CO2eq,2063.4373945948914,37.52690754084165
+Europe,Scope 3,climate_change,kt CO2eq,1494.338936713689,27.176942348543527
+Asia and Pacific,Scope 3,climate_change,kt CO2eq,1190.695350364913,21.654698339528082
+Middle East,Scope 3,climate_change,kt CO2eq,322.9460004228052,5.87328926494062
+America,Scope 3,climate_change,kt CO2eq,267.59131444460877,4.866575812864247
+Africa,Scope 3,climate_change,kt CO2eq,159.5453203827319,2.901586693281865
 Denmark,Outside protocol,land_use,km2,0.9870380080591756,100.0
 Asia and Pacific,Scope 2,land_use,km2,0.07258566815210335,62.17264545682725
 Europe,Scope 2,land_use,km2,0.0232724402464579,19.93381356394247
 Africa,Scope 2,land_use,km2,0.011051031931708859,9.465668743069937
 America,Scope 2,land_use,km2,0.009748729251116403,8.350192301242842
 Middle East,Scope 2,land_use,km2,9.069020525940154e-05,0.07767993491751407
-Europe,Scope 3,land_use,km2,1585.0351604026725,31.097095014795265
-Asia and Pacific,Scope 3,land_use,km2,1391.1995276817709,27.2941982472286
-America,Scope 3,land_use,km2,771.6941408625562,15.140008638462788
-Africa,Scope 3,land_use,km2,768.7314080245307,15.081882240469113
-Denmark,Scope 3,land_use,km2,454.72373214111553,8.92130815589114
-Middle East,Scope 3,land_use,km2,125.66821421364214,2.465507703153085
+Europe,Scope 3,land_use,km2,1585.0351604026725,31.093051226239105
+Asia and Pacific,Scope 3,land_use,km2,1391.1995276817709,27.290648977868575
+America,Scope 3,land_use,km2,771.6941408625562,15.138039869558707
+Africa,Scope 3,land_use,km2,768.7314080245307,15.079921030176628
+Denmark,Scope 3,land_use,km2,455.38662627585796,8.933151801466865
+Middle East,Scope 3,land_use,km2,125.66821421364214,2.4651870946901275
 Denmark,Outside protocol,material_extraction,kt,15.1869815083494,100.0
 Europe,Scope 2,material_extraction,kt,0.23098657327805508,83.3268795422518
 Asia and Pacific,Scope 2,material_extraction,kt,0.03450209805100668,12.44640382101521
 America,Scope 2,material_extraction,kt,0.008267823751413985,2.9825627699205044
 Middle East,Scope 2,material_extraction,kt,0.003393372372982529,1.224136654147178
 Africa,Scope 2,material_extraction,kt,5.548878567802327e-05,0.020017212665311868
-Denmark,Scope 3,material_extraction,kt,2742.8946217098146,51.120600411845025
-Europe,Scope 3,material_extraction,kt,1187.979571343495,22.14092677254545
-Asia and Pacific,Scope 3,material_extraction,kt,865.8127541147054,16.13655423881592
-America,Scope 3,material_extraction,kt,255.99025155768877,4.771009157854834
-Middle East,Scope 3,material_extraction,kt,231.0500532446922,4.306187103788423
-Africa,Scope 3,material_extraction,kt,81.80953674514735,1.5247223151503495
-Denmark,Scope 1,waste_generation,kt,42.71652604695465,100.0
+Denmark,Scope 3,material_extraction,kt,2753.0617694128123,51.2130467372239
+Europe,Scope 3,material_extraction,kt,1187.979571343495,22.099051312988852
+Asia and Pacific,Scope 3,material_extraction,kt,865.8127541147054,16.1060349371014
+America,Scope 3,material_extraction,kt,255.99025155768877,4.7619856782558845
+Middle East,Scope 3,material_extraction,kt,231.0500532446922,4.298042748958099
+Africa,Scope 3,material_extraction,kt,81.80953674514735,1.5218385854718661
+Denmark,Scope 1,waste_generation,kt,49.437,100.0
 Denmark,Scope 2,waste_generation,kt,10.413632296719197,96.98889968708251
 Europe,Scope 2,waste_generation,kt,0.25737384123276963,2.397089215188496
 Asia and Pacific,Scope 2,waste_generation,kt,0.04625582715577953,0.43081046575538606

@@ -62,10 +62,10 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `layer` | dimension | str |  | 0 |
-| `value` | measure | float64 | varies by row | 378.3964368483613 |
-| `share_pct` | measure | float64 | % | 10.707649655433512 |
-| `cumulative_share_pct` | measure | float64 | % | 10.707649655433512 |
-| `truncation_error_pct` | measure | float64 | % | 89.29235034456649 |
+| `value` | measure | float64 | varies by row | 379.3264368483613 |
+| `share_pct` | measure | float64 | % | 10.73114219902257 |
+| `cumulative_share_pct` | measure | float64 | % | 10.73114219902257 |
+| `truncation_error_pct` | measure | float64 | % | 89.26885780097743 |
 
 ### `production_layers_by_producing_node.csv.gz`
 

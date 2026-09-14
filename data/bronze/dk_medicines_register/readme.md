@@ -1,4 +1,4 @@
-# Danish Medicines Agency ATC sales register
+# Register of Medicinal Product Statistics, ATC sales (medstat.dk)
 
 National sales of medicines by ATC code, for 2019 and 2022. The study reads one
 ATC group from it — **N01AB**, the volatile anaesthetic agents — and that single
@@ -6,7 +6,7 @@ extraction replaced a population-scaled Dutch proxy with a Danish measurement.
 
 | item | value |
 |:---|:---|
-| Provider | Danish Medicines Agency (Lægemiddelstyrelsen) |
+| Provider | Danish Health Data Authority (Sundhedsdatastyrelsen), which asks users to cite "The Danish Health Data Authority, medstat.dk" |
 | Dataset | medstat.dk, the national medicine statistics register — mandatory reporting, covering all sales in Denmark |
 | URL | <https://medstat.dk/> — the "Download data" page serves one `<year>_atc_code_data.txt` per year |
 | Licence | Danish public-sector open data; free reuse with attribution |
@@ -81,12 +81,16 @@ moved.
 
 **Sales, not consumption.** The register records what was sold, not what was
 administered or exhaled. The study applies a 5 % downward correction to
-sevoflurane for the fraction metabolised rather than exhaled; the other two
-agents are taken as fully exhaled.
+sevoflurane for the fraction metabolised rather than exhaled (Kharasch et al.
+1995, Anesthesiology 82: 1369-1378); the other two agents are taken as fully
+exhaled, their metabolism being negligible.
 
 **Sector totals are not additive with the parts you might expect.** `sector = 2`
-is the total, and for the volatile agents primary-care sales are nil, so the
-total equals the hospital figure. Do not add sectors 0, 1 and 2.
+is the total. For desflurane and isoflurane primary-care sales are nil, but not
+for sevoflurane: 688 L in 2016, 690 L in 2019 and 648 L in 2022 are sold outside
+hospitals (2022: 2,400 L in total, 1,752 L hospital). The study reads the total,
+which suits a boundary that includes private providers. Do not add sectors 0, 1
+and 2.
 
 **ATC levels are nested.** `A`, `A01`, `A01A`, `A01AA` and `A01AA01` all appear
 as rows in the same file. Summing the `atc` column double-counts.

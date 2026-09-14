@@ -1,10 +1,10 @@
 indicator,mrio_spread_multiplier,basis,median,p2_5,p97_5,cv_pct,draws,seed
-Global warming (ktCO2eq),1.0,carbon calibration applied unchanged (default),4183.455029529441,3588.0468545553667,4885.958471111916,7.874316089650438,40000,23
-Material extraction (kt),1.0,carbon calibration applied unchanged (default),3492.812244263957,2971.4974218734505,4107.88997878311,8.279005683603813,40000,23
-Blue water consumption (Mm3),1.0,carbon calibration applied unchanged (default),74.71192692143157,63.50752700193634,87.94197446165985,8.323459237690335,40000,23
-Land use (km2),1.0,carbon calibration applied unchanged (default),4115.089119424523,3496.688903375644,4845.65293933633,8.342032297739607,40000,23
+Global warming (ktCO2eq),1.0,carbon calibration applied unchanged (default),4290.204538211909,3675.2848055648064,5019.8946504225605,7.956682447488933,40000,23
+Material extraction (kt),1.0,carbon calibration applied unchanged (default),3497.252647734742,2975.945591125616,4112.568204385121,8.269305901433354,40000,23
+Blue water consumption (Mm3),1.0,carbon calibration applied unchanged (default),74.73997232152671,63.54134662597368,87.97214498563388,8.32020956068834,40000,23
+Land use (km2),1.0,carbon calibration applied unchanged (default),4115.401300294674,3496.9262742429673,4845.907023347374,8.341450883348257,40000,23
 Waste generation (kt),1.0,carbon calibration applied unchanged (default),221.17690588517166,193.0067339738136,254.03697509923762,6.985484049300289,40000,23
-Material extraction (kt),3.0,"bound: three times the carbon spread, after the carbon-to-other ratio in Schulte et al. (2021) industry footprints. NOT an estimate",3488.491750170569,2165.012632190783,5640.498253329272,24.8445776612058,40000,23
-Blue water consumption (Mm3),3.0,"bound: three times the carbon spread, after the carbon-to-other ratio in Schulte et al. (2021) industry footprints. NOT an estimate",74.63240027302078,46.161998052410524,120.94477283913207,24.980117911612485,40000,23
-Land use (km2),3.0,"bound: three times the carbon spread, after the carbon-to-other ratio in Schulte et al. (2021) industry footprints. NOT an estimate",4110.016121003891,2538.7436337730105,6667.837386678414,25.034611040696568,40000,23
+Material extraction (kt),3.0,"bound: three times the carbon spread, after the carbon-to-other ratio in Schulte et al. (2021) industry footprints. NOT an estimate",3492.634204737045,2169.7313137668943,5646.618929013108,24.81440881912142,40000,23
+Blue water consumption (Mm3),3.0,"bound: three times the carbon spread, after the carbon-to-other ratio in Schulte et al. (2021) industry footprints. NOT an estimate",74.6589862201314,46.190652849021546,120.97113567526301,24.97046675897682,40000,23
+Land use (km2),3.0,"bound: three times the carbon spread, after the carbon-to-other ratio in Schulte et al. (2021) industry footprints. NOT an estimate",4110.281991957226,2539.0304636393403,6668.065209805452,25.03291445797348,40000,23
 Waste generation (kt),3.0,"bound: three times the carbon spread, after the carbon-to-other ratio in Schulte et al. (2021) industry footprints. NOT an estimate",220.96091776164695,152.06741472076635,331.93808453316376,20.384706109175095,40000,23

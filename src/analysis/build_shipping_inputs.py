@@ -296,17 +296,17 @@ def expenditure_frame(analysis_year: str) -> pd.DataFrame:
     from analysis.extra_functions import (TRADE_MARGIN_DIVISIONS,
                                           calculate_healthcare_totals,
                                           calculate_healthcare_totals_2022,
-                                          eldercare_share_of_social_work,
                                           eldercare_share_of_social_work_io,
                                           trade_margins_meur)
 
     io_2022 = str(DST_IO).format(year="2022")
     if analysis_year == "2022":
         hc51, hc52, services, breakdown = calculate_healthcare_totals_2022(io_2022)
-        alpha = eldercare_share_of_social_work_io(io_2022)
     else:
         hc51, hc52, services, breakdown = calculate_healthcare_totals(DK_UMAT)
-        alpha = eldercare_share_of_social_work(DK_UMAT)
+    # The eldercare share comes from each analysis year's own IO table, as in
+    # analysis.main_2025 (0.3060 for 2019, 0.3092 for 2022).
+    alpha = eldercare_share_of_social_work_io(str(DST_IO).format(year=analysis_year))
 
     to_meur = 1.0 / (DKK_PER_EUR_BY_YEAR[analysis_year] * 1000.0)
     # The same distribution-margin split analysis.main_2025 writes: the
@@ -323,9 +323,12 @@ def expenditure_frame(analysis_year: str) -> pd.DataFrame:
     drivhus = pd.read_csv(DRIVHUS, comment="#")
     dh = drivhus[drivhus["year"] == int(analysis_year)].set_index(
         ["industry_code", "emtype"])["value_kt_co2e"]
+    # Medical N2O netted like for like, as in analysis.main_2025: the 38 t per
+    # year of NID category 2.G.3.a on the AR5 value (265) DRIVHUS is published on.
+    medical_n2o_kt = min(38.0 * 265.0 / 1e3, float(dh[("V860010", "N2O")]))
     direct_kt = (dh[("VQA", "GHGEXBIO")] + dh[("V870000", "GHGEXBIO")]
                  + alpha * dh[("V880000", "GHGEXBIO")]
-                 - dh[("V860010", "N2O")])
+                 - medical_n2o_kt)
 
     rows = [dict(Index="Expenditure", Unit="MEUR", **expenditure),
             dict(Index="Conversion", Unit="na",

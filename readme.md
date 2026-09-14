@@ -14,10 +14,10 @@ submitted manuscript. v3.10.2 is rejected on evidence set out in
 
 | Indicator | Health care footprint | Share of the national consumption footprint |
 |:---|:---|:---|
-| Climate change | 4,162.1 kt CO₂-eq (≈ 0.71 t per capita) | 5.4 % |
-| Material extraction | 3,494.0 kt | 6.5 % |
+| Climate change | 4,266.9 kt CO₂-eq (≈ 0.73 t per capita) | 5.5 % |
+| Material extraction | 3,498.3 kt | 6.5 % |
 | Blue water | 74.8 Mm³ | 5.9 % |
-| Land use | 4,117.4 km² | 4.1 % |
+| Land use | 4,117.7 km² | 4.1 % |
 | Waste generation | 221.1 kt | 2.1 % |
 
 Every cell above is read from
@@ -39,19 +39,19 @@ configuration the manuscript was submitted on.
 
 | Variant | EXIOBASE background | Shipping correction | Care boundary | Capital | Climate footprint, kt CO₂-eq | Share of national | Arising in transport |
 |:---|:---|:---|:---|:---|---:|---:|---:|
-| `2016a` | v3.7, `IOT_2016_ixi` | no | health care | excluded | 7,625 | 9.6 % | 37.3 % |
-| `2016b` | v3.7, `IOT_2016_ixi` | yes | health care | excluded | 5,665 | 8.6 % | 17.8 % |
-| `2016c` | v3.8.2, `IOT_2016_ixi` | yes | health care | excluded | 3,687 | 5.0 % | 21.9 % |
-| `2016d` | v3.8.2, `IOT_2016_ixi` | yes | + child and elder care | endogenised | 5,449 | 6.0 % | 20.3 % |
-| `2019a` | v3.7, `IOT_2016_ixi` | no | health care | excluded | 8,047 | 10.2 % | 37.3 % |
-| `2019b` | v3.7, `IOT_2016_ixi` | yes | health care | excluded | 5,983 | 9.0 % | 17.8 % |
-| `2019c` | v3.8.2, `IOT_2016_ixi` | yes | health care | excluded | 3,890 | 5.2 % | 21.9 % |
-| `2019d` | v3.8.2, `IOT_2016_ixi` | yes | + child and elder care | endogenised | 5,739 | 6.3 % | 20.3 % |
-| `2022c` | v3.8.2, `IOT_2022_ixi` | yes | health care | excluded | 4,162 | 5.4 % | 16.0 % |
-| `2022d` | v3.8.2, `IOT_2022_ixi` | yes | + child and elder care | endogenised | 5,949 | 6.3 % | 15.3 % |
-| `2016_uncorrected` | v3.8.2, `IOT_2016_ixi` | no | health care | excluded | 5,883 | 6.8 % | 48.3 % |
-| `2019_uncorrected` | v3.8.2, `IOT_2016_ixi` | no | health care | excluded | 6,204 | 7.2 % | 48.2 % |
-| `2022_uncorrected` | v3.8.2, `IOT_2022_ixi` | no | health care | excluded | 5,583 | 6.5 % | 34.7 % |
+| `2016a` | v3.7, `IOT_2016_ixi` | no | health care | excluded | 7,747 | 9.8 % | 36.7 % |
+| `2016b` | v3.7, `IOT_2016_ixi` | yes | health care | excluded | 5,788 | 8.7 % | 17.4 % |
+| `2016c` | v3.8.2, `IOT_2016_ixi` | yes | health care | excluded | 3,809 | 5.1 % | 21.2 % |
+| `2016d` | v3.8.2, `IOT_2016_ixi` | yes | + child and elder care | endogenised | 5,748 | 6.3 % | 19.3 % |
+| `2019a` | v3.7, `IOT_2016_ixi` | no | health care | excluded | 8,153 | 10.3 % | 36.8 % |
+| `2019b` | v3.7, `IOT_2016_ixi` | yes | health care | excluded | 6,088 | 9.2 % | 17.5 % |
+| `2019c` | v3.8.2, `IOT_2016_ixi` | yes | health care | excluded | 3,996 | 5.4 % | 21.3 % |
+| `2019d` | v3.8.2, `IOT_2016_ixi` | yes | + child and elder care | endogenised | 6,018 | 6.6 % | 19.4 % |
+| `2022c` | v3.8.2, `IOT_2022_ixi` | yes | health care | excluded | 4,267 | 5.5 % | 15.6 % |
+| `2022d` | v3.8.2, `IOT_2022_ixi` | yes | + child and elder care | endogenised | 6,221 | 6.5 % | 14.6 % |
+| `2016_uncorrected` | v3.8.2, `IOT_2016_ixi` | no | health care | excluded | 6,005 | 6.9 % | 47.3 % |
+| `2019_uncorrected` | v3.8.2, `IOT_2016_ixi` | no | health care | excluded | 6,310 | 7.3 % | 47.4 % |
+| `2022_uncorrected` | v3.8.2, `IOT_2022_ixi` | no | health care | excluded | 5,688 | 6.6 % | 34.1 % |
 
 The same thirteen configurations for **all five indicators**, with the national
 footprint and the expenditure behind each, are published as
@@ -68,8 +68,10 @@ Three properties of that table matter for reading the manuscript:
   transport share (47.0 % against the submitted 46 %) while pharmaceutical and
   appliance spending was still mapped whole to the good, as the submission did.
   With the distribution margins moved to the Danish trade industries
-  (13 September 2026) it returns 48.2 %; variant `a`, the release the
-  submission cites, returns 37.3 % (35.0 % before).
+  (13 September 2026) and employee commuting estimated directly from the
+  Danish National Travel Survey and hours worked by industry (14 September
+  2026) it returns 47.4 %; variant `a`, the release the submission cites,
+  returns 36.8 % (35.0 % before).
 - **All thirteen run on IPCC AR6 GWP100.** The 2016 backgrounds were republished on
   AR6 on 11 September 2026; before that the study reported a 2019 answer on AR4
   beside a 2022 answer on AR6. See

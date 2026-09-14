@@ -3,14 +3,14 @@ DNK,Denmark,Denmark,Transport,climate_change,kt CO2eq,1511.5439935769384,2016,EX
 DNK,Denmark,Denmark,Minerals and Metals,material_extraction,kt,1362.6105648526338,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW Africa,RoW Africa,Africa,Food and catering,land_use,km2,507.01162676747987,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Food and catering,land_use,km2,438.36358068160285,2016,EXIOBASE v3.8.2 IOT_2016_ixi
-DNK,Denmark,Denmark,Private travel,climate_change,kt CO2eq,320.9220770650986,2016,EXIOBASE v3.8.2 IOT_2016_ixi
+DNK,Denmark,Denmark,Private travel,climate_change,kt CO2eq,399.697676258834,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DNK,Denmark,Denmark,Food and catering,land_use,km2,308.59814370471815,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Transport,climate_change,kt CO2eq,298.483502748597,2016,EXIOBASE v3.8.2 IOT_2016_ixi
+GLO,Unallocated,Unallocated,Private travel,climate_change,kt CO2eq,273.98958161242876,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 AUS,Australia,Asia and Pacific,Food and catering,land_use,km2,224.95227188206988,2016,EXIOBASE v3.8.2 IOT_2016_ixi
-GLO,Unallocated,Unallocated,Private travel,climate_change,kt CO2eq,220.13563306059416,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DNK,Denmark,Denmark,Waste management and disposal,climate_change,kt CO2eq,214.55039259575767,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DEU,Germany,Europe,Transport,climate_change,kt CO2eq,200.25292072969157,2016,EXIOBASE v3.8.2 IOT_2016_ixi
-DNK,Denmark,Denmark,Operational impact,climate_change,kt CO2eq,195.9599983729744,2016,EXIOBASE v3.8.2 IOT_2016_ixi
+DNK,Denmark,Denmark,Operational impact,climate_change,kt CO2eq,185.6533448181906,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DNK,Denmark,Denmark,Services,climate_change,kt CO2eq,171.92460094669326,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW America,RoW America,America,Food and catering,land_use,km2,164.7959061080571,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CHN,China,Asia and Pacific,Food and catering,land_use,km2,160.3581994855092,2016,EXIOBASE v3.8.2 IOT_2016_ixi
@@ -39,8 +39,8 @@ IND,India,Asia and Pacific,Food and catering,land_use,km2,54.93702292517806,2016
 KOR,South Korea,Asia and Pacific,Transport,climate_change,kt CO2eq,51.670970524811516,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Food and catering,climate_change,kt CO2eq,51.44839909631093,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CHN,China,Asia and Pacific,Electricity,climate_change,kt CO2eq,49.73820276885551,2016,EXIOBASE v3.8.2 IOT_2016_ixi
-DNK,Denmark,Denmark,Operational impact,waste_generation,kt,49.10282360999154,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DEU,Germany,Europe,Minerals and Metals,material_extraction,kt,48.854688716328354,2016,EXIOBASE v3.8.2 IOT_2016_ixi
+DNK,Denmark,Denmark,Operational impact,waste_generation,kt,47.23053445274639,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 GRC,Greece,Europe,Transport,climate_change,kt CO2eq,46.38092069017331,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW America,RoW America,America,Minerals and Metals,material_extraction,kt,45.203398961607675,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 FRA,France,Europe,Transport,climate_change,kt CO2eq,40.32141360563406,2016,EXIOBASE v3.8.2 IOT_2016_ixi
@@ -56,6 +56,7 @@ NLD,Netherlands,Europe,Transport,climate_change,kt CO2eq,33.32024146665218,2016,
 RoW Middle East,RoW Middle East,Middle East,Electricity,climate_change,kt CO2eq,32.24583766739026,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DNK,Denmark,Denmark,Waste management and disposal,waste_generation,kt,32.04089253701823,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW Asia and Pacific,RoW Asia and Pacific,Asia and Pacific,Electricity,climate_change,kt CO2eq,31.609070078529918,2016,EXIOBASE v3.8.2 IOT_2016_ixi
+GLO,Unallocated,Unallocated,Private travel,material_extraction,kt,30.117175345521403,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DNK,Denmark,Denmark,Chemical,waste_generation,kt,30.065341833459925,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 POL,Poland,Europe,Minerals and Metals,material_extraction,kt,29.644968364007887,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW Africa,RoW Africa,Africa,Minerals and Metals,material_extraction,kt,29.392427806487056,2016,EXIOBASE v3.8.2 IOT_2016_ixi
@@ -71,7 +72,6 @@ DNK,Denmark,Denmark,Minerals and Metals,climate_change,kt CO2eq,26.0007489081991
 BEL,Belgium,Europe,Transport,climate_change,kt CO2eq,25.338505899883867,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CHN,China,Asia and Pacific,Metal Products,climate_change,kt CO2eq,25.20531692933956,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 FRA,France,Europe,Food and catering,land_use,km2,24.753958515264312,2016,EXIOBASE v3.8.2 IOT_2016_ixi
-GLO,Unallocated,Unallocated,Private travel,material_extraction,kt,24.654016494832803,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 FIN,Finland,Europe,Minerals and Metals,material_extraction,kt,24.56206193486728,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 USA,United States,America,Minerals and Metals,material_extraction,kt,24.02264329256093,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 USA,United States,America,Transport,climate_change,kt CO2eq,23.157311692380375,2016,EXIOBASE v3.8.2 IOT_2016_ixi
@@ -315,6 +315,7 @@ FRA,France,Europe,Waste management and disposal,climate_change,kt CO2eq,2.039792
 DNK,Denmark,Denmark,Construction,climate_change,kt CO2eq,2.00782471407043,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DNK,Denmark,Denmark,"Electrical, electronic and measuring equipment",climate_change,kt CO2eq,1.998828004765456,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 BEL,Belgium,Europe,Services,climate_change,kt CO2eq,1.9921474318101184,2016,EXIOBASE v3.8.2 IOT_2016_ixi
+GLO,Unallocated,Unallocated,Private travel,land_use,km2,1.9612117458177558,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RoW Middle East,RoW Middle East,Middle East,Chemical,material_extraction,kt,1.9453987484365565,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 JPN,Japan,Asia and Pacific,Minerals and Metals,climate_change,kt CO2eq,1.9349329416729102,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 DNK,Denmark,Denmark,Paper Products,climate_change,kt CO2eq,1.9290251941588483,2016,EXIOBASE v3.8.2 IOT_2016_ixi
@@ -347,7 +348,6 @@ LVA,Latvia,Europe,Food and catering,climate_change,kt CO2eq,1.6586955591719437,2
 CHN,China,Asia and Pacific,Textile,climate_change,kt CO2eq,1.6327901903765591,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 LTU,Lithuania,Europe,Minerals and Metals,material_extraction,kt,1.6232560588501632,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CHE,Switzerland,Europe,Food and catering,climate_change,kt CO2eq,1.6124892763162455,2016,EXIOBASE v3.8.2 IOT_2016_ixi
-GLO,Unallocated,Unallocated,Private travel,land_use,km2,1.604972599752538,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 POL,Poland,Europe,Chemical,material_extraction,kt,1.594483821026239,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 NOR,Norway,Europe,Metal Products,climate_change,kt CO2eq,1.5944182625590715,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 SVN,Slovenia,Europe,Transport,climate_change,kt CO2eq,1.59013451269381,2016,EXIOBASE v3.8.2 IOT_2016_ixi
@@ -853,6 +853,7 @@ LTU,Lithuania,Europe,Waste management and disposal,climate_change,kt CO2eq,0.211
 BEL,Belgium,Europe,Chemical,material_extraction,kt,0.21115866798230765,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CAN,Canada,America,Electricity,waste_generation,kt,0.20909794716946897,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 KOR,South Korea,Asia and Pacific,Non-metallic mineral products,climate_change,kt CO2eq,0.2087856052550767,2016,EXIOBASE v3.8.2 IOT_2016_ixi
+GLO,Unallocated,Unallocated,Private travel,blue_water_consumption,Mm3,0.20825185559507692,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 HRV,Croatia,Europe,Non-metallic mineral products,climate_change,kt CO2eq,0.20734713416007233,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CHE,Switzerland,Europe,Chemical,climate_change,kt CO2eq,0.20677108325620736,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 AUS,Australia,Asia and Pacific,Electricity,waste_generation,kt,0.20657905523470405,2016,EXIOBASE v3.8.2 IOT_2016_ixi
@@ -915,7 +916,6 @@ LUX,Luxembourg,Europe,Minerals and Metals,material_extraction,kt,0.1726139626755
 FIN,Finland,Europe,Food and catering,waste_generation,kt,0.17234019637270015,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CHE,Switzerland,Europe,Food and catering,waste_generation,kt,0.1721684845927258,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 CAN,Canada,America,Non-metallic mineral products,climate_change,kt CO2eq,0.17173137258510146,2016,EXIOBASE v3.8.2 IOT_2016_ixi
-GLO,Unallocated,Unallocated,Private travel,blue_water_consumption,Mm3,0.17124519106882052,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 HRV,Croatia,Europe,Coal and Petroleum,waste_generation,kt,0.1708059111492468,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 ITA,Italy,Europe,Paper Products,climate_change,kt CO2eq,0.16972191778015105,2016,EXIOBASE v3.8.2 IOT_2016_ixi
 RUS,Russia,Europe,Furniture and timber,land_use,km2,0.16805384655247071,2016,EXIOBASE v3.8.2 IOT_2016_ixi

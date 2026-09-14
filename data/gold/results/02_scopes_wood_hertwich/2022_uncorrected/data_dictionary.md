@@ -174,5 +174,5 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `scope` | dimension | str |  | Scope 1 |
-| `value` | measure | float64 | varies by row | 130.3030621077094 |
+| `value` | measure | float64 | varies by row | 131.2330621077094 |
 | `basis` | dimension | str |  | national accounts (DRIVHUS/AFFALD) + med |

@@ -9,7 +9,7 @@ EXIOBASE-to-DST concordance all read from them.
 |:---|:---|
 | Provider | Statistics Denmark, national accounts |
 | Dataset | Input-output tables, 117 industries, basic prices, current and previous-year prices, English edition |
-| URL | <https://www.dst.dk/en/Statistik/dokumentation/Times/input-output-tables> |
+| URL | <https://www.dst.dk/en/Statistik/emner/oekonomi/nationalregnskab/input-output> (the former documentation URL returned HTTP 404 on 2026-09-14) |
 | Licence | Statistics Denmark open data; free reuse with attribution |
 | Retrieved | in the repository from 2026-09-07 (`55fd8ef`); the 2006-2015 workbooks arrived with the project scaffolding (`c898c90`) |
 

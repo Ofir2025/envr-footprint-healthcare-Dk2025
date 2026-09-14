@@ -17,7 +17,7 @@ implementation. Design decisions, each defensible in the SI:
    the Danish health-care GHG footprint as 2.84 +/- 0.24 Mt CO2e, i.e. a
    relative SD of 8.35 % obtained by propagating Eora's Q, T and y. This is a
    TRANSFER, not a reproduction. The calibration target is an Eora footprint
-   32 % smaller than this study's EXIOBASE 4.162 Mt, and Lenzen's own Fig. SI
+   33 % smaller than this study's EXIOBASE 4.267 Mt, and Lenzen's own Fig. SI
    7.1 makes the relative SD a decreasing function of footprint size, so
    carrying 8.35 % up to a larger footprint errs wide rather than narrow.
    Lenzen also fit a normal to their draws and report sigma_F; this study
@@ -27,7 +27,7 @@ implementation. Design decisions, each defensible in the SI:
 3. **Central estimate and interval are consistent.** All multipliers have
    median 1, so the simulation adds dispersion without shifting the centre.
    The median of a SUM of lognormals is not the sum of the medians, so the MC
-   median reproduces the deterministic model to within 0.5 % (0.45 % for
+   median reproduces the deterministic model to within 1 % (0.52 % for
    climate), not exactly; only the MRIO block on its own has median exactly 1.
    Structural corrections (price base year, waste-extension reference year,
    pharma mapping) are discrete SCENARIOS, never hidden inside a distribution.
@@ -88,13 +88,13 @@ PARAMS = {
     # Each `why` is the gold table's own provenance cell and is carried verbatim
     # into the tables of record, which allow 180 characters; keep them inside it
     # so nothing is cut mid-word. The fuller argument - in particular that the
-    # mrio calibration is a transfer from Eora's 2.84 Mt to EXIOBASE's 4.162 Mt,
+    # mrio calibration is a transfer from Eora's 2.84 Mt to EXIOBASE's 4.267 Mt,
     # and that Lenzen's own Fig. SI 7.1 makes it err wide - is in section 04 of
     # docs/methods/replications.md and in docs/revision/uncertainty.md.
     "mrio": dict(gsd=None, cv=0.0835,
                  why="Lenzen et al. 2020 SI Tab. SI 7.1: relative SD of the Danish "
                      "health-care GHG footprint from an Eora MRIO Monte Carlo, "
-                     "transferred from their 2.84 Mt to this study's 4.162 Mt"),
+                     "transferred from their 2.84 Mt to this study's 4.267 Mt"),
     "direct": dict(gsd=1.10,
                    why="Statistics Denmark DRIVHUS/AFFALD accounts; residual risk is the "
                        "alpha-proration of industry 880000 and the medical-N2O netting"),
@@ -102,10 +102,11 @@ PARAMS = {
                         why="Denmark NID 2.G.3.a activity +/-25 %, EF +/-20 % (DCE 2024); "
                             "volatile agents from medstat.dk N01AB sales on AR6"),
     "pmdi": dict(gsd=1.15,
-                 why="register dispensing x producer HFC content (Danish EPA F-gas "
-                     "inventory, restated to AR6; Vestbo & Press-Kristensen 2023 for 2019)"),
+                 why="sales x propellant content per dose (Danish EPA F-gas inventory, "
+                     "restated to AR6; the 2019 run uses the EPA's 2019 inventory)"),
     "commute": dict(gsd=1.25,
-                    why="ratio method on NL base values with DST employment and TU distances"),
+                    why="TU workplace km x health care's share of hours worked (NABB117) x the "
+                        "Dutch commuting intensity per person-km"),
     "visitor": dict(gsd=1.40,
                     why="patient travel from the Danish travel survey (TU Tabel 15, "
                         "purpose 33); the VISITOR part alone has no Danish source, "
@@ -365,7 +366,7 @@ def summarize(totals: dict[str, np.ndarray],
     pandas.DataFrame
         One row per indicator. ``median`` is the reported central value, not
         ``mean``: median-1 multipliers leave the median at the deterministic
-        estimate to within 0.5 %, while the mean is inflated (see
+        estimate to within 1 %, while the mean is inflated (see
         :func:`analytic_moments`). ``mcse_median_pct`` is the standard error
         of the median itself, from twenty equal batches of the draws.
     """
