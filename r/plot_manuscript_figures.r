@@ -161,35 +161,61 @@ d1 <- d1 %>% mutate(key = factor(key, levels = clim_rank$key))
 # Absolute values with the share printed on the bar: the magnitude is what a
 # reader comparing health systems needs, and the share is what ranks the groups.
 # Free x per panel because the five categories have different units.
+#
+# Drawn at the size it prints, 6.69 in wide (the manuscript's text width), so the
+# sizes below are points on paper. Until 2026-09-14 it was drawn 23 in wide and its
+# 11 to 17 pt text printed at 3 to 5 pt. Group names wrap at 24 characters, so no
+# name takes more than two lines and the label column leaves each of the five
+# panels about an inch; the tick at a panel's right edge is dropped, because it ran
+# into the next panel's zero.
+F1_W <- 6.69; F1_H <- 6.3
+F1_PT_STRIP <- 8; F1_PT_AXIS <- 7; F1_PT_TICK <- 6.5; F1_PT_LABEL <- 6
+wrap_key <- function(x) vapply(strip_key(x), function(s) paste(strwrap(s, 24), collapse = "\n"),
+                               character(1), USE.NAMES = FALSE)
+inner_breaks <- function(lim) {
+  b <- scales::breaks_extended(3)(lim)
+  b[b >= lim[1] & b <= lim[1] + 0.8 * diff(lim)]
+}
+# category names longer than a one-inch panel break onto a second line
+F1_STRIP <- setNames(sprintf("%s\n(%s)",
+                             vapply(IND_NAME, function(s) paste(strwrap(s, 16), collapse = "\n"),
+                                    character(1)),
+                             IND_UNIT_TXT[names(IND_NAME)]), names(IND_NAME))
 p1 <- ggplot(d1, aes(value, key, fill = group)) +
-  geom_col(width = 0.74, colour = "white", linewidth = 0.15) +
+  geom_col(width = 0.72, colour = "white", linewidth = 0.1) +
   geom_text(aes(label = if_else(share_pct >= 2, sprintf("%.0f%%", share_pct),
                                 NA_character_)),
-            hjust = -0.18, size = 4.0, fontface = "bold", colour = INK,
+            hjust = -0.15, size = F1_PT_LABEL / .pt, fontface = "bold", colour = "black",
             na.rm = TRUE) +
   facet_ceiling(d1 %>% group_by(indicator, analysis, key) %>%
                   summarise(value = sum(value), .groups = "drop"),
-                c("indicator", "analysis"), "value", room = 1.34) +
+                c("indicator", "analysis"), "value", room = 1.5) +
   facet_grid(analysis ~ indicator, scales = "free", space = "free_y",
-             labeller = labeller(indicator = ind_only_labeller,
+             labeller = labeller(indicator = as_labeller(F1_STRIP),
                                  analysis = label_value)) +
-  scale_y_discrete(labels = strip_key) +
+  scale_y_discrete(labels = wrap_key) +
   scale_fill_manual(values = GROUP_COLS, guide = "none") +
-  scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
-                     guide = guide_axis(check.overlap = TRUE),
-                     expand = expansion(mult = c(0, 0.05))) +
+  scale_x_continuous(labels = smart_labs, breaks = inner_breaks,
+                     expand = expansion(mult = c(0, 0.02))) +
   labs(x = "Impact (absolute; bar labels give the share of the category)",
        y = NULL) +
-  theme_dkhc() +
-  theme(panel.grid.major.y = element_blank(),
-        axis.text.y = element_text(size = 13.5),
-        strip.text.y = element_text(size = 15, angle = 0, hjust = 0,
-                                    margin = margin(l = 9)),
-        strip.text.x = element_text(size = 17),
-        panel.spacing.x = grid::unit(1.6, "lines"),
-        plot.margin = margin(14, 26, 12, 14))
+  theme_minimal(base_size = F1_PT_AXIS) +
+  theme(text = element_text(colour = "black"),
+        panel.grid.minor = element_blank(), panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(colour = "#E6E6E6", linewidth = 0.25),
+        axis.text.y = element_text(size = F1_PT_AXIS, colour = "black", lineheight = 0.9),
+        axis.text.x = element_text(size = F1_PT_TICK, colour = "black"),
+        axis.title.x = element_text(size = F1_PT_AXIS, colour = "black", margin = margin(t = 4)),
+        strip.text.x = element_text(size = F1_PT_STRIP, face = "bold", lineheight = 0.95,
+                                    margin = margin(b = 3)),
+        strip.text.y = element_text(size = F1_PT_STRIP, face = "bold", angle = -90,
+                                    margin = margin(l = 3)),
+        strip.clip = "off",
+        panel.spacing.x = grid::unit(7, "pt"),
+        panel.spacing.y = grid::unit(6, "pt"),
+        plot.margin = margin(2, 2, 2, 2))
 
-dk_save(p1, sprintf("fig1_ofir_panels_%s", YEAR), w = 23, h = 14.5)
+dk_save(p1, sprintf("fig1_ofir_panels_%s", YEAR), w = F1_W, h = F1_H, dpi = 600)
 
 # ================= fig 2  top producing region x industry pairs =============
 d2 <- gold("figure2b_top_origin_industry_pairs.csv") %>%
@@ -203,35 +229,48 @@ d2 <- gold("figure2b_top_origin_industry_pairs.csv") %>%
 
 d2 <- prepare_remainder(d2)
 
+# Drawn at the size it prints, 6.69 in wide, so the sizes below are points on
+# paper; until 2026-09-14 it was drawn 21.5 in wide and its labels printed at 3 to
+# 4 pt. The strips name the category only: the axis is a share, so a unit there
+# would invite the bars to be read as absolute.
+F2_W <- 6.69; F2_H <- 6.4
+F2_PT_STRIP <- 8; F2_PT_AXIS <- 6.5; F2_PT_LABEL <- 5.5
 p2 <- ggplot(d2, aes(plot_x, key,
                      fill = if_else(is_rest, "remainder", as.character(indicator)))) +
-  geom_col(width = 0.74, colour = "white", linewidth = 0.15) +
+  geom_col(width = 0.74, colour = "white", linewidth = 0.1) +
   remainder_breaks(d2) +
-  remainder_label(d2) +
-  ranked_labels(d2) +
+  remainder_label(d2, size = F2_PT_LABEL / .pt, hjust = -0.15) +
+  ranked_labels(d2, size = F2_PT_LABEL / .pt, hjust = -0.15) +
   # Strips name the category only. They used to carry a total, but this figure
   # covers the MRIO supply chain alone (~84 % of each indicator), so printing a
   # total here understated the study figure by 16 %.
   facet_ceiling(d2 %>% group_by(indicator, key) %>%
                   summarise(value = sum(plot_x), .groups = "drop"),
-                "indicator", "value", room = 1.28) +
+                "indicator", "value", room = 1.4) +
   # Free x as well as y: a shared axis is set by the one panel whose leading
   # pair reaches 42 % and flattens the other four.
   facet_wrap(~indicator, ncol = 3, scales = "free",
-             labeller = ind_only_labeller) +
+             labeller = as_labeller(IND_NAME)) +
   scale_y_discrete(labels = strip_key) +
   scale_fill_manual(values = c(IND_COLS, remainder = REMAINDER_COL),
                     guide = "none") +
-  scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
-                     expand = expansion(mult = c(0, 0.05))) +
+  scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(3),
+                     expand = expansion(mult = c(0, 0.02))) +
   labs(x = "Share of the impact category (%)",
        y = NULL) +
-  theme_dkhc() +
-  theme(panel.grid.major.y = element_blank(),
-        axis.text.y = element_text(size = 14, colour = "black"),
-        plot.margin = margin(14, 26, 12, 14))
+  theme_minimal(base_size = F2_PT_AXIS) +
+  theme(text = element_text(colour = "black"),
+        panel.grid.minor = element_blank(), panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(colour = "#E6E6E6", linewidth = 0.25),
+        axis.text.y = element_text(size = F2_PT_AXIS, colour = "black"),
+        axis.text.x = element_text(size = F2_PT_AXIS, colour = "black"),
+        axis.title.x = element_text(size = 7, colour = "black", margin = margin(t = 4)),
+        strip.text = element_text(size = F2_PT_STRIP, face = "bold", margin = margin(b = 3)),
+        panel.spacing.x = grid::unit(10, "pt"),
+        panel.spacing.y = grid::unit(8, "pt"),
+        plot.margin = margin(2, 4, 2, 2))
 
-dk_save(p2, sprintf("fig2_top_origin_industry_pairs_%s", YEAR), w = 21.5, h = 12.5)
+dk_save(p2, sprintf("fig2_top_origin_industry_pairs_%s", YEAR), w = F2_W, h = F2_H, dpi = 600)
 
 # ============ figs 3-6  the scope decomposition, when it is published ======
 # `02_scopes_wood_hertwich` is variant-scoped like `01_eriksen_replication`,

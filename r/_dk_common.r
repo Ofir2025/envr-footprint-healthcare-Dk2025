@@ -179,7 +179,9 @@ REGION_COLS  <- c(Denmark = "#0072B2", Europe = "#009E73",
                   America = "#56B4E9", Africa = "#D55E00",
                   Unallocated = "grey70")
 
-REMAINDER_LAB <- "Remaining regions and sector pairs"
+# "All other pairs": the longer "Remaining regions and sector pairs" was the widest
+# row label and cost a print-size panel a fifth of its width (2026-09-14).
+REMAINDER_LAB <- "All other pairs"
 REMAINDER_COL <- "grey78"
 
 # Steenmeijer et al. (2022) figures 1-3 -- their own pastel palette, so the
