@@ -242,7 +242,7 @@ BACKGROUND_INDEPENDENT_FILES: frozenset[str] = frozenset({
 
 
 def c9_gold_scope(results: list[dict[str, Any]]) -> None:
-    """C9: every gold folder is declared as a paper deliverable or private.
+    """C9: every gold folder is declared paper, private or withheld.
 
     The published branch is a filtered view of this tree. The filter reads
     `analysis.gold_scope`, so a folder added without a classification would be
@@ -255,9 +255,11 @@ def c9_gold_scope(results: list[dict[str, Any]]) -> None:
         return
     missing = gold_scope.unclassified()
     paper = sum(1 for v in gold_scope.SCOPE.values() if v[0] == "paper")
-    private = len(gold_scope.SCOPE) - paper
+    private = sum(1 for v in gold_scope.SCOPE.values() if v[0] == "private")
+    withheld = sum(1 for v in gold_scope.SCOPE.values() if v[0] == "withheld")
     _check(results, "C9 every gold folder is classified", not missing,
-           f"{paper} paper deliverables, {private} private extensions"
+           f"{paper} paper deliverables, {private} private extensions, "
+           f"{withheld} withheld"
            if not missing else f"unclassified: {', '.join(missing)}")
 
 
