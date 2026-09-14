@@ -589,7 +589,7 @@ implemented. Simplification is defensible: Moran et al. (2018) put the Danish
 feedback effect at **0.4 %**, which is why simplified SNAC is used in preference
 to full SNAC by both Rørmose and Palm. The full mechanics and the effect on the
 headline are in
-[docs/revision/results_2022.md, "The withdrawn transport finding"](../revision/results_2022.md#the-withdrawn-transport-finding).
+[docs/revision/results_2022.md, "The corrected transport share"](../revision/results_2022.md#the-corrected-transport-share).
 
 Their own outlier remedy is a hard multiplier threshold of 1 kg CO₂e/DKK
 (≈7.5 kg CO₂e/EUR) which they themselves call *"quite arbitrary"*; their
@@ -711,10 +711,10 @@ Danish side do not depend on which EXIOBASE release supplies the import side.
    hangs on EXIOBASE's *estimated* input column for DK "Health and social work"
    — the recipe that, at the time this section was first drafted, sat behind a
    transport-dominance headline of ~41 % of GWP. **That transport figure is now
-   superseded and withdrawn**: the sea-transport reallocation corrected it to
+   superseded and corrected**: the sea-transport reallocation corrected it to
    19.5 % of the supply-chain footprint (15.6 % of the total), documented in full
    in
-   [docs/revision/results_2022.md, "The withdrawn transport finding"](../revision/results_2022.md#the-withdrawn-transport-finding).
+   [docs/revision/results_2022.md, "The corrected transport share"](../revision/results_2022.md#the-corrected-transport-share).
    The recipe problem itself is unaffected by that correction and remains real:
    EXIOBASE's single estimated health-industry column is also behind the
    imploded Scope 2 (24 kt: EXIOBASE has DK health buying almost no energy

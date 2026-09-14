@@ -71,8 +71,8 @@ SCOPE: dict[str, tuple[str, str]] = {
         "paper", "the **only** evidence for rejecting EXIOBASE v3.10.2, which "
                  "the response states as fact"),
     "10_sea_transport_reallocation": (
-        "paper", "the sea-transport reallocation, on which the withdrawn "
-                 "transport finding depends"),
+        "paper", "the sea-transport reallocation, on which the corrected "
+                 "transport share depends"),
     "11_capital_gfcf": (
         "paper", "the capital treatment; the second step of figure 7"),
     "12_impact_categories_full": (

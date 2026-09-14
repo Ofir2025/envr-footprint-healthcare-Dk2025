@@ -42,13 +42,24 @@ Figures, all in `figures/manuscript/2022c/`:
 |:---|:---|:---|
 | Manuscript figures 1 to 3 | `fig1_ofir_panels_2022.tiff`, `fig2_top_origin_industry_pairs_2022.tiff`, `fig3_scopes_stacked_2022.tiff` | upload with the manuscript |
 | Steenmeijer et al. (2022) figures 1 to 3, with the article's labels, on the 2022 results | `fig1_contribution_product_group_2022c.tiff`, `fig2_hotspot_sector_2022c.tiff`, `fig3_hotspot_geography_2022c.tiff` | for comparison with the Dutch study, or in place of the panelled figure 1 |
-| Heat map: country or region of production by sector group, five impact categories | `figS2_origin_sector_heatmap_2022.tiff` | candidate for appendix A; not yet placed |
+| Heat map: the 49 countries and regions of production by sector group, five impact categories, drawn at its printed width of 6.69 in | `figS2_origin_sector_heatmap_2022.tiff` | candidate for appendix A, not yet placed; caption draft in [`figures/manuscript/readme.md`](../../figures/manuscript/readme.md) |
 
 The July 2026 supplementary figures file was removed: its three charts duplicated
 the submitted manuscript's figures.
-Still outstanding before submission: the new Zenodo version DOI (appendix A, Data,
-code and software; manuscript, Data availability) and the title page with
-affiliations and the corresponding author's email.
+Still outstanding before submission, and who holds each:
+
+- **The new Zenodo version DOI** (appendix A, Data, code and software; manuscript,
+  Data availability). Only Ofir's GitHub account can create the release.
+- **The title page.** Ofir prepared one for the first submission, in Teams, which
+  this repository cannot see. It must carry the revised title, which differs from
+  the submitted one (the cover letter gives both), the affiliations and the
+  corresponding author's email.
+- **The CRediT statement.** Drafted on 12 September 2026 from what the repository
+  shows, not from notes by either author; both authors confirm the roles.
+- **The penicillin sentence** in appendix A, System boundary, second paragraph,
+  citing Olsen et al. (2026). Not verified: the publisher's site refuses automated
+  access, and the abstract does not mention normalisation. The article is open
+  access at https://doi.org/10.1016/j.scp.2026.102346.
 
 ## What is and is not versioned
 

@@ -543,6 +543,11 @@ dk_save <- function(p, name, w = 16, h = 10, dpi = 300, sub = ".") {
     ggsave(f, p, width = w, height = h, units = "in", dpi = dpi,
            compression = "lzw", bg = "white")
   }
-  cat(sprintf("  %-52s %.1f x %.1f in (aspect %.2f)\n", f, w, h, w / h))
+  # The manuscript and Appendix A print every figure 6.69 in wide, so a wider
+  # canvas prints its text smaller than the theme says: report the factor on
+  # every save rather than let a 23 in canvas pass for legible (14 Sept 2026).
+  print_w <- as.numeric(Sys.getenv("DKHC_PRINT_W", "6.69"))
+  cat(sprintf("  %-52s %.1f x %.1f in (aspect %.2f); text prints at %.0f%% of its set size at %.2f in\n",
+              f, w, h, w / h, 100 * min(1, print_w / w), print_w))
   invisible(f)
 }
