@@ -375,6 +375,22 @@ def exclude_paths() -> list[str]:
     return out
 
 
+def _folders(n: int) -> str:
+    """Count folders in words a heading can carry.
+
+    Parameters
+    ----------
+    n : int
+        Number of folders.
+
+    Returns
+    -------
+    str
+        ``"1 folder"`` or ``"<n> folders"``.
+    """
+    return f"{n} folder" if n == 1 else f"{n} folders"
+
+
 def render() -> str:
     """Write the gold README from the classification and return its text."""
     paper = [(k, v[1]) for k, v in sorted(SCOPE.items()) if v[0] == "paper"]
@@ -398,7 +414,7 @@ def render() -> str:
         "folder appears here without being classified. This file is generated:",
         "edit `src/analysis/gold_scope.py`, never this text.",
         "",
-        f"### Paper deliverables ({len(paper)} folders)",
+        f"### Paper deliverables ({_folders(len(paper))})",
         "",
         "Each backs a number, figure, or table in the manuscript or in the",
         "response to the reviewers.",
@@ -409,7 +425,7 @@ def render() -> str:
     lines += [f"| `{k}` | {w} |" for k, w in paper]
     lines += [
         "",
-        f"### Private extensions ({len(private)} folders)",
+        f"### Private extensions ({_folders(len(private))})",
         "",
         "Each is real analysis, kept in this repository only: follow-on work",
         "that nothing in the current revision cites.",
@@ -420,7 +436,7 @@ def render() -> str:
     lines += [f"| `{k}` | {w} |" for k, w in private]
     lines += [
         "",
-        f"### Withheld ({len(withheld)} folders)",
+        f"### Withheld ({_folders(len(withheld))})",
         "",
         "Built in this copy during the revision and kept here, but not reported",
         "by the revision and not on the published branch: held back for a later",
