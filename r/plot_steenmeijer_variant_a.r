@@ -7,6 +7,13 @@
 #   fig 2  sector hotspot analysis: where the impact PHYSICALLY OCCURS
 #   fig 3  geography hotspot analysis: in which world region it occurs
 #
+# DRAWN FOR 2022c AS WELL (2026-09-14). At the authors' request the same three
+# figures, with the article's labels and this palette, are also drawn on the
+# headline run, so the Danish 2022 results can be read in Steenmeijer et al.'s
+# own form beside the manuscript's panelled figure 1. Run the script with the
+# 2022c environment (see figures/manuscript/readme.md); the output lands in
+# figures/manuscript/2022c/ by the same variant resolver.
+#
 # WHY VARIANT A CARRIES THESE THREE AND NOTHING ELSE
 #
 # Variant a is the configuration the co-author submitted on - EXIOBASE v3.7, no
@@ -137,6 +144,20 @@ va_fig3_cols <- function(home)
              TOL[["rose"]], TOL[["indigo"]]),
            steen_fig3_levels(home))
 
+# ---- category labels ---------------------------------------------------------
+# The article's category names and units (STEEN_IND_LABEL), set as plotmath so
+# the subscript and superscripts are drawn by the math engine: as Unicode
+# characters the subscript two of CO2 came from a fallback font, detached and
+# smaller than its letters.
+# Line breaks as in the article; displaystyle() keeps every line at full size,
+# because a nested atop() would otherwise shrink its lower lines.
+VA_IND_EXPR <- c(
+  climate_change         = "atop('Climate change', displaystyle(atop('(kilotonnes of', displaystyle(CO[2]~'equivalent)'))))",
+  material_extraction    = "atop('Material extraction', displaystyle('(kilotonnes)'))",
+  blue_water_consumption = "atop('Blue water', displaystyle(atop('consumption', displaystyle((Mm^3)))))",
+  land_use               = "atop('Land use', displaystyle((km^2)))",
+  waste_generation       = "atop('Waste generation', displaystyle('(kilotonnes)'))")
+
 # ---- label ink -------------------------------------------------------------
 # WCAG 2.1 relative luminance, then whichever of near-black and white has the
 # higher contrast ratio against the fill. Computed, not typed: a palette edit
@@ -180,7 +201,7 @@ va_plot <- function(d, levels, cols) {
               position = position_stack(vjust = 0.5), size = 4.4,
               fontface = "bold", na.rm = TRUE, show.legend = FALSE) +
     scale_colour_identity() +
-    scale_x_discrete(labels = STEEN_IND_LABEL) +
+    scale_x_discrete(labels = function(x) parse(text = VA_IND_EXPR[x])) +
     # No hard `limits`: the stack tops out at 100 up to floating-point dust, and
     # a limit of exactly 100 censors that last segment instead of drawing it.
     scale_y_continuous(breaks = seq(0, 100, 10),
