@@ -19,7 +19,7 @@ lives - see [`revision_guide.md`](revision_guide.md).
 | See which of the author's requests are answered | [`revision/request_checklist.md`](revision/request_checklist.md) |
 | Understand the modelling approaches implemented | [`methods/methods.md`](methods/methods.md) |
 | Understand the data layout | [`../readme.md`](../readme.md) (Repository layout) and [`../data/readme.md`](../data/readme.md) |
-| See the audit behind a transport finding that was withdrawn | [`revision/results_2022.md`, "Auditing the withdrawal"](revision/results_2022.md#auditing-the-withdrawal-reproducibility-decomposition-and-what-the-paper-should-now-say) |
+| See the audit behind the corrected transport share | [`revision/results_2022.md`, "Auditing the correction"](revision/results_2022.md#auditing-the-correction-reproducibility-decomposition-and-what-the-paper-should-now-say) |
 | Read the uncertainty response to Reviewer 1 | [`revision/uncertainty.md`, section 5](revision/uncertainty.md#5-the-response-to-reviewer-1-proxies-eliminated-not-bounded) |
 
 ## Folders
@@ -27,7 +27,7 @@ lives - see [`revision_guide.md`](revision_guide.md).
 | Folder | Holds |
 |:---|:---|
 | `methods/` | This study's own method ([`methods/methods.md`](methods/methods.md)), every replication layer ([`methods/replications.md`](methods/replications.md)), the Danish data-acquisition record ([`methods/danish_data_acquisition.md`](methods/danish_data_acquisition.md)), the EXIOBASE release argument ([`methods/exiobase_release_and_classification.md`](methods/exiobase_release_and_classification.md)), Ofir Eriksen's own methodology write-ups ([`methods/eriksen_methodology.md`](methods/eriksen_methodology.md)), and the published star schema (`methods/star_schema.sql`) |
-| `revision/` | The manuscript revision's working record: the 2022 results and the withdrawn transport finding ([`revision/results_2022.md`](revision/results_2022.md)), the full uncertainty account ([`revision/uncertainty.md`](revision/uncertainty.md)), every defect and open decision ([`revision/defects_and_fixes.md`](revision/defects_and_fixes.md)), the technical companion to the formal response letter ([`revision/response_to_reviewers.md`](revision/response_to_reviewers.md)), and the request status ledger ([`revision/request_checklist.md`](revision/request_checklist.md)) |
+| `revision/` | The manuscript revision's working record: the 2022 results and the corrected transport share ([`revision/results_2022.md`](revision/results_2022.md)), the full uncertainty account ([`revision/uncertainty.md`](revision/uncertainty.md)), every defect and open decision ([`revision/defects_and_fixes.md`](revision/defects_and_fixes.md)), the technical companion to the formal response letter ([`revision/response_to_reviewers.md`](revision/response_to_reviewers.md)), and the request status ledger ([`revision/request_checklist.md`](revision/request_checklist.md)) |
 | `eriksen_et_al_2026/` | The manuscript submission package (Word documents); see [`eriksen_et_al_2026/readme.md`](eriksen_et_al_2026/readme.md) |
 
 ## Bibliography and source material

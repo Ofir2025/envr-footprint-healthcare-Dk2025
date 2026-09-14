@@ -48,7 +48,7 @@ CHECKED_DOCS = (
 )
 #: docs/revision/results_2022.md is deliberately not checked: it merges seven
 #: source documents, most of which were never in this list before merging
-#: (only the two behind "the withdrawn transport finding" and "mitigation
+#: (only the two behind "the corrected transport share" and "mitigation
 #: scenarios" sections were), and the newly-exposed content cites several
 #: sources (Andersen et al. 2023, Eckelman et al. 2020, HCWH 2014/2019,
 #: Laster et al. 1994, Lenzen & Treloar 2004, Pichler 2014, Talbot et al.

@@ -129,7 +129,7 @@ draw CO₂, Mm³ and km² as `..`.
 | [`docs/methods/replications.md`](docs/methods/replications.md) | what each gold layer replicates, per method, with its verification |
 | [`docs/methods/exiobase_release_and_classification.md`](docs/methods/exiobase_release_and_classification.md) | which EXIOBASE release, why v3.10.2 is rejected, and how the classification is handled |
 | [`docs/methods/danish_data_acquisition.md`](docs/methods/danish_data_acquisition.md) | every Danish source, its StatBank query and its licence |
-| [`docs/revision/results_2022.md`](docs/revision/results_2022.md) | the 2022 analysis: inputs, method, results, and the withdrawn transport finding |
+| [`docs/revision/results_2022.md`](docs/revision/results_2022.md) | the 2022 analysis: inputs, method, results, and the corrected transport share |
 | [`docs/revision/defects_and_fixes.md`](docs/revision/defects_and_fixes.md) | defects found and fixed, with their effect on every number that moved |
 | [`docs/revision/uncertainty.md`](docs/revision/uncertainty.md) | the Monte Carlo, the Sobol decomposition and what they do and do not establish |
 | [`docs/revision/response_to_reviewers.md`](docs/revision/response_to_reviewers.md) | technical companion to the formal response letter, each reply tied to the table that answers it |

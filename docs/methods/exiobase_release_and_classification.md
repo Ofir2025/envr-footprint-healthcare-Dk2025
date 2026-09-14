@@ -433,7 +433,7 @@ increasing order of technicality:
 
 | Document | What it gives |
 |:---|:---|
-| [`docs/revision/results_2022.md`, "The withdrawn transport finding"](../revision/results_2022.md#the-withdrawn-transport-finding) | the narrative version, written for a non-specialist and for the manuscript methods section, including the withdrawal of the submitted "transport ≈ 40 %" finding |
+| [`docs/revision/results_2022.md`, "The corrected transport share"](../revision/results_2022.md#the-corrected-transport-share) | the narrative version, written for a non-specialist and for the manuscript methods section, including the correction of the submitted "transport ≈ 40 %" finding |
 | [`docs/methods/replications.md`, section 10](replications.md#r10) | the equations, the calibration target, the effect table, and the validation against EXIOBASE's own hybrid build |
 | `src/analysis/dk_shipping_correction.py` | the implementation |
 | `data/gold/results/10_sea_transport_reallocation/` | the outputs |
@@ -460,8 +460,9 @@ it is not in dispute; only the destination of the flows changes, and the release
 supply-chain footprint**, which is 15.6 % of the 4,267 kt total.
 
 **This must be in the manuscript and the SI**, because the submitted paper's most
-quotable finding, that transport is 38 to 43 % of the Danish health-care
-footprint, is withdrawn by it. The finding was an artefact of a documented
+quotable finding, that transport is the largest contributor to the Danish health-care
+footprint (39 % of the input-output component by purchase, 46 % by producing sector), does
+not survive it. The finding was an artefact of a documented
 misallocation in EXIOBASE's Danish block, diagnosed by Denmark's own statistical
 office rather than by us.
 

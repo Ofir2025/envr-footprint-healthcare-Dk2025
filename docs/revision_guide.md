@@ -37,14 +37,16 @@ error, and draft wording for the limitations paragraph are in
 
 ## The three things that change the paper
 
-1. **The transport finding must be withdrawn.** EXIOBASE routes 73.6 % of Danish
+1. **The transport finding must be corrected.** EXIOBASE routes 73.6 % of Danish
    sea-transport output to Danish intermediate use; the national accounts say 9 %.
    Statistics Denmark published this defect (Rørmose Jensen & Iliev 2022) and EXIOBASE's
    own hybrid build gives 7.8 % natively, so the correction reconstructs an allocation
    official Danish practice already applies rather than proposing a new method.
-   Transport falls from 37.5 % to **17.8 %** of the supply-chain footprint.
+   In 2022 transport falls from 34.1 % to **15.6 %** of the climate footprint by producing
+   sector, and transport services from 29.7 % to **13.3 %** by purchase, so pharmaceuticals and
+   chemical products (27.1 %) become the largest contributor.
    See [`docs/methods/replications.md`, section 10](methods/replications.md#r10)
-   and [`docs/revision/results_2022.md`, "The withdrawn transport finding"](revision/results_2022.md#the-withdrawn-transport-finding).
+   and [`docs/revision/results_2022.md`, "The corrected transport share"](revision/results_2022.md#the-corrected-transport-share).
 
 2. **The background model changed, and the v3.10.2 defects are datable.** Every release on
    disk was tested against Statistics Denmark's own table, year by year. Two distinct

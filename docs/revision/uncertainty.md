@@ -165,7 +165,7 @@ find this the dominant source of carbon-account uncertainty for small open
 economies and name Denmark among the countries where methane from international
 water transport is a significant contributor. This transport-allocation problem
 is the same structural weakness that
-[the sea-transport correction](results_2022.md#the-withdrawn-transport-finding)
+[the sea-transport correction](results_2022.md#the-corrected-transport-share)
 addresses on the transaction side. *Not captured as a distribution*; addressed
 as a correction, documented in full there.
 
@@ -1588,7 +1588,7 @@ national accounts' 9 %), and a more general industry-misallocation pattern
 that Rørmose Jensen & Iliev (2022) document and that is why Statistics
 Denmark rebuild the Danish block rather than patch it. **Full treatment,
 including what we did about it and how to read the results in light of it,
-is in [docs/revision/results_2022.md, "The withdrawn transport finding"](results_2022.md#the-withdrawn-transport-finding).**
+is in [docs/revision/results_2022.md, "The corrected transport share"](results_2022.md#the-corrected-transport-share).**
 
 **How to read the results, in brief.** Danish-origin transport emissions in
 this study are corrected and should not be compared with uncorrected
