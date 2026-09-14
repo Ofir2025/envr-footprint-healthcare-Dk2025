@@ -63,13 +63,17 @@ Still outstanding before submission, and who holds each:
 
 ## What is and is not versioned
 
-- The package shared with Ofir in Teams is built in
-  `deliverables/nxsust_d_26_01589_revision/`, inside the working copy but ignored by
-  git. Never edit it: change the sources here and rebuild it with
-  `scripts/release/deliverables/sync_deliverables.sh`, which copies the documents,
-  letters and figures under the names the package uses and has Microsoft Word make
-  the clean copies (it refuses to run while Word has a document open). Upload the
-  whole folder to Teams after a rebuild.
+- The package shared with Ofir in Teams is kept in
+  `deliverables/nxsust_d_26_01589_revision/`, inside the working copy and ignored by
+  git. It holds copies of the files above under the names the package uses: the
+  manuscript and appendix A as `_tracked_changes.docx` and as `_clean.docx` (all
+  revisions accepted in Word, citation highlights removed), both response letters as
+  `_response_to_reviewers` and `_response_to_reviewers_concise`, the cover letter,
+  declarations and appendix B, and the figures from `figures/manuscript/2022c/`
+  (`figures/1_manuscript_figures/figure_1.tiff` to `figure_3.tiff`, Steenmeijer et
+  al.'s three in `2_steenmeijer_figures_2022_data/`, the heat map in
+  `3_origin_sector_heat_map/`). Refresh it from these sources after every change,
+  never edit it, and upload the whole folder to Teams.
 - The response letters quote or paraphrase both referee reports. They are committed on the
   working branch but excluded by name from the public branch in
   `scripts/release/publish_ofir_branch.sh`, and its builder lives under
