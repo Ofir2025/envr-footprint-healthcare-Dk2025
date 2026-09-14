@@ -21,13 +21,15 @@ IND_NAME <- c(climate_change = "Climate change",
               land_use = "Land use", waste_generation = "Waste generation")
 # Absolute units, and the per-capita unit each becomes. Per-capita units are
 # rescaled so no panel reads 0.00: kt/5.9M people is kg per person, not kt.
-ABS_UNIT <- c(climate_change = "kt~CO[2]*e", material_extraction = "kt",
-              blue_water_consumption = "Mm^3", land_use = "km^2",
+# Plain text with the sub- and superscripts typed, as in Figure 1's strips: a
+# parsed atop() strip set its two lines a full line apart and ignored the bold.
+ABS_UNIT <- c(climate_change = "kt CO\u2082e", material_extraction = "kt",
+              blue_water_consumption = "Mm\u00b3", land_use = "km\u00b2",
               waste_generation = "kt")
-PC_UNIT  <- c(climate_change = "kg~CO[2]*e~per~person",
-              material_extraction = "kg~per~person",
-              blue_water_consumption = "m^3~per~person",
-              land_use = "m^2~per~person", waste_generation = "kg~per~person")
+PC_UNIT  <- c(climate_change = "kg CO\u2082e per person",
+              material_extraction = "kg per person",
+              blue_water_consumption = "m\u00b3 per person",
+              land_use = "m\u00b2 per person", waste_generation = "kg per person")
 # multiplier from the absolute unit to the per-capita unit, before dividing by
 # population: kt -> kg is 1e6; Mm3 -> m3 is 1e6; km2 -> m2 is 1e6.
 PC_SCALE <- c(climate_change = 1e6, material_extraction = 1e6,
@@ -48,6 +50,23 @@ d <- read_csv(gold_path("figure1_activity_contributions.csv"),
   mutate(indicator = factor(indicator, levels = IND_ORDER),
          contribution_group = dplyr::recode(contribution_group,
                                             "Individual travel" = "Private travel"))
+
+# Drawn at the size it prints, 6.69 in wide (Appendix A's text width), so the
+# sizes below are points on paper. Until 2026-09-14 it was drawn 21 in wide and its
+# 12 to 20 pt text printed at 4 to 6 pt. Two panels a row, not three: each panel
+# ranks its own groups and so carries its own label column, and three label
+# columns left the bars under an inch. Group names wrap at 24 characters, and the
+# tick at a panel's right edge is dropped, because it ran towards the next label
+# column.
+PT_STRIP <- 8; PT_AXIS <- 7; PT_TICK <- 6.5; PT_LABEL <- 6
+FIG_W <- 6.69; FIG_H <- 7.2
+wrap_key <- function(x) vapply(sub("\\|\\|\\|.*$", "", x),
+                               function(s) paste(strwrap(s, 24), collapse = "\n"),
+                               character(1), USE.NAMES = FALSE)
+inner_breaks <- function(lim) {
+  b <- scales::breaks_extended(5)(lim)
+  b[b >= lim[1] & b <= lim[1] + 0.8 * diff(lim)]
+}
 
 make_plot <- function(per_capita) {
   dd <- d %>%
@@ -71,36 +90,44 @@ make_plot <- function(per_capita) {
                          formatC(tot$v, format = "fg", digits = 3)),
                   as.character(tot$indicator))
   lab <- as_labeller(setNames(
-    sprintf("atop('%s', '%s'~%s)", IND_NAME, num[names(IND_NAME)], unit_expr),
-    names(IND_NAME)), default = label_parsed)
+    sprintf("%s\n%s %s", IND_NAME, num[names(IND_NAME)], unit_expr[names(IND_NAME)]),
+    names(IND_NAME)))
 
   ggplot(dd, aes(plot_value, key, fill = contribution_group)) +
-    geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
+    geom_col(width = 0.72, colour = "white", linewidth = 0.1) +
     # Share printed past the bar end. Skipped below 2 % so tiny bars do not
     # collide with the axis, and the ceiling below leaves room for the text.
     geom_text(aes(label = if_else(share_pct >= 2,
                                   sprintf("%.1f%%", share_pct), NA_character_)),
-              hjust = -0.15, size = 4.1, fontface = "bold", colour = "#2C3E50",
+              hjust = -0.15, size = PT_LABEL / .pt, fontface = "bold", colour = "black",
               na.rm = TRUE) +
     facet_ceiling(dd %>% group_by(indicator, key) %>%
                     summarise(value = sum(plot_value), .groups = "drop"),
                   "indicator", "value", room = 1.30) +
-    facet_wrap(~indicator, ncol = 3, scales = "free", labeller = lab) +
-    scale_y_discrete(labels = function(x) sub("\\|\\|\\|.*$", "", x)) +
+    facet_wrap(~indicator, ncol = 2, scales = "free", labeller = lab) +
+    scale_y_discrete(labels = wrap_key) +
     scale_fill_manual(values = GROUP_COLS, guide = "none") +
-    scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
-                       guide = guide_axis(check.overlap = TRUE),
+    scale_x_continuous(labels = smart_labs, breaks = inner_breaks,
                        expand = expansion(mult = c(0, 0.02))) +
     labs(x = if (per_capita) "Impact per person" else "Impact", y = NULL) +
-    theme_dkhc() +
-    theme(panel.grid.major.y = element_blank(),
-          axis.text.y = element_text(size = 13.5, colour = INK),
-          plot.margin = margin(14, 30, 12, 14))
+    theme_minimal(base_size = PT_AXIS) +
+    theme(text = element_text(colour = "black"),
+          panel.grid.minor = element_blank(), panel.grid.major.y = element_blank(),
+          panel.grid.major.x = element_line(colour = "#E6E6E6", linewidth = 0.25),
+          axis.text.y = element_text(size = PT_AXIS, colour = "black", lineheight = 0.88),
+          axis.text.x = element_text(size = PT_TICK, colour = "black"),
+          axis.title.x = element_text(size = PT_AXIS, colour = "black", margin = margin(t = 4)),
+          strip.text = element_text(size = PT_STRIP, face = "bold", colour = "black",
+                                    lineheight = 0.95, margin = margin(b = 3)),
+          strip.clip = "off",
+          panel.spacing.x = grid::unit(12, "pt"),
+          panel.spacing.y = grid::unit(8, "pt"),
+          plot.margin = margin(2, 4, 2, 2))
 }
 
 dk_save(make_plot(FALSE), sprintf("fig1b_activity_absolute_%s", YEAR),
-        w = 21, h = 12)
+        w = FIG_W, h = FIG_H, dpi = 600)
 dk_save(make_plot(TRUE),  sprintf("fig1c_activity_per_capita_%s", YEAR),
-        w = 21, h = 12)
+        w = FIG_W, h = FIG_H, dpi = 600)
 
 cat("\nabsolute and per-capita figures written to ", fig_dir, "\n", sep = "")

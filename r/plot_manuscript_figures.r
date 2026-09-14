@@ -431,6 +431,35 @@ if (!gold_has("scope_by_continent.csv")) {
   dk_save(p3, sprintf("fig3_scopes_stacked_%s", YEAR), w = F3_W, h = F3_H, dpi = 600)
 
   # ========= fig 4 / fig 5  where scope 2 and scope 3 arise, by pair ==========
+  # Drawn at the size it prints, 6.69 in wide (Appendix A's text width), so the
+  # sizes below are points on paper; figure 6 uses them too. Until 2026-09-14 the
+  # three were drawn 21.5 in wide and their 14 pt labels printed at 4 pt. A strip
+  # name wraps only where it is wider than its panel, and the tick at a panel's
+  # right edge is dropped, as in figure 1, because it ran into the next panel's zero.
+  F4_W <- 6.69; F4_H <- 4.7
+  F4_PT_STRIP <- 8; F4_PT_AXIS <- 7; F4_PT_TICK <- 6.5; F4_PT_LABEL <- 6
+  F4_STRIP <- setNames(sprintf("%s\n(%s)",
+                               vapply(IND_NAME, function(s) paste(strwrap(s, 22), collapse = "\n"),
+                                      character(1)),
+                               IND_UNIT_TXT[names(IND_NAME)]), names(IND_NAME))
+  # figure 1's rule with one more tick: a panel here is wider than figure 1's
+  f4_breaks <- function(lim) {
+    b <- scales::breaks_extended(4)(lim)
+    b[b >= lim[1] & b <= lim[1] + 0.8 * diff(lim)]
+  }
+  f4_theme <- theme_minimal(base_size = F4_PT_AXIS) +
+    theme(text = element_text(colour = "black"),
+          panel.grid.minor = element_blank(), panel.grid.major.y = element_blank(),
+          panel.grid.major.x = element_line(colour = "#E6E6E6", linewidth = 0.25),
+          axis.text.y = element_text(size = F4_PT_AXIS, colour = "black"),
+          axis.text.x = element_text(size = F4_PT_TICK, colour = "black"),
+          axis.title.x = element_text(size = F4_PT_AXIS, colour = "black", margin = margin(t = 4)),
+          strip.text = element_text(size = F4_PT_STRIP, face = "bold", lineheight = 0.95,
+                                    margin = margin(b = 3)),
+          panel.spacing.x = grid::unit(10, "pt"),
+          panel.spacing.y = grid::unit(8, "pt"),
+          plot.margin = margin(2, 4, 2, 2))
+
   pairs_src <- gold("scope_by_origin_and_industry.csv") %>%
     filter(producing_country_iso3 != "GLO",
            !grepl("^BU_", producing_sector_code)) %>%
@@ -463,35 +492,31 @@ if (!gold_has("scope_by_continent.csv")) {
     # compare bar lengths that are shares of five different denominators.
     ggplot(d, aes(plot_x, key,
                   fill = if_else(is_rest, "remainder", as.character(indicator)))) +
-      geom_col(width = 0.72, colour = "white", linewidth = 0.15) +
+      geom_col(width = 0.72, colour = "white", linewidth = 0.1) +
       remainder_breaks(d) +
-      remainder_label(d, size = 3.8) +
-      ranked_labels(d, size = 3.8) +
+      remainder_label(d, size = F4_PT_LABEL / .pt, hjust = -0.15) +
+      ranked_labels(d, size = F4_PT_LABEL / .pt, hjust = -0.15) +
       scale_fill_manual(values = c(IND_COLS, remainder = REMAINDER_COL),
                         guide = "none") +
       facet_ceiling(d %>% group_by(indicator, key) %>%
                       summarise(value = sum(plot_x), .groups = "drop"),
-                    "indicator", "value", room = 1.26) +
+                    "indicator", "value", room = 1.4) +
       facet_wrap(~indicator, ncol = 3, scales = "free",
-                 labeller = ind_only_labeller) +
+                 labeller = as_labeller(F4_STRIP)) +
       scale_y_discrete(labels = strip_key) +
-      scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
-                         guide = guide_axis(check.overlap = TRUE),
-                         expand = expansion(mult = c(0, 0.05))) +
+      scale_x_continuous(labels = smart_labs, breaks = f4_breaks,
+                         expand = expansion(mult = c(0, 0.02))) +
       # "Share of Scope 3 within the impact category" reads as the share Scope 3
       # is OF the category. The denominator here is the category's Scope 3 total.
       labs(x = sprintf("Share of the category's %s impact (%%)",
                        which_scope), y = NULL) +
-      theme_dkhc() +
-      theme(panel.grid.major.y = element_blank(),
-            axis.text.y = element_text(size = 14, colour = "black"),
-            plot.margin = margin(14, 32, 12, 14))
+      f4_theme
   }
 
   dk_save(scope_source_plot("Scope 2"), sprintf("fig4_scope2_sources_%s", YEAR),
-          w = 21.5, h = 12)
+          w = F4_W, h = F4_H, dpi = 600)
   dk_save(scope_source_plot("Scope 3"), sprintf("fig5_scope3_sources_%s", YEAR),
-          w = 21.5, h = 12)
+          w = F4_W, h = F4_H, dpi = 600)
 
   # ============ fig 6  the same sources, stacked by scope, per pair ===========
   d6 <- pairs_src %>%
@@ -521,32 +546,37 @@ if (!gold_has("scope_by_continent.csv")) {
     order_key() %>%
     prepare_remainder()
 
+  # Drawn at the size it prints, 6.69 in wide, with figure 4's point sizes and
+  # theme; until 2026-09-14 it was drawn 21.5 in wide and printed its labels at
+  # 4 pt. The legend is the only text figure 4 lacks, one row under the panels.
+  F6_H <- 4.9; F6_PT_LEGEND <- 7.5
   p6 <- ggplot(d6, aes(plot_x, key, fill = scope)) +
-    geom_col(width = 0.72, colour = "white", linewidth = 0.15,
+    geom_col(width = 0.72, colour = "white", linewidth = 0.1,
              position = position_stack(reverse = TRUE)) +
     remainder_breaks(d6) +
-    remainder_label(d6, size = 3.8) +
-    ranked_labels(d6, size = 3.8) +
+    remainder_label(d6, size = F4_PT_LABEL / .pt, hjust = -0.15) +
+    ranked_labels(d6, size = F4_PT_LABEL / .pt, hjust = -0.15) +
     facet_ceiling(d6 %>% group_by(indicator, key) %>%
                     summarise(value = sum(plot_x), .groups = "drop"),
-                  "indicator", "value", room = 1.26) +
+                  "indicator", "value", room = 1.4) +
     facet_wrap(~indicator, ncol = 3, scales = "free",
-               labeller = ind_only_labeller) +
+               labeller = as_labeller(F4_STRIP)) +
     scale_y_discrete(labels = strip_key) +
     scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
                       name = NULL, drop = TRUE) +
-    scale_x_continuous(labels = smart_labs, breaks = scales::breaks_extended(4),
-                       guide = guide_axis(check.overlap = TRUE),
-                       expand = expansion(mult = c(0, 0.05))) +
+    scale_x_continuous(labels = smart_labs, breaks = f4_breaks,
+                       expand = expansion(mult = c(0, 0.02))) +
     guides(fill = guide_legend(nrow = 1)) +
     labs(x = "Share of the impact category (%)",
          y = NULL) +
-    theme_dkhc() +
-    theme(panel.grid.major.y = element_blank(),
-          axis.text.y = element_text(size = 14, colour = "black"),
-          plot.margin = margin(14, 32, 12, 14))
+    f4_theme +
+    theme(legend.position = "bottom", legend.title = element_blank(),
+          legend.text = element_text(size = F6_PT_LEGEND, colour = "black",
+                                     margin = margin(l = 2, r = 6)),
+          legend.key.size = grid::unit(7, "pt"),
+          legend.margin = margin(t = 0))
 
-  dk_save(p6, sprintf("fig6_scope_pairs_stacked_%s", YEAR), w = 21.5, h = 12)
+  dk_save(p6, sprintf("fig6_scope_pairs_stacked_%s", YEAR), w = F4_W, h = F6_H, dpi = 600)
 }
 
 # ===================== SI  geographical origin on its own ===================
@@ -615,7 +645,7 @@ if (!is.null(bm) &&
                          levels = c("this study, headline",
                                     "this study, sector boundary matched",
                                     "this study, sector boundary AND capital matched"),
-                         labels = c("Headline\nhealth + eldercare,\ncapital excluded",
+                         labels = c("Headline\nhealth and elder care,\ncapital excluded",
                                     "+ childcare\nNACE Q sector boundary",
                                     "+ capital endogenised\nS\u00f6dersten et al. (2018)")),
            comparable = basis == "this study, sector boundary AND capital matched")
@@ -623,33 +653,51 @@ if (!is.null(bm) &&
     filter(basis == "Schmidt & Merciai 2023 (published comparator)")
   ref <- published$value_kt[[1]]
 
+  # Drawn at the size it prints, 6.69 in wide, so the sizes below are points on
+  # paper; until 2026-09-14 it was drawn 13 in wide and printed half its set size.
+  # The axis runs to a labelled tick above the tallest bar, which it used to pass,
+  # and the unit is "kt CO2e", as the text writes it.
+  F7_W <- 6.69; F7_H <- 4.0
+  F7_PT_AXIS <- 7; F7_PT_TICK <- 6.5; F7_PT_LEGEND <- 7.5; F7_PT_LABEL <- 6
+  F7_TOP <- ceiling(max(d7$value_kt, ref) * 1.12 / 1000) * 1000
   p7 <- ggplot(d7, aes(step, value_kt, fill = comparable)) +
     geom_col(width = 0.62, colour = "white", linewidth = 0.2) +
-    geom_hline(yintercept = ref, linetype = "22", linewidth = 0.8,
+    geom_hline(yintercept = ref, linetype = "22", linewidth = 0.4,
                colour = "#1A1A1A") +
-    annotate("text", x = 0.55, y = ref, hjust = 0, vjust = -0.7, size = 5,
-             fontface = "bold", colour = "#1A1A1A",
-             label = sprintf("Schmidt & Merciai (2023): %s kt",
+    annotate("text", x = 0.55, y = ref, hjust = 0, vjust = -0.7, size = F7_PT_LABEL / .pt,
+             fontface = "bold", colour = "black",
+             label = sprintf("Schmidt and Merciai (2023): %s kt",
                              formatC(ref, format = "d", big.mark = ","))) +
     geom_text(aes(label = sprintf("%s kt\n%.2f t per person",
                                   formatC(round(value_kt), format = "d",
                                           big.mark = ","), t_per_capita)),
-              vjust = -0.35, size = 5, fontface = "bold", colour = INK,
+              vjust = -0.35, size = F7_PT_LABEL / .pt, fontface = "bold", colour = "black",
               lineheight = 1.05) +
     scale_fill_manual(values = c(`FALSE` = "#9EC9E2", `TRUE` = "#0072B2"),
                       labels = c(`FALSE` = "Not comparable with the published value",
                                  `TRUE` = "Boundary and capital matched"),
                       name = NULL) +
-    scale_y_continuous(labels = smart_labs, expand = expansion(mult = c(0, 0.20)),
-                       breaks = scales::breaks_extended(5)) +
+    scale_y_continuous(labels = smart_labs, limits = c(0, F7_TOP),
+                       breaks = seq(0, F7_TOP, 1000), expand = expansion(mult = c(0, 0.01))) +
     guides(fill = guide_legend(nrow = 1)) +
     labs(x = NULL,
-         y = expression("Climate change (kt CO"[2]*"-eq)")) +
-    theme_dkhc() +
-    theme(panel.grid.major.x = element_blank(),
-          axis.text.x = element_text(size = 15, lineheight = 1.1, colour = INK))
+         y = expression("Climate change (kt CO"[2]*"e)")) +
+    theme_minimal(base_size = F7_PT_AXIS) +
+    theme(text = element_text(colour = "black"),
+          panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(),
+          panel.grid.major.y = element_line(colour = "#E6E6E6", linewidth = 0.25),
+          axis.text.x = element_text(size = F7_PT_AXIS, lineheight = 1.0, colour = "black",
+                                     margin = margin(t = 2)),
+          axis.text.y = element_text(size = F7_PT_TICK, colour = "black"),
+          axis.title.y = element_text(size = F7_PT_AXIS, colour = "black", margin = margin(r = 4)),
+          legend.position = "bottom", legend.title = element_blank(),
+          legend.text = element_text(size = F7_PT_LEGEND, colour = "black",
+                                     margin = margin(l = 2, r = 6)),
+          legend.key.size = grid::unit(7, "pt"),
+          legend.margin = margin(t = 0),
+          plot.margin = margin(2, 4, 2, 2))
 
-  dk_save(p7, sprintf("fig7_boundary_matched_%s", YEAR), w = 13, h = 8.5)
+  dk_save(p7, sprintf("fig7_boundary_matched_%s", YEAR), w = F7_W, h = F7_H, dpi = 600)
 }
 
 
