@@ -55,7 +55,9 @@ Still outstanding before submission, and who holds each:
   this repository cannot see. It must carry the revised title, which differs from
   the submitted one, the affiliations, the corresponding author's email and the
   author order proposed on 14 September 2026: Ofir Eriksen, Albert Kwame
-  Osei-Owusu, Styrmir Gislason, Morten Birkved, Ciprian Cimpan.
+  Osei-Owusu, Styrmir Gislason, Morten Birkved, Ciprian Cimpan. The guide for
+  authors asks for given names in full, so the submitted title page's initials
+  ("Osei-Owusu A", which also dropped Kwame) become full names.
 - **The Authorship Change Request form** (Ofir, as corresponding author). The
   submitted order was Eriksen, Gislason, Osei-Owusu, Birkved, Cimpan; the proposal
   moves Albert Kwame Osei-Owusu from third to second. The guide for authors allows a
