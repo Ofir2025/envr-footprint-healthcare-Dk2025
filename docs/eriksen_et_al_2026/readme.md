@@ -63,6 +63,13 @@ Still outstanding before submission, and who holds each:
 
 ## What is and is not versioned
 
+- The package shared with Ofir in Teams is built in
+  `deliverables/nxsust_d_26_01589_revision/`, inside the working copy but ignored by
+  git. Never edit it: change the sources here and rebuild it with
+  `scripts/release/deliverables/sync_deliverables.sh`, which copies the documents,
+  letters and figures under the names the package uses and has Microsoft Word make
+  the clean copies (it refuses to run while Word has a document open). Upload the
+  whole folder to Teams after a rebuild.
 - The response letters quote or paraphrase both referee reports. They are committed on the
   working branch but excluded by name from the public branch in
   `scripts/release/publish_ofir_branch.sh`, and its builder lives under
