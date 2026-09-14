@@ -118,3 +118,9 @@ data/silver/dk_medicines_register/dk_atc_sales_*.csv
 # 31 MB of bronze extracts those return.
 !data/silver/eurostat_figaro/figaro_dk_health_inputs.csv
 !data/silver/eurostat_figaro/figaro_dk_footprint_series.csv
+
+# The submission package shared with the co-author in Teams. It is rebuilt from
+# versioned files by scripts/release/deliverables/sync_deliverables.sh, copies them
+# under reviewer-facing names and holds the response letters, which quote the
+# referee reports; so it lives in the working copy and is never committed.
+/deliverables/
