@@ -174,7 +174,7 @@ p <- ggplot() +
   # directly, since this axis title is a plain string rather than plotmath.
   # The axis title names the quantity and unit, nothing more: an explanation
   # of the labels is a note, and notes belong in the manuscript caption.
-  labs(x = "Climate footprint (kt CO₂-eq)", y = NULL) +
+  labs(x = "Climate footprint (kt CO₂e)", y = NULL) +
   theme_dkhc() +
   theme(panel.grid.major.y = element_blank(),
         axis.text.y = element_text(size = 13.5, colour = INK),

@@ -21,10 +21,10 @@ IND_NAME <- c(climate_change = "Climate change",
               land_use = "Land use", waste_generation = "Waste generation")
 # Absolute units, and the per-capita unit each becomes. Per-capita units are
 # rescaled so no panel reads 0.00: kt/5.9M people is kg per person, not kt.
-ABS_UNIT <- c(climate_change = "kt~CO[2]*'-eq'", material_extraction = "kt",
+ABS_UNIT <- c(climate_change = "kt~CO[2]*e", material_extraction = "kt",
               blue_water_consumption = "Mm^3", land_use = "km^2",
               waste_generation = "kt")
-PC_UNIT  <- c(climate_change = "kg~CO[2]*'-eq'~per~person",
+PC_UNIT  <- c(climate_change = "kg~CO[2]*e~per~person",
               material_extraction = "kg~per~person",
               blue_water_consumption = "m^3~per~person",
               land_use = "m^2~per~person", waste_generation = "kg~per~person")
@@ -37,14 +37,17 @@ PC_SCALE <- c(climate_change = 1e6, material_extraction = 1e6,
 GROUP_COLS <- c(
   "Pharmaceuticals and chemical products" = "#0072B2", "Services" = "#009E73",
   "Transport" = "#E69F00", "Food and food services" = "#56B4E9",
-  "Individual travel" = "#CC79A7",
+  "Individual travel" = "#CC79A7", "Private travel" = "#CC79A7",
   "Medical, electrical equipment and machinery" = "#D55E00",
   "Operational impacts" = "#8C564B", "Heat and electricity" = "#F0E442",
   "Unallocated" = "grey80")
 
+# "Private travel", the manuscript's term, for the gold tables' "Individual travel"
 d <- read_csv(gold_path("figure1_activity_contributions.csv"),
               show_col_types = FALSE) %>%
-  mutate(indicator = factor(indicator, levels = IND_ORDER))
+  mutate(indicator = factor(indicator, levels = IND_ORDER),
+         contribution_group = dplyr::recode(contribution_group,
+                                            "Individual travel" = "Private travel"))
 
 make_plot <- function(per_capita) {
   dd <- d %>%

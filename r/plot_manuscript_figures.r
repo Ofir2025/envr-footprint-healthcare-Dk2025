@@ -17,18 +17,20 @@
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
 source(file.path(here, "_dk_common.r"))
+suppressPackageStartupMessages(library(patchwork))
 
 YEAR <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
 
 IND_ORDER <- c("climate_change", "material_extraction", "blue_water_consumption",
                "land_use", "waste_generation")
-IND_UNIT_EXPR <- c(climate_change = "kt~CO[2]*'-eq'", material_extraction = "kt",
+# "CO2e", as the manuscript text writes it; "CO2-eq" until 2026-09-14.
+IND_UNIT_EXPR <- c(climate_change = "kt~CO[2]*e", material_extraction = "kt",
                    blue_water_consumption = "Mm^3", land_use = "km^2",
                    waste_generation = "kt")
 # Plain-text units for axis labels that are not parsed as plotmath. Unicode
 # rather than "CO2-eq" / "Mm3": the y labels of figure 3 are a factor, not an
 # expression, so the sub- and superscripts have to be carried in the string.
-IND_UNIT_TXT <- c(climate_change = "kt CO\u2082-eq", material_extraction = "kt",
+IND_UNIT_TXT <- c(climate_change = "kt CO\u2082e", material_extraction = "kt",
                   blue_water_consumption = "Mm\u00b3", land_use = "km\u00b2",
                   waste_generation = "kt")
 IND_NAME <- c(climate_change = "Climate change",
@@ -65,7 +67,7 @@ GROUP_COLS <- c(
   "Pharmaceutical and chemical industry"  = "#0072B2",
   "Services" = "#009E73", "Transport" = "#E69F00",
   "Food and food services" = "#56B4E9", "Agricultural sector" = "#56B4E9",
-  "Individual travel" = "#CC79A7",
+  "Individual travel" = "#CC79A7", "Private travel" = "#CC79A7",
   "Medical, electrical equipment and machinery" = "#D55E00",
   "Operational impacts" = "#8C564B",
   "Heat and electricity" = "#B8860B", "Electricity sector" = "#B8860B",
@@ -115,13 +117,21 @@ order_key <- function(d, by = c("share_pct", "value")) {
 }
 
 # ========= fig 1  Ofir's figures 1-3, combined into one panelled figure ======
+# "Private travel", the manuscript's term; the gold tables keep Steenmeijer et
+# al.'s "Individual travel" (relabelled at display time, 2026-09-14).
 f1 <- gold("figure1_activity_contributions.csv") %>%
-  transmute(indicator, value, share_pct, group = contribution_group,
+  transmute(indicator, value, share_pct,
+            group = dplyr::recode(contribution_group, "Individual travel" = "Private travel"),
             analysis = "A  Activity contribution")
 f2 <- gold("figure2_sector_contributions.csv") %>%
   transmute(indicator, value, share_pct, group = hotspot_group,
             analysis = "B  Sector contribution")
+# Panel C holds places only. The supply chains of the travel terms have no
+# country in the per-kilometre inventory ("Unallocated", 6.75 % of climate change),
+# so they are left out, as in the heat map, with shares still of the whole
+# footprint; the caption gives the share left out (2026-09-14).
 f3 <- gold("figure3_geographical_origin.csv") %>%
+  filter(producing_world_region != "Unallocated") %>%
   transmute(indicator, value, share_pct,
             group = no_region_label(producing_world_region),
             analysis = "C  Geographical origin")
@@ -235,13 +245,53 @@ if (!gold_has("scope_by_continent.csv")) {
                      "be drawn for this run\n"),
               variant_name()))
 } else {
-  # ================= fig 3  scopes, stacked ===================================
+  # ================= fig 3  scopes, and where Scope 3 comes from ==============
+  # Left: the GHG Protocol partition of each category. Right: Scope 3 itself,
+  # broken down by the producing industry group it arises in, because Scope 3 is
+  # 89 % of the climate footprint and a bar that only says so hides the result.
   # Faceting the scopes was tried and dropped: three of five categories have no
   # direct term, so a facet grid draws empty panels. Material extraction, blue
   # water and land use are ZERO in scope 1 by EXIOBASE's accounting rather than by
-  # a data gap - extraction, abstraction and land occupation are attributed to
-  # extractive and agricultural industries, so a health SERVICE industry has no
-  # direct row. A stacked bar shows that cleanly by drawing nothing.
+  # a data gap, so a stacked bar shows that cleanly by drawing nothing.
+  #
+  # Drawn at the size it prints (6.69 in, the manuscript's text width), so every
+  # size below is a point size on paper. Until 2026-09-14 it was drawn 14 in wide
+  # and its 13 to 14 pt labels printed at 6 to 7 pt.
+  F3_W <- 6.69; F3_H <- 4.6
+  F3_PT_AXIS <- 7; F3_PT_TITLE <- 8.5; F3_PT_LEGEND <- 7.5; F3_PT_LABEL <- 6
+
+  # The industry groups: Figure 1B's names wherever the grouping is the same, so a
+  # reader moving between the two figures reads one vocabulary, plus the three
+  # groups that matter inside Scope 3 and are "Other" in Figure 1B. Colours are
+  # NOT Figure 1B's, because Figure 1B's blue, green and orange are the scope
+  # colours on the left of this figure; they were chosen to stay at least 10 CIE
+  # Lab units from every other colour in the figure under deuteranopia,
+  # protanopia and tritanopia simulation (the closest pairs sit in different
+  # panels), with an obvious hue where the material has one.
+  F3_GROUP <- c("Food and catering" = "Agricultural sector",
+                "Minerals and Metals" = "Mining of minerals and metals",
+                "Coal and Petroleum" = "Fossil fuel industry",
+                "Natural gas and gaseous fuels" = "Fossil fuel industry",
+                "Chemical" = "Pharmaceutical and chemical industry",
+                "Electricity" = "Electricity sector",
+                "Transport" = "Transport",
+                "Services" = "Services",
+                "Waste management and disposal" = "Waste management",
+                "Private travel" = "Employee commuting")
+  F3_COLS <- c("Agricultural sector" = "#7FBF4D", "Mining of minerals and metals" = "#5B7F8F",
+               "Fossil fuel industry" = "#3B2A5C", "Pharmaceutical and chemical industry" = "#D98AC2",
+               "Electricity sector" = "#F3E46B", "Transport" = "#9E3D22", "Services" = "#8EC9E8",
+               "Waste management" = "#8C6D46", "Employee commuting" = "#B03A76", "Other" = "#CCCCCC")
+  F3_UNIT <- c(climate_change = "kt CO₂e", material_extraction = "kt",
+               blue_water_consumption = "Mm³", land_use = "km²", waste_generation = "kt")
+  ink_on <- function(hex) {
+    v <- grDevices::col2rgb(hex) / 255
+    lin <- ifelse(v <= 0.04045, v / 12.92, ((v + 0.055) / 1.055) ^ 2.4)
+    ifelse(as.numeric(c(0.2126, 0.7152, 0.0722) %*% lin) < 0.3, "#FFFFFF", "#000000")
+  }
+  fmt_total <- function(x) ifelse(x >= 100, formatC(round(x), format = "d", big.mark = ","),
+                                  formatC(x, format = "f", digits = 1))
+
   d3 <- gold("scope_by_continent.csv") %>%
     group_by(indicator, unit, scope) %>%
     summarise(value = sum(value), .groups = "drop") %>%
@@ -251,38 +301,95 @@ if (!gold_has("scope_by_continent.csv")) {
     mutate(indicator = ind_factor(indicator),
            scope = factor(scope, levels = SCOPE_ORDER),
            lab = sprintf("%s\n%s %s", IND_NAME[as.character(indicator)],
-                         formatC(total, format = "f", digits = 0, big.mark = ","),
-                         IND_UNIT_TXT[as.character(indicator)]))
-  d3 <- d3 %>% mutate(lab = factor(lab, levels = rev(unique(lab[order(indicator)]))))
+                         fmt_total(total), F3_UNIT[as.character(indicator)]))
+  lab_levels <- rev(unique(d3$lab[order(d3$indicator)]))
+  d3 <- d3 %>% mutate(lab = factor(lab, levels = lab_levels),
+                      fill_hex = SCOPE_COLS[as.character(scope)])
 
-  p3 <- ggplot(d3, aes(share_pct, lab, fill = scope)) +
-    geom_col(width = 0.68, colour = "white", linewidth = 0.2,
+  d3r <- gold("scope_by_industry_group.csv") %>%
+    filter(scope == "Scope 3") %>%
+    mutate(group = if_else(producing_sector_group %in% names(F3_GROUP),
+                           unname(F3_GROUP[producing_sector_group]), "Other")) %>%
+    group_by(indicator, group) %>%
+    summarise(value = sum(value), .groups = "drop") %>%
+    group_by(indicator) %>%
+    mutate(share_pct = 100 * value / sum(value)) %>%
+    ungroup()
+  stopifnot(all(abs(d3r %>% group_by(indicator) %>% summarise(t = sum(share_pct)) %>%
+                      pull(t) - 100) < 1e-6))
+  # stack order: largest mean share of Scope 3 first, "Other" always last
+  grp_order <- d3r %>% filter(group != "Other") %>% group_by(group) %>%
+    summarise(v = mean(share_pct), .groups = "drop") %>% arrange(desc(v)) %>% pull(group)
+  grp_order <- c(grp_order, "Other")
+  d3r <- d3r %>%
+    left_join(distinct(d3, indicator = as.character(indicator), lab), by = "indicator") %>%
+    mutate(lab = factor(lab, levels = lab_levels),
+           group = factor(group, levels = grp_order),
+           fill_hex = F3_COLS[as.character(group)])
+
+  f3_theme <- theme_minimal(base_size = F3_PT_AXIS) +
+    theme(text = element_text(colour = "black"),
+          plot.title = element_text(size = F3_PT_TITLE, face = "bold", hjust = 0,
+                                    margin = margin(b = 4)),
+          plot.title.position = "panel",
+          panel.grid.major.y = element_blank(), panel.grid.minor = element_blank(),
+          panel.grid.major.x = element_line(colour = "#E6E6E6", linewidth = 0.25),
+          axis.text = element_text(size = F3_PT_AXIS, colour = "black"),
+          axis.text.y = element_text(lineheight = 1.05, hjust = 1),
+          axis.title.x = element_text(size = F3_PT_AXIS, colour = "black", margin = margin(t = 3)),
+          legend.position = "bottom", legend.justification = "left",
+          legend.title = element_blank(),
+          legend.text = element_text(size = F3_PT_LEGEND, colour = "black",
+                                     margin = margin(l = 2, r = 4)),
+          legend.key.size = grid::unit(7, "pt"),
+          legend.key.spacing.y = grid::unit(1.5, "pt"),
+          legend.margin = margin(t = 0),
+          plot.margin = margin(2, 10, 2, 2))
+  pct_axis <- scale_x_continuous(labels = function(x) paste0(smart_labs(x), "%"),
+                                 breaks = seq(0, 100, 25), limits = c(0, 100.01),
+                                 expand = expansion(mult = c(0, 0.01)))
+
+  p3l <- ggplot(d3, aes(share_pct, lab, fill = scope)) +
+    geom_col(width = 0.66, colour = "white", linewidth = 0.2,
              position = position_stack(reverse = TRUE)) +
-    # Luminance-driven label colour: white on the amber Scope 3 fill is 2.25:1,
-    # below the 4.5:1 floor; black on the same fill is 9.4:1.
-    # `group = scope` is load-bearing. Without it the text layer's grouping comes
-    # from its own `colour` aesthetic - two levels, not four - so position_stack
-    # stacks the labels in a different order from the bars and the label of the
-    # outside-protocol segment was drawn at 5 % instead of 97 %.
-    geom_text(aes(label = if_else(share_pct >= 4, sprintf("%.0f%%", share_pct),
-                                  NA_character_),
-                  colour = scope %in% c("Scope 3"), group = scope),
+    # `group = scope` is load-bearing: without it the text layer groups by its own
+    # colour and stacks the labels in a different order from the bars.
+    geom_text(aes(label = if_else(share_pct >= 4, sprintf("%.0f%%", share_pct), NA_character_),
+                  colour = ink_on(fill_hex), group = scope),
               position = position_stack(vjust = 0.5, reverse = TRUE),
-              fontface = "bold", size = 4.6, na.rm = TRUE, show.legend = FALSE) +
-    scale_colour_manual(values = c(`TRUE` = "#1A1A1A", `FALSE` = "white"),
-                        guide = "none") +
-    scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS,
-                      name = NULL) +
-    scale_x_continuous(labels = function(x) paste0(smart_labs(x), "%"),
-                       breaks = seq(0, 100, 25),
-                       expand = expansion(mult = c(0, 0.01))) +
-    guides(fill = guide_legend(nrow = 1)) +
-    labs(x = "Share of the impact category", y = NULL) +
-    theme_dkhc() +
-    theme(panel.grid.major.y = element_blank(),
-          axis.text.y = element_text(size = 14, lineheight = 1.15))
+              fontface = "bold", size = F3_PT_LABEL / .pt, na.rm = TRUE, show.legend = FALSE) +
+    scale_colour_identity() +
+    scale_fill_manual(values = SCOPE_COLS, labels = SCOPE_LABELS) +
+    pct_axis +
+    guides(fill = guide_legend(nrow = 1, order = 1)) +
+    labs(title = "GHG Protocol scope", x = "Share of the impact category", y = NULL) +
+    f3_theme +
+    # room for the "100%" tick, which otherwise runs into the right panel's "0%"
+    theme(plot.margin = margin(2, 16, 2, 2))
 
-  dk_save(p3, sprintf("fig3_scopes_stacked_%s", YEAR), w = 14, h = 8.5)
+  p3r <- ggplot(d3r, aes(share_pct, lab, fill = group)) +
+    geom_col(width = 0.66, colour = "white", linewidth = 0.2,
+             position = position_stack(reverse = TRUE), show.legend = TRUE) +
+    geom_text(aes(label = if_else(share_pct >= 7, sprintf("%.0f%%", share_pct), NA_character_),
+                  colour = ink_on(fill_hex), group = group),
+              position = position_stack(vjust = 0.5, reverse = TRUE),
+              fontface = "bold", size = F3_PT_LABEL / .pt, na.rm = TRUE, show.legend = FALSE) +
+    scale_colour_identity() +
+    scale_fill_manual(values = F3_COLS, breaks = grp_order, drop = FALSE) +
+    pct_axis +
+    # column-major, so the two longest names share the first column and the
+    # block fits the page width
+    guides(fill = guide_legend(ncol = 3, byrow = FALSE, order = 2)) +
+    labs(title = "Scope 3, by producing industry group", x = "Share of Scope 3", y = NULL) +
+    f3_theme +
+    theme(axis.text.y = element_blank(), plot.margin = margin(2, 10, 2, 12))
+
+  # one legend block under both panels: the group names need the full width
+  p3 <- (p3l | p3r) + plot_layout(widths = c(1, 1), guides = "collect") &
+    theme(legend.position = "bottom", legend.box = "vertical",
+          legend.box.just = "left", legend.justification = "left",
+          legend.spacing.y = grid::unit(3, "pt"))
+  dk_save(p3, sprintf("fig3_scopes_stacked_%s", YEAR), w = F3_W, h = F3_H, dpi = 600)
 
   # ========= fig 4 / fig 5  where scope 2 and scope 3 arise, by pair ==========
   pairs_src <- gold("scope_by_origin_and_industry.csv") %>%

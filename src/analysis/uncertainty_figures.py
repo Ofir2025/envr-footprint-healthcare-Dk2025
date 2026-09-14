@@ -23,8 +23,10 @@ from paths import PROJECT_ROOT
 from analysis.uncertainty_2025 import (INDICATORS, PARAMS, load_groups, run_mc,
                                        sobol_first_order, ranking_probabilities)
 
+#: Display names: the manuscript's "Private travel" for the model's "Individual travel".
+DISPLAY = {"Individual travel": "Private travel"}
 SHORT = {"Global warming (ktCO2eq)": "Climate change", "Material extraction (kt)": "Material extraction",
-         "Blue water consumption (Mm3)": "Blue water", "Land use (km2)": "Land use",
+         "Blue water consumption (Mm3)": "Blue water consumption", "Land use (km2)": "Land use",
          "Waste generation (kt)": "Waste generation"}
 
 # Okabe-Ito, colour-vision-deficiency safe; unique hue per key
@@ -47,8 +49,11 @@ def main():
     fig_dir = os.path.join(str(PROJECT_ROOT), "figures", "uncertainty")
     os.makedirs(fig_dir, exist_ok=True)
     mrio, parts, total = load_groups()
-    groups, G, tot, _ = run_mc(mrio, parts, "A", n=50_000)
-    _, G_B, tot_B, _ = run_mc(mrio, parts, "B", n=50_000)
+    # The published draw count and seed, so every number printed on a figure is
+    # the number in the tables; at 50,000 draws the figure printed private
+    # travel's CV as 25.6 % against the published 25.8 % (fixed 2026-09-14).
+    groups, G, tot, _ = run_mc(mrio, parts, "A")
+    _, G_B, tot_B, _ = run_mc(mrio, parts, "B")
 
     # 1. normalised distributions
     fig, ax = plt.subplots(figsize=(8.4, 5.2))
@@ -177,7 +182,7 @@ def main():
     for k in range(len(names)):
         ax.text(hi[k] + 1.4, y[k], f"CV {cv[k]:.1f} %   {share[k]:.0f} % of total",
                 va="center", fontsize=9)
-    ax.set_yticks(y); ax.set_yticklabels(names)
+    ax.set_yticks(y); ax.set_yticklabels([DISPLAY.get(n, n) for n in names])
     ax.set_xlabel("95 % interval, relative to the group's own median (%)")
     ax.set_xlim(min(lo) - 4, max(hi) + 38)
     ax.grid(axis="x", color="0.88", zorder=0)
@@ -217,7 +222,7 @@ def main():
     ax.barh(ypos, [r[1] for r in rows], color=OKABE_ITO[0], label="Lower bound")
     ax.set_yticks(ypos); ax.set_yticklabels([r[0] for r in rows])
     ax.axvline(0, color="k", lw=0.8)
-    ax.set_xlabel(f"Change in the climate footprint (kt CO\u2082eq), "
+    ax.set_xlabel(f"Change in the climate footprint (kt CO\u2082e), "
                   f"central estimate {base:,.0f}")
     ax.axhline(len(fix_rows) - 0.5, color="0.4", lw=0.8, ls=":")
     ax.text(0.995, (len(fix_rows) + len(pct_rows) / 2) / len(rows), "parameter 95 % range",
@@ -231,15 +236,23 @@ def main():
     plt.close(fig)
 
     # 4. ranking probabilities (climate), both pharma scenarios
+    # ONE row order for both panels. The panels share their y axis, so the tick
+    # labels set on the second panel are the labels of both: sorting each panel
+    # separately printed panel B's group names against panel A's rows, which put
+    # pharmaceuticals' 0.97 against "Services" until 2026-09-14. The order is
+    # panel A's, by probability of rank one, then two, then three.
+    tables = {lab: ranking_probabilities(groups, {ind: Gx[ind]}, top=3)
+                   .set_index("group")[["P_rank_1", "P_rank_2", "P_rank_3"]]
+              for lab, Gx in [("Case A: Chemicals n.e.c.", G),
+                              ("Case B: pharmaceutical-specific", G_B)]}
+    order = (tables["Case A: Chemicals n.e.c."]
+             .sort_values(["P_rank_1", "P_rank_2", "P_rank_3"], ascending=True).index)
     fig, axes = plt.subplots(1, 2, figsize=(10.5, 6.0), sharey=True)
-    for ax, (lab, Gx) in zip(axes, [("A: pharma as Chemicals nec", G),
-                                    ("B: pharma-specific intensity", G_B)]):
-        rp = ranking_probabilities(groups, {ind: Gx[ind]}, top=3)
-        rp = rp.set_index("group")[["P_rank_1", "P_rank_2", "P_rank_3"]]
-        rp = rp.sort_values("P_rank_1", ascending=True)
+    for ax, lab in zip(axes, tables):
+        rp = tables[lab].loc[order]
         im = ax.imshow(rp.values, aspect="auto", cmap="Blues", vmin=0, vmax=1)
         ax.set_xticks(range(3)); ax.set_xticklabels(["rank 1", "rank 2", "rank 3"])
-        ax.set_yticks(range(len(rp))); ax.set_yticklabels(rp.index)
+        ax.set_yticks(range(len(rp))); ax.set_yticklabels([DISPLAY.get(n, n) for n in rp.index])
         ax.set_title(lab)
         for r in range(rp.shape[0]):
             for c in range(3):
