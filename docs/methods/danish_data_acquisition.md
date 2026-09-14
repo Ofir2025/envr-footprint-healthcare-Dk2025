@@ -1250,19 +1250,21 @@ The subject-matter statistician should confirm which route fits the project
 
 > Dear Peter,
 >
-> I am a researcher at SDU developing a reproducible environmental
-> input-output assessment of Danish healthcare. I have found the public
-> Eurostat A64/A88 SUTs and Statistics Denmark's 117-industry IOT, but need
-> the working-level product detail. Could you confirm access to the 2019 and
-> 2022 SUTs (about 2,350 products × 117 industries), including domestic/import
-> use and valuation matrices, and whether the year-specific product-code
-> list, Danish/English labels, and HS/CPA concordance can be supplied? Please
-> advise the appropriate access route, costs, and required materials.
+> I am a researcher at Aalborg University developing a reproducible
+> environmental input-output assessment of Danish healthcare. I have found
+> the public Eurostat A64/A88 SUTs and Statistics Denmark's 117-industry
+> IOT, but need the working-level product detail. Could you confirm access
+> to the 2019 and 2022 SUTs (about 2,350 products × 117 industries),
+> including domestic/import use and valuation matrices, and whether the
+> year-specific product-code list, Danish/English labels, and HS/CPA
+> concordance can be supplied? Please advise the appropriate access route,
+> costs, and required materials.
 >
 > Best regards,
 > Albert Kwame Osei-Owusu
 
-The body is **86 words** under a conventional tokenised word count.
+The email is **88 words**, greeting and sign-off included, under a conventional
+tokenised word count.
 
 ### 7.4 Why this email is stronger
 
@@ -1277,8 +1279,8 @@ Services.
 **A. One-page project brief.** Title: *Environmental footprint of the Danish
 healthcare system: a Denmark-specific hybrid EEIO/MRIO assessment*. The
 drafted brief is [section 8](#8-sut-request-brief) below. It covers
-institution (SDU), objective, why public tables are insufficient, target
-years, data requested, model equations, intended outputs, the absence of any
+institution (Aalborg University), objective, why public tables are
+insufficient, target years, data requested, model equations, intended outputs, the absence of any
 personal-data need, and the publication/reproducibility goal.
 
 **B. Exact data specification.** Supply: product × industry domestic output;
@@ -1315,8 +1317,9 @@ but it does **not** replace full SUT access for high-resolution IO modelling.
 
 ### 7.8 If Research Services is required
 
-Then determine: (1) whether the relevant SDU environment is already
-authorised; (2) who manages Statistics Denmark research access at SDU; (3)
+Then determine: (1) whether the relevant Aalborg University environment is
+already authorised; (2) who manages Statistics Denmark research access at
+Aalborg University; (3)
 whether SUT access uses the normal Denmark's Data Portal workflow or a
 special national-accounts arrangement; (4) price and expected processing
 time; (5) output-control rules. Do not create a generic register-data
@@ -1355,7 +1358,7 @@ Email Peter
    |      -> assess usefulness/cost
    |
    +-- full SUT requires Research Services
-   |      -> initiate SDU institutional route
+   |      -> initiate Aalborg University institutional route
    |
    +-- full SUT unavailable
           -> Eurostat A88/A64 + 117-IOT + SHA + procurement hybrid
@@ -1409,7 +1412,7 @@ ready to attach once the subject-matter contact confirms a route.
 **Project title.** *Environmental footprint of the Danish healthcare system: a
 Denmark-specific hybrid EEIO/MRIO assessment.*
 
-**Institution.** University of Southern Denmark (SDU).
+**Institution.** Aalborg University (AAU).
 
 **Purpose.** The project will quantify the direct and supply-chain
 environmental footprints of Danish healthcare using Danish national accounts,
