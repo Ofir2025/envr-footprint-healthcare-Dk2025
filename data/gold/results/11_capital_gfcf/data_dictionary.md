@@ -109,11 +109,11 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `baseline_capital_excluded` | measure | float64 | varies by row | 3533.9214390832185 |
-| `endogenised_sodersten` | measure | float64 | varies by row | 4284.873766575411 |
+| `baseline_capital_excluded` | measure | float64 | varies by row | 3534.851439083219 |
+| `endogenised_sodersten` | measure | float64 | varies by row | 4285.803766575411 |
 | `change` | measure | float64 | varies by row | 750.9523274921921 |
-| `change_pct` | measure | float64 | % | 21.249830830619896 |
-| `per_capita_endogenised` | measure | float64 | varies by row | 0.7295364143166011 |
+| `change_pct` | measure | float64 | % | 21.244240116833744 |
+| `per_capita_endogenised` | measure | float64 | varies by row | 0.7296947547724173 |
 | `method` | dimension | str |  | Södersten, Wood & Hertwich (2018) Enviro |
 | `kbar_year` | measure | int64 |  | 2020 |
 | `structure_assumption` | dimension | str |  | 2020 capital structure applied to 2022 l |
@@ -127,11 +127,11 @@ units and are labelled as such wherever they are quoted.
 | `sector_consuming` | dimension | str |  | health_and_eldercare |
 | `scenario` | dimension | str |  | baseline_capital_excluded |
 | `indicator` | dimension | str |  | climate_change |
-| `value` | measure | float64 | varies by row | 3533.9214390832185 |
+| `value` | measure | float64 | varies by row | 3534.851439083219 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `delta_vs_baseline` | measure | float64 | varies by row | 0.0 |
 | `pct_vs_baseline` | measure | float64 | varies by row | 0.0 |
-| `per_capita` | measure | float64 | varies by row | 601.6803564334269 |
+| `per_capita` | measure | float64 | varies by row | 601.8386968892431 |
 | `per_capita_unit` | dimension | str |  | kg per capita |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 | `analysis_year` | measure | int64 |  | 2022 |

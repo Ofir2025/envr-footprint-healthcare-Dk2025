@@ -8,18 +8,18 @@ climate_change,kt CO2eq,Chemical,1338.7038152875327
 material_extraction,kt,Services,1240.0330366145643
 material_extraction,kt,Minerals and Metals,1171.8813789280407
 climate_change,kt CO2eq,Transport,855.0550548216455
+climate_change,kt CO2eq,Private travel,833.3545131908202
 material_extraction,kt,Construction,649.5512111200244
 climate_change,kt CO2eq,Food and catering,636.1444033167468
-climate_change,kt CO2eq,Private travel,603.898407534464
 land_use,km2,Construction,453.1985867819318
 material_extraction,kt,Transport,408.1815771423587
 land_use,km2,Transport,380.3688790521472
 material_extraction,kt,Food and catering,348.4100167298643
 climate_change,kt CO2eq,Construction,314.6778770658457
 material_extraction,kt,"Electrical, electronic and measuring equipment",189.37368765403272
+climate_change,kt CO2eq,Operational impact,172.67889247050002
 climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",168.50303127862296
 climate_change,kt CO2eq,Waste management and disposal,160.79380963307347
-climate_change,kt CO2eq,Operational impact,130.3030621077094
 land_use,km2,"Electrical, electronic and measuring equipment",129.02881957099177
 material_extraction,kt,Non-metallic mineral products,119.22167038113682
 climate_change,kt CO2eq,Electricity,115.41746547447126
@@ -32,17 +32,17 @@ waste_generation,kt,Chemical,72.256467086253
 climate_change,kt CO2eq,Coal and Petroleum,63.87955388732262
 waste_generation,kt,Services,61.27269181337058
 climate_change,kt CO2eq,General and special Machinery,57.491052855963915
+waste_generation,kt,Operational impact,51.795
 land_use,km2,Electricity,49.572034151600185
 waste_generation,kt,Food and catering,47.81430980923123
 material_extraction,kt,Metal Products,45.811260711112574
 land_use,km2,General and special Machinery,45.52635355150016
-waste_generation,kt,Operational impact,42.75704592555413
 blue_water_consumption,Mm3,Chemical,39.917390783886226
+material_extraction,kt,Private travel,37.109234122556
 material_extraction,kt,Paper Products,35.659715293246755
 waste_generation,kt,Waste management and disposal,32.24610807605287
 land_use,km2,Furniture and timber,29.72398319540205
 climate_change,kt CO2eq,Paper Products,28.551266799332826
-material_extraction,kt,Private travel,27.65779995517178
 blue_water_consumption,Mm3,Food and catering,26.338009328964787
 climate_change,kt CO2eq,Metal Products,24.87520467224953
 climate_change,kt CO2eq,"Steam, hot water supply and water distribution",23.03881148478276
@@ -71,11 +71,11 @@ blue_water_consumption,Mm3,Transport,4.792379202636814
 blue_water_consumption,Mm3,Construction,3.517224453850949
 material_extraction,kt,"Steam, hot water supply and water distribution",3.1621734417679863
 waste_generation,kt,General and special Machinery,2.6593305362425625
+land_use,km2,Private travel,2.4166663672724624
 land_use,km2,"Steam, hot water supply and water distribution",2.3837198216176314
 blue_water_consumption,Mm3,"Electrical, electronic and measuring equipment",2.165525806272906
 waste_generation,kt,Electricity,2.0275488693035513
 waste_generation,kt,Coal and Petroleum,1.949089291171111
-land_use,km2,Private travel,1.8004505070789105
 blue_water_consumption,Mm3,Waste management and disposal,1.2872258856743473
 waste_generation,kt,Metal Products,1.2172797005173448
 blue_water_consumption,Mm3,General and special Machinery,0.7905542919318309
@@ -90,9 +90,9 @@ waste_generation,kt,Non-metallic mineral products,0.40216038110491525
 blue_water_consumption,Mm3,Textile,0.3404635038927812
 waste_generation,kt,Textile,0.31696094685436693
 blue_water_consumption,Mm3,Metal Products,0.27131737515144927
+blue_water_consumption,Mm3,Private travel,0.2563592678412217
 waste_generation,kt,Minerals and Metals,0.23335880653704472
 blue_water_consumption,Mm3,Coal and Petroleum,0.19996939187973842
-blue_water_consumption,Mm3,Private travel,0.19237580184708641
 blue_water_consumption,Mm3,Furniture and timber,0.18752144628138992
 blue_water_consumption,Mm3,Transport Equipment,0.1505776102878405
 blue_water_consumption,Mm3,Non-metallic mineral products,0.1039540279380088

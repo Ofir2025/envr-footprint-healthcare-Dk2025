@@ -143,7 +143,7 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | blue_water_consumption |
 | `unit` | dimension | str |  | Mm3 |
 | `value` | measure | float64 | varies by row | 0.0828451910688205 |
-| `rank` | measure | int64 |  | 2 |
+| `rank` | measure | int64 |  | 3 |
 | `is_remainder` | dimension | bool |  | False |
 
 ### `scopes_by_producing_node.csv`
@@ -174,5 +174,5 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `scope` | dimension | str |  | Scope 1 |
-| `value` | measure | float64 | varies by row | 195.9599983729744 |
+| `value` | measure | float64 | varies by row | 236.0512284611 |
 | `basis` | dimension | str |  | national accounts (DRIVHUS/AFFALD) + med |

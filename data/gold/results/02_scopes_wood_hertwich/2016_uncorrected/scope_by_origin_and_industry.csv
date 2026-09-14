@@ -23734,14 +23734,14 @@ DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,waste_generation,kt,Scope 3,RoW Middle Eas
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,waste_generation,kt,Scope 3,RoW Middle East,RoW Middle East,Middle East,RECR,"Recreational, cultural and sporting activities (92)",Services,0.0003786919568826,MRIO supply-chain node
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,waste_generation,kt,Scope 3,RoW Middle East,RoW Middle East,Middle East,OSER,Other service activities (93),Services,0.0001015011438976,MRIO supply-chain node
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,waste_generation,kt,Scope 3,RoW Middle East,RoW Middle East,Middle East,PRHH,Private households with employed persons (95),Services,4.012947046436403e-06,MRIO supply-chain node
-DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 1,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,182.8387699118744,bottom-up item
-DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,waste_generation,kt,Scope 1,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,49.10282360999154,bottom-up item
+DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 1,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,172.5321163570906,bottom-up item
+DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,waste_generation,kt,Scope 1,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,47.23053445274639,bottom-up item
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 1,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,13.1212284611,bottom-up item
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 3,DNK,Denmark,Denmark,HEAL,Health and social work,Operational impact,10.611,bottom-up item
-DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,blue_water_consumption,Mm3,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,0.0884,bottom-up item
-DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,316.8201,bottom-up item
-DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,land_use,km2,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,0.8508,bottom-up item
-DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,material_extraction,kt,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,13.05,bottom-up item
+DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,blue_water_consumption,Mm3,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,0.1254066645262564,bottom-up item
+DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,climate_change,kt CO2eq,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,449.4496477455701,bottom-up item
+DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,land_use,km2,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,1.207039146065218,bottom-up item
+DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,material_extraction,kt,Scope 3,DNK,Denmark,Denmark,BU_COMMUTE,Bottom-up: employee commuting,Private travel,18.513158850688605,bottom-up item
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,blue_water_consumption,Mm3,Outside protocol,DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,0.0828451910688205,bottom-up item
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,climate_change,kt CO2eq,Outside protocol,DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,224.23761012569273,bottom-up item
 DNK,EXIOBASE v3.8.2 IOT_2016_ixi,2016,land_use,km2,Outside protocol,DNK,Denmark,Denmark,BU_TRAVEL,Bottom-up: patient and visitor travel,Private travel,0.7541725997525379,bottom-up item

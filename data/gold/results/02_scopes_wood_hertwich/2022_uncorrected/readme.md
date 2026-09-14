@@ -12,12 +12,12 @@ Reference year 2022 on EXIOBASE v3.8.2 `IOT_2022_ixi` with the Danish
 sea-transport reallocation **not** applied - the comparison run, not
 the headline, and not a lettered variant. Its partition closes on
 `01_eriksen_replication/2022_uncorrected` exactly: the climate `TOTAL`
-of 5,581.506218 kt CO2-eq plus the self-supply loop of 1.812536 kt is
-the grand total of 5,583.318753 kt published there.
+of 5,686.266020 kt CO2-eq plus the self-supply loop of 1.812536 kt is
+the grand total of 5,688.078556 kt published there.
 
 What the correction is worth, read across this folder and `2022c`: the
-climate footprint falls from 5,581.51 to 4,160.31 kt, and the
-transport industry group falls from 34.70 % of it to 15.97 %. The
+climate footprint falls from 5,686.27 to 4,265.07 kt, and the
+transport industry group falls from 34.07 % of it to 15.59 %. The
 ledger's MRIO decomposition row moves from 4,836.565363 to
 3,415.367269 kt on the same comparison. Nothing in this folder is on
 the headline basis, and no manuscript number is taken from it.

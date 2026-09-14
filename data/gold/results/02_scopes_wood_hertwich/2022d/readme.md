@@ -14,7 +14,7 @@ inverse. Its partition closes on `01_eriksen_replication/2022d`.
 
 This is the variant built to be comparable with Schmidt & Merciai
 (2023), whose 6,100 kt covers NACE Q including child care with capital
-endogenised. At 5,948.76 kt it is 2.5 % below them, on a full pipeline
+endogenised. At 6,220.59 kt it is 2.0 % above them, on a full pipeline
 run rather than the 1.2298 post-hoc uplift that
 `06_benchmarks_validation` applies to the headline; the residual
 difference their model being consequential and ours attributional

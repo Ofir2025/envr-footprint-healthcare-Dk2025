@@ -128,7 +128,7 @@ device manufacturing join the target set it is 19 %.
 **References:** Lenzen et al. (2020) SI 7 for the MRIO standard deviation;
 IEooc Methods5 Exercise 4b for reporting conventions.
 Median-1 lognormal multipliers so the MC median reproduces the deterministic
-model; structural choices as discrete scenarios; MRIO parameter uncertainty as
+model to within 1 % (+0.52 % for climate); structural choices as discrete scenarios; MRIO parameter uncertainty as
 one shared factor at the published Danish health-care relative SD of 8.35 %;
 correlated travel items; exact first-order Sobol shares (free for an additive
 independent model); verified against closed-form lognormal moments. Full
@@ -174,7 +174,7 @@ anywhere in this study.** The models actually used are below.
 |:---|:---|:---|
 | **EXIOBASE v3.10.2 IOT_2022_ixi** (Zenodo 20051562) | the model itself | 163 industries × 49 regions, the finest sectoral resolution of the harmonised global MRIOs, full GHG coverage, and the widest satellite set; the same family as the Dutch template. Native unit **M.EUR** |
 | **Statistics Denmark IO tables** (117 industries, basic prices) | expenditure vector; recipe validation | public, national-accounts consistent, 2006-2022 |
-| **Statistics Denmark DRIVHUS / AFFALD / AFTRYK / SHA1 / NABB69** | direct emissions, waste, national denominator, expenditure cross-check, employment | official, same DB07 classification as the IO tables, open API |
+| **Statistics Denmark DRIVHUS / AFFALD / AFTRYK / SHA1 / NABB117** | direct emissions, waste, national denominator, expenditure cross-check, health care's share of hours worked (employee commuting) | official, same DB07 classification as the IO tables, open API |
 | **Eurostat FIGARO** (`env_ac_ghgfp`, supply/use 2022 & 2024) | independent benchmark and denominator | the official EU inter-country accounts; consistent, trustworthy SUT/IOT for Denmark, which is exactly why it is here |
 | **EXIOBASE hybrid v3.3.18 (2011)** | legacy waste extension, now demoted | retained only as the "upstream solid residuals" tier with its composition disclosed |
 
@@ -206,12 +206,12 @@ on so a code reads as a classification entry rather than as a string.
 **What it gives us now.** An independent national denominator: Denmark's
 consumption-based GHG footprint 2022 = **57.40 Mt CO₂e**, against Statistics
 Denmark AFTRYK's 62.90 Mt and this model's 77.24 Mt. The healthcare footprint of
-4,162.1 kt is therefore **5.4 % to 7.3 %** of the national total depending on
-which denominator is used — 7.25 % of FIGARO, 6.62 % of AFTRYK, 5.39 % of our
+4,266.9 kt is therefore **5.5 % to 7.4 %** of the national total depending on
+which denominator is used — 7.43 % of FIGARO, 6.78 % of AFTRYK, 5.52 % of our
 own — and the manuscript quotes the share against our own national total, the
 only one built on the same boundary as the numerator. It also puts emissions
 arising in NACE Q due to Danish final demand at 176 kt (Q86 alone 97 kt,
-Q87-Q88 80 kt), which sits above our 130 kt Scope 1 by about the margin the
+Q87-Q88 80 kt), which sits above our 131 kt Scope 1 by about the margin the
 intra-health supply chain accounts for.
 
 **What it can do for gap-filling.** At A64 it separates **Q86 human health**
@@ -630,7 +630,7 @@ direction.
 Their government-consumption finding matters directly: **Danish government
 consumption, where public health care sits, is about two-thirds
 imported-emissions in their coupled model**, materially more import-exposed than
-households at 55 %. Our health-care footprint is **69.3 % imported** in origin,
+households at 55 %. Our health-care footprint is **68.6 % imported** in origin,
 which is consistent with, and slightly above, their government figure.
 
 They publish **no like-for-like raw-versus-coupled comparison**, so the size of
@@ -712,7 +712,7 @@ Danish side do not depend on which EXIOBASE release supplies the import side.
    — the recipe that, at the time this section was first drafted, sat behind a
    transport-dominance headline of ~41 % of GWP. **That transport figure is now
    superseded and withdrawn**: the sea-transport reallocation corrected it to
-   19.5 % of the supply-chain footprint (16.0 % of the total), documented in full
+   19.5 % of the supply-chain footprint (15.6 % of the total), documented in full
    in
    [docs/revision/results_2022.md, "The withdrawn transport finding"](../revision/results_2022.md#the-withdrawn-transport-finding).
    The recipe problem itself is unaffected by that correction and remains real:

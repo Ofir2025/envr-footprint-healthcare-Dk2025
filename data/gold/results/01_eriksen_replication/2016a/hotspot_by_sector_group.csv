@@ -3,14 +3,14 @@ material_extraction,kt,Minerals and Metals,5561.866240960331
 land_use,km2,Food and catering,4194.177945681064
 climate_change,kt CO2eq,Transport,2845.7804663600878
 climate_change,kt CO2eq,"Steam, hot water supply and water distribution",1314.199971634876
-climate_change,kt CO2eq,Private travel,541.0577101256928
+climate_change,kt CO2eq,Private travel,673.6872578712628
 climate_change,kt CO2eq,Food and catering,474.0040223368416
 climate_change,kt CO2eq,Electricity,427.8349751093905
 climate_change,kt CO2eq,Coal and Petroleum,420.65434970484347
 climate_change,kt CO2eq,Services,377.4625174464526
 climate_change,kt CO2eq,Chemical,314.673149890245
 climate_change,kt CO2eq,Waste management and disposal,300.7597799806592
-climate_change,kt CO2eq,Operational impact,195.9599983729744
+climate_change,kt CO2eq,Operational impact,185.6533448181906
 climate_change,kt CO2eq,Natural gas and gaseous fuels,108.6316735794888
 climate_change,kt CO2eq,Minerals and Metals,84.59504180282731
 climate_change,kt CO2eq,Metal Products,82.52927870175998
@@ -18,12 +18,12 @@ waste_generation,kt,Waste management and disposal,72.52863980391616
 climate_change,kt CO2eq,Non-metallic mineral products,65.18824448806012
 blue_water_consumption,Mm3,Food and catering,56.099617162491306
 waste_generation,kt,Food and catering,53.13872487618526
-waste_generation,kt,Operational impact,49.10282360999154
+waste_generation,kt,Operational impact,47.23053445274639
 waste_generation,kt,Chemical,44.43517113387717
 waste_generation,kt,"Steam, hot water supply and water distribution",37.43040986040011
+material_extraction,kt,Private travel,30.117175345521403
 material_extraction,kt,Chemical,29.884374552970964
 land_use,km2,Services,28.095452872426648
-material_extraction,kt,Private travel,24.654016494832803
 land_use,km2,Transport,23.57075662650099
 material_extraction,kt,Food and catering,18.859251293602114
 climate_change,kt CO2eq,"Electrical, electronic and measuring equipment",18.75649483962678
@@ -53,8 +53,8 @@ climate_change,kt CO2eq,General and special Machinery,2.8209548147446513
 material_extraction,kt,Construction,2.5726003053558544
 blue_water_consumption,Mm3,Chemical,2.4041738258635
 material_extraction,kt,Natural gas and gaseous fuels,2.3981767969462875
+land_use,km2,Private travel,1.9612117458177558
 material_extraction,kt,Metal Products,1.9286572858188349
-land_use,km2,Private travel,1.604972599752538
 land_use,km2,Electricity,1.3402965857348237
 waste_generation,kt,Non-metallic mineral products,1.1514384092237777
 waste_generation,kt,"Electrical, electronic and measuring equipment",1.1450973266777715
@@ -76,9 +76,9 @@ land_use,km2,Non-metallic mineral products,0.25785006540932204
 land_use,km2,Metal Products,0.25155662116304484
 waste_generation,kt,Transport Equipment,0.23463933591784478
 material_extraction,kt,"Electrical, electronic and measuring equipment",0.22385080912962732
+blue_water_consumption,Mm3,Private travel,0.20825185559507692
 land_use,km2,"Steam, hot water supply and water distribution",0.1981933294397836
 land_use,km2,Coal and Petroleum,0.1872613742947649
-blue_water_consumption,Mm3,Private travel,0.17124519106882052
 waste_generation,kt,Natural gas and gaseous fuels,0.11973846427221073
 land_use,km2,General and special Machinery,0.11715669349907945
 blue_water_consumption,Mm3,General and special Machinery,0.11492386922640321

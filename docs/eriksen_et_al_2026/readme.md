@@ -3,7 +3,10 @@
 Everything that goes to *Next Sustainability* for NXSUST-D-26-01589, and nothing
 else. These are the working files as well as the deliverables: the manuscript and
 appendix A carry the revision as tracked changes authored by Albert, so there is
-no separate working copy to keep in step. There was one until 2026-09-12, in a
+no separate working copy to keep in step. The latest layer of tracked changes in
+both is by Albert Kwame Osei-Owusu, dated 14 September 2026; in both documents the
+EndNote field codes have been removed and the reference list replaced by a static
+list verified entry by entry. There was one until 2026-09-12, in a
 `revision/` subfolder, and it produced exactly the failure duplication invites:
 the response letter here sat four days out of date while the real answer lived in
 `docs/revision/response_to_reviewers.md`.
@@ -17,8 +20,8 @@ The record of what each round of revision changed is in
 | File | Purpose |
 |:---|:---|
 | `eriksen_et_al_2026_manuscript.docx` | The manuscript, revision tracked. Three figures, 52 references. |
-| `eriksen_et_al_2026_supplementary_appendix_a.docx` | Supplementary appendix A: derivations, validation, nineteen figures. |
-| `eriksen_et_al_2026_supplementary_appendix_b_private_travel_scaling.xlsx` | Supplementary appendix B: the private-travel workbook, with the survey-based patient and visitor travel sheet and the superseded scaling rows marked. |
+| `eriksen_et_al_2026_supplementary_appendix_a.docx` | Supplementary appendix A: derivations, validation, nineteen figures, 31 references. |
+| `eriksen_et_al_2026_supplementary_appendix_b_travel_calculations.xlsx` | Supplementary appendix B: the travel calculations workbook, with README, commuting (Eqs. A.11 and A.12), patient and visitor travel (Eq. A.13), modal split and the superseded ratio scaling for comparison. |
 | `eriksen_et_al_2026_supplementary_figures_si.pdf` | Supplementary figures as submitted. |
 | `eriksen_et_al_2026_reviewer_responses.docx` | Point-by-point response to the reviewers. Built from `../revision/response_to_reviewers.md`, which is the source of truth. |
 | `eriksen_et_al_2026_cover_letter.docx` | The cover letter to *Next Sustainability*. |
