@@ -1,34 +1,34 @@
 indicator,parameter,variance_share_pct
-Global warming (ktCO2eq),mrio,79.43841545388909
-Global warming (ktCO2eq),B_HEAL,0.09596390376172029
-Global warming (ktCO2eq),B_ANAE,0.007579469423066918
-Global warming (ktCO2eq),B_PMDI,0.0020067906252254804
-Global warming (ktCO2eq),B_COMM,4.608180897304288
-Global warming (ktCO2eq),B_VISI,6.914221277358441
-Global warming (ktCO2eq),covariance_commute_visitor,8.933632207638189
-Material extraction (kt),mrio,99.96355042001463
+Global warming (ktCO2eq),mrio,74.70317223320149
+Global warming (ktCO2eq),B_HEAL,0.11806066360848724
+Global warming (ktCO2eq),B_ANAE,0.009611799905229467
+Global warming (ktCO2eq),B_PMDI,0.0028907047844229797
+Global warming (ktCO2eq),B_COMM,5.6692659785346935
+Global warming (ktCO2eq),B_VISI,8.506297892671583
+Global warming (ktCO2eq),covariance_commute_visitor,10.990700727294092
+Material extraction (kt),mrio,99.92750436280558
 Material extraction (kt),B_HEAL,0.0
 Material extraction (kt),B_ANAE,0.0
 Material extraction (kt),B_PMDI,0.0
-Material extraction (kt),B_COMM,0.008385127029494184
-Material extraction (kt),B_VISI,0.012113617757915572
-Material extraction (kt),covariance_commute_visitor,0.015950835197973235
-Blue water consumption (Mm3),mrio,99.99649635216491
+Material extraction (kt),B_COMM,0.012491226852972749
+Material extraction (kt),B_VISI,0.02958133537794898
+Material extraction (kt),covariance_commute_visitor,0.030423074963511574
+Blue water consumption (Mm3),mrio,99.99231486190544
 Blue water consumption (Mm3),B_HEAL,0.0
 Blue water consumption (Mm3),B_ANAE,0.0
 Blue water consumption (Mm3),B_PMDI,0.0
-Blue water consumption (Mm3),B_COMM,0.0007599212288480783
-Blue water consumption (Mm3),B_VISI,0.001219894548521834
-Blue water consumption (Mm3),covariance_commute_visitor,0.0015238320577245965
-Land use (km2),mrio,99.99988242072611
+Blue water consumption (Mm3),B_COMM,0.0012406907341302041
+Blue water consumption (Mm3),B_VISI,0.003260994247300886
+Blue water consumption (Mm3),covariance_commute_visitor,0.0031834531131145296
+Land use (km2),mrio,99.9997820871134
 Land use (km2),B_HEAL,0.0
 Land use (km2),B_ANAE,0.0
 Land use (km2),B_PMDI,0.0
-Land use (km2),B_COMM,2.7141935587319155e-05
-Land use (km2),B_VISI,3.896674711467342e-05
-Land use (km2),covariance_commute_visitor,5.1470591165860805e-05
-Waste generation (kt),mrio,95.13401813722633
-Waste generation (kt),B_HEAL,4.865981862773661
+Land use (km2),B_COMM,3.769494110632319e-05
+Land use (km2),B_VISI,8.870156326108723e-05
+Land use (km2),covariance_commute_visitor,9.15163822390649e-05
+Waste generation (kt),mrio,92.98906218331906
+Waste generation (kt),B_HEAL,7.010937816680932
 Waste generation (kt),B_ANAE,0.0
 Waste generation (kt),B_PMDI,0.0
 Waste generation (kt),B_COMM,0.0

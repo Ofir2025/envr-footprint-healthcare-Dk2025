@@ -71,8 +71,8 @@ units and are labelled as such wherever they are quoted.
 | `phi` | measure | float64 |  | 0.05 |
 | `phi_source` | dimension | str |  | sensitivity grid |
 | `released_meur` | measure | float64 |  | 10573.158181268676 |
-| `footprint_climate_kt` | measure | float64 |  | 4026.013269121211 |
-| `transport_share_pct` | measure | float64 | % | 18.542054700293058 |
+| `footprint_climate_kt` | measure | float64 |  | 3824.6699493818182 |
+| `transport_share_pct` | measure | float64 | % | 19.51816999849018 |
 | `background_year` | measure | int64 |  | 2016 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2016_ixi |
 
@@ -83,8 +83,8 @@ units and are labelled as such wherever they are quoted.
 | `phi` | measure | float64 |  | 0.05 |
 | `phi_source` | dimension | str |  | sensitivity grid |
 | `released_meur` | measure | float64 |  | 12221.956251977515 |
-| `footprint_climate_kt` | measure | float64 |  | 4630.175373238605 |
-| `transport_share_pct` | measure | float64 | % | 11.860439672856144 |
+| `footprint_climate_kt` | measure | float64 |  | 4140.0804823784965 |
+| `transport_share_pct` | measure | float64 | % | 13.26445607103058 |
 | `background_year` | measure | int64 |  | 2022 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi |
 

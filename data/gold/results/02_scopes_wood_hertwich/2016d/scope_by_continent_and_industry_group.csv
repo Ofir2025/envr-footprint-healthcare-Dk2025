@@ -1,5 +1,5 @@
 producing_world_region,producing_sector_group,scope,indicator,unit,value,share_of_scope_pct
-Denmark,Private travel,Outside protocol,blue_water_consumption,Mm3,0.0684,100.0
+Denmark,Private travel,Outside protocol,blue_water_consumption,Mm3,0.0828451910688205,100.00000000000001
 Europe,Electricity,Scope 2,blue_water_consumption,Mm3,0.023308471797892763,55.04880318669926
 Denmark,Electricity,Scope 2,blue_water_consumption,Mm3,0.0154563679011874,36.50409009871698
 Asia and Pacific,Electricity,Scope 2,blue_water_consumption,Mm3,0.0022274970815795835,5.260793135906372
@@ -9,121 +9,121 @@ Asia and Pacific,"Steam, hot water supply and water distribution",Scope 2,blue_w
 Africa,Electricity,Scope 2,blue_water_consumption,Mm3,3.2484852192449294e-05,0.07672112742512904
 Europe,"Steam, hot water supply and water distribution",Scope 2,blue_water_consumption,Mm3,2.8533568136850194e-05,0.06738917893028681
 Middle East,"Steam, hot water supply and water distribution",Scope 2,blue_water_consumption,Mm3,2.71972972928569e-09,6.423324012258852e-06
-Asia and Pacific,Food and catering,Scope 3,blue_water_consumption,Mm3,31.138070445192977,42.86315742868815
-Middle East,Food and catering,Scope 3,blue_water_consumption,Mm3,14.353377068144663,19.758162664192476
-Europe,Food and catering,Scope 3,blue_water_consumption,Mm3,4.896411083513459,6.740161998079461
-America,Food and catering,Scope 3,blue_water_consumption,Mm3,4.854926902820114,6.683056887119269
-Denmark,Electricity,Scope 3,blue_water_consumption,Mm3,4.8354657906368175,6.656267664045276
-Africa,Food and catering,Scope 3,blue_water_consumption,Mm3,3.019242229814526,4.156142405794516
-Asia and Pacific,Chemical,Scope 3,blue_water_consumption,Mm3,1.346813914025114,1.8539587070951002
-Denmark,Food and catering,Scope 3,blue_water_consumption,Mm3,1.3436357529637872,1.8495838047341735
-Asia and Pacific,Metal Products,Scope 3,blue_water_consumption,Mm3,1.3140558777998137,1.8088655833496474
-Europe,Chemical,Scope 3,blue_water_consumption,Mm3,0.8282068897584955,1.1400694324244136
-Europe,Metal Products,Scope 3,blue_water_consumption,Mm3,0.5404691354949039,0.7439835965700116
-Europe,Electricity,Scope 3,blue_water_consumption,Mm3,0.4724430174473665,0.6503421420596452
-Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.3591282367898593,0.4943585113183314
-Europe,Paper Products,Scope 3,blue_water_consumption,Mm3,0.29707387222145587,0.4089374829885781
-Asia and Pacific,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.2373611926521472,0.3267399046455946
-Asia and Pacific,Paper Products,Scope 3,blue_water_consumption,Mm3,0.22178843234715995,0.30530319816351587
-Asia and Pacific,Textile,Scope 3,blue_water_consumption,Mm3,0.2107563104523162,0.290116914274041
-Europe,Services,Scope 3,blue_water_consumption,Mm3,0.1778953384000878,0.2448820940621216
-Denmark,Chemical,Scope 3,blue_water_consumption,Mm3,0.17571528840357137,0.2418811429798261
-Asia and Pacific,Electricity,Scope 3,blue_water_consumption,Mm3,0.17294487891121324,0.23806753165082964
-Europe,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.1583997449892005,0.21804540580273196
-Asia and Pacific,Services,Scope 3,blue_water_consumption,Mm3,0.13747840764590932,0.1892461076014325
-America,Chemical,Scope 3,blue_water_consumption,Mm3,0.10411091296476463,0.14331403290733033
-America,Metal Products,Scope 3,blue_water_consumption,Mm3,0.09550589507241247,0.13146878266146902
-Denmark,Private travel,Scope 3,blue_water_consumption,Mm3,0.0884,0.1216871521748704
-Asia and Pacific,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.08728754641441881,0.12015580252830821
-Africa,Chemical,Scope 3,blue_water_consumption,Mm3,0.07908036401399493,0.10885819332370075
-Middle East,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.07200619319290447,0.09912023290269324
-Europe,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.06917520475000821,0.09522323152875642
-Europe,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.06797321802960511,0.093568634911586
-Asia and Pacific,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.0547859815638921,0.07541572483727355
-Europe,Textile,Scope 3,blue_water_consumption,Mm3,0.054158492386479185,0.07455195367188974
-Africa,Metal Products,Scope 3,blue_water_consumption,Mm3,0.04853652197613485,0.06681302189761157
-America,Electricity,Scope 3,blue_water_consumption,Mm3,0.04795369625908233,0.06601073228536725
-Denmark,Paper Products,Scope 3,blue_water_consumption,Mm3,0.0446585981314286,0.06147486003094496
-Denmark,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.03322079812768691,0.04573013933410053
-Middle East,Metal Products,Scope 3,blue_water_consumption,Mm3,0.03170908990944578,0.043649195125988416
-Asia and Pacific,Transport,Scope 3,blue_water_consumption,Mm3,0.03102164889007835,0.042702897162922665
-Europe,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.030124434380089674,0.04146783518769084
-Africa,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.02999075665213857,0.041283820911406026
-Middle East,Electricity,Scope 3,blue_water_consumption,Mm3,0.02973268956873438,0.04092857828188645
-Denmark,Metal Products,Scope 3,blue_water_consumption,Mm3,0.02915608768802949,0.040134856100872286
-Africa,Services,Scope 3,blue_water_consumption,Mm3,0.028753985355596347,0.039581341533941716
-America,Textile,Scope 3,blue_water_consumption,Mm3,0.0243957769064561,0.03358204317692435
-Africa,Textile,Scope 3,blue_water_consumption,Mm3,0.023020390121116542,0.031688752441099456
-America,Paper Products,Scope 3,blue_water_consumption,Mm3,0.02087054863856379,0.02872938493386817
-Africa,Electricity,Scope 3,blue_water_consumption,Mm3,0.018485810649940454,0.025446670289990318
-Europe,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.018233490719017795,0.02509933891181228
-Europe,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.017279102525488456,0.023785574417016984
-Africa,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.016916356216384945,0.023286235442845582
-Europe,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.016140421108065052,0.02221812080931677
-Asia and Pacific,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.0149324448442089,0.020555279277150538
-Middle East,Textile,Scope 3,blue_water_consumption,Mm3,0.012113193246845124,0.016674434275480262
-Middle East,Chemical,Scope 3,blue_water_consumption,Mm3,0.011637526440578978,0.016019654422101945
-Denmark,Textile,Scope 3,blue_water_consumption,Mm3,0.011512805937953311,0.01584797022773163
-Europe,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.011348072572271623,0.015621206266894684
-America,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.011265373758546067,0.01550736709121026
-Asia and Pacific,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.011017637858727449,0.015166345867902492
-Denmark,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.0109582055684008,0.015084534259790729
-America,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.010520482788084779,0.014481986312067617
-America,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.01001406764963285,0.01378487979604434
-Europe,Transport,Scope 3,blue_water_consumption,Mm3,0.009987220465342676,0.013747923264368033
-America,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.009884814462618354,0.01360695612820135
-Asia and Pacific,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.009119840533782689,0.012553930122680603
-Asia and Pacific,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.008617921647451695,0.011863012929237152
-Africa,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.0068894954731158,0.00948374529462809
-Africa,Paper Products,Scope 3,blue_water_consumption,Mm3,0.006806496145519242,0.009369492446125213
-Middle East,Services,Scope 3,blue_water_consumption,Mm3,0.006635686184614348,0.009134363739048091
-Denmark,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.0066120956015208,0.009101890086618245
-America,Services,Scope 3,blue_water_consumption,Mm3,0.006387147670059451,0.008792237675225037
-Denmark,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.0052582612614432995,0.007238267401543856
-Africa,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.0052433475492342395,0.007217737908703627
-America,Transport,Scope 3,blue_water_consumption,Mm3,0.003916297678978088,0.00539098542560971
-Africa,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.00391488292992012,0.005389037950678644
-Europe,Construction,Scope 3,blue_water_consumption,Mm3,0.003880438211411362,0.005341623021913985
-Europe,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.003031466202817578,0.004172969334109039
-Africa,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.002891940350196588,0.003980904813065839
-Middle East,Paper Products,Scope 3,blue_water_consumption,Mm3,0.002703658123387139,0.0037217246322334306
-Africa,Transport,Scope 3,blue_water_consumption,Mm3,0.0025664274972429235,0.0035328196086286357
-Asia and Pacific,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.002515775749220719,0.0034630948691546405
-Europe,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,0.0021403311332111614,0.0029462760216253324
-America,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.0021119870166513167,0.0029072588855950147
-America,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.0019569255328577206,0.0026938087682324297
-Asia and Pacific,Construction,Scope 3,blue_water_consumption,Mm3,0.0016771734104102662,0.002308715565794575
-Africa,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.0013782036976354756,0.0018971683606576605
-Middle East,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.001297475181820177,0.0017860414015075734
-Denmark,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.0011641269640628,0.0016024807129726227
-Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,0.0009137740206128001,0.0012578569943410968
-America,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.0008415968343288023,0.0011585013806431918
-America,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.0007147250200408045,0.0009838557949874737
-Middle East,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.0007105957294988639,0.000978171613917888
-Africa,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.0006432218157048114,0.0008854279521478261
-America,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.0005640710667313815,0.0007764728703029762
-Africa,Construction,Scope 3,blue_water_consumption,Mm3,0.0005278915993253,0.0007266699703499263
-Africa,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.0005108591357762855,0.000703223907184747
-Denmark,Construction,Scope 3,blue_water_consumption,Mm3,0.0004629740989328,0.0006373076881205785
-Middle East,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.0003285276120114912,0.0004522351755258949
-America,Construction,Scope 3,blue_water_consumption,Mm3,0.0001586347251744883,0.00021836886812813013
-Middle East,Construction,Scope 3,blue_water_consumption,Mm3,0.0001017408040121554,0.0001400514558848509
-Middle East,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.0001011306604713489,0.00013921156188147267
-Denmark,Services,Scope 3,blue_water_consumption,Mm3,8.931929201300387e-05,0.0001229526049698879
-Middle East,Furniture and timber,Scope 3,blue_water_consumption,Mm3,8.55318568554442e-05,0.00011773900544081074
-Denmark,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,8.152949027986521e-05,0.00011222954174689563
-Middle East,Transport,Scope 3,blue_water_consumption,Mm3,7.531918777161616e-05,0.00010368074054357798
-Middle East,Transport Equipment,Scope 3,blue_water_consumption,Mm3,6.593419431724178e-05,9.076181377160266e-05
-Middle East,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,2.6078212877596877e-05,3.589800292856104e-05
-Africa,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,1.872512588767708e-05,2.577610003831862e-05
-Middle East,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,1.5773392578788403e-05,2.1712887138563302e-05
-Middle East,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,4.864843211706651e-06,6.6967071969438065e-06
-America,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,4.427561586025837e-06,6.0947665212934e-06
-Denmark,Transport,Scope 3,blue_water_consumption,Mm3,2.152748255072646e-06,2.9633688292897265e-06
-Denmark,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,1.9016678821031736e-07,2.6177437664655246e-07
-Denmark,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,4.304907716902311e-09,5.925927154360468e-09
+Asia and Pacific,Food and catering,Scope 3,blue_water_consumption,Mm3,28.835255833407096,43.930316223245974
+Middle East,Food and catering,Scope 3,blue_water_consumption,Mm3,11.55835291231112,17.609072081456468
+Denmark,Electricity,Scope 3,blue_water_consumption,Mm3,4.66927021884069,7.113601433971384
+Europe,Food and catering,Scope 3,blue_water_consumption,Mm3,4.533426336092541,6.90664420215082
+America,Food and catering,Scope 3,blue_water_consumption,Mm3,4.446823948784452,6.774706053860673
+Africa,Food and catering,Scope 3,blue_water_consumption,Mm3,2.866540960854886,4.367155665438853
+Denmark,Food and catering,Scope 3,blue_water_consumption,Mm3,1.335385596421134,2.034450877414559
+Asia and Pacific,Metal Products,Scope 3,blue_water_consumption,Mm3,1.227443152461613,1.8700012978981537
+Asia and Pacific,Chemical,Scope 3,blue_water_consumption,Mm3,1.2006754169869644,1.8292208348852628
+Europe,Chemical,Scope 3,blue_water_consumption,Mm3,0.6539436492235826,0.9962787037003726
+Europe,Metal Products,Scope 3,blue_water_consumption,Mm3,0.517099531200159,0.7877976202381115
+Europe,Electricity,Scope 3,blue_water_consumption,Mm3,0.4433201758576813,0.6753952739690958
+Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.27899818433081264,0.4250518370350064
+Europe,Paper Products,Scope 3,blue_water_consumption,Mm3,0.2706727349468864,0.4123680714998735
+Asia and Pacific,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.22147486017533896,0.33741544376137483
+Asia and Pacific,Paper Products,Scope 3,blue_water_consumption,Mm3,0.20552719150250334,0.3131192789598974
+Asia and Pacific,Textile,Scope 3,blue_water_consumption,Mm3,0.20073132548048703,0.3058128096804604
+Europe,Services,Scope 3,blue_water_consumption,Mm3,0.16788858227955208,0.25577711369803086
+Asia and Pacific,Electricity,Scope 3,blue_water_consumption,Mm3,0.1604952019861547,0.24451334908556732
+Europe,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.1532473888702586,0.23347135507837619
+Asia and Pacific,Services,Scope 3,blue_water_consumption,Mm3,0.1309001928845879,0.19942555392352757
+Denmark,Chemical,Scope 3,blue_water_consumption,Mm3,0.11081358913846144,0.16882374967679514
+America,Metal Products,Scope 3,blue_water_consumption,Mm3,0.08841712506495192,0.1347028889250774
+Denmark,Private travel,Scope 3,blue_water_consumption,Mm3,0.0884,0.13467679900504936
+America,Chemical,Scope 3,blue_water_consumption,Mm3,0.08834925890978182,0.1345994952990696
+Asia and Pacific,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.0834810219876369,0.12718276944530635
+Africa,Chemical,Scope 3,blue_water_consumption,Mm3,0.0749052277694538,0.11411760525717388
+Middle East,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.06938020396037893,0.1057002690463946
+Europe,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.06520527352400125,0.09933979091019438
+Europe,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.054674590224804955,0.0832963664976187
+Europe,Textile,Scope 3,blue_water_consumption,Mm3,0.05269174321487319,0.08027551255854241
+Asia and Pacific,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.050877651289007175,0.07751175584274446
+Denmark,Paper Products,Scope 3,blue_water_consumption,Mm3,0.0459628066608449,0.07002402346573022
+Africa,Metal Products,Scope 3,blue_water_consumption,Mm3,0.0455119908356049,0.06933720862088698
+America,Electricity,Scope 3,blue_water_consumption,Mm3,0.04309849014842172,0.06566025673235398
+Denmark,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.03286073405540177,0.050063104926897334
+Asia and Pacific,Transport,Scope 3,blue_water_consumption,Mm3,0.030402264690115765,0.04631764356299808
+Middle East,Metal Products,Scope 3,blue_water_consumption,Mm3,0.02985519375229548,0.04548418470853738
+Africa,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.028646943691292993,0.04364342395499132
+Europe,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.0283021429676376,0.043118122396659506
+Denmark,Metal Products,Scope 3,blue_water_consumption,Mm3,0.028176546212868428,0.04292677659464894
+Africa,Services,Scope 3,blue_water_consumption,Mm3,0.027811465420343837,0.04237057848927067
+Middle East,Electricity,Scope 3,blue_water_consumption,Mm3,0.026946903242548392,0.04105342388919913
+America,Textile,Scope 3,blue_water_consumption,Mm3,0.022616031534139772,0.03445537028523982
+Africa,Textile,Scope 3,blue_water_consumption,Mm3,0.021753342175861945,0.03314106891297084
+America,Paper Products,Scope 3,blue_water_consumption,Mm3,0.019028098466876583,0.02898917865013377
+Europe,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.01638165718837499,0.02495734335439367
+Africa,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.016291977381627933,0.024820716778510356
+Europe,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.016216447984948916,0.024705648256162928
+Africa,Electricity,Scope 3,blue_water_consumption,Mm3,0.01577187700978524,0.02402834739795481
+Europe,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.01548166378393862,0.023586209521416893
+Asia and Pacific,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.013153133022012702,0.02003870873633803
+Denmark,Textile,Scope 3,blue_water_consumption,Mm3,0.011396618865441945,0.01736267136061401
+Middle East,Textile,Scope 3,blue_water_consumption,Mm3,0.011390762516601887,0.01735374925297107
+Europe,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.010854974651218612,0.016537480082659217
+Asia and Pacific,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.010705642454464103,0.016309973496151417
+America,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.009838408663287071,0.014988748711256212
+Europe,Transport,Scope 3,blue_water_consumption,Mm3,0.009805001438869983,0.014937853031978646
+Middle East,Chemical,Scope 3,blue_water_consumption,Mm3,0.009611380136979689,0.014642872294899743
+America,Non-metallic mineral products,Scope 3,blue_water_consumption,Mm3,0.009383114306872898,0.01429511085461679
+America,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.009354099517007376,0.014250907019516194
+America,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.009293678847945302,0.014158856540975205
+Asia and Pacific,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.008660207039516664,0.013193766547546372
+Asia and Pacific,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.008169330023033602,0.012445918750203752
+Denmark,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.0077232047910698,0.011766249992327393
+Africa,Paper Products,Scope 3,blue_water_consumption,Mm3,0.0065452939164488515,0.00997171078297007
+Denmark,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.0065452045167064005,0.00997157458307024
+Africa,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.006341510235412011,0.009661247730351206
+Middle East,Services,Scope 3,blue_water_consumption,Mm3,0.006128955143474897,0.00933742149285896
+America,Services,Scope 3,blue_water_consumption,Mm3,0.006116139238175153,0.009317896548264828
+Denmark,Furniture and timber,Scope 3,blue_water_consumption,Mm3,0.0052470804602809,0.007993891408513264
+Africa,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.004876985267334182,0.007430053898182721
+America,Transport,Scope 3,blue_water_consumption,Mm3,0.003910029697313497,0.0059569036611862415
+Africa,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.003746278679079102,0.005707430098181425
+Europe,Construction,Scope 3,blue_water_consumption,Mm3,0.0037191762256569235,0.005666139694651081
+Europe,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.002665102902389042,0.004060266152859985
+Middle East,Paper Products,Scope 3,blue_water_consumption,Mm3,0.002564505260256843,0.0039070063289932426
+Africa,Transport,Scope 3,blue_water_consumption,Mm3,0.002545795531094517,0.0038785021838141304
+Africa,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.0025371252344190487,0.0038652930457748072
+Asia and Pacific,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.002395565662795223,0.0036496280008107475
+America,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,0.0020174748263840003,0.003073609182021096
+Europe,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,0.0019953694995500106,0.003039931866874465
+America,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.0018879222749543995,0.0028762367506921854
+Asia and Pacific,Construction,Scope 3,blue_water_consumption,Mm3,0.0016194290900174723,0.0024671892088146278
+Africa,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.001343192249515942,0.0020463442603303014
+Denmark,Transport Equipment,Scope 3,blue_water_consumption,Mm3,0.001175822828389,0.0017913580851187103
+Middle East,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.001020665716794481,0.0015549772804533365
+Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,0.0008681705997179,0.0013226520063382443
+America,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.0007510803864879149,0.0011442658625301777
+America,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,0.0006470365236086892,0.0009857557447847658
+Africa,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.0006157320644940335,0.0009380636141496271
+Middle East,"Electrical, electronic and measuring equipment",Scope 3,blue_water_consumption,Mm3,0.0005952133384962084,0.0009068034745902518
+America,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,0.0005290832514952999,0.0008060547366354128
+Africa,Construction,Scope 3,blue_water_consumption,Mm3,0.0005084160622802,0.0007745684143738592
+Africa,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,0.00048011627891975957,0.0007314538868227226
+Denmark,Construction,Scope 3,blue_water_consumption,Mm3,0.0004640057417095,0.0007069095929117553
+Middle East,General and special Machinery,Scope 3,blue_water_consumption,Mm3,0.0003088260357947558,0.00047049436595312784
+America,Construction,Scope 3,blue_water_consumption,Mm3,0.00015398748080659743,0.00023459888011181015
+Middle East,Construction,Scope 3,blue_water_consumption,Mm3,9.577635931356278e-05,0.0001459146322704534
+Middle East,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,9.327340939470687e-05,0.00014210140508559525
+Denmark,Services,Scope 3,blue_water_consumption,Mm3,8.836123131363509e-05,0.00013461773517494465
+Middle East,Furniture and timber,Scope 3,blue_water_consumption,Mm3,8.068357316258886e-05,0.00012292087517904043
+Middle East,Transport,Scope 3,blue_water_consumption,Mm3,7.340670105519809e-05,0.00011183460999586716
+Denmark,Minerals and Metals,Scope 3,blue_water_consumption,Mm3,7.250130243172459e-05,0.00011045524134843517
+Middle East,Transport Equipment,Scope 3,blue_water_consumption,Mm3,6.276067005364166e-05,9.561545414294703e-05
+Middle East,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,2.3519469840049106e-05,3.5831752402190203e-05
+Africa,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,1.8100480720230803e-05,2.7575959319607408e-05
+Middle East,Waste management and disposal,Scope 3,blue_water_consumption,Mm3,1.4643290812951564e-05,2.2308953999868368e-05
+Middle East,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,4.59185875537452e-06,6.995665595669122e-06
+America,"Steam, hot water supply and water distribution",Scope 3,blue_water_consumption,Mm3,4.225030956881092e-06,6.436805938574505e-06
+Denmark,Transport,Scope 3,blue_water_consumption,Mm3,2.160467265887611e-06,3.291457191458533e-06
+Denmark,Coal and Petroleum,Scope 3,blue_water_consumption,Mm3,1.8356098557163634e-07,2.796539135633488e-07
+Denmark,Natural gas and gaseous fuels,Scope 3,blue_water_consumption,Mm3,4.192751676322445e-09,6.387628674096851e-09
 Denmark,Private travel,Outside protocol,climate_change,kt CO2eq,224.23761012569273,100.0
-Denmark,Operational impact,Scope 1,climate_change,kt CO2eq,195.72222862199442,100.00000000000001
+Denmark,Operational impact,Scope 1,climate_change,kt CO2eq,195.9599983729744,100.0
 Europe,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,8.60822074326726,36.1217602372726
 Europe,Electricity,Scope 2,climate_change,kt CO2eq,3.3298269721277336,13.972598415633714
 Denmark,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,3.127794604704856,13.124831501440031
@@ -136,123 +136,123 @@ Africa,Electricity,Scope 2,climate_change,kt CO2eq,0.2079998473318022,0.87280761
 Middle East,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,0.10934008938851351,0.4588121762912391
 Africa,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,0.00022833640802690143,0.0009581437593405947
 America,"Steam, hot water supply and water distribution",Scope 2,climate_change,kt CO2eq,1.5115631039772515e-05,6.342811325799043e-05
-Europe,Transport,Scope 3,climate_change,kt CO2eq,394.34914908435985,7.568083616938096
-Asia and Pacific,Transport,Scope 3,climate_change,kt CO2eq,342.28805317368256,6.568962082236486
-Denmark,Private travel,Scope 3,climate_change,kt CO2eq,316.8201,6.080198255515355
-Denmark,Waste management and disposal,Scope 3,climate_change,kt CO2eq,270.65008302874867,5.194134345284543
-Denmark,Transport,Scope 3,climate_change,kt CO2eq,254.22050075426543,4.878828853353447
-Europe,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,223.63116361190018,4.291778870317712
-Denmark,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,211.40653404933465,4.05717200244338
-Asia and Pacific,Electricity,Scope 3,climate_change,kt CO2eq,211.36361436973888,4.056348316821776
-Asia and Pacific,Food and catering,Scope 3,climate_change,kt CO2eq,156.63188006866744,3.005973686491489
-Denmark,Food and catering,Scope 3,climate_change,kt CO2eq,154.54178282187993,2.965861945999724
-Europe,Food and catering,Scope 3,climate_change,kt CO2eq,135.85276772516528,2.607194939113657
-Europe,Electricity,Scope 3,climate_change,kt CO2eq,134.49867158678057,2.581208036835655
-Denmark,Chemical,Scope 3,climate_change,kt CO2eq,123.79017369253415,2.3756977481393666
-Asia and Pacific,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,110.08091487316531,2.1125988741792394
-Denmark,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,103.67435941730895,1.9896485711316731
-Europe,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,100.98264958306085,1.937991086525902
-Europe,Waste management and disposal,Scope 3,climate_change,kt CO2eq,95.66943351426299,1.836023417578506
-Europe,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,91.61642904250296,1.7582408819414321
-Asia and Pacific,Metal Products,Scope 3,climate_change,kt CO2eq,89.05984719231995,1.7091766827142845
-Denmark,Services,Scope 3,climate_change,kt CO2eq,88.13242827302703,1.6913782826278734
-Europe,Metal Products,Scope 3,climate_change,kt CO2eq,82.66605936110653,1.5864714073309385
-Middle East,Transport,Scope 3,climate_change,kt CO2eq,75.35163736168016,1.4460979402402605
-Europe,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,69.82515735886679,1.3400374533196189
-Europe,Chemical,Scope 3,climate_change,kt CO2eq,64.9400899909193,1.2462865262519571
-Asia and Pacific,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,62.79971468453227,1.2052098830590456
-Africa,Food and catering,Scope 3,climate_change,kt CO2eq,56.63317791741485,1.0868658572412435
-Middle East,Electricity,Scope 3,climate_change,kt CO2eq,54.93405259362174,1.0542573869149328
-America,Transport,Scope 3,climate_change,kt CO2eq,52.25830385975866,1.0029062170117866
-Middle East,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,52.19251637955962,1.001643667942643
-Denmark,Minerals and Metals,Scope 3,climate_change,kt CO2eq,48.30130936466251,0.9269662402673583
-Denmark,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,46.63203153049685,0.8949305828855681
-Asia and Pacific,Chemical,Scope 3,climate_change,kt CO2eq,46.009905541238744,0.8829911593622566
-Europe,Services,Scope 3,climate_change,kt CO2eq,45.488054367106805,0.8729761426426872
-America,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,44.19035650661727,0.8480715981787013
-America,Food and catering,Scope 3,climate_change,kt CO2eq,44.09537765611556,0.8462488279657907
-Asia and Pacific,Waste management and disposal,Scope 3,climate_change,kt CO2eq,43.06227615750558,0.826422238902727
-America,Electricity,Scope 3,climate_change,kt CO2eq,39.66838523812229,0.7612889672212786
-Africa,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,39.649983267352795,0.760935808976045
-Middle East,Services,Scope 3,climate_change,kt CO2eq,35.62776244535481,0.6837440524391029
-Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,32.39995205175422,0.6217980864972177
-Africa,Electricity,Scope 3,climate_change,kt CO2eq,30.026819999534048,0.5762545323981669
-Denmark,Construction,Scope 3,climate_change,kt CO2eq,27.549908035728876,0.5287193040417801
-Asia and Pacific,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,27.178292610833783,0.5215875107680271
-Asia and Pacific,Services,Scope 3,climate_change,kt CO2eq,25.825282620875353,0.49562145312004297
-Europe,Minerals and Metals,Scope 3,climate_change,kt CO2eq,25.44583492566084,0.4883393481825639
-Middle East,Food and catering,Scope 3,climate_change,kt CO2eq,23.42066015212424,0.44947355612842677
-Denmark,Electricity,Scope 3,climate_change,kt CO2eq,21.132262852215444,0.40555617440033725
-Europe,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,20.75548282290802,0.3983252655125867
-Middle East,Chemical,Scope 3,climate_change,kt CO2eq,18.838805578983827,0.3615416850677416
-Middle East,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,18.14984458683903,0.34831960912446364
-Asia and Pacific,Minerals and Metals,Scope 3,climate_change,kt CO2eq,17.601128895189884,0.33778902665466753
-America,Waste management and disposal,Scope 3,climate_change,kt CO2eq,17.0682092141569,0.3275615905956974
-Denmark,Metal Products,Scope 3,climate_change,kt CO2eq,16.079099076793952,0.3085792541476413
-Middle East,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,14.912812030994736,0.2861966576479289
-America,Chemical,Scope 3,climate_change,kt CO2eq,14.47187219257081,0.27773443685962546
-Europe,Paper Products,Scope 3,climate_change,kt CO2eq,12.949972249247015,0.24852715682762536
-America,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,12.81002647603803,0.2458414116803572
-Middle East,Minerals and Metals,Scope 3,climate_change,kt CO2eq,12.809779693308526,0.2458366755922068
-Middle East,Waste management and disposal,Scope 3,climate_change,kt CO2eq,11.877837660947414,0.2279514709621866
-America,Metal Products,Scope 3,climate_change,kt CO2eq,11.540593589259036,0.22147930957986717
-Denmark,Operational impact,Scope 3,climate_change,kt CO2eq,10.88,0.2088016417519187
-Africa,Waste management and disposal,Scope 3,climate_change,kt CO2eq,10.003114223361402,0.19197303974906527
-America,Minerals and Metals,Scope 3,climate_change,kt CO2eq,8.515986818997735,0.16343309089562746
-Europe,Construction,Scope 3,climate_change,kt CO2eq,8.474710571877726,0.16264094492467013
-Middle East,Textile,Scope 3,climate_change,kt CO2eq,7.806566603991907,0.149818375308751
-Africa,Transport,Scope 3,climate_change,kt CO2eq,6.98515992194503,0.13405449077222673
-America,Services,Scope 3,climate_change,kt CO2eq,6.795879064031771,0.13042193986372488
-Europe,Furniture and timber,Scope 3,climate_change,kt CO2eq,6.767483113489518,0.12987698388097407
-Denmark,General and special Machinery,Scope 3,climate_change,kt CO2eq,6.586985951031638,0.12641300374744757
-Denmark,Furniture and timber,Scope 3,climate_change,kt CO2eq,6.38186367573061,0.1224764350119013
-Asia and Pacific,Textile,Scope 3,climate_change,kt CO2eq,6.303358541189803,0.1209698172749458
-Asia and Pacific,Furniture and timber,Scope 3,climate_change,kt CO2eq,6.04068326053076,0.11592872997262464
-America,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,5.838765889668372,0.11205366760733991
-Europe,Transport Equipment,Scope 3,climate_change,kt CO2eq,5.169561559158659,0.099210748225178
-Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,4.928101790918261,0.09457681476693969
-Denmark,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,4.916678608651542,0.09435758873648725
-Africa,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,4.521091784293762,0.08676575248820304
-Africa,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,4.449482336577967,0.085391472134526
-Asia and Pacific,Construction,Scope 3,climate_change,kt CO2eq,4.222563395527722,0.08103659645107948
-Asia and Pacific,Paper Products,Scope 3,climate_change,kt CO2eq,3.926422474297666,0.07535325908501686
-Middle East,Furniture and timber,Scope 3,climate_change,kt CO2eq,3.460627795716227,0.0664140409225985
-Europe,General and special Machinery,Scope 3,climate_change,kt CO2eq,3.268099455206063,0.06271916651246112
-America,Paper Products,Scope 3,climate_change,kt CO2eq,3.199719614570687,0.061406866605530894
-Middle East,Metal Products,Scope 3,climate_change,kt CO2eq,2.8367533773948566,0.054441062724756094
-Denmark,Paper Products,Scope 3,climate_change,kt CO2eq,2.727214231937551,0.05233886112479399
-America,Furniture and timber,Scope 3,climate_change,kt CO2eq,2.7003531687896576,0.051823361668499685
-Asia and Pacific,General and special Machinery,Scope 3,climate_change,kt CO2eq,2.6737975128607374,0.05131372338212491
-Europe,Textile,Scope 3,climate_change,kt CO2eq,2.621418390968826,0.05030849850670625
-Middle East,Construction,Scope 3,climate_change,kt CO2eq,2.562636742985147,0.049180400657085344
-Asia and Pacific,Transport Equipment,Scope 3,climate_change,kt CO2eq,2.5423663534789918,0.04879138497621805
-Africa,Minerals and Metals,Scope 3,climate_change,kt CO2eq,2.5068350794344285,0.048109492664265646
-Africa,Metal Products,Scope 3,climate_change,kt CO2eq,2.2816388591988934,0.043787678279936015
-America,Textile,Scope 3,climate_change,kt CO2eq,2.2616543348881804,0.04340414873161726
-America,Construction,Scope 3,climate_change,kt CO2eq,2.211322590024615,0.042438215738993076
-Africa,Services,Scope 3,climate_change,kt CO2eq,2.137871448510852,0.04102859083672964
-America,Transport Equipment,Scope 3,climate_change,kt CO2eq,1.70509316199142,0.03272300106284731
-America,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,1.3580395382072084,0.026062581354934066
-America,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,1.139709639760178,0.021872540799854137
-Africa,Paper Products,Scope 3,climate_change,kt CO2eq,1.1124400473477387,0.021349201124704963
-Africa,Construction,Scope 3,climate_change,kt CO2eq,1.0897788978260694,0.020914303585724242
-Africa,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,1.002768195873244,0.019244452720123432
-Africa,Chemical,Scope 3,climate_change,kt CO2eq,1.0003798971955726,0.019198618098350297
-Denmark,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,0.9861358175276262,0.018925255302402473
-Middle East,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,0.863883507509516,0.016579071199484645
-Denmark,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.8607012668338802,0.016517999776918237
-America,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.8264839022334568,0.015861323131238794
-Africa,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,0.40033297007904467,0.007682921084552047
-Middle East,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.39493056465088455,0.007579241753411486
-Middle East,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,0.3598503818770969,0.006906006481708891
-Africa,Furniture and timber,Scope 3,climate_change,kt CO2eq,0.3466605880201383,0.006652876829898016
-Africa,Textile,Scope 3,climate_change,kt CO2eq,0.3320733582076774,0.006372928527190812
-Middle East,Paper Products,Scope 3,climate_change,kt CO2eq,0.2995952158479829,0.005749629864896993
-Africa,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.24382136255821923,0.004679255587899446
-Middle East,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.1900698754054076,0.003647693201491888
-Denmark,Textile,Scope 3,climate_change,kt CO2eq,0.1832276593003408,0.0035163819923044464
-Africa,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.0530896267323622,0.0010188604064075165
-Denmark,Private travel,Outside protocol,land_use,km2,0.6231,100.0
+Europe,Transport,Scope 3,climate_change,kt CO2eq,386.1202990795623,7.718383322249941
+Asia and Pacific,Transport,Scope 3,climate_change,kt CO2eq,339.3058295860028,6.782581652561982
+Denmark,Private travel,Scope 3,climate_change,kt CO2eq,316.8201,6.333101320554199
+Denmark,Waste management and disposal,Scope 3,climate_change,kt CO2eq,271.8651010258141,5.4344696890102115
+Denmark,Transport,Scope 3,climate_change,kt CO2eq,252.0106779254624,5.037588073368782
+Denmark,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,199.92850633557637,3.9964872414668995
+Asia and Pacific,Electricity,Scope 3,climate_change,kt CO2eq,195.991302991721,3.917784192966312
+Europe,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,191.65429417956855,3.831089200333276
+Denmark,Services,Scope 3,climate_change,kt CO2eq,181.5750401805499,3.629609127536802
+Denmark,Food and catering,Scope 3,climate_change,kt CO2eq,153.94077856019817,3.07721179302302
+Asia and Pacific,Food and catering,Scope 3,climate_change,kt CO2eq,146.44996414278293,2.9274735451057987
+Europe,Food and catering,Scope 3,climate_change,kt CO2eq,127.75775927901577,2.553824186031695
+Europe,Electricity,Scope 3,climate_change,kt CO2eq,125.26385847205034,2.503972151726031
+Denmark,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,103.12916991359725,2.061508983071027
+Asia and Pacific,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,101.37753984871779,2.026494630518867
+Europe,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,93.49182007139842,1.8688623895869891
+Europe,Waste management and disposal,Scope 3,climate_change,kt CO2eq,91.03884197423592,1.8198283831384392
+Europe,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,88.60704529226493,1.7712177843225498
+Asia and Pacific,Metal Products,Scope 3,climate_change,kt CO2eq,83.04316665369173,1.6599981768754493
+Denmark,Chemical,Scope 3,climate_change,kt CO2eq,79.99493996352969,1.5990653999562645
+Europe,Metal Products,Scope 3,climate_change,kt CO2eq,78.57685879108394,1.5707185502902576
+Middle East,Transport,Scope 3,climate_change,kt CO2eq,72.7697308522745,1.4546364910462224
+Europe,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,64.67832953362573,1.2928927621089847
+Asia and Pacific,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,59.62664526252413,1.1919117058933708
+Africa,Food and catering,Scope 3,climate_change,kt CO2eq,53.97406206306971,1.0789189313661003
+Europe,Chemical,Scope 3,climate_change,kt CO2eq,51.23253010573619,1.024116853911638
+America,Transport,Scope 3,climate_change,kt CO2eq,50.77610954074112,1.0149931976698203
+Middle East,Electricity,Scope 3,climate_change,kt CO2eq,49.53878414109382,0.9902595803189591
+Middle East,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,48.164274006081335,0.9627836974719973
+Denmark,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,44.99957938162238,0.8995227752473287
+Europe,Services,Scope 3,climate_change,kt CO2eq,43.456012278608405,0.8686675143012529
+America,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,41.805880582365326,0.8356820716965526
+Denmark,Minerals and Metals,Scope 3,climate_change,kt CO2eq,41.65938512303392,0.83275368872165
+America,Food and catering,Scope 3,climate_change,kt CO2eq,41.36289686438469,0.8268270124079304
+Asia and Pacific,Waste management and disposal,Scope 3,climate_change,kt CO2eq,40.39111231796119,0.807401445677004
+Asia and Pacific,Chemical,Scope 3,climate_change,kt CO2eq,39.9553358029707,0.7986904553624603
+America,Electricity,Scope 3,climate_change,kt CO2eq,36.04751124293142,0.7205746764656072
+Africa,Coal and Petroleum,Scope 3,climate_change,kt CO2eq,34.628607261800205,0.6922113791980358
+Middle East,Services,Scope 3,climate_change,kt CO2eq,33.61954599204939,0.6720406663550722
+Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,30.30156947734053,0.6057157032391887
+Denmark,Construction,Scope 3,climate_change,kt CO2eq,27.611297352513095,0.5519382884022047
+Africa,Electricity,Scope 3,climate_change,kt CO2eq,26.24525968962067,0.5246317667301555
+Asia and Pacific,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,25.337259313480875,0.5064812188918251
+Asia and Pacific,Services,Scope 3,climate_change,kt CO2eq,24.795418431022853,0.4956500462224611
+Europe,Minerals and Metals,Scope 3,climate_change,kt CO2eq,23.889775768935106,0.47754662810215204
+Denmark,Electricity,Scope 3,climate_change,kt CO2eq,20.454457690052532,0.40887605618485595
+Middle East,Food and catering,Scope 3,climate_change,kt CO2eq,19.61675131575842,0.39213065604995695
+Middle East,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,16.357901687911752,0.32698761467851845
+Asia and Pacific,Minerals and Metals,Scope 3,climate_change,kt CO2eq,16.21991242132286,0.324229266939671
+America,Waste management and disposal,Scope 3,climate_change,kt CO2eq,15.885458947163125,0.3175436818430658
+Europe,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,15.14981562196861,0.30283847938196484
+Denmark,Metal Products,Scope 3,climate_change,kt CO2eq,15.147522239060104,0.30279263561660275
+Middle East,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,14.072142683437532,0.28129624797007935
+Middle East,Chemical,Scope 3,climate_change,kt CO2eq,13.177095183489378,0.26340462271056964
+Europe,Paper Products,Scope 3,climate_change,kt CO2eq,12.104103710449927,0.24195597183630524
+America,Chemical,Scope 3,climate_change,kt CO2eq,12.094394301164774,0.24176188480468827
+America,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,12.03759857009332,0.24062656188972648
+Middle East,Waste management and disposal,Scope 3,climate_change,kt CO2eq,11.084478775128176,0.2215740957357795
+America,Metal Products,Scope 3,climate_change,kt CO2eq,10.681371161361714,0.21351614309619057
+Denmark,Operational impact,Scope 3,climate_change,kt CO2eq,10.611,0.21210945300629794
+Middle East,Minerals and Metals,Scope 3,climate_change,kt CO2eq,10.48074178019153,0.20950564565985091
+Africa,Waste management and disposal,Scope 3,climate_change,kt CO2eq,9.533399492400259,0.19056866945844284
+Europe,Construction,Scope 3,climate_change,kt CO2eq,8.063828005950562,0.16119254994619167
+America,Minerals and Metals,Scope 3,climate_change,kt CO2eq,7.7066674112586675,0.15405305900513977
+Middle East,Textile,Scope 3,climate_change,kt CO2eq,7.254366123382278,0.14501174539044695
+Africa,Transport,Scope 3,climate_change,kt CO2eq,6.779615239009463,0.13552167372909799
+Europe,Furniture and timber,Scope 3,climate_change,kt CO2eq,6.529538332550666,0.13052274093874058
+Denmark,General and special Machinery,Scope 3,climate_change,kt CO2eq,6.519341736128402,0.1303189152399702
+America,Services,Scope 3,climate_change,kt CO2eq,6.4120588706735395,0.12817437561989867
+Denmark,Furniture and timber,Scope 3,climate_change,kt CO2eq,6.361470850901835,0.12716314225806208
+Asia and Pacific,Textile,Scope 3,climate_change,kt CO2eq,5.947134094847837,0.11888072375961543
+Asia and Pacific,Furniture and timber,Scope 3,climate_change,kt CO2eq,5.607986912810324,0.11210131340520922
+America,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,5.414410174300449,0.10823179534658395
+Europe,Transport Equipment,Scope 3,climate_change,kt CO2eq,4.997251112549295,0.09989296013739936
+Denmark,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,4.6120338775661205,0.09219262868881963
+Africa,Non-metallic mineral products,Scope 3,climate_change,kt CO2eq,4.334701968584006,0.0866488797947108
+Africa,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,4.175994958723045,0.08347639303098696
+Asia and Pacific,Construction,Scope 3,climate_change,kt CO2eq,4.028113907373668,0.08052031265103102
+Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,3.829078735698726,0.07654168279588197
+Asia and Pacific,Paper Products,Scope 3,climate_change,kt CO2eq,3.688075750194917,0.07372309207611306
+Middle East,Furniture and timber,Scope 3,climate_change,kt CO2eq,3.2018214007197945,0.06400307095754729
+Europe,General and special Machinery,Scope 3,climate_change,kt CO2eq,3.08948725680867,0.06175755839332907
+America,Paper Products,Scope 3,climate_change,kt CO2eq,2.69893933903371,0.05395066882476859
+Denmark,Paper Products,Scope 3,climate_change,kt CO2eq,2.65421347396643,0.05305661748421121
+Middle East,Metal Products,Scope 3,climate_change,kt CO2eq,2.6235007288300753,0.052442682551481594
+Asia and Pacific,General and special Machinery,Scope 3,climate_change,kt CO2eq,2.4942999265721593,0.04986001253971065
+America,Furniture and timber,Scope 3,climate_change,kt CO2eq,2.485258540327564,0.049679279009340306
+Europe,Textile,Scope 3,climate_change,kt CO2eq,2.472548948222849,0.04942521957768784
+Asia and Pacific,Transport Equipment,Scope 3,climate_change,kt CO2eq,2.4650008064575966,0.049274335380058806
+Middle East,Construction,Scope 3,climate_change,kt CO2eq,2.3922970410522315,0.047821017510712834
+Africa,Minerals and Metals,Scope 3,climate_change,kt CO2eq,2.333647937427997,0.04664864645340946
+Africa,Metal Products,Scope 3,climate_change,kt CO2eq,2.1315050983332537,0.0426078956260109
+America,Construction,Scope 3,climate_change,kt CO2eq,2.071014241864237,0.04139870869946999
+Africa,Services,Scope 3,climate_change,kt CO2eq,2.069345164486002,0.041365344540604414
+America,Textile,Scope 3,climate_change,kt CO2eq,2.049365750329126,0.04096596440600812
+America,Transport Equipment,Scope 3,climate_change,kt CO2eq,1.6138530136248137,0.03226024690910608
+America,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,1.22659107237981,0.02451904263734708
+Africa,Construction,Scope 3,climate_change,kt CO2eq,1.0480835956603076,0.020950752820693783
+Africa,Paper Products,Scope 3,climate_change,kt CO2eq,1.0089919346967122,0.02016932686422447
+Denmark,Natural gas and gaseous fuels,Scope 3,climate_change,kt CO2eq,0.9680037401277221,0.019349989994019573
+Africa,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,0.9202833796877147,0.018396079943110766
+America,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,0.8870357053583028,0.01773147283579354
+Denmark,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.8726929955870755,0.017444768064876274
+Africa,Chemical,Scope 3,climate_change,kt CO2eq,0.8459753811340639,0.016910694123941257
+Middle East,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,0.8033143405219452,0.016057917760835427
+America,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.7660824177986455,0.015313667194139373
+Africa,"Steam, hot water supply and water distribution",Scope 3,climate_change,kt CO2eq,0.38616512712780626,0.007719279416189471
+Middle East,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.36916633044426017,0.007379480578538709
+Africa,Furniture and timber,Scope 3,climate_change,kt CO2eq,0.3332804179526146,0.0066621361935387275
+Africa,Textile,Scope 3,climate_change,kt CO2eq,0.31277107641602264,0.006252163032211249
+Middle East,"Electrical, electronic and measuring equipment",Scope 3,climate_change,kt CO2eq,0.301529855798559,0.006027455732588846
+Middle East,Paper Products,Scope 3,climate_change,kt CO2eq,0.27815789957051534,0.005560260100582674
+Africa,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.2376247384860997,0.004750019159461992
+Denmark,Textile,Scope 3,climate_change,kt CO2eq,0.1822692936444713,0.0036434869639782397
+Middle East,Transport Equipment,Scope 3,climate_change,kt CO2eq,0.18148926754202768,0.0036278945683586045
+Africa,General and special Machinery,Scope 3,climate_change,kt CO2eq,0.0506674917213241,0.0010128219728782568
+Denmark,Private travel,Outside protocol,land_use,km2,0.7541725997525379,99.99999999999999
 Asia and Pacific,Electricity,Scope 2,land_use,km2,0.06152757569497758,55.38306639644195
 Europe,Electricity,Scope 2,land_use,km2,0.016727046257724615,15.056584028282112
 Africa,Electricity,Scope 2,land_use,km2,0.010515843343232327,9.465668743069923
@@ -260,108 +260,108 @@ America,Electricity,Scope 2,land_use,km2,0.009276609662684725,8.350192301242924
 Asia and Pacific,"Steam, hot water supply and water distribution",Scope 2,land_use,km2,0.0075428531996512,6.789579060385392
 Europe,"Steam, hot water supply and water distribution",Scope 2,land_use,km2,0.005418336848470189,4.877229535660186
 Middle East,Electricity,Scope 2,land_use,km2,8.629818438376228e-05,0.07767993491751435
-Europe,Food and catering,Scope 3,land_use,km2,1558.7963679047818,30.23496812623663
-Asia and Pacific,Food and catering,Scope 3,land_use,km2,1395.8873503999894,27.07512694803676
-America,Food and catering,Scope 3,land_use,km2,782.4278504857399,15.176248551511405
-Africa,Food and catering,Scope 3,land_use,km2,758.3172980545834,14.70859171109817
-Denmark,Food and catering,Scope 3,land_use,km2,413.22666457971224,8.015091188127439
-Middle East,Food and catering,Scope 3,land_use,km2,146.85083383533254,2.848370942954216
-Europe,Furniture and timber,Scope 3,land_use,km2,26.773349892201413,0.5193054059468645
-Denmark,Furniture and timber,Scope 3,land_use,km2,21.904835779778416,0.4248739766453599
-Europe,Services,Scope 3,land_use,km2,7.59104229947784,0.14723855321662277
-Europe,Paper Products,Scope 3,land_use,km2,7.50512471665208,0.1455720652572546
-Asia and Pacific,Textile,Scope 3,land_use,km2,5.109956168011811,0.09911452518584574
-Africa,Textile,Scope 3,land_use,km2,4.183742366942128,0.08114935325574733
-Asia and Pacific,Services,Scope 3,land_use,km2,3.3871803986698183,0.06569895433439396
-Europe,Construction,Scope 3,land_use,km2,2.98219069099469,0.057843630088629895
-Europe,Transport,Scope 3,land_use,km2,2.2930995981367057,0.04447777444666487
-America,Textile,Scope 3,land_use,km2,2.1981049931460364,0.04263522534070444
-America,Furniture and timber,Scope 3,land_use,km2,2.1107089346521537,0.04094006034203755
-Asia and Pacific,Transport,Scope 3,land_use,km2,1.494389159706694,0.02898570303487222
-Europe,Coal and Petroleum,Scope 3,land_use,km2,1.1466396453564802,0.022240629913855538
-Denmark,Private travel,Scope 3,land_use,km2,0.8508,0.016502419053220075
-Asia and Pacific,Electricity,Scope 3,land_use,km2,0.7460353173902363,0.014470366050864743
-Europe,Textile,Scope 3,land_use,km2,0.6755299098023293,0.013102818117703337
-America,Transport,Scope 3,land_use,km2,0.6421328945414676,0.012455037745158055
-Asia and Pacific,Waste management and disposal,Scope 3,land_use,km2,0.5425181139474077,0.010522874071841468
-Europe,General and special Machinery,Scope 3,land_use,km2,0.5384416208291614,0.010443804963114542
-America,Services,Scope 3,land_use,km2,0.5172109510759907,0.010032007350223913
-Europe,Electricity,Scope 3,land_use,km2,0.5006198247149135,0.009710199969199675
-Africa,Services,Scope 3,land_use,km2,0.4681299226569003,0.009080014286595758
-Europe,Waste management and disposal,Scope 3,land_use,km2,0.386482899732224,0.007496359624218144
-Africa,Transport,Scope 3,land_use,km2,0.381647343071143,0.007402567449351257
-Africa,Waste management and disposal,Scope 3,land_use,km2,0.30613258482083266,0.0059378563711316645
-America,Electricity,Scope 3,land_use,km2,0.30426757215108724,0.005901681922829238
-America,Waste management and disposal,Scope 3,land_use,km2,0.26482210755987445,0.005136583678314491
-Europe,Chemical,Scope 3,land_use,km2,0.2646581970238404,0.0051334044113271
-Middle East,Textile,Scope 3,land_use,km2,0.2584389248825518,0.005012773199430578
-Africa,Electricity,Scope 3,land_use,km2,0.2539723494615322,0.004926137915779333
-Africa,Minerals and Metals,Scope 3,land_use,km2,0.24059383974216744,0.00466664358844443
-Europe,Minerals and Metals,Scope 3,land_use,km2,0.2372090332607656,0.004600990679452718
-Europe,Metal Products,Scope 3,land_use,km2,0.23089016202221022,0.004478427608082266
-Asia and Pacific,Paper Products,Scope 3,land_use,km2,0.2154918486923758,0.004179756452367984
-Africa,Furniture and timber,Scope 3,land_use,km2,0.2152629033128291,0.004175315746451695
-Asia and Pacific,Minerals and Metals,Scope 3,land_use,km2,0.20105480089117728,0.0038997303443440673
-Asia and Pacific,Chemical,Scope 3,land_use,km2,0.1960284501025595,0.0038022374587984003
-Africa,Paper Products,Scope 3,land_use,km2,0.1614285616674639,0.003131125730835764
-America,Metal Products,Scope 3,land_use,km2,0.13834443391122192,0.002683377788062405
-America,Coal and Petroleum,Scope 3,land_use,km2,0.12090310010381185,0.0023450794813663833
-Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.10532511914997239,0.0020429234285885976
-America,Paper Products,Scope 3,land_use,km2,0.10344422069288263,0.002006440853911294
-Asia and Pacific,Furniture and timber,Scope 3,land_use,km2,0.1014269064643807,0.001967312310468931
-Europe,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.08412980993888582,0.001631811681334336
-Asia and Pacific,Non-metallic mineral products,Scope 3,land_use,km2,0.08047683255949901,0.0015609572343355412
-America,Construction,Scope 3,land_use,km2,0.0762445329997862,0.0014788660485184988
-Asia and Pacific,General and special Machinery,Scope 3,land_use,km2,0.0748450439359661,0.001451721061457429
-Africa,Chemical,Scope 3,land_use,km2,0.07479520041514381,0.0014507542788202673
-Europe,Non-metallic mineral products,Scope 3,land_use,km2,0.06775737277773143,0.0013142460737228146
-Asia and Pacific,Coal and Petroleum,Scope 3,land_use,km2,0.06662245412118263,0.0012922327882718438
-America,Chemical,Scope 3,land_use,km2,0.06616632855380428,0.00128338561472487
-America,Minerals and Metals,Scope 3,land_use,km2,0.05892482932949057,0.0011429269231719868
-Middle East,Chemical,Scope 3,land_use,km2,0.056994549445523277,0.0011054865287958356
-Denmark,Metal Products,Scope 3,land_use,km2,0.0538877402932057,0.0010452257547597238
-America,Non-metallic mineral products,Scope 3,land_use,km2,0.052246935557589795,0.0010134001231992611
-Middle East,Services,Scope 3,land_use,km2,0.04703339554826572,0.0009122764490283692
-Africa,General and special Machinery,Scope 3,land_use,km2,0.0401397154566093,0.0007785641809379192
-Europe,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.03860532427331695,0.0007488025844425543
-Europe,Transport Equipment,Scope 3,land_use,km2,0.03778972905351626,0.0007329830098128479
-Asia and Pacific,Construction,Scope 3,land_use,km2,0.0352649192478322,0.0006840109018637676
-Africa,Non-metallic mineral products,Scope 3,land_use,km2,0.0352225370922942,0.000683188842518367
-America,General and special Machinery,Scope 3,land_use,km2,0.0341594340161921,0.0006625685175787758
-Asia and Pacific,Metal Products,Scope 3,land_use,km2,0.02640722648344308,0.0005122039462424411
-Africa,Coal and Petroleum,Scope 3,land_use,km2,0.020883088768839347,0.00040505580863772994
-Asia and Pacific,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.019850372397929958,0.0003850248750271665
-Africa,Construction,Scope 3,land_use,km2,0.0160897673902741,0.0003120828443149252
-America,Transport Equipment,Scope 3,land_use,km2,0.015010703020857184,0.0002911529284598281
-Africa,Metal Products,Scope 3,land_use,km2,0.011494900112604596,0.00022295916623543452
-Africa,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.0105888674131987,0.00020538543412269793
-Europe,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,0.009307571386721654,0.0001805329612029166
-Middle East,Transport,Scope 3,land_use,km2,0.0090340051741846,0.00017522677375805443
-America,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.003957708371484873,7.676511757954933e-05
-Middle East,Paper Products,Scope 3,land_use,km2,0.003800327816616356,7.371250842667138e-05
-Middle East,Waste management and disposal,Scope 3,land_use,km2,0.0036106560406636,7.003356727793978e-05
-America,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.0031824692736016,6.172830462737483e-05
-Middle East,Minerals and Metals,Scope 3,land_use,km2,0.0030123910993779435,5.8429407938558e-05
-Middle East,Electricity,Scope 3,land_use,km2,0.0029633490340147664,5.747817061620426e-05
-America,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,0.0027510944125400654,5.336120457300008e-05
-Africa,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.0017074639219243164,3.31185768192874e-05
-Middle East,Furniture and timber,Scope 3,land_use,km2,0.0015389994123741115,2.9850979343743583e-05
-Middle East,Construction,Scope 3,land_use,km2,0.0014574727195477,2.82696586467001e-05
-Middle East,Non-metallic mineral products,Scope 3,land_use,km2,0.001109186072164604,2.1514167102557006e-05
-Middle East,General and special Machinery,Scope 3,land_use,km2,0.0005178359416425011,1.0044129889284638e-05
-Asia and Pacific,Transport Equipment,Scope 3,land_use,km2,0.0004858245350726634,9.423225275158563e-06
-Middle East,Metal Products,Scope 3,land_use,km2,0.0004021633782107821,7.800503755398405e-06
-Middle East,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.0003933527999306,7.629610649050537e-06
-Denmark,Chemical,Scope 3,land_use,km2,0.00036016012570771214,6.985793747871517e-06
-Denmark,Textile,Scope 3,land_use,km2,0.00028777895889030834,5.58186292231695e-06
-Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,0.000170068095529943,3.2987011988930228e-06
-Middle East,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.00010653619993603687,2.0664139817608347e-06
-Middle East,Coal and Petroleum,Scope 3,land_use,km2,1.0276376444632627e-05,1.9932424828157905e-07
-Middle East,Transport Equipment,Scope 3,land_use,km2,2.5440523152074048e-06,4.934534249984406e-08
-Middle East,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,1.6888197778668752e-06,3.275694837767421e-08
-Africa,Transport Equipment,Scope 3,land_use,km2,2.2977091733920082e-08,4.4567183405903654e-10
-Africa,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,1.3568254525970404e-08,2.6317468501212214e-10
-Denmark,Private travel,Outside protocol,material_extraction,kt,9.5876,100.0
+Europe,Food and catering,Scope 3,land_use,km2,1454.728283007413,30.068700162977073
+Asia and Pacific,Food and catering,Scope 3,land_use,km2,1309.2536072244895,27.06179195990013
+America,Food and catering,Scope 3,land_use,km2,725.9785031413029,15.005709444649266
+Africa,Food and catering,Scope 3,land_use,km2,723.9143113986919,14.963043358265663
+Denmark,Food and catering,Scope 3,land_use,km2,409.63587184234774,8.467023258091485
+Middle East,Food and catering,Scope 3,land_use,km2,118.40868075457925,2.447464010902835
+Europe,Furniture and timber,Scope 3,land_use,km2,26.31519251381264,0.5439253795169521
+Denmark,Furniture and timber,Scope 3,land_use,km2,21.827426371926094,0.45116489902159945
+Europe,Services,Scope 3,land_use,km2,7.2612015195914354,0.1500863727377161
+Europe,Paper Products,Scope 3,land_use,km2,6.5189071672100045,0.13474342067227205
+Asia and Pacific,Textile,Scope 3,land_use,km2,4.674180770092922,0.0966136025024002
+Africa,Textile,Scope 3,land_use,km2,4.000535800838186,0.08268960801255405
+Asia and Pacific,Services,Scope 3,land_use,km2,3.151669016177547,0.06514384285185765
+Europe,Construction,Scope 3,land_use,km2,2.77296094991151,0.057316085993846314
+Europe,Transport,Scope 3,land_use,km2,2.25127403805652,0.046533008827650046
+America,Textile,Scope 3,land_use,km2,2.0046589162941997,0.041435564694236225
+America,Furniture and timber,Scope 3,land_use,km2,1.9945476826908093,0.041226569203429084
+Asia and Pacific,Transport,Scope 3,land_use,km2,1.4558592729495485,0.030092077310348613
+Europe,Coal and Petroleum,Scope 3,land_use,km2,1.029817762096569,0.021285955509831794
+Denmark,Private travel,Scope 3,land_use,km2,0.8508,0.017585724012853698
+Asia and Pacific,Electricity,Scope 3,land_use,km2,0.7055317252036252,0.014583082042481769
+Europe,Textile,Scope 3,land_use,km2,0.6390632539829675,0.013209203116244352
+America,Transport,Scope 3,land_use,km2,0.6308365902228563,0.013039160993028718
+Asia and Pacific,Waste management and disposal,Scope 3,land_use,km2,0.5160034107960814,0.010665601283440362
+Europe,General and special Machinery,Scope 3,land_use,km2,0.5096509336695711,0.010534297910679695
+America,Services,Scope 3,land_use,km2,0.4862025794588766,0.01004962902762268
+Europe,Electricity,Scope 3,land_use,km2,0.4670150488218428,0.009653029805395303
+Africa,Services,Scope 3,land_use,km2,0.44042250369202235,0.009103371649010279
+Africa,Transport,Scope 3,land_use,km2,0.3776945119775049,0.00780680706253628
+Europe,Waste management and disposal,Scope 3,land_use,km2,0.367580570453395,0.007597755600000857
+Africa,Waste management and disposal,Scope 3,land_use,km2,0.29416030183990016,0.006080185570867683
+America,Electricity,Scope 3,land_use,km2,0.2822553152032801,0.005834113862630363
+America,Waste management and disposal,Scope 3,land_use,km2,0.25284839565801,0.005226283619105076
+Africa,Electricity,Scope 3,land_use,km2,0.2419263746300072,0.00500052944954579
+Middle East,Textile,Scope 3,land_use,km2,0.23310765990819637,0.004818249850056067
+Africa,Minerals and Metals,Scope 3,land_use,km2,0.22396163939183075,0.004629204959815466
+Europe,Chemical,Scope 3,land_use,km2,0.2176280518603204,0.00449829202805666
+Europe,Metal Products,Scope 3,land_use,km2,0.21599699565008607,0.004464578694297102
+Europe,Minerals and Metals,Scope 3,land_use,km2,0.21584520120166584,0.004461441158711063
+Africa,Furniture and timber,Scope 3,land_use,km2,0.209052282755121,0.004321034025374486
+Asia and Pacific,Paper Products,Scope 3,land_use,km2,0.2042235809028514,0.004221226528766154
+Asia and Pacific,Minerals and Metals,Scope 3,land_use,km2,0.19301837676869354,0.003989619068245483
+Asia and Pacific,Chemical,Scope 3,land_use,km2,0.18566929968177304,0.00383771633975492
+Africa,Paper Products,Scope 3,land_use,km2,0.1547625285795331,0.0031988847145404935
+America,Metal Products,Scope 3,land_use,km2,0.12344840542001764,0.002551633271677601
+America,Coal and Petroleum,Scope 3,land_use,km2,0.11597846317039837,0.0023972323045951373
+Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.1000161449307533,0.0020672970399410015
+America,Paper Products,Scope 3,land_use,km2,0.09968586852634378,0.0020604703477737434
+Asia and Pacific,Furniture and timber,Scope 3,land_use,km2,0.0976973862300149,0.0020193691478822464
+Asia and Pacific,Non-metallic mineral products,Scope 3,land_use,km2,0.07769363828227105,0.0016058990131482174
+Europe,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.07765629068574514,0.0016051270520233375
+America,Construction,Scope 3,land_use,km2,0.0740226811722572,0.0015300216758189667
+Africa,Chemical,Scope 3,land_use,km2,0.07210990264871996,0.0014904852451506077
+Asia and Pacific,General and special Machinery,Scope 3,land_use,km2,0.0706728341319505,0.001460781565879958
+Europe,Non-metallic mineral products,Scope 3,land_use,km2,0.06358095785782154,0.0013141950838746256
+America,Chemical,Scope 3,land_use,km2,0.06319255555115529,0.0013061669506224058
+Asia and Pacific,Coal and Petroleum,Scope 3,land_use,km2,0.06233883713246545,0.0012885209039654132
+America,Minerals and Metals,Scope 3,land_use,km2,0.056240611731032356,0.0011624728211283464
+Middle East,Chemical,Scope 3,land_use,km2,0.05337463261290234,0.001103234083707053
+Denmark,Metal Products,Scope 3,land_use,km2,0.0515620132389283,0.0010657679059319484
+America,Non-metallic mineral products,Scope 3,land_use,km2,0.049906425232900765,0.0010315475089491192
+Middle East,Services,Scope 3,land_use,km2,0.04367253442023006,0.0009026952718100839
+Africa,General and special Machinery,Scope 3,land_use,km2,0.0384196257698402,0.0007941195762406341
+Europe,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.03576889884603796,0.0007393300227434236
+Europe,Transport Equipment,Scope 3,land_use,km2,0.03562824550511959,0.0007364227697640202
+Asia and Pacific,Construction,Scope 3,land_use,km2,0.0340507675216056,0.0007038168783037123
+Africa,Non-metallic mineral products,Scope 3,land_use,km2,0.0339549968349,0.0007018373333284816
+America,General and special Machinery,Scope 3,land_use,km2,0.0326758700318767,0.000675398251363964
+Asia and Pacific,Metal Products,Scope 3,land_use,km2,0.02524739824265015,0.0005218544634906595
+Africa,Coal and Petroleum,Scope 3,land_use,km2,0.01888402546749299,0.00039032588166788
+Asia and Pacific,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.01882339290033386,0.0003890726287385767
+Africa,Construction,Scope 3,land_use,km2,0.0154961666183419,0.000320300081578934
+America,Transport Equipment,Scope 3,land_use,km2,0.014490495357566316,0.00029951322539691934
+Africa,Metal Products,Scope 3,land_use,km2,0.011070195621335417,0.0002288168840680608
+Africa,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.0102356369517289,0.0002115668623987677
+Middle East,Transport,Scope 3,land_use,km2,0.0084773607603954,0.00017522393828127536
+Europe,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,0.007514254308641434,0.00015531688109328282
+America,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.0037960101156095443,7.846213709815505e-05
+Middle East,Waste management and disposal,Scope 3,land_use,km2,0.0033951010345138,7.017549340469413e-05
+Middle East,Paper Products,Scope 3,land_use,km2,0.0032380464444402386,6.692923261956776e-05
+America,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.0030475982507296,6.29927382926498e-05
+Middle East,Electricity,Scope 3,land_use,km2,0.0026606331770051856,5.499431211830667e-05
+Middle East,Minerals and Metals,Scope 3,land_use,km2,0.002443464674439495,5.050551880565394e-05
+America,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,0.0023635892952974568,4.88545240089756e-05
+Africa,Natural gas and gaseous fuels,Scope 3,land_use,km2,0.0016379618048300538,3.385606986757999e-05
+Middle East,Furniture and timber,Scope 3,land_use,km2,0.0014310706047038688,2.95797046276797e-05
+Middle East,Construction,Scope 3,land_use,km2,0.0013584960391061,2.807961496976349e-05
+Middle East,Non-metallic mineral products,Scope 3,land_use,km2,0.0010393255960283124,2.1482478950691792e-05
+Middle East,General and special Machinery,Scope 3,land_use,km2,0.0004832360876375443,9.98831272948406e-06
+Asia and Pacific,Transport Equipment,Scope 3,land_use,km2,0.00046198648240177034,9.549091181460538e-06
+Middle East,Metal Products,Scope 3,land_use,km2,0.00037377324204064115,7.725755850865399e-06
+Middle East,"Steam, hot water supply and water distribution",Scope 3,land_use,km2,0.0003473129996424,7.178832343426894e-06
+Denmark,Textile,Scope 3,land_use,km2,0.00028458250913432505,5.882216107806367e-06
+Denmark,Chemical,Scope 3,land_use,km2,0.00022988167350441915,4.751569894054605e-06
+Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,0.00015962680883763568,3.2994276037508426e-06
+Middle East,Natural gas and gaseous fuels,Scope 3,land_use,km2,9.683514202068536e-05,2.0015468762591265e-06
+Middle East,Coal and Petroleum,Scope 3,land_use,km2,9.320317217025368e-06,1.9264753912888666e-07
+Middle East,Transport Equipment,Scope 3,land_use,km2,2.3685435920476604e-06,4.8956927506068754e-08
+Middle East,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,1.558244659667569e-06,3.220834570923485e-08
+Africa,Transport Equipment,Scope 3,land_use,km2,2.2196161107716324e-08,4.587865107958819e-10
+Africa,"Electrical, electronic and measuring equipment",Scope 3,land_use,km2,1.2797258622722964e-08,2.645146429952025e-10
+Denmark,Private travel,Outside protocol,material_extraction,kt,11.604016494832804,100.0
 Europe,"Steam, hot water supply and water distribution",Scope 2,material_extraction,kt,0.13233832470622592,50.169842894164326
 Europe,Electricity,Scope 2,material_extraction,kt,0.08746183821000644,33.15703664808754
 Asia and Pacific,Electricity,Scope 2,material_extraction,kt,0.02986759177899051,11.32289070838217
@@ -369,106 +369,106 @@ America,Electricity,Scope 2,material_extraction,kt,0.007867422689265668,2.982562
 Middle East,Electricity,Scope 2,material_extraction,kt,0.003229035306390488,1.2241366541471654
 Asia and Pacific,"Steam, hot water supply and water distribution",Scope 2,material_extraction,kt,0.0029636099005727,1.1235131126329532
 Africa,Electricity,Scope 2,material_extraction,kt,5.2801528499977734e-05,0.020017212665311892
-Denmark,Minerals and Metals,Scope 3,material_extraction,kt,2323.391504626271,41.72459918641182
-Europe,Minerals and Metals,Scope 3,material_extraction,kt,953.3794666810671,17.121254011911052
-Asia and Pacific,Minerals and Metals,Scope 3,material_extraction,kt,865.344484692087,15.540278816573045
-Denmark,Non-metallic mineral products,Scope 3,material_extraction,kt,528.7976269814468,9.496406005011911
-Middle East,Minerals and Metals,Scope 3,material_extraction,kt,250.52296410351985,4.49901372342868
-America,Minerals and Metals,Scope 3,material_extraction,kt,235.93716456688878,4.237074812888858
-Africa,Minerals and Metals,Scope 3,material_extraction,kt,83.44296487565795,1.4985095096672933
-Europe,Non-metallic mineral products,Scope 3,material_extraction,kt,80.77141182326139,1.4505324553936048
-Europe,Food and catering,Scope 3,material_extraction,kt,45.035532304673275,0.8087700806418568
-Europe,Chemical,Scope 3,material_extraction,kt,30.32902560984382,0.544663452012023
-Europe,Services,Scope 3,material_extraction,kt,28.33764169244107,0.5089012072011719
-Europe,Construction,Scope 3,material_extraction,kt,20.84748997764112,0.3743894051552597
-America,Construction,Scope 3,material_extraction,kt,19.551190380042357,0.3511098239793719
-Europe,Transport,Scope 3,material_extraction,kt,14.954254353374324,0.26855580206081753
-Denmark,Private travel,Scope 3,material_extraction,kt,13.05,0.23435827250743985
-Europe,Electricity,Scope 3,material_extraction,kt,9.52030575024834,0.1709702995686473
-Europe,Metal Products,Scope 3,material_extraction,kt,8.299659352523154,0.1490493354986623
-Asia and Pacific,Transport,Scope 3,material_extraction,kt,5.792280565311588,0.10402060284788053
-Europe,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,5.537100151559057,0.09943794836935356
-Denmark,Chemical,Scope 3,material_extraction,kt,5.2202458099674605,0.09374772337840423
-Europe,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,3.4924380629120284,0.06271890814278103
-Middle East,Chemical,Scope 3,material_extraction,kt,3.3590986992762946,0.060324334739033
-Europe,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,3.2147126060772893,0.05773137877150678
-Europe,Waste management and disposal,Scope 3,material_extraction,kt,2.867336661630623,0.051493031932337355
-Europe,Coal and Petroleum,Scope 3,material_extraction,kt,2.5841326566289595,0.0464071161178256
-America,Non-metallic mineral products,Scope 3,material_extraction,kt,2.3880729706144415,0.04288618053754105
-America,Chemical,Scope 3,material_extraction,kt,1.7293683744490989,0.031056841744436032
-Denmark,Coal and Petroleum,Scope 3,material_extraction,kt,1.687618582087998,0.03030707858617612
-Asia and Pacific,Services,Scope 3,material_extraction,kt,1.6593480507757954,0.029799382579954254
-America,Metal Products,Scope 3,material_extraction,kt,1.1684961836705854,0.020984425060273912
-America,Transport,Scope 3,material_extraction,kt,1.0615204026579355,0.01906330174699737
-Europe,General and special Machinery,Scope 3,material_extraction,kt,0.9544885628131321,0.01714117170183867
-Asia and Pacific,Food and catering,Scope 3,material_extraction,kt,0.9412027281337951,0.016902578194998144
-America,Services,Scope 3,material_extraction,kt,0.9064801044698948,0.016279012363672653
-Middle East,Coal and Petroleum,Scope 3,material_extraction,kt,0.8767209923742867,0.01574458369684645
-America,Coal and Petroleum,Scope 3,material_extraction,kt,0.8447801362283608,0.015170974204986845
-Africa,Coal and Petroleum,Scope 3,material_extraction,kt,0.749154160700694,0.013453676240887022
-Middle East,Services,Scope 3,material_extraction,kt,0.7023689514444761,0.012613484607156271
-Middle East,Food and catering,Scope 3,material_extraction,kt,0.6790265278397105,0.012194289965612228
-Middle East,Construction,Scope 3,material_extraction,kt,0.6677579078269746,0.011991922584790194
-Europe,Furniture and timber,Scope 3,material_extraction,kt,0.6538602681924948,0.011742341985811831
-Asia and Pacific,Non-metallic mineral products,Scope 3,material_extraction,kt,0.5201135607624545,0.009340453303293654
-Africa,Food and catering,Scope 3,material_extraction,kt,0.49780533816194283,0.008939831348399605
-Middle East,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.4395487125870536,0.007893630418756403
-Middle East,Non-metallic mineral products,Scope 3,material_extraction,kt,0.4155617537111423,0.007462860898077049
-Middle East,Transport,Scope 3,material_extraction,kt,0.38075008886356626,0.006837696021694989
-America,Waste management and disposal,Scope 3,material_extraction,kt,0.3107462173989786,0.005580532314011186
-America,Food and catering,Scope 3,material_extraction,kt,0.3047773949460227,0.0054733412857369814
-Asia and Pacific,Construction,Scope 3,material_extraction,kt,0.2860279745362682,0.005136630038400139
-Middle East,Metal Products,Scope 3,material_extraction,kt,0.28192923358427124,0.005063022846908529
-Asia and Pacific,Metal Products,Scope 3,material_extraction,kt,0.2800967570895231,0.005030114339190547
-Asia and Pacific,Paper Products,Scope 3,material_extraction,kt,0.2460545933699631,0.004418768539824147
-America,Electricity,Scope 3,material_extraction,kt,0.23696243898575847,0.004255487191559539
-America,Transport Equipment,Scope 3,material_extraction,kt,0.23415409262205605,0.004205053536203228
-America,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.21688331596066068,0.003894896495342965
-Asia and Pacific,Coal and Petroleum,Scope 3,material_extraction,kt,0.2096301625201141,0.0037646408240358475
-Asia and Pacific,Electricity,Scope 3,material_extraction,kt,0.20417614562698672,0.0036666949253921894
-America,Furniture and timber,Scope 3,material_extraction,kt,0.19987789564161978,0.0035895048532561193
-Asia and Pacific,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.1874617343576647,0.0033665293659242055
-Africa,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.1769043750842529,0.003176935152778061
-Europe,Transport Equipment,Scope 3,material_extraction,kt,0.1603790225510728,0.002880164802413882
-Middle East,Waste management and disposal,Scope 3,material_extraction,kt,0.1477491140787406,0.0026533507386971886
-Middle East,Electricity,Scope 3,material_extraction,kt,0.14147298409786002,0.0025406409317737153
-Asia and Pacific,Waste management and disposal,Scope 3,material_extraction,kt,0.11443143629221897,0.0020550156114934556
-Middle East,Paper Products,Scope 3,material_extraction,kt,0.1036636205247408,0.0018616419178578577
-Europe,Paper Products,Scope 3,material_extraction,kt,0.0967181013287486,0.001736910892536785
-Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,0.09598168286928932,0.001723685930237822
-America,General and special Machinery,Scope 3,material_extraction,kt,0.07082357291499283,0.0012718843066024848
-Middle East,Textile,Scope 3,material_extraction,kt,0.0634542321253069,0.0011395420861435265
-Asia and Pacific,Chemical,Scope 3,material_extraction,kt,0.0620221163717683,0.0011138234521182392
-Europe,Textile,Scope 3,material_extraction,kt,0.05936491888318396,0.001066104202069524
-Middle East,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,0.047072534743439004,0.000845351565135541
-Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,0.0434329299926417,0.0007799897657480522
-Middle East,Transport Equipment,Scope 3,material_extraction,kt,0.036941075961178696,0.0006634058809829849
-Asia and Pacific,Textile,Scope 3,material_extraction,kt,0.03039704395629171,0.0005458849586918958
-Middle East,Furniture and timber,Scope 3,material_extraction,kt,0.0288429029293367,0.0005179749352198565
-America,Paper Products,Scope 3,material_extraction,kt,0.02820673572525848,0.0005065503339191928
-Asia and Pacific,Furniture and timber,Scope 3,material_extraction,kt,0.0276407815517026,0.0004963866525067075
-Middle East,General and special Machinery,Scope 3,material_extraction,kt,0.026867134192378198,0.0004824931154445459
-Asia and Pacific,Transport Equipment,Scope 3,material_extraction,kt,0.026418678207072298,0.0004744395238727519
-Asia and Pacific,General and special Machinery,Scope 3,material_extraction,kt,0.021158301658389028,0.0003799711130920577
-Africa,Metal Products,Scope 3,material_extraction,kt,0.0162178660089915,0.00029124835721259585
-America,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,0.013989108896525203,0.00025122324865196205
-Middle East,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,0.0137399616889137,0.0002467489414354192
-America,Textile,Scope 3,material_extraction,kt,0.010345495716630841,0.00018578946393737336
-Africa,Non-metallic mineral products,Scope 3,material_extraction,kt,0.009257238422213201,0.0001662460080321367
-Africa,Chemical,Scope 3,material_extraction,kt,0.008257551757509838,0.0001482931467456536
-Africa,Services,Scope 3,material_extraction,kt,0.007719789688688117,0.0001386357529166049
-America,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,0.001986885718723565,3.568146396243354e-05
-Africa,Waste management and disposal,Scope 3,material_extraction,kt,0.0017268868553278643,3.101227741229452e-05
-Africa,Paper Products,Scope 3,material_extraction,kt,0.000528831915813654,9.49702178060443e-06
-Africa,Transport,Scope 3,material_extraction,kt,0.0004221477228608442,7.58113494809325e-06
-Africa,General and special Machinery,Scope 3,material_extraction,kt,0.000267138061779,4.79739576088216e-06
-Africa,Electricity,Scope 3,material_extraction,kt,0.00015347803368311828,2.756233474468526e-06
-Africa,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,6.269689591458925e-06,1.1259414726530193e-07
-Africa,Textile,Scope 3,material_extraction,kt,1.2483787313905966e-06,2.24189948600559e-08
-Africa,Transport Equipment,Scope 3,material_extraction,kt,8.62403156956499e-07,1.548745701680365e-08
-Africa,Furniture and timber,Scope 3,material_extraction,kt,6.709500574629378e-07,1.204924876672656e-08
-Africa,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,3.0926286954711965e-08,5.553893628946874e-10
-Africa,Construction,Scope 3,material_extraction,kt,1.142819128970866e-09,2.0523303973491897e-11
+Denmark,Minerals and Metals,Scope 3,material_extraction,kt,2055.84048596969,40.401848055877224
+Europe,Minerals and Metals,Scope 3,material_extraction,kt,887.5536568268634,17.442407730210356
+Asia and Pacific,Minerals and Metals,Scope 3,material_extraction,kt,811.4854993375676,15.947498878211814
+Denmark,Non-metallic mineral products,Scope 3,material_extraction,kt,525.0484516555301,10.318372417767959
+America,Minerals and Metals,Scope 3,material_extraction,kt,215.38945709314623,4.232882938975004
+Middle East,Minerals and Metals,Scope 3,material_extraction,kt,211.67849168697845,4.159954196933089
+Europe,Non-metallic mineral products,Scope 3,material_extraction,kt,77.91308604700008,1.531165810537401
+Africa,Minerals and Metals,Scope 3,material_extraction,kt,76.27317765848267,1.4989379553168205
+Europe,Food and catering,Scope 3,material_extraction,kt,42.98746908913687,0.8447995874674261
+Europe,Services,Scope 3,material_extraction,kt,26.91247020478399,0.5288900279192363
+Europe,Chemical,Scope 3,material_extraction,kt,22.580322572616854,0.4437536705097319
+Europe,Construction,Scope 3,material_extraction,kt,19.77644186863776,0.38865116477445005
+America,Construction,Scope 3,material_extraction,kt,18.493149640926905,0.36343161201775503
+Europe,Transport,Scope 3,material_extraction,kt,14.799756283359779,0.29084819989926575
+Denmark,Private travel,Scope 3,material_extraction,kt,13.05,0.25646158869203783
+Europe,Electricity,Scope 3,material_extraction,kt,8.875358536404331,0.17442057857913365
+Europe,Metal Products,Scope 3,material_extraction,kt,7.823183465244261,0.15374299311309003
+Asia and Pacific,Transport,Scope 3,material_extraction,kt,5.794768809410064,0.11388012375205926
+Europe,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,5.051359443359355,0.09927047263589793
+Denmark,Chemical,Scope 3,material_extraction,kt,4.456662866630461,0.08758335931347583
+Europe,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,3.2714309961443755,0.06429091115460249
+Europe,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,2.839402522282538,0.05580058864373631
+Europe,Waste management and disposal,Scope 3,material_extraction,kt,2.730809053353474,0.05366648492242389
+Middle East,Chemical,Scope 3,material_extraction,kt,2.330751555396292,0.04580446335198247
+Europe,Coal and Petroleum,Scope 3,material_extraction,kt,2.2989739630577786,0.045179962829687975
+America,Non-metallic mineral products,Scope 3,material_extraction,kt,2.211732899273362,0.04346548146437496
+Denmark,Coal and Petroleum,Scope 3,material_extraction,kt,1.6224291107506028,0.03188434845082833
+Asia and Pacific,Services,Scope 3,material_extraction,kt,1.616571426263342,0.0317692318937663
+America,Chemical,Scope 3,material_extraction,kt,1.5333406808348262,0.030133562223220726
+America,Metal Products,Scope 3,material_extraction,kt,1.091728915534318,0.021454906674250325
+America,Transport,Scope 3,material_extraction,kt,1.0543064523594252,0.020719471857499193
+Europe,General and special Machinery,Scope 3,material_extraction,kt,0.897501836616466,0.017637911637753304
+Asia and Pacific,Food and catering,Scope 3,material_extraction,kt,0.8909231415890781,0.017508625616431902
+America,Services,Scope 3,material_extraction,kt,0.8656201699894964,0.017011365823707134
+Middle East,Coal and Petroleum,Scope 3,material_extraction,kt,0.8073058239518874,0.015865358940309247
+America,Coal and Petroleum,Scope 3,material_extraction,kt,0.8049383354328824,0.01581883251373498
+Middle East,Construction,Scope 3,material_extraction,kt,0.6595707165943473,0.012962034776439244
+Middle East,Services,Scope 3,material_extraction,kt,0.654507852329996,0.012862538208426394
+Africa,Coal and Petroleum,Scope 3,material_extraction,kt,0.6353800240573629,0.012486633746585173
+Europe,Furniture and timber,Scope 3,material_extraction,kt,0.6261273106676437,0.012304797304007433
+Middle East,Food and catering,Scope 3,material_extraction,kt,0.5575851924038886,0.010957791898471788
+Asia and Pacific,Non-metallic mineral products,Scope 3,material_extraction,kt,0.4991617825160928,0.009809641667312385
+Africa,Food and catering,Scope 3,material_extraction,kt,0.4746350727256967,0.009327637149440083
+Middle East,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.3960281293561569,0.0077828354958939345
+Middle East,Non-metallic mineral products,Scope 3,material_extraction,kt,0.39337804807145577,0.007730755491569223
+Middle East,Transport,Scope 3,material_extraction,kt,0.3607099281711855,0.007088754117683761
+America,Waste management and disposal,Scope 3,material_extraction,kt,0.2970541453532563,0.00583777609539093
+America,Food and catering,Scope 3,material_extraction,kt,0.28442516470203905,0.00558958847536241
+Asia and Pacific,Construction,Scope 3,material_extraction,kt,0.2761801890758312,0.005427556326103836
+Asia and Pacific,Metal Products,Scope 3,material_extraction,kt,0.2617665915939591,0.005144297007408934
+Middle East,Metal Products,Scope 3,material_extraction,kt,0.2562729163864205,0.0050363340440768714
+America,Transport Equipment,Scope 3,material_extraction,kt,0.22964337164331636,0.004513004132125745
+Asia and Pacific,Paper Products,Scope 3,material_extraction,kt,0.22684507372152743,0.004458011340504626
+America,Electricity,Scope 3,material_extraction,kt,0.22643797142606908,0.004450010872960301
+America,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.204787720952341,0.004024535192341693
+Asia and Pacific,Electricity,Scope 3,material_extraction,kt,0.1934293373631964,0.003801317636767318
+America,Furniture and timber,Scope 3,material_extraction,kt,0.1909239863148078,0.003752081904192528
+Asia and Pacific,Coal and Petroleum,Scope 3,material_extraction,kt,0.18974114151059238,0.0037288363672066884
+Asia and Pacific,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.1760449544024803,0.0034596757614771996
+Africa,Natural gas and gaseous fuels,Scope 3,material_extraction,kt,0.16570577640203618,0.003256487867548949
+Europe,Transport Equipment,Scope 3,material_extraction,kt,0.1570930831488812,0.0030872292472714537
+Middle East,Waste management and disposal,Scope 3,material_extraction,kt,0.1379606851101788,0.002711234979340875
+Middle East,Electricity,Scope 3,material_extraction,kt,0.12718101828776632,0.002499390498203193
+Asia and Pacific,Waste management and disposal,Scope 3,material_extraction,kt,0.10838812405317066,0.002130068236783588
+Europe,Paper Products,Scope 3,material_extraction,kt,0.0901806999025869,0.0017722517675384931
+Middle East,Paper Products,Scope 3,material_extraction,kt,0.0849896837895315,0.0016702367300457611
+Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,0.07943118842830793,0.0015609999062084644
+America,General and special Machinery,Scope 3,material_extraction,kt,0.06775746088303022,0.001331585138988547
+Middle East,Textile,Scope 3,material_extraction,kt,0.058432020034094395,0.0011483194397263472
+Asia and Pacific,Chemical,Scope 3,material_extraction,kt,0.056789060501071104,0.0011160316227151685
+Europe,Textile,Scope 3,material_extraction,kt,0.0556816648146878,0.0010942688290722128
+Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,0.0412624071650761,0.0008108982754646085
+Middle East,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,0.0365343656033926,0.000717981719885196
+Middle East,Transport Equipment,Scope 3,material_extraction,kt,0.0343325401982186,0.0006747109427638616
+Asia and Pacific,Textile,Scope 3,material_extraction,kt,0.028426654963940503,0.0005586471335825735
+America,Paper Products,Scope 3,material_extraction,kt,0.027169633851989457,0.000533943866809363
+Middle East,Furniture and timber,Scope 3,material_extraction,kt,0.026739378958337202,0.0005254883991029583
+Asia and Pacific,Furniture and timber,Scope 3,material_extraction,kt,0.0261575864810681,0.0005140548800983981
+Asia and Pacific,Transport Equipment,Scope 3,material_extraction,kt,0.0256517644772198,0.000504114350236151
+Middle East,General and special Machinery,Scope 3,material_extraction,kt,0.0250548239552248,0.0004923831383874543
+Asia and Pacific,General and special Machinery,Scope 3,material_extraction,kt,0.019969359237242006,0.0003924424210839161
+Africa,Metal Products,Scope 3,material_extraction,kt,0.014999382826546653,0.00029477130644415503
+America,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,0.012999854541916102,0.0002554761186655331
+Middle East,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,0.0121317740969188,0.000238416402953924
+America,Textile,Scope 3,material_extraction,kt,0.009436795962704799,0.00018545407546037405
+Africa,Non-metallic mineral products,Scope 3,material_extraction,kt,0.0089433199986532,0.00017575617279968377
+Africa,Chemical,Scope 3,material_extraction,kt,0.00796758612429057,0.00015658082723955523
+Africa,Services,Scope 3,material_extraction,kt,0.007382296369855618,0.00014507857894319046
+America,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,0.0019014805175716894,3.7368330605624046e-05
+Africa,Waste management and disposal,Scope 3,material_extraction,kt,0.001662020520621089,3.2662407904770284e-05
+Africa,Paper Products,Scope 3,material_extraction,kt,0.000507048231753846,9.964627973875855e-06
+Africa,Transport,Scope 3,material_extraction,kt,0.0004239311041254816,8.331191146359442e-06
+Africa,General and special Machinery,Scope 3,material_extraction,kt,0.0002556905111478,5.0248884829459e-06
+Africa,Electricity,Scope 3,material_extraction,kt,0.00014631725903952033,2.875460284010714e-06
+Africa,"Electrical, electronic and measuring equipment",Scope 3,material_extraction,kt,5.1802956226941e-06,1.0180435596096078e-07
+Africa,Textile,Scope 3,material_extraction,kt,1.166520735773143e-06,2.292473265429771e-08
+Africa,Transport Equipment,Scope 3,material_extraction,kt,8.504795828176838e-07,1.6713819537131397e-08
+Africa,Furniture and timber,Scope 3,material_extraction,kt,6.439440083485003e-07,1.2654935127185842e-08
+Africa,"Steam, hot water supply and water distribution",Scope 3,material_extraction,kt,2.98946273648541e-08,5.874960633982337e-10
+Africa,Construction,Scope 3,material_extraction,kt,1.1006570329827047e-09,2.1630364083050508e-11
 Denmark,Operational impact,Scope 1,waste_generation,kt,49.10282360999154,100.0
 Denmark,Electricity,Scope 2,waste_generation,kt,9.800751104845782,95.9263411807224
 Europe,"Steam, hot water supply and water distribution",Scope 2,waste_generation,kt,0.1250091957482888,1.2235465051396954
@@ -482,117 +482,117 @@ Middle East,Electricity,Scope 2,waste_generation,kt,0.0019040239731867325,0.0186
 Middle East,"Steam, hot water supply and water distribution",Scope 2,waste_generation,kt,0.0018702366204315236,0.018305225203759375
 Africa,"Steam, hot water supply and water distribution",Scope 2,waste_generation,kt,7.316059691617991e-07,7.160704629359335e-06
 America,"Steam, hot water supply and water distribution",Scope 2,waste_generation,kt,3.627009136394682e-08,3.549990323816802e-07
-Denmark,Chemical,Scope 3,waste_generation,kt,49.77254107324166,16.817729147990534
-Denmark,Waste management and disposal,Scope 3,waste_generation,kt,40.79416791674711,13.78401126500522
-Asia and Pacific,Food and catering,Scope 3,waste_generation,kt,18.291751003504153,6.180631074606723
-Europe,Construction,Scope 3,waste_generation,kt,16.762397840673124,5.6638753151154235
-Europe,Paper Products,Scope 3,waste_generation,kt,14.132149061876316,4.775136050456525
-Europe,Food and catering,Scope 3,waste_generation,kt,13.927433402153907,4.705964325579199
-Europe,Coal and Petroleum,Scope 3,waste_generation,kt,11.144212618349579,3.7655370881552424
-Denmark,Food and catering,Scope 3,waste_generation,kt,9.552070882123406,3.2275655900623232
-Europe,Metal Products,Scope 3,waste_generation,kt,8.796775274180144,2.972357463509878
-Europe,Waste management and disposal,Scope 3,waste_generation,kt,8.035563317096646,2.715150251613588
-Asia and Pacific,Electricity,Scope 3,waste_generation,kt,7.043328653387431,2.379882381706093
-Denmark,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,7.004500552911597,2.3667626883359545
-Europe,Chemical,Scope 3,waste_generation,kt,6.693522910473011,2.26168592012521
-Africa,Food and catering,Scope 3,waste_generation,kt,6.497213020916553,2.1953544353257053
-Europe,Electricity,Scope 3,waste_generation,kt,6.434996258510265,2.1743319069184435
-Denmark,Electricity,Scope 3,waste_generation,kt,4.423035913816411,1.4945071801927694
-Denmark,Construction,Scope 3,waste_generation,kt,4.123286600093579,1.3932243712023964
-Asia and Pacific,Chemical,Scope 3,waste_generation,kt,3.7310719174435465,1.260698280341034
-America,Chemical,Scope 3,waste_generation,kt,3.256768874033448,1.1004352126708363
-Middle East,Food and catering,Scope 3,waste_generation,kt,2.967170471124982,1.0025823123208562
-Asia and Pacific,Metal Products,Scope 3,waste_generation,kt,2.874679378296576,0.9713303385568314
-Europe,Furniture and timber,Scope 3,waste_generation,kt,2.860362834345065,0.9664928970013058
-Europe,Transport,Scope 3,waste_generation,kt,2.6514784103759674,0.8959125812328805
-Denmark,Non-metallic mineral products,Scope 3,waste_generation,kt,2.387899704431497,0.8068515208536453
-Europe,Services,Scope 3,waste_generation,kt,2.119930665099546,0.71630700320685
-Africa,Services,Scope 3,waste_generation,kt,2.034829185968877,0.6875519186712445
-America,Food and catering,Scope 3,waste_generation,kt,1.8155879010238039,0.6134721054095924
-America,Paper Products,Scope 3,waste_generation,kt,1.7974027090604636,0.6073274797515689
-Europe,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,1.7760598100900433,0.6001158910647613
-Africa,Transport,Scope 3,waste_generation,kt,1.7052182292471452,0.5761791079843441
-Asia and Pacific,Waste management and disposal,Scope 3,waste_generation,kt,1.6690462294116895,0.5639568890086508
-Africa,Coal and Petroleum,Scope 3,waste_generation,kt,1.654540692468977,0.5590555882876422
-Asia and Pacific,Paper Products,Scope 3,waste_generation,kt,1.4979924917969651,0.5061592486446059
-Asia and Pacific,Services,Scope 3,waste_generation,kt,1.4947693863829332,0.5050701880360899
-Asia and Pacific,Coal and Petroleum,Scope 3,waste_generation,kt,1.4553567869820168,0.49175299732309236
-Asia and Pacific,Construction,Scope 3,waste_generation,kt,1.4303856294068618,0.4833154501222619
-Denmark,Services,Scope 3,waste_generation,kt,1.3874946606274667,0.4688229472226143
-America,Electricity,Scope 3,waste_generation,kt,1.2902383712827528,0.43596085304640736
-Denmark,Paper Products,Scope 3,waste_generation,kt,1.1866067912349125,0.4009446009756475
-Asia and Pacific,Non-metallic mineral products,Scope 3,waste_generation,kt,1.1855955946176922,0.4006029260187922
-Africa,Construction,Scope 3,waste_generation,kt,0.940961874710233,0.31794321941842213
-America,Waste management and disposal,Scope 3,waste_generation,kt,0.9193978084819424,0.31065690014806263
-Europe,Non-metallic mineral products,Scope 3,waste_generation,kt,0.8519522802275158,0.28786761509313713
-Africa,Electricity,Scope 3,waste_generation,kt,0.8505209048480262,0.2873839652146643
-Denmark,Furniture and timber,Scope 3,waste_generation,kt,0.7285866628857495,0.24618339536291586
-Africa,Chemical,Scope 3,waste_generation,kt,0.688402983331422,0.2326056630562637
-America,Metal Products,Scope 3,waste_generation,kt,0.6140325290277469,0.20747650287833116
-Denmark,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.5929546878327914,0.20035447501723624
-Europe,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.5775777698686541,0.19515874187049603
-Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.5013102799776402,0.16938858908893062
-America,Services,Scope 3,waste_generation,kt,0.48044920065380337,0.1623398032677131
-Europe,General and special Machinery,Scope 3,waste_generation,kt,0.4425405666749299,0.14953079000699065
-Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.3962850976827132,0.13390145036809908
-Asia and Pacific,Transport,Scope 3,waste_generation,kt,0.39608847120270985,0.13383501191001126
-Asia and Pacific,Textile,Scope 3,waste_generation,kt,0.3911022351585503,0.13215020407319167
-America,Coal and Petroleum,Scope 3,waste_generation,kt,0.36452910496345053,0.12317136360013138
-Middle East,Chemical,Scope 3,waste_generation,kt,0.3556201297242326,0.12016109469827153
-Europe,Transport Equipment,Scope 3,waste_generation,kt,0.3531728077795945,0.11933416489490281
-Asia and Pacific,Furniture and timber,Scope 3,waste_generation,kt,0.3483368116520557,0.11770012188082406
-Denmark,Transport Equipment,Scope 3,waste_generation,kt,0.3340519973502972,0.11287340151099609
-Asia and Pacific,General and special Machinery,Scope 3,waste_generation,kt,0.3125153634220229,0.10559635138747199
-Denmark,Coal and Petroleum,Scope 3,waste_generation,kt,0.2885746120965234,0.09750696991910039
-America,Furniture and timber,Scope 3,waste_generation,kt,0.2376490680919434,0.08029965063590752
-Africa,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.2339275782298515,0.07904219005266032
-Denmark,General and special Machinery,Scope 3,waste_generation,kt,0.2309636873467474,0.07804071588595274
-Africa,Metal Products,Scope 3,waste_generation,kt,0.2046402922890533,0.06914625884618844
-Middle East,Metal Products,Scope 3,waste_generation,kt,0.2010308852922504,0.06792667013425653
-Europe,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.1892395372784552,0.06394247135899418
-America,Construction,Scope 3,waste_generation,kt,0.1877062677987772,0.06342439230849604
-Asia and Pacific,Minerals and Metals,Scope 3,waste_generation,kt,0.17685061901182456,0.05975635854755085
-America,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.1699453769993021,0.05742313449742573
-Africa,Transport Equipment,Scope 3,waste_generation,kt,0.1598352768470886,0.05400701544156354
-Africa,Waste management and disposal,Scope 3,waste_generation,kt,0.14778742621063845,0.04993614655582378
-Middle East,Construction,Scope 3,waste_generation,kt,0.14389426845640899,0.04862068081448895
-Europe,Textile,Scope 3,waste_generation,kt,0.14335368422585099,0.048438021882974455
-Africa,Non-metallic mineral products,Scope 3,waste_generation,kt,0.1380570724180185,0.046648340647791074
-Middle East,Paper Products,Scope 3,waste_generation,kt,0.13436256496613874,0.04539999719734284
-Middle East,Services,Scope 3,waste_generation,kt,0.1315211693759741,0.044439913174962604
-Denmark,Metal Products,Scope 3,waste_generation,kt,0.12181832952455905,0.041161403999646365
-Africa,Minerals and Metals,Scope 3,waste_generation,kt,0.1129200346825754,0.03815474391550018
-America,General and special Machinery,Scope 3,waste_generation,kt,0.1112912505647788,0.03760439126034152
-Africa,General and special Machinery,Scope 3,waste_generation,kt,0.1076308722704353,0.03636757976938577
-Asia and Pacific,Transport Equipment,Scope 3,waste_generation,kt,0.1049128835944896,0.0354491939206083
-Africa,Paper Products,Scope 3,waste_generation,kt,0.10084308192452907,0.03407404166405147
-America,Transport,Scope 3,waste_generation,kt,0.09303950460789462,0.031437277559453324
-Europe,Minerals and Metals,Scope 3,waste_generation,kt,0.08864665748431548,0.029952970921297752
-America,Transport Equipment,Scope 3,waste_generation,kt,0.0865230662019961,0.029235427025869003
-Asia and Pacific,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.08582020436566032,0.028997935836207613
-Middle East,Electricity,Scope 3,waste_generation,kt,0.08264460370415369,0.027924926689883157
-Africa,Textile,Scope 3,waste_generation,kt,0.07916439033350452,0.02674899143356049
-Middle East,Coal and Petroleum,Scope 3,waste_generation,kt,0.07046820424183665,0.023810622221207407
-Middle East,Waste management and disposal,Scope 3,waste_generation,kt,0.06137208494578058,0.020737118893463444
-America,Non-metallic mineral products,Scope 3,waste_generation,kt,0.05570772732269515,0.01882317939493099
-Middle East,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.04282395705804773,0.01446986019435149
-Middle East,Textile,Scope 3,waste_generation,kt,0.03785222879877258,0.012789954417813764
-Denmark,Minerals and Metals,Scope 3,waste_generation,kt,0.03612473262007062,0.012206247775332992
-Middle East,General and special Machinery,Scope 3,waste_generation,kt,0.03217934840124447,0.010873135144428033
-Middle East,Transport,Scope 3,waste_generation,kt,0.031122067887118094,0.010515888820719941
-America,Textile,Scope 3,waste_generation,kt,0.026678666242990458,0.009014500229032203
-Middle East,Minerals and Metals,Scope 3,waste_generation,kt,0.02621994248833385,0.008859501273921357
-America,Minerals and Metals,Scope 3,waste_generation,kt,0.022350764144658652,0.007552137976687916
-Middle East,Furniture and timber,Scope 3,waste_generation,kt,0.01989908300595105,0.0067237352377691245
-Middle East,Non-metallic mineral products,Scope 3,waste_generation,kt,0.017568918435955077,0.005936391940372076
-Middle East,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.01519251447364962,0.005133424735514
-Middle East,Transport Equipment,Scope 3,waste_generation,kt,0.011308812135963985,0.0038211539010693245
-Africa,Furniture and timber,Scope 3,waste_generation,kt,0.0099501740615209,0.0033620813551748334
-America,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.00954326392229111,0.0032245897913210286
-Denmark,Transport,Scope 3,waste_generation,kt,0.005778602719566516,0.00195254196984847
-Africa,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.005165013615045101,0.0017452152964360303
-Africa,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.005000783793633264,0.0016897234008050074
-Denmark,Textile,Scope 3,waste_generation,kt,0.0046915372964542075,0.001585231572230914
-Middle East,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.004645044412529574,0.001569522012053891
-America,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.004066212125355124,0.0013739393791823448
-Denmark,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.0026779963379730764,0.000904872769205561
+Denmark,Waste management and disposal,Scope 3,waste_generation,kt,40.88541486557187,15.458839518096317
+Denmark,Chemical,Scope 3,waste_generation,kt,31.078066682948183,11.750665780548196
+Asia and Pacific,Food and catering,Scope 3,waste_generation,kt,16.97957307879254,6.4200032254502375
+Europe,Construction,Scope 3,waste_generation,kt,15.930614079492065,6.023390181787482
+Europe,Paper Products,Scope 3,waste_generation,kt,13.628462657254865,5.152943116501862
+Europe,Food and catering,Scope 3,waste_generation,kt,13.272225798202527,5.018249401087027
+Europe,Coal and Petroleum,Scope 3,waste_generation,kt,10.17742183374859,3.8480991657582977
+Denmark,Food and catering,Scope 3,waste_generation,kt,9.386233928135411,3.548949777113301
+Europe,Metal Products,Scope 3,waste_generation,kt,8.437427146995258,3.1902044442958983
+Europe,Waste management and disposal,Scope 3,waste_generation,kt,7.734315179834105,2.924356706188442
+Denmark,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,6.616718687169243,2.501791718578605
+Asia and Pacific,Electricity,Scope 3,waste_generation,kt,6.493525799460261,2.4552122944214667
+Africa,Food and catering,Scope 3,waste_generation,kt,6.189420121896821,2.3402294605318734
+Europe,Electricity,Scope 3,waste_generation,kt,5.969212894483477,2.2569687622975425
+Europe,Chemical,Scope 3,waste_generation,kt,4.879972149186028,1.8451251272631846
+Denmark,Electricity,Scope 3,waste_generation,kt,4.196653292125105,1.5867611951439877
+Denmark,Construction,Scope 3,waste_generation,kt,4.132474498178646,1.5624950924434202
+Asia and Pacific,Chemical,Scope 3,waste_generation,kt,3.288798492959228,1.2434998709729397
+America,Chemical,Scope 3,waste_generation,kt,2.8151917511079305,1.0644284186949104
+Middle East,Food and catering,Scope 3,waste_generation,kt,2.808331539826532,1.061834562044365
+Europe,Furniture and timber,Scope 3,waste_generation,kt,2.8024478333943033,1.0596099234096228
+Asia and Pacific,Metal Products,Scope 3,waste_generation,kt,2.6920529911229973,1.0178694603151728
+Europe,Transport,Scope 3,waste_generation,kt,2.636457355575587,0.9968486632739841
+Denmark,Non-metallic mineral products,Scope 3,waste_generation,kt,2.3816120851728466,0.9004912666313191
+Europe,Services,Scope 3,waste_generation,kt,2.0095827069572016,0.7598263749392051
+Africa,Services,Scope 3,waste_generation,kt,1.954397768704689,0.7389608631896837
+America,Food and catering,Scope 3,waste_generation,kt,1.7270554580153696,0.653002378772328
+Africa,Transport,Scope 3,waste_generation,kt,1.6948657707730657,0.6408314075139316
+Europe,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,1.6529397068663119,0.6249790969603771
+Asia and Pacific,Waste management and disposal,Scope 3,waste_generation,kt,1.6118858506383085,0.6094565694988272
+America,Paper Products,Scope 3,waste_generation,kt,1.5642326822088946,0.5914388317382783
+Africa,Coal and Petroleum,Scope 3,waste_generation,kt,1.5333059778132674,0.5797453962760839
+Asia and Pacific,Paper Products,Scope 3,waste_generation,kt,1.4129409480977946,0.5342351896637689
+Asia and Pacific,Services,Scope 3,waste_generation,kt,1.379573605050651,0.5216189448975843
+Asia and Pacific,Construction,Scope 3,waste_generation,kt,1.369770697866107,0.517912450308379
+Denmark,Services,Scope 3,waste_generation,kt,1.358962088440437,0.513825698123655
+Asia and Pacific,Coal and Petroleum,Scope 3,waste_generation,kt,1.3494959738488215,0.5102465453423312
+Denmark,Paper Products,Scope 3,waste_generation,kt,1.205160327469681,0.45567301095477386
+America,Electricity,Scope 3,waste_generation,kt,1.1515938612787129,0.43541944603143
+Asia and Pacific,Non-metallic mineral products,Scope 3,waste_generation,kt,1.123815255289022,0.42491631151651854
+Africa,Construction,Scope 3,waste_generation,kt,0.9059953870018184,0.3425582775140266
+America,Waste management and disposal,Scope 3,waste_generation,kt,0.8836991656443495,0.33412804123152035
+Europe,Non-metallic mineral products,Scope 3,waste_generation,kt,0.8272912306936074,0.3128001125112711
+Africa,Electricity,Scope 3,waste_generation,kt,0.730918538780436,0.2763614464708007
+Denmark,Furniture and timber,Scope 3,waste_generation,kt,0.7263444096384918,0.2746319610645047
+America,Metal Products,Scope 3,waste_generation,kt,0.5705224040665371,0.21571541624174095
+Africa,Chemical,Scope 3,waste_generation,kt,0.5703518089640668,0.21565091396579897
+Denmark,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.46403968206474216,0.17545413196009527
+Europe,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.4567211603464116,0.17268698741416472
+America,Services,Scope 3,waste_generation,kt,0.4220822870152094,0.15958997505229122
+Asia and Pacific,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.417759713262471,0.15795560313339488
+Europe,General and special Machinery,Scope 3,waste_generation,kt,0.4174321928286351,0.1578317671434162
+Asia and Pacific,Transport,Scope 3,waste_generation,kt,0.38854989841168375,0.1469113263022489
+Asia and Pacific,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.3703295198442847,0.14002217257448366
+Asia and Pacific,Textile,Scope 3,waste_generation,kt,0.369211092383146,0.13959929339638988
+Europe,Transport Equipment,Scope 3,waste_generation,kt,0.34419760512488257,0.13014165461285757
+Denmark,Transport Equipment,Scope 3,waste_generation,kt,0.3366892660893645,0.12730273984143695
+Asia and Pacific,Furniture and timber,Scope 3,waste_generation,kt,0.332504317672142,0.12572040427786094
+America,Coal and Petroleum,Scope 3,waste_generation,kt,0.3296507649141609,0.12464147150227116
+Asia and Pacific,General and special Machinery,Scope 3,waste_generation,kt,0.28861757750709616,0.1091267589543516
+Denmark,Coal and Petroleum,Scope 3,waste_generation,kt,0.2774438806355286,0.10490196663343843
+Middle East,Chemical,Scope 3,waste_generation,kt,0.25718402608131197,0.09724168383471019
+Denmark,General and special Machinery,Scope 3,waste_generation,kt,0.2288344058009541,0.08652264792046152
+America,Furniture and timber,Scope 3,waste_generation,kt,0.2275167818469106,0.08602445223582118
+Africa,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.2134425095731095,0.0807029478037384
+Africa,Metal Products,Scope 3,waste_generation,kt,0.1927469487775461,0.0728779237914464
+Middle East,Metal Products,Scope 3,waste_generation,kt,0.1887448334512377,0.07136471770644683
+America,Construction,Scope 3,waste_generation,kt,0.177644064091516,0.06716749939220047
+Europe,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.16354297543250337,0.06183585564278892
+Asia and Pacific,Minerals and Metals,Scope 3,waste_generation,kt,0.16194674012822008,0.06123231656942578
+Africa,Transport Equipment,Scope 3,waste_generation,kt,0.15606005623789382,0.05900655215310466
+Africa,Waste management and disposal,Scope 3,waste_generation,kt,0.14383692448676724,0.0543849668574562
+Europe,Textile,Scope 3,waste_generation,kt,0.13878650938703938,0.05247539698313395
+Middle East,Construction,Scope 3,waste_generation,kt,0.1354865204447096,0.05122766598569395
+Africa,Non-metallic mineral products,Scope 3,waste_generation,kt,0.13359558945872568,0.0505127020126431
+America,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.1292442723179184,0.04886746217361376
+Middle East,Paper Products,Scope 3,waste_generation,kt,0.128053089803234,0.04841707419560709
+Middle East,Services,Scope 3,waste_generation,kt,0.11789646876660743,0.044576839843881264
+Denmark,Metal Products,Scope 3,waste_generation,kt,0.11614206861162002,0.04391349839227448
+Africa,Minerals and Metals,Scope 3,waste_generation,kt,0.10561916547151935,0.039934772202454935
+America,General and special Machinery,Scope 3,waste_generation,kt,0.1041557329116662,0.039381446055155
+Africa,General and special Machinery,Scope 3,waste_generation,kt,0.10344674205605059,0.039113375500097754
+Asia and Pacific,Transport Equipment,Scope 3,waste_generation,kt,0.1012779355637825,0.03829334636207842
+Africa,Paper Products,Scope 3,waste_generation,kt,0.09547583000104203,0.03609956114413786
+America,Transport,Scope 3,waste_generation,kt,0.09208055600809302,0.034815802719537346
+America,Transport Equipment,Scope 3,waste_generation,kt,0.08306417084495481,0.03140669334083644
+Europe,Minerals and Metals,Scope 3,waste_generation,kt,0.08259142465558099,0.03122794726480053
+Asia and Pacific,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.08141206145670014,0.03078202818864607
+Middle East,Electricity,Scope 3,waste_generation,kt,0.0780038406291553,0.02949337454556869
+Africa,Textile,Scope 3,waste_generation,kt,0.07563966658507484,0.028599476629638194
+Middle East,Coal and Petroleum,Scope 3,waste_generation,kt,0.06634955433810588,0.025086870611008137
+Middle East,Waste management and disposal,Scope 3,waste_generation,kt,0.05992370757833044,0.0226572478676935
+America,Non-metallic mineral products,Scope 3,waste_generation,kt,0.05185296535675015,0.01960568756909926
+Middle East,Textile,Scope 3,waste_generation,kt,0.03681399440625789,0.013919429053553672
+Denmark,Minerals and Metals,Scope 3,waste_generation,kt,0.03653107289311669,0.013812455985474335
+Middle East,"Electrical, electronic and measuring equipment",Scope 3,waste_generation,kt,0.035633655632730514,0.013473141111094485
+Middle East,Transport,Scope 3,waste_generation,kt,0.030251902667553874,0.011438291869910418
+Middle East,General and special Machinery,Scope 3,waste_generation,kt,0.03019347132268827,0.011416198886726224
+America,Textile,Scope 3,waste_generation,kt,0.024255679937214922,0.009171110646292066
+Middle East,Minerals and Metals,Scope 3,waste_generation,kt,0.021467739627937358,0.0081169860405162
+America,Minerals and Metals,Scope 3,waste_generation,kt,0.020711789444662565,0.007831160089982407
+Middle East,Furniture and timber,Scope 3,waste_generation,kt,0.018933973758709827,0.007158965189373973
+Middle East,Non-metallic mineral products,Scope 3,waste_generation,kt,0.016535883820166533,0.006252243620526228
+Middle East,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.01410609454335834,0.005333536482137899
+Middle East,Transport Equipment,Scope 3,waste_generation,kt,0.010596055513109588,0.004006385216844974
+Africa,Furniture and timber,Scope 3,waste_generation,kt,0.0095913337201065,0.0036264983303003167
+America,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.008667601857442564,0.0032772338635063524
+Denmark,Transport,Scope 3,waste_generation,kt,0.005756365340274371,0.002176490768050538
+Africa,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.004944309311142387,0.0018694511091568065
+Africa,"Steam, hot water supply and water distribution",Scope 3,waste_generation,kt,0.004832427850067686,0.0018271485531599896
+Denmark,Textile,Scope 3,waste_generation,kt,0.0046245175185504655,0.0017485373305602808
+Middle East,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.0041987968168517445,0.0015875716652067509
+America,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.0037613481472134175,0.0014221716367717196
+Denmark,Natural gas and gaseous fuels,Scope 3,waste_generation,kt,0.002637092151685849,0.0009970886806793969

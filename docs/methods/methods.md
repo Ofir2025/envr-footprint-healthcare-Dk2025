@@ -87,7 +87,7 @@ its effect on the result.
   producing-node detail reconciles.
 
 The **double-counting ledger** (`double_counting_ledger.csv`) tests each overlap
-risk numerically, including the intra-sector self-supply term (1.83 kt CO₂e,
+risk numerically, including the intra-sector self-supply term (1.81 kt CO₂e,
 removed) and the pharma-component-vs-procurement question (cleared: different
 channels).
 
@@ -206,8 +206,8 @@ on so a code reads as a classification entry rather than as a string.
 **What it gives us now.** An independent national denominator: Denmark's
 consumption-based GHG footprint 2022 = **57.40 Mt CO₂e**, against Statistics
 Denmark AFTRYK's 62.90 Mt and this model's 77.24 Mt. The healthcare footprint of
-4,652.1 kt is therefore **6.0 % to 8.1 %** of the national total depending on
-which denominator is used — 8.15 % of FIGARO, 7.43 % of AFTRYK, 6.05 % of our
+4,162.1 kt is therefore **5.4 % to 7.3 %** of the national total depending on
+which denominator is used — 7.25 % of FIGARO, 6.62 % of AFTRYK, 5.39 % of our
 own — and the manuscript quotes the share against our own national total, the
 only one built on the same boundary as the numerator. It also puts emissions
 arising in NACE Q due to Danish final demand at 176 kt (Q86 alone 97 kt,
@@ -630,7 +630,7 @@ direction.
 Their government-consumption finding matters directly: **Danish government
 consumption, where public health care sits, is about two-thirds
 imported-emissions in their coupled model**, materially more import-exposed than
-households at 55 %. Our health-care footprint is **73.7 % imported** in origin,
+households at 55 %. Our health-care footprint is **69.3 % imported** in origin,
 which is consistent with, and slightly above, their government figure.
 
 They publish **no like-for-like raw-versus-coupled comparison**, so the size of
@@ -712,7 +712,7 @@ Danish side do not depend on which EXIOBASE release supplies the import side.
    — the recipe that, at the time this section was first drafted, sat behind a
    transport-dominance headline of ~41 % of GWP. **That transport figure is now
    superseded and withdrawn**: the sea-transport reallocation corrected it to
-   17.8 % of the supply-chain footprint (14.9 % of the total), documented in full
+   19.5 % of the supply-chain footprint (16.0 % of the total), documented in full
    in
    [docs/revision/results_2022.md, "The withdrawn transport finding"](../revision/results_2022.md#the-withdrawn-transport-finding).
    The recipe problem itself is unaffected by that correction and remains real:

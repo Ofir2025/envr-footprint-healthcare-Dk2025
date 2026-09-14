@@ -19,6 +19,14 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 
 ## Tables
 
+### `double_counting_ledger.csv`
+
+- **Rows:** 10
+- **Format:** csv
+- **Units:** % overestimate, broadest target set (T3), -, M.EUR (in services column), kt CO2eq, kt CO2eq (deviation)
+- **Dimensions:** `item`, `risk`, `test`, `unit`, `verdict`
+- **Measures:** `analysis_year`, `value`
+
 ### `scope_by_continent.csv`
 
 - **Rows:** 64

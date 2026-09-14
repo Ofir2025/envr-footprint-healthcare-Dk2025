@@ -1,5 +1,5 @@
 damage_category,us_daly,us_daly_per_1000,dk_daly,dk_daly_per_1000,us_method,dk_method
-Particulate matter,435000.0,1.3760212493615618,8334.91186407988,1.419090047039013,IMPACT 2002+ endpoint factors,ILCD recommended endpoint factors
-"Human health, cancer effects",84.0,0.00026571444815257745,353.06895424373636,0.060113009838175434,IMPACT 2002+ endpoint factors,ILCD recommended endpoint factors
-"Human health, non-cancer effects",25300.0,0.0800306611697644,8712.202998783467,1.4833270903125382,IMPACT 2002+ endpoint factors,ILCD recommended endpoint factors
-Climate change (Denmark only),,,5128.321984972199,0.8731406888954305,not assessed: they state robust endpoint factors do not exist for climate change,ILCD recommended endpoint factors
+Particulate matter,435000.0,1.3760212493615618,6997.020012897237,1.1913025141905802,IMPACT 2002+ endpoint factors,ILCD recommended endpoint factors
+"Human health, cancer effects",84.0,0.00026571444815257745,345.05984535862905,0.05874939053543405,IMPACT 2002+ endpoint factors,ILCD recommended endpoint factors
+"Human health, non-cancer effects",25300.0,0.0800306611697644,8239.75680929748,1.402889084944969,IMPACT 2002+ endpoint factors,ILCD recommended endpoint factors
+Climate change (Denmark only),,,4509.165863618318,0.7677240625765428,not assessed: they state robust endpoint factors do not exist for climate change,ILCD recommended endpoint factors

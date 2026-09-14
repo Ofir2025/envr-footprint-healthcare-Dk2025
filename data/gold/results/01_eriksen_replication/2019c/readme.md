@@ -72,7 +72,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 01
 
 - **Rows:** 105
 - **Format:** csv
-- **Resolution:** 20+ regions x 42+ industries (sampled)
+- **Resolution:** 20+ regions x 40+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `indicator`, `unit`
 - **Measures:** `value`, `rank`, `share_pct`, `mrio_coverage_pct`
@@ -183,7 +183,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 01
 - **Format:** csv
 - **Units:** Mm3 per MEUR, km2 per MEUR, kt CO2eq per MEUR, kt per MEUR
 - **Dimensions:** `indicator`, `unit`, `purchased_sector_group`
-- **Measures:** `value`
+- **Measures:** `value`, `expenditure_meur`, `footprint`
 
 ### `intensity_by_world_region.csv`
 
@@ -191,7 +191,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 01
 - **Format:** csv
 - **Units:** Mm3 per MEUR, km2 per MEUR, kt CO2eq per MEUR, kt per MEUR
 - **Dimensions:** `indicator`, `unit`, `purchased_world_region`
-- **Measures:** `value`
+- **Measures:** `value`, `expenditure_meur`, `footprint`
 
 ### `scopes_summary.csv`
 

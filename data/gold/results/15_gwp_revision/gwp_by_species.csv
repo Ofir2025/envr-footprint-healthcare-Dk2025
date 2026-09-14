@@ -1,7 +1,7 @@
 country_consuming,sector_consuming,species,mass_kg,unit,ar6_gwp100,contribution_kt_co2eq
-DNK,health_and_eldercare,CO2,2634903852.230004,kg,1.0,2634.903852230004
-DNK,health_and_eldercare,CH4_biogenic,16614150.473987803,kg,27.0,448.5820627976707
-DNK,health_and_eldercare,CH4_fossil,14662382.908314493,kg,29.8,436.93901066777187
-DNK,health_and_eldercare,N2O,736774.9628353006,kg,273.0,201.13956485403708
-DNK,health_and_eldercare,SF6,1176.8891525797048,kg,25200.0,29.65760664500856
-DNK,health_and_eldercare,HFC + PFC (pre-aggregated by EXIOBASE),,kg CO2eq,,155.22397294569546
+DNK,health_and_eldercare,CO2,2371791020.96066,kg,1.0,2371.79102096066
+DNK,health_and_eldercare,CH4_biogenic,14464395.215344897,kg,27.0,390.53867081431224
+DNK,health_and_eldercare,CH4_fossil,11022583.24706305,kg,29.8,328.47298076247887
+DNK,health_and_eldercare,N2O,635345.1251761292,kg,273.0,173.44921917308326
+DNK,health_and_eldercare,SF6,992.9552003344729,kg,25200.0,25.022471048428717
+DNK,health_and_eldercare,HFC + PFC (pre-aggregated by EXIOBASE),,kg CO2eq,,126.09290668704084

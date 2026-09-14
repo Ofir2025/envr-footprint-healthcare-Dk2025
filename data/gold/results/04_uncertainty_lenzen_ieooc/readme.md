@@ -23,13 +23,13 @@ seven of the nine climate groups carry a coefficient of variation of
 than their levels: the shared factor cancels in the ratio.
 
 Two groups are not like the others, and that is the finding. Individual
-travel carries a CV of **26.3 %** against the 8.4 % of the MRIO-driven
+travel carries a CV of **26.5 %** against the 8.4 % of the MRIO-driven
 groups, because commuting and patient and visitor travel are bottom-up
 terms with uncertainties of their own rather than a share of the MRIO
-block; operational impacts carries 9.1 % for the same reason, smaller
+block; operational impacts carries 9.0 % for the same reason, smaller
 because the direct-emissions account is tighter. In share terms
-pharmaceuticals run 33.9 % to 39.4 % while individual travel runs
-8.4 % to 20.9 %, so the statement that pharmaceuticals lead is robust
+pharmaceuticals run 25.1 % to 29.5 % while individual travel runs
+9.1 % to 22.5 %, so the statement that pharmaceuticals lead is robust
 and the position of travel in the ranking is not - which is what
 `uncertainty_ranking_probabilities.csv` quantifies.
 

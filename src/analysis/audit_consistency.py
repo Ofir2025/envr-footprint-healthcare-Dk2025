@@ -1103,48 +1103,48 @@ def c5_manifest(results: list[dict[str, Any]]) -> None:
 #: Headline numbers that the revision documents quote, and where each is
 #: computed from. ``doc`` is the markdown that must contain ``text`` verbatim.
 DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
-    # These three moved on 11 September 2026, when the sea-transport
-    # correction's target share stopped being the hardcoded 0.09 and began
-    # being read from Statistics Denmark's domestic input-output table for
-    # each background year. The before-and-after table is in
-    # docs/revision/results_2022.md, "What reading phi per year moved".
-    dict(text="4,652", doc="docs/revision/results_2022.md",
+    # These moved on 13 September 2026, when the distribution margins on
+    # medicines and appliances were placed at the Danish trade industries
+    # instead of being mapped to the goods with the rest of the category, and
+    # the bottom-up gases were restated on IPCC AR6. The before-and-after table
+    # is in docs/revision/defects_and_fixes.md, "Findings of 13 September 2026".
+    dict(text="4,162", doc="docs/revision/results_2022.md",
          source=(f"{eriksen_folder()}/hotspot_by_producing_node.csv",
                  "climate_change"),
-         expect=4652.1, tol=0.2, what="health-care climate footprint, kt"),
-    dict(text="3,906", doc="docs/revision/results_2022.md",
+         expect=4162.1, tol=0.2, what="health-care climate footprint, kt"),
+    dict(text="3,415", doc="docs/revision/results_2022.md",
          source=("17_health_subsectors/footprint_by_health_function.csv",
                  "climate_change"),
-         expect=3906.4, tol=1.0,
+         expect=3415.4, tol=1.0,
          what="MRIO supply-chain component (SHA functions), kt"),
     # The simulation's own headline figures. These drifted once already, on
     # 2026-09-12, and nothing caught it: the documents quoted the previous
     # run for a day. Registering them makes the next drift a failing check.
-    dict(text="4,673", doc="docs/revision/uncertainty.md",
+    dict(text="4,182", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
                  "Global warming"),
-         expect=4672.7, tol=2.0, column="median",
+         expect=4182.4, tol=2.0, column="median",
          what="Monte Carlo median of the climate footprint, kt"),
-    dict(text="4,012 to 5,460 kt", doc="docs/revision/uncertainty.md",
+    dict(text="3,587 to 4,893 kt", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
                  "Global warming"),
-         expect=4011.6, tol=2.0, column="p2_5",
+         expect=3587.3, tol=2.0, column="p2_5",
          what="lower bound of the 95 % interval, kt"),
-    dict(text="7.86 %", doc="docs/revision/uncertainty.md",
+    dict(text="7.92 %", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_totals.csv",
                  "Global warming"),
-         expect=7.863, tol=0.02, column="cv_pct",
+         expect=7.919, tol=0.02, column="cv_pct",
          what="coefficient of variation of the climate footprint, %"),
-    dict(text="79.4 %", doc="docs/revision/uncertainty.md",
+    dict(text="74.7 %", doc="docs/revision/uncertainty.md",
          source=("04_uncertainty_lenzen_ieooc/uncertainty_variance_shares.csv",
                  "Global warming"),
          where=("parameter", "mrio"), column="variance_share_pct",
-         expect=79.44, tol=0.2,
+         expect=74.70, tol=0.2,
          what="input-output share of the climate variance, %"),
-    dict(text="4,809 kt", doc="docs/revision/response_to_reviewers.md",
+    dict(text="4,285 kt", doc="docs/revision/response_to_reviewers.md",
          source=("11_capital_gfcf/capital_endogenised_sodersten.csv",
                  "climate_change"),
-         expect=4808.9, tol=2.0, column="endogenised_sodersten",
+         expect=4284.9, tol=2.0, column="endogenised_sodersten",
          what="climate footprint with capital endogenised on the published "
               "Sodersten matrices, kt"),
     dict(text="77.2 Mt", doc="docs/revision/results_2022.md",
@@ -1162,6 +1162,26 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
 #: state current claims, and any future legitimate use has to be argued for
 #: here rather than appearing silently.
 SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
+    # Superseded on 13 September 2026, when the distribution margins on
+    # medicines and appliances moved from the goods to the Danish trade
+    # industries and the bottom-up gases were restated on IPCC AR6. Every value
+    # below was computed with the margins charged at manufacturing intensity.
+    ("4,652.1", "health-care climate footprint with the distribution margins "
+                "mapped to the goods; it is 4,162.1 kt"),
+    ("4,652.07", "the same, to two decimals; it is 4,162.12"),
+    ("4,650.24", "scope partition total on the same basis; it is 4,160.31"),
+    ("3,906.4", "MRIO supply-chain component on the same basis; it is 3,415.4 kt"),
+    ("4,673 kt", "Monte Carlo median on the same basis; it is 4,182 kt"),
+    ("4,012 to 5,460", "95 % interval on the same basis; it is 3,587 to 4,893 kt"),
+    ("79.4 %", "input-output share of the climate variance; it is 74.7 %"),
+    ("4,809 kt", "climate footprint with capital endogenised on the Sodersten "
+                 "matrices; it is 4,285 kt"),
+    ("4.652 Mt", "the footprint the MRIO spread is transferred onto; it is 4.162 Mt"),
+    ("73.7 % imported", "imported share of the climate footprint; it is 69.3 %"),
+    ("4.68 Mt", "this study's headline in the boundary-matched ladder; it is 4.16 Mt"),
+    ("1.83 kt", "the health sector's self-supply loop; it is 1.81 kt"),
+    ("11.57 kt", "the anaesthetic item on the Sulbaek Andersen factors; it is 11.75 kt"),
+    ("1,737.4", "the pharmaceutical and chemical contribution; it is 1,154.3 kt"),
     ("37.5 %", "pre-publication estimate of the 2022 uncorrected transport share; the published 2022_uncorrected table gives 36.8 %"),
     # Superseded on 2026-09-11, when the sea-transport correction's target share
     # moved from a fixed 0.09 to Statistics Denmark's domestic-IO value per year.

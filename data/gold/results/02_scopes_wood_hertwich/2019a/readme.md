@@ -10,9 +10,11 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 
 Variant a: the submitted configuration. Its partition closes on
 `01_eriksen_replication/2019a`, and its transport share is the
-measurement that matters here - 34.94 % of this folder's climate
+measurement that matters here - 37.26 % of this folder's climate
 total by producing node, against the 46 % the submitted manuscript
-reports and the 46.87 % that `2019_uncorrected` returns on v3.8.2.
+reports and the 48.23 % that `2019_uncorrected` returns on v3.8.2.
+On the submission's own valuation, which mapped distribution margins
+to the goods, the two runs gave 35.01 % and 46.99 %.
 The submitted number is reproduced by the v3.8.2 run, not by the
 v3.7 one, which is the finding this variant exists to establish.
 
@@ -80,9 +82,9 @@ v3.7 one, which is the finding this variant exists to establish.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 106
+- **Rows:** 93
 - **Format:** csv
-- **Resolution:** 11+ regions x 17+ industries (sampled)
+- **Resolution:** 10+ regions x 15+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

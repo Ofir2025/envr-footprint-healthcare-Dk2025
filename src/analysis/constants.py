@@ -561,6 +561,19 @@ MODEL_LABEL = model_label()
 # of the footprint they represent is reported by analysis.gwp_revision.
 # ---------------------------------------------------------------------------
 
+#: IPCC AR6 GWP100 of the halogenated species the bottom-up terms release, kg
+#: CO2-equivalent per kg, from Smith et al. (2021), Table 7.SM.7 of the AR6 WG1
+#: chapter 7 supplementary material (pp. 7SM-26 and 7SM-31, verified against the
+#: PDF on 2026-09-13). The medical gases are not in the EXIOBASE satellite, so
+#: they are characterised here rather than through ar6_gwp_factor.
+AR6_GWP100_HALOGENATED = {
+    "HFC-134a": 1530.0,
+    "HFC-227ea": 3600.0,
+    "sevoflurane": 195.0,   # HFE-347mmz1
+    "desflurane": 2590.0,   # CHF2OCHFCF3
+    "isoflurane": 539.0,    # HCFE-235da2
+}
+
 #: IPCC AR6 GWP100 factors, kg CO2-equivalent per kg of gas.
 AR6_GWP100 = {
     "CO2": 1.0,

@@ -75,13 +75,13 @@ units and are labelled as such wherever they are quoted.
 | `analysis_year` | measure | int64 |  | 2022 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
-| `full_mrio` | measure | float64 | varies by row | 4025.0002397773846 |
-| `domestic_only` | measure | float64 | varies by row | 818.1006438667325 |
-| `domestic_share_of_full_pct` | measure | float64 | % | 20.325480624368364 |
+| `full_mrio` | measure | float64 | varies by row | 3533.9214390832185 |
+| `domestic_only` | measure | float64 | varies by row | 889.1636084625991 |
+| `domestic_share_of_full_pct` | measure | float64 | % | 25.160819893417575 |
 | `national_full_mrio` | measure | float64 | varies by row | 67518.62638160589 |
 | `national_domestic_only` | measure | float64 | varies by row | 20939.33591985582 |
-| `share_of_national_full_pct` | measure | float64 | % | 5.96131831389555 |
-| `share_of_national_domestic_pct` | measure | float64 | % | 3.907003770310427 |
+| `share_of_national_full_pct` | measure | float64 | % | 5.2339948670015675 |
+| `share_of_national_domestic_pct` | measure | float64 | % | 4.246379215968571 |
 | `denominator_note` | dimension | str |  | share_of_national_full_pct is over natio |
 
 ### `malik_published_reference.csv`
@@ -103,9 +103,9 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `indicator` | dimension | str |  | climate_change |
-| `denmark_first_three_layers_pct` | measure | float64 | % | 62.999301882277045 |
+| `denmark_first_three_layers_pct` | measure | float64 | % | 61.71302134522377 |
 | `malik_nsw_first_three_layers_pct` | measure | float64 | % | 67.0 |
-| `denmark_first_layer_pct` | measure | float64 | % | 8.778686379642336 |
+| `denmark_first_layer_pct` | measure | float64 | % | 10.707649655433512 |
 | `malik_nsw_first_layer_pct` | measure | float64 | % | 11.0 |
 | `malik_total` | measure | float64 |  | 7908.0 |
 | `malik_unit` | dimension | str |  | kt CO2e |

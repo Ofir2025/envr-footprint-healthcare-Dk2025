@@ -14,8 +14,8 @@ inverse. Its partition closes on `01_eriksen_replication/2022d`.
 
 This is the variant built to be comparable with Schmidt & Merciai
 (2023), whose 6,100 kt covers NACE Q including child care with capital
-endogenised. At 6,495.66 kt it is 6.5 % above them, on a full pipeline
-run rather than the 1.2111 post-hoc uplift that
+endogenised. At 5,948.76 kt it is 2.5 % below them, on a full pipeline
+run rather than the 1.2298 post-hoc uplift that
 `06_benchmarks_validation` applies to the headline; the residual
 difference their model being consequential and ours attributional
 cannot be removed by any boundary adjustment and remains.
@@ -84,9 +84,9 @@ cannot be removed by any boundary adjustment and remains.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 113
+- **Rows:** 109
 - **Format:** csv
-- **Resolution:** 12+ regions x 15+ industries (sampled)
+- **Resolution:** 12+ regions x 17+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

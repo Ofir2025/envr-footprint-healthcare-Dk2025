@@ -38,7 +38,7 @@ without its source.
   <br>*Used for:* Target: halve hospitals' consumption-based CO2 by 2035 against 2022; the 2020 target of -75 % on energy and transport by 2030 against 2018
 - Donati, F., Aguilar-Hernandez, G. A., Sigüenza-Sánchez, C. P., de Koning, A., Rodrigues, J. F. D., & Tukker, A. (2020). Modeling the circular economy in environmentally extended input-output tables: Methods software and case study. *Resources, Conservation and Recycling, 152, 104508*. https://doi.org/10.1016/j.resconrec.2019.104508
   <br>*Used for:* Change-coefficient and substitution formalism (k_a = k_t k_p) implemented in analysis.scenario_engine
-- Doucet, C., Lioussis, M., & Yamano, N. (2025). Measuring greenhouse gas emissions in the health sector. *OECD Health Working Papers No. 179*. https://doi.org/10.1787/4d15c6ef-en
+- Doucet, C., Lioussis, M., Yamano, N., & Mueller, M. (2025). Measuring greenhouse gas emissions in the health sector: A new approach to model GHG emissions combining (JHAQ) health expenditure data and the multi-regional inter-country input-output (ICIO) tables. *OECD Health Working Papers No. 184*. https://doi.org/10.1787/4d15c6ef-en
   <br>*Used for:* First-tier Scope 2 convention reported as a sensitivity in layer 02
 - DTU Management [Center for Transport Analytics] (2023). Transportvaneundersøgelsen: Tabel 15 - trips distance and time by purpose [Data set]. *Technical University of Denmark*. https://www.dtu.dk/tu
   <br>*Used for:* Purpose code 33 (social/health) used for Danish patient travel

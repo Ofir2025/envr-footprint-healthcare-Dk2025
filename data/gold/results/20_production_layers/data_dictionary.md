@@ -62,10 +62,10 @@ units and are labelled as such wherever they are quoted.
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `layer` | dimension | str |  | 0 |
-| `value` | measure | float64 | varies by row | 353.33928659046666 |
-| `share_pct` | measure | float64 | % | 8.778686379642336 |
-| `cumulative_share_pct` | measure | float64 | % | 8.778686379642336 |
-| `truncation_error_pct` | measure | float64 | % | 91.22131362035766 |
+| `value` | measure | float64 | varies by row | 378.3964368483613 |
+| `share_pct` | measure | float64 | % | 10.707649655433512 |
+| `cumulative_share_pct` | measure | float64 | % | 10.707649655433512 |
+| `truncation_error_pct` | measure | float64 | % | 89.29235034456649 |
 
 ### `production_layers_by_producing_node.csv.gz`
 
@@ -81,10 +81,10 @@ units and are labelled as such wherever they are quoted.
 | `producing_country_iso3` | dimension | str |  | DNK |
 | `producing_country_name` | dimension | str |  | Denmark |
 | `producing_world_region` | dimension | str |  | Denmark |
-| `producing_sector_code` | dimension | str |  | HEAL |
-| `producing_sector_name` | dimension | str |  | Health and social work (85) |
+| `producing_sector_code` | dimension | str |  | TDRT |
+| `producing_sector_name` | dimension | str |  | Retail trade, except of motor vehicles a |
 | `producing_sector_group` | dimension | str |  | Services |
-| `value` | measure | float64 | kt CO2eq | 118.5541696372094 |
+| `value` | measure | float64 | kt CO2eq | 120.44839101818717 |
 
 ### `production_layers_by_sector_group.csv`
 
@@ -95,7 +95,7 @@ units and are labelled as such wherever they are quoted.
 | `consuming_country_iso3` | dimension | str |  | DNK |
 | `analysis_year` | measure | int64 |  | 2022 |
 | `sector_group` | dimension | str |  | Chemical |
-| `value` | measure | float64 | varies by row | 228.7552377324756 |
+| `value` | measure | float64 | varies by row | 136.0084670784198 |
 | `indicator` | dimension | str |  | climate_change |
 | `unit` | dimension | str |  | kt CO2eq |
 | `layer` | measure | int64 | varies by row | 0 |
@@ -108,5 +108,5 @@ units and are labelled as such wherever they are quoted.
 | `unit` | dimension | str |  | Mm3 |
 | `layer` | measure | int64 | varies by row | 0 |
 | `origin` | dimension | str |  | domestic |
-| `value` | measure | float64 | varies by row | 0.1484568765427218 |
-| `share_of_total_pct` | measure | float64 | % | 4.19807516788021 |
+| `value` | measure | float64 | varies by row | 0.0868735768478045 |
+| `share_of_total_pct` | measure | float64 | % | 4.153511574134012 |

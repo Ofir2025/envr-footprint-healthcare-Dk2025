@@ -456,8 +456,8 @@ years off the same table (see
 [`docs/methods/replications.md`, "Where $\phi$ comes from"](replications.md#r10-phi)
 for the per-year values). Total output of the row is left alone, because
 it is not in dispute; only the destination of the flows changes, and the released
-11,953.9 M.EUR goes to exports. **Transport falls from 37.5 % to 17.8 % of the
-supply-chain footprint**, which is 14.9 % of the 4,675 kt total.
+11,953.9 M.EUR goes to exports. **Transport falls from 40.1 % to 19.5 % of the
+supply-chain footprint**, which is 16.0 % of the 4,162 kt total.
 
 **This must be in the manuscript and the SI**, because the submitted paper's most
 quotable finding, that transport is 38 to 43 % of the Danish health-care

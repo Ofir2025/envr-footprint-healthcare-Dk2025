@@ -183,7 +183,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 01
 - **Format:** csv
 - **Units:** Mm3 per MEUR, km2 per MEUR, kt CO2eq per MEUR, kt per MEUR
 - **Dimensions:** `indicator`, `unit`, `purchased_sector_group`
-- **Measures:** `value`
+- **Measures:** `value`, `expenditure_meur`, `footprint`
 
 ### `intensity_by_world_region.csv`
 
@@ -191,7 +191,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 01
 - **Format:** csv
 - **Units:** Mm3 per MEUR, km2 per MEUR, kt CO2eq per MEUR, kt per MEUR
 - **Dimensions:** `indicator`, `unit`, `purchased_world_region`
-- **Measures:** `value`
+- **Measures:** `value`, `expenditure_meur`, `footprint`
 
 ### `scopes_summary.csv`
 

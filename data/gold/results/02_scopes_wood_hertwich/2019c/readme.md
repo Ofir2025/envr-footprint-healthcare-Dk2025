@@ -11,12 +11,12 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 02
 Variant c for 2019: reference year 2019 on EXIOBASE v3.8.2
 `IOT_2016_ixi`, with the Danish sea-transport reallocation applied.
 Its partition closes on `01_eriksen_replication/2019c` exactly: the
-climate `TOTAL` of 4,107.334735 kt CO2-eq plus the self-supply loop of
-1.927600 kt is the grand total of 4,109.262335 kt that
+climate `TOTAL` of 3,887.971255 kt CO2-eq plus the self-supply loop of
+1.901594 kt is the grand total of 3,889.872849 kt that
 `scopes_summary.csv` publishes there.
 
-The bottom-up items are 2019's own: anaesthetic gases 12.470055 kt,
-commuting 327.944600 kt, patient and visitor travel 293.475319 kt.
+The bottom-up items are 2019's own: anaesthetic gases 12.669964 kt,
+commuting 309.766900 kt, patient and visitor travel 293.475319 kt.
 
 ## The climate column of this folder moved on 11 September 2026
 
@@ -24,7 +24,10 @@ The grand total was 4,054.772061 kt until the 2016 corrected
 background was rebuilt. That value was the IPCC AR4 characterisation
 of this same background: only the climate row of the characterisation
 matrix changed, and every other indicator in this folder is unmoved.
-See `docs/revision/defects_and_fixes.md`.
+It moved again on 13 September 2026, when the distribution margins
+on medicines and appliances were placed at the Danish trade
+industries, and that change moved every indicator. See
+`docs/revision/defects_and_fixes.md`.
 
 ## Conventions
 
@@ -90,9 +93,9 @@ See `docs/revision/defects_and_fixes.md`.
 
 ### `scope_by_origin_industry_top25.csv`
 
-- **Rows:** 95
+- **Rows:** 89
 - **Format:** csv
-- **Resolution:** 10+ regions x 18+ industries (sampled)
+- **Resolution:** 11+ regions x 17+ industries (sampled)
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `producing_country_iso3`, `producing_country_name`, `producing_world_region`, `producing_sector_code`, `producing_sector_name`, `producing_sector_group`, `scope`, `indicator`, `unit`, `is_remainder`
 - **Measures:** `value`, `rank`

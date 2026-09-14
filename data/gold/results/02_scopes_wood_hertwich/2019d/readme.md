@@ -16,8 +16,8 @@ inside the Leontief inverse, built by
 factor afterwards. Its partition closes on
 `01_eriksen_replication/2019d`.
 
-Both boundary moves raise the footprint, from 4,109.26 kt at variant c
-to 5,977.78 kt here, so the comparison a reader should draw from this
+Both boundary moves raise the footprint, from 3,889.87 kt at variant c
+to 5,738.55 kt here, so the comparison a reader should draw from this
 folder is with a comparator that also endogenises capital and also
 carries child care - Schmidt & Merciai (2023), not the manuscript's
 own headline.

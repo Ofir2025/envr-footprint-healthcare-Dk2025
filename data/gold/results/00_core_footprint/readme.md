@@ -25,11 +25,11 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 00
 - **Format:** csv
 - **Units:** M.EUR
 - **Dimensions:** `consuming_country_iso3`, `model`, `scenario`, `demand_component`, `unit`
-- **Measures:** `analysis_year`, `basic_price_expenditure_meur`, `y_H_meur`
+- **Measures:** `analysis_year`, `basic_price_expenditure_meur`, `distribution_margin_meur`, `y_H_meur`
 
 ### `expenditure_vector_detail.csv`
 
-- **Rows:** 6,186
+- **Rows:** 6,192
 - **Format:** csv
 - **Resolution:** 1+ regions x 152+ industries (sampled)
 - **Units:** M.EUR
@@ -55,7 +55,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 00
 
 ### `footprint_bilateral_producer_x_purchase.csv.gz`
 
-- **Rows:** 2,363,624
+- **Rows:** 2,375,463
 - **Format:** csv
 - **Resolution:** 1+ regions x 63+ industries (sampled)
 - **Units:** kt CO2eq
@@ -73,7 +73,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 00
 
 ### `footprint_by_purchased_product.csv`
 
-- **Rows:** 30,930
+- **Rows:** 30,960
 - **Format:** csv
 - **Resolution:** 1+ regions x 152+ industries (sampled)
 - **Units:** kt CO2eq
