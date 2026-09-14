@@ -53,9 +53,23 @@ Still outstanding before submission, and who holds each:
   Data availability). Only Ofir's GitHub account can create the release.
 - **The title page.** Ofir prepared one for the first submission, in Teams, which
   this repository cannot see. It must carry the revised title, which differs from
-  the submitted one, the affiliations and the corresponding author's email.
+  the submitted one, the affiliations, the corresponding author's email and the
+  author order proposed on 14 September 2026: Ofir Eriksen, Albert Kwame
+  Osei-Owusu, Styrmir Gislason, Morten Birkved, Ciprian Cimpan.
+- **The Authorship Change Request form** (Ofir, as corresponding author). The
+  submitted order was Eriksen, Gislason, Osei-Owusu, Birkved, Cimpan; the proposal
+  moves Albert Kwame Osei-Owusu from third to second. The guide for authors allows a
+  rearrangement before acceptance only if the editor approves a request made on the
+  journal's Authorship Change Request form, with the reason and written agreement
+  from all five authors. The review may pause while it is considered, and a change
+  made without the form can lead to rejection. The CRediT statement, the appendix A
+  author line and both response letters already use the proposed order; if the
+  change is not approved, restore the submitted order in all four.
 - **The CRediT statement.** Drafted on 12 September 2026 from what the repository
-  shows, not from notes by either author; both authors confirm the roles.
+  shows, not from notes by any author. It assigns roles to Ofir Eriksen and Albert
+  Kwame Osei-Owusu only; Styrmir Gislason, Morten Birkved and Ciprian Cimpan read
+  "[roles to be confirmed]" until they state theirs, and all five authors confirm
+  the whole statement.
 - **The penicillin sentence** in appendix A, System boundary, second paragraph,
   citing Olsen et al. (2026). Not verified: the publisher's site refuses automated
   access, and the abstract does not mention normalisation. The article is open
