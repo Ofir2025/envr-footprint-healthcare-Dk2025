@@ -1260,7 +1260,7 @@ The subject-matter statistician should confirm which route fits the project
 > advise the appropriate access route, costs, and required materials.
 >
 > Best regards,
-> Albert Osei-Owusu
+> Albert Kwame Osei-Owusu
 
 The body is **86 words** under a conventional tokenised word count.
 
