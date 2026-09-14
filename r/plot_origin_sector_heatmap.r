@@ -51,11 +51,11 @@ YEAR <- Sys.getenv("HC_ANALYSIS_YEAR", "2022")
 
 # ---- print geometry: points on paper -------------------------------------------
 PRINT_W <- 6.69          # Appendix A text width, in
-PRINT_H <- as.numeric(Sys.getenv("HEATMAP_H", "8.6"))  # room for a caption on the page
+PRINT_H <- as.numeric(Sys.getenv("HEATMAP_H", "8.3"))  # 8.6 left no room for the caption on the page
 PT_TITLE  <- 9           # panel titles, the largest text on the sheet
 PT_STRIP  <- 7.5         # world-region groups
 PT_LEGEND <- 7.5         # legend keys and the axis title
-PT_ROW    <- 7.5         # sector groups
+PT_ROW    <- 7.2         # sector groups: at 8.3 in the row pitch is 7.3 pt
 PT_COL    <- 6.5         # country codes: 49 columns cap them near 7 pt
 PT_CELL   <- 5.5         # the few shares printed inside cells
 

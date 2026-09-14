@@ -29,7 +29,7 @@ IND_NAME <- c(climate_change = "Climate change",
               material_extraction = "Material extraction",
               blue_water_consumption = "Blue water consumption",
               land_use = "Land use", waste_generation = "Waste generation")
-IND_UNIT_EXPR <- c(climate_change = "kt~CO[2]*'-eq'", material_extraction = "kt",
+IND_UNIT_EXPR <- c(climate_change = "kt~CO[2]*e", material_extraction = "kt",
                    blue_water_consumption = "Mm^3", land_use = "km^2",
                    waste_generation = "kt")
 ind_labeller <- as_labeller(
@@ -127,7 +127,7 @@ if (nrow(act) > 0) {
     scale_x_continuous(labels = smart_labs,
                        expand = expansion(mult = c(0, 0.16))) +
     guides(fill = guide_legend(nrow = 1, reverse = TRUE)) +
-    labs(x = "Climate footprint (kt CO₂-eq)", y = NULL) +
+    labs(x = "Climate footprint (kt CO₂e)", y = NULL) +
     theme_dkhc() +
     theme(panel.grid.major.y = element_blank())
 

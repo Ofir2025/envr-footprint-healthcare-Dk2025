@@ -28,10 +28,11 @@ copy of each file, here.
 | File | Purpose | Submit |
 |:---|:---|:---|
 | `eriksen_et_al_2026_manuscript.docx` | The manuscript, revision tracked. Three figures, one table, 49 references. | yes, tracked and clean |
-| `eriksen_et_al_2026_supplementary_appendix_a.docx` | Supplementary appendix A: derivations, validation, five tables, nineteen figures, 34 references. | yes, tracked and clean |
+| `eriksen_et_al_2026_supplementary_appendix_a.docx` | Supplementary appendix A: derivations, validation, five tables, sixteen figures (each cited from the manuscript), 34 references. | yes, tracked and clean |
 | `eriksen_et_al_2026_supplementary_appendix_b_travel_calculations.xlsx` | Supplementary appendix B: the travel calculations workbook, with README, commuting (Eqs. A.11 and A.12), patient and visitor travel (Eq. A.13), modal split and the superseded ratio scaling for comparison. Formulas carry cached values and reproduce the model output. | yes |
-| `eriksen_et_al_2026_reviewer_responses.docx` | The formal point-by-point response to the editor and reviewers. | yes |
-| `eriksen_et_al_2026_cover_letter.docx` | The cover letter to *Next Sustainability*. | yes |
+| `eriksen_et_al_2026_reviewer_responses.docx` | The full point-by-point response to the editor and reviewers, quoting every comment (24 pages). | keep as the full record |
+| `eriksen_et_al_2026_reviewer_responses_concise.docx` | The concise response: every comment answered in one to four sentences, with the change and its location (about 5 pages). | yes |
+| `eriksen_et_al_2026_cover_letter.docx` | The one-page cover letter to *Next Sustainability*, from Ofir Eriksen as lead author. | yes |
 | `eriksen_et_al_2026_declaration_interests.docx` | The declaration of competing interests. | yes |
 | `eriksen_et_al_2026_ethics_declaration.docx` | The ethics declaration. | yes |
 | `guide_for_authors_next_sustainability.pdf` | The journal's guide for authors, for reference (Elsevier copyright). | no |
@@ -42,7 +43,7 @@ Figures, all in `figures/manuscript/2022c/`:
 |:---|:---|:---|
 | Manuscript figures 1 to 3 | `fig1_ofir_panels_2022.tiff`, `fig2_top_origin_industry_pairs_2022.tiff`, `fig3_scopes_stacked_2022.tiff` | upload with the manuscript |
 | Steenmeijer et al. (2022) figures 1 to 3, with the article's labels, on the 2022 results | `fig1_contribution_product_group_2022c.tiff`, `fig2_hotspot_sector_2022c.tiff`, `fig3_hotspot_geography_2022c.tiff` | for comparison with the Dutch study, or in place of the panelled figure 1 |
-| Heat map: the 49 countries and regions of production by sector group, five impact categories, drawn at its printed width of 6.69 in | `figS2_origin_sector_heatmap_2022.tiff` | candidate for appendix A, not yet placed; caption draft in [`figures/manuscript/readme.md`](../../figures/manuscript/readme.md) |
+| Heat map: the 49 countries and regions of production by sector group, five impact categories, drawn at its printed width of 6.69 in | `figS2_origin_sector_heatmap_2022.tiff` | Appendix A, Fig. A.6 |
 
 The July 2026 supplementary figures file was removed: its three charts duplicated
 the submitted manuscript's figures.
@@ -52,8 +53,7 @@ Still outstanding before submission, and who holds each:
   Data availability). Only Ofir's GitHub account can create the release.
 - **The title page.** Ofir prepared one for the first submission, in Teams, which
   this repository cannot see. It must carry the revised title, which differs from
-  the submitted one (the cover letter gives both), the affiliations and the
-  corresponding author's email.
+  the submitted one, the affiliations and the corresponding author's email.
 - **The CRediT statement.** Drafted on 12 September 2026 from what the repository
   shows, not from notes by either author; both authors confirm the roles.
 - **The penicillin sentence** in appendix A, System boundary, second paragraph,
@@ -63,7 +63,7 @@ Still outstanding before submission, and who holds each:
 
 ## What is and is not versioned
 
-- The response letter quotes both referee reports in full. It is committed on the
+- The response letters quote or paraphrase both referee reports. They are committed on the
   working branch but excluded by name from the public branch in
   `scripts/release/publish_ofir_branch.sh`, and its builder lives under
   `scripts/release/`, which is never published.
@@ -71,14 +71,19 @@ Still outstanding before submission, and who holds each:
   is a deliverable. The journal's guide for authors stays unversioned: it is the
   publisher's.
 
-## The response letter is generated
+## The letters are generated
 
-Never edit the letter in Word. Change the content blocks in
-`scripts/release/response_letter/build_response_letter.py`, rebuild and check it:
+Never edit the letters in Word. Change the content blocks in
+`scripts/release/response_letter/build_response_letter.py` (full response),
+`scripts/release/response_letter/build_response_letter_concise.py` (concise response) or
+`scripts/release/cover_letter/build_cover_letter.py`, rebuild and check:
 
 ```bash
 python scripts/release/response_letter/build_response_letter.py
+python scripts/release/response_letter/build_response_letter_concise.py
+python scripts/release/cover_letter/build_cover_letter.py
 python scripts/release/response_letter/validate_letter.py
+python scripts/release/response_letter/validate_letter.py docs/eriksen_et_al_2026/eriksen_et_al_2026_reviewer_responses_concise.docx
 ```
 
 The validator counts words and headings and fails on em or en dashes, arrows,
