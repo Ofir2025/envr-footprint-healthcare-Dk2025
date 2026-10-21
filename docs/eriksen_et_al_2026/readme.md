@@ -3,8 +3,9 @@
 Everything that goes to *Next Sustainability* for NXSUST-D-26-01589, and nothing
 else. These are the working files as well as the deliverables: the manuscript and
 appendix A carry the revision as tracked changes, so there is no separate working
-copy to keep in step. The latest layer of tracked changes in both is by Albert
-Kwame Osei-Owusu, dated 14 September 2026. In both documents the EndNote field
+copy to keep in step. The latest layer of tracked changes in both is dated 21 October
+2026: Albert Kwame Osei-Owusu's answer to Ofir Eriksen's review, with the five edits of
+Ofir's that were kept tracked under his own name. In both documents the EndNote field
 codes have been removed and the reference list replaced by a static list, verified
 entry by entry and numbered in order of first citation, with every DOI or URL
 linked.
@@ -27,7 +28,7 @@ copy of each file, here.
 
 | File | Purpose | Submit |
 |:---|:---|:---|
-| `eriksen_et_al_2026_manuscript.docx` | The manuscript, revision tracked. Three figures, one table, 49 references. | yes, tracked and clean |
+| `eriksen_et_al_2026_manuscript.docx` | The manuscript, revision tracked. Three figures, two tables (Table 1, data sources and main assumptions, added 21 October 2026), 49 references. | yes, tracked and clean |
 | `eriksen_et_al_2026_supplementary_appendix_a.docx` | Supplementary appendix A: derivations, validation, five tables, sixteen figures (each cited from the manuscript), 34 references. | yes, tracked and clean |
 | `eriksen_et_al_2026_supplementary_appendix_b_travel_calculations.xlsx` | Supplementary appendix B: the travel calculations workbook, with README, commuting (Eqs. A.11 and A.12), patient and visitor travel (Eq. A.13), modal split and the superseded ratio scaling for comparison. Formulas carry cached values and reproduce the model output. | yes |
 | `eriksen_et_al_2026_reviewer_responses.docx` | The full point-by-point response to the editor and reviewers, quoting every comment (24 pages). | keep as the full record |
@@ -76,6 +77,25 @@ Still outstanding before submission, and who holds each:
   citing Olsen et al. (2026). Not verified: the publisher's site refuses automated
   access, and the abstract does not mention normalisation. The article is open
   access at https://doi.org/10.1016/j.scp.2026.102346.
+
+## Co-author review rounds
+
+`r02_submission/` holds the versions the authors exchange within the revision round (r02), as in
+the authors' other papers. `v1/` is Ofir Eriksen's review of 21 October 2026, his two annotated
+files exactly as received; `v2/` is the answer, his copies with every reply and every change
+tracked (`…_review_replies.docx`) and a letter answering him point by point. Each version's
+`readme.md` lists every file in the folder shared with the co-authors, with its role and SHA-256.
+Nothing in a version folder is edited by hand:
+
+```bash
+.venv/bin/python scripts/release/review_round/build_coauthor_letter.py
+.venv/bin/python scripts/release/review_round/build_review_round.py --version v2 --shared <shared folder>
+.venv/bin/python scripts/release/review_round/build_review_round.py --version v2 --check <shared folder>
+```
+
+The second command makes the clean copies with Word itself (every revision accepted), writes the
+version's readme and refreshes the shared folder, moving any file it replaces to the Trash. The
+folder is kept off the public branch by `scripts/release/publish_ofir_branch.sh`.
 
 ## What is and is not versioned
 

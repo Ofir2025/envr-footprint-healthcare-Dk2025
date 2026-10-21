@@ -18,6 +18,27 @@ digit in 2021, 2022 and 2023, and summing every row returns exactly
 three times it. Dropping every code without an ISO alpha-2 spelling
 would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint.
 
+## Which FIGARO total is like for like
+
+`nace_r2=TOTAL` counts the emissions of industries only (57.4 Mt in
+2022); `TOTAL_HH` adds households' own emissions from heating and
+driving (63.8 Mt). This study's national total and Statistics Denmark's
+AFTRYK both include those emissions, so `TOTAL_HH` is the comparator;
+`figaro_vs_this_study_climate.csv` carries both rows.
+
+## `recipe_sensitivity_2022.csv`
+
+How the footprint changes when the services purchases follow Statistics
+Denmark's own input mix for the health and care industries instead of
+EXIOBASE's, with the services spend held fixed: `national_recipe` moves
+every product except energy, `hospital_medicines` moves only the
+medicines (DB07 21), and `both_corrections` carries those medicines at
+the pharmaceutical-specific intensity of the uncertainty analysis's
+Case B. `national_recipe_with_heat` is a diagnostic, not a case: it
+re-weights energy as well, and its difference from `national_recipe`
+(1,100 kt CO2-eq) is the artefact of EXIOBASE's undersized Danish heat
+industry. Producer: `analysis.recipe_validation_2022 --sensitivity`.
+
 ## Conventions
 
 | Item | Convention |
@@ -85,7 +106,7 @@ would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint.
 
 ### `figaro_vs_this_study_climate.csv`
 
-- **Rows:** 5
+- **Rows:** 6
 - **Format:** csv
 - **Units:** kt CO2eq
 - **Dimensions:** `quantity`, `source`, `unit`
@@ -97,6 +118,13 @@ would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint.
 - **Format:** csv
 - **Dimensions:** `source`, `model_family`, `capital`, `note`
 - **Measures:** `year`, `total_mt`, `per_capita_t`
+
+### `recipe_sensitivity_2022.csv`
+
+- **Rows:** 20
+- **Format:** csv
+- **Dimensions:** `case`, `indicator`, `largest_group`
+- **Measures:** `services_footprint_headline`, `services_footprint_case`, `footprint_headline`, `footprint_case`, `change_pct`, `pharma_chem_share_headline_pct`, `pharma_chem_share_case_pct`, `transport_share_headline_pct`, `transport_share_case_pct`, `services_spend_meur`, `energy_spend_kept_meur`, `routed_spend_meur`, `medicines_spend_meur`, `national_spend_without_counterpart_pct`, `largest_group_share_pct`
 
 ### `recipe_validation_2022.csv`
 

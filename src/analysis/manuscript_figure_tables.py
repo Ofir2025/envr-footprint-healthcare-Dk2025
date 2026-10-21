@@ -65,11 +65,13 @@ def figure_group_lookup() -> pd.DataFrame:
     pandas.DataFrame
         ``sector_group`` (the EXIOBASE ``AggDescription``), ``contribution_group``
         and ``hotspot_group``. The remaining EXIOBASE sectors the classification
-        does not map to one of the nine named groups are labelled ``Other``,
-        following Steenmeijer et al.'s own usage ("the remaining sectors
-        combined in the group labelled other"). This is a different bucket
-        from figure 3's ``Unallocated`` (the bottom-up rows with no producing
-        region, ISO3 ``GLO``), which keeps that label.
+        does not map to a named group are labelled ``Other``, following
+        Steenmeijer et al.'s own usage ("the remaining sectors combined in the
+        group labelled other"); on the producing side private travel, services,
+        heat and water supply and waste management are named as well (see the
+        comment below). This is a different bucket from figure 3's
+        ``Unallocated`` (the bottom-up rows with no producing region, ISO3
+        ``GLO``), which keeps that label.
     """
     path = BRONZE_DIR / "exiobase" / "classifications.xlsx"
     fig = pd.read_excel(path, sheet_name="agg_ind_fig", skiprows=5)
@@ -84,8 +86,8 @@ def figure_group_lookup() -> pd.DataFrame:
         out[col] = out[col].fillna("Other")
     # Transport is its own group in both figures. The submitted code matched it
     # by substring, which also caught "Transport Equipment" (vehicle
-    # manufacturing) and inflated the transport group - the group at the centre
-    # of the finding being withdrawn. Match exactly.
+    # manufacturing) and inflated the transport group, the group whose share the
+    # sea-transport correction changes. Match exactly.
     is_transport = out["sector_group"].eq("Transport")
     out.loc[is_transport, ["contribution_group", "hotspot_group"]] = "Transport"
 
@@ -97,10 +99,27 @@ def figure_group_lookup() -> pd.DataFrame:
     # impacts are direct emissions of the Danish providers and are named on
     # both sides. Without these rows both groups fall into "Other" and
     # figure 1 loses two of its nine legend entries.
+    #
+    # On the producing side the template's "Other" then held 37.4 % of the 2022
+    # climate footprint, because it mixed two unlike things: private travel
+    # (16.6 %), which has no producing sector at all, and every EXIOBASE sector
+    # outside the named groups. A co-author asked what was in it (2026-10-21).
+    # Private travel is therefore its own producing-side group, as it is on the
+    # purchase side, and the three residual groups that carry most of the rest
+    # are named: services (mostly retail trade, which carries the distribution
+    # margins), heat and water supply, and waste management - the same groups
+    # figure 3 already names inside Scope 3. "Other" keeps only the small
+    # manufacturing groups. The Dutch template's own grouping is kept for the
+    # Steenmeijer-format comparison figures in `analysis.steenmeijer_replication`.
+    named = {"Services": "Services",
+             "Steam, hot water supply and water distribution": "Heat and water supply",
+             "Waste management and disposal": "Waste management"}
+    for sector_group, label in named.items():
+        out.loc[out["sector_group"].eq(sector_group), "hotspot_group"] = label
     extra = pd.DataFrame([
         {"sector_group": "Private travel",
          "contribution_group": "Individual travel",
-         "hotspot_group": "Other"},
+         "hotspot_group": "Private travel"},
         {"sector_group": "Operational impact",
          "contribution_group": "Operational impacts",
          "hotspot_group": "Operational impacts"},

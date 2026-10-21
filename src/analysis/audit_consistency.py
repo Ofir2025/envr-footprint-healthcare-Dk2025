@@ -1165,6 +1165,16 @@ DOCUMENTED_NUMBERS: tuple[dict[str, Any], ...] = (
 #: state current claims, and any future legitimate use has to be argued for
 #: here rather than appearing silently.
 SUPERSEDED_TEXT: tuple[tuple[str, str], ...] = (
+    # Superseded on 21 October 2026. Case B lowered the intensity of every purchase in
+    # the pharmaceutical and chemical group, the plastics bought by the health services
+    # included, not only of medicines; the boundary-matched benchmark applied the
+    # capital uplift to the travel and gas terms, which have no capital.
+    ("3,547", "Case B climate median before Case B was confined to medicines; it is 3,734 kt"),
+    ("2,974 to 4,304", "Case B interval before the same correction; it is 3,163 to 4,457 kt"),
+    ("6.14 Mt", "boundary-matched benchmark with capital on the travel terms; it is 5.94 Mt"),
+    ("1.046 t", "boundary-matched per-capita figure before the same correction; it is 1.012 t"),
+    ("0.7 % above", "boundary-matched agreement before the same correction; it is 2.5 % below"),
+    ("probability 0.63", "Case B rank-one probability of services before the Case B correction; it is 0.60"),
     # Superseded on 14 September 2026, when employee commuting was estimated
     # directly from Danish travel-survey distances and hours worked (the Dutch
     # base it had been scaled from counts one trip per working day), the

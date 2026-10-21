@@ -222,7 +222,7 @@ quantifies it. *Not captured, and not quantifiable within the same model.*
 
 **C2. Database choice.** Wood et al. (2019) compare five global databases and
 report an unweighted mean relative standard deviation of 8.3 per cent for
-production-based and 11.9 per cent for consumption-based accounts. For Denmark
+production-based and 11.9 per cent for consumption-based accounting. For Denmark
 specifically their Table 1 gives 19.3 per cent and 8.8 per cent respectively.
 *Not captured as a distribution*, but this study's own comparison of five
 published Danish national footprints spans 9.77 to 13.15 t CO₂-eq per capita, a
@@ -1161,10 +1161,11 @@ the IPCC (2000, section 6.1) and the GHG Protocol.
 **Uncertainty due to choices is likely the larger term.** Schulte et al. (2024)
 find that at sector level, uncertainty due to choices outweighs parametric
 uncertainty for most sectors. This study's own structural scenarios bear that
-out: the alternative pharmaceutical mapping moves the median to 3,547 kt, which
-lies outside the parametric 95 per cent interval of 3,675 to 5,029 kt entirely.
-That divergence is the strongest single argument for reporting the scenarios
-beside the interval rather than in an appendix.
+out: the alternative pharmaceutical mapping moves the median to 3,734 kt, just
+inside the lower end of the parametric 95 per cent interval of 3,675 to 5,029 kt,
+and adding the hospital medicines that the services purchases omit moves the total
+to 5,635 kt, above it. That divergence is the strongest single argument for
+reporting the scenarios beside the interval rather than in an appendix.
 
 **Therefore the interval should be read as the precision of this model, not the
 accuracy of the estimate.** It should be reported together with that sentence,
@@ -1325,8 +1326,8 @@ uncertainty on the bottom-up parameters.
 > improving the bottom-up items further would not materially narrow the
 > interval, whereas a nationally consistent input-output model would.
 >
-> Under the alternative pharmaceutical mapping the median falls to **3,547 kt**
-> with a wider coefficient of variation of 9.5 %, and the identity of the
+> Under the alternative pharmaceutical mapping the median falls to **3,734 kt**
+> with a coefficient of variation of 8.8 %, and the identity of the
 > largest contributing group changes (§ pharmaceutical mapping).
 
 ### 6.3 Three properties stated explicitly
@@ -1339,7 +1340,7 @@ self-contained prose because that is what makes them pasteable.
 **(a) The input-output factor is perfectly correlated across contribution
 groups.** Applying one shared multiplier is the ρ = 1 case. Rodrigues et al.
 (2018) measure correlations of 0.63 ± 0.36 (median 0.76) between country
-consumption-based accounts, and show that assuming *independence* understates
+consumption-based accounting, and show that assuming *independence* understates
 uncertainty by roughly half. We report all three:
 
 | Correlation across groups | CV | 95 % interval (kt) |
@@ -1719,7 +1720,7 @@ and [docs/revision/defects_and_fixes.md, decision D3](defects_and_fixes.md#d-ope
 The boundary-matched benchmark in
 [docs/methods/replications.md, section 06](../methods/replications.md#r06)
 shows what happens when they are matched to a comparator: the study moves from
-30 % below Schmidt & Merciai to **0.7 % above** them on the total, and to 2.3 %
+30 % below Schmidt & Merciai to **2.5 % below** them on the total, and to 5.4 %
 below them per person.
 
 ### 7.8 Import proportionality: who buys the imports is assumed, not observed

@@ -18,6 +18,16 @@ The double-counting ledger's MRIO decomposition row, 3,415.367269 kt,
 is `00_core_footprint`'s `healthcare_footprint_mrio` to six decimals,
 which is what audit check C19 tests.
 
+## Two Scope 2 values
+
+The manuscript's Scope 2 is this folder's `Scope 2` row (73.3 kt for
+climate): the generation of the purchased electricity and heat, traced
+through transmission and distribution inside the energy block. The
+scopes ledger in `01_eriksen_replication/2022c/scopes_summary.csv`,
+written by `main_2025`, uses the row labelled `Scope 2 (full inverse,
+generation nodes only)` (75.0 kt) and keeps the self-supply loop, so
+its four rows add to the grand total. Neither is cradle-to-gate.
+
 ## Conventions
 
 | Item | Convention |

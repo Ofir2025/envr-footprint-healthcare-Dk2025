@@ -149,7 +149,7 @@ tier is reported separately and relabelled as upstream solid residuals.
 
 Recipe validation of EXIOBASE's Danish health input structure against the DST
 117-industry health columns; three independent national denominators (own model
-64.72 Mt, DST AFTRYK 62.93 Mt, Eurostat FIGARO 57.40 Mt); comparison with
+64.72 Mt, DST AFTRYK 62.93 Mt, Eurostat FIGARO 63.76 Mt with households' own emissions, 57.40 Mt without); comparison with
 Arup/HCWH, Pichler, Lenzen and the Dutch template.
 
 ### Lineage rule
@@ -204,11 +204,12 @@ column in `data/silver/eurostat_figaro/`, with Eurostat's own codelists joined
 on so a code reads as a classification entry rather than as a string.
 
 **What it gives us now.** An independent national denominator: Denmark's
-consumption-based GHG footprint 2022 = **57.40 Mt CO₂e**, against Statistics
+GHG footprint 2022 = **63.76 Mt CO₂e** with households' own emissions
+(`nace_r2=TOTAL_HH`, the like-for-like comparator) and 57.40 Mt without, against Statistics
 Denmark AFTRYK's 62.90 Mt and this model's 77.24 Mt. The healthcare footprint of
-4,266.9 kt is therefore **5.5 % to 7.4 %** of the national total depending on
-which denominator is used — 7.43 % of FIGARO, 6.78 % of AFTRYK, 5.52 % of our
-own — and the manuscript quotes the share against our own national total, the
+4,266.9 kt is therefore **5.5 % to 6.8 %** of the national total depending on
+which denominator is used — 6.69 % of FIGARO (7.43 % of its industries-only total),
+6.78 % of AFTRYK, 5.52 % of our own — and the manuscript quotes the share against our own national total, the
 only one built on the same boundary as the numerator. It also puts emissions
 arising in NACE Q due to Danish final demand at 176 kt (Q86 alone 97 kt,
 Q87-Q88 80 kt), which sits above our 131 kt Scope 1 by about the margin the

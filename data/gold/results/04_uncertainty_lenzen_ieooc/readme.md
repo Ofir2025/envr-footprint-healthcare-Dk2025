@@ -8,29 +8,26 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 04
 
 ## Ranges on the reported estimates, not only on the total
 
-`uncertainty_by_group.csv` carries the mean, standard deviation,
+`uncertainty_by_group.csv` carries the median, standard deviation,
 coefficient of variation and 95 % interval of every contribution group
-in every indicator - 90 rows - beside the interval on that group's
-SHARE of the footprint. The two answer different questions and the
-second cannot be derived from the first.
+in every indicator, beside the interval on that group's SHARE of the
+footprint. The two answer different questions and the second cannot be
+derived from the first: the groups share the MRIO multiplier, which is
+why 7 of the nine climate groups carry a coefficient of
+variation of 8.4 %, the MRIO block's own, and why their
+shares are far tighter than their levels.
 
-Reviewer 1 asked for "the resulting ranges for the main impact
-estimates". A range on the total alone does not answer that: the
-groups do not vary independently, so a reader cannot infer a group's
-range from the total's. They share the MRIO multiplier, which is why
-seven of the nine climate groups carry a coefficient of variation of
-8.4 % - the MRIO block's own - and why their shares are far tighter
-than their levels: the shared factor cancels in the ratio.
-
-Two groups are not like the others, and that is the finding. Individual
-travel carries a CV of **26.5 %** against the 8.4 % of the MRIO-driven
-groups, because commuting and patient and visitor travel are bottom-up
-terms with uncertainties of their own rather than a share of the MRIO
-block; operational impacts carries 9.0 % for the same reason, smaller
-because the direct-emissions account is tighter. In share terms
-pharmaceuticals run 25.1 % to 29.5 % while individual travel runs
-9.1 % to 22.5 %, so the statement that pharmaceuticals lead is robust
-and the position of travel in the ranking is not - which is what
+Private travel (`Individual travel`) carries a coefficient of variation of
+25.8 %, because commuting and patient and visitor
+travel are bottom-up terms with uncertainties of their own. Under Case A
+(medicines at the Chemicals n.e.c. intensity) the pharmaceutical share runs
+24.2 % to 29.0 % and private travel's 10.7 % to
+25.2 %; pharmaceuticals are the largest climate group in
+96.6 % of draws. Under Case B (a pharmaceutical-specific
+intensity for the medicines) the largest group is `Services` in
+60.1 % of draws and pharmaceuticals in
+6.7 %. Which group is largest therefore depends on
+the medicines intensity, which is what
 `uncertainty_ranking_probabilities.csv` quantifies.
 
 ## Conventions

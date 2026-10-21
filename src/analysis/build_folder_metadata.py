@@ -38,7 +38,7 @@ from __future__ import annotations
 import gzip
 import os
 import re
-from typing import Any
+from typing import Any, Callable
 
 import pandas as pd
 
@@ -187,35 +187,8 @@ NOTES: dict[str, str] = {
 #:
 #: Rendered after the layer's question and its link into the methods document,
 #: and before the conventions table.
-README_NOTES: dict[str, str] = {
-    "04_uncertainty_lenzen_ieooc": (
-        "## Ranges on the reported estimates, not only on the total\n"
-        "\n"
-        "`uncertainty_by_group.csv` carries the mean, standard deviation,\n"
-        "coefficient of variation and 95 % interval of every contribution group\n"
-        "in every indicator - 90 rows - beside the interval on that group's\n"
-        "SHARE of the footprint. The two answer different questions and the\n"
-        "second cannot be derived from the first.\n"
-        "\n"
-        "Reviewer 1 asked for \"the resulting ranges for the main impact\n"
-        "estimates\". A range on the total alone does not answer that: the\n"
-        "groups do not vary independently, so a reader cannot infer a group's\n"
-        "range from the total's. They share the MRIO multiplier, which is why\n"
-        "seven of the nine climate groups carry a coefficient of variation of\n"
-        "8.4 % - the MRIO block's own - and why their shares are far tighter\n"
-        "than their levels: the shared factor cancels in the ratio.\n"
-        "\n"
-        "Two groups are not like the others, and that is the finding. Individual\n"
-        "travel carries a CV of **26.5 %** against the 8.4 % of the MRIO-driven\n"
-        "groups, because commuting and patient and visitor travel are bottom-up\n"
-        "terms with uncertainties of their own rather than a share of the MRIO\n"
-        "block; operational impacts carries 9.0 % for the same reason, smaller\n"
-        "because the direct-emissions account is tighter. In share terms\n"
-        "pharmaceuticals run 25.1 % to 29.5 % while individual travel runs\n"
-        "9.1 % to 22.5 %, so the statement that pharmaceuticals lead is robust\n"
-        "and the position of travel in the ranking is not - which is what\n"
-        "`uncertainty_ranking_probabilities.csv` quantifies."
-    ),
+README_NOTES: dict[str, str | Callable[[], str]] = {
+    "04_uncertainty_lenzen_ieooc": lambda: _uncertainty_note(),
     "06_benchmarks_validation": (
         "## Reading `figaro_dk_footprint_by_origin.csv` without double counting\n"
         "\n"
@@ -227,7 +200,28 @@ README_NOTES: dict[str, str] = {
         "countries plus `WRL_REST` reproduce the `WORLD` row to every published\n"
         "digit in 2021, 2022 and 2023, and summing every row returns exactly\n"
         "three times it. Dropping every code without an ISO alpha-2 spelling\n"
-        "would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint."
+        "would lose 7,393 kt CO2-eq in 2022, 13 % of the Danish footprint.\n"
+        "\n"
+        "## Which FIGARO total is like for like\n"
+        "\n"
+        "`nace_r2=TOTAL` counts the emissions of industries only (57.4 Mt in\n"
+        "2022); `TOTAL_HH` adds households' own emissions from heating and\n"
+        "driving (63.8 Mt). This study's national total and Statistics Denmark's\n"
+        "AFTRYK both include those emissions, so `TOTAL_HH` is the comparator;\n"
+        "`figaro_vs_this_study_climate.csv` carries both rows.\n"
+        "\n"
+        "## `recipe_sensitivity_2022.csv`\n"
+        "\n"
+        "How the footprint changes when the services purchases follow Statistics\n"
+        "Denmark's own input mix for the health and care industries instead of\n"
+        "EXIOBASE's, with the services spend held fixed: `national_recipe` moves\n"
+        "every product except energy, `hospital_medicines` moves only the\n"
+        "medicines (DB07 21), and `both_corrections` carries those medicines at\n"
+        "the pharmaceutical-specific intensity of the uncertainty analysis's\n"
+        "Case B. `national_recipe_with_heat` is a diagnostic, not a case: it\n"
+        "re-weights energy as well, and its difference from `national_recipe`\n"
+        "(1,100 kt CO2-eq) is the artefact of EXIOBASE's undersized Danish heat\n"
+        "industry. Producer: `analysis.recipe_validation_2022 --sensitivity`."
     ),
     "02_scopes_wood_hertwich/2019a": (
         "## Which model run this folder is\n"
@@ -327,7 +321,17 @@ README_NOTES: dict[str, str] = {
         "\n"
         "The double-counting ledger's MRIO decomposition row, 3,415.367269 kt,\n"
         "is `00_core_footprint`'s `healthcare_footprint_mrio` to six decimals,\n"
-        "which is what audit check C19 tests."
+        "which is what audit check C19 tests.\n"
+        "\n"
+        "## Two Scope 2 values\n"
+        "\n"
+        "The manuscript's Scope 2 is this folder's `Scope 2` row (73.3 kt for\n"
+        "climate): the generation of the purchased electricity and heat, traced\n"
+        "through transmission and distribution inside the energy block. The\n"
+        "scopes ledger in `01_eriksen_replication/2022c/scopes_summary.csv`,\n"
+        "written by `main_2025`, uses the row labelled `Scope 2 (full inverse,\n"
+        "generation nodes only)` (75.0 kt) and keeps the self-supply loop, so\n"
+        "its four rows add to the grand total. Neither is cradle-to-gate."
     ),
     "02_scopes_wood_hertwich/2022d": (
         "## Which model run this folder is\n"
@@ -457,9 +461,59 @@ def _note_for(notes: dict[str, str], folder: str) -> str:
         The note, or the empty string when neither key is present.
     """
     key = folder.replace(os.sep, "/")
-    if key in notes:
-        return notes[key]
-    return notes.get(key.split("/")[0], "")
+    note = notes[key] if key in notes else notes.get(key.split("/")[0], "")
+    # a note whose numbers come from the folder's own tables is a function, so
+    # the readme cannot drift from them
+    return note() if callable(note) else note
+
+
+def _uncertainty_note() -> str:
+    """The uncertainty folder's readme note, with its numbers read from its tables.
+
+    Until 2026-10-21 this note was typed, and its numbers had drifted from the
+    tables beside it (a coefficient of variation of 26.5 % for private travel
+    against the table's 25.8 %, share intervals from an earlier run).
+
+    Returns
+    -------
+    str
+        Markdown for ``04_uncertainty_lenzen_ieooc/readme.md``.
+    """
+    import pandas as pd
+    folder = os.path.join(str(OUTPUT_DIR), "04_uncertainty_lenzen_ieooc")
+    g = pd.read_csv(os.path.join(folder, "uncertainty_by_group.csv"))
+    r = pd.read_csv(os.path.join(folder, "uncertainty_ranking_probabilities.csv"))
+    clim = g[g["indicator"].str.startswith("Global warming")].set_index(["pharma_scenario", "group"])
+    rank = r[r["indicator"].str.startswith("Global warming")].set_index(["pharma_scenario", "group"])
+    ph, tr = "Pharmaceuticals and chemical products", "Individual travel"
+    shared = clim.loc["A"].drop([tr, "Operational impacts"])["cv_pct"]
+    lead_b = rank.loc["B"]["P_rank_1"].idxmax()
+    return (
+        "## Ranges on the reported estimates, not only on the total\n"
+        "\n"
+        "`uncertainty_by_group.csv` carries the median, standard deviation,\n"
+        "coefficient of variation and 95 % interval of every contribution group\n"
+        "in every indicator, beside the interval on that group's SHARE of the\n"
+        "footprint. The two answer different questions and the second cannot be\n"
+        "derived from the first: the groups share the MRIO multiplier, which is\n"
+        f"why {len(shared)} of the nine climate groups carry a coefficient of\n"
+        f"variation of {shared.median():.1f} %, the MRIO block's own, and why their\n"
+        "shares are far tighter than their levels.\n"
+        "\n"
+        f"Private travel (`{tr}`) carries a coefficient of variation of\n"
+        f"{clim.loc[('A', tr), 'cv_pct']:.1f} %, because commuting and patient and visitor\n"
+        "travel are bottom-up terms with uncertainties of their own. Under Case A\n"
+        "(medicines at the Chemicals n.e.c. intensity) the pharmaceutical share runs\n"
+        f"{clim.loc[('A', ph), 'share_p2_5']:.1f} % to {clim.loc[('A', ph), 'share_p97_5']:.1f} % and "
+        f"private travel's {clim.loc[('A', tr), 'share_p2_5']:.1f} % to\n"
+        f"{clim.loc[('A', tr), 'share_p97_5']:.1f} %; pharmaceuticals are the largest climate group in\n"
+        f"{100 * rank.loc[('A', ph), 'P_rank_1']:.1f} % of draws. Under Case B (a pharmaceutical-specific\n"
+        f"intensity for the medicines) the largest group is `{lead_b}` in\n"
+        f"{100 * rank.loc[('B', lead_b), 'P_rank_1']:.1f} % of draws and pharmaceuticals in\n"
+        f"{100 * rank.loc[('B', ph), 'P_rank_1']:.1f} %. Which group is largest therefore depends on\n"
+        "the medicines intensity, which is what\n"
+        "`uncertainty_ranking_probabilities.csv` quantifies."
+    )
 
 
 def _folder_readme_note(folder: str) -> str:

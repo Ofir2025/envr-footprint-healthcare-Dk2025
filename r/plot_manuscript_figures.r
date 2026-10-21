@@ -12,7 +12,8 @@
 #   fig6  the same sources as one stacked bar per pair, scope as fill
 #   figS1 geographical origin on its own, for the SI
 #
-# Run:  Rscript r/plot_manuscript_figures.r
+# Run:  LANG=en_US.UTF-8 HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship \
+#       DKHC_FIG_DIR=figures/manuscript/2022c Rscript r/plot_manuscript_figures.r
 
 args <- commandArgs(FALSE)
 here <- dirname(sub("--file=", "", grep("--file=", args, value = TRUE)[1]))
@@ -77,6 +78,14 @@ GROUP_COLS <- c(
   # a row now has a hue of its own; "Other" keeps the grey, because a residual
   # should not look like a category.
   "Fossil fuel industry" = "#6A3D9A", "Mining of minerals and metals" = "#264653",
+  # Row B's producing-side "Other" held 37 % of climate change, private travel and
+  # every unnamed sector together, until it was split (2026-10-21; see
+  # analysis.manuscript_figure_tables). The two groups it gained besides
+  # "Services" and "Private travel" take the hues that sit farthest, at least
+  # 11.6 CIE Lab units, from every colour in this palette under normal vision
+  # and deuteranopia, protanopia and tritanopia simulation: yellow for heat and
+  # water, a dark brown-red for waste.
+  "Heat and water supply" = "#F0E442", "Waste management" = "#683A3C",
   "Other" = "grey80",
   # Regions take hues of their own, none repeated from the activity and sector
   # rows above them in figure 1. Chosen greedily from an HCL grid to maximise the
@@ -616,7 +625,11 @@ dk_save(pS, sprintf("figS1_geographical_origin_%s", YEAR), w = 15, h = 9.5)
 #
 #   headline               health + eldercare, capital excluded
 #   + childcare            NACE Q as they define it (HC_SCOPE=zorg_en_welzijn)
-#   + capital endogenised  A' = A + K, Sodersten, Wood & Hertwich (2018)
+#   + capital endogenised  A' = A + K built from each region's own capital
+#                          formation (analysis.capital_gfcf, full endogenisation),
+#                          added to the input-output and operational part only.
+#                          Until 2026-10-21 the bar was labelled "Sodersten et al.
+#                          (2018)", whose matrices this step does not use.
 #
 # Only the last bar is comparable with the published value, and even then their
 # model is consequential and ours attributional - stated on the figure so the
@@ -647,7 +660,7 @@ if (!is.null(bm) &&
                                     "this study, sector boundary AND capital matched"),
                          labels = c("Headline\nhealth and elder care,\ncapital excluded",
                                     "+ childcare\nNACE Q sector boundary",
-                                    "+ capital endogenised\nS\u00f6dersten et al. (2018)")),
+                                    "+ capital endogenised from\neach region's own\ncapital formation")),
            comparable = basis == "this study, sector boundary AND capital matched")
   published <- bm %>%
     filter(basis == "Schmidt & Merciai 2023 (published comparator)")
@@ -660,6 +673,9 @@ if (!is.null(bm) &&
   F7_W <- 6.69; F7_H <- 4.0
   F7_PT_AXIS <- 7; F7_PT_TICK <- 6.5; F7_PT_LEGEND <- 7.5; F7_PT_LABEL <- 6
   F7_TOP <- ceiling(max(d7$value_kt, ref) * 1.12 / 1000) * 1000
+  # an inside label crosses the line when a bar ends just above it
+  if (any(d7$value_kt > ref & d7$value_kt - ref < 0.12 * F7_TOP))
+    stop("fig7: a bar ends just above the comparator line; its label would cross it")
   p7 <- ggplot(d7, aes(step, value_kt, fill = comparable)) +
     geom_col(width = 0.62, colour = "white", linewidth = 0.2) +
     geom_hline(yintercept = ref, linetype = "22", linewidth = 0.4,
@@ -668,11 +684,15 @@ if (!is.null(bm) &&
              fontface = "bold", colour = "black",
              label = sprintf("Schmidt and Merciai (2023): %s kt",
                              formatC(ref, format = "d", big.mark = ","))) +
+    # Inside the bar top, so a bar ending just below the comparator line (5,945
+    # against 6,100 kt since 2026-10-21) does not print its label over the line.
     geom_text(aes(label = sprintf("%s kt\n%.2f t per person",
                                   formatC(round(value_kt), format = "d",
-                                          big.mark = ","), t_per_capita)),
-              vjust = -0.35, size = F7_PT_LABEL / .pt, fontface = "bold", colour = "black",
-              lineheight = 1.05) +
+                                          big.mark = ","), t_per_capita),
+                  colour = comparable),
+              vjust = 1.35, size = F7_PT_LABEL / .pt, fontface = "bold",
+              lineheight = 1.05, show.legend = FALSE) +
+    scale_colour_manual(values = c(`FALSE` = "black", `TRUE` = "white"), guide = "none") +
     scale_fill_manual(values = c(`FALSE` = "#9EC9E2", `TRUE` = "#0072B2"),
                       labels = c(`FALSE` = "Not comparable with the published value",
                                  `TRUE` = "Boundary and capital matched"),

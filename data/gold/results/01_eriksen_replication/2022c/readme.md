@@ -62,7 +62,7 @@ Method, equations, and verification: [`docs/methods/replications.md`, section 01
 
 ### `figure2_sector_contributions.csv`
 
-- **Rows:** 37
+- **Rows:** 56
 - **Format:** csv
 - **Units:** Mm3, km2, kt, kt CO2eq
 - **Dimensions:** `indicator`, `unit`, `hotspot_group`

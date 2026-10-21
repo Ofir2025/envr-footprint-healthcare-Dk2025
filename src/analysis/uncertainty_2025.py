@@ -132,6 +132,41 @@ BU_TO_GROUP = {  # bottom-up row -> Figure-1 contribution group
 PHARMA_GROUP = "Pharmaceuticals and chemical products"
 
 
+def medicines_part() -> pd.Series:
+    """The medicines inside the pharmaceutical group, the part scenario B rescales.
+
+    The group "Pharmaceuticals and chemical products" holds every purchase of an
+    EXIOBASE chemical industry: the medicines of the pharmaceutical expenditure
+    component, which the study maps to Chemicals n.e.c., and the plastics and other
+    chemicals that hospitals and care homes buy (285 kt CO2e in 2022, mostly basic
+    plastics). The pharmaceutical-specific ratio describes medicines against
+    Chemicals n.e.c. (Hagenaars 2022, as reported by Steenmeijer et al. 2022, p e955),
+    so it applies to the first part only. Until 2026-10-21 it was applied to the whole
+    group, plastics included, which put the scenario B median 4.5 % too low.
+
+    Returns
+    -------
+    pandas.Series
+        MRIO amount of the pharmaceutical component's chemical purchases per
+        indicator (rows named as in ``load_groups``).
+
+    Raises
+    ------
+    AssertionError
+        If the core footprint table is from another model run than this one.
+    """
+    from analysis.constants import MODEL_LABEL
+    codes = ["climate_change", "material_extraction", "blue_water_consumption",
+             "land_use", "waste_generation"]          # in the order of INDICATORS
+    f = pd.read_csv(os.path.join(str(OUTPUT_DIR), "00_core_footprint",
+                                 "footprint_by_purchased_product.csv"))
+    assert set(f["model"]) == {MODEL_LABEL}, \
+        f"00_core_footprint is from {set(f['model'])}, not {MODEL_LABEL}; rerun main_2025"
+    sel = f[(f["demand_component"] == "pharmaceuticals") & (f["purchased_sector_group"] == "Chemical")]
+    by_code = sel.groupby("indicator")["value"].sum()
+    return pd.Series({name: float(by_code.get(code, 0.0)) for name, code in zip(INDICATORS, codes)})
+
+
 def _ln(rng: np.random.Generator, gsd: float, n: int) -> np.ndarray:
     """Draw a median-1 lognormal multiplier.
 
@@ -336,10 +371,13 @@ def run_mc(mrio: pd.DataFrame, parts: dict[str, pd.DataFrame],
             ratio = np.ones(n)
         pv = PRICE_BASE_YEAR[price_base_year]
         wv = REFERENCE_YEAR[reference_year] if ind == "Waste generation (kt)" else 1.0
+        med = medicines_part()[ind] if pharma_scenario == "B" else 0.0
         for gi, g in enumerate(groups):
             v = mrio.loc[g, ind] * mrio_factor[g] * pv * wv
             if g == PHARMA_GROUP:
-                v = v * ratio
+                # only the medicines are rescaled; the group's plastics and other
+                # chemicals keep their Chemicals-sector intensities
+                v = v + med * mrio_factor[g] * pv * wv * (ratio - 1.0)
             for code in BU_TO_GROUP:
                 a = parts[code].loc[g, ind]
                 if a != 0:

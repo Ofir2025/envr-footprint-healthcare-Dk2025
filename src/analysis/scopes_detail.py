@@ -250,12 +250,15 @@ def main() -> None:
                       "under-counts on EXIOBASE ixi because T&D sit between the "
                       "buyer and generation. Not added to the total"},
             {"indicator": ind, "unit": unit,
-             "scope": "Scope 2 (Hertwich & Wood 2018 convention)",
+             "scope": "Scope 2 (full inverse, generation nodes only)",
              "value": s2_fullL,
-             "basis": "cradle-to-gate embodied emissions of purchased energy "
-                      "(E_Z = mhat Z, m = s L). Broader than the corporate "
-                      "standard, which puts upstream fuel in Scope 3 cat. 3. "
-                      "Reported for comparison. Not added to "
+             "basis": "the purchased energy traced through the whole Leontief "
+                      "inverse rather than the energy block, counting only the "
+                      "emissions of the generation nodes; not cradle-to-gate, "
+                      "since the fuel supply behind generation is not counted "
+                      "(until 2026-10-21 mislabelled the Hertwich and Wood "
+                      "convention). The 01_eriksen_replication scopes ledger "
+                      "uses this value. Reported for comparison; not added to "
                       "this folder's total"},
             {"indicator": ind, "unit": unit, "scope": "self-supply loop removed",
              "value": loop, "basis": "s_h (L_hh - 1) E_H, overlaps national-accounts Scope 1"},

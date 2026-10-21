@@ -15,10 +15,15 @@ removed first, and each is documented and reversible here:
    NACE Q - human health, residential care and social work *including
    childcare*. This study's default is health plus eldercare, excluding
    childcare. The comparable run is ``HC_SCOPE=zorg_en_welzijn``.
-2. **Capital.** They endogenise fixed capital, which contributes 1.1 t per
-   capita to their national total. This study excludes it from the headline. The
-   comparable figure applies the endogenisation uplift measured in
-   :mod:`analysis.capital_gfcf`.
+2. **Capital.** They endogenise fixed capital, which lowers their national
+   total by 1.1 Mt CO2-e (their Table 4.2, p. 27). This study excludes it from
+   the headline. The comparable figure adds capital to the part of the total
+   that has a capital stock behind it, the input-output supply chain and the
+   providers' own (operational) emissions, at the full-endogenisation uplift
+   measured in :mod:`analysis.capital_gfcf`; the bottom-up travel, anaesthetic
+   and inhaler terms carry none. Until 2026-10-21 the uplift multiplied the whole
+   total, travel included, which put the matched figure 0.20 Mt too high
+   (6.14 against 5.94 Mt).
 3. **Model type.** Theirs is *consequential* (marginal), ours *attributional*.
    This cannot be reconciled by adjustment and is stated as a residual caveat
    rather than corrected away.
@@ -52,7 +57,7 @@ SCHMIDT_MERCIAI: dict[str, Any] = {
     "health_mt": 6.1,
     "health_t_per_capita": 1.07,
     "health_share_of_national_pct": 8.3,
-    "capital_contribution_t_per_capita": 1.1,
+    "capital_effect_on_national_mt": -1.1,
 }
 
 
@@ -86,14 +91,49 @@ def _scope_total(scope: str) -> float:
     return float(frame["Grand Total"])
 
 
+def _capital_base(scope: str) -> float:
+    """The part of one boundary's total that endogenising capital scales, kt CO2-e.
+
+    It is the input-output supply chain plus the providers' own emissions: the
+    Scope 1 national-accounts row, Scope 2 and the Scope 3 supply-chain row of
+    ``scopes_summary.csv``. It is the base of ``baseline_capital_excluded`` in
+    :mod:`analysis.capital_gfcf` (3,534.85 kt for the headline boundary), so the
+    uplift measured there applies to it and to nothing else.
+
+    Parameters
+    ----------
+    scope : str
+        ``"health_eldercare"`` or ``"zorg_en_welzijn"``.
+
+    Returns
+    -------
+    float
+        The capital-bearing part of the total, kt CO2-equivalent.
+    """
+    folder = eriksen_folder() if scope == "health_eldercare" \
+        else os.path.join("scenarios", scope)
+    frame = pd.read_csv(os.path.join(str(OUTPUT_DIR), folder, "scopes_summary.csv"))
+    comp = frame["Component"].astype(str)
+    keep = (comp.str.startswith("Scope 1 direct") | comp.str.startswith("Scope 2 (")
+            | comp.str.startswith("Scope 3 (MRIO"))
+    assert int(keep.sum()) == 3, f"{scope}: expected three capital-bearing rows"
+    return float(frame.loc[keep, "kt_CO2eq"].sum())
+
+
 def _capital_uplift() -> float:
-    """Ratio of the fully endogenised capital scenario to the baseline."""
+    """Ratio of the fully endogenised capital scenario to the baseline.
+
+    The check that the baseline is the headline's capital-bearing part guards the
+    application in :func:`main`: an uplift is only meaningful on its own base.
+    """
     path = os.path.join(str(OUTPUT_DIR), "11_capital_gfcf",
                         "capital_scenarios_by_indicator.csv")
     frame = pd.read_csv(path)
     climate = frame[frame.indicator == "climate_change"].set_index("scenario")
-    return float(climate.loc["D_full_endogenisation", "value"]
-                 / climate.loc["baseline_capital_excluded", "value"])
+    base = float(climate.loc["baseline_capital_excluded", "value"])
+    assert abs(base - _capital_base("health_eldercare")) < 0.01, \
+        "the capital baseline is not the headline's input-output and operational part"
+    return float(climate.loc["D_full_endogenisation", "value"] / base)
 
 
 def main() -> None:
@@ -121,7 +161,7 @@ def main() -> None:
 
     default = _scope_total("health_eldercare")
     nace_q = _scope_total("zorg_en_welzijn")
-    matched = nace_q * uplift
+    matched = nace_q + (uplift - 1.0) * _capital_base("zorg_en_welzijn")
 
     national = pd.read_csv(os.path.join(
         str(OUTPUT_DIR), "00_core_footprint", "national_totals_summary.csv"))
@@ -152,7 +192,8 @@ def main() -> None:
              comparable_with_published=False),
         dict(basis="this study, sector boundary AND capital matched",
              sector_boundary="NACE Q incl. childcare",
-             capital=f"endogenised (uplift {uplift:.4f} from analysis.capital_gfcf)",
+             capital=(f"endogenised (uplift {uplift:.4f} from analysis.capital_gfcf, on the "
+                      "input-output and operational part only)"),
              model_type="attributional", year=int(ANALYSIS_YEAR),
              value_kt=matched, t_per_capita=per_capita(matched),
              share_of_national_pct=100 * matched / national_kt,

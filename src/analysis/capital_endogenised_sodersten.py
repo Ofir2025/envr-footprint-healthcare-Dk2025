@@ -215,10 +215,16 @@ def main() -> None:
             per_capita_endogenised=endogenised * 1e3 / population
             if unit.startswith("kt") else np.nan,
             method=CITATION, kbar_year=KBAR_YEAR,
-            structure_assumption=f"{KBAR_YEAR} capital structure applied to "
-                                 f"{ANALYSIS_YEAR} levels; capital composition "
-                                 "moves slowly, capital level comes from the "
-                                 "model's own consumption of fixed capital",
+            # Until 2026-10-21 this said the capital level came from the model's
+            # own consumption of fixed capital. It does not: K is the published
+            # KBAR_YEAR flow divided by this year's output, unrescaled, and the
+            # demand vector holds the health industry's purchases, so its own
+            # capital is not in the result (the exogenous case in capital_gfcf).
+            structure_assumption=f"{KBAR_YEAR} capital flows (Kbar) divided by "
+                                 f"{ANALYSIS_YEAR} gross output, not rescaled to "
+                                 f"{ANALYSIS_YEAR} levels; covers the capital of the "
+                                 "industries supplying health care, not the health "
+                                 "industries' own capital",
             model=MODEL_LABEL))
         if indicator == "climate_change":
             node_frames.append(detail_rows(

@@ -116,7 +116,7 @@ units and are labelled as such wherever they are quoted.
 | `per_capita_endogenised` | measure | float64 | varies by row | 0.7296947547724173 |
 | `method` | dimension | str |  | Södersten, Wood & Hertwich (2018) Enviro |
 | `kbar_year` | measure | int64 |  | 2020 |
-| `structure_assumption` | dimension | str |  | 2020 capital structure applied to 2022 l |
+| `structure_assumption` | dimension | str |  | 2020 capital flows (Kbar) divided by 202 |
 | `model` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi with Danish |
 
 ### `capital_scenarios_by_indicator.csv`

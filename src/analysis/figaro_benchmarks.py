@@ -61,9 +61,11 @@ API = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
 #: judged against its own family before it is judged against the others.
 PUBLISHED_BENCHMARKS: list[dict[str, Any]] = [
     dict(source="Eurostat FIGARO (env_ac_ghgfp)", year=2022,
-         model_family="national accounts (FIGARO)", total_mt=57.4,
-         per_capita_t=9.77, capital="exogenous",
-         note="official EU statistical product"),
+         model_family="national accounts (FIGARO)", total_mt=63.8,
+         per_capita_t=10.86, capital="exogenous",
+         note="official EU statistical product; nace_r2 TOTAL_HH, which includes "
+              "households' own emissions as AFTRYK and this study do (57.4 Mt "
+              "without them, nace_r2 TOTAL)"),
     dict(source="Statistics Denmark AFTRYK", year=2022,
          model_family="national accounts coupled to EXIOBASE", total_mt=62.9,
          per_capita_t=10.71, capital="exogenous",
@@ -74,7 +76,7 @@ PUBLISHED_BENCHMARKS: list[dict[str, Any]] = [
          note="simplified SNAC; 38 % arises in Denmark, 62 % abroad"),
     dict(source="Schmidt & Merciai 2023", year=2016,
          model_family="EXIOBASE (v4 hybrid)", total_mt=73.9, per_capita_t=12.9,
-         capital="ENDOGENISED, contributing 1.1 t per capita",
+         capital="ENDOGENISED, lowering their national total by 1.1 Mt (Table 4.2, p. 27)",
          note="consequential/marginal model, so not a like-for-like "
               "attributional comparison, but the closest published Danish "
               "EXIOBASE-based figure"),
@@ -238,6 +240,15 @@ def main() -> None:
     figaro_total = float(
         demand_df.loc[demand_df.final_demand_category == "TOTAL",
                       "value"].iloc[0])
+    # The like-for-like national total. nace_r2=TOTAL counts emissions of
+    # industries only; TOTAL_HH adds households' own emissions (heating and
+    # driving), which this study's national total (``national_direct_households``)
+    # and AFTRYK both include. The comparison was made against TOTAL until
+    # 2026-10-21, which set 57.4 Mt beside a 77.2 Mt total that holds 9.7 Mt of
+    # household emissions.
+    cube = fetch("env_ac_ghgfp", time=year, c_dest="DK", c_orig="WORLD",
+                 nace_r2="TOTAL_HH", na_item="TOTAL")
+    figaro_total_hh = float(next(records(cube))["value"])
     figaro_government = float(
         demand_df.loc[demand_df.final_demand_category == "P3_S13",
                       "value"].iloc[0])
@@ -267,9 +278,13 @@ def main() -> None:
     ours = _our_results()
     pop = DK_POPULATION[year]
     comparison = pd.DataFrame([
-        dict(quantity="Danish national consumption-based GHG footprint",
-             source="Eurostat FIGARO (env_ac_ghgfp)", value=figaro_total,
+        dict(quantity="Danish national GHG footprint, industries only",
+             source="Eurostat FIGARO (env_ac_ghgfp, nace_r2 TOTAL)", value=figaro_total,
              unit="kt CO2eq", per_capita_t=figaro_total * 1e3 / pop),
+        dict(quantity="Danish national consumption-based GHG footprint",
+             source="Eurostat FIGARO (env_ac_ghgfp, nace_r2 TOTAL_HH)",
+             value=figaro_total_hh, unit="kt CO2eq",
+             per_capita_t=figaro_total_hh * 1e3 / pop),
         dict(quantity="Danish national consumption-based GHG footprint",
              source="Statistics Denmark AFTRYK", value=62_900.0,
              unit="kt CO2eq", per_capita_t=62_900.0 * 1e3 / pop),
@@ -287,7 +302,7 @@ def main() -> None:
              per_capita_t=ours["healthcare_climate_kt"] * 1e3 / pop),
     ])
     comparison["ratio_to_figaro_national"] = (
-        comparison["value"] / figaro_total)
+        comparison["value"] / figaro_total_hh)
 
     published = pd.DataFrame(PUBLISHED_BENCHMARKS)
     published.loc[len(published)] = dict(
@@ -307,7 +322,8 @@ def main() -> None:
 
     pd.set_option("display.width", 200)
     print(f"FIGARO Danish national GHG footprint {year}: "
-          f"{figaro_total:,.0f} kt CO2eq")
+          f"{figaro_total_hh:,.0f} kt CO2eq with households' own emissions, "
+          f"{figaro_total:,.0f} without")
     print(demand_df[["final_demand_category", "value",
                      "final_demand_label"]].to_string(index=False))
     print()

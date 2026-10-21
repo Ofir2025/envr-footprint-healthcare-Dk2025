@@ -151,24 +151,47 @@ units and are labelled as such wherever they are quoted.
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
 | `analysis_year` | measure | int64 |  | 2022 |
-| `quantity` | dimension | str |  | Danish national consumption-based GHG fo |
-| `source` | dimension | str |  | Eurostat FIGARO (env_ac_ghgfp) |
+| `quantity` | dimension | str |  | Danish national GHG footprint, industrie |
+| `source` | dimension | str |  | Eurostat FIGARO (env_ac_ghgfp, nace_r2 T |
 | `value` | measure | float64 | kt CO2eq | 57401.691 |
 | `unit` | dimension | str |  | kt CO2eq |
 | `per_capita_t` | measure | float64 | kt CO2eq | 9.773128943613772 |
-| `ratio_to_figaro_national` | measure | float64 | kt CO2eq | 1.0 |
+| `ratio_to_figaro_national` | measure | float64 | kt CO2eq | 0.9002712496965203 |
 
 ### `published_danish_footprint_benchmarks.csv`
 
 | Column | Role | Type | Unit | Example |
 |:---|:---|:---|:---|:---|
-| `source` | dimension | str |  | Eurostat FIGARO (env_ac_ghgfp) |
+| `source` | dimension | str |  | Statistics Denmark AFTRYK |
 | `year` | measure | int64 |  | 2022 |
-| `model_family` | dimension | str |  | national accounts (FIGARO) |
-| `total_mt` | measure | float64 |  | 57.4 |
-| `per_capita_t` | measure | float64 |  | 9.77 |
+| `model_family` | dimension | str |  | national accounts coupled to EXIOBASE |
+| `total_mt` | measure | float64 |  | 62.9 |
+| `per_capita_t` | measure | float64 |  | 10.71 |
 | `capital` | dimension | str |  | exogenous |
-| `note` | dimension | str |  | official EU statistical product |
+| `note` | dimension | str |  | Denmark's official consumption-based acc |
+
+### `recipe_sensitivity_2022.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `case` | dimension | str |  | national_recipe |
+| `indicator` | dimension | str |  | climate_change |
+| `services_footprint_headline` | measure | float64 |  | 2309.195495682233 |
+| `services_footprint_case` | measure | float64 |  | 3776.335745003375 |
+| `footprint_headline` | measure | float64 |  | 4266.88046166237 |
+| `footprint_case` | measure | float64 |  | 5734.020710983513 |
+| `change_pct` | measure | float64 | % | 34.38437665416919 |
+| `pharma_chem_share_headline_pct` | measure | float64 | % | 27.05260013369129 |
+| `pharma_chem_share_case_pct` | measure | float64 | % | 48.31265046797097 |
+| `transport_share_headline_pct` | measure | float64 | % | 13.277420147259145 |
+| `transport_share_case_pct` | measure | float64 | % | 4.239156434459428 |
+| `services_spend_meur` | measure | float64 |  | 10009.058855373154 |
+| `energy_spend_kept_meur` | measure | float64 |  | 113.14685905259331 |
+| `routed_spend_meur` | measure | float64 |  | 3820.9084633351576 |
+| `medicines_spend_meur` | measure | float64 |  | 1421.130683245061 |
+| `national_spend_without_counterpart_pct` | measure | float64 | % | 0.2207146820825264 |
+| `largest_group` | dimension | str |  | Pharmaceuticals and chemical products |
+| `largest_group_share_pct` | measure | float64 | % | 48.31265046797097 |
 
 ### `recipe_validation_2022.csv`
 

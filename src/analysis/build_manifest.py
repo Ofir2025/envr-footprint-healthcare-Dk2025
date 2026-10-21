@@ -177,9 +177,14 @@ APPROACHES = {
     "06_benchmarks_validation": dict(
         approach="Benchmarks, national denominators and recipe validation",
         reference="Arup/HCWH 2019; Pichler 2019; Lenzen 2020; Eurostat FIGARO; DST AFTRYK",
-        script="analysis.recipe_validation_2022 and assembled comparisons",
-        equations="n/a (comparisons)",
-        inputs="published values; env_ac_ghgfp; AFTRYK1; DST IO 2022"),
+        script="analysis.recipe_validation_2022 (--sensitivity writes "
+               "recipe_sensitivity_2022.csv); analysis.danish_healthcare_benchmark; "
+               "analysis.figaro_benchmarks; assembled comparisons",
+        equations="comparisons; recipe sensitivity f = B L y' with y' the services "
+                  "vector re-weighted to the Danish health industries' purchases "
+                  "by product and origin, spend held fixed",
+        inputs="published values; env_ac_ghgfp (nace_r2 TOTAL and TOTAL_HH); AFTRYK1; "
+               "DST IO 2022 (117 industries, domestic and import rows)"),
     "07_malik_replication": dict(
         approach="Malik-comparable domestic-only variant, plus the production-layer "
                  "comparison against Malik et al. 2021",

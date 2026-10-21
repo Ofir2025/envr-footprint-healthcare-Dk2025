@@ -1058,6 +1058,40 @@ def _load_bottom_up() -> dict[str, float]:
     return values
 
 
+def _load_bottom_up_all() -> pd.DataFrame:
+    """Read every bottom-up item of the headline, in every impact category.
+
+    The Dutch table carries private travel and the providers' own impacts in
+    all categories where they have a value, and so does this study's headline
+    (``contribution_by_purchased_product.csv`` of the Eriksen folder): commuting
+    and patient travel carry material, water and land through fuel and vehicle
+    supply chains, and the providers' own waste is in the operational item. Until
+    2026-10-21 the comparison took only the climate values of these items, so the
+    Danish "Total" of the other four categories was the input-output part alone
+    and the national shares were taken on that part (4.4% for climate against
+    the headline's 5.5%).
+
+    Returns
+    -------
+    pandas.DataFrame
+        Indexed by bottom-up item code (``B_HEAL``, ``B_ANAE``, ``B_PMDI``,
+        ``B_COMM``, ``B_VISI``), one column per indicator; absent values are 0.
+    """
+    path = os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+                        "contribution_by_purchased_product.csv")
+    frame = pd.read_csv(path)
+    items = frame[frame["component_type"] == "bottom-up item"]
+    return items.pivot_table(index="purchased_sector_code", columns="indicator",
+                             values="value", aggfunc="sum").fillna(0.0)
+
+
+def _load_headline() -> pd.Series:
+    """Read the headline footprint of each impact category (all terms)."""
+    path = os.path.join(str(OUTPUT_DIR), *eriksen_folder().split("/"),
+                        "contribution_by_purchased_product.csv")
+    return pd.read_csv(path).groupby("indicator")["value"].sum()
+
+
 def _load_national() -> pd.DataFrame:
     """Read the Danish national totals and the health-care share of each."""
     path = os.path.join(str(OUTPUT_DIR), "00_core_footprint",
@@ -1082,6 +1116,13 @@ def main() -> None:
     components = _load_components()
     national = _load_national()
     bottom_up = _load_bottom_up()
+    items = _load_bottom_up_all()
+    headline = _load_headline()
+    # the two readings of the bottom-up items must agree where both exist
+    for key, codes in (("operational", ["B_HEAL"]), ("anaesthetic", ["B_ANAE"]),
+                       ("pmdi", ["B_PMDI"]), ("travel", ["B_COMM", "B_VISI"])):
+        alt = float(items.loc[codes, "climate_change"].sum())
+        assert abs(alt - bottom_up[key]) < 1e-6, f"{key}: {alt} against {bottom_up[key]}"
     dk_population = DK_POPULATION[ANALYSIS_YEAR]
 
     component_map = {
@@ -1099,10 +1140,9 @@ def main() -> None:
                     and indicator in components.columns:
                 dk_value = float(components.loc[key, indicator])
                 # the Dutch "Health-care services" row carries the sector's own
-                # operational emissions; ours are added from national accounts
-                if key == "healthcare_services" \
-                        and indicator == "climate_change":
-                    dk_value += bottom_up["operational"]
+                # operational impacts; ours are added from national accounts
+                if key == "healthcare_services":
+                    dk_value += float(items.loc["B_HEAL", indicator])
             elif row_name == "Release of anaesthetic gases":
                 dk_value = bottom_up["anaesthetic"] \
                     if indicator == "climate_change" else np.nan
@@ -1110,14 +1150,13 @@ def main() -> None:
                 dk_value = bottom_up["pmdi"] \
                     if indicator == "climate_change" else np.nan
             elif row_name == "Private travel":
-                dk_value = bottom_up["travel"] \
-                    if indicator == "climate_change" else np.nan
+                travel = float(items.loc[["B_COMM", "B_VISI"], indicator].sum())
+                dk_value = travel if travel > 0 else np.nan
             elif row_name == "Total":
-                dk_value = float(components[indicator].sum())
-                if indicator == "climate_change":
-                    dk_value += (bottom_up["operational"]
-                                 + bottom_up["anaesthetic"]
-                                 + bottom_up["pmdi"] + bottom_up["travel"])
+                dk_value = float(headline[indicator])
+                parts = float(components[indicator].sum()) + float(items[indicator].sum())
+                assert abs(parts - dk_value) < 1e-6 * dk_value, \
+                    f"{indicator}: components and items do not add to the headline"
             else:
                 dk_value = np.nan
             rows.append(dict(
@@ -1146,10 +1185,12 @@ def main() -> None:
     share_rows: list[dict[str, Any]] = []
     for indicator, published in NL_NATIONAL.items():
         dk = national.loc[indicator] if indicator in national.index else None
-        dk_share = float(dk["healthcare_share_pct"]) if dk is not None \
-            else np.nan
         dk_national = float(dk["national_footprint"]) if dk is not None \
             else np.nan
+        # the share of the whole headline, as the Dutch 7.3 % is of theirs;
+        # ``healthcare_share_pct`` in the national summary is the MRIO term's
+        dk_share = 100.0 * float(headline[indicator]) / dk_national \
+            if dk is not None else np.nan
         note = ""
         if indicator == "waste_generation":
             note = ("NOT on the same boundary: the Dutch figure sums all 19 "

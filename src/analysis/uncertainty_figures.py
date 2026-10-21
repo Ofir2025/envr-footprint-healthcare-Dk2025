@@ -3,7 +3,8 @@
 
 1. distribution of each indicator total, normalised to its deterministic value
    (one panel, all five indicators, so relative spread and skew are comparable);
-2. first-order variance shares per indicator (exact for this additive model);
+2. variance shares per indicator: each term's own variance and the covariance of
+   the correlated travel pair (exact for this additive model; not Sobol indices);
 3. 95 % interval of each contribution group of the climate footprint;
 4. tornado for climate change, with the percentile-based swings and the
    reviewers' verbatim +/-20 % and +/-50 % swings in separate blocks;
