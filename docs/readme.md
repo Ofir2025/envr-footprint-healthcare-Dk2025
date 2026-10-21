@@ -14,7 +14,7 @@ lives - see [`revision_guide.md`](revision_guide.md).
 | Read the one-page summary of where the revision stands | [`revision/defects_and_fixes.md`, "E. What Ofir should know in one page"](revision/defects_and_fixes.md#e-what-ofir-should-know-in-one-page) |
 | See which data the revision replaced, why, and what each replacement assumes | [`revision_guide.md`, "What data we replaced, and why"](revision_guide.md#what-data-we-replaced-and-why) |
 | See what changed in the latest rounds (21 and 22 October 2026) | [`revision/defects_and_fixes.md`, "Findings of 21 October 2026"](revision/defects_and_fixes.md#findings-of-21-october-2026) and ["Findings of 22 October 2026"](revision/defects_and_fixes.md#findings-of-22-october-2026) |
-| See how the uncertainty and sensitivity analyses were done | Appendix A, "Parameter uncertainty: Monte Carlo simulation", "Sensitivity" and Table A.6; the full account in [`revision/uncertainty.md`](revision/uncertainty.md) |
+| See how the uncertainty and sensitivity analyses were done | Appendix A, "Parameter uncertainty: Monte Carlo simulation", "Sensitivity" and Table A.7; the full account in [`revision/uncertainty.md`](revision/uncertainty.md) |
 | Understand the headline results and how they were produced | [`revision/results_2022.md`](revision/results_2022.md) |
 | Know what is broken, uncertain or still undecided | [`revision/defects_and_fixes.md`](revision/defects_and_fixes.md) |
 | Understand why the background model is v3.8.2 and not v3.10.2 | [`methods/exiobase_release_and_classification.md`](methods/exiobase_release_and_classification.md) |

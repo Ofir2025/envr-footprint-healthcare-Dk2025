@@ -462,6 +462,10 @@ facet_ceiling <- function(data, group, extent, room = 1.06) {
 # that should have been doing this work all along. The remainder keeps its grey
 # so it still reads as a residual rather than as a category.
 #
+# One percent-label format for every ranked bar: one decimal, with a whole
+# number written whole (house rule, 22 Oct 2026), so "4%" never prints as "4.0%".
+pct_lab <- function(v) sub("\\.0%$", "%", sprintf("%.1f%%", v))
+
 # The functions below expect `d` to carry `indicator`, `key` (a factor built by
 # the caller's ranking), `share_pct` and `is_rest`.
 REMAINDER_NOTE <- paste(
@@ -480,7 +484,7 @@ prepare_remainder <- function(d, room = 1.04) {
 remainder_label <- function(d, size = 4.0, hjust = -0.22) {
   lab <- d %>% filter(is_rest) %>%
     group_by(indicator, key) %>%
-    summarise(x = sum(plot_x), lab = sprintf("%.1f%%", sum(share_pct)),
+    summarise(x = sum(plot_x), lab = pct_lab(sum(share_pct)),
               .groups = "drop")
   geom_text(data = lab, inherit.aes = FALSE,
             aes(x = x, y = key, label = lab), hjust = hjust, size = size,
@@ -502,14 +506,16 @@ remainder_breaks <- function(d, linewidth = 0.9) NULL
 # tallest bars of figures 2, 4 and 5 with no number on them at all. Outside
 # placement needs headroom, which `facet_ceiling(room = )` reserves.
 #
-# One format for every bar, remainder included: one decimal and a percent sign.
-# Mixing "4.7", "43" and "67%" in one figure read as three different quantities
-# (co-author review, 2026-09-14).
+# One format for every bar, remainder included: one decimal and a percent sign,
+# except that a whole number is written whole ("4%", not "4.0%"; house rule,
+# 22 Oct 2026). Mixing decimal RULES ("4.7", "43" and "67%") read as three
+# different quantities (co-author review, 2026-09-14); dropping a trailing .0
+# does not, because every label keeps the percent sign and at most one decimal.
 ranked_labels <- function(d, size = 4.0, hjust = -0.22, digits_below = 1) {
   lab <- d %>% filter(!is_rest) %>%
     group_by(indicator, key) %>%
     summarise(x = sum(plot_x), v = sum(share_pct), .groups = "drop") %>%
-    mutate(lab = sprintf(paste0("%.", digits_below, "f%%"), v))
+    mutate(lab = if (digits_below == 1) pct_lab(v) else sprintf(paste0("%.", digits_below, "f%%"), v))
   geom_text(data = lab, inherit.aes = FALSE,
             aes(x = x, y = key, label = lab), hjust = hjust, size = size,
             colour = INK, na.rm = TRUE)

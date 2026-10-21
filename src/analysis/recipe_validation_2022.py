@@ -45,7 +45,7 @@ import numpy as np
 import os
 import pandas as pd
 
-from analysis.constants import BACKGROUND_YEAR
+from analysis.constants import ANALYSIS_YEAR, BACKGROUND_YEAR
 from paths import BACKGROUND_DIR, BRONZE_DIR, MRIO_DIR, OUTPUT_DIR, SILVER_DIR
 
 GROUPS_EXIO = [
@@ -523,9 +523,73 @@ def recipe_sensitivity() -> pd.DataFrame:
     return out
 
 
+def health_column_composition() -> pd.DataFrame:
+    """Key input shares of the health industries' purchase column, EXIOBASE against Statistics Denmark.
+
+    For each of seven EXIOBASE regions, the share of the health and social work
+    industry's intermediate purchases (all origins) spent on Chemicals n.e.c.
+    (the sector that contains medicines), on Medical, precision and optical
+    instruments, and on energy (the group of ``GROUPS_EXIO``). A final row gives
+    the same shares from Statistics Denmark's 117-industry input-output table
+    for the four Danish health and care industries at the study's boundary,
+    with medicines as DB07 division 21 and energy as divisions 19 and 35. The
+    table is the evidence that EXIOBASE's Danish (and Swedish) health recipe
+    omits medicines that the Dutch, German and British recipes carry, and that
+    it understates energy purchases against the national table.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per source and region, written to
+        ``06_benchmarks_validation/health_column_composition_by_country.csv``.
+    """
+    with open(os.path.join(str(MRIO_DIR), f"mrio{BACKGROUND_YEAR}.pkl"), "rb") as fh:
+        m = pickle.load(fh)
+    Z = m["Z"]
+    regions = list(m["label"]["region"]["ISO3"])
+    names = list(m["label"]["industry"]["Name"])
+    ns = len(names)
+    i_heal = [k for k, s_ in enumerate(names) if "ealth and social work" in s_][0]
+    i_chem = [k for k, s_ in enumerate(names) if "Chemicals nec" in s_][0]
+    i_med = [k for k, s_ in enumerate(names) if "medical, precision" in s_.lower()][0]
+    rx_energy = re.compile(GROUPS_EXIO[4][1], re.IGNORECASE)
+    assert GROUPS_EXIO[4][0] == "energy"
+    i_energy = [k for k, s_ in enumerate(names) if rx_energy.search(s_)]
+    rows = []
+    for cc in ["DNK", "SWE", "NLD", "DEU", "FRA", "GBR", "USA"]:
+        r = regions.index(cc)
+        col = Z[:, r * ns + i_heal].reshape(len(regions), ns).sum(axis=0)
+        tot = float(col.sum())
+        rows.append(dict(source=f"EXIOBASE v3.8.2 IOT_{ANALYSIS_YEAR}_ixi health column",
+                         region=cc, purchases_meur=round(tot, 1),
+                         chemicals_nec_share_pct=round(100 * float(col[i_chem]) / tot, 3),
+                         medical_instruments_share_pct=round(100 * float(col[i_med]) / tot, 3),
+                         energy_share_pct=round(100 * float(col[i_energy].sum()) / tot, 3)))
+    dst = _dst_health_purchases(ANALYSIS_YEAR)
+    tot = float(dst["value"].sum())
+    med = float(dst.loc[dst["dst_code"].str.startswith("21"), "value"].sum())
+    ene = float(dst.loc[dst["dst_code"].str.startswith(("19", "35")), "value"].sum())
+    from analysis.build_dst_concordance import DKK_PER_EUR
+    rows.append(dict(source=f"Statistics Denmark IOT {ANALYSIS_YEAR}, health and care industries, "
+                            "elder care share applied",
+                     region="DNK", purchases_meur=round(tot / (DKK_PER_EUR[ANALYSIS_YEAR] * 1000.0), 1),
+                     chemicals_nec_share_pct=round(100 * med / tot, 3),
+                     medical_instruments_share_pct=float("nan"),
+                     energy_share_pct=round(100 * ene / tot, 3)))
+    out = pd.DataFrame(rows)
+    path = os.path.join(str(OUTPUT_DIR), "06_benchmarks_validation",
+                        "health_column_composition_by_country.csv")
+    out.to_csv(path, index=False)
+    print(out.to_string(index=False))
+    print(f"\nwritten -> {path}")
+    return out
+
+
 if __name__ == "__main__":
     import sys as _sys
     if "--sensitivity" in _sys.argv:
         recipe_sensitivity()
+    elif "--columns" in _sys.argv:
+        health_column_composition()
     else:
         main()

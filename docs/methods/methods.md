@@ -1,5 +1,11 @@
 # Methods
 
+**In plain terms.** How the study works end to end: Danish spending goes in, EXIOBASE traces it
+through world supply chains, Danish measurements replace what the model gets wrong about Denmark,
+and bottom-up terms add what no monetary account sees (anaesthetic gases, inhalers, travel). This
+note names every external model and dataset used, why the alternatives were rejected, and how any
+number is traced back through the layers.
+
 The methodology behind this study: the named methodological layers that
 implement each published method (and how to trace any number back through
 them), which external models and datasets are actually used and why not the

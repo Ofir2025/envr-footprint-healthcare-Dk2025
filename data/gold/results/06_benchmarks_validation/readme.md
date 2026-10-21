@@ -112,6 +112,13 @@ industry. Producer: `analysis.recipe_validation_2022 --sensitivity`.
 - **Dimensions:** `quantity`, `source`, `unit`
 - **Measures:** `analysis_year`, `value`, `per_capita_t`, `ratio_to_figaro_national`
 
+### `health_column_composition_by_country.csv`
+
+- **Rows:** 8
+- **Format:** csv
+- **Dimensions:** `source`, `region`
+- **Measures:** `purchases_meur`, `chemicals_nec_share_pct`, `medical_instruments_share_pct`, `energy_share_pct`
+
 ### `published_danish_footprint_benchmarks.csv`
 
 - **Rows:** 5

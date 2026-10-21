@@ -73,7 +73,7 @@ Still outstanding before submission, and who holds each:
   Kwame Osei-Owusu only; Styrmir Gislason, Morten Birkved and Ciprian Cimpan read
   "[roles to be confirmed]" until they state theirs, and all five authors confirm
   the whole statement.
-- **The Hagenaars thesis** (manuscript reference [47], appendix A reference [2]). Its title is
+- **The Hagenaars thesis** (manuscript reference [48], appendix A reference [2]). Its title is
   given as "An investigation into the carbon and material footprint of the Dutch consumption of
   pharmaceuticals" (Delft and Leiden), whereas Steenmeijer et al. (2022) cite "The carbon and
   material footprint of the Dutch consumption of pharmaceuticals" (Leiden). Appendix A's figures

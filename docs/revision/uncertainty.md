@@ -1,5 +1,11 @@
 # Uncertainty
 
+**In plain terms.** This note answers one question: how far can the numbers be off, and why? Each
+input carries a spread, 100,000 random draws turn those spreads into the 95% interval the paper
+reports (3,675 to 5,029 kt CO₂e), and the split of the spread shows that most of it comes from the
+world-economy data rather than from anything Danish. Section 2 walks one complete draw by hand, so
+the whole machinery can be followed without any input-output background.
+
 This document is the full uncertainty account for the Danish health-care
 footprint: every source of uncertainty that bears on the results, whether it
 is quantified, and the reason in each case (sections 1-4); the Monte Carlo

@@ -98,7 +98,7 @@ make_plot <- function(per_capita) {
     # Share printed past the bar end. Skipped below 2 % so tiny bars do not
     # collide with the axis, and the ceiling below leaves room for the text.
     geom_text(aes(label = if_else(share_pct >= 2,
-                                  sprintf("%.1f%%", share_pct), NA_character_)),
+                                  pct_lab(share_pct), NA_character_)),
               hjust = -0.15, size = PT_LABEL / .pt, fontface = "bold", colour = "black",
               na.rm = TRUE) +
     facet_ceiling(dd %>% group_by(indicator, key) %>%

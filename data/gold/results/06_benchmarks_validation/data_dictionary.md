@@ -158,6 +158,17 @@ units and are labelled as such wherever they are quoted.
 | `per_capita_t` | measure | float64 | kt CO2eq | 9.773128943613772 |
 | `ratio_to_figaro_national` | measure | float64 | kt CO2eq | 0.9002712496965203 |
 
+### `health_column_composition_by_country.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `source` | dimension | str |  | EXIOBASE v3.8.2 IOT_2022_ixi health colu |
+| `region` | dimension | str |  | DNK |
+| `purchases_meur` | measure | float64 |  | 11715.7 |
+| `chemicals_nec_share_pct` | measure | float64 | % | 0.035 |
+| `medical_instruments_share_pct` | measure | float64 | % | 1.813 |
+| `energy_share_pct` | measure | float64 | % | 1.566 |
+
 ### `published_danish_footprint_benchmarks.csv`
 
 | Column | Role | Type | Unit | Example |

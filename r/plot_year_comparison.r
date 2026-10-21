@@ -130,7 +130,7 @@ dk_save(p1, "fig11_footprint_by_year", w = FIG_W, h = 4.6, dpi = 600, sub = "com
 p2 <- ggplot(cmp, aes(year, healthcare_share_pct,
                       colour = series, group = series)) +
   geom_line(linewidth = 0.5) +
-  value_label("healthcare_share_pct", function(v) sprintf("%.1f%%", v)) +
+  value_label("healthcare_share_pct", function(v) pct_lab(v)) +
   geom_point(size = 1.3) +
   scale_colour_manual(values = unname(SERIES_COLS), name = NULL) +
   scale_x_continuous(breaks = YEARS, expand = expansion(mult = 0.14)) +

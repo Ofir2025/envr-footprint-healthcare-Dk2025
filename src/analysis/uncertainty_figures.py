@@ -86,6 +86,12 @@ plt.rcParams.update({
 })
 
 
+def _pct1(v: float) -> str:
+    """One-decimal percentage with a whole number written whole (house rule)."""
+    lab = f"{v:.1f}"
+    return (lab[:-2] if lab.endswith(".0") else lab) + "%"
+
+
 def _group_label(name: str) -> str:
     """Return the printed name of a contribution group.
 
@@ -200,7 +206,7 @@ def plot_distributions(tot: dict[str, np.ndarray], total: pd.Series, path: str) 
         q = np.percentile(arr, [2.5, 50, 97.5])
         ax.plot([k, k], [q[0], q[2]], color="k", lw=0.9)
         ax.plot(k, q[1], "o", color="k", ms=2.8)
-        ax.annotate(f"CV {100 * arr.std(ddof=1) / arr.mean():.1f}%", xy=(k, y_hi),
+        ax.annotate(f"CV {_pct1(100 * arr.std(ddof=1) / arr.mean())}", xy=(k, y_hi),
                     xytext=(0, -2.5), textcoords="offset points",
                     ha="center", va="top", fontsize=ANNOT_PT)
     ax.axhline(1.0, color=OKABE_ITO[5], lw=0.9, ls="--", label="Deterministic estimate")
@@ -337,7 +343,7 @@ def plot_group_intervals(groups: Sequence[str], draws: np.ndarray, det: pd.Serie
     for k in range(len(names)):
         # opaque background, so the grid lines behind a note do not cross it
         notes.append(ax.annotate(
-            f"CV {cv[k]:.1f}%   {share[k]:.0f}% of total", xy=(hi[k], y[k]),
+            f"CV {_pct1(cv[k])}   {share[k]:.0f}% of total", xy=(hi[k], y[k]),
             xytext=(3, 0), textcoords="offset points", va="center",
             fontsize=ANNOT_PT, zorder=4,
             bbox=dict(boxstyle="square,pad=0.1", facecolor="white", edgecolor="none")))

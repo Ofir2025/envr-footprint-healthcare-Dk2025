@@ -1,7 +1,78 @@
-# Branch notes - revision materials for NXSUST-D-26-01589
+# Reading guide for the revision (NXSUST-D-26-01589)
 
-Everything needed to answer both reviewers. Start with
-[`docs/revision/response_to_reviewers.md`](revision/response_to_reviewers.md).
+Written for every author, with no input-output background assumed. It says what the revision
+did, why each change is justified, and where the evidence sits. Jargon is explained the first
+time it is used.
+
+## The revision in one paragraph
+
+The paper estimates the environmental footprint of Danish health care by feeding what Denmark
+spends on health care into a model of the world economy (EXIOBASE), which traces that spending
+through global supply chains to the emissions, materials, water, land and waste behind it.
+The revision moved the estimate from 2019 spending on a 2016 model to 2022 spending on the
+2022 model, replaced every number the submission had scaled from the Dutch study with Danish
+data, corrected two defects of the model's Danish tables that Statistics Denmark's own tables
+expose, quantified the uncertainty, and had every number, citation and equation checked against
+its source. The climate headline moved from 4,815 to 4,267 kt CO₂e, and we can now say where
+every part of it comes from.
+
+## If you read only two things
+
+1. The letter in the shared folder (`eriksen_et_al_2026_response_to_coauthor_review.docx`): every
+   one of your comments, what changed, the corrections we found ourselves, and the decisions taken.
+2. The one-page summary:
+   [`revision/defects_and_fixes.md`, "E. What Ofir should know in one page"](revision/defects_and_fixes.md#e-what-ofir-should-know-in-one-page).
+
+## The three findings that changed the paper, in plain words
+
+1. **The big transport share was an error in the database, not a finding.** EXIOBASE records 74%
+   of Danish shipping as if Danish companies used it, because Danish-flagged ships sell their
+   services almost entirely abroad but the database books the sales at home. Statistics Denmark's
+   own table says 6.5%, and Statistics Denmark has published on exactly this defect (Rørmose
+   Jensen and Iliev 2022). We corrected it the way their publication implies, and the correction
+   is why transport drops from the submission's 39% to 13.3% of the climate footprint, and the
+   total by a quarter. Without this correction, every number in the paper would carry someone
+   else's shipping.
+2. **The model's release matters as much as its name.** We tested every EXIOBASE release on disk
+   against Statistics Denmark's own tables, year by year. The newest release (v3.10.2) records
+   the Danish health industry at about a third of its real size in 2022, which cannot carry
+   Denmark's health spending; v3.8.2 agrees with the national accounts within 3% for 2016 and
+   2022. That is why the paper uses v3.8.2, names it everywhere, and says that its 2022 table is
+   a projection made in 2021. The evidence is in
+   [`methods/exiobase_release_and_classification.md`](methods/exiobase_release_and_classification.md).
+3. **Medicines are the least certain part, and we can now prove why.** The services part of our
+   estimate uses EXIOBASE's recipe for what the Danish health industry buys, and that recipe
+   contains almost no medicines (0.035% of purchases), whereas Statistics Denmark says medicines
+   are 13.9% of what Danish hospitals and care buy. We computed the same recipe for seven
+   countries: the Dutch one carries 11.4% medicines, the German 16.3%, the British 8.5%. So the
+   gap is a defect of EXIOBASE's Danish recipe, not of the method, and the Dutch study's headline
+   includes hospital medicines where ours cannot. We keep the headline on the published recipe
+   and state the bounds (7.8% below to 32.1% above), because Denmark's statistics identify the
+   missing share but nothing identifies the emission intensity of those medicines; the evidence
+   table is `data/gold/results/06_benchmarks_validation/health_column_composition_by_country.csv`.
+
+## How sure can we be of the results?
+
+- **The headline reproduces from raw data.** One command rebuilds everything from the EXIOBASE
+  files and Statistics Denmark's tables and ends in an audit of 21 checks (totals, identities,
+  double counting, every variant reproducing its own headline). It passes, and re-renders of the
+  figures reproduce byte for byte.
+- **Uncertainty is quantified, not asserted.** Every input carries a spread and 100,000 draws
+  give the 95% interval (3,675 to 5,029 kt for climate). Most of the spread (69.6%) comes from
+  the world-economy data, not from the Danish inputs, so better Danish data would narrow it only
+  modestly. The plain-language account is in [`revision/uncertainty.md`](revision/uncertainty.md).
+- **Choices are separated from noise.** Everything that is a decision rather than a measurement
+  (how medicines are represented, the boundary, capital, the shipping share, the warming
+  potentials) is rerun as its own case; Appendix A, Table A.7 lists all 14 with their results.
+- **The scope split is verified.** Scope 1 (the sector's own emissions) plus Scope 2 (making the
+  energy it buys) plus Scope 3 (everything upstream) plus patient and visitor travel add up to
+  the total exactly, in every category, with the double-counting checks published; the method
+  was audited against Hertwich and Wood (2018) and Cabernard and colleagues (2019), which the
+  paper cites.
+- **Citations were checked against the sources.** All 51 manuscript references and 36 appendix
+  references were read against the claims that cite them, and every DOI was opened; the two
+  links that would not open (medstat.dk and the Hagenaars thesis record) are named in
+  [`eriksen_et_al_2026/readme.md`](eriksen_et_al_2026/readme.md) as to re-check before submission.
 
 ## Cite the background like this
 
@@ -13,61 +84,22 @@ Put this in the methods, verbatim. Each part of it has been got wrong in a draft
 > basic prices, million euro. The Danish demand vector is Danish 2022
 > expenditure, so demand year and model year coincide.
 
-`3.8.2` and not "EXIOBASE 3": v3.10.2 and v3.8.2 disagree by a factor of 2.7 on
-the size of the Danish health industry -- 16,326 against 43,955 M.EUR of output
-in 2022, where the national accounts give 45,321
-(`09_exiobase_release_diagnostics/dk_block_vs_national_accounts.csv`) -- and this
-study rejects v3.10.2 for that reason, so the release is not a detail a reader
-can fill in. `ixi` and not `pxp`:
-those have 163 and 200 sectors and their results are not interchangeable. And the
-2022 tables are themselves a nowcast, compiled in September 2021, which the
-limitations must say. The full argument, the measured size of the projection
-error, and draft wording for the limitations paragraph are in
-[`docs/methods/exiobase_release_and_classification.md`](methods/exiobase_release_and_classification.md).
+The version matters (releases disagree by a factor of 2.7 on the Danish health industry), the
+table type matters (`ixi` and `pxp` have 163 and 200 sectors and are not interchangeable), and
+the 2022 table is a projection compiled in September 2021, which the limitations say.
+
+## Where to find anything
 
 | You want | Go to |
 |:---|:---|
 | The point-by-point reviewer response | `docs/revision/response_to_reviewers.md` |
+| The letter answering your review, point by point | `docs/eriksen_et_al_2026/r02_submission/v2/` |
 | How to cite the background, and its limitations | `docs/methods/exiobase_release_and_classification.md` |
 | What changed since submission, and why | `docs/revision/results_2022.md` |
 | Method and equations, per analysis layer | `docs/methods/replications.md` |
-| What each results folder contains | a `readme.md` (and generated `data_dictionary.md`) in every `data/gold/results/**/` that holds a table |
+| What each results folder contains | a `readme.md` and `data_dictionary.md` in every `data/gold/results/**/` folder |
 | Findings against our own submitted results | `docs/revision/defects_and_fixes.md` |
-| Provenance of every file | `data/gold/results/manifest_lineage.csv` |
-
-## The three things that change the paper
-
-1. **The transport finding must be corrected.** EXIOBASE routes 73.6 % of Danish
-   sea-transport output to Danish intermediate use; the national accounts say 9 %.
-   Statistics Denmark published this defect (Rørmose Jensen & Iliev 2022) and EXIOBASE's
-   own hybrid build gives 7.8 % natively, so the correction reconstructs an allocation
-   official Danish practice already applies rather than proposing a new method.
-   In 2022 transport decreases from 34.1 % to **15.6 %** of the climate footprint by producing
-   sector, and transport services from 29.7 % to **13.3 %** by purchase, so pharmaceuticals and
-   chemical products (27.1 %) become the largest contributor.
-   See [`docs/methods/replications.md`, section 10](methods/replications.md#r10)
-   and [`docs/revision/results_2022.md`, "The corrected transport share"](revision/results_2022.md#the-corrected-transport-share).
-
-2. **The background model changed, and the v3.10.2 defects are datable.** Every release on
-   disk was tested against Statistics Denmark's own table, year by year. Two distinct
-   defects, with different onsets:
-
-   | Defect | What breaks | Onset | v3.8.2 / v3.6 |
-   |:---|:---|:---|:---|
-   | **D1** | medical, precision and optical instruments carry ~zero output across Europe (28 of 30 regions) | **2015**, and never recovers | clean (0 of 30) |
-   | **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2x | **2021-2022**, the nowcast years | clean (2 of 12) |
-
-   D2 in 2022 gives the Danish health industry 16,326 M€ of total output against
-   45,321 M€ in the national accounts - which cannot deliver 40,597 M€ of health final
-   demand. That is an arithmetic impossibility, not a tolerance question. Danish output
-   still totals to within 3 % and the table still balances to 10⁻¹¹, so a total-level
-   check misses both. The consequence is not only ours: anyone running a European study on
-   v3.10.2 from 2015 onward inherits D1 with no warning.
-   See [`docs/methods/replications.md`, section 09](methods/replications.md#r09).
-
-3. **Climate is on IPCC AR6**, not the workbook's AR4 factors, with a four-revision
-   sensitivity and the non-restatable share (HFC/PFC, pre-aggregated by EXIOBASE) reported.
-   See [`docs/methods/replications.md`, section 15](methods/replications.md#r15).
+| Where any published number comes from | `data/gold/results/manifest_lineage.csv`, one row per file with its script, inputs and method |
 
 ## What data we replaced, and why
 
@@ -91,58 +123,48 @@ for it to hold. The submitted climate footprint was 4,815 kt CO₂e; the revised
 | Employee commuting | The Dutch value scaled by employment and hours | 444 kt: Danish travel-survey distances, allocated by health care's share of hours worked | Danish distances; it also removes a Dutch base that counted one trip a day | Health staff travel as far per hour worked as the average worker, and the Dutch emissions per kilometre hold in Denmark |
 | Patient and visitor travel | The Dutch value scaled by employment ratios | 264 kt: the travel survey's trips for health and social purposes, with visitors added at the English ratio | Danish distances | Those trips are patient travel (an upper bound), and visitors relate to patients as in England |
 | Climate weights | AR4 values for the input-output part | AR6 for the input-output part and the gases | The current IPCC values | The sector's own emissions keep the AR5 values of the national accounts, and travel keeps the Dutch inventory's values |
-| Uncertainty | Not quantified | Monte Carlo analysis (100,000 draws) and 14 sensitivity cases (Appendix A, Table A.6) | Shows how far each input and each modelling choice moves the result | The spreads of the bottom-up terms are judgements; the input-output spread is the 8.35 % that Lenzen and colleagues report for the Danish carbon footprint, applied to all five categories |
+| Uncertainty | Not quantified | Monte Carlo analysis (100,000 draws) and 14 sensitivity cases (Appendix A, Table A.7) | Shows how far each input and each modelling choice moves the result | The spreads of the bottom-up terms are judgements; the input-output spread is the 8.35 % that Lenzen and colleagues report for the Danish carbon footprint, applied to all five categories |
 | Capital | Left out and not estimated | Still left out of the headline, but its size is estimated (12.5 % to 19.0 % of the climate footprint) | Readers can compare with studies that include investment | The 2020 capital matrices apply to 2022 output |
 
-## Scope 1-3 emissions, by origin and by industry
+## Scope 1, 2 and 3, in plain words
 
-Six figure-ready tables per model run in
-`data/gold/results/02_scopes_wood_hertwich/<year>_<correction state>/`
-(`scope_by_*`) at three resolutions - full detail (scope × producing country ×
-producing industry), the top 25 origin-industry pairs with the remainder pooled,
-and aggregations by industry group, by continent and the cross. The layer is
-scoped by reference year AND by whether the Danish sea-transport reallocation
-was applied, exactly as `01_eriksen_replication` is, so a figure cannot take the
-wrong correction state's bars. `r/plot_scope_emissions.r` renders four TIFFs
-from them, each naming the run it was drawn from.
-
-Scope 1 and the bottom-up items have no producing node in the model; they are placed at
-their true Danish origin rather than dropped, so the bars add back to the headline.
-
-A finding worth a sentence in the paper: the 25 largest origin-industry pairs account for
-**44 %** of the footprint, and the pooled remainder is the single largest bar. The Danish
-health footprint is diffuse - no supplier dominates it.
+Scope 1 is what the health sector burns and releases itself; Scope 2 is the making of the
+electricity and heat it buys; Scope 3 is everything else upstream; and patient and visitor
+travel is reported beside them because the reporting standard leaves it out. The four parts add
+up to the total exactly, in every category, and the tables behind every cut (by scope, by
+producing country, by industry, and their combinations) are in
+`data/gold/results/02_scopes_wood_hertwich/<year>_<correction state>/`, scoped by year and by
+correction state so a figure cannot pick up the wrong run's bars. One finding worth a sentence:
+the 25 largest origin-industry pairs carry only 44% of the footprint, so no single supplier
+dominates Danish health care's impacts.
 
 ## Conventions in the data
 
-Star schema throughout: dimension columns, then measure and unit. EXIOBASE industry and
-product codes carry **no** `A_` / `C_` prefix. Countries are ISO3 (`ROU`, not the
-deprecated `ROM`); EXIOBASE regions with no ISO3 code carry their region name
-(`RoW Europe`, …). The world-region aggregation singles out **Denmark** - the Dutch
-original singled out the Netherlands, which in a Danish study split NL out of Europe in
-every regional chart.
+Tables put naming columns first, then the measure and its unit. Countries are ISO3 codes
+(`ROU`, not the deprecated `ROM`); EXIOBASE regions with no country code carry their region
+name (`RoW Europe` and so on). The world-region grouping singles out Denmark, as the Dutch
+original singled out the Netherlands.
 
 ## Reproducing
 
 ```bash
 export PYTHONPATH=src HC_ANALYSIS_YEAR=2022 HC_BACKGROUND_TAG=_snacship
 python -m analysis.main_2025
-python -m analysis.audit_consistency   # every check the module defines (C1, C2, C4-C10, C14-C21), non-zero exit on failure
+python -m analysis.audit_consistency   # 21 checks, non-zero exit on failure
 LANG=en_US.UTF-8 Rscript r/plot_scope_emissions.r
 ```
 
 ## What is deliberately not on this branch
 
-* **`data/bronze/`** - raw third-party inputs (EXIOBASE, the Södersten capital matrices,
-  Danish Medstat ATC files, StatBank extracts), obtained under each provider's own terms
-  and not ours to redistribute from a public repository. Every source, its licence and its
-  access route is in
-  [`docs/methods/methods.md`, "Which external models and datasets we actually use, and why"](methods/methods.md#which-external-models-and-datasets-we-actually-use-and-why).
-* **`docs/references/`** - PDFs of published articles. See
-  `docs/source_material_locations.md` for what lives there.
-* **Referee comments.** The response document reproduces our replies in full but withholds
-  the referee text: reports for a manuscript under review are confidential. The headings
-  state each point addressed; the full text is in the submission system.
-* **Two analysis layers** (IMPACT World+ characterisation, SHA health sub-sector
-  decomposition) that go beyond what the reviewers asked and belong to follow-on work. The
-  audit skips them cleanly rather than reporting them missing.
+* **`data/bronze/`**: raw third-party inputs (EXIOBASE, the capital matrices, the medicine
+  register extracts, StatBank downloads), obtained under each provider's terms and not ours to
+  redistribute. Every source, its licence and how to fetch it is in
+  [`methods/methods.md`](methods/methods.md).
+* **`docs/references/`**: PDFs of published articles; `docs/source_material_locations.md` maps
+  where they live.
+* **Referee reports**: confidential for a manuscript under review. Our response reproduces the
+  replies in full and the headings state each point; the reviewers' text stays in the
+  submission system.
+* **Two analysis layers** (IMPACT World+ characterisation and the SHA sub-sector decomposition)
+  that go beyond what the reviewers asked and belong to follow-on work; the audit skips them by
+  design rather than reporting them missing.
