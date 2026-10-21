@@ -45,7 +45,7 @@ without its source.
 - Eckelman, M. J., & Sherman, J. (2016). Environmental impacts of the U.S. health care system and effects on public health. *PLOS ONE, 11(6), e0157014*. https://doi.org/10.1371/journal.pone.0157014
   <br>*Used for:* Comparator replicated in layer 14
 - Ghosh, B., Jensen, J. V., & Munch-Petersen, N. (2014). Measuring Denmark's CO2 emissions 1996-2009. *Rockwool Foundation Research Unit*. https://www.rockwoolfonden.dk
-  <br>*Used for:* Independent Danish evidence that shipping dominates the gap between production- and consumption-based accounts
+  <br>*Used for:* Independent Danish evidence that shipping dominates the gap between production-based and consumption-based emission accounts
 - Groen, E. A., & Heijungs, R. (2017). Ignoring correlation in uncertainty and sensitivity analysis in life cycle assessment: What is the risk?. *Environmental Impact Assessment Review, 62, 98-109*. https://doi.org/10.1016/j.eiar.2016.10.006
   <br>*Used for:* The cost of ignoring correlation, in the LCA setting
 - Healthcare Denmark (2024). Transitioning towards a sustainable healthcare sector [White paper]. *Healthcare Denmark*. https://www.healthcaredenmark.dk
@@ -76,14 +76,14 @@ without its source.
   <br>*Used for:* Origin of the environmentally extended input-output model
 - Malik, A., Lenzen, M., McAlister, S., & McGain, F. (2018). The carbon footprint of Australian health care. *The Lancet Planetary Health, 2(1), e27-e35*. https://doi.org/10.1016/S2542-5196(17)30180-8
   <br>*Used for:* Output-prorated health sub-sector concordance reproduced in layer 07; includes capital
-- Malik, A., Padget, M., Carter, S., Wakiyama, T., Maitland-Scott, I., Vyas, A., Boylan, S., Mulcahy, G., Li, M., Lenzen, M., Charlson, F., Stanaway, J., & Feigin, V. (2021). Environmental impacts of Australia's largest health system. *Resources, Conservation and Recycling, 169, 105556*. https://doi.org/10.1016/j.resconrec.2021.105556
+- Malik, A., Padget, M., Carter, S., Wakiyama, T., Maitland-Scott, I., Vyas, A., Boylan, S., Mulcahy, G., Li, M., Lenzen, M., Charlesworth, K., & Geschke, A. (2021). Environmental impacts of Australia's largest health system. *Resources, Conservation and Recycling, 169, 105556*. https://doi.org/10.1016/j.resconrec.2021.105556
   <br>*Used for:* Sub-sector environmental detail; not reproducible on a one-industry MRIO
 - Melo, D. (2019). Bottom-up and top-down environmental extensions for the EUREGIO MRIO [Master's thesis]. *Leiden University and TNO*. https://studenttheses.universiteitleiden.nl
   <br>*Used for:* Compares top-down and bottom-up satellite construction; the caution about satellite error propagation
 - Miller, R. E., & Blair, P. D. (2009). Input-output analysis: Foundations and extensions (2nd ed.). *Cambridge University Press*. https://doi.org/10.1017/CBO9780511626982
   <br>*Used for:* Standard reference for the Leontief inverse and structural decomposition
 - Moran, D., & Wood, R. (2014). Convergence between the Eora, WIOD, EXIOBASE, and OpenEU's consumption-based carbon accounts. *Economic Systems Research, 26(3), 245-261*. https://doi.org/10.1080/09535314.2014.935298
-  <br>*Used for:* Cross-database dispersion of national consumption-based accounts
+  <br>*Used for:* Cross-database dispersion of national consumption-based emission accounts
 - Moran, D., Wood, R., & Rodrigues, J. F. D. (2018). A note on the magnitude of the feedback effect in environmentally extended multi-region input-output tables. *Journal of Industrial Ecology, 22(3), 532-539*. https://doi.org/10.1111/jiec.12658
   <br>*Used for:* Size of the feedback effect; relevant to the sea-transport reallocation
 - Nielsen O.-K. et al. (2024). Denmark's national inventory document 2024 (DCE Scientific Report No. 622). *Aarhus University, Danish Centre for Environment and Energy*. https://dce2.au.dk

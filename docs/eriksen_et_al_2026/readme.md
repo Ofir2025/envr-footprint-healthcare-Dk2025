@@ -73,10 +73,23 @@ Still outstanding before submission, and who holds each:
   Kwame Osei-Owusu only; Styrmir Gislason, Morten Birkved and Ciprian Cimpan read
   "[roles to be confirmed]" until they state theirs, and all five authors confirm
   the whole statement.
-- **The penicillin sentence** in appendix A, System boundary, second paragraph,
-  citing Olsen et al. (2026). Not verified: the publisher's site refuses automated
-  access, and the abstract does not mention normalisation. The article is open
-  access at https://doi.org/10.1016/j.scp.2026.102346.
+- **The Hagenaars thesis** (manuscript reference [47], appendix A reference [2]). Its title is
+  given as "An investigation into the carbon and material footprint of the Dutch consumption of
+  pharmaceuticals" (Delft and Leiden), whereas Steenmeijer et al. (2022) cite "The carbon and
+  material footprint of the Dutch consumption of pharmaceuticals" (Leiden). Appendix A's figures
+  from it (indirect footprint about 60 % lower for material extraction and 10 % lower for
+  greenhouse gases on SNAC-EXIOBASE, Dutch health care, 2014) have not been checked against the
+  thesis, because the TU Delft repository could not be reached on 21 and 22 October 2026. Read
+  the thesis before submission.
+- **Two links to re-check before submission**: medstat.dk (TLS error on 21 October 2026) and the
+  TU Delft resolver above. Every other DOI and URL in both reference lists was opened and leads
+  to the work cited.
+- **Length.** The main text is about 7,100 words against the journal's guide of 3,000 to 6,000
+  (counted on 22 October 2026, abstract 249 of 250 words).
+
+The penicillin sentence (appendix A, System boundary) was verified on 21 October 2026 against
+Olsen et al. (2026), Fig. 2, where the normalised results are dominated by human toxicity
+(carcinogenic), freshwater ecotoxicity and marine ecotoxicity.
 
 ## Co-author review rounds
 

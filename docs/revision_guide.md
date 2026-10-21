@@ -42,7 +42,7 @@ error, and draft wording for the limitations paragraph are in
    Statistics Denmark published this defect (Rørmose Jensen & Iliev 2022) and EXIOBASE's
    own hybrid build gives 7.8 % natively, so the correction reconstructs an allocation
    official Danish practice already applies rather than proposing a new method.
-   In 2022 transport falls from 34.1 % to **15.6 %** of the climate footprint by producing
+   In 2022 transport decreases from 34.1 % to **15.6 %** of the climate footprint by producing
    sector, and transport services from 29.7 % to **13.3 %** by purchase, so pharmaceuticals and
    chemical products (27.1 %) become the largest contributor.
    See [`docs/methods/replications.md`, section 10](methods/replications.md#r10)
@@ -53,7 +53,7 @@ error, and draft wording for the limitations paragraph are in
    defects, with different onsets:
 
    | Defect | What breaks | Onset | v3.8.2 / v3.6 |
-   |---|---|---|---|
+   |:---|:---|:---|:---|
    | **D1** | medical, precision and optical instruments carry ~zero output across Europe (28 of 30 regions) | **2015**, and never recovers | clean (0 of 30) |
    | **D2** | Danish output redistributed; 9 of 12 concordance groups off by more than 2x | **2021-2022**, the nowcast years | clean (2 of 12) |
 
@@ -68,6 +68,31 @@ error, and draft wording for the limitations paragraph are in
 3. **Climate is on IPCC AR6**, not the workbook's AR4 factors, with a four-revision
    sensitivity and the non-restatable share (HFC/PFC, pre-aggregated by EXIOBASE) reported.
    See [`docs/methods/replications.md`, section 15](methods/replications.md#r15).
+
+## What data we replaced, and why
+
+The submitted paper and the revision use the same model (Steenmeijer and colleagues' code,
+adapted to Denmark). What changed is the data fed into it. Each row says what the submitted
+version used, what the revision uses, why the new data are better, and what we have to assume
+for it to hold. The submitted climate footprint was 4,815 kt CO₂e; the revised one is 4,267 kt.
+
+| What | Submitted | Revised | Why the new data are better | What we assume |
+|:---|:---|:---|:---|:---|
+| Year and background model | 2019 spending on the 2016 EXIOBASE table, not deflated (cited as version 3.7, run on 3.8.2) | 2022 spending on the 2022 table of EXIOBASE 3.8.2 | Spending and model refer to the same year, so no price adjustment is needed; the 2019 table puts the Danish health industry at 48 % of its national-accounts size | The 2022 table, a projection made in September 2021, describes 2022 supply chains well enough; its Danish health block agrees with the national accounts within 3 % |
+| Health care spending | Government spending on elder care (DKK 68.4 bn) and NPISH hospital spending (DKK 2.3 bn) left out | Every household, NPISH and government column for the health and elder care purposes in Statistics Denmark's 2022 input-output table | Covers the sector the paper defines; about 90 % of elder care was missing | Health care is the System of Health Accounts boundary widened to social care; childcare stays out (tested in Table A.6) |
+| Price basis of medicines and appliances | The whole purchase charged at the manufacturing intensity | The wholesale and retail margins in the purchase (40.5 % and 54.4 % of it) charged to the Danish trade industries | Statistics Denmark records the margins as trade services; charging them as manufacturing added 11.5 % | The margins carry the emissions of Danish trade, not of making the product |
+| Exchange rate | A flat 7.45 DKK per euro | The annual average for the year, 7.4396 for 2022 | The rate of the year the spending refers to | None (the change is 0.2 %) |
+| Danish sea transport | EXIOBASE's allocation: 74 % of Danish shipping output used by Danish industries | 6.5 %, the share in Statistics Denmark's own table | Danish ships sell mostly abroad; the old share put international shipping emissions on Danish purchases, and correcting it decreased the climate footprint by 25 % | The national table's share applies to the EXIOBASE row; every industry's total output is kept unchanged |
+| The sector's own emissions | 1.4 kt CO₂e, read from inside the model (an artefact) | 119.5 kt from Statistics Denmark's emission accounts (DRIVHUS), with medical nitrous oxide taken out | The model cannot see the fuel and gases the sector itself burns and releases; the national accounts measure them | The elder care share of social work (0.31) applies to emissions as it does to spending |
+| The sector's own waste | Taken from the model | 42.8 kt from Statistics Denmark's waste accounts (AFFALD01) | Measured rather than modelled | Same boundary and share as the emissions |
+| What counts as waste | All 19 fractions of the EXIOBASE waste account, including manure, sewage and mining residues | Only the fractions that EU and Danish statistics count as waste | Comparable with Danish waste statistics; most of the old 829 kt was not waste | None |
+| Anaesthetic gases | 9.51 kt: the Dutch value scaled by births | 11.75 kt: nitrous oxide from Denmark's emission inventory (38 t a year) and volatile agents from national sales | Danish data in place of a Dutch proxy | All medical nitrous oxide is health care (an upper bound, since dental and veterinary use cannot be separated); all agent sold is released except 5 % of sevoflurane |
+| Inhaler propellants | 34.61 kt: the Dutch value scaled, mixing 20-year and 100-year warming potentials | 12.55 kt from the Danish EPA's F-gas inventory, on AR6 values | Danish data on one consistent time horizon | The inventory's emission estimate holds (half released in the year of sale, half in the next) |
+| Employee commuting | The Dutch value scaled by employment and hours | 444 kt: Danish travel-survey distances, allocated by health care's share of hours worked | Danish distances; it also removes a Dutch base that counted one trip a day | Health staff travel as far per hour worked as the average worker, and the Dutch emissions per kilometre hold in Denmark |
+| Patient and visitor travel | The Dutch value scaled by employment ratios | 264 kt: the travel survey's trips for health and social purposes, with visitors added at the English ratio | Danish distances | Those trips are patient travel (an upper bound), and visitors relate to patients as in England |
+| Climate weights | AR4 values for the input-output part | AR6 for the input-output part and the gases | The current IPCC values | The sector's own emissions keep the AR5 values of the national accounts, and travel keeps the Dutch inventory's values |
+| Uncertainty | Not quantified | Monte Carlo analysis (100,000 draws) and 14 sensitivity cases (Appendix A, Table A.6) | Shows how far each input and each modelling choice moves the result | The spreads of the bottom-up terms are judgements; the input-output spread is the 8.35 % that Lenzen and colleagues report for the Danish carbon footprint, applied to all five categories |
+| Capital | Left out and not estimated | Still left out of the headline, but its size is estimated (12.5 % to 19.0 % of the climate footprint) | Readers can compare with studies that include investment | The 2020 capital matrices apply to 2022 output |
 
 ## Scope 1-3 emissions, by origin and by industry
 
