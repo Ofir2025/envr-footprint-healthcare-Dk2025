@@ -90,6 +90,19 @@ for:
 | v3.8.2 | 1.014 | **0.477** | **0.970** |
 | v3.9.4 / v3.9.5 / v3.9.6 | 1.120 | 1.072 | 0.700 |
 | v3.10.1 / v3.10.2 | **1.003** | 1.098 | 0.360 |
+| v3.11.2 | - | - | 1.088 |
+
+**v3.11.2 (published 30 September 2026, checked 22 October 2026).** Danish health
+and social work output for 2022 is 49,309 M EUR, 1.088 of the national accounts,
+against v3.8.2's 0.970; the release is also under the v3.9+ non-commercial licence.
+The medicines defect is not repaired but redistributed: the Danish health column's
+Chemicals n.e.c. share rises from 0.035% to 1.386% of purchases (Statistics
+Denmark's table puts medicines alone at 13.9%), Sweden moves from 0.027% to 0.605%,
+while Germany collapses from 16.3% to 0.231% and the Netherlands halves from 11.4%
+to 6.856% (checked on the Zenodo IOT_2022_ixi of record 23039074). No release
+published to date carries the Danish medicines purchases, so the gap is handled in
+the study as a disclosed sensitivity, and the defect is reported to the EXIOBASE
+developers.
 
 **Every release has a two-year window in which the Danish health industry is
 roughly half of what the national accounts report, and the window moves with the
