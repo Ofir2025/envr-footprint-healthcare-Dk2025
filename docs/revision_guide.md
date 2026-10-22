@@ -47,9 +47,12 @@ every part of it comes from.
    countries: the Dutch one carries 11.4% medicines, the German 16.3%, the British 8.5%. So the
    gap is a defect of EXIOBASE's Danish recipe, not of the method, and the Dutch study's headline
    includes hospital medicines where ours cannot. We keep the headline on the published recipe
-   and state the bounds (7.8% below to 32.1% above), because Denmark's statistics identify the
-   missing share but nothing identifies the emission intensity of those medicines; the evidence
-   table is `data/gold/results/06_benchmarks_validation/health_column_composition_by_country.csv`.
+   because no published study alters one column inside a balanced global table, and the correction's
+   size turns on the intensity of medicines: at the chemicals intensity it would put 78% of our blue
+   water on pharmaceuticals (the Dutch results carry 42.9%), and at a pharmaceutical intensity it
+   reverses sign, bounding the climate footprint between 3,933 and 5,635 kt. The evidence tables are
+   `health_column_composition_by_country.csv` and `recipe_sensitivity_2022.csv` under
+   `data/gold/results/06_benchmarks_validation/`.
 
 ## How sure can we be of the results?
 

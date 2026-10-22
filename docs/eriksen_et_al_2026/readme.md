@@ -73,7 +73,10 @@ Still outstanding before submission, and who holds each:
   Kwame Osei-Owusu only; Styrmir Gislason, Morten Birkved and Ciprian Cimpan read
   "[roles to be confirmed]" until they state theirs, and all five authors confirm
   the whole statement.
-- **The Hagenaars thesis** (manuscript reference [48], appendix A reference [2]). Its title is
+- **The Hagenaars thesis** (manuscript reference [48], appendix A reference [2]) now matters less:
+  the one-third climate ratio behind the pharmaceutical-specific sensitivity is stated in the
+  peer-reviewed Hagenaars et al. (2025), which the manuscript cites [17]. The thesis remains the only
+  source for the 60 % and 10 % SNAC-EXIOBASE figures quoted in Appendix A. Its title is
   given as "An investigation into the carbon and material footprint of the Dutch consumption of
   pharmaceuticals" (Delft and Leiden), whereas Steenmeijer et al. (2022) cite "The carbon and
   material footprint of the Dutch consumption of pharmaceuticals" (Leiden). Appendix A's figures

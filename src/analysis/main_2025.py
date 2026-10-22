@@ -849,10 +849,12 @@ DK_PMDI_TONNES = {
 DK_PMDI_KT_CO2E = sum(t * AR6_GWP100_HALOGENATED[g]
                       for g, t in DK_PMDI_TONNES.items()) / 1e3
 # Direct healthcare waste (Statistics Denmark AFFALD01, total waste excl. soil,
-# QA + 870000 + alpha x 880000 with the 2019-derived eldercare share 0.4914):
-# 2019: 28,763 + 7,460 + 0.4914*13,214 = 42.7 kt; 2022: 30,289 + 8,422 +
-# 0.4914*13,084 = 45.1 kt. Replaces the hybrid-2011-derived direct waste entry
-# of the B_HEAL row, mirroring the DRIVHUS replacement for GWP.
+# QA + 870000 + alpha x 880000 with each year's own IO-table eldercare share,
+# 0.3092 in 2022): 2022: 30,289 + 8,422 + 0.3092*13,084 = 42.8 kt, the
+# published value. Replaces the hybrid-2011-derived direct waste entry of the
+# B_HEAL row, mirroring the DRIVHUS replacement for GWP. (AFFALD01 was revised
+# on 14 October 2026 to 30,275/8,418/13,079 t; effect 0.02 kt, take it at the
+# next rebuild.)
 _bu = pd.read_csv(BOTTOMUP_2025, sep="\t").set_index("Source")
 # PATIENT AND VISITOR TRAVEL - Danish primary data replaces the England->NL->DK
 # double transplant (2026-09 revision). The Dutch item is a whole-POPULATION
