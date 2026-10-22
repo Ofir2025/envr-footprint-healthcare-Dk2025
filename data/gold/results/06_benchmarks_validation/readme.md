@@ -39,6 +39,18 @@ re-weights energy as well, and its difference from `national_recipe`
 (1,100 kt CO2-eq) is the artefact of EXIOBASE's undersized Danish heat
 industry. Producer: `analysis.recipe_validation_2022 --sensitivity`.
 
+## Two energy shares, one definition, two bases
+
+`recipe_validation_2022.csv` prints the DST energy share as 3.9 % and
+`health_column_composition_by_country.csv` as 3.156 %. Both count the
+same products (DB07 19 refined petroleum and 35 electricity, gas and
+steam); the bases differ. The first shares the aggregate intermediate
+input structure of all four DST health and care industries (860010,
+860020, 870000, 880000); the second applies the elder-care share
+first, so its base is the purchases attributed to health care alone.
+Neither number contradicts the other, and only the 3.9 % grouping is
+cited in the manuscript.
+
 ## Conventions
 
 | Item | Convention |
