@@ -1,0 +1,6 @@
+indicator,unit,footprint_headline,footprint_margins_at_manufacturing,change,change_pct,method
+climate_change,Global warming (ktCO2eq),4266.880461662372,4754.592810807558,487.7123491451856,11.430185437048156,"linearity: margin spend valued at the demand-weighted multiplier of the good's own supplying nodes, in place of the Danish trade industries"
+material_extraction,Material extraction (kt),3498.2789002568993,4259.301452772895,761.0225525159956,21.75419897081703,"linearity: margin spend valued at the demand-weighted multiplier of the good's own supplying nodes, in place of the Danish trade industries"
+blue_water_consumption,Blue water consumption (Mm3),74.78120833586617,95.37695557035104,20.595747234484875,27.541340522317892,"linearity: margin spend valued at the demand-weighted multiplier of the good's own supplying nodes, in place of the Danish trade industries"
+land_use,Land use (km2),4117.690740308699,4848.110473721568,730.4197334128698,17.73857677709208,"linearity: margin spend valued at the demand-weighted multiplier of the good's own supplying nodes, in place of the Danish trade industries"
+waste_generation,Waste generation (kt),221.09313385682864,259.06570281257774,37.97256895574908,17.174920040863256,"linearity: margin spend valued at the demand-weighted multiplier of the good's own supplying nodes, in place of the Danish trade industries"

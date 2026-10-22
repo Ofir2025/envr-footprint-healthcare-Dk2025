@@ -169,6 +169,18 @@ units and are labelled as such wherever they are quoted.
 | `medical_instruments_share_pct` | measure | float64 | % | 1.813 |
 | `energy_share_pct` | measure | float64 | % | 1.566 |
 
+### `margins_at_manufacturing.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `indicator` | dimension | str |  | climate_change |
+| `unit` | dimension | str |  | Global warming (ktCO2eq) |
+| `footprint_headline` | measure | float64 | varies by row | 4266.880461662372 |
+| `footprint_margins_at_manufacturing` | measure | float64 | varies by row | 4754.592810807558 |
+| `change` | measure | float64 | varies by row | 487.7123491451856 |
+| `change_pct` | measure | float64 | % | 11.430185437048156 |
+| `method` | dimension | str |  | linearity: margin spend valued at the de |
+
 ### `published_danish_footprint_benchmarks.csv`
 
 | Column | Role | Type | Unit | Example |
@@ -220,6 +232,15 @@ units and are labelled as such wherever they are quoted.
 | `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022) (modelled)` | measure | float64 |  | 0.6 |
 | `Eurostat FIGARO Q86 (official EU)` | measure | float64 |  | 0.1 |
 | `Statistics Denmark IO 86 (national)` | measure | float64 |  | 0.1 |
+
+### `sand_and_clay_decomposition.csv`
+
+| Column | Role | Type | Unit | Example |
+|:---|:---|:---|:---|:---|
+| `channel` | dimension | str |  | services' own purchase of Danish sand an |
+| `purchase_meur` | measure | float64 |  | 5.74 |
+| `extraction_kt` | measure | float64 |  | 855.4 |
+| `note` | dimension | str |  | total requirements of the direct purchas |
 
 ### `snac_split_weight_sensitivity.csv`
 

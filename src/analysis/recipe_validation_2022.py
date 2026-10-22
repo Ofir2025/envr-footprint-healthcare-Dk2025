@@ -585,11 +585,121 @@ def health_column_composition() -> pd.DataFrame:
     return out
 
 
+def margins_at_manufacturing() -> pd.DataFrame:
+    """The distribution-margins sensitivity case, exact by linearity of the model.
+
+    The study charges the margins inside the pharmaceutical and appliance purchases
+    to the Danish trade industries. The counterfactual maps each whole basic-price
+    column to its manufacturing sector, distributed over supplying regions like the
+    good itself, as the submitted model did. Because the footprint is linear in the
+    demand vector, the counterfactual equals the margin money valued at the demand
+    weighted multiplier of the good's own nodes, so no model rerun is needed: for
+    each indicator, the case is footprint + sum over the two goods of
+    (margin spend) x (good-node average multiplier) - (trade-node footprint of the
+    margins). Writes ``06_benchmarks_validation/margins_at_manufacturing.csv``.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per indicator with the headline, the counterfactual and the change.
+    """
+    gold = str(OUTPUT_DIR)
+    e = pd.read_csv(os.path.join(gold, "00_core_footprint", "expenditure_vector_detail.csv"))
+    e = e[e["scenario"] == "baseline"]
+    heads = pd.read_csv(os.path.join(gold, "01_eriksen_replication", "2022c", "table_s05_dk.csv"))
+    name_by_ind = {"climate_change": "Global warming (ktCO2eq)", "material_extraction": "Material extraction (kt)",
+                   "blue_water_consumption": "Blue water consumption (Mm3)", "land_use": "Land use (km2)",
+                   "waste_generation": "Waste generation (kt)"}
+    mults = pd.read_csv(os.path.join(gold, "01_eriksen_replication", "2022c", "intensity_by_purchased_product.csv"))
+    trade = e["purchased_sector_name"].str.contains("trade", case=False) & (e["purchased_country_iso3"] == "DNK")
+    rows = []
+    for ind, head_name in name_by_ind.items():
+        m = mults[mults["indicator"] == ind][["purchased_country_iso3", "purchased_sector_code", "value"]]
+        m = m.rename(columns={"value": "mult"})
+        head = float(heads.loc[heads.iloc[:, 0] == head_name].iloc[0, 1])
+        delta = 0.0
+        for comp in ("pharmaceuticals", "medical_appliances"):
+            sel = e["demand_component"] == comp
+            sub = e[sel].merge(m, on=["purchased_country_iso3", "purchased_sector_code"], how="left")
+            is_trade = trade[sel].to_numpy()
+            good = sub[~is_trade]
+            avg = float((good["value"] * good["mult"]).sum()) / float(good["value"].sum())
+            now = float((sub["value"] * sub["mult"]).sum())
+            delta += float(sub["value"].sum()) * avg - now
+        rows.append(dict(indicator=ind, unit=heads.loc[heads.iloc[:, 0] == head_name].iloc[0, 0],
+                         footprint_headline=head, footprint_margins_at_manufacturing=head + delta,
+                         change=delta, change_pct=100.0 * delta / head,
+                         method="linearity: margin spend valued at the demand-weighted multiplier of the good's "
+                                "own supplying nodes, in place of the Danish trade industries"))
+    out = pd.DataFrame(rows)
+    path = os.path.join(gold, "06_benchmarks_validation", "margins_at_manufacturing.csv")
+    out.to_csv(path, index=False)
+    print(out.round(3).to_string(index=False))
+    print(f"\nwritten -> {path}")
+    return out
+
+
+def sand_and_clay_decomposition() -> pd.DataFrame:
+    """The purchase channels behind the Danish sand-and-clay extraction node.
+
+    Decomposes the material extraction occurring at Danish Quarrying of sand and
+    clay (the largest node of the category) by the product purchase that drives
+    it, with the money behind each channel, so that the 'small purchase of a
+    cheap material' sentence in the paper traces to a published table. Writes
+    ``06_benchmarks_validation/sand_and_clay_decomposition.csv``.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per purchase channel of the Danish SDCL node.
+    """
+    gold = str(OUTPUT_DIR)
+    b = pd.read_csv(os.path.join(gold, "00_core_footprint", "footprint_bilateral_producer_x_purchase.csv.gz"))
+    b = b[(b["indicator"] == "material_extraction") & (b["producing_country_iso3"] == "DNK")
+          & (b["producing_sector_code"] == "SDCL")]
+    own = (b["purchased_sector_code"] == "SDCL") & (b["purchased_country_iso3"] == "DNK")
+    pharma = b["demand_component"] == "pharmaceuticals"
+    e = pd.read_csv(os.path.join(gold, "00_core_footprint", "expenditure_vector_detail.csv"))
+    e = e[e["scenario"] == "baseline"]
+    sdcl_meur = float(e.loc[(e["purchased_country_iso3"] == "DNK")
+                            & (e["purchased_sector_code"] == "SDCL"), "value"].sum())
+    dst = _dst_health_purchases(ANALYSIS_YEAR)
+    from analysis.build_dst_concordance import DKK_PER_EUR
+    g = dst[dst["dst_code"].str.startswith("08")]
+    gravel_meur = float(g.loc[g["origin"] == "domestic", "value"].sum()) / (DKK_PER_EUR[ANALYSIS_YEAR] * 1000.0)
+    rows = [
+        dict(channel="services' own purchase of Danish sand and clay", purchase_meur=round(sdcl_meur, 2),
+             extraction_kt=round(float(b.loc[own, "value"].sum()), 1),
+             note="total requirements of the direct purchase, the quarries' own use of sand included"),
+        dict(channel="the pharmaceutical component (medicines mapped to Chemicals n.e.c.)",
+             purchase_meur=float("nan"), extraction_kt=round(float(b.loc[pharma & ~own, "value"].sum()), 1),
+             note="the production chains of the chemicals that stand in for medicines"),
+        dict(channel="all other purchases", purchase_meur=float("nan"),
+             extraction_kt=round(float(b.loc[~pharma & ~own, "value"].sum()), 1), note=""),
+        dict(channel="node total (Danish Quarrying of sand and clay)", purchase_meur=float("nan"),
+             extraction_kt=round(float(b["value"].sum()), 1),
+             note="43% of the input-output material extraction component"),
+        dict(channel="comparator: Statistics Denmark domestic gravel and stone purchases of the health industries",
+             purchase_meur=round(gravel_meur, 2), extraction_kt=float("nan"),
+             note="DB07 code 080090, domestic rows, elder care share applied"),
+    ]
+    out = pd.DataFrame(rows)
+    path = os.path.join(gold, "06_benchmarks_validation", "sand_and_clay_decomposition.csv")
+    out.to_csv(path, index=False)
+    print(out.to_string(index=False))
+    print(f"\nwritten -> {path}")
+    return out
+
+
 if __name__ == "__main__":
     import sys as _sys
     if "--sensitivity" in _sys.argv:
         recipe_sensitivity()
     elif "--columns" in _sys.argv:
         health_column_composition()
+    elif "--margins" in _sys.argv:
+        margins_at_manufacturing()
+    elif "--sand" in _sys.argv:
+        sand_and_clay_decomposition()
     else:
         main()

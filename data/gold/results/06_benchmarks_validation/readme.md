@@ -119,6 +119,14 @@ industry. Producer: `analysis.recipe_validation_2022 --sensitivity`.
 - **Dimensions:** `source`, `region`
 - **Measures:** `purchases_meur`, `chemicals_nec_share_pct`, `medical_instruments_share_pct`, `energy_share_pct`
 
+### `margins_at_manufacturing.csv`
+
+- **Rows:** 5
+- **Format:** csv
+- **Units:** Blue water consumption (Mm3), Global warming (ktCO2eq), Land use (km2), Material extraction (kt), Waste generation (kt)
+- **Dimensions:** `indicator`, `unit`, `method`
+- **Measures:** `footprint_headline`, `footprint_margins_at_manufacturing`, `change`, `change_pct`
+
 ### `published_danish_footprint_benchmarks.csv`
 
 - **Rows:** 5
@@ -146,6 +154,13 @@ industry. Producer: `analysis.recipe_validation_2022 --sensitivity`.
 - **Format:** csv
 - **Dimensions:** `input_group_share_pct`
 - **Measures:** `EXIOBASE v3.8.2 IOT_2022_ixi with Danish sea-transport reallocation (Rørmose Jensen & Iliev 2022) (modelled)`, `Eurostat FIGARO Q86 (official EU)`, `Statistics Denmark IO 86 (national)`
+
+### `sand_and_clay_decomposition.csv`
+
+- **Rows:** 5
+- **Format:** csv
+- **Dimensions:** `channel`, `note`
+- **Measures:** `purchase_meur`, `extraction_kt`
 
 ### `snac_split_weight_sensitivity.csv`
 
