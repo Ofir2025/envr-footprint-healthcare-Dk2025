@@ -87,8 +87,15 @@ Still outstanding before submission, and who holds each:
 - **Two links to re-check before submission**: medstat.dk (TLS error on 21 October 2026) and the
   TU Delft resolver above. Every other DOI and URL in both reference lists was opened and leads
   to the work cited.
-- **Length.** The main text is about 7,100 words against the journal's guide of 3,000 to 6,000
-  (counted on 22 October 2026, abstract 249 of 250 words).
+- **Length, against the journal's own words.** Next Sustainability's guide states that research
+  articles "have no formal restrictions on page length, total character count, number of figures, or
+  number of references; though a typical Research Article will comprise approximately 3000-6000 words
+  of text with 3-5 figures and 30-50 references", and that the abstract "does not exceed 250 words"
+  (its only hard length rule). We comply with every formal requirement: abstract 249 words, 3 figures,
+  single-column editable Word, references in the journal's example format. The main text (7,290 words,
+  22 October 2026) and the reference count (51) sit above the typical bands, which the guide permits;
+  if an editor asks, the prepared cut moves the reference-year comparison from the Discussion to
+  Appendix A and shortens the Methods detail that Appendix A repeats.
 
 The penicillin sentence (appendix A, System boundary) was verified on 21 October 2026 against
 Olsen et al. (2026), Fig. 2, where the normalised results are dominated by human toxicity
